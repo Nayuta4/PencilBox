@@ -34,11 +34,18 @@ public class Panel extends PanelEventHandler {
 	private HintDot hintDot = new HintDot();
 	private KakuroCursor kcursor;
 
+	/**
+	 * 
+	 */
+	public Panel() {
+		setGridColor(Color.BLACK);
+		setCursorOn(true);
+	}
+
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard; 
 		setMaxInputNumber(9);
 		hintDot.setDot(this, 3, getCellSize());
-		setCursorOn(true);
 	}
 	/**
 	 * @return Returns the inputColor.
