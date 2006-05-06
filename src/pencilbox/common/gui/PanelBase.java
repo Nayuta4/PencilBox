@@ -177,21 +177,6 @@ public class PanelBase extends JPanel implements Printable {
 	 */
 	public void setProblemEditMode(boolean problemEditMode) {
 		this.problemEditMode = problemEditMode;
-		if (problemEditMode == true) {
-			setRotation(0);
-//			switch (getRotation()) {
-//			case 2:
-//			case 5:
-//			case 7:
-//				setRotation(0);
-//				break;
-//			case 1:
-//			case 3:
-//			case 6:
-//				setRotation(4);
-//				break;
-//			}
-		}
 	}
 	/**
 	 * @return Returns the problemEditMode.
@@ -413,12 +398,12 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param g
 	 */
 	public void drawCursor(Graphics g) {
-		if (!isProblemEditMode() && !cursorOn)
-			return;
 		if (isProblemEditMode()) {
 			g.setColor(cursorColor);
 		} else if (cursorOn) {
 			g.setColor(cursorColor2);
+		} else {
+			return;
 		}
 		g.drawRect(toX(cellCursor.c()), toY(cellCursor.r()), cellSize, cellSize);
 		g.drawRect(toX(cellCursor.c()) + 1,	toY(cellCursor.r()) + 1, cellSize - 2, cellSize - 2);
