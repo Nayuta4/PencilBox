@@ -52,14 +52,8 @@ public class PanelEventHandler extends PanelBase {
 	 * @param rotation İ’è‚·‚é‰ñ“]ó‘Ô
 	 */
 	protected void setRotation(int rotation) {
-		if (getCellCursor() != null) {
-			Address temp = getCellCursor().getPosition();
-			p2b(temp);
-			super.setRotation(rotation);
-			b2p(temp);
-			getCellCursor().setPosition(temp);
-		} else
-			super.setRotation(rotation);
+		getCellCursor().setPosition(0,0);
+		super.setRotation(rotation);
 	}
 	/**
 	 * “ü—Í‰Â”\‚ÈÅ‘å”š‚ğİ’è‚·‚é
@@ -107,11 +101,9 @@ public class PanelEventHandler extends PanelBase {
 			int keyChar = e.getKeyChar();
 			if (keyChar == '/')
 				slashEntered();
-			if (getCellCursor() != null && (isProblemEditMode() || isCursorOn()))
-				moveCursor(e);
 			if (isProblemEditMode() || isCursorOn()) {
-				position.set(getCellCursor().getPosition());
-				p2b(position);
+				moveCursor(e);
+				position.set(getCellCursor().getBoardPosition());
 				if (keyChar == ' ') {
 					spaceEntered(position);
 				} else 	if (keyChar == '.') {

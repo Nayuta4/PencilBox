@@ -298,8 +298,6 @@ public class MenuBase {
 		 * “s‡‚É‚æ‚èC–â‘è“ü—Íƒ‚[ƒh‚Å‚Í”Õ–Ê‰ñ“]‚ğ‹–‚³‚È‚¢‚±‚Æ‚Æ‚·‚é
 		 */
 		public void menuSelected(MenuEvent evt) {
-			boolean b = getPanelBase().isProblemEditMode();
-			rotationMenu.setEnabled(!b);
 		}
 
 		public void menuDeselected(MenuEvent evt) {
