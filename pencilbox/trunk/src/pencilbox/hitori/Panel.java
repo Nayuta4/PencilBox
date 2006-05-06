@@ -24,7 +24,6 @@ public class Panel extends PanelEventHandler {
 	private boolean hideSingleMode = false;
 	private boolean warnMultipleNumber = false;
 	private boolean warnWrongWall = false;
-	private boolean letterMode = false;
 
 //	private int selectedNumber = 0;
 
@@ -71,13 +70,6 @@ public class Panel extends PanelEventHandler {
 	}
 
 	/**
-	 * @param letterMode The letterMode to set.
-	 */
-	public void setLetterMode(boolean letterMode) {
-		this.letterMode = letterMode;
-	}
-
-	/**
 	 * @param warnWrongWall The warnWrongWall to set.
 	 */
 	public void setWarnWrongWall(boolean warnWrongWall) {
@@ -94,15 +86,10 @@ public class Panel extends PanelEventHandler {
 	/**
 	 * 数字の代わりに使用する文字集合を設定する
 	 * @param option 設定する文字集合タイプの番号
-	 * @see pencilbox.hitori.Letters#getLetter(int)
+	 * @see pencilbox.hitori.Letters#getLetterSeries(int)
 	 */
 	public void setLetter(int option) {
-		if (option == 0)
-			letterMode = false;
-		else
-			letterMode = true;
-		letter = Letters.getLetter(option);
-		
+		letter = Letters.getLetterSeries(option);
 	}
 
 	/**
@@ -179,8 +166,8 @@ public class Panel extends PanelEventHandler {
 				} else {
 					g.setColor(getNumberColor());
 				}
-				if (letterMode)
-					placeLetter(g, r, c, letter[number]);
+				if (number <= letter.length)
+					placeLetter(g, r, c, letter[number-1]);
 				else
 					placeNumber(g, r, c, number);
 //			}

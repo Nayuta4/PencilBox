@@ -63,23 +63,25 @@ public class Menu extends MenuBase {
 	}
 	
 	/**
-	 * 「文字の設定」メニュー項目を処理する
+	 * 「文字種類の設定」メニュー項目を処理する
 	 */
 	void selectLetter() {
 		String[] options =
 		{ "1", "A", "Α", "А", "ア", "い", "☆", "鱸" };
 		String message = "";
-		String title = "文字の設定";
-		getPanel().setLetter(
-			JOptionPane.showOptionDialog(
-				null,
-				message,
-				title,
-				JOptionPane.PLAIN_MESSAGE,
-				JOptionPane.DEFAULT_OPTION,
-				null,
-				options,
-				options[0]));
+		String title = "文字種類の設定";
+		int selection = JOptionPane.showOptionDialog(
+					null,
+					message,
+					title,
+					JOptionPane.PLAIN_MESSAGE,
+					JOptionPane.DEFAULT_OPTION,
+					null,
+					options,
+					options[0]);
+		if (selection == JOptionPane.CLOSED_OPTION)
+			return;
+		getPanel().setLetter(selection);
 		getPanelBase().repaint();
 	}
 
