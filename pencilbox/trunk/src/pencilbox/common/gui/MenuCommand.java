@@ -140,7 +140,7 @@ public class MenuCommand {
 		int rows = s.getRows();
 		int cols = s.getCols();
 		if (rows < 0 || cols < 0) {
-			showErrorMessage("サイズが不正");
+			showErrorMessage("不正なサイズです");
 			return false;
 		} else if (rows > 200 || cols > 200) {
 			showErrorMessage("さすがに大きすぎでしょ");
@@ -148,15 +148,13 @@ public class MenuCommand {
 		}
 		if (pencilType.getPencilName().equals("sudoku")) {
 			if (rows == cols) {
-				for (int n = 1; n < 9; n++) {
+				for (int n = 1; n < 10; n++) {
 					if (rows == n*n)
 						return true;
 				}
 			}
-			else {
-				showErrorMessage("不正なサイズ");
-				return false;
-			}
+			showErrorMessage("不正なサイズです");
+			return false;
 		}
 		return true;
 	}
