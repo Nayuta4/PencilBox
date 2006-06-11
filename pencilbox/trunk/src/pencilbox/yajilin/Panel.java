@@ -28,8 +28,6 @@ public class Panel extends PanelEventHandler {
 	private Color crossColor = Color.MAGENTA;
 	private Color errorColor = Color.RED;
 	
-	private Address pos0 = new Address();
-
 	/**
 	 * @return Returns the colorForEachLink.
 	 */
@@ -206,11 +204,8 @@ public class Panel extends PanelEventHandler {
 //		paintCell(g,r,c);
 		int direction = (arrow >> 4) & 3;
 		int number = arrow & 15;
-		pos0.set(r, c);
-		b2p(pos0);
-		direction = rotateDirection(direction);
 //		g.setColor(Color.WHITE);
-		drawArrow(g, pos0.r, pos0.c, number, direction);
+		drawArrow(g, r, c, number, direction);
 	}
 	
 	/**

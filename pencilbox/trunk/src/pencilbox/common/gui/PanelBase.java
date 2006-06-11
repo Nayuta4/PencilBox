@@ -17,7 +17,6 @@ import javax.swing.JPanel;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
-import pencilbox.common.core.Rotation;
 import pencilbox.common.core.SideAddress;
 import pencilbox.common.core.Size;
 
@@ -57,7 +56,6 @@ public class PanelBase extends JPanel implements Printable {
 	private Font indexFont = new Font("SansSerif", Font.ITALIC, 13);
 	private Font numberFont = new Font("SansSerif", Font.PLAIN, 20);
 
-	private Rotation rotator = new Rotation();
 	private int displayStyle = 0;
 	private boolean cursorOn = false;
 	private CellCursor cellCursor;
@@ -66,10 +64,6 @@ public class PanelBase extends JPanel implements Printable {
 	 * true で問題入力モード，false で解答入力モード	 
 	 */
 	private boolean problemEditMode = false;
-
-	private Address pos0 = new Address();
-	private Address pos1 = new Address();
-	private SideAddress sidePos = new SideAddress();
 
 	/**
 	 * パネル生成コンストラクタ
@@ -84,7 +78,6 @@ public class PanelBase extends JPanel implements Printable {
 	 */
 	public void setup(BoardBase board) {
 		this.size = board.getSize();
-		rotator.setSize(size);
 		updatePreferredSize();
 		setBoard(board);
 	}
@@ -102,22 +95,6 @@ public class PanelBase extends JPanel implements Printable {
 	public void setImage(BufferedImage image) {
 		this.backgroundImage = image;
 		this.originalImage = image;
-		repaint();
-	}
-	/**
-	 * Panel表示の回転状態を取得する
-	 * @return 現在の回転状態を表す値
-	 */
-	protected int getRotation() {
-		return rotator.getRotation();
-	}
-	/**
-	 * Panel表示の回転状態を設定する
-	 * @param rotation 新しく回転状態に設定する値
-	 */
-	protected void setRotation(int rotation) {
-		rotator.setRotation(rotation);
-		updatePreferredSize();
 		repaint();
 	}
 	/**
@@ -189,14 +166,14 @@ public class PanelBase extends JPanel implements Printable {
 	 * @return パネル上の盤面の行数 
 	 */
 	public int rows() {
-		return isTransposed() ? size.getCols() : size.getRows();
+		return size.getRows();
 	}
 	/**
 	 * 現在の回転状態に応じた列数を取得する
 	 * @return パネル上の盤面の列数
 	 */
 	public int cols() {
-		return isTransposed() ? size.getRows() : size.getCols();
+		return size.getCols();
 	}
 	/**
 	 * パネル上か
@@ -272,72 +249,6 @@ public class PanelBase extends JPanel implements Printable {
 	 */
 	public final int toY(int r) {
 		return offsety + cellSize * r;
-	}
-	/*
-	 * Rotationクラスに委託しているメソッド群
-	 */
-	/**
-	 * パネルの縦横がもとの縦横に対して転置されているかどうか
-	 * @return 転置されていれば true
-	 */
-	public boolean isTransposed() {
-		return rotator.isTransposed();
-	}
-	/**
-	 * パネル上の整数値座標を盤上の座標に変換する
-	 * @param pos
-	 */
-	public void p2b(Address pos) {
-		rotator.p2b(pos);
-	}
-	/**
-	 * パネル上の整数値座標を現在の回転表示状態に応じた盤面の座標に変換する
-	 * その際に，盤面サイズは rows()+adjustRow, cols()+adjustCol であるとみなす
-	 * @param pos 座標
-	 * @param adjustRow 盤面行サイズに対する補正値
-	 * @param adjustCol 盤面列サイズに対する補正値
-	 */
-	public void p2b(Address pos, int adjustRow, int adjustCol) {
-		rotator.p2b(pos, adjustRow, adjustCol);
-	}
-	/**
-	 * パネル上の整数値辺座標を盤上の辺座標に変換する
-	 * @param pos
-	 */
-	public void p2bSide(SideAddress pos) {
-		rotator.p2bSide(pos);
-	}
-	/**
-	 * 盤面上の整数値座標を現在の回転表示状態に応じたパネル上の座標に変換する
-	 * その際に，盤面サイズは rows()+adjustRow, cols()+adjustCol であるとみなす
-	 * @param pos 座標
-	 * @param adjustRow 盤面行サイズに対する補正値
-	 * @param adjustCol 盤面列サイズに対する補正値
-	 */
-	public void b2p(Address pos, int adjustRow, int adjustCol) {
-		rotator.b2p(pos, adjustRow, adjustCol);
-	}
-	/**
-	 * 盤上の座標をパネル上の整数値座標に変換する
-	 * @param pos
-	 */
-	public void b2p(Address pos) {
-		rotator.b2p(pos);
-	}
-	/**
-	 * 盤上の辺座標をパネル上の整数値辺座標に変換する
-	 * @param pos
-	 */
-	public void b2pSide(SideAddress pos) {
-		rotator.b2pSide(pos);
-	}
-	/**
-	 * 盤上の方向をパネル上の方向に変換する
-	 * @param direction 変換元の方向を表す数値
-	 * @return 変換後の方向を表す数値
-	 */
-	public int rotateDirection(int direction) {
-		return rotator.rotateDirection(direction);
 	}
 
 	/*
@@ -472,7 +383,7 @@ public class PanelBase extends JPanel implements Printable {
 
 	/*
 	 * マスの内容を描画するためのメソッド群
-	 * マスの座標を与えると，必要に応じて回転して，そのセルの内容を描画する．
+	 * マスの座標を与えると，そのセルの内容を描画する．
 	 * 以下のメソッドが用意されている
 	 * 数字を描く
 	 * 塗りつぶす
@@ -489,17 +400,15 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param letter 描く文字
 	 */
 	public void placeLetter(Graphics g, int r, int c, char letter) {
-		pos0.set(r, c);
-		b2p(pos0);
 		FontMetrics metrics = g.getFontMetrics();
 		try {
 			String string = Character.toString(letter);
 			g.drawString(
 				string,
-				(toX(pos0.c)
+				(toX(c)
 					+ (cellSize - 1 - metrics.stringWidth(string)) / 2
 					+ 1),
-				(toY(pos0.r)
+				(toY(r)
 					+ (cellSize - 1 - metrics.getHeight()) / 2
 					+ metrics.getAscent())
 					+ 1);
@@ -515,17 +424,15 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param number 描く数字
 	 */
 	public void placeNumber(Graphics g, int r, int c, int number) {
-		pos0.set(r, c);
-		b2p(pos0);
 		FontMetrics metrics = g.getFontMetrics();
 		try {
 			String numS = Integer.toString(number);
 			g.drawString(
 				numS,
-				(toX(pos0.c)
+				(toX(c)
 					+ (cellSize - 1 - metrics.stringWidth(numS)) / 2
 					+ 1),
-				(toY(pos0.r)
+				(toY(r)
 					+ (cellSize - 1 - metrics.getHeight()) / 2
 					+ metrics.getAscent())
 					+ 1);
@@ -541,17 +448,15 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param number 描く数字
 	 */
 	public void placeIndexNumber(Graphics g, int r, int c, int number) {
-		pos0.set(r, c);
-//		b2p(pos0);
 		FontMetrics metrics = g.getFontMetrics();
 		try {
 			String numS = Integer.toString(number);
 			g.drawString(
 				numS,
-				(toX(pos0.c)
+				(toX(c)
 					+ (cellSize - 1 - metrics.stringWidth(numS)) / 2
 					+ 1),
-				(toY(pos0.r)
+				(toY(r)
 					+ (cellSize - 1 - metrics.getHeight()) / 2
 					+ metrics.getAscent())
 					+ 1);
@@ -567,11 +472,9 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param c 盤面列座標
 	 */
 	public void paintCell(Graphics g, int r, int c) {
-		pos0.set(r, c);
-		b2p(pos0);
 		g.fillRect(
-			toX(pos0.c) + 1,
-			toY(pos0.r) + 1,
+			toX(c) + 1,
+			toY(r) + 1,
 			cellSize - 1,
 			cellSize - 1);
 	}
@@ -584,11 +487,9 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param c 盤面列座標
 	 */
 	public void placeCircle(Graphics g, int r, int c) {
-		pos0.set(r, c);
-		b2p(pos0);
 		g.drawOval(
-			toX(pos0.c) + (cellSize - circleSize) / 2,
-			toY(pos0.r) + (cellSize - circleSize) / 2,
+			toX(c) + (cellSize - circleSize) / 2,
+			toY(r) + (cellSize - circleSize) / 2,
 			circleSize,
 			circleSize);
 	}
@@ -601,11 +502,9 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param circleSize 配置する○印の直径
 	 */
 	public void placeCircle(Graphics g, int r, int c, int circleSize) {
-		pos0.set(r, c);
-		b2p(pos0);
 		g.drawOval(
-			toX(pos0.c) + (cellSize - circleSize) / 2,
-			toY(pos0.r) + (cellSize - circleSize) / 2,
+			toX(c) + (cellSize - circleSize) / 2,
+			toY(r) + (cellSize - circleSize) / 2,
 			circleSize,
 			circleSize);
 	}
@@ -627,10 +526,8 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param c 盤面列座標
 	 */
 	public void placeBoldCircle(Graphics g, int r, int c) {
-		pos0.set(r, c);
-		b2p(pos0);
-		int x = toX(pos0.c) + (cellSize - circleSize) / 2;
-		int y = toY(pos0.r) + (cellSize - circleSize) / 2;
+		int x = toX(c) + (cellSize - circleSize) / 2;
+		int y = toY(r) + (cellSize - circleSize) / 2;
 		g.drawOval(x, y, circleSize, circleSize);
 		g.drawOval(x + 1, y + 1, circleSize - 2, circleSize - 2);
 	}
@@ -643,10 +540,8 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param circleSize 配置する○印の直径
 	 */
 	public void placeBoldCircle(Graphics g, int r, int c, int circleSize) {
-		pos0.set(r, c);
-		b2p(pos0);
-		int x = toX(pos0.c) + (cellSize - circleSize) / 2;
-		int y = toY(pos0.r) + (cellSize - circleSize) / 2;
+		int x = toX(c) + (cellSize - circleSize) / 2;
+		int y = toY(r) + (cellSize - circleSize) / 2;
 		g.drawOval(x, y, circleSize, circleSize);
 		g.drawOval(x + 1, y + 1, circleSize - 2, circleSize - 2);
 	}
@@ -657,11 +552,9 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param c 盤面列座標
 	 */
 	public void placeFilledCircle(Graphics g, int r, int c) {
-		pos0.set(r, c);
-		b2p(pos0);
 		g.fillOval(
-			toX(pos0.c) + (cellSize - circleSize) / 2,
-			toY(pos0.r) + (cellSize - circleSize) / 2,
+			toX(c) + (cellSize - circleSize) / 2,
+			toY(r) + (cellSize - circleSize) / 2,
 			circleSize + 1,
 			circleSize + 1);
 	}
@@ -682,11 +575,9 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param circleSize 配置する●印の直径
 	 */
 	public void placeFilledCircle(Graphics g, int r, int c, int circleSize) {
-		pos0.set(r, c);
-		b2p(pos0);
 		g.fillOval(
-			toX(pos0.c) + (cellSize - circleSize) / 2,
-			toY(pos0.r) + (cellSize - circleSize) / 2,
+			toX(c) + (cellSize - circleSize) / 2,
+			toY(r) + (cellSize - circleSize) / 2,
 			circleSize + 1,
 			circleSize + 1);
 	}
@@ -697,67 +588,59 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param c 盤面列座標
 	 */
 	public void placeCross(Graphics g, int r, int c) {
-		pos0.set(r, c);
-		b2p(pos0);
 		drawCross(
 			g,
-			toX(pos0.c) + getHalfCellSize(),
-			toY(pos0.r) + getHalfCellSize(),
+			toX(c) + getHalfCellSize(),
+			toY(r) + getHalfCellSize(),
 			crossSize);
 	}
 	/**
 	 * 辺上に線を配置する
 	 * @param g
-	 * @param dir
+	 * @param d
 	 * @param r
 	 * @param c
 	 */
-	public void placeSideLine(Graphics g, int dir, int r, int c) {
-		sidePos.set(dir, r, c);
-		b2pSide(sidePos);
+	public void placeSideLine(Graphics g, int d, int r, int c) {
 		drawLineSegment(
 			g,
-			toX(sidePos.c + (sidePos.d ^ 1)),
-			toY(sidePos.r + sidePos.d),
-			sidePos.d);
+			toX(c + (d ^ 1)),
+			toY(r + d),
+			d);
 	}
 	/**
 	 * 辺と交差する線を配置する
 	 * @param g
-	 * @param dir
+	 * @param d
 	 * @param r
 	 * @param c
 	 */
-	public void placeTraversalLine(Graphics g, int dir, int r, int c) {
-		sidePos.set(dir, r, c);
-		b2pSide(sidePos);
+	public void placeTraversalLine(Graphics g, int d, int r, int c) {
 		drawLineSegment(
 			g,
-			toX(sidePos.c) + getHalfCellSize(),
-			toY(sidePos.r) + getHalfCellSize(),
-			sidePos.d ^ 1);
+			toX(c) + getHalfCellSize(),
+			toY(r) + getHalfCellSize(),
+			d ^ 1);
 	}
 	/**
 	 * 辺上に×印を配置する
 	 * @param g
-	 * @param dir
+	 * @param d
 	 * @param r
 	 * @param c
 	 */
-	public void placeSideCross(Graphics g, int dir, int r, int c) {
-		sidePos.set(dir, r, c);
-		b2pSide(sidePos);
-		if (sidePos.d == Direction.VERT)
+	public void placeSideCross(Graphics g, int d, int r, int c) {
+		if (d == Direction.VERT)
 			drawCross(
 				g,
-				toX(sidePos.c + 1),
-				toY(sidePos.r) + getHalfCellSize(),
+				toX(c + 1),
+				toY(r) + getHalfCellSize(),
 				smallCrossSize);
-		else if (sidePos.d == Direction.HORIZ)
+		else if (d == Direction.HORIZ)
 			drawCross(
 				g,
-				toX(sidePos.c) + getHalfCellSize(),
-				toY(sidePos.r + 1),
+				toX(c) + getHalfCellSize(),
+				toY(r + 1),
 				smallCrossSize);
 	}
 	/**
@@ -768,14 +651,11 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param dir
 	 */
 	public void placeMidline(Graphics g, int r, int c, int dir) {
-		pos0.set(r, c);
-		b2p(pos0);
-		int direction = (dir == Direction.HORIZ ^ isTransposed()) ? Direction.HORIZ : Direction.VERT;
 		drawMidline(
 			g,
-			toX(pos0.c) + getHalfCellSize(),
-			toY(pos0.r) + getHalfCellSize(),
-			direction);
+			toX(c) + getHalfCellSize(),
+			toY(r) + getHalfCellSize(),
+			dir);
 	}
 	/**
 	 * 四角を配置する 
@@ -786,19 +666,11 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param c1 盤面列座標
 	 */
 	public void placeSquare(Graphics g, int r0, int c0, int r1, int c1) {
-		pos0.set(r0, c0);
-		pos1.set(r1, c1);
-		b2p(pos0);
-		b2p(pos1);
 		g.drawRect(
-			toX((pos0.c < pos1.c) ? pos0.c : pos1.c) + 1,
-			toY((pos0.r < pos1.r) ? pos0.r : pos1.r) + 1,
-			cellSize
-				* (((pos0.c < pos1.c) ? pos1.c - pos0.c : pos0.c - pos1.c) + 1)
-				- 2,
-			cellSize
-				* (((pos0.r < pos1.r) ? pos1.r - pos0.r : pos0.r - pos1.r) + 1)
-				- 2);
+			toX((c0 < c1) ? c0 : c1) + 1,
+			toY((r0 < r1) ? r0 : r1) + 1,
+			cellSize * (((c0 < c1) ? c1-c0 : c0-c1) + 1) - 2,
+			cellSize * (((r0 < r1) ? r1-r0 : r0-r1) + 1) - 2);
 	}
 
 	/* 
@@ -966,7 +838,6 @@ public class PanelBase extends JPanel implements Printable {
 	 */
 	public void setCursorOn(boolean cursorOn) {
 		this.cursorOn = cursorOn;
-//		repaint();
 	}
 	/**
 	 * @return Returns the cursorOn.

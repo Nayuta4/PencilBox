@@ -1,6 +1,5 @@
 package pencilbox.slitherlink;
 
-import pencilbox.common.core.Address;
 import pencilbox.common.gui.CellCursor;
 import pencilbox.common.gui.PanelEventHandler;
 
@@ -19,12 +18,6 @@ public class SlitherLinkCursor extends CellCursor {
 	public void setPosition(int r, int c) {
 		if (isOn(r, c, -1, -1)) 
 			pos.set(r, c);
-	}
-
-	public Address getBoardPosition() {
-		Address boardPos = new Address(pos);
-		panel.p2b(boardPos, -1, -1);
-		return boardPos;
 	}
 
 }

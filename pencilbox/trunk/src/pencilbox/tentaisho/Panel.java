@@ -30,8 +30,6 @@ public class Panel extends PanelEventHandler {
 
 	private int halfStarSize = 4; // 星の半径
 
-	private Address pos = new Address();
-
 	private Area draggingArea;
 
 	/**
@@ -40,7 +38,6 @@ public class Panel extends PanelEventHandler {
 	public Panel() {
 		setGridColor(Color.GRAY);
 		setMaxInputNumber(2);
-		removeMouseHandlerCursor();
 	}
 
 	protected void setBoard(BoardBase aBoard) {
@@ -213,18 +210,16 @@ public class Panel extends PanelEventHandler {
 	 * @param star
 	 */
 	public void placeStar(Graphics g, int r, int c, int star) {
-		pos.set(r, c);
-		b2p(pos, +board.rows() - 1, +board.cols() - 1);
 		if (star == Board.WHITESTAR)
 			g.drawOval(
-				getOffsetx() + getHalfCellSize() * (pos.c + 1) - halfStarSize,
-				getOffsety() + getHalfCellSize() * (pos.r + 1) - halfStarSize,
+				getOffsetx() + getHalfCellSize() * (c + 1) - halfStarSize,
+				getOffsety() + getHalfCellSize() * (r + 1) - halfStarSize,
 				halfStarSize * 2,
 				halfStarSize * 2);
 		else if (star == Board.BLACKSTAR)
 			g.fillOval(
-				getOffsetx() + getHalfCellSize() * (pos.c + 1) - halfStarSize,
-				getOffsety() + getHalfCellSize() * (pos.r + 1) - halfStarSize,
+				getOffsetx() + getHalfCellSize() * (c + 1) - halfStarSize,
+				getOffsety() + getHalfCellSize() * (r + 1) - halfStarSize,
 				halfStarSize * 2,
 				halfStarSize * 2);
 	}
@@ -293,6 +288,11 @@ public class Panel extends PanelEventHandler {
 			return;
 		board.addAreaA(draggingArea);
 		draggingArea = null;
+	}
+	/*
+	 * マウスではカーソル移動しない（暫定）
+	 */
+	protected void moveCursor(Address pos) {
 	}
 
 	/*

@@ -3,7 +3,6 @@ package pencilbox.common.gui;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import pencilbox.common.core.Address;
 
 
 /**
@@ -19,7 +18,6 @@ public class HintDot{
 		}
 	}
 	private Color dotColor = Color.MAGENTA;
-	private Address pos0 = new Address();
 	private int dotSize = 6;
 	private int dotDist = 6;
 	private int dotOffset = 1;
@@ -68,10 +66,8 @@ public class HintDot{
 	 */
 	public void placeHintDot(Graphics g, int r, int c, int pattern) {
 		g.setColor(dotColor);
-		pos0.set(r, c);
-		panel.b2p(pos0);
-		int x = panel.toX(pos0.c) + dotOffset;
-		int y = panel.toY(pos0.r) + dotOffset;
+		int x = panel.toX(c) + dotOffset;
+		int y = panel.toY(r) + dotOffset;
 		for (int d = 1; d <= maxNumber; d++) {
 			if ((pattern & DIGIT[d]) != 0) {
 				int dy = (d - 1) / unit;
