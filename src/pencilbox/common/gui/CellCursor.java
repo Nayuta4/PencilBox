@@ -41,15 +41,6 @@ public class CellCursor {
 		return pos;
 	}
 	/**
-	 * カーソル位置の盤面座標を返す
-	 * @return 	 カーソル位置の盤面座標を返す
-	 */
-	public Address getBoardPosition() {
-		Address boardPos = new Address(pos);
-		panel.p2b(boardPos);
-		return boardPos;
-	}
-	/**
 	 * @param r
 	 * @param c
 	 */
@@ -89,30 +80,6 @@ public class CellCursor {
 	public void moveRt() {
 		setPosition(pos.r, pos.c + 1);
 	}
-	/**
-	 * 
-	 */
-	public void moveLU() {
-		setPosition(pos.r - 1, pos.c - 1);
-	}
-	/**
-	 * 
-	 */
-	public void moveLD() {
-		setPosition(pos.r + 1, pos.c - 1);
-	}
-	/**
-	 * 
-	 */
-	public void moveRU() {
-		setPosition(pos.r - 1, pos.c + 1);
-	}
-	/**
-	 * 
-	 */
-	public void moveRD() {
-		setPosition(pos.r + 1, pos.c + 1);
-	}
 	protected int rows() {
 		return panel.rows();
 	}
@@ -131,6 +98,6 @@ public class CellCursor {
 	 * @return 	 カーソルがpositionにいれば true
 	 */
 	public boolean isAt(Address position) {
-		return getBoardPosition().equals(position);
+		return pos.equals(position);
 	}
 }

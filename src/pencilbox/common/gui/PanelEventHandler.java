@@ -10,7 +10,6 @@ import pencilbox.common.core.*;
 public class PanelEventHandler extends PanelBase {
 
 	private KeyHandler keyHandler = new KeyHandler();
-	protected MouseHandlerCursor mouseHandlerCursor = new MouseHandlerCursor();
 	private MouseHandler mouseHandler = new MouseHandler();
 	private MouseHandlerEdge mouseHandlerEdge = new MouseHandlerEdge();
 
@@ -25,15 +24,7 @@ public class PanelEventHandler extends PanelBase {
 		addMouseListener(mouseHandler);
 		addMouseMotionListener(mouseHandler);
 		addMouseListener(mouseHandlerEdge);
-		addMouseListener(mouseHandlerCursor);
 		setCellCursor(createCursor());
-	}
-	/**
-	 * mouseHandlerCorsor を mouseListenerリストから除く
-	 * SL, TS では　他と座標系が異なるため，mouseHandlerCursor を外している
-	 */
-	protected void removeMouseHandlerCursor() {
-		removeMouseListener(mouseHandlerCursor);
 	}
 	/**
 	 *  カーソルを生成する
@@ -46,14 +37,6 @@ public class PanelEventHandler extends PanelBase {
 	public void setup(BoardBase board) {
 		super.setup(board);
 		getCellCursor().setPosition(0,0);
-	}
-	/**
-	 * 盤面表示の回転を設定する
-	 * @param rotation 設定する回転状態
-	 */
-	protected void setRotation(int rotation) {
-		getCellCursor().setPosition(0,0);
-		super.setRotation(rotation);
 	}
 	/**
 	 * 入力可能な最大数字を設定する
@@ -103,7 +86,7 @@ public class PanelEventHandler extends PanelBase {
 				slashEntered();
 			if (isProblemEditMode() || isCursorOn()) {
 				moveCursor(e);
-				position.set(getCellCursor().getBoardPosition());
+				position.set(getCellCursor().getPosition());
 				if (keyChar == ' ') {
 					spaceEntered(position);
 				} else 	if (keyChar == '.') {
@@ -194,9 +177,6 @@ public class PanelEventHandler extends PanelBase {
 	 * ドラッグ終了したとき，の動作を，
 	 * サブクラスでオーバーライドして用いる
 	 */
-//	private Address moveNewPos = new Address();
-//	private Address moveOldPos = new Address();
-//	private Address movePos= new Address();
 	public class MouseHandler
 		implements MouseListener, MouseMotionListener {
 
@@ -206,10 +186,12 @@ public class PanelEventHandler extends PanelBase {
 		public void mousePressed(MouseEvent e) {
 
 			newPos.set(toR(e.getY()), toC(e.getX()));
+			
 			if (!isOn(newPos))
 				return;
-			p2b(newPos);
-			//		System.out.println(oldPos.toString() + newPos.toString());
+
+			moveCursor(newPos);
+
 			int modifier = e.getModifiers();
 			if ((modifier & InputEvent.BUTTON1_MASK) != 0) {
 				if ((e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK) != 0)
@@ -232,7 +214,6 @@ public class PanelEventHandler extends PanelBase {
 				// この文を入れないと，盤外を経由したドラッグが無効化されない あってもなくても同じ
 				return;
 			}
-			p2b(newPos);
 
 			if (newPos.equals(oldPos))
 				return; // 同じマス内に止まるイベントは無視
@@ -247,7 +228,6 @@ public class PanelEventHandler extends PanelBase {
 
 			oldPos.set(newPos); // 現在位置を更新
 			repaint();
-			//		repaint(newPos);
 		}
 
 		public void mouseReleased(MouseEvent e) {
@@ -287,7 +267,6 @@ public class PanelEventHandler extends PanelBase {
 //			movePos.set(toR(e.getY()), toC(e.getX()));
 //			if (!isOn(movePos))
 //				return;
-////			p2b(movePos);
 //			mouseMovedTo(movePos);
 //			repaint();
 		}
@@ -360,9 +339,12 @@ public class PanelEventHandler extends PanelBase {
 	protected void dragFailed() {
 	}
 
-	protected void mouseMovedTo(Address pos){}
+	protected void moveCursor(Address pos) {
+		getCellCursor().setPosition(pos);
+	}
 
 	/**
+	 * SL, MS 用
 	 * 辺の操作を行うパズル用のマウスリスナーの共通スーパークラス
 	 * 辺をクリックしたときの動作をサブクラスでオーバーライドして使用する
 	 */
@@ -393,7 +375,6 @@ public class PanelEventHandler extends PanelBase {
 			}
 			if (!isSideOn(position))
 				return;
-			p2bSide(position);
 			int modifier = e.getModifiers();
 			if ((modifier & InputEvent.BUTTON1_MASK) != 0) {
 				if ((e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK) != 0)
@@ -411,27 +392,6 @@ public class PanelEventHandler extends PanelBase {
 	protected void leftClickedShiftEdge(SideAddress position) {
 	}
 	protected void rightClickedEdge(SideAddress position) {
-	}
-
-	/**
-	 * カーソル操作用のマウスリスナー
-	 */
-	public class MouseHandlerCursor implements MouseListener {
-		/* 
-		 * カーソルを移動する
-		 */
-		public void mousePressed(MouseEvent e) {
-			getCellCursor().setPosition(toR(e.getY()), toC(e.getX()));
-			repaint();
-		}
-		public void mouseClicked(MouseEvent e) {
-		}
-		public void mouseEntered(MouseEvent e) {
-		}
-		public void mouseExited(MouseEvent e) {
-		}
-		public void mouseReleased(MouseEvent e) {
-		}
 	}
 
 }

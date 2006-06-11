@@ -350,8 +350,8 @@ public class MenuBase {
 		JRadioButtonMenuItem rotationItem = new JRadioButtonMenuItem(text);
 		rotationItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panel.setRotation(n);
-				frame.pack();
+//				panel.setRotation(n);
+//				frame.pack();
 			}
 		});
 		rotationGroup.add(rotationItem);

@@ -28,8 +28,6 @@ public class Panel extends PanelEventHandler {
 	private Color errorColor = Color.RED;
 //	private Color successColor = Color.GREEN;
 	
-	private Address pos0 = new Address();
-
 	/**
 	 * 
 	 */
@@ -37,7 +35,6 @@ public class Panel extends PanelEventHandler {
 		super();
 		setGridColor(Color.BLACK);
 		setMaxInputNumber(3);
-		removeMouseHandlerCursor();
 	}
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard; 
@@ -162,17 +159,15 @@ public class Panel extends PanelEventHandler {
 	 * @param num
 	 */
 	void placeNumber2(Graphics g, int r, int c, int num) {
-		pos0.set(r, c);
-		b2p(pos0, -1, -1);
 		FontMetrics metrics = g.getFontMetrics();
 		String numS = Integer.toString(num);
 		g.drawString(
 			numS,
-			(toX(pos0.c)
+			(toX(c)
 				+ (getCellSize() - 1 - metrics.stringWidth(numS)) / 2
 				+ 1
 				+ getHalfCellSize()),
-			(toY(pos0.r)
+			(toY(r)
 				+ (getCellSize() - 1 - metrics.getHeight()) / 2
 				+ metrics.getAscent())
 				+ 1
@@ -186,10 +181,8 @@ public class Panel extends PanelEventHandler {
 	 * @param c
 	 */
 	protected void placeCircle2(Graphics g, int r, int c) {
-		pos0.set(r, c);
-		b2p(pos0, -1, -1);
-		int x = toX(pos0.c) + (getCellSize() - getCircleSize()) / 2 + getHalfCellSize();
-		int y = toY(pos0.r) + (getCellSize() - getCircleSize()) / 2 + getHalfCellSize();
+		int x = toX(c) + (getCellSize() - getCircleSize()) / 2 + getHalfCellSize();
+		int y = toY(r) + (getCellSize() - getCircleSize()) / 2 + getHalfCellSize();
 		g.drawOval(x, y, getCircleSize(), getCircleSize());
 		g.drawOval(x + 1, y + 1, getCircleSize() - 2, getCircleSize() - 2);
 	}
@@ -270,6 +263,11 @@ public class Panel extends PanelEventHandler {
 		if (dragStart.r == dragEnd.r || dragStart.c == dragEnd.c) {
 			board.determineInlineState(dragStart, dragEnd, Board.UNKNOWN);
 		}
+	}
+	/*
+	 * マウスではカーソル移動しない（暫定）
+	 */
+	protected void moveCursor(Address pos) {
 	}
 	/*
 	 * 「スリザーリンク」キーリスナー

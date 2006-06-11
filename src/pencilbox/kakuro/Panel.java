@@ -148,19 +148,10 @@ public class Panel extends PanelEventHandler {
 		String numS;
 		g.setColor(wallColor);
 		wallPos.set(r,c);
-		b2p(wallPos);
 		int statusA = board.getWordStatus(r,c,Direction.HORIZ);
 		int statusB = board.getWordStatus(r,c,Direction.VERT);
 //		r = wallPos.r;
 //		c = wallPos.c;
-		if (getRotation() == 4) {  // ècâ°åä∑ÇÃèÍçá
-			int t = a;
-			a = b;
-			b = t; 
-			t = statusA;
-			statusA = statusB;	
-			statusB = t;
-		}
 		g.fillRect(toX(wallPos.c)+1, toY(wallPos.r)+1, getCellSize()-1, getCellSize()-1);
 		g.setColor(separationColor);
 		g.drawLine(toX(wallPos.c),toY(wallPos.r), toX(wallPos.c+1), toY(wallPos.r+1));
@@ -187,16 +178,10 @@ public class Panel extends PanelEventHandler {
 		}
 		g.setColor(separationColor);
 		if (board.isWall(r, c+1)) {
-			if (getRotation() == 0)
-				g.drawLine(toX(wallPos.c+1),toY(wallPos.r), toX(wallPos.c+1), toY(wallPos.r+1));
-			else if (getRotation() == 4)
-				g.drawLine(toX(wallPos.c),toY(wallPos.r+1), toX(wallPos.c+1), toY(wallPos.r+1));
+			g.drawLine(toX(wallPos.c+1),toY(wallPos.r), toX(wallPos.c+1), toY(wallPos.r+1));
 		}
 		if (board.isWall(r+1, c)) {
-			if (getRotation() == 0)
-				g.drawLine(toX(wallPos.c),toY(wallPos.r+1), toX(wallPos.c+1), toY(wallPos.r+1));
-			else if (getRotation() == 4)
-				g.drawLine(toX(wallPos.c+1),toY(wallPos.r), toX(wallPos.c+1), toY(wallPos.r+1));
+			g.drawLine(toX(wallPos.c),toY(wallPos.r+1), toX(wallPos.c+1), toY(wallPos.r+1));
 		}
 	}
 	/**
@@ -245,17 +230,10 @@ public class Panel extends PanelEventHandler {
 	 */
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {
-			if (!isTransposed()) {
-				if (kcursor.getStair() == KakuroCursor.LOWER)
-					board.setSumV(pos.r, pos.c, num);
-				else if (kcursor.getStair() == KakuroCursor.UPPER)
-					board.setSumH(pos.r, pos.c, num);
-			} else {
-				if (kcursor.getStair() == KakuroCursor.LOWER)
-					board.setSumH(pos.r, pos.c, num);
-				else if (kcursor.getStair() == KakuroCursor.UPPER)
-					board.setSumV(pos.r, pos.c, num);
-			}
+			if (kcursor.getStair() == KakuroCursor.LOWER)
+				board.setSumV(pos.r, pos.c, num);
+			else if (kcursor.getStair() == KakuroCursor.UPPER)
+				board.setSumH(pos.r, pos.c, num);
 		} else {
 			if (!board.isWall(pos.r, pos.c))
 				board.enterNumberA(pos.r, pos.c, num);
@@ -271,17 +249,10 @@ public class Panel extends PanelEventHandler {
 	}
 	protected void minusEntered(Address pos) {
 		if (isProblemEditMode()) {
-			if (!isTransposed()) {
-				if (kcursor.getStair() == KakuroCursor.LOWER)
-					board.setSumV(pos.r, pos.c, 0);
-				else if (kcursor.getStair() == KakuroCursor.UPPER)
-					board.setSumH(pos.r, pos.c, 0);
-			} else {
-				if (kcursor.getStair() == KakuroCursor.LOWER)
-					board.setSumH(pos.r, pos.c, 0);
-				else if (kcursor.getStair() == KakuroCursor.UPPER)
-					board.setSumV(pos.r, pos.c, 0);
-			}
+			if (kcursor.getStair() == KakuroCursor.LOWER)
+				board.setSumV(pos.r, pos.c, 0);
+			else if (kcursor.getStair() == KakuroCursor.UPPER)
+				board.setSumH(pos.r, pos.c, 0);
 		}
 	}
 }

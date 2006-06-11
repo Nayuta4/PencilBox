@@ -1,6 +1,5 @@
 package pencilbox.tentaisho;
 
-import pencilbox.common.core.Address;
 import pencilbox.common.gui.CellCursor;
 import pencilbox.common.gui.PanelEventHandler;
 
@@ -23,10 +22,4 @@ public class TentaishoCursor extends CellCursor {
 			pos.set(r, c);
 	}
 	
-	public Address getBoardPosition() {
-		Address boardPos = new Address(pos);
-		panel.p2b(boardPos, rows()-1, cols()-1);
-		return boardPos;
-	}
-
 }

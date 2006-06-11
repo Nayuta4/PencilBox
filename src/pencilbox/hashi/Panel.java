@@ -32,8 +32,6 @@ public class Panel extends PanelEventHandler {
 	private Color errorColor = Color.RED;
 	private Color successColor = Color.GREEN;
 
-	private Address pos0 = new Address();
-
 	/**
 	 * 
 	 */
@@ -174,13 +172,10 @@ public class Panel extends PanelEventHandler {
 	 * @param n ê¸ÇÃñ{êî(1or2)
 	 */
 	public void placeMidlines(Graphics g, int r, int c, int dir, int n) {
-		pos0.set(r, c);
-		b2p(pos0);
-		int direction = (dir == HORIZ ^ isTransposed()) ? HORIZ : VERT;
 		if (n == 1) {
-			drawMidline(g, toX(pos0.c), toY(pos0.r), direction);
+			drawMidline(g, toX(c), toY(r), dir);
 		} else if (n == 2) {
-			drawMidline2(g, toX(pos0.c), toY(pos0.r), direction);
+			drawMidline2(g, toX(c), toY(r), dir);
 		}
 	}
 	/**
