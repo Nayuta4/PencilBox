@@ -4,13 +4,13 @@ package pencilbox.common.core;
 /**
  * 盤上の辺の整数値の座標を表すクラス
  */
-public class SideAddress extends Address {
+public class SideAddress implements Comparable {
 	
 	public static final SideAddress NOWEHER = new SideAddress(0, -1,-1);
 	
 	public int d;
-//	public int r;
-//	public int c;
+	public int r;
+	public int c;
 	
 	/**
 	 * 
