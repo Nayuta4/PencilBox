@@ -252,7 +252,7 @@ public class Board extends BoardBase {
 				mergedArea.addAll(area);
 				for (Iterator itr = area.iterator(); itr.hasNext(); ) {
 					Address pos = (Address) itr.next();
-					setArea(pos.r, pos.c, mergedArea);
+					setArea(pos.r(), pos.c(), mergedArea);
 				}
 				areaList.remove(area);
 			}
@@ -269,7 +269,7 @@ public class Board extends BoardBase {
 		areaList.remove(getArea(r,c));
 		for (Iterator itr = getArea(r,c).iterator(); itr.hasNext(); ) {
 			Address pos = (Address) itr.next();
-			setArea(pos.r, pos.c, null);
+			setArea(pos.r(), pos.c(), null);
 		}
 		if (isOn(r-1,c) && getNumber(r-1,c)==number && getArea(r-1,c) == null)
 			initArea(r-1,c);

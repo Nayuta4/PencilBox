@@ -84,7 +84,7 @@ public class BoardBase {
 	 * @return ”Õã‚É‚ ‚ê‚Î true
 	 */
 	public boolean isOn(Address position) {
-		return isOn(position.r, position.c);
+		return isOn(position.r(), position.c());
 	}
 	/**
 	 * ˆø”‚ÅÀ•W‚ğ—^‚¦‚ç‚ê‚½•Ó‚ª”Õã‚É‚ ‚é‚©‚Ç‚¤‚©
@@ -107,7 +107,7 @@ public class BoardBase {
 	 * @return ”Õã‚É‚ ‚ê‚Î true
 	 */
 	public boolean isSideOn(SideAddress position) {
-		return isSideOn(position.d, position.r, position.c);
+		return isSideOn(position.d(), position.r(), position.c());
 	}
 	/**
 	 * ‰ğ“š‚ğÁ‹‚µC–â‘è‚Ì‰Šú”Õ–Ê‚É–ß‚·

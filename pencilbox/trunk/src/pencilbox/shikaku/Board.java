@@ -138,10 +138,10 @@ public class Board extends BoardBase {
 	 * @param pos1 ‘¼•û‚ÌŠp‚ÌÀ•W
 	 */
 	public void addSquareSpanning(Address pos0, Address pos1) {
-		int ra = pos0.r<pos1.r ? pos0.r : pos1.r;
-		int rb = pos0.r<pos1.r ? pos1.r : pos0.r;
-		int ca = pos0.c<pos1.c ? pos0.c : pos1.c;
-		int cb = pos0.c<pos1.c ? pos1.c : pos0.c;
+		int ra = pos0.r()<pos1.r() ? pos0.r() : pos1.r();
+		int rb = pos0.r()<pos1.r() ? pos1.r() : pos0.r();
+		int ca = pos0.c()<pos1.c() ? pos0.c() : pos1.c();
+		int cb = pos0.c()<pos1.c() ? pos1.c() : pos0.c();
 		Square newArea = new Square(ra, ca, rb, cb);
 		for (int r = ra; r <= rb; r++ ) {
 			for (int c = ca; c <= cb; c++) {
@@ -157,8 +157,8 @@ public class Board extends BoardBase {
 	 * @param pos À•W 
 	 */
 	public void removeSquareIncluding(Address pos) {
-		if(getSquare(pos.r,pos.c) != null) {
-			removeSquareA(getSquare(pos.r,pos.c));
+		if(getSquare(pos.r(),pos.c()) != null) {
+			removeSquareA(getSquare(pos.r(),pos.c()));
 		}
 	}
 	/**

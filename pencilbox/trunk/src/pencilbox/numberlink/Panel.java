@@ -225,15 +225,15 @@ public class Panel extends PanelEventHandler {
 
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode())
-			board.setNumber(pos.r, pos.c, num);
+			board.setNumber(pos.r(), pos.c(), num);
 	}
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode())
-			board.setNumber(pos.r, pos.c, 0);
+			board.setNumber(pos.r(), pos.c(), 0);
 	}
 	protected void minusEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.setNumber(pos.r, pos.c, Board.UNDECIDED_NUMBER);
+			board.setNumber(pos.r(), pos.c(), Board.UNDECIDED_NUMBER);
 		}
 	}
 
@@ -258,12 +258,12 @@ public class Panel extends PanelEventHandler {
 	 */
 
 	protected void leftDragged(Address dragStart, Address dragEnd) {
-		if (dragStart.r == dragEnd.r || dragStart.c == dragEnd.c) {
+		if (dragStart.r() == dragEnd.r() || dragStart.c() == dragEnd.c()) {
 			board.determineInlineState(dragStart, dragEnd, Board.LINE);
 		}
 	}
 	protected void rightDragged(Address dragStart, Address dragEnd) {
-		if (dragStart.r == dragEnd.r || dragStart.c == dragEnd.c) {
+		if (dragStart.r() == dragEnd.r() || dragStart.c() == dragEnd.c()) {
 			board.determineInlineState(dragStart, dragEnd, Board.UNKNOWN);
 		}
 	}
@@ -273,11 +273,11 @@ public class Panel extends PanelEventHandler {
 	 */
 	protected void leftClicked(Address pos) {
 
-		Link link = board.getLink(pos.r, pos.c);
+		Link link = board.getLink(pos.r(), pos.c());
 		int newNumber = 0;
 
-		if (board.isNumber(pos.r, pos.c))
-			newNumber = board.getNumber(pos.r, pos.c);
+		if (board.isNumber(pos.r(), pos.c()))
+			newNumber = board.getNumber(pos.r(), pos.c());
 		else {
 			if(link!=null)
 				newNumber = link.getNumber();

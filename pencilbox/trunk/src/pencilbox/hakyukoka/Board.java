@@ -250,7 +250,7 @@ public class Board extends BoardBase {
 	public void addArea(Area newArea) {
 		for (Iterator itr = newArea.iterator(); itr.hasNext();) {
 			Address pos = (Address) itr.next();
-			area[pos.r][pos.c] = newArea;
+			area[pos.r()][pos.c()] = newArea;
 		}
 		areaList.add(newArea);
 	}
@@ -262,8 +262,8 @@ public class Board extends BoardBase {
 	public void removeArea(Area oldArea) {
 		for (Iterator itr = oldArea.iterator(); itr.hasNext();) {
 			Address pos = (Address) itr.next();
-			if (area[pos.r][pos.c] == oldArea)
-				area[pos.r][pos.c] = null;
+			if (area[pos.r()][pos.c()] == oldArea)
+				area[pos.r()][pos.c()] = null;
 		}
 		areaList.remove(oldArea);
 	}
@@ -382,7 +382,7 @@ public class Board extends BoardBase {
 			pos = (Address) itr.next();
 			if (pos.equals(r0,c0))
 				continue;
-			if (getNumber(pos.r,pos.c) == num) {
+			if (getNumber(pos.r(),pos.c()) == num) {
 				multi2[r0][c0]++;
 			}
 		}
@@ -401,8 +401,8 @@ public class Board extends BoardBase {
 				pos = (Address) itr.next();
 				if (pos.equals(r0,c0))
 					continue;
-				if (getNumber(pos.r,pos.c) == prevNum) {
-					multi2[pos.r][pos.c]--;
+				if (getNumber(pos.r(),pos.c()) == prevNum) {
+					multi2[pos.r()][pos.c()]--;
 				}
 			}
 		}
@@ -414,8 +414,8 @@ public class Board extends BoardBase {
 				pos = (Address) itr.next();
 				if (pos.equals(r0,c0))
 					continue;
-				if (getNumber(pos.r,pos.c) == num) {
-					multi2[pos.r][pos.c]++;
+				if (getNumber(pos.r(),pos.c()) == num) {
+					multi2[pos.r()][pos.c()]++;
 					multi2[r0][c0]++;
 				}
 			}

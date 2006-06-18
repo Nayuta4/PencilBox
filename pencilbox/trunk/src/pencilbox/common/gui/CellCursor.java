@@ -24,14 +24,14 @@ public class CellCursor {
 	 * @return 行座標
 	 */
 	public int r() {
-		return pos.r;
+		return pos.r();
 	}
 	/**
 	 * 現在のカーソル位置の列座標を取得する
 	 * @return 列座標
 	 */
 	public int c() {
-		return pos.c;
+		return pos.c();
 	}
 	/**
 	 * 現在のカーソル位置を取得する
@@ -54,31 +54,31 @@ public class CellCursor {
 	 * @param address
 	 */
 	public void setPosition(Address address) {
-		pos.set(address.r, address.c);
+		pos.set(address.r(), address.c());
 	}
 	/**
 	 * 
 	 */
 	public void moveUp() {
-		setPosition(pos.r - 1, pos.c);
+		setPosition(pos.r() - 1, pos.c());
 	}
 	/**
 	 * 
 	 */
 	public void moveLt() {
-		setPosition(pos.r, pos.c - 1);
+		setPosition(pos.r(), pos.c() - 1);
 	}
 	/**
 	 * 
 	 */
 	public void moveDn() {
-		setPosition(pos.r + 1, pos.c);
+		setPosition(pos.r() + 1, pos.c());
 	}
 	/**
 	 * 
 	 */
 	public void moveRt() {
-		setPosition(pos.r, pos.c + 1);
+		setPosition(pos.r(), pos.c() + 1);
 	}
 	protected int rows() {
 		return panel.rows();

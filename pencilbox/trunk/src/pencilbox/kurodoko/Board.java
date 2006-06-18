@@ -300,9 +300,9 @@ public class Board extends BoardBase {
 		pos.set(r0, c0);
 		while(true) {
 			pos.move(direction);
-			if (!isOn(pos.r,pos.c))
+			if (!isOn(pos.r(),pos.c()))
 				break;
-			if (isBlack(pos.r, pos.c))
+			if (isBlack(pos.r(), pos.c()))
 				break;
 			n++;
 		};
@@ -312,9 +312,9 @@ public class Board extends BoardBase {
 		n = 0;
 		while(true) {
 			pos.move(direction);
-			if (!isOn(pos.r,pos.c))
+			if (!isOn(pos.r(),pos.c()))
 				break;
-			if (!isWhiteOrNumber(pos.r, pos.c))
+			if (!isWhiteOrNumber(pos.r(), pos.c()))
 				break;
 			n++;
 		};
@@ -344,12 +344,12 @@ public class Board extends BoardBase {
 			pos.set(r0, c0);
 			while(true) {
 				pos.move(d);
-				if (!isOn(pos.r, pos.c))
+				if (!isOn(pos.r(), pos.c()))
 					break;
-				if (isBlack(pos.r, pos.c))
+				if (isBlack(pos.r(), pos.c()))
 					break;
-				if (isNumber(pos.r, pos.c)) {
-					ret += initNumber(pos.r, pos.c, d^2);
+				if (isNumber(pos.r(), pos.c())) {
+					ret += initNumber(pos.r(), pos.c(), d^2);
 				}
 			}
 		}

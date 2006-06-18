@@ -90,7 +90,7 @@ public class Board extends BoardBase {
 	 * @return êîéöÉ}ÉXÇ»ÇÁ true
 	 */
 	public boolean isPier(Address pos) {
-		return isPier(pos.r, pos.c);
+		return isPier(pos.r(), pos.c());
 	}
 	
 	/**
@@ -202,7 +202,7 @@ public class Board extends BoardBase {
 		while(true) {
 			pos.move(d);
 			if (pos.equals(pos1)) break;
-			setBridge(pos.r, pos.c, d&1, b);
+			setBridge(pos.r(), pos.c(), d&1, b);
 		}
 	}
 	/**
@@ -325,7 +325,7 @@ public class Board extends BoardBase {
 		pos.move(direction);
 		while (isOn(pos)) {
 			if (isPier(pos)) {
-				return pier[pos.r][pos.c];
+				return pier[pos.r()][pos.c()];
 			}
 			pos.move(direction);
 		}

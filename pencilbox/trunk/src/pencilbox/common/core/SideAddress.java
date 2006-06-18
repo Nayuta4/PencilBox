@@ -8,9 +8,9 @@ public class SideAddress implements Comparable {
 	
 	public static final SideAddress NOWEHER = new SideAddress(0, -1,-1);
 	
-	public int d;
-	public int r;
-	public int c;
+	private int d;
+	private int r;
+	private int c;
 	
 	/**
 	 * 
@@ -36,11 +36,39 @@ public class SideAddress implements Comparable {
 		this.r = r;
 		this.c = c;
 	}
+
+	/**
+	 * @return Returns the d.
+	 */
+	public int d() {
+		return d;
+	}
+
+	/**
+	 * @return Returns the r.
+	 */
+	public int r() {
+		return r;
+	}
+
+	/**
+	 * @return Returns the c.
+	 */
+	public int c() {
+		return c;
+	}
+
+	/**
+	 * @param d
+	 * @param r
+	 * @param c
+	 */
 	public void set(int d, int r, int c){
 		this.d = d;
 		this.r = r;
 		this.c = c;
 	}
+
 	public boolean equals(Object o) {
 		if (!(o instanceof SideAddress))
 			return false;
@@ -50,12 +78,19 @@ public class SideAddress implements Comparable {
 		else
 			return false;
 	}
+	
 	public int hashCode() {
 		return ((d * 1000) + r) * 1000 + c;
 	}
+	/**
+	 * @return
+	 */
 	public boolean isNowhere() {
 		return (r==-1 && c==-1);
 	}
+	/**
+	 * 
+	 */
 	public void setNowhere() {
 		d = 0;
 		r = -1;
@@ -83,6 +118,7 @@ public class SideAddress implements Comparable {
 			}
 		}
 	}
+	
 	public String toString(){
 		return "["+d+","+r+","+c+"]";
 	}

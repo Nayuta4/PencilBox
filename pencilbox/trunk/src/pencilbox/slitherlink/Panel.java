@@ -241,10 +241,10 @@ public class Panel extends PanelEventHandler {
 	 * 辺上右クリック：線なし⇔未定
 	 */
 	protected void leftClickedEdge(SideAddress pos) {
-		board.toggleState(pos.d, pos.r, pos.c, Board.LINE);
+		board.toggleState(pos.d(), pos.r(), pos.c(), Board.LINE);
 	}
 	protected void rightClickedEdge(SideAddress pos) {
-		board.toggleState(pos.d, pos.r, pos.c, Board.NOLINE);
+		board.toggleState(pos.d(), pos.r(), pos.c(), Board.NOLINE);
 	}
 
 	/*
@@ -255,12 +255,12 @@ public class Panel extends PanelEventHandler {
 	 * 右ドラッグ： AからBまで線を消す
 	 */
 	protected void leftDragged(Address dragStart, Address dragEnd) {
-		if (dragStart.r == dragEnd.r || dragStart.c == dragEnd.c) {
+		if (dragStart.r() == dragEnd.r() || dragStart.c() == dragEnd.c()) {
 			board.determineInlineState(dragStart, dragEnd, Board.LINE);
 		}
 	}
 	protected void rightDragged(Address dragStart, Address dragEnd) {
-		if (dragStart.r == dragEnd.r || dragStart.c == dragEnd.c) {
+		if (dragStart.r() == dragEnd.r() || dragStart.c() == dragEnd.c()) {
 			board.determineInlineState(dragStart, dragEnd, Board.UNKNOWN);
 		}
 	}
@@ -277,16 +277,16 @@ public class Panel extends PanelEventHandler {
 	 */
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode())
-			board.setNumber(pos.r, pos.c, num);
+			board.setNumber(pos.r(), pos.c(), num);
 	}
 
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode())
-			board.setNumber(pos.r, pos.c, Board.NONUMBER);
+			board.setNumber(pos.r(), pos.c(), Board.NONUMBER);
 	}
 
 	protected void minusEntered(Address pos) {
 		if (isProblemEditMode())
-			board.setNumber(pos.r, pos.c, Board.UNDECIDED_NUMBER);
+			board.setNumber(pos.r(), pos.c(), Board.UNDECIDED_NUMBER);
 	}
 }

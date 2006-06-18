@@ -240,7 +240,7 @@ public class Panel extends PanelEventHandler {
 	 * 「天体ショー」マウスリスナー
 	 */
 	protected void leftPressed(Address pos) {
-		Area oldArea = board.getArea(pos.r, pos.c);
+		Area oldArea = board.getArea(pos.r(), pos.c());
 		if (draggingArea == null) {
 			//  ここの if 文を有効にすれば，既存のAreaを内側から広げることができる
 			//  ただし，undo と整合をどうするかが問題				
@@ -252,12 +252,12 @@ public class Panel extends PanelEventHandler {
 		if (oldArea != null && oldArea != draggingArea) {
 			board.removeAreaA(oldArea);
 		}
-		board.setArea(pos.r, pos.c, draggingArea);
+		board.setArea(pos.r(), pos.c(), draggingArea);
 		draggingArea.add(pos);
 	}
 	
 	protected void rightPressed(Address pos) {
-		Area oldArea = board.getArea(pos.r, pos.c);
+		Area oldArea = board.getArea(pos.r(), pos.c());
 		if (oldArea != null) {
 			board.removeAreaA(oldArea);
 		}
@@ -306,11 +306,11 @@ public class Panel extends PanelEventHandler {
 	protected void numberEntered(Address p, int n) {
 		if (isProblemEditMode())
 			if (n == Board.BLACKSTAR || n == Board.WHITESTAR)
-				board.setStar(p.r, p.c, n);
+				board.setStar(p.r(), p.c(), n);
 	}
 
 	protected void spaceEntered(Address p) {
 		if (isProblemEditMode())
-			board.setStar(p.r, p.c, Board.NOSTAR);
+			board.setStar(p.r(), p.c(), Board.NOSTAR);
 	}
 }

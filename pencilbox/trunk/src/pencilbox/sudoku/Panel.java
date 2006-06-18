@@ -206,17 +206,17 @@ public class Panel extends PanelEventHandler {
 	 */
 	protected void leftPressed(Address pos) {
 		if (!isCursorOn() || getCellCursor().isAt(pos)) {
-			if (!board.isStable(pos.r, pos.c))
-				board.increaseNumber(pos.r, pos.c);
+			if (!board.isStable(pos.r(), pos.c()))
+				board.increaseNumber(pos.r(), pos.c());
 		}
-		selectedNumber = board.getNumber(pos.r, pos.c);
+		selectedNumber = board.getNumber(pos.r(), pos.c());
 	}
 	protected void rightPressed(Address pos) {
 		if (!isCursorOn() || getCellCursor().isAt(pos)) {
-			if (!board.isStable(pos.r, pos.c))
-				board.decreaseNumber(pos.r, pos.c);
+			if (!board.isStable(pos.r(), pos.c()))
+				board.decreaseNumber(pos.r(), pos.c());
 		}
-		selectedNumber = board.getNumber(pos.r, pos.c);
+		selectedNumber = board.getNumber(pos.r(), pos.c());
 	}
 	/*
 	 * 「数独」キーリスナー
@@ -229,31 +229,31 @@ public class Panel extends PanelEventHandler {
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {
 			if (num > 0) {
-				board.changeNumber(pos.r, pos.c, num);
-				board.setState(pos.r, pos.c, Board.STABLE);
+				board.changeNumber(pos.r(), pos.c(), num);
+				board.setState(pos.r(), pos.c(), Board.STABLE);
 			}
 		} else {
 			if (num > 0) {
-				if (!board.isStable(pos.r, pos.c)) {
-					board.enterNumberA(pos.r, pos.c, num);
+				if (!board.isStable(pos.r(), pos.c())) {
+					board.enterNumberA(pos.r(), pos.c(), num);
 				}
 			}
 		}
 	}
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.changeNumber(pos.r, pos.c, 0);
-			board.setState(pos.r, pos.c, Board.UNSTABLE);
+			board.changeNumber(pos.r(), pos.c(), 0);
+			board.setState(pos.r(), pos.c(), Board.UNSTABLE);
 		} else {
-			if (!board.isStable(pos.r, pos.c)) {
-				board.enterNumberA(pos.r, pos.c, 0);
+			if (!board.isStable(pos.r(), pos.c())) {
+				board.enterNumberA(pos.r(), pos.c(), 0);
 			}
 		}
 	}
 	protected void minusEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.changeNumber(pos.r, pos.c, Board.UNKNOWN);
-			board.setState(pos.r, pos.c, Board.STABLE);
+			board.changeNumber(pos.r(), pos.c(), Board.UNKNOWN);
+			board.setState(pos.r(), pos.c(), Board.STABLE);
 		} 
 	}
 }
