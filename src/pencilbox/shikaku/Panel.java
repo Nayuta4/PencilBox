@@ -183,7 +183,7 @@ public class Panel extends PanelEventHandler {
 	protected void leftPressed(Address pos) {
 		dragStart.set(pos);
 		draggingArea =
-			new Square(dragStart.r, dragStart.c, pos.r, pos.c);
+			new Square(dragStart.r(), dragStart.c(), pos.r(), pos.c());
 	}
 
 	protected void rightPressed(Address dragEnd) {
@@ -193,7 +193,7 @@ public class Panel extends PanelEventHandler {
 	protected void leftDragged(Address dragEnd) {
 		if (draggingArea == null)
 			return;
-		draggingArea.set(dragStart.r, dragStart.c, dragEnd.r, dragEnd.c);
+		draggingArea.set(dragStart.r(), dragStart.c(), dragEnd.r(), dragEnd.c());
 	}
 	
 	protected void leftDragFixed(Address dragEnd) {
@@ -217,16 +217,16 @@ public class Panel extends PanelEventHandler {
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode())
 			if (num > 0)
-			board.setNumber(pos.r, pos.c, num);
+			board.setNumber(pos.r(), pos.c(), num);
 	}
 	
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode())
-			board.setNumber(pos.r, pos.c, 0);
+			board.setNumber(pos.r(), pos.c(), 0);
 	}
 	
 	protected void minusEntered(Address pos) {
 		if (isProblemEditMode())
-			board.setNumber(pos.r, pos.c, Board.UNDECIDED_NUMBER);
+			board.setNumber(pos.r(), pos.c(), Board.UNDECIDED_NUMBER);
 	}
 }

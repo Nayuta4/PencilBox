@@ -170,15 +170,15 @@ public class Panel extends PanelEventHandler {
 	private int currentState = Board.UNKNOWN;
 
 	protected void leftPressed(Address pos) {
-		board.toggleState(pos.r, pos.c, Board.ILLUMINATION);
+		board.toggleState(pos.r(), pos.c(), Board.ILLUMINATION);
 	}
 
 	protected void rightPressed(Address pos) {
-		board.toggleState(pos.r, pos.c, Board.NOILLUMINATION);
-		if (board.isWall(pos.r, pos.c))
+		board.toggleState(pos.r(), pos.c(), Board.NOILLUMINATION);
+		if (board.isWall(pos.r(), pos.c()))
 			currentState = Board.UNKNOWN;
 		else
-			currentState = board.getState(pos.r, pos.c);
+			currentState = board.getState(pos.r(), pos.c());
 	}
 
 	protected void leftDragged(Address pos) {
@@ -186,11 +186,11 @@ public class Panel extends PanelEventHandler {
 	}
 
 	protected void rightDragged(Address pos) {
-		if (board.isWall(pos.r, pos.c))
+		if (board.isWall(pos.r(), pos.c()))
 			return;
-		if (board.getState(pos.r, pos.c) == currentState)
+		if (board.getState(pos.r(), pos.c()) == currentState)
 			return;
-		board.changeStateA(pos.r, pos.c, currentState);
+		board.changeStateA(pos.r(), pos.c(), currentState);
 	}
 
 	/*
@@ -202,18 +202,18 @@ public class Panel extends PanelEventHandler {
 	protected void numberEntered(Address pos, int num) {
 		if (!isProblemEditMode())
 			return;
-		board.changeState(pos.r, pos.c, num);
+		board.changeState(pos.r(), pos.c(), num);
 	}
 
 	protected void spaceEntered(Address pos) {
 		if (!isProblemEditMode())
 			return;
-		board.changeState(pos.r, pos.c, -1);
+		board.changeState(pos.r(), pos.c(), -1);
 	}
 
 	protected void minusEntered(Address pos) {
 		if (!isProblemEditMode())
 			return;
-		board.changeState(pos.r, pos.c, Board.NONUMBER_WALL);
+		board.changeState(pos.r(), pos.c(), Board.NONUMBER_WALL);
 	}
 }

@@ -254,23 +254,23 @@ public class Panel extends PanelEventHandler {
 	 * 右ドラッグ： AからBまで線を消す
 	 */
 	protected void leftDragged(Address dragStart, Address dragEnd) {
-		if (dragStart.r == dragEnd.r || dragStart.c == dragEnd.c) {
+		if (dragStart.r() == dragEnd.r() || dragStart.c() == dragEnd.c()) {
 			board.determineInlineState(dragStart, dragEnd, Board.LINE);
 		}
 	}
 
 	protected void rightDragged(Address dragStart, Address dragEnd) {
-		if (dragStart.r == dragEnd.r || dragStart.c == dragEnd.c) {
+		if (dragStart.r() == dragEnd.r() || dragStart.c() == dragEnd.c()) {
 			board.determineInlineState(dragStart, dragEnd, Board.UNKNOWN);
 		}
 	}
 
 	protected void leftClicked(Address pos) {
-		board.toggleState(pos.r, pos.c, Board.BLACK);
+		board.toggleState(pos.r(), pos.c(), Board.BLACK);
 	}
 
 	protected void rightClicked(Address position) {
-		board.toggleState(position.r, position.c, Board.WHITE);
+		board.toggleState(position.r(), position.c(), Board.WHITE);
 	}
 	/*
 	 * 「ヤジリン」キーリスナー
@@ -281,16 +281,16 @@ public class Panel extends PanelEventHandler {
 	 */
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode())
-			board.enterNumber(pos.r, pos.c, num);
+			board.enterNumber(pos.r(), pos.c(), num);
 	}
 
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode())
-			board.eraseNumber(pos.r, pos.c);
+			board.eraseNumber(pos.r(), pos.c());
 	}
 
 	protected void minusEntered(Address pos) {
 		if (isProblemEditMode())
-			board.enterNumber(pos.r, pos.c, Board.UNDECIDED_NUMBER);
+			board.enterNumber(pos.r(), pos.c(), Board.UNDECIDED_NUMBER);
 	}
 }

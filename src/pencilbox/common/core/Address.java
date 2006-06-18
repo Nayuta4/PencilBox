@@ -14,11 +14,11 @@ public class Address implements Comparable {
 	/**
 	 *  行座標
 	 */
-	public int r;
+	private int r;
 	/**
 	 *  列座標
 	 */
-	public int c;
+	private int c;
 	
 	/**
 	 * コンストラクタ
@@ -42,6 +42,18 @@ public class Address implements Comparable {
 	public Address(int r, int c){
 		this.r = r;
 		this.c = c;
+	}
+	/**
+	 * @return Returns the r.
+	 */
+	public int r() {
+		return r;
+	}
+	/**
+	 * @return Returns the c.
+	 */
+	public int c() {
+		return c;
 	}
 	/**
 	 * 引数の座標に設定
@@ -89,29 +101,29 @@ public class Address implements Comparable {
 	public int hashCode() {
 		return r * 1000 + c;
 	}
-	/**
-	 * 引数の座標と上下左右に隣接しているか
-	 * @param address
-	 * @return 隣接していれば true
-	 */
-	public boolean isNextTo(Address address) {
-		if ((address.r == r && (address.c == c-1 || address.c == c+1))
-			|| (address.c == c && (address.r == r-1 || address.r == r+1)))
-		return true;
-		else
-			return false;
-	}
-	/**
-	 * 引数の座標と同じ行または列か
-	 * @param address 比較する Address
-	 * @return 同一直線状なら true
-	 */
-	public boolean isInLine(Address address) {
-		if ( address.r == r || address.c == c )
-			return true;
-		else
-			return false;
-	}
+//	/**
+//	 * 引数の座標と上下左右に隣接しているか
+//	 * @param address
+//	 * @return 隣接していれば true
+//	 */
+//	public boolean isNextTo(Address address) {
+//		if ((address.r == r && (address.c == c-1 || address.c == c+1))
+//			|| (address.c == c && (address.r == r-1 || address.r == r+1)))
+//		return true;
+//		else
+//			return false;
+//	}
+//	/**
+//	 * 引数の座標と同じ行または列か
+//	 * @param address 比較する Address
+//	 * @return 同一直線状なら true
+//	 */
+//	public boolean isInLine(Address address) {
+//		if ( address.r == r || address.c == c )
+//			return true;
+//		else
+//			return false;
+//	}
 	/**
 	 * 盤外座標かどうか
 	 * @return 座標が盤外点であれば true
@@ -148,18 +160,6 @@ public class Address implements Comparable {
 				break;
 			}
 	}
-//	public void moveUp() {
-//		r--;
-//	}
-//	public void moveLt() {
-//		c--;
-//	}
-//	public void moveDn() {
-//		r++;
-//	}
-//	public void moveRt() {
-//		c++;
-//	}
 	/** 
 	 * 順序の定義
 	 * 行座標 r が小さい方が前，

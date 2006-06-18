@@ -85,7 +85,7 @@ public class Area extends pencilbox.common.core.Area {
 	 * @return cnterに対してpositionと点対称な座標
 	 */
 	public Address getPointSymmericAddress(Address position, StarAddress center) {
-		return new Address(center.r-position.r, center.c-position.c);
+		return new Address(center.r()-position.r(), center.c()-position.c());
 	}
 
 	/**
@@ -93,7 +93,7 @@ public class Area extends pencilbox.common.core.Area {
 	 * @return 領域の中心マス
 	 */
 	public Address getCenterCell() {
-		return new Address(starPos.r/2, starPos.c/2);
+		return new Address(starPos.r()/2, starPos.c()/2);
 	}
 
 }

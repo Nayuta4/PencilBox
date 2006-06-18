@@ -153,7 +153,7 @@ public class Board extends BoardBase {
 	public void addArea(Area newArea) {
 		for (Iterator itr = newArea.iterator(); itr.hasNext(); ) {
 			Address pos = (Address) itr.next();
-			area[pos.r][pos.c] = newArea;
+			area[pos.r()][pos.c()] = newArea;
 		}
 		setContainedStar(newArea);
 		areaList.add(newArea);
@@ -165,8 +165,8 @@ public class Board extends BoardBase {
 	public void removeArea(Area oldArea) {
 		for (Iterator itr = oldArea.iterator(); itr.hasNext(); ) {
 			Address pos = (Address) itr.next();
-			if (area[pos.r][pos.c] == oldArea)
-				area[pos.r][pos.c] = null;
+			if (area[pos.r()][pos.c()] == oldArea)
+				area[pos.r()][pos.c()] = null;
 		}
 		areaList.remove(oldArea);
 	}
@@ -180,8 +180,8 @@ public class Board extends BoardBase {
 		StarAddress starPos = new StarAddress();
 		for (Iterator itr = newArea.iterator(); itr.hasNext(); ) {
 			pos = (Address) itr.next();
-			for (int i=2*pos.r-1; i<=2*pos.r+1; i++) {
-				for (int j=2*pos.c-1; j<=2*pos.c+1; j++) {
+			for (int i=2*pos.r()-1; i<=2*pos.r()+1; i++) {
+				for (int j=2*pos.c()-1; j<=2*pos.c()+1; j++) {
 					if (isOnStar(i, j) && hasStar(i, j)) {
 						if (nStar == 0) {
 							nStar = getStar(i, j);

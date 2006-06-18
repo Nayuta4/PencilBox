@@ -180,36 +180,36 @@ public class Panel extends PanelEventHandler {
 	private int state;
 	
 	protected void leftPressed(Address pos) {
-			state = board.getNumber(pos.r, pos.c);
+			state = board.getNumber(pos.r(), pos.c());
 	}
 	protected void rightPressed(Address pos) {
-		if (!board.isStable(pos.r, pos.c))
-			board.enterNumberA(pos.r, pos.c, 0);
+		if (!board.isStable(pos.r(), pos.c()))
+			board.enterNumberA(pos.r(), pos.c(), 0);
 	}
 
 	protected void leftClicked(Address pos) {
-		if (!board.isStable(pos.r, pos.c))
-			board.increaseNumber(pos.r, pos.c);
+		if (!board.isStable(pos.r(), pos.c()))
+			board.increaseNumber(pos.r(), pos.c());
 	}
 
 	protected void rightClicked(Address pos) {
-		if (!board.isStable(pos.r, pos.c))
-			board.decreaseNumber(pos.r, pos.c);
+		if (!board.isStable(pos.r(), pos.c()))
+			board.decreaseNumber(pos.r(), pos.c());
 	}
 
 	protected void leftDragged(Address oldPos, Address newPos) {
-		if (!board.isStable(newPos.r, newPos.c))
+		if (!board.isStable(newPos.r(), newPos.c()))
 			board.enterNumberA(
-				newPos.r,
-				newPos.c,
+				newPos.r(),
+				newPos.c(),
 	//	board.getNumber(oldPos.r, oldPos.c));
 				state);
 	}
 	protected void rightDragged(Address oldPos, Address newPos) {
-		if (!board.isStable(newPos.r, newPos.c))
+		if (!board.isStable(newPos.r(), newPos.c()))
 			board.enterNumberA(
-				newPos.r,
-				newPos.c,
+				newPos.r(),
+				newPos.c(),
 //				board.getNumber(oldPos.r, oldPos.c));
 				0);
 	}
@@ -220,32 +220,32 @@ public class Panel extends PanelEventHandler {
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {
 			if (num > 0) {
-				board.changeNumber(pos.r, pos.c, num);
-				board.setState(pos.r, pos.c, Board.STABLE);
+				board.changeNumber(pos.r(), pos.c(), num);
+				board.setState(pos.r(), pos.c(), Board.STABLE);
 			}
 		} else {
 			if (num > 0) {
-				if (!board.isStable(pos.r, pos.c)) {
-					board.enterNumberA(pos.r, pos.c, num);
+				if (!board.isStable(pos.r(), pos.c())) {
+					board.enterNumberA(pos.r(), pos.c(), num);
 				}
 			}
 		}
 	}
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.changeNumber(pos.r, pos.c, 0);
-			board.setState(pos.r, pos.c, Board.UNSTABLE);
+			board.changeNumber(pos.r(), pos.c(), 0);
+			board.setState(pos.r(), pos.c(), Board.UNSTABLE);
 		} else {
-			if (!board.isStable(pos.r, pos.c)) {
-				board.enterNumberA(pos.r, pos.c, 0);
+			if (!board.isStable(pos.r(), pos.c())) {
+				board.enterNumberA(pos.r(), pos.c(), 0);
 			}
 		}
 	}
 
 	protected void minusEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.changeNumber(pos.r, pos.c, Board.UNKNOWN);
-			board.setState(pos.r, pos.c, Board.STABLE);
+			board.changeNumber(pos.r(), pos.c(), Board.UNKNOWN);
+			board.setState(pos.r(), pos.c(), Board.STABLE);
 		}
 	}
 }

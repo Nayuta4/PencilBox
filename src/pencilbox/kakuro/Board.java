@@ -407,9 +407,9 @@ public class Board extends BoardBase {
 	 */
 	int getWordHead(int r, int c, int dir) {
 		if (dir == HORIZ)
-			return wordH[r][c].getHead().c;
+			return wordH[r][c].getHead().c();
 		else if (dir == VERT)
-			return wordV[r][c].getHead().r;
+			return wordV[r][c].getHead().r();
 		return 0;
 	}
 	/**

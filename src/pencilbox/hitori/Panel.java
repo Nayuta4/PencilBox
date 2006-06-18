@@ -207,11 +207,11 @@ public class Panel extends PanelEventHandler {
 	private int currentState = Board.UNKNOWN;
 
 	protected void leftPressed(Address pos) {
-		board.toggleState(pos.r, pos.c, Board.BLACK);
+		board.toggleState(pos.r(), pos.c(), Board.BLACK);
 	}
 	protected void rightPressed(Address pos) {
-		board.toggleState(pos.r, pos.c, Board.WHITE);
-		currentState = board.getState(pos.r, pos.c);
+		board.toggleState(pos.r(), pos.c(), Board.WHITE);
+		currentState = board.getState(pos.r(), pos.c());
 	}
 
 	protected void leftDragged(Address pos) {
@@ -219,10 +219,10 @@ public class Panel extends PanelEventHandler {
 	}
 
 	protected void rightDragged(Address pos) {
-		int st = board.getState(pos.r, pos.c);
+		int st = board.getState(pos.r(), pos.c());
 		if (st == currentState)
 			return;
-		board.changeStateA(pos.r, pos.c, currentState);
+		board.changeStateA(pos.r(), pos.c(), currentState);
 	}
 
 //	protected void mouseMovedTo(Address pos) {
@@ -241,12 +241,12 @@ public class Panel extends PanelEventHandler {
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode())
 			if (num > 0)
-				board.setNumber(pos.r, pos.c, num);
+				board.setNumber(pos.r(), pos.c(), num);
 	}
 
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode())
-			board.setNumber(pos.r, pos.c, 0);
+			board.setNumber(pos.r(), pos.c(), 0);
 	}
 
 //	protected void starEntered(Address pos) {

@@ -104,7 +104,7 @@ public class Board extends BoardBase {
 			return null;
 	}
 	public Link getLink(SideAddress pos) {
-		return link[pos.d][pos.r][pos.c];
+		return link[pos.d()][pos.r()][pos.c()];
 	}
 	/**
 	 * ‚»‚Ìƒ}ƒX‚ğŠÜ‚Ş Link ‚ğ•Ô‚·
@@ -125,7 +125,7 @@ public class Board extends BoardBase {
 		link[d][r][c] =  l;
 	}
 	public void setLink(SideAddress pos, Link l) {
-		link[pos.d][pos.r][pos.c] = l;
+		link[pos.d()][pos.r()][pos.c()] = l;
 	}
 	
 	/**
@@ -179,10 +179,10 @@ public class Board extends BoardBase {
 	 * @param st •ÏXŒã‚Ìó‘Ô
 	 */
 	public void determineInlineState(Address pos0, Address pos1, int st) {
-		int ra = pos0.r<pos1.r ? pos0.r : pos1.r;
-		int rb = pos0.r<pos1.r ? pos1.r : pos0.r;
-		int ca = pos0.c<pos1.c ? pos0.c : pos1.c;
-		int cb = pos0.c<pos1.c ? pos1.c : pos0.c;
+		int ra = pos0.r()<pos1.r() ? pos0.r() : pos1.r();
+		int rb = pos0.r()<pos1.r() ? pos1.r() : pos0.r();
+		int ca = pos0.c()<pos1.c() ? pos0.c() : pos1.c();
+		int cb = pos0.c()<pos1.c() ? pos1.c() : pos0.c();
 		if (ra == rb) 
 			for (int c = ca; c < cb; c++) {
 				if (getState(VERT, ra, c) != st)

@@ -248,9 +248,9 @@ public class Board extends BoardBase {
 				mergedArea.addAll(area);
 				for (Iterator itr = area.iterator(); itr.hasNext(); ) {
 					Address pos = (Address) itr.next();
-					setArea(pos.r, pos.c, mergedArea);
-					if (isNumber(pos.r,pos.c))
-						mergedArea.addNumber(getState(pos.r,pos.c));
+					setArea(pos.r(), pos.c(), mergedArea);
+					if (isNumber(pos.r(),pos.c()))
+						mergedArea.addNumber(getState(pos.r(),pos.c()));
 				}
 				areaList.remove(area);
 			}
@@ -269,7 +269,7 @@ public class Board extends BoardBase {
 		areaList.remove(getArea(r,c));
 		for (Iterator itr = getArea(r,c).iterator(); itr.hasNext(); ) {
 			Address pos = (Address) itr.next();
-			setArea(pos.r, pos.c, null);
+			setArea(pos.r(), pos.c(), null);
 		}
 		if (isOn(r-1,c) && getSpaceOrWall(r-1,c)==type && getArea(r-1,c) == null) {
 			initArea(r-1,c);

@@ -208,26 +208,26 @@ public class Panel extends PanelEventHandler {
 			Address dragEnd = pos;
 			dragStart.set(dragEnd);
 			draggingSquare =
-				new Square(dragStart.r, dragStart.c, dragEnd.r, dragEnd.c);
+				new Square(dragStart.r(), dragStart.c(), dragEnd.r(), dragEnd.c());
 		} else {
-			board.toggleState(pos.r, pos.c, Board.BLACK);
+			board.toggleState(pos.r(), pos.c(), Board.BLACK);
 		}
 	}
 	protected void rightPressed(Address pos) {
 		if (isProblemEditMode()) {
 			Address dragEnd = pos;
 			//			dragStart.set(dragEnd);
-			board.removeSquareIncluding(dragEnd.r, dragEnd.c);
+			board.removeSquareIncluding(dragEnd.r(), dragEnd.c());
 		} else {
-			board.toggleState(pos.r, pos.c, Board.WHITE);
-			currentState = board.getState(pos.r, pos.c);
+			board.toggleState(pos.r(), pos.c(), Board.WHITE);
+			currentState = board.getState(pos.r(), pos.c());
 		}
 	}
 	protected void leftDragged(Address pos) {
 		if (isProblemEditMode()) {
 			if (draggingSquare == null)
 				return;
-			draggingSquare.set(dragStart.r, dragStart.c, pos.r, pos.c);
+			draggingSquare.set(dragStart.r(), dragStart.c(), pos.r(), pos.c());
 		}
 	}
 	protected void leftDragFixed(Address pos) {
@@ -236,19 +236,19 @@ public class Panel extends PanelEventHandler {
 			if (draggingSquare == null)
 				return;
 			draggingSquare = null;
-			board.addSquareSpanning(dragStart.r, dragStart.c, dragEnd.r, dragEnd.c);
+			board.addSquareSpanning(dragStart.r(), dragStart.c(), dragEnd.r(), dragEnd.c());
 			dragStart.setNowhere();
 		}
 	}
 	protected void rightDragged(Address pos) {
 		if (isProblemEditMode()) {
 			Address dragEnd = pos;
-			board.removeSquareIncluding(dragEnd.r, dragEnd.c);
+			board.removeSquareIncluding(dragEnd.r(), dragEnd.c());
 		} else {
-			int st = board.getState(pos.r, pos.c);
+			int st = board.getState(pos.r(), pos.c());
 			if (st == currentState)
 				return;
-			board.changeStateA(pos.r, pos.c, currentState);
+			board.changeStateA(pos.r(), pos.c(), currentState);
 		}
 	}
 	protected void dragFailed() {
@@ -263,14 +263,14 @@ public class Panel extends PanelEventHandler {
 	protected void numberEntered(Address pos, int num) {
 		if (!isProblemEditMode())
 			return;
-		Square square = board.getSquare(pos.r, pos.c);
+		Square square = board.getSquare(pos.r(), pos.c());
 		if (square != null)
 			square.setNumber(num);
 	}
 	protected void spaceEntered(Address pos) {
 		if (!isProblemEditMode())
 			return;
-		Square square = board.getSquare(pos.r, pos.c);
+		Square square = board.getSquare(pos.r(), pos.c());
 		if (square != null)
 			square.setNumber(Square.ANY);
 	}

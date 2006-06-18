@@ -152,9 +152,9 @@ public class Panel extends PanelEventHandler {
 		int statusB = board.getWordStatus(r,c,Direction.VERT);
 //		r = wallPos.r;
 //		c = wallPos.c;
-		g.fillRect(toX(wallPos.c)+1, toY(wallPos.r)+1, getCellSize()-1, getCellSize()-1);
+		g.fillRect(toX(wallPos.c())+1, toY(wallPos.r())+1, getCellSize()-1, getCellSize()-1);
 		g.setColor(separationColor);
-		g.drawLine(toX(wallPos.c),toY(wallPos.r), toX(wallPos.c+1), toY(wallPos.r+1));
+		g.drawLine(toX(wallPos.c()),toY(wallPos.r()), toX(wallPos.c()+1), toY(wallPos.r()+1));
 		FontMetrics metrics = g.getFontMetrics();
 		numS = Integer.toString(b);
 		if (b>0) {
@@ -163,8 +163,8 @@ public class Panel extends PanelEventHandler {
 			else g.setColor(separationColor);
 		g.drawString(
 			numS,
-			(toX(wallPos.c) + (getHalfCellSize() - metrics.stringWidth(numS)) / 2 + 1),
-			(toY(wallPos.r) + (getHalfCellSize() - metrics.getHeight()) / 2 + metrics.getAscent())  + getHalfCellSize());
+			(toX(wallPos.c()) + (getHalfCellSize() - metrics.stringWidth(numS)) / 2 + 1),
+			(toY(wallPos.r()) + (getHalfCellSize() - metrics.getHeight()) / 2 + metrics.getAscent())  + getHalfCellSize());
 		}
 		numS = Integer.toString(a);
 		if (a>0) {
@@ -173,15 +173,15 @@ public class Panel extends PanelEventHandler {
 			else g.setColor(separationColor);
 		g.drawString(
 			numS,
-			(toX(wallPos.c) + (getHalfCellSize() - metrics.stringWidth(numS)) / 2  + getHalfCellSize()),
-			(toY(wallPos.r) + (getHalfCellSize() - metrics.getHeight()) / 2 + metrics.getAscent()) + 1);
+			(toX(wallPos.c()) + (getHalfCellSize() - metrics.stringWidth(numS)) / 2  + getHalfCellSize()),
+			(toY(wallPos.r()) + (getHalfCellSize() - metrics.getHeight()) / 2 + metrics.getAscent()) + 1);
 		}
 		g.setColor(separationColor);
 		if (board.isWall(r, c+1)) {
-			g.drawLine(toX(wallPos.c+1),toY(wallPos.r), toX(wallPos.c+1), toY(wallPos.r+1));
+			g.drawLine(toX(wallPos.c()+1),toY(wallPos.r()), toX(wallPos.c()+1), toY(wallPos.r()+1));
 		}
 		if (board.isWall(r+1, c)) {
-			g.drawLine(toX(wallPos.c),toY(wallPos.r+1), toX(wallPos.c+1), toY(wallPos.r+1));
+			g.drawLine(toX(wallPos.c()),toY(wallPos.r()+1), toX(wallPos.c()+1), toY(wallPos.r()+1));
 		}
 	}
 	/**
@@ -213,15 +213,15 @@ public class Panel extends PanelEventHandler {
 	 */
 	protected void leftPressed(Address pos) {
 		if (!isCursorOn() || getCellCursor().isAt(pos)) {
-			if (!board.isWall(pos.r, pos.c)) {
-				board.increaseNumber(pos.r, pos.c);
+			if (!board.isWall(pos.r(), pos.c())) {
+				board.increaseNumber(pos.r(), pos.c());
 			}
 		}
 	}
 	protected void rightPressed(Address pos) {
 		if (!isCursorOn() || getCellCursor().isAt(pos)) {
-			if (!board.isWall(pos.r, pos.c)) {
-				board.decreaseNumber(pos.r, pos.c);
+			if (!board.isWall(pos.r(), pos.c())) {
+				board.decreaseNumber(pos.r(), pos.c());
 			}
 		}
 	}
@@ -231,28 +231,28 @@ public class Panel extends PanelEventHandler {
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {
 			if (kcursor.getStair() == KakuroCursor.LOWER)
-				board.setSumV(pos.r, pos.c, num);
+				board.setSumV(pos.r(), pos.c(), num);
 			else if (kcursor.getStair() == KakuroCursor.UPPER)
-				board.setSumH(pos.r, pos.c, num);
+				board.setSumH(pos.r(), pos.c(), num);
 		} else {
-			if (!board.isWall(pos.r, pos.c))
-				board.enterNumberA(pos.r, pos.c, num);
+			if (!board.isWall(pos.r(), pos.c()))
+				board.enterNumberA(pos.r(), pos.c(), num);
 		}
 	}
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.removeWall(pos.r, pos.c);
+			board.removeWall(pos.r(), pos.c());
 		} else {
-			if (!board.isWall(pos.r, pos.c))
-				board.enterNumberA(pos.r, pos.c, 0);
+			if (!board.isWall(pos.r(), pos.c()))
+				board.enterNumberA(pos.r(), pos.c(), 0);
 		}
 	}
 	protected void minusEntered(Address pos) {
 		if (isProblemEditMode()) {
 			if (kcursor.getStair() == KakuroCursor.LOWER)
-				board.setSumV(pos.r, pos.c, 0);
+				board.setSumV(pos.r(), pos.c(), 0);
 			else if (kcursor.getStair() == KakuroCursor.UPPER)
-				board.setSumH(pos.r, pos.c, 0);
+				board.setSumH(pos.r(), pos.c(), 0);
 		}
 	}
 }

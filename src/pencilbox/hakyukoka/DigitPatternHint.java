@@ -96,7 +96,7 @@ public class DigitPatternHint {
 		if (area != null) {
 			for (Iterator itr = board.getArea(r0,c0).iterator(); itr.hasNext(); ) {
 				Address pos = (Address) itr.next();
-				pattern[pos.r][pos.c] &= pat;
+				pattern[pos.r()][pos.c()] &= pat;
 			}
 		}
 	}

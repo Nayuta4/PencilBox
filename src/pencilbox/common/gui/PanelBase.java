@@ -185,19 +185,19 @@ public class PanelBase extends JPanel implements Printable {
 		return r >= 0 && r < rows() && c >= 0 && c < cols();
 	}
 	protected boolean isOn(Address address) {
-		return isOn(address.r, address.c);
+		return isOn(address.r(), address.c());
 	}
 	protected boolean isSideOn(SideAddress address) {
-		if (address.d == Direction.VERT)
-			return address.r >= 0
-				&& address.r < rows()
-				&& address.c >= 0
-				&& address.c < cols() - 1;
-		else if (address.d == Direction.HORIZ)
-			return address.r >= 0
-				&& address.r < rows() - 1
-				&& address.c >= 0
-				&& address.c < cols();
+		if (address.d() == Direction.VERT)
+			return address.r() >= 0
+				&& address.r() < rows()
+				&& address.c() >= 0
+				&& address.c() < cols() - 1;
+		else if (address.d() == Direction.HORIZ)
+			return address.r() >= 0
+				&& address.r() < rows() - 1
+				&& address.c() >= 0
+				&& address.c() < cols();
 		return false;
 	}
 	/**
@@ -215,7 +215,7 @@ public class PanelBase extends JPanel implements Printable {
 			&& c < cols() + adjustCol;
 	}
 	protected boolean isOn(Address address, int adjustRow, int adjustCol) {
-		return isOn(address.r, address.c, adjustRow, adjustCol);
+		return isOn(address.r(), address.c(), adjustRow, adjustCol);
 	}
 
 	/*
