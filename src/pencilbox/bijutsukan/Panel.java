@@ -16,7 +16,7 @@ public class Panel extends PanelEventHandler {
 
 	private Board board;
 	
-	boolean warnWrongIllumination = false;
+	private boolean warnWrongIllumination = false;
 
 	private Color wallColor = Color.BLACK;
 	private Color illuminationColor = Color.BLUE;
@@ -35,10 +35,6 @@ public class Panel extends PanelEventHandler {
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard; 
 	}
-
-//	protected Board getBoard() {
-//		return (Board) super.getBoardBas();
-//	}
 
 	/**
 	 * @return Returns the warnWrongIllumination.
