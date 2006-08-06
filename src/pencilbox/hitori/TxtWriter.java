@@ -25,7 +25,7 @@ public class TxtWriter extends TxtWriterBase {
 				} else {
 					out.print('?');
 				}
-				out.print('\t');
+				out.print(' ');
 			}
 			out.println();
 		}
@@ -43,7 +43,7 @@ public class TxtWriter extends TxtWriterBase {
 				} else {
 					out.print('?');
 				}
-				out.print('\t');
+				out.print(' ');
 			}
 			out.println();
 		}
