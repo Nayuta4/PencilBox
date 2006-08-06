@@ -287,7 +287,6 @@ public class Board extends BoardBase {
 	}
 	
 	public void initBoard() {
-		super.initBoard();
 		initMulti();
 		initMulti2();
 		hint.initHint();
