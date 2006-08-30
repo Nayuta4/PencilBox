@@ -243,6 +243,19 @@ public class MenuCommand {
 		}
 	}
 	/**
+	 *  [ファイル]-[問題データ文字列出力]
+	 */
+	void exporProblemDatatString() {
+		DataExportDialog dataExportFrame = new DataExportDialog();
+		try {
+			String problemDataS = IOController.getInstance(pencilType).getProblemDataString(board);
+			dataExportFrame.setText("problem=" + problemDataS);
+			dataExportFrame.showDialog(frame, "問題データ文字列出力");
+		} catch (PencilBoxClassException e) {
+			e.printStackTrace();
+		}
+	}
+	/**
 	 *  [ファイル]-[画像保存]
 	 */
 	public void saveImage() {
@@ -409,6 +422,13 @@ public class MenuCommand {
 	public void setCursorOn(boolean b) {
 		panel.setCursorOn(b);
 		panel.repaint();
+	}
+	/**
+	 *  [表示]-[行列番号表示]
+	 */
+	public void setShowIndexMode(boolean b) {
+		panel.changeShowIndexMode(b);
+		frame.pack();
 	}
 	/**
 	 *  [表示]-[色の更新]

@@ -57,6 +57,7 @@ public class PanelBase extends JPanel implements Printable {
 	private Font numberFont = new Font("SansSerif", Font.PLAIN, 20);
 
 	private int displayStyle = 0;
+	private boolean showIndexMode = true;
 	private boolean cursorOn = false;
 	private CellCursor cellCursor;
 
@@ -139,11 +140,16 @@ public class PanelBase extends JPanel implements Printable {
 	 * 現在の盤面の状態に合わせて，setPreferredSize() を行う
 	 */
 	protected void updatePreferredSize() {
-		setPreferredSize(
-			new Dimension(
-				offsetx * 2 + cellSize * cols(),
-				offsety * 2 + cellSize * rows()));
+		setPreferredSize(getBoardRegionSize());
 		revalidate();
+	}
+	/**
+	 * Panelの盤面領域部分のサイズを取得する
+	 */
+	public Dimension getBoardRegionSize() {
+		return new Dimension(
+				offsetx * 2 + cellSize * cols() + 1,
+				offsety * 2 + cellSize * rows() + 1);
 	}
 	/**
 	 * 問題編集可能モードの設定を行う
@@ -294,14 +300,16 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param g
 	 */
 	public void drawIndex(Graphics g) {
-		int offset = 1;
+		int firstIndex = 1;
 		g.setFont(indexFont);
 		g.setColor(numberColor);
+		if (showIndexMode == false)
+			return;
 		for (int r = 0; r < rows(); r++) {
-			placeIndexNumber(g, r, -1, r + offset);
+			placeIndexNumber(g, r, -1, r + firstIndex);
 		}
 		for (int c = 0; c < cols(); c++) {
-			placeIndexNumber(g, -1, c, c + offset);
+			placeIndexNumber(g, -1, c, c + firstIndex);
 		}
 	}
 	/**
@@ -868,6 +876,33 @@ public class PanelBase extends JPanel implements Printable {
 	 */
 	protected CellCursor getCellCursor() {
 		return cellCursor;
+	}
+	/**
+	 * @return the showIndex
+	 */
+	public boolean isShowIndexMode() {
+		return showIndexMode;
+	}
+	/**
+	 * @param showIndex the showIndex to set
+	 */
+	public void setShowIndexMode(boolean showIndex) {
+		this.showIndexMode = showIndex;
+	}
+
+	/**
+	 * @param b the showIndex to set
+	 */
+	public void changeShowIndexMode(boolean b) {
+		this.showIndexMode = b;
+		if (b == true) {
+			setOffsetx(this.getCellSize());
+			setOffsety(this.getCellSize());
+		} else {
+			setOffsetx(1);
+			setOffsety(1);
+		}
+		updatePreferredSize();
 	}
 }
 

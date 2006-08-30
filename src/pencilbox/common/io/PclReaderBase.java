@@ -22,7 +22,7 @@ import pencilbox.common.factory.PencilType;
  */
 public abstract class PclReaderBase {
 
-	private PencilType type;
+	private PencilType pencilType;
 	private BoardBase board;
 	private Property property;
 	private Size size;
@@ -48,8 +48,8 @@ public abstract class PclReaderBase {
 			Text textNode = (Text)childElement.getFirstChild();
 			String text = textNode.getData().trim();
 			if (tagName.equals("type")) {
-				type = PencilType.getPencilType(text);
-				board = (BoardBase) ClassUtil.createInstance(type, "Board");
+				pencilType = PencilType.getPencilType(text);
+				board = (BoardBase) ClassUtil.createInstance(pencilType, ClassUtil.BOARD_CLASS);
 			} else if (tagName.equals("size")) {
 				readSize(text);
 			} else if (tagName.equals("question")) {

@@ -12,7 +12,7 @@ import pencilbox.common.io.TxtWriterBase;
  */
 public class TxtWriter extends TxtWriterBase {
 
-	public void writeProblem(PrintWriter out, BoardBase puzzleBoard) {
+	public void writeProblem(PrintWriter out, BoardBase puzzleBoard, int mode) {
 		Board board = (Board) puzzleBoard;
 		
 			out.println(board.rows());
@@ -31,8 +31,10 @@ public class TxtWriter extends TxtWriterBase {
 				if(room.getNumber()>=0){
 					out.print(room.getNumber());
 				}
-				out.print('\n');
+				out.println();
 			}
+			if (mode == QUESTION_ONLY)
+				return;
 			for (int r=0; r<board.rows(); r++) {
 				for (int c=0; c<board.cols(); c++) {
 					int st = board.getState(r,c);

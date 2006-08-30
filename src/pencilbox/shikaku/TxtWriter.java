@@ -12,7 +12,7 @@ import pencilbox.common.io.TxtWriterBase;
  */
 public class TxtWriter extends TxtWriterBase {
 
-	public void writeProblem(PrintWriter out, BoardBase puzzleBoard) {
+	public void writeProblem(PrintWriter out, BoardBase puzzleBoard, int mode) {
 		Board board = (Board) puzzleBoard;
 		
 		int num;
@@ -25,8 +25,10 @@ public class TxtWriter extends TxtWriterBase {
 					else out.print(num);
 					out.print(' ');
 			}
-			out.print('\n');
+			out.println();
 		}
+		if (mode == QUESTION_ONLY)
+			return;
 		out.println( board.getSquareListSize());
 		for(Iterator itr = board.getSquareListIterator(); itr.hasNext(); ) {
 			Square sq = (Square) itr.next();
