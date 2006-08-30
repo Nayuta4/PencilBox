@@ -28,7 +28,7 @@ public class PanelImageTransfer {
 	}
 
 	private void makePanelImage() {
-		image = new BufferedImage(panel.getWidth(), panel.getHeight(), BufferedImage.TYPE_INT_ARGB);
+		image = new BufferedImage(panel.getBoardRegionSize().width, panel.getBoardRegionSize().height, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2 = image.createGraphics();
 	 	// ”wŒi‚ğ”’‚Å“h‚éB‚»‚¤‚µ‚È‚¢‚ÆC”wŒi‚ª•‚­‚È‚Á‚Ä‚µ‚Ü‚¤
 		g2.setColor(Color.WHITE);

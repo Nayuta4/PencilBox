@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.Reader;
+import java.io.StringReader;
+import java.io.StringWriter;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -109,6 +111,39 @@ public class IOController {
 	}
 
 	/**
+	 * 問題文字列データから問題を作成する
+	 * @param problemData 問題文字列データ
+	 * @return 読み込んだ問題
+	 * @throws PencilBoxException
+	 */
+	public Problem readProblemData(String problemData) throws PencilBoxException {
+		Problem problem = null;
+		BoardBase board = null;
+		Reader in = null;
+		try {
+			in = new StringReader(problemData.replace('/','\n').replace('_',' '));
+			TxtReaderBase txtReader = createTxtReader();
+			board = txtReader.readProblem(in);
+			problem = new Problem(board);
+		} catch (IOException e) {
+			throw new PencilBoxException(e);
+		} catch (RuntimeException e) {
+			// txtReader はまともなエラー処理をしていないので，問題データがおかしいといろいろRunTimeExceptionが投げられる
+			// それらのRunTimeExceptionをここで受けてPencilboxExceptionに変換する
+			throw new PencilBoxException(e);
+		} finally {
+			try {
+				if (in != null)
+					in.close();
+			} catch (IOException ec) {
+				// close()による例外を受ける
+			}
+		}
+		problem.setFile(null);
+		return problem;
+	}
+
+	/**
 	 * 問題をファイルに保存する
 	 * @param problem 保存する問題
 	 * @param file 保存先のファイル
@@ -151,6 +186,23 @@ public class IOController {
 				out.close();
 		}
 	}
+	
+	/**
+	 * 問題データ文字列を作成する
+	 * @param board 盤面
+	 * @return 問題データ文字列
+	 * @throws PencilBoxClassException
+	 */
+	public String getProblemDataString(BoardBase board) throws PencilBoxClassException {
+		TxtWriterBase txtWriter = createTxtWriter();
+		StringWriter sw = new StringWriter();
+		PrintWriter out = new PrintWriter(sw);
+		txtWriter.writeQuestion(out, board);
+		String separator = System.getProperty("line.separator");
+		String problemDataS = sw.toString().replace(separator, "/").replace(' ', '_');
+		out.close();
+		return problemDataS;
+	}
 
 	private int checkFileExt(File file) {
 		String filename = file.getName();
@@ -170,7 +222,7 @@ public class IOController {
 	 */
 	private XmlReaderBase createXmlReader() throws PencilBoxClassException {
 		XmlReaderBase xmlReader = (XmlReaderBase) ClassUtil.createInstance(
-				pencilType, "XmlReader");
+				pencilType, ClassUtil.XMLREADER_CLASS);
 		xmlReader.setPuzzleType(this.pencilType.getPencilName()); // どのパズルか通知しなければならない
 		return xmlReader;
 	}
@@ -181,7 +233,7 @@ public class IOController {
 	 */
 	private XmlWriterBase createXmlWriter() throws PencilBoxClassException {
 		XmlWriterBase xmlWriter = (XmlWriterBase) ClassUtil.createInstance(
-				pencilType, "XmlWriter");
+				pencilType, ClassUtil.XMLWRITER_CLASS);
 		xmlWriter.setPuzzleType(this.pencilType.getPencilName()); // どのパズルか通知しなければならない
 		return xmlWriter;
 	}
@@ -192,7 +244,7 @@ public class IOController {
 	 */
 	private PclReaderBase createPclReader() throws PencilBoxClassException {
 		PclReaderBase pclReader = (PclReaderBase) ClassUtil.createInstance(
-				pencilType, "PclReader");
+				pencilType, ClassUtil.PCLREADER_CLASS);
 		return pclReader;
 	}
 
@@ -202,7 +254,7 @@ public class IOController {
 	 */
 	private PclWriterBase createPclWriter() throws PencilBoxClassException {
 		PclWriterBase pclWriter = (PclWriterBase) ClassUtil.createInstance(
-				pencilType, "PclWriter");
+				pencilType, ClassUtil.PCLWRITER_CLASS);
 		return pclWriter;
 	}
 
@@ -212,7 +264,7 @@ public class IOController {
 	 */
 	private TxtReaderBase createTxtReader() throws  PencilBoxClassException {
 		TxtReaderBase txtReader = (TxtReaderBase) ClassUtil.createInstance(
-				pencilType, "TxtReader");
+				pencilType, ClassUtil.TXTREADER_CLASS);
 		return txtReader;
 	}
 
@@ -222,7 +274,7 @@ public class IOController {
 	 */
 	private TxtWriterBase createTxtWriter() throws  PencilBoxClassException {
 		TxtWriterBase txtWriter = (TxtWriterBase) ClassUtil.createInstance(
-				pencilType, "TxtWriter");
+				pencilType, ClassUtil.TXTWRITER_CLASS);
 		return txtWriter;
 	}
 	

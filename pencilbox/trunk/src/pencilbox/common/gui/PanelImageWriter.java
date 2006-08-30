@@ -36,7 +36,7 @@ public class PanelImageWriter {
 	}
 
 	private void makePanelImage() {
-		image = new BufferedImage(panel.getWidth(), panel.getHeight(), BufferedImage.TYPE_INT_ARGB);
+		image = new BufferedImage(panel.getBoardRegionSize().width, panel.getBoardRegionSize().height, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2 = image.createGraphics();
 		panel.drawPanel(g2);
 	}

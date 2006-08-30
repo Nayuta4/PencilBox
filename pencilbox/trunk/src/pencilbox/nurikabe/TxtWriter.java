@@ -12,7 +12,7 @@ import pencilbox.common.io.TxtWriterBase;
  */
 public class TxtWriter extends TxtWriterBase {
 
-	public void writeProblem(PrintWriter out, BoardBase puzzleBoard) {
+	public void writeProblem(PrintWriter out, BoardBase puzzleBoard, int mode) {
 		Board board = (Board) puzzleBoard;
 		
 		out.println(board.rows());
@@ -26,13 +26,19 @@ public class TxtWriter extends TxtWriterBase {
 					} else if (s == Board.UNKNOWN) {
 						out.print('.');
 					} else if (s == Board.SPACE) {
-						out.print('+');
+						if (mode == QUESTION_ONLY)
+							out.print('.');
+						else
+							out.print('+');
 					} else if (s == Board.WALL) {
-						out.print('#');
+						if (mode == QUESTION_ONLY)
+							out.print('.');
+						else
+							out.print('#');
 					} else if (s == Board.UNDECIDED_NUMBER) {
 						out.print('?');
 					} else {
-						out.print('?');
+						out.print('.');
 					}
 				out.print(' ');
 			 }

@@ -10,8 +10,8 @@ import pencilbox.common.io.TxtWriterBase;
  * 
  */
 public class TxtWriter extends TxtWriterBase {
-
-	public void writeProblem(PrintWriter out, BoardBase puzzleBoard) {
+	
+	public void writeProblem(PrintWriter out, BoardBase puzzleBoard, int mode) {
 		Board board = (Board) puzzleBoard;
 		out.println(board.rows());
 		out.println(board.cols());
@@ -26,6 +26,8 @@ public class TxtWriter extends TxtWriterBase {
 			}
 			out.println();
 		}
+		if (mode == QUESTION_ONLY)
+			return;
 		for(int r=0; r<board.rows(); r++){
 			for(int c=0; c<board.cols(); c++){
 				if (!board.isStable(r,c)) {
@@ -38,6 +40,7 @@ public class TxtWriter extends TxtWriterBase {
 			out.println();
 		}
 	}
+
 
 
 }

@@ -30,6 +30,7 @@ public class MenuBase {
 	private JMenuItem openItem;
 	private JMenuItem coloseAndOpenItem;
 	private JMenuItem saveItem;
+	private JMenuItem exportProblemDataStringItem;
 	private JMenuItem saveImageItem;
 	private JMenuItem copyImageItem;
 	private JMenuItem printItem;
@@ -57,6 +58,7 @@ public class MenuBase {
 	private ButtonGroup displaySizeGroup;
 	private JMenu gridStyleMenu;
 	private ButtonGroup gridStyleGroup;
+	private JMenuItem showIndexModeItem;
 
 	private Frame frame;
 	private MenuCommand command;
@@ -117,6 +119,7 @@ public class MenuBase {
 		fileMenu.add(coloseAndOpenItem = makeCommandMenuItem("閉じて開く(L)...", 'L'));
 		fileMenu.add(saveItem = makeCommandMenuItem("保存(S)...", 'S'));
 		fileMenu.addSeparator();
+		fileMenu.add(exportProblemDataStringItem = makeCommandMenuItem("問題データ文字列出力(E)...", 'E'));
 		fileMenu.add(saveImageItem = makeCommandMenuItem("画像保存(I)...", 'I'));
 		fileMenu.add(copyImageItem = makeCommandMenuItem("画像コピー(M)", 'M'));
 		fileMenu.add(printItem = makeCommandMenuItem("印刷(P)...", 'P'));
@@ -163,6 +166,7 @@ public class MenuBase {
 		viewMenu.add(colorMenu = makeJMenu("色の設定(L)", 'L'));
 		viewMenu.add(rotationMenu);
 		viewMenu.add(displaySizeMenu);
+		viewMenu.add(showIndexModeItem = makeCheckBoxCommandMenuItem("行列番号表示(I)", 'I', true));
 		viewMenu.addSeparator();
 		viewMenu.addMenuListener(new ViewMenuListener());
 	}
@@ -311,12 +315,12 @@ public class MenuBase {
 	 * 何種類かのパズルに共通なメニューの作成と追加を行う
 	 */
 	/**
-	 * [カーソル]メニュー項目を[表示]メニューの上から4番目に追加する。
+	 * [カーソル]メニュー項目を[表示]メニューの上から5番目に追加する。
 	 */
 	protected void addCursorMenu() {
 		cursorItem = makeJCheckBoxMenuItem("カーソル(C)", 'C', panel.isCursorOn());
 		cursorItem.addActionListener(commandAction);
-		viewMenu.add(cursorItem, 3);
+		viewMenu.add(cursorItem, 4);
 	}
 	/**
 	 * [色の更新]メニュー項目を[表示]メニューに追加する。
@@ -464,6 +468,8 @@ public class MenuBase {
 			command.closeAndOpen();
 		else if (target == saveItem)
 			command.save();
+		else if (target == exportProblemDataStringItem)
+			command.exporProblemDatatString();
 		else if (target == saveImageItem)
 			command.saveImage();
 		else if (target == copyImageItem)
@@ -500,6 +506,8 @@ public class MenuBase {
 			command.setProblemEditMode(false);
 		else if (target == problemEditModeItem)
 			command.setProblemEditMode(true);
+		else if (target == showIndexModeItem)
+			command.setShowIndexMode(target.isSelected());
 		else
 			executeCommand2(target);
 		panel.repaint();

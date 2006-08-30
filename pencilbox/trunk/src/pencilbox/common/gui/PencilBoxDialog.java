@@ -81,13 +81,13 @@ public class PencilBoxDialog extends JPanel {
 		this.add(buttonPanel, BorderLayout.SOUTH);
 	}
 	
-//	/**
-//	 * ダイアログタイプを設定する。今のところ不使用
-//	 * @param dialogType The dialogType to set.
-//	 */
-//	public void setDialogType(int dialogType) {
-//		this.dialogType = dialogType;
-//	}
+	/**
+	 * ダイアログタイプを設定する。今のところ不使用
+	 * @param dialogType The dialogType to set.
+	 */
+	public void setDialogType(int dialogType) {
+		this.dialogType = dialogType;
+	}
 
 	/**
 	 * ESC キーでダイアログを閉じる

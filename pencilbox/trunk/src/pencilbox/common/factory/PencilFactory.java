@@ -59,7 +59,7 @@ public class PencilFactory {
 	 */
 	public void createNewFrame(Size size) throws PencilBoxClassException {
 //		try {
-			BoardBase board = (BoardBase) ClassUtil.createInstance(pencilType, "Board");
+			BoardBase board = (BoardBase) ClassUtil.createInstance(pencilType, ClassUtil.BOARD_CLASS);
 			board.setSize(size);
 			Problem problem = new Problem(board);	
 			createNewFrame(problem);
@@ -93,8 +93,8 @@ public class PencilFactory {
 //		try {
 			MenuCommand command = new MenuCommand();
 			Frame frame = new Frame();
-			MenuBase menu = (MenuBase) ClassUtil.createInstance(pencilType, "Menu");
-			PanelEventHandler panel = (PanelEventHandler) ClassUtil.createInstance(pencilType, "Panel");
+			MenuBase menu = (MenuBase) ClassUtil.createInstance(pencilType, ClassUtil.MENU_CLASS);
+			PanelEventHandler panel = (PanelEventHandler) ClassUtil.createInstance(pencilType, ClassUtil.PANEL_CLASS);
 			frame.setup(panel);
 			menu.setup(command, frame, panel);
 			command.setup(pencilType, frame, panel, problem);
