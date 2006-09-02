@@ -3,15 +3,14 @@ package pencilbox.kurodoko;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
-import pencilbox.common.gui.PanelEventHandler;
+import pencilbox.common.gui.PanelBase;
 
 
 /**
  * 「黒マスはどこだ」パネルクラス
  */
-public class Panel extends PanelEventHandler {
+public class Panel extends PanelBase {
 
 	private Board board;
 
@@ -83,9 +82,7 @@ public class Panel extends PanelEventHandler {
 		drawBoard(g);
 		drawGrid(g);
 		drawBorder(g);
-		if (getCellCursor() != null) {
-			drawCursor(g);
-		}
+		drawCursor(g);
 	}
 	/**
 	 * 盤面を描画する
@@ -156,60 +153,4 @@ public class Panel extends PanelEventHandler {
 				}
 			}
 		}
-
-	/*
-	 * 「黒マスはどこだ」マウス操作
-	 * 
-	 * 左プレス：未定⇔黒マス
-	 * 右プレス：未定⇔白マス
-	 * 右ドラッグ：はじめにボタンを押したマスときの状態にあわせる
-	 */
-
-	private int currentState = Board.UNKNOWN;
-
-	protected void leftPressed(Address pos) {
-		board.toggleState(pos.r(), pos.c(), Board.BLACK);
-	}
-
-	protected void rightPressed(Address pos) {
-		board.toggleState(pos.r(), pos.c(), Board.WHITE);
-		int st = board.getState(pos.r(), pos.c());
-		if (st > 0 || st == Board.UNDECIDED_NUMBER)
-			currentState = Board.WHITE;
-		else
-			currentState = board.getState(pos.r(), pos.c());
-	}
-
-	protected void leftDragged(Address pos) {
-		// 何もしない
-	}
-
-	protected void rightDragged(Address pos) {
-		int st = board.getState(pos.r(), pos.c());
-		if (st >0 || st == Board.UNDECIDED_NUMBER)
-			return;
-		if (st == currentState)
-			return;
-		board.changeStateA(pos.r(), pos.c(), currentState);
-	}
-
-	/*
-	 * 「黒マスはどこだ」キー操作
-	 * 
-	 * 問題入力モードのときのみ数字入力を許可
-	 */
-
-	protected void numberEntered(Address pos, int num) {
-		if (isProblemEditMode())
-			if (num > 0)
-				board.setNumber(pos.r(), pos.c(), num);
-	}
-	protected void spaceEntered(Address pos) {
-		if (isProblemEditMode())
-			board.changeState(pos.r(), pos.c(), Board.UNKNOWN);
-	}
-	protected void minusEntered(Address pos) {
-		if (isProblemEditMode())
-			board.changeState(pos.r(), pos.c(), Board.UNDECIDED_NUMBER);
-	}
 }

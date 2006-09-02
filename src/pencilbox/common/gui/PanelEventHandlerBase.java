@@ -1,13 +1,24 @@
 package pencilbox.common.gui;
 
-import java.awt.event.*;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
-import pencilbox.common.core.*;
+import pencilbox.common.core.Address;
+import pencilbox.common.core.BoardBase;
+import pencilbox.common.core.Direction;
+import pencilbox.common.core.SideAddress;
 
 /**
  * パネルに対するマウス，キーボードのイベント処理を行うクラス
  */
-public class PanelEventHandler extends PanelBase {
+public class PanelEventHandlerBase {
+
+	private PanelBase panel;
+//	private BoardBase board;
 
 	private KeyHandler keyHandler = new KeyHandler();
 	private MouseHandler mouseHandler = new MouseHandler();
@@ -19,24 +30,42 @@ public class PanelEventHandler extends PanelBase {
 	/**
 	 * Panelを生成する
 	 */
-	public PanelEventHandler() {
-		addKeyListener(keyHandler);
-		addMouseListener(mouseHandler);
-		addMouseMotionListener(mouseHandler);
-		addMouseListener(mouseHandlerEdge);
-		setCellCursor(createCursor());
+	public PanelEventHandlerBase() {
 	}
+	
+	public void setup(PanelBase panel, BoardBase board) {
+		this.panel = panel;
+		setBoard(board);
+		panel.addKeyListener(keyHandler);
+		panel.addMouseListener(mouseHandler);
+		panel.addMouseMotionListener(mouseHandler);
+		panel.addMouseListener(mouseHandlerEdge);
+		panel.setCellCursor(createCursor());
+	}
+	
+	public void setup(BoardBase board) {
+		setBoard(board);
+		getCellCursor().setPosition(0,0);
+	}
+
+	/**
+	 * 個別クラスのパネルに個別クラスの盤面を設定するためのメソッド
+	 * 各個別クラスでオーバーライドする
+	 * @param board 盤面
+	 */
+	protected void setBoard(BoardBase board) {
+	}
+	
+	public PanelBase getPanel() {
+		return panel;
+	}
+
 	/**
 	 *  カーソルを生成する
 	 * @return 生成したカーソル
 	 */
 	public CellCursor createCursor() {
 		return new CellCursor(this);
-	}
-
-	public void setup(BoardBase board) {
-		super.setup(board);
-		getCellCursor().setPosition(0,0);
 	}
 	/**
 	 * 入力可能な最大数字を設定する
@@ -51,6 +80,67 @@ public class PanelEventHandler extends PanelBase {
 	public void resetPreviousInput() {
 		previousInput = 0;
 	}
+	
+	public int getCellSize() {
+		return panel.getCellSize();
+	}
+
+	public int getHalfCellSize() {
+		return panel.getHalfCellSize();
+	}
+
+	public int getOffsetx() {
+		return panel.getOffsetx();
+	}
+
+	public int getOffsety() {
+		return panel.getOffsety();
+	}
+	
+	public boolean isProblemEditMode() {
+		return panel.isProblemEditMode();
+	}
+	
+	public void setProblemEditMode(boolean b) {
+		panel.setProblemEditMode(b);
+	}
+	
+	public CellCursor getCellCursor() {
+		return panel.getCellCursor();
+	}
+	
+	public boolean isCursorOn() {
+		return panel.isCursorOn();
+	}
+	
+	public void repaint() {
+		panel.repaint();
+	}
+	
+	public boolean isOn(int r, int c) {
+		return panel.isOn(r, c);
+	}
+	
+	public boolean isOn(int r, int c, int a, int b) {
+		return panel.isOn(r, c, a, b);
+	}
+	
+	public boolean isOn(Address position) {
+		return panel.isOn(position);
+	}
+	
+	public boolean isSideOn(SideAddress position) {
+		return panel.isSideOn(position);
+	}
+	
+	public int rows() {
+		return panel.rows();
+	}
+	
+	public int cols() {
+		return panel.cols();
+	}
+	
 	/**
 	 * Panel上のx方向ピクセル座標をPanel上の列方向マス座標に変換する
 	 * @param x Panel上のピクセル座標のx
@@ -186,12 +276,8 @@ public class PanelEventHandler extends PanelBase {
 		public void mousePressed(MouseEvent e) {
 
 			newPos.set(toR(e.getY()), toC(e.getX()));
-			
 			if (!isOn(newPos))
 				return;
-
-			moveCursor(newPos);
-
 			int modifier = e.getModifiers();
 			if ((modifier & InputEvent.BUTTON1_MASK) != 0) {
 				if ((e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK) != 0)
@@ -201,6 +287,7 @@ public class PanelEventHandler extends PanelBase {
 			} else if ((modifier & InputEvent.BUTTON3_MASK) != 0) {
 				rightPressed(newPos);
 			}
+			moveCursor(newPos);
 
 			oldPos.set(newPos); // 現在位置を更新
 			repaint();

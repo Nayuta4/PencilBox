@@ -21,7 +21,7 @@ public class Frame extends JFrame {
 	 * フレームの初期化処理で，フレーム生成直後に使用される
 	 * @param panel 設定するパネル
 	 */
-	public void setup(PanelEventHandler panel) {
+	public void setup(PanelBase panel) {
 		JScrollPane jScrollPane = new JScrollPane();
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		Container contentPane = getContentPane();

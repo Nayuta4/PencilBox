@@ -1,7 +1,7 @@
 package pencilbox.kakuro;
 
 import pencilbox.common.gui.CellCursor;
-import pencilbox.common.gui.PanelEventHandler;
+import pencilbox.common.gui.PanelEventHandlerBase;
 
 /**
  * 「カックロ」問題入力用カーソルクラス
@@ -32,7 +32,7 @@ public class KakuroCursor extends CellCursor {
 	 * Panelと関連付ける
 	 * @param panel
 	 */
-	public KakuroCursor(PanelEventHandler aPanel) {
+	public KakuroCursor(PanelEventHandlerBase aPanel) {
 		super(aPanel);
 		stair = 0;
 	}

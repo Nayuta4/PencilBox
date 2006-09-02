@@ -23,14 +23,14 @@ public class HintDot{
 	private int dotOffset = 1;
 	private int unit = 3;
 	private int maxNumber = 9;
-	private PanelEventHandler panel;
+	private PanelBase panel;
 
 	/**
 	 * @param panel
 	 * @param unit
 	 * @param cellSize
 	 */
-	public void setDot(PanelEventHandler panel, int unit, int cellSize){
+	public void setDot(PanelBase panel, int unit, int cellSize){
 		this.panel = panel;
 		maxNumber = unit * unit;
 		this.unit = unit;

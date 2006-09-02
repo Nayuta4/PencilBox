@@ -9,7 +9,8 @@ import pencilbox.common.core.Size;
 import pencilbox.common.gui.Frame;
 import pencilbox.common.gui.MenuBase;
 import pencilbox.common.gui.MenuCommand;
-import pencilbox.common.gui.PanelEventHandler;
+import pencilbox.common.gui.PanelBase;
+import pencilbox.common.gui.PanelEventHandlerBase;
 import pencilbox.common.io.IOController;
 
 
@@ -94,11 +95,13 @@ public class PencilFactory {
 			MenuCommand command = new MenuCommand();
 			Frame frame = new Frame();
 			MenuBase menu = (MenuBase) ClassUtil.createInstance(pencilType, ClassUtil.MENU_CLASS);
-			PanelEventHandler panel = (PanelEventHandler) ClassUtil.createInstance(pencilType, ClassUtil.PANEL_CLASS);
+			PanelBase panel = (PanelBase) ClassUtil.createInstance(pencilType, ClassUtil.PANEL_CLASS);
+			PanelEventHandlerBase handler = (PanelEventHandlerBase) ClassUtil.createInstance(pencilType, ClassUtil.PANEL_EVENT_HANDLER_CLASS);
 			frame.setup(panel);
 			menu.setup(command, frame, panel);
-			command.setup(pencilType, frame, panel, problem);
+			command.setup(pencilType, frame, panel, handler, problem);
 			panel.setup(problem.getBoard());
+			handler.setup(panel, problem.getBoard());
 			frame.resize();
 			frame.centering();
 			frame.setVisible(true);
@@ -131,12 +134,14 @@ public class PencilFactory {
 //		try {
 //			MenuCommand command = new MenuCommand();
 //			MenuBase menu = (MenuBase) ClassUtil.createInstance(pencilType, "Menu");
-			PanelEventHandler panel = command.getPanelBase();
+			PanelBase panel = command.getPanelBase();
+			PanelEventHandlerBase handler = command.getPanelEventHandlerBase();
 			Frame frame = command.getFrame();
 //			frame.setup(panel);
 //			menu.setup(command, frame, panel);
 			command.setup(pencilType, problem);
 			panel.setup(problem.getBoard());
+			handler.setup(problem.getBoard());
 			frame.resize();
 //			frame.centering();
 //			frame.setVisible(true);

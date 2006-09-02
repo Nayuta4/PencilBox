@@ -4,24 +4,21 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
-import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
-import pencilbox.common.gui.PanelEventHandler;
+import pencilbox.common.gui.PanelBase;
 import pencilbox.util.Colors;
 
 
 /**
  * 「ぬりかべ」パネルクラス
  */
-public class Panel extends PanelEventHandler {
+public class Panel extends PanelBase {
 
 	private Board board;
 
 	private Color paintColor = Color.BLUE;
 	private Color circleColor = Color.MAGENTA;
 	private Color errorColor = Color.RED;
-
-	private int currentState = Board.UNKNOWN;
 
 	private Font countFont = new Font("SansSerif", Font.ITALIC, 13);
 
@@ -86,9 +83,7 @@ public class Panel extends PanelEventHandler {
 		drawBoard(g);
 		drawGrid(g);
 		drawBorder(g);
-		if (getCellCursor() != null) {
-			drawCursor(g);
-		}
+		drawCursor(g);
 	}
 	/**
 	 * 盤面を描画する
@@ -150,82 +145,4 @@ public class Panel extends PanelEventHandler {
 		}
 		paintCell(g, r, c);
 	}
-	/**
-	 * 「ぬりかべ」キーリスナー
-	 * 
-	 * 問題入力モードのときのみ数字入力を許可
-	 */
-	protected void numberEntered(Address pos, int num) {
-		if (isProblemEditMode())
-			if (num > 0)
-				board.changeState(pos.r(), pos.c(), num);
-	}
-	protected void spaceEntered(Address pos) {
-		if (isProblemEditMode())
-			board.changeState(pos.r(), pos.c(), Board.UNKNOWN);
-	}
-	protected void minusEntered(Address pos) {
-		if (isProblemEditMode())
-			board.changeState(pos.r(), pos.c(), Board.UNDECIDED_NUMBER);
-	}
-
-	/**
-	 * 「ぬりかべ」マウスリスナー
-	 * 
-	 * 左プレス：未定⇔黒マス
-	 * 右プレス：未定⇔白マス
-	 */
-	protected void leftPressed(Address pos) {
-		if (isProblemEditMode())
-			return;
-		board.toggleState(pos.r(), pos.c(), Board.WALL);
-		if (board.isNumber(pos.r(), pos.c()))
-			currentState = Board.UNKNOWN;
-		else
-			currentState = board.getState(pos.r(), pos.c());
-	}
-
-	protected void rightPressed(Address pos) {
-		if (isProblemEditMode())
-			return;
-		board.toggleState(pos.r(), pos.c(), Board.SPACE);
-		if (board.isNumber(pos.r(), pos.c()))
-			currentState = Board.SPACE;
-		else
-			currentState = board.getState(pos.r(), pos.c());
-	}
-
-	protected void leftDragged(Address dragStart, Address pos) {
-		if (isProblemEditMode()) {
-			getCellCursor().setPosition(pos);
-			if (isOn(dragStart)) {
-				int number = board.getState(dragStart.r(), dragStart.c());
-				if (number > 0 || number == Board.UNDECIDED_NUMBER){
-					board.changeState(dragStart.r(), dragStart.c(), Board.UNKNOWN);
-					board.changeState(pos.r(), pos.c(), number);
-				}
-			}
-		}
-		else {
-			int st = board.getState(pos.r(), pos.c());
-			if (st > 0 || st == Board.UNDECIDED_NUMBER)
-				return;
-			if (st == currentState)
-				return;
-			board.changeStateA(pos.r(), pos.c(), currentState);
-		}
-	}
-	protected void rightDragged(Address dragStart, Address pos) {
-		if (isProblemEditMode()) {
-			return;
-		} else {
-			int st = board.getState(pos.r(), pos.c());
-			if (st > 0 || st == Board.UNDECIDED_NUMBER)
-				return;
-			if (st == currentState)
-				return;
-			board.changeStateA(pos.r(), pos.c(), currentState);
-		}
-	}
-
 }

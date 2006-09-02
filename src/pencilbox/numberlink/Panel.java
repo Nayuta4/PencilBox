@@ -3,16 +3,15 @@ package pencilbox.numberlink;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
-import pencilbox.common.gui.PanelEventHandler;
+import pencilbox.common.gui.PanelBase;
 import pencilbox.util.Colors;
 
 
 /**
  * 「ナンバーリンク」パネルクラス
  */
-public class Panel extends PanelEventHandler {
+public class Panel extends PanelBase {
 
 	private Board board;
 
@@ -92,14 +91,41 @@ public class Panel extends PanelEventHandler {
 		this.warnBranchedLink = warnBranchedLink;
 	}
 
+	/**
+	 * @return the selectedLink
+	 */
+	protected Link getSelectedLink() {
+		return selectedLink;
+	}
+
+	/**
+	 * @param selectedLink the selectedLink to set
+	 */
+	protected void setSelectedLink(Link selectedLink) {
+		this.selectedLink = selectedLink;
+	}
+
+	/**
+	 * @return the selectedNumber
+	 */
+	protected int getSelectedNumber() {
+		return selectedNumber;
+	}
+
+	/**
+	 * @param selectedNumber the selectedNumber to set
+	 */
+	protected void setSelectedNumber(int selectedNumber) {
+		this.selectedNumber = selectedNumber;
+	}
+
 	public void drawPanel(Graphics g) {
 		paintBackground(g);
 		drawIndex(g);
 		drawBoard(g);
 		this.drawGrid(g);
 		drawBorder(g);
-		if (getCellCursor() != null)
-			drawCursor(g);
+		drawCursor(g);
 	}
 
 	/**
@@ -146,7 +172,7 @@ public class Panel extends PanelEventHandler {
 		if (warnBranchedLink && board.isBranchedLink(d,r,c)) {
 			g.setColor(errorColor);
 		}
-		else if (highlightSelectedLink && ((linkNo > 0 && linkNo == selectedNumber)|| link == selectedLink)) {
+		else if (highlightSelectedLink && ((linkNo > 0 && linkNo == getSelectedNumber())|| link == getSelectedLink())) {
 			g.setColor(selectedLinkColor);
 		}			
 		else if (colorForEachLink) {
@@ -164,7 +190,7 @@ public class Panel extends PanelEventHandler {
 	}
 
 	public void placeNumber(Graphics g, int r, int c, int n) {
-		if (highlightSelectedLink && n == selectedNumber) {
+		if (highlightSelectedLink && n == getSelectedNumber()) {
 			g.setColor(selectedLinkColor);
 			super.paintCell(g, r, c);
 			g.setColor(getNumberColor());
@@ -214,81 +240,6 @@ public class Panel extends PanelEventHandler {
 				break;
 			case 2 : // 非表示
 				break;
-		}
-	}
-
-	/**
-	 * 「ナンバーリンク」キーリスナー
-	 * 
-	 * 問題入力モードのときのみ数字入力を許可
-	 */
-
-	protected void numberEntered(Address pos, int num) {
-		if (isProblemEditMode())
-			board.setNumber(pos.r(), pos.c(), num);
-	}
-	protected void spaceEntered(Address pos) {
-		if (isProblemEditMode())
-			board.setNumber(pos.r(), pos.c(), 0);
-	}
-	protected void minusEntered(Address pos) {
-		if (isProblemEditMode()) {
-			board.setNumber(pos.r(), pos.c(), Board.UNDECIDED_NUMBER);
-		}
-	}
-
-	/**
-	 * 「ナンバーリンク」用マウスリスナー
-	 * 盤内部の辺に対して操作をする
-	 * 左クリック： 線確定⇔未定
-	 * 右クリック： 線なし確定⇔未定
-	 */
-//	protected void leftClicked(int dir, Address pos) {
-//		board.toggleState(dir, pos.r, pos.c, Board.LINE);
-//	}
-//	protected void rightClickedEdge(int dir, Address pos) {
-//		board.toggleState(dir, pos.r, pos.c, Board.NOLINE);
-//	}
-
-	/**
-	 * ナンバーリンク用マウスリスナー
-	 * マスからマスにドラッグにより線を引く
-	 * 左ドラッグ： 線を引く
-	 * 右ドラッグ： 線を消す
-	 */
-
-	protected void leftDragged(Address dragStart, Address dragEnd) {
-		if (dragStart.r() == dragEnd.r() || dragStart.c() == dragEnd.c()) {
-			board.determineInlineState(dragStart, dragEnd, Board.LINE);
-		}
-	}
-	protected void rightDragged(Address dragStart, Address dragEnd) {
-		if (dragStart.r() == dragEnd.r() || dragStart.c() == dragEnd.c()) {
-			board.determineInlineState(dragStart, dragEnd, Board.UNKNOWN);
-		}
-	}
-
-	/*
-	 * クリックしたマスの線がハイライトされる もう１度クリックするとハイライト取り消し
-	 */
-	protected void leftClicked(Address pos) {
-
-		Link link = board.getLink(pos.r(), pos.c());
-		int newNumber = 0;
-
-		if (board.isNumber(pos.r(), pos.c()))
-			newNumber = board.getNumber(pos.r(), pos.c());
-		else {
-			if(link!=null)
-				newNumber = link.getNumber();
-		}
-
-		if (newNumber == selectedNumber && selectedLink == link) {
-			selectedLink = null;
-			selectedNumber = 0;
-		} else {
-			selectedLink = link;
-			selectedNumber = newNumber;
 		}
 	}
 

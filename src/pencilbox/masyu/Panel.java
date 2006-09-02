@@ -3,17 +3,15 @@ package pencilbox.masyu;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
-import pencilbox.common.core.SideAddress;
-import pencilbox.common.gui.PanelEventHandler;
+import pencilbox.common.gui.PanelBase;
 import pencilbox.util.Colors;
 
 
 /**
  * 「ましゅ」パネルクラス
  */
-public class Panel extends PanelEventHandler {
+public class Panel extends PanelBase {
 
 	private Board board;
 
@@ -32,7 +30,6 @@ public class Panel extends PanelEventHandler {
 	 */
 	public Panel() {
 		setGridColor(Color.GRAY);
-		setMaxInputNumber(2);
 	}
 	
 	protected void setBoard(BoardBase aBoard) {
@@ -100,9 +97,7 @@ public class Panel extends PanelEventHandler {
 		drawBoard(g);
 		drawGrid(g);
 		drawBorder(g);
-		if (getCellCursor() != null) {
-			drawCursor(g);
-		}
+		drawCursor(g);
 	}
 	/**
 	 * 盤面を描画する
@@ -167,50 +162,4 @@ public class Panel extends PanelEventHandler {
 		placeFilledCircle(g, r, c);
 	}
 
-	/*
-	 * ましゅ用マウスリスナー
-	 * 盤内の辺に対して操作をする
-	 * 左クリック： 線確定⇔未定
-	 * 右クリック： 線なし確定⇔未定
-	 */
-	protected void leftClickedEdge(SideAddress pos) {
-		board.toggleState(pos.d(), pos.r(), pos.c(), Board.LINE);
-	}
-	protected void rightClickedEdge(SideAddress pos) {
-		board.toggleState(pos.d(), pos.r(), pos.c(), Board.NOLINE);
-	}
-	/*
-	 * ましゅ用マウスモーションリスナー
-	 * マスAからマスBへドラッグしたとき，
-	 * AとBが同一行または列にあれば，
-	 * 左ドラッグ： AからBまで線を引く
-	 * 右ドラッグ： AからBまで線を消す
-	 */
-	protected void leftDragged(Address dragStart, Address dragEnd) {
-		if (dragStart.r() == dragEnd.r() || dragStart.c() == dragEnd.c()) {
-			board.determineInlineState(dragStart, dragEnd, Board.LINE);
-		}
-	}
-
-	protected void rightDragged(Address dragStart, Address dragEnd) {
-		if (dragStart.r() == dragEnd.r() || dragStart.c() == dragEnd.c()) {
-			board.determineInlineState(dragStart, dragEnd, Board.UNKNOWN);
-		}
-	}
-	/*
-	 * 「ましゅ」キーリスナー 問題入力モードのときのみ記号 space: 真珠除去 1: 白真珠 2: 黒真珠 -: 灰色真珠
-	 */
-	protected void numberEntered(Address pos, int n) {
-		if (isProblemEditMode())
-			if(n == 1 || n == 2)
-				board.setPearl(pos.r(), pos.c(), n);
-	}
-	protected void spaceEntered(Address pos) {
-		if (isProblemEditMode())
-			board.setPearl(pos.r(), pos.c(), Board.NO_PEARL);
-	}
-	protected void minusEntered(Address pos) {
-		if (isProblemEditMode())
-			board.setPearl(pos.r(), pos.c(), Board.GRAY_PEARL);
-	}
 }

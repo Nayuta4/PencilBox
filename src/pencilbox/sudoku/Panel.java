@@ -3,16 +3,15 @@ package pencilbox.sudoku;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.gui.HintDot;
-import pencilbox.common.gui.PanelEventHandler;
+import pencilbox.common.gui.PanelBase;
 
 
 /**
  * 「数独」パネルクラス
  */
-public class Panel extends PanelEventHandler {
+public class Panel extends PanelBase {
 
 	private Board board;
 
@@ -40,12 +39,24 @@ public class Panel extends PanelEventHandler {
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard;
 		unit = board.getUnit();
-		setMaxInputNumber(board.rows());
 		// ドットヒント表示可能なのは，サイズ3,4,5のみ
 		if (unit>=3 && unit<=5)
 			hintDot.setDot(this, unit, getCellSize());
 	}
 
+	/**
+	 * @return the selectedNumber
+	 */
+	protected int getSelectedNumber() {
+		return selectedNumber;
+	}
+
+	/**
+	 * @param selectedNumber the selectedNumber to set
+	 */
+	protected void setSelectedNumber(int selectedNumber) {
+		this.selectedNumber = selectedNumber;
+	}
 	/**
 	 * @return Returns the selectedNumberColor.
 	 */
@@ -106,9 +117,7 @@ public class Panel extends PanelEventHandler {
 		drawIndex(g);
 		drawBoard(g);
 		drawGrid(g);
-		if (getCellCursor() != null) {
-			drawCursor(g);
-		}
+		drawCursor(g);
 	}
 	/**
 	 * 外枠を含め，罫線を引く
@@ -159,17 +168,18 @@ public class Panel extends PanelEventHandler {
 	}
 	// 選択数字と同じ行，列，ボックスを色塗り 
 	void paintCell(Graphics g, int r, int c, int num) {
-		if (highlightSelectedNumber && selectedNumber > 0) {
-			if (selectedNumber == num) {
+		if (highlightSelectedNumber && getSelectedNumber() > 0) {
+			if (getSelectedNumber() == num) {
 				g.setColor(selectedNumberColor);
 				paintCell(g, r, c);
 			}
-			else if (board.canPlace(r, c, selectedNumber)) {
+			else if (board.canPlace(r, c, getSelectedNumber())) {
 				g.setColor(selectedNumberColor2);
 				paintCell(g, r, c);
 			}
 		}
 	}
+	
 	void drawNumber(Graphics g, int r, int c, int num) {
 		if (board.isStable(r, c)) {
 			g.setColor(getNumberColor());
@@ -190,70 +200,5 @@ public class Panel extends PanelEventHandler {
 			hintDot.placeHintDot(g, r, c, pat);
 		}
 	}
-	/*
-	 * 不使用
-	 */
-	void drawHintDots(Graphics g) {
-		for (int r = 0; r < board.rows(); r++) {
-			for (int c = 0; c < board.cols(); c++) {
-				drawHintDot(g,r,c);
-			}
-		}
-	}
 
-	/*
-	 * 「数独」マウスリスナー
-	 */
-	protected void leftPressed(Address pos) {
-		if (!isCursorOn() || getCellCursor().isAt(pos)) {
-			if (!board.isStable(pos.r(), pos.c()))
-				board.increaseNumber(pos.r(), pos.c());
-		}
-		selectedNumber = board.getNumber(pos.r(), pos.c());
-	}
-	protected void rightPressed(Address pos) {
-		if (!isCursorOn() || getCellCursor().isAt(pos)) {
-			if (!board.isStable(pos.r(), pos.c()))
-				board.decreaseNumber(pos.r(), pos.c());
-		}
-		selectedNumber = board.getNumber(pos.r(), pos.c());
-	}
-	/*
-	 * 「数独」キーリスナー
-	 * 
-	 * 問題入力モードのときはどこでも，
-	 * 解答入力モードのときは，入力可能位置にのみ，
-	 * 数字を入力する
-	 * 
-	 */
-	protected void numberEntered(Address pos, int num) {
-		if (isProblemEditMode()) {
-			if (num > 0) {
-				board.changeNumber(pos.r(), pos.c(), num);
-				board.setState(pos.r(), pos.c(), Board.STABLE);
-			}
-		} else {
-			if (num > 0) {
-				if (!board.isStable(pos.r(), pos.c())) {
-					board.enterNumberA(pos.r(), pos.c(), num);
-				}
-			}
-		}
-	}
-	protected void spaceEntered(Address pos) {
-		if (isProblemEditMode()) {
-			board.changeNumber(pos.r(), pos.c(), 0);
-			board.setState(pos.r(), pos.c(), Board.UNSTABLE);
-		} else {
-			if (!board.isStable(pos.r(), pos.c())) {
-				board.enterNumberA(pos.r(), pos.c(), 0);
-			}
-		}
-	}
-	protected void minusEntered(Address pos) {
-		if (isProblemEditMode()) {
-			board.changeNumber(pos.r(), pos.c(), Board.UNKNOWN);
-			board.setState(pos.r(), pos.c(), Board.STABLE);
-		} 
-	}
 }

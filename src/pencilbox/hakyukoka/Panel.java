@@ -3,23 +3,20 @@ package pencilbox.hakyukoka;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
 import pencilbox.common.gui.HintDot;
-import pencilbox.common.gui.PanelEventHandler;
+import pencilbox.common.gui.PanelBase;
 
 
 
 /**
  * 「波及効果」パネルクラス
  */
-public class Panel extends PanelEventHandler {
+public class Panel extends PanelBase {
 	
 	private Board board;
 
-	private int maxNumber = 9;  // キー入力可能数字9までとする
-	
 	private boolean warnWrongNumber = false;
 	private boolean highlightSelectedNumber = false;
 
@@ -45,8 +42,21 @@ public class Panel extends PanelEventHandler {
 
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard; 
-		setMaxInputNumber(maxNumber);   // 暫定的
 		hintDot.setDot(this, 3, getCellSize());
+	}
+
+	/**
+	 * @return the selectedNumber
+	 */
+	public int getSelectedNumber() {
+		return selectedNumber;
+	}
+
+	/**
+	 * @param selectedNumber the selectedNumber to set
+	 */
+	public void setSelectedNumber(int selectedNumber) {
+		this.selectedNumber = selectedNumber;
 	}
 
 	/**
@@ -95,9 +105,7 @@ public class Panel extends PanelEventHandler {
 		drawBoard(g);
 		drawGrid(g);
 		drawBorder(g);
-		if (getCellCursor() != null) {
-			drawCursor(g);
-		}
+		drawCursor(g);
 	}
 	/**
 	 * 盤面を描画する
@@ -117,7 +125,7 @@ public class Panel extends PanelEventHandler {
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
 				int n = board.getNumber(r, c);
-				if (highlightSelectedNumber && n > 0 && n == selectedNumber) {
+				if (highlightSelectedNumber && n > 0 && n == getSelectedNumber()) {
 					for (int cc = c-n; cc <= c+n; cc++) {
 						if (cc==c)
 							continue;
@@ -179,7 +187,7 @@ public class Panel extends PanelEventHandler {
 //						paintCell(g, r, c);
 //					}
 //				}
-				if (highlightSelectedNumber && selectedNumber > 0 && board.getNumber(r, c) == selectedNumber) {
+				if (highlightSelectedNumber && getSelectedNumber() > 0 && board.getNumber(r, c) == getSelectedNumber()) {
 					g.setColor(selectedNumberColor);
 					paintCell(g, r, c);
 				}
@@ -256,125 +264,4 @@ public class Panel extends PanelEventHandler {
 		}
 	}
 
-	/*
-	 * マウス操作
-	 */
-	private Area draggingArea;
-
-	protected void leftPressed(Address pos) {
-		if (isProblemEditMode()) {
-			Area oldArea = board.getArea(pos.r(), pos.c());
-			if (draggingArea == null) {
-				//	ここの if 文を有効にすれば，既存のAreaを内側から広げることができる
-				//	ただし，undo と整合をどうするかが問題				
-				//				if (oldArea != null)
-				//					draggingArea = oldArea;
-				//				else
-				draggingArea = new Area();
-			}
-			if (oldArea != null && oldArea != draggingArea) {
-				board.removeArea(oldArea);
-			}
-			board.setArea(pos.r(), pos.c(), draggingArea);
-			draggingArea.add(pos);
-		} else {
-			if (!isCursorOn() || getCellCursor().isAt(pos)) {
-				if (!board.isStable(pos.r(), pos.c()))
-					board.increaseNumber(pos.r(), pos.c());
-			}
-			selectedNumber = board.getNumber(pos.r(), pos.c());
-		}
-	}
-	protected void rightPressed(Address pos) {
-		if (isProblemEditMode()) {
-			Area oldArea = board.getArea(pos.r(), pos.c());
-			if (oldArea != null) {
-				board.removeArea(oldArea);
-			}
-		} else {
-			if (!isCursorOn() || getCellCursor().isAt(pos)) {
-				if (!board.isStable(pos.r(), pos.c()))
-					board.decreaseNumber(pos.r(), pos.c());
-			}
-			selectedNumber = board.getNumber(pos.r(), pos.c());
-		}
-	}
-	protected void leftDragged(Address pos) {
-		if (isProblemEditMode()) {
-			getCellCursor().setPosition(pos);
-			leftPressed(pos);
-		}
-	}
-	protected void rightDragged(Address pos) {
-		if (isProblemEditMode())
-			rightPressed(pos);
-	}
-	protected void leftDragFixed(Address dragEnd) {
-		if (draggingArea == null)
-			return;
-		board.addArea(draggingArea);
-		draggingArea = null;
-	}
-	protected void rightDragFixed(Address dragStart, Address dragEnd) {
-		//			board.removeSquare(dragStart.r, dragStart.c, dragEnd.r, dragEnd.c);
-		draggingArea = null;
-	}
-	protected void dragFailed() {
-		if (draggingArea == null)
-			return;
-		board.addArea(draggingArea);
-		draggingArea = null;
-	}
-	//		protected boolean dragIneffective(Address oldPos, Address newPos) {
-	//			if (newPos.isNextTo(oldPos)) return false; // 隣接マス以外のイベントは無視
-	//			else return true;
-	//		}
-	//	}
-	/*
-	 * 「波及効果」キー操作
-	 *  
-	 * 問題入力モードのときはどこでも，
-	 * 解答入力モードのときは，入力可能位置のみ，
-	 * 数字を入力する
-	 */
-	protected void numberEntered(Address pos, int num) {
-		if (isProblemEditMode()) {
-			if (num > 0) {
-				board.changeNumber(pos.r(), pos.c(), num);
-				board.setState(pos.r(), pos.c(), Board.STABLE);
-			}
-		} else {
-			if (num > 0) {
-				if (!board.isStable(pos.r(), pos.c())) {
-					board.enterNumberA(pos.r(), pos.c(), num);
-				}
-			}
-		}
-	}
-
-	protected void spaceEntered(Address pos) {
-		if (isProblemEditMode()) {
-			board.setNumber(pos.r(), pos.c(), 0);
-			board.setState(pos.r(), pos.c(), Board.UNSTABLE);
-		} else {
-			if (!board.isStable(pos.r(), pos.c())) {
-				board.enterNumberA(pos.r(), pos.c(), 0);
-			}
-		}
-		if (isProblemEditMode()) {
-			board.setNumber(pos.r(), pos.c(), 0);
-			board.setState(pos.r(), pos.c(), Board.UNSTABLE);
-		} else {
-			if (!board.isStable(pos.r(), pos.c())) {
-				board.enterNumberA(pos.r(), pos.c(), 0);
-			}
-		}
-	}
-
-	protected void minusEntered(Address pos) {
-		if (isProblemEditMode()) {
-			board.setNumber(pos.r(), pos.c(), Board.UNKNOWN);
-			board.setState(pos.r(), pos.c(), Board.STABLE);
-		}
-	}
 }

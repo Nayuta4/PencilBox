@@ -4,16 +4,15 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Iterator;
 
-import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
-import pencilbox.common.gui.PanelEventHandler;
+import pencilbox.common.gui.PanelBase;
 import pencilbox.util.Colors;
 
 
 /**
  * 「四角に切れ」パネルクラス
  */
-public class Panel extends PanelEventHandler {
+public class Panel extends PanelBase {
 
 	private Board board;
 
@@ -88,9 +87,7 @@ public class Panel extends PanelEventHandler {
 		drawDragging(g);
 		drawGrid(g);
 		drawBorder(g);
-		if (getCellCursor() != null) {
-			drawCursor(g);
-		}
+		drawCursor(g);
 	}
 	/**
 	 * 盤面を描画する
@@ -167,66 +164,24 @@ public class Panel extends PanelEventHandler {
 	 * @param g
 	 */
 	private void drawDragging(Graphics g) {
-		Square area = draggingArea;
+		Square area = getDraggingArea();
 		if (area == null)
 			return;
 		placeSquare(g, area.r0, area.c0, area.r1, area.c1);
 	}
 
-	/*
-	 * 「四角に切れ」マウスリスナー
-	 * 左ドラッグ：ドラッグ始点と終点を２つの頂点とする長方形を描く
-	 * 右プレス，ドラッグ：そのマスを含む長方形を消去する
+	/**
+	 * @param draggingArea the draggingArea to set
 	 */
-	private Address dragStart = new Address(Address.NOWEHER);
-
-	protected void leftPressed(Address pos) {
-		dragStart.set(pos);
-		draggingArea =
-			new Square(dragStart.r(), dragStart.c(), pos.r(), pos.c());
+	void setDraggingArea(Square draggingArea) {
+		this.draggingArea = draggingArea;
 	}
 
-	protected void rightPressed(Address dragEnd) {
-		board.removeSquareIncluding(dragEnd);
-	}
-	
-	protected void leftDragged(Address dragEnd) {
-		if (draggingArea == null)
-			return;
-		draggingArea.set(dragStart.r(), dragStart.c(), dragEnd.r(), dragEnd.c());
-	}
-	
-	protected void leftDragFixed(Address dragEnd) {
-		if (draggingArea == null)
-			return;
-		draggingArea = null;
-		board.addSquareSpanning(dragStart, dragEnd);
-		dragStart.setNowhere();
-	}
-	
-	protected void dragFailed() {
-		draggingArea = null;
-		dragStart.setNowhere();
-	}
-
-	/*
-	 * 「四角に切れ」キーリスナー
-	 * 
-	 * 問題入力モードのときのみ数字入力を許可
+	/**
+	 * @return the draggingArea
 	 */
-	protected void numberEntered(Address pos, int num) {
-		if (isProblemEditMode())
-			if (num > 0)
-			board.setNumber(pos.r(), pos.c(), num);
+	Square getDraggingArea() {
+		return draggingArea;
 	}
-	
-	protected void spaceEntered(Address pos) {
-		if (isProblemEditMode())
-			board.setNumber(pos.r(), pos.c(), 0);
-	}
-	
-	protected void minusEntered(Address pos) {
-		if (isProblemEditMode())
-			board.setNumber(pos.r(), pos.c(), Board.UNDECIDED_NUMBER);
-	}
+
 }

@@ -4,18 +4,15 @@ import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 
-import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
-import pencilbox.common.core.SideAddress;
-import pencilbox.common.gui.CellCursor;
-import pencilbox.common.gui.PanelEventHandler;
+import pencilbox.common.gui.PanelBase;
 import pencilbox.util.Colors;
 
 
 /**
  * 「スリザーリンク」パネルクラス
  */
-public class Panel extends PanelEventHandler {
+public class Panel extends PanelBase {
 
 	private Board board;
 
@@ -34,16 +31,9 @@ public class Panel extends PanelEventHandler {
 	public Panel() {
 		super();
 		setGridColor(Color.BLACK);
-		setMaxInputNumber(3);
 	}
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard; 
-	}
-	/**
-	 * スリザーリンク専用カーソル生成
-	 */
-	public CellCursor createCursor() {
-		return new SlitherLinkCursor(this);
 	}
 
 	/**
@@ -89,8 +79,7 @@ public class Panel extends PanelEventHandler {
 		drawBoard(g);
 		drawGrid(g);
 		drawBorder(g);
-		if (getCellCursor() != null && isProblemEditMode())
-			drawCursor(g);
+		drawCursor(g);
 	}
 	/**
 	 * 罫線の変わりにマスの中心に点を打つ
@@ -192,101 +181,18 @@ public class Panel extends PanelEventHandler {
 	 * @param g
 	 */
 	public void drawCursor(Graphics g) {
-		g.setColor(getCursorColor());
-		g.drawRect(
-			toX(getCellCursor().c()) + getHalfCellSize(),
-			toY(getCellCursor().r()) + getHalfCellSize(),
-			getCellSize(),
-			getCellSize());
-		g.drawRect(
-			toX(getCellCursor().c()) + getHalfCellSize() + 1,
-			toY(getCellCursor().r()) + getHalfCellSize() + 1,
-			getCellSize() - 2,
-			getCellSize() - 2);
-	}
-	static final int LINE_COLOR = 1;
-	static final int CROSS_COLOR = 2;
-	/**
-	 * 色を設定する
-	 * @param target 設定する色を指定するフィールド名
-	 * @param c 設定する色
-	 */
-	public void setColorI(int target, Color c) {
-		switch (target) {
-		case LINE_COLOR:
-			lineColor = c;
-			break;
-		case CROSS_COLOR:
-			crossColor = c;
-			break;
+		if (isProblemEditMode()) {
+			g.setColor(getCursorColor());
+			g.drawRect(
+				toX(getCellCursor().c()) + getHalfCellSize(),
+				toY(getCellCursor().r()) + getHalfCellSize(),
+				getCellSize(),
+				getCellSize());
+			g.drawRect(
+				toX(getCellCursor().c()) + getHalfCellSize() + 1,
+				toY(getCellCursor().r()) + getHalfCellSize() + 1,
+				getCellSize() - 2,
+				getCellSize() - 2);
 		}
-	}
-	/**
-	 * 色を取得する
-	 * @param target 取得する色を指定するフィールド名
-	 * @return 取得した色
-	 */
-	public Color getColorI(int target) {
-		switch (target) {
-		case LINE_COLOR:
-			return lineColor;
-		case CROSS_COLOR:
-			return crossColor;
-		}
-		return null;
-	}
-	/*
-	 * 「スリザーリンク」マウスリスナー2
-	 * 辺上左クリック：線あり⇔未定
-	 * 辺上右クリック：線なし⇔未定
-	 */
-	protected void leftClickedEdge(SideAddress pos) {
-		board.toggleState(pos.d(), pos.r(), pos.c(), Board.LINE);
-	}
-	protected void rightClickedEdge(SideAddress pos) {
-		board.toggleState(pos.d(), pos.r(), pos.c(), Board.NOLINE);
-	}
-
-	/*
-	 * 「スリザーリンク」マウスリスナー
-	 * 頂点Aから頂点Bへドラッグしたとき，
-	 * AとBが同一行または列にあれば，
-	 * 左ドラッグ： AからBまで線を引く
-	 * 右ドラッグ： AからBまで線を消す
-	 */
-	protected void leftDragged(Address dragStart, Address dragEnd) {
-		if (dragStart.r() == dragEnd.r() || dragStart.c() == dragEnd.c()) {
-			board.determineInlineState(dragStart, dragEnd, Board.LINE);
-		}
-	}
-	protected void rightDragged(Address dragStart, Address dragEnd) {
-		if (dragStart.r() == dragEnd.r() || dragStart.c() == dragEnd.c()) {
-			board.determineInlineState(dragStart, dragEnd, Board.UNKNOWN);
-		}
-	}
-	/*
-	 * マウスではカーソル移動しない（暫定）
-	 */
-	protected void moveCursor(Address pos) {
-	}
-	/*
-	 * 「スリザーリンク」キーリスナー
-	 * 
-	 * 問題入力モードのときのみ数字入力 0-4: 数字入力 5: ○入力 SPACE: 数字除去
-	 * 
-	 */
-	protected void numberEntered(Address pos, int num) {
-		if (isProblemEditMode())
-			board.setNumber(pos.r(), pos.c(), num);
-	}
-
-	protected void spaceEntered(Address pos) {
-		if (isProblemEditMode())
-			board.setNumber(pos.r(), pos.c(), Board.NONUMBER);
-	}
-
-	protected void minusEntered(Address pos) {
-		if (isProblemEditMode())
-			board.setNumber(pos.r(), pos.c(), Board.UNDECIDED_NUMBER);
 	}
 }
