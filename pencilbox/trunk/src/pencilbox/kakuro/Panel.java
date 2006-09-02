@@ -8,15 +8,14 @@ import java.awt.Graphics;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
-import pencilbox.common.gui.CellCursor;
 import pencilbox.common.gui.HintDot;
-import pencilbox.common.gui.PanelEventHandler;
+import pencilbox.common.gui.PanelBase;
 
 
   /**
    * 「カックロ」パネルクラス
    */
-public class Panel extends PanelEventHandler {
+public class Panel extends PanelBase {
 
 	private Board board;
 
@@ -32,7 +31,6 @@ public class Panel extends PanelEventHandler {
 
 	private Address wallPos = new Address();
 	private HintDot hintDot = new HintDot();
-	private KakuroCursor kcursor;
 
 	/**
 	 * 
@@ -44,7 +42,6 @@ public class Panel extends PanelEventHandler {
 
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard; 
-		setMaxInputNumber(9);
 		hintDot.setDot(this, 3, getCellSize());
 	}
 	/**
@@ -76,33 +73,15 @@ public class Panel extends PanelEventHandler {
 		smallFont = new Font("SansSerif", Font.PLAIN, getCellSize() / 2);
 		hintDot.setDotSize(getCellSize());
 	}
-	public CellCursor createCursor() {
-		kcursor = new KakuroCursor(this);
-		return kcursor;
-	}
-	/**
-	 * 問題入力モードのきりかえ
-	 * @param editable
-	 */
-	public void setProblemEditMode(boolean editable) {
-		// 問題入力モードに入ったとき
-		if (editable) {
-			setMaxInputNumber(45);
-		}else{
-			setMaxInputNumber(9);
-		}
-		super.setProblemEditMode(editable);
-	}
 	
+
 	public void drawPanel(Graphics g){
 		paintBackground(g);
 		drawIndex(g);
 		drawGrid(g);
 		drawBoard(g);
 		drawBorder(g);
-		if(getCellCursor()!=null) {
-			drawCursor(g);
-		} 
+		drawCursor(g);
 	}
 	/**
 	 * 盤面を描画する
@@ -188,16 +167,15 @@ public class Panel extends PanelEventHandler {
 	 * カックロ問題入力用カーソルを描く
 	 */
 	public void drawCursor(Graphics g) {
+		super.drawCursor(g);
 		if (isProblemEditMode()) {
-			g.setColor(getCursorColor());
+			KakuroCursor kcursor = (KakuroCursor) getCellCursor();
 			g.drawRect(
 				toX(kcursor.c())+kcursor.getStair()*getHalfCellSize(),
 				toY(kcursor.r())+(kcursor.getStair()^1)*getHalfCellSize(),
 				getHalfCellSize(),
 				getHalfCellSize());
-		} else {
 		}
-		super.drawCursor(g);
 	}
 	
 	void placeNumberHint(Graphics g, int r, int c) {
@@ -208,51 +186,4 @@ public class Panel extends PanelEventHandler {
 		}
 	}
 
-	/*
-	 * 「カックロ」マウス操作
-	 */
-	protected void leftPressed(Address pos) {
-		if (!isCursorOn() || getCellCursor().isAt(pos)) {
-			if (!board.isWall(pos.r(), pos.c())) {
-				board.increaseNumber(pos.r(), pos.c());
-			}
-		}
-	}
-	protected void rightPressed(Address pos) {
-		if (!isCursorOn() || getCellCursor().isAt(pos)) {
-			if (!board.isWall(pos.r(), pos.c())) {
-				board.decreaseNumber(pos.r(), pos.c());
-			}
-		}
-	}
-	/*
-	 * 「カックロ」キー操作
-	 */
-	protected void numberEntered(Address pos, int num) {
-		if (isProblemEditMode()) {
-			if (kcursor.getStair() == KakuroCursor.LOWER)
-				board.setSumV(pos.r(), pos.c(), num);
-			else if (kcursor.getStair() == KakuroCursor.UPPER)
-				board.setSumH(pos.r(), pos.c(), num);
-		} else {
-			if (!board.isWall(pos.r(), pos.c()))
-				board.enterNumberA(pos.r(), pos.c(), num);
-		}
-	}
-	protected void spaceEntered(Address pos) {
-		if (isProblemEditMode()) {
-			board.removeWall(pos.r(), pos.c());
-		} else {
-			if (!board.isWall(pos.r(), pos.c()))
-				board.enterNumberA(pos.r(), pos.c(), 0);
-		}
-	}
-	protected void minusEntered(Address pos) {
-		if (isProblemEditMode()) {
-			if (kcursor.getStair() == KakuroCursor.LOWER)
-				board.setSumV(pos.r(), pos.c(), 0);
-			else if (kcursor.getStair() == KakuroCursor.UPPER)
-				board.setSumH(pos.r(), pos.c(), 0);
-		}
-	}
 }

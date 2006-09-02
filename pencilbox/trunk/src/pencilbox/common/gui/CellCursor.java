@@ -8,14 +8,14 @@ import pencilbox.common.core.Address;
 public class CellCursor {
 	
 	protected Address pos;
-	protected PanelEventHandler panel;
+	protected PanelEventHandlerBase panel;
 
 	/**
 	 * カーソルを作成する
 	 * Panelと関連付ける
 	 * @param panel
 	 */
-	public CellCursor(PanelEventHandler panel) {
+	public CellCursor(PanelEventHandlerBase panel) {
 		pos = new Address();
 		this.panel = panel;
 	}

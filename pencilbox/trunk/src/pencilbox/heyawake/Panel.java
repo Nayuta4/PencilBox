@@ -4,18 +4,15 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Iterator;
 
-import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
-import pencilbox.common.gui.PanelEventHandler;
+import pencilbox.common.gui.PanelBase;
 
 
 /**
  *  「へやわけ」パネルクラス
  */
-public class Panel extends PanelEventHandler {
-
-	private int maxNumber = 9;  // キー入力可能数字9までとする
+public class Panel extends PanelBase {
 
 	private Board board;
 
@@ -30,6 +27,8 @@ public class Panel extends PanelEventHandler {
 	private Color errorColor = Color.RED;
 	private Color showContinuousWhiteColor = Color.RED;
 
+	private Square draggingSquare;
+
 	/**
 	 * 
 	 */
@@ -38,7 +37,6 @@ public class Panel extends PanelEventHandler {
 
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard; 
-		setMaxInputNumber(maxNumber);   // 暫定的
 	}
 
 	/**
@@ -91,8 +89,7 @@ public class Panel extends PanelEventHandler {
 		drawBorder(g);
 		if (isProblemEditMode())
 			drawDragging(g);
-		if (getCellCursor() != null)
-			drawCursor(g);
+		drawCursor(g);
 	}
 	/**
 	 * 盤面を描画する
@@ -179,100 +176,26 @@ public class Panel extends PanelEventHandler {
 	 * @param g
 	 */
 	void drawDragging(Graphics g) {
-		Square square = draggingSquare;
+		Square square = getDraggingSquare();
 		if (square == null)
 			return;
 		g.setColor(roomBorderColor);
 		placeSquare(g, square.r0, square.c0, square.r1, square.c1);
 	}
 
-	/*
-	 * 「へやわけ」マウス操作
-	 * 解答入力用
-	 * 左プレス：未定⇔黒マス
-	 * 右プレス：未定⇔白マス
-	 * 右ドラッグ：はじめにボタンを押したマスときの状態にあわせる
+	/**
+	 * @param draggingSquare the draggingSquare to set
 	 */
-	/*
-	 * 「へやわけ」マウス操作
-	 * 問題入力用
-	 * 左ドラッグ：ドラッグ始点と終点を２つの頂点とする長方形を描く
-	 * 右プレス，ドラッグ：そのマスを含む長方形を消去する
-	 */
+	void setDraggingSquare(Square draggingSquare) {
+		this.draggingSquare = draggingSquare;
+	}
 
-	private Square draggingSquare;
-	private Address dragStart = new Address(-1, -1);
-	private int currentState = Board.UNKNOWN;
-	protected void leftPressed(Address pos) {
-		if (isProblemEditMode()) {
-			Address dragEnd = pos;
-			dragStart.set(dragEnd);
-			draggingSquare =
-				new Square(dragStart.r(), dragStart.c(), dragEnd.r(), dragEnd.c());
-		} else {
-			board.toggleState(pos.r(), pos.c(), Board.BLACK);
-		}
-	}
-	protected void rightPressed(Address pos) {
-		if (isProblemEditMode()) {
-			Address dragEnd = pos;
-			//			dragStart.set(dragEnd);
-			board.removeSquareIncluding(dragEnd.r(), dragEnd.c());
-		} else {
-			board.toggleState(pos.r(), pos.c(), Board.WHITE);
-			currentState = board.getState(pos.r(), pos.c());
-		}
-	}
-	protected void leftDragged(Address pos) {
-		if (isProblemEditMode()) {
-			if (draggingSquare == null)
-				return;
-			draggingSquare.set(dragStart.r(), dragStart.c(), pos.r(), pos.c());
-		}
-	}
-	protected void leftDragFixed(Address pos) {
-		if (isProblemEditMode()) {
-			Address dragEnd = pos;
-			if (draggingSquare == null)
-				return;
-			draggingSquare = null;
-			board.addSquareSpanning(dragStart.r(), dragStart.c(), dragEnd.r(), dragEnd.c());
-			dragStart.setNowhere();
-		}
-	}
-	protected void rightDragged(Address pos) {
-		if (isProblemEditMode()) {
-			Address dragEnd = pos;
-			board.removeSquareIncluding(dragEnd.r(), dragEnd.c());
-		} else {
-			int st = board.getState(pos.r(), pos.c());
-			if (st == currentState)
-				return;
-			board.changeStateA(pos.r(), pos.c(), currentState);
-		}
-	}
-	protected void dragFailed() {
-		draggingSquare = null;
-		dragStart.setNowhere();
-	}
-	/*
-	 * 「へやわけ」キー操作
-	 * 
-	 * 問題入力モードのときのみ，0以上の数字入力により部屋の数字設定
+	/**
+	 * @return the draggingSquare
 	 */
-	protected void numberEntered(Address pos, int num) {
-		if (!isProblemEditMode())
-			return;
-		Square square = board.getSquare(pos.r(), pos.c());
-		if (square != null)
-			square.setNumber(num);
+	Square getDraggingSquare() {
+		return draggingSquare;
 	}
-	protected void spaceEntered(Address pos) {
-		if (!isProblemEditMode())
-			return;
-		Square square = board.getSquare(pos.r(), pos.c());
-		if (square != null)
-			square.setNumber(Square.ANY);
-	}
+
 }
 

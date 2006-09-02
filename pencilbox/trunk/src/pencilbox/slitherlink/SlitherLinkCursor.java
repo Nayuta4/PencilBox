@@ -1,7 +1,7 @@
 package pencilbox.slitherlink;
 
 import pencilbox.common.gui.CellCursor;
-import pencilbox.common.gui.PanelEventHandler;
+import pencilbox.common.gui.PanelEventHandlerBase;
 
 /**
  * 「スリザーリンク」問題入力用カーソルクラス
@@ -11,7 +11,7 @@ public class SlitherLinkCursor extends CellCursor {
 	/**
 	 * @param aPanel
 	 */
-	public SlitherLinkCursor(PanelEventHandler aPanel) {
+	public SlitherLinkCursor(PanelEventHandlerBase aPanel) {
 		super(aPanel);
 	}
 

@@ -3,16 +3,15 @@ package pencilbox.bijutsukan;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
-import pencilbox.common.gui.PanelEventHandler;
+import pencilbox.common.gui.PanelBase;
 
 
 /**
  * 「美術館」パネルクラス
  */
-public class Panel extends PanelEventHandler {
+public class Panel extends PanelBase {
 
 	private Board board;
 	
@@ -29,7 +28,6 @@ public class Panel extends PanelEventHandler {
 	 * Panel を生成する
 	 */
 	public Panel() {
-		setMaxInputNumber(5);
 	}
 
 	protected void setBoard(BoardBase aBoard) {
@@ -98,9 +96,7 @@ public class Panel extends PanelEventHandler {
 		drawBoard(g);
 		drawGrid(g);
 		drawBorder(g);
-		if (getCellCursor() != null) {
-			drawCursor(g);
-		}
+		drawCursor(g);
 	}
 	/**
 	 * 盤面を描画する
@@ -162,58 +158,4 @@ public class Panel extends PanelEventHandler {
 		}
 	}
 
-	/*
-	 * 「美術館」マウス操作
-	 * 左プレス：未定⇔照明配置
-	 * 右プレス：未定⇔照明なし
-	 */
-	private int currentState = Board.UNKNOWN;
-
-	protected void leftPressed(Address pos) {
-		board.toggleState(pos.r(), pos.c(), Board.ILLUMINATION);
-	}
-
-	protected void rightPressed(Address pos) {
-		board.toggleState(pos.r(), pos.c(), Board.NOILLUMINATION);
-		if (board.isWall(pos.r(), pos.c()))
-			currentState = Board.UNKNOWN;
-		else
-			currentState = board.getState(pos.r(), pos.c());
-	}
-
-	protected void leftDragged(Address pos) {
-		// 何もしない
-	}
-
-	protected void rightDragged(Address pos) {
-		if (board.isWall(pos.r(), pos.c()))
-			return;
-		if (board.getState(pos.r(), pos.c()) == currentState)
-			return;
-		board.changeStateA(pos.r(), pos.c(), currentState);
-	}
-
-	/*
-	 * 「美術館」キー操作
-	 * 問題入力モードのときのみ記号
-	 * 0-4: その数字つきの壁
-	 * 5: 数字なしの壁
-	 */
-	protected void numberEntered(Address pos, int num) {
-		if (!isProblemEditMode())
-			return;
-		board.changeState(pos.r(), pos.c(), num);
-	}
-
-	protected void spaceEntered(Address pos) {
-		if (!isProblemEditMode())
-			return;
-		board.changeState(pos.r(), pos.c(), -1);
-	}
-
-	protected void minusEntered(Address pos) {
-		if (!isProblemEditMode())
-			return;
-		board.changeState(pos.r(), pos.c(), Board.NONUMBER_WALL);
-	}
 }

@@ -9,6 +9,7 @@ public class ClassUtil {
 	public static final String BOARD_CLASS = "Board";
 	public static final String MENU_CLASS = "Menu";
 	public static final String PANEL_CLASS = "Panel";
+	public static final String PANEL_EVENT_HANDLER_CLASS = "PanelEventHandler";
 	public static final String TXTREADER_CLASS = "TxtReader";
 	public static final String TXTWRITER_CLASS = "TxtWriter";
 	public static final String XMLREADER_CLASS = "XmlReader";

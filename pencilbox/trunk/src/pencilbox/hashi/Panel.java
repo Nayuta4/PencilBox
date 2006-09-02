@@ -3,17 +3,16 @@ package pencilbox.hashi;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
-import pencilbox.common.gui.PanelEventHandler;
+import pencilbox.common.gui.PanelBase;
 import pencilbox.util.Colors;
 
 
 /**
  * 「橋をかけろ」パネルクラス
  */
-public class Panel extends PanelEventHandler {
+public class Panel extends PanelBase {
 
 	static final int HORIZ = Direction.HORIZ;
 	static final int VERT = Direction.VERT;
@@ -37,7 +36,6 @@ public class Panel extends PanelEventHandler {
 	 */
 	public Panel() {
 		setGridColor(Color.GRAY);
-		setMaxInputNumber(8);
 		setDisplayStyle(2);
 	}
 
@@ -80,9 +78,7 @@ public class Panel extends PanelEventHandler {
 			drawGrid(g); // 罫線なしでもよいが
 		drawBoard(g);
 		drawBorder(g);
-		if (getCellCursor() != null) {
-			drawCursor(g);
-		}
+		drawCursor(g);
 	}
 	/**
 	 * 盤面を描画する
@@ -206,73 +202,6 @@ public class Panel extends PanelEventHandler {
 			g.fillRect(x + getCellSize() / 3 - 1, y, 3, getCellSize() + 1);
 			g.fillRect(x + getCellSize() * 2 / 3 - 1, y, 3, getCellSize() + 1);
 		}
-	}
-
-	/*
-	 * 「橋をかけろ」用マウスモーションリスナー
-	 */
-	protected void leftDragged(Address dragStart, Address dragEnd) {
-		if (!board.isOn(dragStart.r(), dragStart.c()))
-			return;
-		if (!board.isPier(dragStart.r(), dragStart.c()))
-			return;
-		if (dragStart.r() == dragEnd.r()) {
-			if (dragStart.c() < dragEnd.c()) {
-				board.addBridgeA(dragStart.r(), dragStart.c(), RT);
-			} else if (dragStart.c() > dragEnd.c()) {
-				board.addBridgeA(dragStart.r(), dragStart.c(), LT);
-			}
-		} else if (dragStart.c() == dragEnd.c()) {
-			if (dragStart.r() < dragEnd.r()) {
-				board.addBridgeA(dragStart.r(), dragStart.c(), DN);
-			} else if (dragStart.r() > dragEnd.r()) {
-				board.addBridgeA(dragStart.r(), dragStart.c(), UP);
-			}
-		}
-	}
-
-	protected void rightDragged(Address dragStart, Address dragEnd) {
-		if (!board.isOn(dragStart.r(), dragStart.c()))
-			return;
-		if (!board.isPier(dragStart.r(), dragStart.c()))
-			return;
-		if (dragStart.r() == dragEnd.r()) {
-			if (dragStart.c() < dragEnd.c()) {
-				board.removeBridgeA(dragStart.r(), dragStart.c(), RT);
-			} else if (dragStart.c() > dragEnd.c()) {
-				board.removeBridgeA(dragStart.r(), dragStart.c(), LT);
-			}
-		} else if (dragStart.c() == dragEnd.c()) {
-			if (dragStart.r() < dragEnd.r()) {
-				board.removeBridgeA(dragStart.r(), dragStart.c(), DN);
-			} else if (dragStart.r() > dragEnd.r()) {
-				board.removeBridgeA(dragStart.r(), dragStart.c(), UP);
-			}
-		}
-	}
-
-	/*
-	 * 「橋をかけろ」キーリスナー
-	 * 
-	 * 問題入力モードのときのみ数字入力可能
-	 * 1-8 : その数字
-	 * - : 数字のない○
-	 * 0, . : 数字除去
-	 */
-	protected void numberEntered(Address pos, int num) {
-		if (isProblemEditMode())
-			if (num>=1 && num<=8)
-				board.setNumber(pos.r(), pos.c(), num);
-	}
-
-	protected void spaceEntered(Address pos) {
-		if (isProblemEditMode())
-			board.setNumber(pos.r(), pos.c(), 0);
-	}
-	
-	protected void minusEntered(Address pos) {
-		if (isProblemEditMode())
-			board.setNumber(pos.r(), pos.c(), Board.UNDECIDED_NUMBER);
 	}
 
 }

@@ -31,7 +31,8 @@ public class MenuCommand {
 	private PencilType pencilType;
 
 	private Frame frame;
-	private PanelEventHandler panel;
+	private PanelBase panel;
+	private PanelEventHandlerBase handler;
 	private Problem problem;
 	private BoardBase board;
 	private UndoManager undoManager;
@@ -47,10 +48,11 @@ public class MenuCommand {
 	 * @param panel 関連付けるPanel
 	 * @param problem 関連付けるProblem
 	 */
-	public void setup(PencilType puzzleType, Frame frame, PanelEventHandler panel, Problem problem) {
+	public void setup(PencilType puzzleType, Frame frame, PanelBase panel, PanelEventHandlerBase handler, Problem problem) {
 		this.pencilType = puzzleType;
 		this.frame = frame;
 		this.panel = panel;
+		this.handler = handler;
 		this.problem = problem;
 		this.board = problem.getBoard();
 		setFrameTitle();
@@ -74,8 +76,14 @@ public class MenuCommand {
 	/**
 	 * @return Returns the panel.
 	 */
-	public PanelEventHandler getPanelBase() {
+	public PanelBase getPanelBase() {
 		return panel;
+	}
+	/**
+	 * @return Returns the panel.
+	 */
+	public PanelEventHandlerBase getPanelEventHandlerBase() {
+		return handler;
 	}
 	/**
 	 * @return Returns the frame.

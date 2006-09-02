@@ -1,7 +1,7 @@
 package pencilbox.tentaisho;
 
 import pencilbox.common.gui.CellCursor;
-import pencilbox.common.gui.PanelEventHandler;
+import pencilbox.common.gui.PanelEventHandlerBase;
 
 /**
  * 「天体ショー」問題入力用カーソルクラス
@@ -13,7 +13,7 @@ public class TentaishoCursor extends CellCursor {
 	 * Panelと関連付ける
 	 * @param panel
 	 */
-	public TentaishoCursor(PanelEventHandler panel) {
+	public TentaishoCursor(PanelEventHandlerBase panel) {
 		super(panel);
 	}
 	

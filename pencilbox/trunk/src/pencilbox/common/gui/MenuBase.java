@@ -62,7 +62,7 @@ public class MenuBase {
 
 	private Frame frame;
 	private MenuCommand command;
-	private PanelEventHandler panel;
+	private PanelBase panel;
 
 	/**
 	 * Menuクラスの初期化処理で，Menuインスタンス生成直後に使用される
@@ -70,7 +70,7 @@ public class MenuBase {
 	 * @param frame 関連付けるFrame
 	 * @param panel 関連付けるPanel
 	 */
-	public void setup(MenuCommand command, Frame frame, PanelEventHandler panel) {
+	public void setup(MenuCommand command, Frame frame, PanelBase panel) {
 		this.frame = frame;
 		this.command = command;
 		this.panel = panel;
@@ -82,7 +82,7 @@ public class MenuBase {
 	/**
 	 * @return Returns the panel.
 	 */
-	protected PanelEventHandler getPanelBase() {
+	protected PanelBase getPanelBase() {
 		return panel;
 	}
 
@@ -298,9 +298,7 @@ public class MenuBase {
 	 * [表示]メニューリスナークラス
 	 */
 	protected class ViewMenuListener implements MenuListener {
-		/*
-		 * 都合により，問題入力モードでは盤面回転を許さないこととする
-		 */
+
 		public void menuSelected(MenuEvent evt) {
 		}
 

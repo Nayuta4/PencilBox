@@ -4,17 +4,16 @@ import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 
-import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
-import pencilbox.common.gui.PanelEventHandler;
+import pencilbox.common.gui.PanelBase;
 import pencilbox.util.Colors;
 
 
 /**
  * 「ヤジリン」パネルクラス
  */
-public class Panel extends PanelEventHandler {
+public class Panel extends PanelBase {
 
 	private Board board;
 
@@ -118,7 +117,6 @@ public class Panel extends PanelEventHandler {
 	public Panel() {
 		super();
 		setGridColor(Color.BLACK);
-		setMaxInputNumber(9);
 	}
 
 	protected void setBoard(BoardBase aBoard) {
@@ -131,8 +129,7 @@ public class Panel extends PanelEventHandler {
 		drawBoard(g);
 		drawGrid(g);
 		drawBorder(g);
-		if (getCellCursor() != null && isProblemEditMode())
-			drawCursor(g);
+		drawCursor(g);
 	}
 	/**
 	 * 盤面を描画する
@@ -245,52 +242,5 @@ public class Panel extends PanelEventHandler {
 			numberS,
 			(toX(c) + (getCellSize() - 1 - metrics.stringWidth(numberS)) / 2 + 1),
 			(toY(r) + (getCellSize() - 1 - metrics.getHeight()) / 2 + metrics.getAscent()) + 1);
-}
-	/*
-	 * 「ヤジリン」マウスリスナー
-	 * 頂点Aから頂点Bへドラッグしたとき，
-	 * AとBが同一行または列にあれば，
-	 * 左ドラッグ： AからBまで線を引く
-	 * 右ドラッグ： AからBまで線を消す
-	 */
-	protected void leftDragged(Address dragStart, Address dragEnd) {
-		if (dragStart.r() == dragEnd.r() || dragStart.c() == dragEnd.c()) {
-			board.determineInlineState(dragStart, dragEnd, Board.LINE);
-		}
-	}
-
-	protected void rightDragged(Address dragStart, Address dragEnd) {
-		if (dragStart.r() == dragEnd.r() || dragStart.c() == dragEnd.c()) {
-			board.determineInlineState(dragStart, dragEnd, Board.UNKNOWN);
-		}
-	}
-
-	protected void leftClicked(Address pos) {
-		board.toggleState(pos.r(), pos.c(), Board.BLACK);
-	}
-
-	protected void rightClicked(Address position) {
-		board.toggleState(position.r(), position.c(), Board.WHITE);
-	}
-	/*
-	 * 「ヤジリン」キーリスナー
-	 * 
-	 * 問題入力モードのときのみ数字入力
-	 * 0-: 数字入力
-	 * SPACE: 矢印の向きを変更
-	 */
-	protected void numberEntered(Address pos, int num) {
-		if (isProblemEditMode())
-			board.enterNumber(pos.r(), pos.c(), num);
-	}
-
-	protected void spaceEntered(Address pos) {
-		if (isProblemEditMode())
-			board.eraseNumber(pos.r(), pos.c());
-	}
-
-	protected void minusEntered(Address pos) {
-		if (isProblemEditMode())
-			board.enterNumber(pos.r(), pos.c(), Board.UNDECIDED_NUMBER);
 	}
 }

@@ -3,17 +3,15 @@ package pencilbox.tentaisho;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
-import pencilbox.common.gui.CellCursor;
-import pencilbox.common.gui.PanelEventHandler;
+import pencilbox.common.gui.PanelBase;
 
 
 /**
  * 「天体ショー」パネルクラス
  */
-public class Panel extends PanelEventHandler {
+public class Panel extends PanelBase {
 
 	private Board board;
 
@@ -37,7 +35,6 @@ public class Panel extends PanelEventHandler {
 	 */
 	public Panel() {
 		setGridColor(Color.GRAY);
-		setMaxInputNumber(2);
 	}
 
 	protected void setBoard(BoardBase aBoard) {
@@ -107,9 +104,6 @@ public class Panel extends PanelEventHandler {
 		this.showAreaHint = useDifferentColor;
 	}
 
-	public CellCursor createCursor() {
-		return new TentaishoCursor(this);
-	}
 //	/**
 //	 * 天体ショー専用カーソル on/off を切り替える
 //	 * @param on カーソル on かどうか
@@ -128,9 +122,7 @@ public class Panel extends PanelEventHandler {
 		drawBoard(g);
 		drawGrid(g);
 		drawBorder(g);
-		if (getCellCursor() != null && isProblemEditMode()) {
-			drawCursor(g);
-		}
+		drawCursor(g);
 	}
 	/**
 	 * 盤面を描画する
@@ -152,8 +144,8 @@ public class Panel extends PanelEventHandler {
 				if (board.isCovered(r, c)) {
 					if (board.getArea(r,c) == draggingArea)
 						continue;
-					int starType = board.getArea(r,c).getStarType();
 					if (showAreaHint) {
+						int starType = board.getArea(r,c).getStarType();
 						if (starType == -1) {
 							g.setColor(errorColor);
 						}
@@ -228,89 +220,14 @@ public class Panel extends PanelEventHandler {
 	 * @param g
 	 */
 	public void drawCursor(Graphics g) {
-		g.setColor(getCursorColor());
-		g.drawRect(
-			getOffsetx() + (getCellSize() * getCellCursor().c() + getHalfCellSize()) / 2,
-			getOffsety() + (getCellSize() * getCellCursor().r() + getHalfCellSize()) / 2,
-			getHalfCellSize(),
-			getHalfCellSize());
-	}
-
-	/*
-	 * 「天体ショー」マウスリスナー
-	 */
-	protected void leftPressed(Address pos) {
-		Area oldArea = board.getArea(pos.r(), pos.c());
-		if (draggingArea == null) {
-			//  ここの if 文を有効にすれば，既存のAreaを内側から広げることができる
-			//  ただし，undo と整合をどうするかが問題				
-//			if (oldArea != null)
-//				draggingArea = oldArea;
-//			else
-			draggingArea = new Area();
-		}
-		if (oldArea != null && oldArea != draggingArea) {
-			board.removeAreaA(oldArea);
-		}
-		board.setArea(pos.r(), pos.c(), draggingArea);
-		draggingArea.add(pos);
-	}
-	
-	protected void rightPressed(Address pos) {
-		Area oldArea = board.getArea(pos.r(), pos.c());
-		if (oldArea != null) {
-			board.removeAreaA(oldArea);
+		if (isProblemEditMode()) {
+			g.setColor(getCursorColor());
+			g.drawRect(
+				getOffsetx() + (getCellSize() * getCellCursor().c() + getHalfCellSize()) / 2,
+				getOffsety() + (getCellSize() * getCellCursor().r() + getHalfCellSize()) / 2,
+				getHalfCellSize(),
+				getHalfCellSize());
 		}
 	}
-	
-	protected void leftDragged(Address pos) {
-		leftPressed(pos);			
-	}
-	
-	protected void rightDragged(Address pos) {
-		rightPressed(pos);			
-	}
-	
-	protected void leftDragFixed(Address dragEnd) {
-		if (draggingArea == null)
-			return;
-		board.addAreaA(draggingArea);
-		draggingArea = null;
-	}
-	
-	protected void rightDragFixed(Address dragStart, Address dragEnd) {
-		//			board.removeSquare(dragStart.r, dragStart.c, dragEnd.r, dragEnd.c);
-		draggingArea = null;
-	}
 
-	protected void dragFailed() {
-		if (draggingArea == null)
-			return;
-		board.addAreaA(draggingArea);
-		draggingArea = null;
-	}
-	/*
-	 * マウスではカーソル移動しない（暫定）
-	 */
-	protected void moveCursor(Address pos) {
-	}
-
-	/*
-	 * 「天体ショー」キーリスナー
-	 * 
-	 * 問題入力モードのときのみ記号を入力する
-	 * 0: 星除去
-	 * 1: 白星
-	 * 2: 黒星
-	 */
-	protected void numberEntered(Address p, int n) {
-		if (isProblemEditMode())
-			if (n == Board.BLACKSTAR || n == Board.WHITESTAR)
-				board.setStar(p.r(), p.c(), n);
-	}
-
-	protected void spaceEntered(Address p) {
-		if (isProblemEditMode())
-			board.setStar(p.r(), p.c(), Board.NOSTAR);
-	}
 }
