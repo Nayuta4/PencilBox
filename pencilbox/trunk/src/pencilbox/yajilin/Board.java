@@ -23,13 +23,15 @@ public class Board extends BoardBase {
 	private static final int HORIZ = Direction.HORIZ;
 	private static final int VERT = Direction.VERT;
 	
-	static final int UNKNOWN = -3;
+	static final int UNKNOWN = 0;
 	static final int LINE = 1;
-	static final int NOLINE = -1;
+	static final int NOLINE = -1; // GUIでは不使用
+	static final int BLANK = -3;
 	static final int WHITE = -1;
 	static final int BLACK = -2;
 	static final int OUTER = -9;
 	static final int UNDECIDED_NUMBER = -4;
+
 	private int[][] number;  // マスの状態
 	private int[][][] state; // 辺の状態
 
@@ -40,7 +42,7 @@ public class Board extends BoardBase {
 	protected void setup() {
 		super.setup();
 		number = new int[rows()][cols()];
-		ArrayUtil.initArrayInt2(number, UNKNOWN);
+		ArrayUtil.initArrayInt2(number, BLANK);
 		state = new int[2][][];
 		state[VERT] = new int[rows()][cols() - 1];
 		state[HORIZ] = new int[rows() - 1][cols()];
@@ -62,35 +64,86 @@ public class Board extends BoardBase {
 	public void setNumber(int r, int c, int n) {
 		number[r][c] = n;
 	}
+	/**
+	 * 指定したマスの状態を取得する
+	 * @param r 行座標
+	 * @param c 列座標
+	 */
 	public int getNumber(int r, int c) {
 		return number[r][c]; 
 	}
+	/**
+	 * 指定したマスの数字部分のみを返す。数字マスに対して使用する。
+	 * @param r 行座標
+	 * @param c 列座標
+	 * @return マスの数字を返す。数字マスでなければ -1
+	 */
 	public int getArrowNumber(int r, int c) {
-		return number[r][c] & 15; 
+		return number[r][c] >=0 ? number[r][c] & 15 : -1; 
 	}
+	/**
+	 * 指定したマスに上向き矢印の数字を設定する。
+	 * @param r 行座標
+	 * @param c 列座標
+	 */
 	public void setArrowNumber(int r, int c, int n) {
 		number[r][c] = n; 
 	}
+	/**
+	 * 指定したマスの矢印の方角を返す。数字マスに対して使用する。
+	 * @param r 行座標
+	 * @param c 列座標
+	 * @return 矢印の方角定数返す。数字マスでなければ -1
+	 */
 	public int getArrowDirection(int r, int c) {
-		return (number[r][c]>>4) & 3; 
+		return number[r][c] >= 0 ? (number[r][c]>>4) & 3 : -1; 
 	}
+	/**
+	 * 指定したマスの矢印の方角を設定する。数字マスに対して使用する。
+	 * @param r 行座標
+	 * @param c 列座標
+	 */
 	public void setArrowDirection(int r, int c, int dir) {
 		if (dir < 0 || dir > 3) return;
-		int clearDirection = ~(3 << 4);
-		number[r][c] &= clearDirection;
+		number[r][c] &= ~(3 << 4);
 		number[r][c] |= (dir << 4); 
 	}
+	/**
+	 * 指定したマスの矢印の向きを　上→左→下→右→上 の順に変更する。数字マスに対して使用する。
+	 * @param r 行座標
+	 * @param c 列座標
+	 */
 	public void toggleArrowDirection(int r, int c) {
 		int t = getArrowDirection(r,c);
+		if (t<0) return;
 		t = (t+1)%4;
 		setArrowDirection(r, c, t);
 	}
+	/**
+	 * 数字マスか
+	 * @param r 行座標
+	 * @param c 列座標
+	 * @return 数字マスか，未定数字マスであれば true
+	 */
 	public boolean isNumber(int r, int c) {
 		return number[r][c] >= 0 || number[r][c] == UNDECIDED_NUMBER;
 	}
+	/**
+	 * 空白マスにする
+	 * @param r 行座標
+	 * @param c 列座標
+	 */
 	public void eraseNumber(int r, int c) {
-		number[r][c] = UNKNOWN;
+		number[r][c] = BLANK;
 	}
+	/**
+	 * 数字の入力を受け付ける
+	 * 今の数字と同じ数字であれば矢印の向きを変える。
+	 * そうでなければ新しく上向き矢印付きの数字を設定する。
+	 * @param r 行座標
+	 * @param c 列座標
+	 * @param n 入力された数字
+	 */
 	public void enterNumber(int r, int c, int n) {
 		if (getArrowNumber(r,c) == n)
 			toggleArrowDirection(r,c);
@@ -254,7 +307,7 @@ public class Board extends BoardBase {
 			eraseLinesAround(r,c);
 		}
 		if (number[r][c] == st)
-			changeStateA(r, c, UNKNOWN);
+			changeStateA(r, c, BLANK);
 		else
 			changeStateA(r, c, st);
 	}
@@ -288,7 +341,7 @@ public class Board extends BoardBase {
 		for (int r=0; r<rows(); r++) {
 			for (int c=0; c<cols(); c++) {
 				if (!isNumber(r,c)) {
-					number[r][c] = UNKNOWN;
+					number[r][c] = BLANK;
 				}
 			}
 		}
@@ -499,6 +552,7 @@ public class Board extends BoardBase {
 			result |= 4;
 		return result;
 	}
+	
 	private int checkArrows() {
 		int result = 0;
 		for (int r=0; r<rows(); r++) {
@@ -510,6 +564,7 @@ public class Board extends BoardBase {
 		}
 		return result;
 	}
+	
 	private int checkArrow(int r, int c) {
 		int result = 0;
 		int blackCount = 0;

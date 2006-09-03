@@ -37,7 +37,7 @@ public class TxtReader extends TxtReaderBase {
 			while (t.hasMoreTokens()) {
 				str = t.nextToken();
 				if (str.equals("."))
-					board.setNumber(i,j,Board.UNKNOWN);
+					board.setNumber(i,j,Board.BLANK);
 				else if (str.equals("#"))
 					board.setNumber(i,j,Board.BLACK);
 				else if (str.equals("+"))
@@ -57,7 +57,12 @@ public class TxtReader extends TxtReaderBase {
 			t = new StringTokenizer(line);
 			while (t.hasMoreTokens()) {
 				str = t.nextToken();
-				board.setState(Direction.VERT, i, j, Integer.parseInt(str));
+				int s = Integer.parseInt(str);
+				// version 1.0.2以前は，辺の未定状態のデータとして 0 と -3 が混在していたため，。
+				// -3を0に変更して読み込む。
+				if (s == -3) 
+					s = 0;
+				board.setState(Direction.VERT, i, j, s);
 				j++;
 			}
 		}
@@ -69,11 +74,16 @@ public class TxtReader extends TxtReaderBase {
 			t = new StringTokenizer(line);
 			while (t.hasMoreTokens()) {
 				str = t.nextToken();
-				board.setState(Direction.HORIZ, i, j, Integer.parseInt(str));
+				int s = Integer.parseInt(str);
+				// version 1.0.2以前は，辺の未定状態のデータとして 0 と -3 が混在していたため，。
+				// -3を0に変更して読み込む。
+				if (s == -3) 
+					s = 0;
+				board.setState(Direction.HORIZ, i, j, s);
 				j++;
 			}
 		}
-	
+		
 		return board;
 	}
 
