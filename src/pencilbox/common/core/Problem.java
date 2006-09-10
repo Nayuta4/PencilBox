@@ -9,12 +9,11 @@ import java.io.File;
 public class Problem {
 	
 	private BoardBase board;
-	private Size size;
 	private Property property;
 	private File file;
+
 	/**
 	 * デフォルトコンストラクタ 
-	 *
 	 */
 	public Problem () {
 		this.property = new Property();
@@ -26,7 +25,6 @@ public class Problem {
 	public Problem (BoardBase board) {
 		this.board = board;
 		this.property = new Property();
-		this.size = board.getSize();
 	}
 	/**
 	 * @return Returns the board.
@@ -63,18 +61,6 @@ public class Problem {
 	 */
 	public void setProperty(Property property) {
 		this.property = property;
-	}
-	/**
-	 * @return Returns the size.
-	 */
-	public Size getSize() {
-		return size;
-	}
-	/**
-	 * @param size The size to set.
-	 */
-	public void setSize(Size size) {
-		this.size = size;
 	}
 	/**
 	 * 問題のファイル名を取得する

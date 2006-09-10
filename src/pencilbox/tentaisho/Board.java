@@ -63,6 +63,12 @@ public class Board extends BoardBase {
 		return nStar;
 	}
 	/**
+	 * @return the star
+	 */
+	int[][] getStar() {
+		return star;
+	}
+	/**
 	 * ˆø”‚ÌÀ•W‚Ì¯‚ğæ“¾‚·‚é
 	 * @param r
 	 * @param c

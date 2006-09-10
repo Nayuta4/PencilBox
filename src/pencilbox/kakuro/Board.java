@@ -75,6 +75,20 @@ public class Board extends BoardBase {
 	}
 
 	/**
+	 * @return the sumH
+	 */
+	int[][] getSumH() {
+		return sumH;
+	}
+
+	/**
+	 * @return the sumV
+	 */
+	int[][] getSumV() {
+		return sumV;
+	}
+
+	/**
 	 * @return Returns the number.
 	 */
 	int[][] getNumber() {

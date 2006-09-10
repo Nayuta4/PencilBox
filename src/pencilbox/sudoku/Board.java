@@ -59,6 +59,18 @@ public class Board extends BoardBase {
 	}
 
 	/**
+	 * @return Returns the number.
+	 */
+	int[][] getNumber() {
+		return number;
+	}
+	/**
+	 * @return Returns the state.
+	 */
+	int[][] getState() {
+		return state;
+	}
+	/**
 	 * @return ボックスの1辺のマス数。通常の数独では3
 	 */
 	public int getUnit() {
@@ -190,12 +202,6 @@ public class Board extends BoardBase {
 			enterNumberA(r, c, number[r][c] - 1);
 		else if (number[r][c] == 0)
 			enterNumberA(r, c, maxNumber);
-	}
-	/**
-	 * @return Returns the number.
-	 */
-	int[][] getNumber() {
-		return number;
 	}
 	/**
 	 * マスと同じ行，列，ボックスに，そのマスの数字と重複する数字があるかどうかを調べる

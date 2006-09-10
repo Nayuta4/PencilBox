@@ -47,7 +47,6 @@ public class Board extends BoardBase {
 	}
 
 	public void clearBoard() {
-		super.clearBoard();
 		for (int r=0; r<rows(); r++) {
 			for (int c=0; c<cols(); c++) {
 				if (!isStable(r,c))
@@ -285,6 +284,12 @@ public class Board extends BoardBase {
 	int[][] getNumber() {
 		return number;
 	}
+	/**
+	 * @return Returns the state.
+	 */
+	int[][] getState() {
+		return state;
+	}
 	
 	public void initBoard() {
 		initMulti();
@@ -503,23 +508,4 @@ public class Board extends BoardBase {
 		}
 	}
 	
-//	public void showInformation() {
-//		initBoard();
-//		int count = 0;
-//		int[] roomSize = new int[10];
-//
-//		for (int r=0; r<rows(); r++) {
-//			for ( int c=0; c<cols(); c++) {
-//				if (isStable(r,c)) count++; 
-//			}
-//		}
-//		for (int k=0; k<areaList.size(); k++) {
-//			roomSize[((Area)areaList.get(k)).size()] ++;
-//		}
-//		System.out.println("既知数字の数　　：" + (count));
-//		System.out.println("領域の数　　：" + (areaList.size()));
-//		for (int k=1; k<=9; k++) 
-//			System.out.print(roomSize[k]+ "\t");
-//		System.out.println();
-//	}
 }

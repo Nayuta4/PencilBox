@@ -76,6 +76,12 @@ public class Board extends BoardBase {
 		return state;
 	}
 	/**
+	 * @return Returns the  number.
+	 */
+	int[][] getNumber() {
+		return number;
+	}
+	/**
 	 * �ӏ�Ԃ̎擾
 	 * @param d
 	 * @param r

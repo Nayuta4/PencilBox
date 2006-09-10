@@ -80,7 +80,7 @@ public class MenuCommand {
 		return panel;
 	}
 	/**
-	 * @return Returns the panel.
+	 * @return Returns the handler.
 	 */
 	public PanelEventHandlerBase getPanelEventHandlerBase() {
 		return handler;
@@ -90,6 +90,12 @@ public class MenuCommand {
 	 */
 	public Frame getFrame() {
 		return frame;
+	}
+	/**
+	 * @return Returns the problem.
+	 */
+	public Problem getProblem() {
+		return problem;
 	}
 
 	/**
@@ -127,7 +133,7 @@ public class MenuCommand {
 			if (newBoardDialog.showDialog(frame, "新規盤面") == PencilBoxDialog.OK_OPTION) {
 				Size newSize = newBoardDialog.getNewSize();
 				if (newSize != null && isValidSize(newSize)) {
-					PencilFactory.getInstance(pencilType).createNewFrame(newSize);
+					PencilFactory.getInstance(pencilType, this).createNewFrame(newSize);
 					if (problem.getFile() == null)
 						frame.dispose();
 				}
@@ -178,42 +184,30 @@ public class MenuCommand {
 	}
 	/**
 	 *  [ファイル]-[開く]
-	 *  もとの問題がファイル名無しである場合は，もとのフレームは閉じる。つまり［閉じて開く］と同じ処理となる
+	 *  もとの問題がファイル名無しである場合は，もとのフレームは閉じる。
 	 */
 	public void open() {
-		if (problem.getFile() == null)
-			open1(1);
-		else
-			open1(0);
-	}
-	/**
-	 *  [ファイル]-[閉じて開く]
-	 */
-	public void closeAndOpen() {
-//		open1(1);
 		prepareFileChooser();
 		try {
 			if (fileChooser.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
 				File file = fileChooser.getSelectedFile();
-				PencilFactory.getInstance(pencilType).createNewBoard(this, file);
+				PencilFactory.getInstance(pencilType, this).createNewFrame(file);
+				if (problem.getFile() == null)
+					frame.dispose();
 			}
 		} catch (PencilBoxException e) {
 			showErrorMessage(e);
 		}
 	}
 	/**
-	 * open()の実際の処理を行う
-	 * @param mode 0: 開くだけ
-	 * 	           1: 開いて（成功したら）もとのフレームは閉じる
+	 *  [ファイル]-[閉じて開く]
 	 */
-	private void open1(int mode) {
+	public void closeAndOpen() {
 		prepareFileChooser();
 		try {
 			if (fileChooser.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
 				File file = fileChooser.getSelectedFile();
-				PencilFactory.getInstance(pencilType).createNewFrame(file);
-				if (mode == 1)
-					frame.dispose();
+				PencilFactory.getInstance(pencilType, this).createNewBoard(file);
 			}
 		} catch (PencilBoxException e) {
 			showErrorMessage(e);
@@ -235,6 +229,27 @@ public class MenuCommand {
 		setFrameTitle();
 	}
 
+	/**
+	 *  [ファイル]-[複製]
+	 */
+	public void duplicate() {
+		try {
+			PencilFactory.getInstance(pencilType, this).duplicateFrame();
+		} catch (PencilBoxClassException e) {
+			showErrorMessage(e);
+		}
+	}
+
+	/**
+	 *  [ファイル]-[回転・反転]
+	 */
+	public void rotateBoard(int n) {
+		try {
+			PencilFactory.getInstance(pencilType, this).rotateBoard(n);
+		} catch (PencilBoxClassException e) {
+			showErrorMessage(e);
+		}
+	}
 	/**
 	 *  [ファイル]-[印刷]
 	 * いい加減なつくり

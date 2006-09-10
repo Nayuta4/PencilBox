@@ -76,6 +76,9 @@ public class Board extends BoardBase {
 		initRoomCount();
 	}
 	
+	List getSquareList() {
+		return squareList;
+	}
 	/**
 	 * 部屋リストを巡回するIteratorを取得する
 	 * @return 部屋リストのIterator
