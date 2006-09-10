@@ -162,7 +162,6 @@ public abstract class XmlReaderBase extends DefaultHandler implements
 		size = new Size(row, col);
 		board = makeBoard();
 		board.setSize(size);
-		problem.setSize(size);
 		problem.setBoard(board);
 	}
 	protected void onBoard() {

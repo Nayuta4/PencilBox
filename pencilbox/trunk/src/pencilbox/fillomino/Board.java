@@ -53,6 +53,20 @@ public class Board extends BoardBase {
 	}
 
 	/**
+	 * @return the number
+	 */
+	int[][] getNumber() {
+		return number;
+	}
+
+	/**
+	 * @return the state
+	 */
+	int[][] getState() {
+		return state;
+	}
+
+	/**
 	 * そのマスは問題として数字を与えられたマスかどうか
 	 * @param r マスの行座標
 	 * @param c マスの列座標

@@ -38,6 +38,13 @@ public class Board extends BoardBase {
 		ArrayUtil.initArrayObject2(square, null);
 	}
 
+	/**
+	 * @return the number
+	 */
+	int[][] getNumber() {
+		return number;
+	}
+
 	public void initBoard() {
 		initSquares();
 	}
@@ -68,6 +75,13 @@ public class Board extends BoardBase {
 			}
 		}
 		a.setNumber(n);
+	}
+
+	/**
+	 * @return Returns the squareList.
+	 */
+	List getSquareList() {
+		return squareList;
 	}
 
 	/**

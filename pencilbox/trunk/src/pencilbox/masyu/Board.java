@@ -58,6 +58,18 @@ public class Board extends BoardBase  {
 	}
 	
 	/**
+	 * @return Returns the state.
+	 */
+	int[][][] getState() {
+		return state;
+	}
+	/**
+	 * @return Returns the number.
+	 */
+	int[][] getPearl() {
+		return pearl;
+	}
+	/**
 	 * ŠÛ‚Ìİ’è
 	 * @param r
 	 * @param c
@@ -74,12 +86,6 @@ public class Board extends BoardBase  {
 	 */
 	public int getPearl(int r, int c) {
 		return pearl[r][c];
-	}
-	/**
-	 * @return Returns the state.
-	 */
-	int[][][] getState() {
-		return state;
 	}
 	/**
 	 * •Óó‘Ô‚Ìæ“¾

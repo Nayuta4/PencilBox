@@ -30,6 +30,7 @@ public class MenuBase {
 	private JMenuItem openItem;
 	private JMenuItem coloseAndOpenItem;
 	private JMenuItem saveItem;
+	private JMenuItem duplicateItem;
 	private JMenuItem exportProblemDataStringItem;
 	private JMenuItem saveImageItem;
 	private JMenuItem copyImageItem;
@@ -41,8 +42,8 @@ public class MenuBase {
 	private JMenuItem clearItem;
 	private JMenuItem undoItem;
 	private JMenuItem redoItem;
-	private JMenuItem undoAllItem;
-	private JMenuItem redoAllItem;
+//	private JMenuItem undoAllItem;
+//	private JMenuItem redoAllItem;
 	private JMenuItem palybackItem;
 	private JMenuItem checkAnswerItem;
 	private JMenuItem renewColorItem;
@@ -53,7 +54,6 @@ public class MenuBase {
 
 	private JMenu colorMenu;
 	private JMenu rotationMenu;
-	private ButtonGroup rotationGroup;
 	private JMenu displaySizeMenu;
 	private ButtonGroup displaySizeGroup;
 	private JMenu gridStyleMenu;
@@ -118,6 +118,9 @@ public class MenuBase {
 		fileMenu.add(openItem = makeCommandMenuItem("開く(O)...", 'O'));
 		fileMenu.add(coloseAndOpenItem = makeCommandMenuItem("閉じて開く(L)...", 'L'));
 		fileMenu.add(saveItem = makeCommandMenuItem("保存(S)...", 'S'));
+		fileMenu.add(duplicateItem = makeCommandMenuItem("複製(D)", 'D'));
+		fileMenu.add(rotationMenu = makeJMenu("回転・反転(R)", 'R'));
+		buildRotationMenu();
 		fileMenu.addSeparator();
 		fileMenu.add(exportProblemDataStringItem = makeCommandMenuItem("問題データ文字列出力(E)...", 'E'));
 		fileMenu.add(saveImageItem = makeCommandMenuItem("画像保存(I)...", 'I'));
@@ -160,11 +163,9 @@ public class MenuBase {
 	 */
 	protected void buildViewMenu() {
 		viewMenu = makeJMenu("表示(V)", 'V');
-		buildRotationMenu();
 		buildDisplaySizeMenu();
 		buildGridStyleMenu();
 		viewMenu.add(colorMenu = makeJMenu("色の設定(L)", 'L'));
-		viewMenu.add(rotationMenu);
 		viewMenu.add(displaySizeMenu);
 		viewMenu.add(showIndexModeItem = makeCheckBoxCommandMenuItem("行列番号表示(I)", 'I', true));
 		viewMenu.addSeparator();
@@ -183,32 +184,21 @@ public class MenuBase {
 	 * [回転・反転]メニュー作成
 	 */
 	protected void buildRotationMenu() {
-		rotationMenu = makeJMenu("回転・反転(R)", 'R');
-		rotationGroup = new ButtonGroup();
-		makeRotationItem(0, "0°").setSelected(true);
-		makeRotationItem(1, "左90°回転");
-		makeRotationItem(2, "180°回転");
-		makeRotationItem(3, "右90°回転");
-		makeRotationItem(4, "縦横交換");
-		makeRotationItem(5, "左右反転");
-		makeRotationItem(6, "180°回転+縦横交換");
-		makeRotationItem(7, "上下反転");
+		makeRotationItem("左90°回転(1)", '1', "1");
+		makeRotationItem("180°回転(2)", '2', "2");
+		makeRotationItem("右90°回転(3)", '3', "3");
+		makeRotationItem("縦横交換(4)", '4', "4");
+		makeRotationItem("左右反転(5)", '5', "5");
+		makeRotationItem("180°回転+縦横交換(6)", '6', "6");
+		makeRotationItem("上下反転(7)", '7', "7");
 	}
 	/**
 	 * [回転・反転]メニュー作成
-	 * （カックロ用暫定）
+	 * （カックロ用）
 	 */
 	protected void buildRotationMenu2() {
 		rotationMenu = makeJMenu("回転・反転(R)", 'R');
-		rotationGroup = new ButtonGroup();
-		makeRotationItem(0, "0°").setSelected(true);
-//		makeRotationItem(1, "左90°回転");
-//		makeRotationItem(2, "180°回転");
-//		makeRotationItem(3, "右90°回転");
-		makeRotationItem(4, "縦横交換");
-//		makeRotationItem(5, "左右反転");
-//		makeRotationItem(6, "180°回転+縦横交換");
-//		makeRotationItem(7, "上下反転");
+		makeRotationItem("縦横交換(4)", '4', "4");
 	}
 
 	/**
@@ -344,22 +334,31 @@ public class MenuBase {
 
 	/**
 	 * 「回転・反転」メニューのサブメニュー項目を作成し，グループに追加する。
-	 * @param n 設定する回転状態番号
+	 * 回転番号をパラメータとしてメニュー項目の action command に設定する。
 	 * @param text メニュー表示文字列
+	 * @param mnemonic
+	 * @param n 設定する回転番号
 	 * @return 作成したメニュー項目
 	 */
-	protected JRadioButtonMenuItem makeRotationItem(final int n, String text) {
-		JRadioButtonMenuItem rotationItem = new JRadioButtonMenuItem(text);
-		rotationItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-//				panel.setRotation(n);
-//				frame.pack();
-			}
-		});
-		rotationGroup.add(rotationItem);
+	protected JMenuItem makeRotationItem(String text, char mnemonic, String n) {
+		JMenuItem rotationItem = new JMenuItem(text, mnemonic);
+		rotationItem.addActionListener(rotationCommandAction);
+		rotationItem.setActionCommand(n);
 		rotationMenu.add(rotationItem);
 		return rotationItem;
 	}
+
+	/**
+	 * 回転コマンド。 
+	 * メニュー項目の action command から回転番号を読み取って実行する。
+	 */
+	private ActionListener rotationCommandAction = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			JMenuItem target = (JMenuItem) e.getSource();
+			command.rotateBoard(Integer.parseInt(target.getActionCommand()));
+			panel.repaint();
+		}
+	};
 
 	/**
 	 * 「表示サイズ変更」のサブメニュー項目を作成し，グループに追加する。
@@ -466,6 +465,8 @@ public class MenuBase {
 			command.closeAndOpen();
 		else if (target == saveItem)
 			command.save();
+		else if (target == duplicateItem)
+			command.duplicate();
 		else if (target == exportProblemDataStringItem)
 			command.exporProblemDatatString();
 		else if (target == saveImageItem)
@@ -488,10 +489,10 @@ public class MenuBase {
 			command.undo();
 		else if (target == redoItem)
 			command.redo();
-		else if (target == undoAllItem)
-			command.undoAll();
-		else if (target == redoAllItem)
-			command.redoAll();
+//		else if (target == undoAllItem)
+//			command.undoAll();
+//		else if (target == redoAllItem)
+//			command.redoAll();
 		else if (target == palybackItem)
 			command.playback();
 		else if (target == checkAnswerItem)
@@ -608,6 +609,5 @@ public class MenuBase {
 		item.setSelected(initial);
 		return item;
 	}
-
 
 }

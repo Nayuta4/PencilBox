@@ -10,6 +10,22 @@ public class Property {
 	private String difficulty = "";
 	
 	/**
+	 * デフォルトコンストラクタ
+	 */
+	public Property () {
+	}
+
+	/**
+	 * コピーコンストラクタ
+	 * @param p コピー元Property
+	 */
+	public Property (Property p) {
+		this.author = p.author;
+		this.source = p.source;
+		this.difficulty = p.difficulty;
+	}
+	
+	/**
 	 * @return 作者名
 	 */
 	public String getAuthor() {

@@ -1,14 +1,19 @@
 package pencilbox.numberlink;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.undo.AbstractUndoableEdit;
 import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
 
-import pencilbox.common.core.*;
-import pencilbox.util.*;
+import pencilbox.common.core.Address;
+import pencilbox.common.core.BoardBase;
+import pencilbox.common.core.Direction;
+import pencilbox.common.core.SideAddress;
+import pencilbox.util.ArrayUtil;
 
 
 /**
@@ -47,6 +52,20 @@ public class Board extends BoardBase {
 		super.clearBoard();
 		ArrayUtil.initArrayInt3(state, UNKNOWN);
 		initBoard();
+	}
+
+	/**
+	 * @return the number
+	 */
+	int[][] getNumber() {
+		return number;
+	}
+
+	/**
+	 * @return the state
+	 */
+	int[][][] getState() {
+		return state;
 	}
 
 	public void trimAnswer() {
