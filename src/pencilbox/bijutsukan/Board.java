@@ -44,6 +44,15 @@ public class Board extends BoardBase {
 		initBoard();
 	}
 
+	public void trimAnswer() {
+		for (int r=0; r<rows(); r++) {
+			for (int c=0; c<cols(); c++) {
+				if (getState(r, c) == NOILLUMINATION)
+					setState(r, c, UNKNOWN);
+				}
+		}
+	}
+
 	public void initBoard() {
 		initIlluminations();
 	}

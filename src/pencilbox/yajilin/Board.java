@@ -348,15 +348,24 @@ public class Board extends BoardBase {
 		initBoard();
 	}
 	
+	public void trimAnswer() {
+		for (int r=0; r<rows(); r++) {
+			for (int c=0; c<cols(); c++) {
+				if (getNumber(r, c) == WHITE)
+					setNumber(r, c, BLANK);
+				}
+		}
+	}
+
 	public void initBoard() {
-		Link.resetID();
-		linkList.clear();
-		ArrayUtil.initArrayObject2(link[0],null);
-		ArrayUtil.initArrayObject2(link[1],null);
 		initLinks();
 	}
 	
 	void initLinks() {
+		Link.resetID();
+		linkList.clear();
+		ArrayUtil.initArrayObject2(link[0],null);
+		ArrayUtil.initArrayObject2(link[1],null);
 		for (int r=0; r<rows(); r++) {
 			for (int c=0; c<cols(); c++) {
 				initLink(r, c);

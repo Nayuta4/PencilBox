@@ -70,6 +70,17 @@ public class Board extends BoardBase {
 		ArrayUtil.initArrayInt2(chain,0);
 	}
 	
+	public void trimAnswer() {
+		for (int r=0; r<rows(); r++) {
+			for (int c=0; c<cols(); c++) {
+				if (getState(r, c) == WHITE)
+					setState(r, c, UNKNOWN);
+				}
+		}
+		initCont();
+		initRoomCount();
+	}
+
 	public void initBoard() {
 		initCont();
 		initChain();
