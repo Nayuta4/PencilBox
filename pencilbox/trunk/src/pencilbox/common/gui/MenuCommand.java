@@ -340,13 +340,13 @@ public class MenuCommand {
 		board.clearBoard();
 		panel.repaint();
 	}
-//	/**
-//	 *  [編集]-[解答整形]
-//	 */
-//	public void trimAnswer() {
-//		board.trimAnswer();
-//		panel.repaint();
-//	}
+	/**
+	 *  [編集]-[補助記号消去]
+	 */
+	public void trimAnswer() {
+		board.trimAnswer();
+		panel.repaint();
+	}
 	/**
 	 *  [編集]-[正答判定]
 	 */

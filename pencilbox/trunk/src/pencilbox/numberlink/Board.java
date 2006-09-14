@@ -54,6 +54,16 @@ public class Board extends BoardBase {
 		initBoard();
 	}
 
+	public void trimAnswer() {
+		for (int d=0; d<=1; d++)
+			for (int r=0; r<rows(); r++) {
+				for (int c=0; c<cols(); c++) {
+					if (getState(d, r, c) == NOLINE) 
+						setState(d, r, c, UNKNOWN);
+				}
+			}
+	}
+
 	/**
 	 * @return the number
 	 */
@@ -66,16 +76,6 @@ public class Board extends BoardBase {
 	 */
 	int[][][] getState() {
 		return state;
-	}
-
-	public void trimAnswer() {
-		for (int d=0; d<=1; d++)
-			for (int r=0; r<rows(); r++) {
-				for (int c=0; c<cols(); c++) {
-					if (state[d][r][c] == NOLINE) 
-						state[d][r][c] = UNKNOWN;
-				}
-			}
 	}
 
 	public boolean isNumber(int r, int c){
@@ -215,14 +215,14 @@ public class Board extends BoardBase {
 	}
 
 	public void initBoard() {
-		Link.resetID();
-		linkList.clear();
-		ArrayUtil.initArrayObject2(link[0],null);
-		ArrayUtil.initArrayObject2(link[1],null);
 		initLinks();
 	}
 	
 	void initLinks() {
+		Link.resetID();
+		linkList.clear();
+		ArrayUtil.initArrayObject2(link[0],null);
+		ArrayUtil.initArrayObject2(link[1],null);
 		for (int r=0; r<rows(); r++) {
 			for (int c=0; c<cols(); c++) {
 				initLink(r, c);

@@ -40,6 +40,7 @@ public class MenuBase {
 	private JMenuItem quiteItem;
 	private JMenuItem aboutItem;
 	private JMenuItem clearItem;
+	private JMenuItem trimAnswerItem;
 	private JMenuItem undoItem;
 	private JMenuItem redoItem;
 //	private JMenuItem undoAllItem;
@@ -142,6 +143,7 @@ public class MenuBase {
 		editMenu.add(problemEditModeItem = makeCommandRadioButtonMenuItem("–â‘è“ü—Íƒ‚[ƒh(E)", 'E'));
 		editMenu.addSeparator();
 		editMenu.add(clearItem = makeCommandMenuItem("‰ğ“šÁ‹(C)", 'C'));
+		editMenu.add(trimAnswerItem = makeCommandMenuItem("•â•‹L†Á‹(T)", 'T'));
 		editMenu.addSeparator();
 		editMenu.add(undoItem = makeCommandMenuItem("Œ³‚É–ß‚·(U)", 'U'));
 		editMenu.add(redoItem = makeCommandMenuItem("‚â‚è’¼‚µ(R)", 'R'));
@@ -485,6 +487,8 @@ public class MenuBase {
 			command.about();
 		else if (target == clearItem)
 			command.clear();
+		else if (target == trimAnswerItem)
+			command.trimAnswer();
 		else if (target == undoItem)
 			command.undo();
 		else if (target == redoItem)
