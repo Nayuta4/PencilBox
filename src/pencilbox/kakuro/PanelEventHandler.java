@@ -2,7 +2,7 @@ package pencilbox.kakuro;
 
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
-import pencilbox.common.gui.CellCursor;
+import pencilbox.common.core.Direction;
 import pencilbox.common.gui.PanelEventHandlerBase;
 
 
@@ -38,10 +38,6 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		super.setProblemEditMode(editable);
 	}
 
-	public CellCursor createCursor() {
-		return new KakuroCursor(this);
-	}
-
 	/*
 	 * 「カックロ」マウス操作
 	 */
@@ -52,6 +48,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			}
 		}
 	}
+	
 	protected void rightPressed(Address pos) {
 		if (!isCursorOn() || getCellCursor().isAt(pos)) {
 			if (!board.isWall(pos.r(), pos.c())) {
@@ -62,11 +59,19 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	/*
 	 * 「カックロ」キー操作
 	 */
+	protected void arrowKeyEntered(int direction) {
+		super.arrowKeyEntered(direction);
+		if (direction == Direction.LT)
+			getKKCursor().setStair(KakuroCursor.UPPER);
+		else if (direction == Direction.UP)
+			getKKCursor().setStair(KakuroCursor.LOWER);
+	}
+	
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {
-			if (getKCursor().getStair() == KakuroCursor.LOWER)
+			if (getKKCursor().getStair() == KakuroCursor.LOWER)
 				board.setSumV(pos.r(), pos.c(), num);
-			else if (getKCursor().getStair() == KakuroCursor.UPPER)
+			else if (getKKCursor().getStair() == KakuroCursor.UPPER)
 				board.setSumH(pos.r(), pos.c(), num);
 		} else if (isCursorOn()){
 			if (!board.isWall(pos.r(), pos.c()))
@@ -85,19 +90,18 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	
 	protected void minusEntered(Address pos) {
 		if (isProblemEditMode()) {
-			if (getKCursor().getStair() == KakuroCursor.LOWER)
+			if (getKKCursor().getStair() == KakuroCursor.LOWER)
 				board.setSumV(pos.r(), pos.c(), 0);
-			else if (getKCursor().getStair() == KakuroCursor.UPPER)
+			else if (getKKCursor().getStair() == KakuroCursor.UPPER)
 				board.setSumH(pos.r(), pos.c(), 0);
 		}
 	}
 
 	/**
-	 * @return the kcursor
+	 * @return the KakuroCursor
 	 */
-	KakuroCursor getKCursor() {
+	KakuroCursor getKKCursor() {
 		return (KakuroCursor) getCellCursor();
 	}
-	
 
 }

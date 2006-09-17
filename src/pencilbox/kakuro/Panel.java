@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
+import pencilbox.common.gui.CellCursor;
 import pencilbox.common.gui.HintDot;
 import pencilbox.common.gui.PanelBase;
 
@@ -74,6 +75,9 @@ public class Panel extends PanelBase {
 		hintDot.setDotSize(getCellSize());
 	}
 	
+	public CellCursor createCursor() {
+		return new KakuroCursor();
+	}
 
 	public void drawPanel(Graphics g){
 		paintBackground(g);

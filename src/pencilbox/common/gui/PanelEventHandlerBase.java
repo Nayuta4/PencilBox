@@ -18,7 +18,7 @@ import pencilbox.common.core.SideAddress;
 public class PanelEventHandlerBase {
 
 	private PanelBase panel;
-//	private BoardBase board;
+	private BoardBase board;
 
 	private KeyHandler keyHandler = new KeyHandler();
 	private MouseHandler mouseHandler = new MouseHandler();
@@ -26,26 +26,28 @@ public class PanelEventHandlerBase {
 
 	private int maxInputNumber = 99;
 	private int previousInput = 0;
-	
+
 	/**
-	 * Panelを生成する
+	 * PanelEventHandlerを生成する
 	 */
 	public PanelEventHandlerBase() {
 	}
-	
+
 	public void setup(PanelBase panel, BoardBase board) {
 		this.panel = panel;
+		this.board = board;
 		setBoard(board);
 		panel.addKeyListener(keyHandler);
 		panel.addMouseListener(mouseHandler);
 		panel.addMouseMotionListener(mouseHandler);
 		panel.addMouseListener(mouseHandlerEdge);
-		panel.setCellCursor(createCursor());
 	}
-	
+
 	public void setup(BoardBase board) {
+		this.board = board;
 		setBoard(board);
-		getCellCursor().setPosition(0,0);
+		getCellCursor().resetPosition();
+		resetPreviousInput();
 	}
 
 	/**
@@ -55,18 +57,11 @@ public class PanelEventHandlerBase {
 	 */
 	protected void setBoard(BoardBase board) {
 	}
-	
+
 	public PanelBase getPanel() {
 		return panel;
 	}
 
-	/**
-	 *  カーソルを生成する
-	 * @return 生成したカーソル
-	 */
-	public CellCursor createCursor() {
-		return new CellCursor(this);
-	}
 	/**
 	 * 入力可能な最大数字を設定する
 	 * @param number 設定する数値
@@ -80,7 +75,7 @@ public class PanelEventHandlerBase {
 	public void resetPreviousInput() {
 		previousInput = 0;
 	}
-	
+
 	public int getCellSize() {
 		return panel.getCellSize();
 	}
@@ -96,51 +91,51 @@ public class PanelEventHandlerBase {
 	public int getOffsety() {
 		return panel.getOffsety();
 	}
-	
+
 	public boolean isProblemEditMode() {
 		return panel.isProblemEditMode();
 	}
-	
+
 	public void setProblemEditMode(boolean b) {
 		panel.setProblemEditMode(b);
+		resetPreviousInput();
 	}
-	
+
 	public CellCursor getCellCursor() {
 		return panel.getCellCursor();
 	}
-	
+
 	public boolean isCursorOn() {
 		return panel.isCursorOn();
 	}
-	
+
 	public void repaint() {
 		panel.repaint();
 	}
-	
-	public boolean isOn(int r, int c) {
-		return panel.isOn(r, c);
-	}
-	
-	public boolean isOn(int r, int c, int a, int b) {
-		return panel.isOn(r, c, a, b);
-	}
-	
+
 	public boolean isOn(Address position) {
-		return panel.isOn(position);
+		return board.isOn(position);
 	}
-	
+
+//	public boolean isOn(int r, int c, int adjustRow, int adjustCol) {
+//		return board.isOn(r, c, adjustRow, adjustCol);
+//	}
+
 	public boolean isSideOn(SideAddress position) {
-		return panel.isSideOn(position);
+		return board.isSideOn(position);
 	}
-	
-	public int rows() {
-		return panel.rows();
+
+	/**
+	 * カーソル座標が盤面上にあるか。
+	 * 通常は #isOn(Address) と同じ結果を返す。
+	 * SL, TS 等カーソルの座標系が異なるタイプでは，サブクラスで再定義する。
+	 * @param position カーソル座標
+	 * @return カーソル座標が盤面上にあれば true
+	 */
+	public boolean isCursorOnBoard(Address position) {
+		return board.isOn(position);
 	}
-	
-	public int cols() {
-		return panel.cols();
-	}
-	
+
 	/**
 	 * Panel上のx方向ピクセル座標をPanel上の列方向マス座標に変換する
 	 * @param x Panel上のピクセル座標のx
@@ -163,112 +158,175 @@ public class PanelEventHandlerBase {
 	 */
 	public class KeyHandler implements KeyListener {
 
-		private Address position = new Address();
-
-		/**
-		 * キーボード入力処理
-		 * 0-9 の数字キーがタイプされたときには入力数字を受けとり，
-		 * 状況に応じて，2桁の数字にして numberEntered メソッドに渡す
-		 */
 		public void keyPressed(KeyEvent e) {
-			int keyChar = e.getKeyChar();
-			if (keyChar == '/')
-				slashEntered();
-			if (isProblemEditMode() || isCursorOn()) {
-				moveCursor(e);
-				position.set(getCellCursor().getPosition());
-				if (keyChar == ' ') {
-					spaceEntered(position);
-				} else 	if (keyChar == '.') {
-					spaceEntered(position);
-				} else 	if (keyChar == '-') {
-					minusEntered(position);
-				} else if (
-					keyChar >= '0' && keyChar <= '9') { // 0 - 9 のキーが入力されたときのみ問題にしている
-					int number = keyChar - '0';
-					if (previousInput >= 1 && previousInput <= 9) {
-	//					&& position.equals(previousPosition)) {
-						if (previousInput * 10 + number <= maxInputNumber) {
-							number = previousInput * 10 + number;
-						}
-						if (number <= maxInputNumber) {
-							numberEntered(position, number);
-							previousInput = 0;
-						}
-					} else {
-						if (number <= maxInputNumber) {
-							numberEntered(position, number);
-							previousInput = number;
-						}
-					}
-				}
-			}
-			repaint();
-		}
-		private void moveCursor(KeyEvent e) {
 			int keyCode = e.getKeyCode();
 			switch (keyCode) {
-				case KeyEvent.VK_LEFT :
-						getCellCursor().moveLt();
-					break;
-				case KeyEvent.VK_UP :
-						getCellCursor().moveUp();
-					break;
-				case KeyEvent.VK_RIGHT :
-						getCellCursor().moveRt();
-					break;
-				case KeyEvent.VK_DOWN :
-						getCellCursor().moveDn();
-					break;
-				default :
-					break;
+			case KeyEvent.VK_SLASH:
+			case KeyEvent.VK_DIVIDE:
+				slashKeyEntered();
+				break;
+			case KeyEvent.VK_LEFT: // 0x25
+				arrowKeyEntered(Direction.LT);
+				break;
+			case KeyEvent.VK_UP: // 0x26
+				arrowKeyEntered(Direction.UP);
+				break;
+			case KeyEvent.VK_RIGHT: // 0x27
+				arrowKeyEntered(Direction.RT);
+				break;
+			case KeyEvent.VK_DOWN: // 0x28
+				arrowKeyEntered(Direction.DN);
+				break;
+			case KeyEvent.VK_SPACE:
+			case KeyEvent.VK_PERIOD:
+			case KeyEvent.VK_DECIMAL:
+				spaceKeyEntered();
+				break;
+			case KeyEvent.VK_MINUS:
+			case KeyEvent.VK_SUBTRACT:
+				minusKeyEntered();
+				break;
+			case KeyEvent.VK_SEMICOLON:
+			case KeyEvent.VK_ADD:
+				break;
+			case KeyEvent.VK_COLON:
+			case KeyEvent.VK_MULTIPLY:
+				break;
+			case KeyEvent.VK_0:
+			case KeyEvent.VK_NUMPAD0:
+				numberKeyEntered(0);
+				break;
+			case KeyEvent.VK_1:
+			case KeyEvent.VK_NUMPAD1:
+				numberKeyEntered(1);
+				break;
+			case KeyEvent.VK_2:
+			case KeyEvent.VK_NUMPAD2:
+				numberKeyEntered(2);
+				break;
+			case KeyEvent.VK_3:
+			case KeyEvent.VK_NUMPAD3:
+				numberKeyEntered(3);
+				break;
+			case KeyEvent.VK_4:
+			case KeyEvent.VK_NUMPAD4:
+				numberKeyEntered(4);
+				break;
+			case KeyEvent.VK_5:
+			case KeyEvent.VK_NUMPAD5:
+				numberKeyEntered(5);
+				break;
+			case KeyEvent.VK_6:
+			case KeyEvent.VK_NUMPAD6:
+				numberKeyEntered(6);
+				break;
+			case KeyEvent.VK_7:
+			case KeyEvent.VK_NUMPAD7:
+				numberKeyEntered(7);
+				break;
+			case KeyEvent.VK_8:
+			case KeyEvent.VK_NUMPAD8:
+				numberKeyEntered(8);
+				break;
+			case KeyEvent.VK_9:
+			case KeyEvent.VK_NUMPAD9:
+				numberKeyEntered(9);
+				break;
 			}
+			repaint();
 		}
 
 		public void keyTyped(KeyEvent e) {
 		}
+
 		public void keyReleased(KeyEvent e) {
 		}
 	}
 	/**
-	 * 数字キーを入力したときに呼ばれる
-	 * 処理はパズルの種類ごとにサブクラスで記述する
+	 * 矢印キー入力を処理する。 矢印の方向にカーソルを移動する。
+	 */
+	protected void arrowKeyEntered(int direction) {
+		if (!isProblemEditMode() && !isCursorOn())
+			return;
+		Address pos = getCellCursor().getPosition();
+		pos.move(direction);
+		if (isCursorOnBoard(pos)) {
+			getCellCursor().setPosition(pos);
+			resetPreviousInput();
+		}
+	}
+	/**
+	 * 数字キー入力を処理する。 
+	 * 0-9 の数字キーが入力されたときに，状況に応じて2桁の数字にして numberEnteredメソッドに渡す
+	 */
+	protected void numberKeyEntered(int number) {
+		if (!isProblemEditMode() && !isCursorOn())
+			return;
+		Address pos = getCellCursor().getPosition();
+		if (previousInput >= 1 && previousInput <= 9) {
+			if (previousInput * 10 + number <= maxInputNumber) {
+				number = previousInput * 10 + number;
+			}
+			if (number <= maxInputNumber) {
+				numberEntered(pos, number);
+				previousInput = 0;
+			}
+		} else {
+			if (number <= maxInputNumber) {
+				numberEntered(pos, number);
+				previousInput = number;
+			}
+		}
+	}
+	/**
+	 * 数字入力を処理する。
+	 * 各サブクラスで実装する。
 	 * @param pos 数字を入力したマスの座標
 	 * @param num 入力した数字
 	 */
 	protected void numberEntered(Address pos, int num) {
 	}
 	/**
-	 * スペースキーを入力したときに呼ばれる
-	 * 処理はパズルの種類ごとにサブクラスで記述する
-	 * @param pos 数字を入力したマスの座標
+	 * ピリオドキーの入力を処理する。
+	 * 各サブクラスで実装する。
+	 * @param pos 入力マスの座標
 	 */
 	protected void spaceEntered(Address pos) {
 	}
+
+	protected void spaceKeyEntered() {
+		Address pos = getCellCursor().getPosition();
+		spaceEntered(pos);
+	}
+
 	/**
-	 * '-'キーを入力したときに呼ばれる
-	 * 処理はパズルの種類ごとにサブクラスで記述する
-	 * @param pos 数字を入力したマスの座標
+	 * マイナスキーの入力を処理する。
+	 * 各サブクラスで実装する。
+	 * @param pos 入力マスの座標
 	 */
 	protected void minusEntered(Address pos) {
 	}
+
+	protected void minusKeyEntered() {
+		Address pos = getCellCursor().getPosition();
+		minusEntered(pos);
+	}
+
 	/**
-	 * '/'キーを入力したときに呼ばれる
+	 * スラッシュキーの入力を処理する。
 	 * 「問題入力モード」と「解答モード」を切り替える
 	 */
-	protected void slashEntered() {
+	protected void slashKeyEntered() {
+		if (isProblemEditMode())
+			board.initBoard();
 		setProblemEditMode(!isProblemEditMode());
 	}
 
 	/**
 	 * マウスリスナーの共通スーパークラス
-	 * マウスを押したとき，
-	 * ドラッグしたまま新しいマスに移動したとき，
-	 * ドラッグ終了したとき，の動作を，
-	 * サブクラスでオーバーライドして用いる
+	 * マウスを押したとき，ドラッグしたまま新しいマスに移動したとき，ドラッグ終了したときの動作を定義している。
 	 */
-	public class MouseHandler
-		implements MouseListener, MouseMotionListener {
+	public class MouseHandler implements MouseListener, MouseMotionListener {
 
 		private Address oldPos = new Address(-1, -1);
 		private Address newPos = new Address(-1, -1);
@@ -278,6 +336,7 @@ public class PanelEventHandlerBase {
 			newPos.set(toR(e.getY()), toC(e.getX()));
 			if (!isOn(newPos))
 				return;
+			moveCursor(newPos);
 			int modifier = e.getModifiers();
 			if ((modifier & InputEvent.BUTTON1_MASK) != 0) {
 				if ((e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK) != 0)
@@ -287,7 +346,6 @@ public class PanelEventHandlerBase {
 			} else if ((modifier & InputEvent.BUTTON3_MASK) != 0) {
 				rightPressed(newPos);
 			}
-			moveCursor(newPos);
 
 			oldPos.set(newPos); // 現在位置を更新
 			repaint();
@@ -304,15 +362,15 @@ public class PanelEventHandlerBase {
 
 			if (newPos.equals(oldPos))
 				return; // 同じマス内に止まるイベントは無視
-			//			if (!newPos.isNextTo(oldPos)) return; // 隣接マス以外のイベントは無視
-			//			if (dragIneffective(oldPos, newPos)) return; // 隣接マス以外のイベントは無視
+			// if (!newPos.isNextTo(oldPos)) return; // 隣接マス以外のイベントは無視
+			// if (dragIneffective(oldPos, newPos)) return; // 隣接マス以外のイベントは無視
 
 			if ((e.getModifiers() & InputEvent.BUTTON1_MASK) != 0) {
 				leftDragged(oldPos, newPos);
 			} else if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
 				rightDragged(oldPos, newPos);
 			}
-
+			moveCursor(newPos);
 			oldPos.set(newPos); // 現在位置を更新
 			repaint();
 		}
@@ -331,10 +389,13 @@ public class PanelEventHandlerBase {
 			}
 			repaint();
 		}
+
 		public void mouseExited(MouseEvent e) {
 		}
+
 		public void mouseEntered(MouseEvent e) {
 		}
+
 		public void mouseClicked(MouseEvent e) {
 			if (!isOn(newPos))
 				return;
@@ -351,89 +412,98 @@ public class PanelEventHandlerBase {
 		}
 
 		public void mouseMoved(MouseEvent e) {
-//			movePos.set(toR(e.getY()), toC(e.getX()));
-//			if (!isOn(movePos))
-//				return;
-//			mouseMovedTo(movePos);
-//			repaint();
+			// movePos.set(toR(e.getY()), toC(e.getX()));
+			// if (!isOn(movePos))
+			// return;
+			// mouseMovedTo(movePos);
+			// repaint();
 		}
 	}
+
 	/**
-	 * 左ボタンが押されたとき，
+	 * 左ボタンが押されたときに呼ばれる。
 	 * サブクラスで操作をオーバーライドする．
 	 * @param position
 	 */
 	protected void leftPressed(Address position) {
 	}
+
 	protected void leftPressedShift(Address position) {
 	}
+
 	protected void leftClicked(Address position) {
 	}
+
 	protected void leftClickedShift(Address position) {
-	}	
+	}
 	/**
 	 * 左ドラッグしたままた新しいマスに移動したときに呼ばれる．
 	 * 必要に応じてサブクラスで操作をオーバーライドする．
-	 * オーバーライドしなければ，leftPressed と同じ動作
 	 * @param position
 	 */
 	protected void leftDragged(Address position) {
-//		leftPressed(position);
+		// leftPressed(position);
 	}
+
 	protected void leftDragged(Address oldPos, Address position) {
 		leftDragged(position);
 	}
 
 	/**
-	 * 左マウスボタンを離して左ドラッグが確定したときに呼ばれる
-	 * サブクラスでオーバーライドする
+	 * 左マウスボタンを離して左ドラッグが確定したときに呼ばれる。
+	 * サブクラスでオーバーライドする。
 	 * @param dragEnd
 	 */
 	protected void leftDragFixed(Address dragEnd) {
 	}
 	/**
-	 * 右ボタンが押されたとき，右ドラッグしたままた新しいマスに移動したときに呼ばれる．
-	 * サブクラスで操作をオーバーライドする．
+	 * 右ボタンが押されたとき，右ドラッグしたままた新しいマスに移動したときに呼ばれる。
+	 * サブクラスで操作をオーバーライドする。
 	 * @param position
 	 */
 	protected void rightPressed(Address position) {
 	}
+
 	protected void rightClicked(Address position) {
 	}
 	/**
-	 * 右ドラッグしたままた新しいマスに移動したときに呼ばれる．
+	 * 右ドラッグしたままた新しいマスに移動したときに呼ばれる。 
 	 * サブクラスで操作をオーバーライドする．
-	 * オーバーライドしなければ，rightPressed と同じ動作
 	 * @param position
 	 */
 	protected void rightDragged(Address position) {
-//		rightPressed(position);
+		// rightPressed(position);
 	}
+
 	protected void rightDragged(Address oldPos, Address position) {
 		rightDragged(position);
 	}
 	/**
-	 * 右マウスボタンを離して右ドラッグが確定したときに呼ばれる
-	 * サブクラスでオーバーライドする
+	 * 右マウスボタンを離して右ドラッグが確定したときに呼ばれる。
+	 * サブクラスでオーバーライドする。
 	 * @param dragEnd
 	 */
 	protected void rightDragFixed(Address dragEnd) {
 	}
 	/**
-	 * 盤内でドラッグを開始したが盤外でドラッグを終了したときに呼ばれる．
-	 * 必要に応じサブクラスでドラッグの後始末をする
+	 * 盤内でドラッグを開始したが盤外でドラッグを終了したときに呼ばれる。
+	 * 必要に応じサブクラスでドラッグの後始末をする。
 	 */
 	protected void dragFailed() {
 	}
 
-	protected void moveCursor(Address pos) {
-		getCellCursor().setPosition(pos);
+	/**
+	 * マウス操作でカーソルを移動する。
+	 *@param pos
+	 */
+	protected void moveCursor(Address position) {
+		getCellCursor().setPosition(position);
+		resetPreviousInput();
 	}
 
 	/**
 	 * SL, MS 用
-	 * 辺の操作を行うパズル用のマウスリスナーの共通スーパークラス
-	 * 辺をクリックしたときの動作をサブクラスでオーバーライドして使用する
+	 * 辺の操作を行うパズル用のマウスリスナーの共通スーパークラス。
 	 */
 	public class MouseHandlerEdge implements MouseListener {
 
@@ -441,24 +511,30 @@ public class PanelEventHandlerBase {
 
 		public void mousePressed(MouseEvent e) {
 		}
+
 		public void mouseReleased(MouseEvent e) {
 		}
+
 		public void mouseExited(MouseEvent e) {
 		}
+
 		public void mouseEntered(MouseEvent e) {
 		}
+
 		public void mouseClicked(MouseEvent e) {
 
 			int x = e.getX();
 			int y = e.getY();
 
-			if ((((y - getOffsety()) - (x - getOffsetx()) + cols() * getCellSize() * 2) / getCellSize()
-				+ ((y - getOffsety()) + (x - getOffsetx())) / getCellSize())
-				% 2
-				== 0) {
-				position.set(Direction.VERT, toR(y), toC(x - getHalfCellSize())); // 縦の辺上
+			if ((((y - getOffsety()) - (x - getOffsetx()) + board.cols()
+					* getCellSize() * 2)
+					/ getCellSize() + ((y - getOffsety()) + (x - getOffsetx()))
+					/ getCellSize()) % 2 == 0) {
+				position
+						.set(Direction.VERT, toR(y), toC(x - getHalfCellSize())); // 縦の辺上
 			} else {
-				position.set(Direction.HORIZ, toR(y - getHalfCellSize()), toC(x)); // 横の辺上
+				position.set(Direction.HORIZ, toR(y - getHalfCellSize()),
+						toC(x)); // 横の辺上
 			}
 			if (!isSideOn(position))
 				return;
@@ -474,10 +550,13 @@ public class PanelEventHandlerBase {
 			repaint();
 		}
 	}
+
 	protected void leftClickedEdge(SideAddress position) {
 	}
+
 	protected void leftClickedShiftEdge(SideAddress position) {
 	}
+
 	protected void rightClickedEdge(SideAddress position) {
 	}
 

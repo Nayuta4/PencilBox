@@ -1,7 +1,6 @@
 package pencilbox.kakuro;
 
 import pencilbox.common.gui.CellCursor;
-import pencilbox.common.gui.PanelEventHandlerBase;
 
 /**
  * 「カックロ」問題入力用カーソルクラス
@@ -29,44 +28,10 @@ public class KakuroCursor extends CellCursor {
 	}
 	/**
 	 * 「カックロ」問題入力用カーソルを作成する
-	 * Panelと関連付ける
-	 * @param panel
 	 */
-	public KakuroCursor(PanelEventHandlerBase aPanel) {
-		super(aPanel);
+	public KakuroCursor() {
+		super();
 		stair = 0;
 	}
 
-	public void moveUp() {
-//		if (panel.isProblemEditMode() && stair==LOWER) {
-//			stair = UPPER;
-//			panel.resetPreviousInput();
-//		} 
-//		else{
-			setPosition(pos.r() - 1, pos.c());
-			stair = LOWER;
-//		}
-	}
-	public void moveLt() {
-//		if (panel.isProblemEditMode() && stair==UPPER) {
-//			stair = LOWER;
-//			panel.resetPreviousInput();
-//		} 
-//		else {
-			setPosition(pos.r(), pos.c() - 1);
-			stair = UPPER;
-//		}
-	}
-	public void moveDn() {
-//		if (h==UPPER) h = LOWER;
-//		else if (h==LOWER) {
-			setPosition(pos.r() + 1, pos.c());
-//		}
-	}
-	public void moveRt() {
-//		if (h==LOWER) h = UPPER;
-//		else if (h==UPPER) {
-			setPosition(pos.r(), pos.c() + 1);
-//		}
-	}
 }

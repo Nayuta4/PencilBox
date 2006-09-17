@@ -2,7 +2,6 @@ package pencilbox.tentaisho;
 
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
-import pencilbox.common.gui.CellCursor;
 import pencilbox.common.gui.PanelEventHandlerBase;
 
 
@@ -26,8 +25,8 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		board = (Board) aBoard; 
 	}
 
-	public CellCursor createCursor() {
-		return new TentaishoCursor(this);
+	public boolean isCursorOnBoard(Address pos) {
+		return board.isOnStar(pos.r(), pos.c());
 	}
 
 	/*

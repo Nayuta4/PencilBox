@@ -14,10 +14,8 @@ import java.awt.print.PrinterException;
 
 import javax.swing.JPanel;
 
-import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
-import pencilbox.common.core.SideAddress;
 import pencilbox.common.core.Size;
 
 
@@ -78,9 +76,17 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param board 盤面
 	 */
 	public void setup(BoardBase board) {
-		this.size = board.getSize();
+		size = board.getSize();
 		updatePreferredSize();
 		setBoard(board);
+		cellCursor = createCursor();
+	}
+	/**
+	 *  カーソルを生成する
+	 * @return 生成したカーソル
+	 */
+	public CellCursor createCursor() {
+		return new CellCursor();
 	}
 	/**
 	 * 個別クラスのパネルに個別クラスの盤面を設定するためのメソッド
@@ -105,8 +111,10 @@ public class PanelBase extends JPanel implements Printable {
 	protected void setDisplaySize(int cellSize) {
 
 		this.cellSize = cellSize;
-		offsetx = cellSize;
-		offsety = cellSize;
+		if (showIndexMode) {
+			offsetx = cellSize;
+			offsety = cellSize;
+		}
 		setHalfCellSize(cellSize / 2);
 		circleSize = (int) (cellSize * 0.7);
 		crossSize = (int) (cellSize * 0.3);
@@ -141,7 +149,7 @@ public class PanelBase extends JPanel implements Printable {
 	 */
 	protected void updatePreferredSize() {
 		setPreferredSize(getBoardRegionSize());
-		revalidate();
+//		revalidate();
 	}
 	/**
 	 * Panelの盤面領域部分のサイズを取得する
@@ -153,9 +161,6 @@ public class PanelBase extends JPanel implements Printable {
 	}
 	/**
 	 * 問題編集可能モードの設定を行う
-	 * 都合により，問題編集モードでは回転を標準に戻す
-	 * （スリザーリンクと天体ショーの問題入力が回転状態に対応していないため）
-	 * フレームの大きさを帰られないのは難点
 	 * @param problemEditMode The problemEditMode to set.
 	 */
 	public void setProblemEditMode(boolean problemEditMode) {
@@ -180,48 +185,6 @@ public class PanelBase extends JPanel implements Printable {
 	 */
 	public int cols() {
 		return size.getCols();
-	}
-	/**
-	 * パネル上か
-	 * @param r パネル上の整数値行座標
-	 * @param c パネル上の整数値列座標
-	 * @return 引数に与えられた座標が盤上なら true 盤外なら false
-	 */
-	protected boolean isOn(int r, int c) {
-		return r >= 0 && r < rows() && c >= 0 && c < cols();
-	}
-	protected boolean isOn(Address address) {
-		return isOn(address.r(), address.c());
-	}
-	protected boolean isSideOn(SideAddress address) {
-		if (address.d() == Direction.VERT)
-			return address.r() >= 0
-				&& address.r() < rows()
-				&& address.c() >= 0
-				&& address.c() < cols() - 1;
-		else if (address.d() == Direction.HORIZ)
-			return address.r() >= 0
-				&& address.r() < rows() - 1
-				&& address.c() >= 0
-				&& address.c() < cols();
-		return false;
-	}
-	/**
-	 * パネル上か
-	 * @param r
-	 * @param c
-	 * @param adjustRow 行数修正
-	 * @param adjustCol 列数修正
-	 * @return パネル上なら true
-	 */
-	protected boolean isOn(int r, int c, int adjustRow, int adjustCol) {
-		return r >= 0
-			&& r < rows() + adjustRow
-			&& c >= 0
-			&& c < cols() + adjustCol;
-	}
-	protected boolean isOn(Address address, int adjustRow, int adjustCol) {
-		return isOn(address.r(), address.c(), adjustRow, adjustCol);
 	}
 
 	/*
