@@ -3,7 +3,6 @@ package pencilbox.slitherlink;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.SideAddress;
-import pencilbox.common.gui.CellCursor;
 import pencilbox.common.gui.PanelEventHandlerBase;
 
 
@@ -21,15 +20,13 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		super();
 		setMaxInputNumber(3);
 	}
+
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard; 
 	}
-
-	/**
-	 * スリザーリンク専用カーソル生成
-	 */
-	public CellCursor createCursor() {
-		return new SlitherLinkCursor(this);
+	
+	public boolean isCursorOnBoard(Address pos) {
+		return board.isNumberOn(pos.r(), pos.c());
 	}
 
 	/*

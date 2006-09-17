@@ -43,7 +43,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 
 	protected void leftDragged(Address dragStart, Address pos) {
 		if (isProblemEditMode()) {
-			getCellCursor().setPosition(pos);
+//			moveCursor(pos);
 			if (isOn(dragStart)) {
 				int number = board.getState(dragStart.r(), dragStart.c());
 				if (number > 0 || number == Board.UNDECIDED_NUMBER){

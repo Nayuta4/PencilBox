@@ -8,16 +8,14 @@ import pencilbox.common.core.Address;
 public class CellCursor {
 	
 	protected Address pos;
-	protected PanelEventHandlerBase panel;
 
 	/**
 	 * カーソルを作成する
 	 * Panelと関連付ける
 	 * @param panel
 	 */
-	public CellCursor(PanelEventHandlerBase panel) {
+	public CellCursor() {
 		pos = new Address();
-		this.panel = panel;
 	}
 	/**
 	 * 現在のカーソル位置の行座標を取得する
@@ -38,59 +36,24 @@ public class CellCursor {
 	 * @return カーソル位置
 	 */
 	public Address getPosition() {
-		return pos;
+		return new Address(pos);
 	}
 	/**
 	 * @param r
 	 * @param c
 	 */
 	public void setPosition(int r, int c) {
-		if (panel.isOn(r, c)) {
-			pos.set(r, c);
-			panel.resetPreviousInput();
-		}
+		pos.set(r, c);
+	}
+	
+	public void resetPosition() {
+		setPosition(0, 0);
 	}
 	/**
 	 * @param address
 	 */
 	public void setPosition(Address address) {
-		pos.set(address.r(), address.c());
-	}
-	/**
-	 * 
-	 */
-	public void moveUp() {
-		setPosition(pos.r() - 1, pos.c());
-	}
-	/**
-	 * 
-	 */
-	public void moveLt() {
-		setPosition(pos.r(), pos.c() - 1);
-	}
-	/**
-	 * 
-	 */
-	public void moveDn() {
-		setPosition(pos.r() + 1, pos.c());
-	}
-	/**
-	 * 
-	 */
-	public void moveRt() {
-		setPosition(pos.r(), pos.c() + 1);
-	}
-	protected int rows() {
-		return panel.rows();
-	}
-	protected int cols() {
-		return panel.cols();
-	}
-	protected boolean isOn(int r, int c) {
-		return panel.isOn(r, c);
-	}
-	protected boolean isOn(int r, int c, int adjustRow, int adjustCol){
-		return panel.isOn(r, c, adjustRow, adjustCol);
+		pos.set(address);
 	}
 	/**
 	 * カーソルが引数に盤面座標を与えられたマスにいるか

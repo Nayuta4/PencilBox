@@ -73,7 +73,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	
 	protected void leftDragged(Address pos) {
 		if (isProblemEditMode()) {
-			getCellCursor().setPosition(pos);
+//			moveCursor(pos);
 			leftPressed(pos);
 		}
 	}

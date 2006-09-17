@@ -52,6 +52,15 @@ public class Board extends BoardBase {
 	}
 	
 	/**
+	 * 指定した座標が問題数字座標で盤面上にあるか
+	 * @param r 行座標
+	 * @param c 列座標
+	 * @return 盤面上なら true
+	 */
+	public boolean isNumberOn(int r, int c) {
+		return (r >= 0 && r < rows()-1 && c >= 0 && c < cols()-1);
+	}
+	/**
 	 * 指定した座標の数字を取得する
 	 * @param r 数字位置座標での行座標
 	 * @param c 数字位置座標での列座標
@@ -59,6 +68,15 @@ public class Board extends BoardBase {
 	 */
 	public int getNumber(int r, int c) {
 		return number[r][c];
+	}
+	/**
+	 * 指定した座標に数字ないし未定数字はあるか
+	 * @param r 数字位置座標での行座標
+	 * @param c 数字位置座標での列座標
+	 * @return 数字があればtrue0
+	 */
+	public boolean isNumber(int r, int c) {
+		return number[r][c] >=0 && number[r][c] <= 5;
 	}
 	/**
 	 * 指定した座標に数字を設定する
