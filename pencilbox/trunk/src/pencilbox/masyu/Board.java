@@ -37,7 +37,7 @@ public class Board extends BoardBase  {
 	static final int BLACK_PEARL = 2;
 	static final int GRAY_PEARL = 3;
 
-	private int[][] pearl;
+	private int[][] number;
 	private int[][][] state;
 
 	private List linkList;
@@ -46,7 +46,7 @@ public class Board extends BoardBase  {
 
 	protected void setup() {
 		super.setup();
-		pearl = new int[rows()][cols()];
+		number = new int[rows()][cols()];
 		state = new int[2][][];
 		state[0] = new int[rows()][cols()- 1];
 		state[1] = new int[rows()- 1][cols()];
@@ -81,8 +81,8 @@ public class Board extends BoardBase  {
 	/**
 	 * @return Returns the number.
 	 */
-	int[][] getPearl() {
-		return pearl;
+	int[][] getNumber() {
+		return number;
 	}
 	/**
 	 * ŠÛ‚Ìİ’è
@@ -90,8 +90,8 @@ public class Board extends BoardBase  {
 	 * @param c
 	 * @param st
 	 */
-	public void setPearl(int r, int c, int st) {
-		pearl[r][c] = st;
+	public void setNumber(int r, int c, int st) {
+		number[r][c] = st;
 	}
 	/**
 	 * ŠÛ‚Ìæ“¾
@@ -99,8 +99,12 @@ public class Board extends BoardBase  {
 	 * @param c
 	 * @return ŠÛˆó‚Ìí—Ş‚ğ•Ô‚·
 	 */
-	public int getPearl(int r, int c) {
-		return pearl[r][c];
+	public int getNumber(int r, int c) {
+		return number[r][c];
+	}
+
+	public boolean isNumber(int r, int c) {
+		return (number[r][c] >= 1 && number[r][c] <= 3);
 	}
 	/**
 	 * •Óó‘Ô‚Ìæ“¾
@@ -547,7 +551,7 @@ public class Board extends BoardBase  {
 				} else if ( l == 1 ) {
 					result |= 2; 
 				}
-				int pearl = getPearl(r,c);
+				int pearl = getNumber(r,c);
 				if (pearl == WHITE_PEARL) {
 					p = checkWhitePearl(r,c);
 						if (p == -1)

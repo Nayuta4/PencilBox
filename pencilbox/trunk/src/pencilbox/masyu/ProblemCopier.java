@@ -17,7 +17,7 @@ public class ProblemCopier extends ProblemCopierBase {
 		Board d = (Board) dst;
 		Rotator rotator =  new Rotator(src.rows(), src.cols(), n);
 		rotator.rotateArrayInt3(s.getState(), d.getState());
-		rotator.rotateArrayInt2(s.getPearl(), d.getPearl());
+		rotator.rotateArrayInt2(s.getNumber(), d.getNumber());
 	}
 
 }

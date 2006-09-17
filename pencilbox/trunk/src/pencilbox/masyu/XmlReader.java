@@ -15,7 +15,7 @@ public class XmlReader extends XmlReaderBase {
 		return board;
 	}
 	protected void setBN(int r, int c, int n) {
-		board.setPearl(r, c, n);
+		board.setNumber(r, c, n);
 	}
 	protected void setAType(int r, int c, String t) {
 		if (t == VERT)
