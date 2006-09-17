@@ -138,6 +138,7 @@ public class Panel extends PanelBase {
 	}
 	
 	private void placeBlackPearl(Graphics g, int r, int c) {
+		g.setColor(pearlColor);
 		if (warnBranchedLink || warnWrongPearl) {
 			int p = board.checkBlackPearl(r,c);
 			if (p==-1) g.setColor(errorColor); 
@@ -148,6 +149,7 @@ public class Panel extends PanelBase {
 	}
 	
 	private void placeWhitePearl(Graphics g, int r, int c) {
+		g.setColor(pearlColor);
 		if (warnBranchedLink || warnWrongPearl) {
 			int p = board.checkWhitePearl(r,c);
 			if (p==-1) g.setColor(errorColor);
