@@ -53,14 +53,14 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	protected void numberEntered(Address pos, int n) {
 		if (isProblemEditMode())
 			if(n == 1 || n == 2)
-				board.setPearl(pos.r(), pos.c(), n);
+				board.setNumber(pos.r(), pos.c(), n);
 	}
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode())
-			board.setPearl(pos.r(), pos.c(), Board.NO_PEARL);
+			board.setNumber(pos.r(), pos.c(), Board.NO_PEARL);
 	}
 	protected void minusEntered(Address pos) {
 		if (isProblemEditMode())
-			board.setPearl(pos.r(), pos.c(), Board.GRAY_PEARL);
+			board.setNumber(pos.r(), pos.c(), Board.GRAY_PEARL);
 	}
 }

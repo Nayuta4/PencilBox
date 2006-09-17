@@ -39,13 +39,13 @@ public class TxtReader extends TxtReaderBase {
 			while (t.hasMoreTokens()) {
 				str = t.nextToken();
 				if (str.equals("."))
-					board.setPearl(i, j, Board.NO_PEARL);
+					board.setNumber(i, j, Board.NO_PEARL);
 				else if (str.equals("1"))
-					board.setPearl(i, j, Board.WHITE_PEARL);
+					board.setNumber(i, j, Board.WHITE_PEARL);
 				else if (str.equals("2"))
-					board.setPearl(i, j, Board.BLACK_PEARL);
+					board.setNumber(i, j, Board.BLACK_PEARL);
 				else if (str.equals("3"))
-					board.setPearl(i, j, Board.GRAY_PEARL);
+					board.setNumber(i, j, Board.GRAY_PEARL);
 				j++;
 			}
 		}

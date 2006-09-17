@@ -107,7 +107,7 @@ public class Panel extends PanelBase {
 		int state;
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
-				state = board.getPearl(r, c);
+				state = board.getNumber(r, c);
 				if (state == Board.WHITE_PEARL) {
 					placeWhitePearl(g,r,c);
 				} else if (state == Board.BLACK_PEARL) {
