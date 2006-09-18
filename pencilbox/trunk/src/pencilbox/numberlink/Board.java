@@ -28,6 +28,7 @@ public class Board extends BoardBase {
 	static final int NOLINE = -1;
 	static final int OUTER = -9;
 	static final int UNDECIDED_NUMBER = -1;
+	static final int BLANK = 0;
 
 	private int[][] number;
 	private int[][][] state;
@@ -79,7 +80,7 @@ public class Board extends BoardBase {
 	}
 
 	public boolean isNumber(int r, int c){
-		return getNumber(r,c)>0;
+		return (number[r][c] > 0 || number[r][c] == UNDECIDED_NUMBER);
 	}
 	public int getNumber(int r, int c){
 		return number[r][c];

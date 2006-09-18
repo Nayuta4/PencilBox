@@ -73,6 +73,12 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 				board.setSumV(pos.r(), pos.c(), num);
 			else if (getKKCursor().getStair() == KakuroCursor.UPPER)
 				board.setSumH(pos.r(), pos.c(), num);
+			if (isSymmetricPlacementMode()) {
+				Address posS = getSymmetricPosition(pos);
+				if (isOn(posS))
+					if (!board.isWall(posS.r(), posS.c()))
+						board.setWall(posS.r(), posS.c(), 0, 0);
+			}
 		} else if (isCursorOn()){
 			if (!board.isWall(pos.r(), pos.c()))
 				board.enterNumberA(pos.r(), pos.c(), num);
@@ -81,7 +87,15 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode()) {
+			if (pos.r() ==0 || pos.c() == 0)
+				return;
 			board.removeWall(pos.r(), pos.c());
+			if (isSymmetricPlacementMode()) {
+				Address posS = getSymmetricPosition(pos);
+				if (isOn(posS))
+					if (board.isWall(posS.r(), posS.c()))
+						board.removeWall(posS.r(), posS.c());
+			}
 		} else if (isCursorOn()){
 			if (!board.isWall(pos.r(), pos.c()))
 				board.enterNumberA(pos.r(), pos.c(), 0);
@@ -94,6 +108,12 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 				board.setSumV(pos.r(), pos.c(), 0);
 			else if (getKKCursor().getStair() == KakuroCursor.UPPER)
 				board.setSumH(pos.r(), pos.c(), 0);
+			if (isSymmetricPlacementMode()) {
+				Address posS = getSymmetricPosition(pos);
+				if (isOn(posS) && !posS.equals(pos))
+					if (!board.isWall(posS.r(), posS.c()))
+						board.setWall(posS.r(), posS.c(), 0, 0);
+			}
 		}
 	}
 
@@ -104,4 +124,12 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		return (KakuroCursor) getCellCursor();
 	}
 
+	/**
+	 * 点対称位置の座標を取得する。 カックロ用。
+	 * @param pos　元座標
+	 * @return posと点対称な位置の座標
+	 */
+	public Address getSymmetricPosition(Address pos) {
+		return new Address(board.rows()-pos.r(), board.cols()-pos.c());
+	}
 }

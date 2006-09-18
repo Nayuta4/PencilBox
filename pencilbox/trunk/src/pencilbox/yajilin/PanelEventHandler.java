@@ -50,17 +50,35 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 * 「ヤジリン」キー操作
 	 */
 	protected void numberEntered(Address pos, int num) {
-		if (isProblemEditMode())
+		if (isProblemEditMode()) {
 			board.enterNumber(pos.r(), pos.c(), num);
+			if (isSymmetricPlacementMode()) {
+				Address posS = getSymmetricPosition(pos);
+				if (!board.isNumber(posS.r(), posS.c()))
+					board.enterNumber(posS.r(), posS.c(), Board.UNDECIDED_NUMBER);
+			}
+		}
 	}
 
 	protected void spaceEntered(Address pos) {
-		if (isProblemEditMode())
+		if (isProblemEditMode()) {
 			board.eraseNumber(pos.r(), pos.c());
+			if (isSymmetricPlacementMode()) {
+				Address posS = getSymmetricPosition(pos);
+				if (board.isNumber(posS.r(), posS.c()))
+					board.eraseNumber(posS.r(), posS.c());
+			}
+		}
 	}
 
 	protected void minusEntered(Address pos) {
-		if (isProblemEditMode())
+		if (isProblemEditMode()) {
 			board.enterNumber(pos.r(), pos.c(), Board.UNDECIDED_NUMBER);
+			if (isSymmetricPlacementMode()) {
+				Address posS = getSymmetricPosition(pos);
+				if (!board.isNumber(posS.r(), posS.c()))
+					board.enterNumber(posS.r(), posS.c(), Board.UNDECIDED_NUMBER);
+			}
+		}
 	}
 }

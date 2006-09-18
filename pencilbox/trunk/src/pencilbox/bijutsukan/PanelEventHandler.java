@@ -57,19 +57,35 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 */
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {
-			board.changeStateA(pos.r(), pos.c(), num);
+			board.changeState(pos.r(), pos.c(), num);
+			if (isSymmetricPlacementMode()) {
+				Address posS = getSymmetricPosition(pos);
+				if (!board.isWall(posS.r(), posS.c()))
+					board.changeState(posS.r(), posS.c(), Board.NONUMBER_WALL);
+			}
 		}
 	}
 
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.changeStateA(pos.r(), pos.c(), Board.UNKNOWN);
+			board.changeState(pos.r(), pos.c(), Board.UNKNOWN);
+			if (isSymmetricPlacementMode()) {
+				Address posS = getSymmetricPosition(pos);
+				if (board.isWall(posS.r(), posS.c()))
+					board.changeState(posS.r(), posS.c(), Board.UNKNOWN);
+			}
 		}
 	}
 
 	protected void minusEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.changeStateA(pos.r(), pos.c(), Board.NONUMBER_WALL);
+			board.changeState(pos.r(), pos.c(), Board.NONUMBER_WALL);
+		}
+		if (isSymmetricPlacementMode()) {
+			Address posS = getSymmetricPosition(pos);
+			if (!board.isWall(posS.r(), posS.c()))
+				board.changeState(posS.r(), posS.c(), Board.NONUMBER_WALL);
 		}
 	}
+
 }

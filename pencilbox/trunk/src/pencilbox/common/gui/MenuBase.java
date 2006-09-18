@@ -41,6 +41,7 @@ public class MenuBase {
 	private JMenuItem aboutItem;
 	private JMenuItem clearItem;
 	private JMenuItem trimAnswerItem;
+	private JMenuItem symmetricPlacementItem;
 	private JMenuItem undoItem;
 	private JMenuItem redoItem;
 //	private JMenuItem undoAllItem;
@@ -143,7 +144,8 @@ public class MenuBase {
 		editMenu.add(problemEditModeItem = makeCommandRadioButtonMenuItem("問題入力モード(E)", 'E'));
 		editMenu.addSeparator();
 		editMenu.add(clearItem = makeCommandMenuItem("解答消去(C)", 'C'));
-		editMenu.add(trimAnswerItem = makeCommandMenuItem("補助記号消去(T)", 'T'));
+//		editMenu.add(trimAnswerItem = makeCommandMenuItem("補助記号消去(T)", 'T'));
+//		editMenu.add(symmetricPlacementItem = makeCheckBoxCommandMenuItem("対称配置(S)", 'S'));
 		editMenu.addSeparator();
 		editMenu.add(undoItem = makeCommandMenuItem("元に戻す(U)", 'U'));
 		editMenu.add(redoItem = makeCommandMenuItem("やり直し(R)", 'R'));
@@ -199,7 +201,6 @@ public class MenuBase {
 	 * （カックロ用）
 	 */
 	protected void buildRotationMenu2() {
-		rotationMenu = makeJMenu("回転・反転(R)", 'R');
 		makeRotationItem("縦横交換(4)", '4', "4");
 	}
 
@@ -305,12 +306,27 @@ public class MenuBase {
 	 * 何種類かのパズルに共通なメニューの作成と追加を行う
 	 */
 	/**
+	 * [補助記号消去]メニュー項目を[編集]メニューの上から?番目に追加する。
+	 */
+	protected void addTrimAnswerMenuItem() {
+		trimAnswerItem = makeCommandMenuItem("補助記号消去(T)", 'T');
+		editMenu.add(trimAnswerItem, 4);
+	}
+	/**
+	 * [対称配置]メニュー項目を[編集]メニューの上から?番目に追加する。
+	 */
+	protected void addSymmetricPlacementMenuItem() {
+		symmetricPlacementItem = makeCheckBoxCommandMenuItem("対称配置(S)", 'S', false);
+		editMenu.insertSeparator(8);
+		editMenu.add(symmetricPlacementItem, 9);
+	}
+	/**
 	 * [カーソル]メニュー項目を[表示]メニューの上から5番目に追加する。
 	 */
 	protected void addCursorMenu() {
 		cursorItem = makeJCheckBoxMenuItem("カーソル(C)", 'C', panel.isCursorOn());
 		cursorItem.addActionListener(commandAction);
-		viewMenu.add(cursorItem, 4);
+		viewMenu.add(cursorItem, 3);
 	}
 	/**
 	 * [色の更新]メニュー項目を[表示]メニューに追加する。
@@ -489,6 +505,8 @@ public class MenuBase {
 			command.clear();
 		else if (target == trimAnswerItem)
 			command.trimAnswer();
+		else if (target == symmetricPlacementItem)
+			command.setSymmetricPlacementMode(target.isSelected());
 		else if (target == undoItem)
 			command.undo();
 		else if (target == redoItem)

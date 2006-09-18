@@ -27,6 +27,7 @@ public class Menu extends MenuBase {
 		addToViewMenu(warnWrongNumberItem = makeCheckBoxCommandMenuItem("誤りを赤で表示(W)", 'W', false));
 		addToViewMenu(hilightSelectedNumberItem = makeCheckBoxCommandMenuItem("選択数字ハイライト(H)", 'H', false));
 		addToViewMenu(showArrowedNumberDotItem = makeCheckBoxCommandMenuItem("可能な数字をドット表示(D)", 'D', false));
+		addSymmetricPlacementMenuItem();
 	}
 
 	public void executeCommand2(JMenuItem target) {

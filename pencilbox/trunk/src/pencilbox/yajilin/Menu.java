@@ -28,6 +28,8 @@ public class Menu extends MenuBase {
 		addToViewMenu(warnBranchedLinkItem = makeCheckBoxCommandMenuItem("Œë‚è‚ğÔ‚Å•\¦(W)", 'W', false));
 		addToViewMenu(colorForEachLinkItem = makeCheckBoxCommandMenuItem("ü‚ÌF•ª‚¯(D)", 'D', false));
 		addRenewColorMenu();
+		addSymmetricPlacementMenuItem();
+		addTrimAnswerMenuItem();
 	}
 	
 	public void executeCommand2(JMenuItem target) {

@@ -19,7 +19,6 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	/*
 	 * 「黒マスはどこだ」マウス操作
 	 */
-
 	private int currentState = Board.UNKNOWN;
 
 	protected void leftPressed(Address pos) {
@@ -51,18 +50,38 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	/*
 	 * 「黒マスはどこだ」キー操作
 	 */
-
 	protected void numberEntered(Address pos, int num) {
-		if (isProblemEditMode())
-			if (num > 0)
+		if (isProblemEditMode()) {
+			if (num > 0) {
 				board.setNumber(pos.r(), pos.c(), num);
+				if (isSymmetricPlacementMode()) {
+					Address posS = getSymmetricPosition(pos);
+					if (!board.isNumber(posS.r(), posS.c()))
+						board.setNumber(posS.r(), posS.c(), Board.UNDECIDED_NUMBER);
+				}
+			}
+		}
 	}
+
 	protected void spaceEntered(Address pos) {
-		if (isProblemEditMode())
+		if (isProblemEditMode()) {
 			board.changeState(pos.r(), pos.c(), Board.UNKNOWN);
+			if (isSymmetricPlacementMode()) {
+				Address posS = getSymmetricPosition(pos);
+				if (board.isNumber(posS.r(), posS.c()))
+					board.setNumber(posS.r(), posS.c(), Board.UNKNOWN);
+			}
+		}
 	}
+
 	protected void minusEntered(Address pos) {
-		if (isProblemEditMode())
+		if (isProblemEditMode()) {
 			board.changeState(pos.r(), pos.c(), Board.UNDECIDED_NUMBER);
+			if (isSymmetricPlacementMode()) {
+				Address posS = getSymmetricPosition(pos);
+				if (!board.isNumber(posS.r(), posS.c()))
+					board.setNumber(posS.r(), posS.c(), Board.UNDECIDED_NUMBER);
+			}
+		}
 	}
 }

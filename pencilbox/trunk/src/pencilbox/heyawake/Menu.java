@@ -27,6 +27,7 @@ public class Menu extends MenuBase {
 		circleColorItem = addColorMenuItem("白マス");
 		addToViewMenu(warnWrongWallItem = makeCheckBoxCommandMenuItem("誤りを赤で表示(W)", 'W', false));
 		addToViewMenu(showContinuousRoomItem = makeCheckBoxCommandMenuItem("３部屋連続警告(C)", 'C', false));
+		addTrimAnswerMenuItem();
 	}
 
 	public void executeCommand2(JMenuItem target) {

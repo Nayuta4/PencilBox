@@ -114,6 +114,13 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			if (num > 0) {
 				board.changeNumber(pos.r(), pos.c(), num);
 				board.setState(pos.r(), pos.c(), Board.STABLE);
+				if (isSymmetricPlacementMode()) {
+					Address posS = getSymmetricPosition(pos);
+					if (!board.isStable(posS.r(), posS.c())) {
+						board.setState(posS.r(), posS.c(), Board.STABLE);
+						board.changeNumber(posS.r(), posS.c(), Board.UNKNOWN);
+					}
+				}
 			}
 		} else if (isCursorOn()){
 			if (num > 0) {
@@ -128,6 +135,13 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		if (isProblemEditMode()) {
 			board.setNumber(pos.r(), pos.c(), 0);
 			board.setState(pos.r(), pos.c(), Board.UNSTABLE);
+			if (isSymmetricPlacementMode()) {
+				Address posS = getSymmetricPosition(pos);
+				if (board.isStable(posS.r(), posS.c())) {
+					board.setState(posS.r(), posS.c(), Board.UNSTABLE);
+					board.changeNumber(posS.r(), posS.c(), Board.UNKNOWN);
+				}
+			}
 		} else if (isCursorOn()){
 			if (!board.isStable(pos.r(), pos.c())) {
 				board.enterNumberA(pos.r(), pos.c(), 0);
@@ -139,6 +153,13 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		if (isProblemEditMode()) {
 			board.setNumber(pos.r(), pos.c(), Board.UNKNOWN);
 			board.setState(pos.r(), pos.c(), Board.STABLE);
+			if (isSymmetricPlacementMode()) {
+				Address posS = getSymmetricPosition(pos);
+				if (!board.isStable(posS.r(), posS.c())) {
+					board.setState(posS.r(), posS.c(), Board.STABLE);
+					board.changeNumber(posS.r(), posS.c(), Board.UNKNOWN);
+				}
+			}
 		}
 	}
 }

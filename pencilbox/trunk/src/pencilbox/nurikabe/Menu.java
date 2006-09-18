@@ -29,7 +29,8 @@ public class Menu extends MenuBase {
 		addToViewMenu(colorForEachWallItem = makeCheckBoxCommandMenuItem("•Ç‚ÌF•ª‚¯(D)", 'D', false));
 		addToViewMenu(showShimaSizeItem = makeCheckBoxCommandMenuItem("ƒVƒ}‚Ì”‚ğ”‚¦‚é(H)",'H', false));
 		addRenewColorMenu();	
-//		addEraseCrossesMenu();
+		addSymmetricPlacementMenuItem();
+		addTrimAnswerMenuItem();
 	}
 
 	public void executeCommand2(JMenuItem target) {
