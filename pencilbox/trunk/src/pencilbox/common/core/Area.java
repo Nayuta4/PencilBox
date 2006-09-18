@@ -61,6 +61,16 @@ public class Area implements Set {
 	public boolean remove(Object o) {
 		return cellList.remove(o);
 	}
+	
+	/**
+	 * ƒZƒ‹‚ğ—Ìˆæ‚©‚çæ‚èœ‚­
+	 * @param r
+	 * @param c
+     * @return true if the set contained the specified element.
+	 */
+	public boolean remove(int r, int c) {
+		return cellList.remove(new Address(r, c));
+	}
 
 	public boolean addAll(Collection c) {
 		return cellList.addAll( c );

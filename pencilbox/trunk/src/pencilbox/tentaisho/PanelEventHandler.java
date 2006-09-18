@@ -12,8 +12,6 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 
 	private Board board;
 
-	private Area draggingArea;
-
 	/**
 	 * 
 	 */
@@ -29,35 +27,51 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		return board.isOnStar(pos.r(), pos.c());
 	}
 
+	/**
+	 * @return the draggingArea
+	 */
+	Area getDraggingArea() {
+		return ((Panel) getPanel()).getDraggingArea();
+	}
+
+	/**
+	 * @param draggingArea the draggingArea to set
+	 */
+	void setDraggingArea(Area draggingArea) {
+		((Panel) getPanel()).setDraggingArea(draggingArea);
+	}
+
 	/*
 	 * 「天体ショー」マウス操作
 	 */
 	protected void leftPressed(Address pos) {
-		Area oldArea = board.getArea(pos.r(), pos.c());
-		if (draggingArea == null) {
-			//  ここの if 文を有効にすれば，既存のAreaを内側から広げることができる
-			//  ただし，undo と整合をどうするかが問題				
-//			if (oldArea != null)
-//				draggingArea = oldArea;
-//			else
-			draggingArea = new Area();
+		Area area = board.getArea(pos.r(), pos.c());
+		if (area == null) {
+			area = new Area();
+			board.addCellToAreaA(pos.r(), pos.c(), area);
 		}
-		if (oldArea != null && oldArea != draggingArea) {
-			board.removeAreaA(oldArea);
-		}
-		board.setArea(pos.r(), pos.c(), draggingArea);
-		draggingArea.add(pos);
+		setDraggingArea(area);
 	}
-	
+
+	protected void leftDragged(Address pos) {
+		Area draggingArea = getDraggingArea();
+		if (draggingArea == null)
+			return;
+		Area oldArea = board.getArea(pos.r(), pos.c());
+		if (oldArea != null && oldArea != draggingArea) {
+			board.removeCellFromAreaA(pos.r(), pos.c(), oldArea);
+			board.addCellToAreaA(pos.r(), pos.c(), draggingArea);
+		} else if (oldArea != null && oldArea == draggingArea) {
+		} else if (oldArea == null) {
+			board.addCellToAreaA(pos.r(), pos.c(), draggingArea);
+		}
+	}
+
 	protected void rightPressed(Address pos) {
 		Area oldArea = board.getArea(pos.r(), pos.c());
 		if (oldArea != null) {
-			board.removeAreaA(oldArea);
+			board.removeCellFromAreaA(pos.r(), pos.c(), oldArea);
 		}
-	}
-	
-	protected void leftDragged(Address pos) {
-		leftPressed(pos);			
 	}
 	
 	protected void rightDragged(Address pos) {
@@ -65,25 +79,14 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 	
 	protected void leftDragFixed(Address dragEnd) {
-		if (draggingArea == null)
-			return;
-		board.addAreaA(draggingArea);
-		draggingArea = null;
+		setDraggingArea(null);
 	}
 	
-	protected void rightDragFixed(Address dragStart, Address dragEnd) {
-		//			board.removeSquare(dragStart.r, dragStart.c, dragEnd.r, dragEnd.c);
-		draggingArea = null;
-	}
-
 	protected void dragFailed() {
-		if (draggingArea == null)
-			return;
-		board.addAreaA(draggingArea);
-		draggingArea = null;
+		setDraggingArea(null);
 	}
 	/*
-	 * マウスではカーソル移動しない（暫定）
+	 * マウスではカーソル移動しない
 	 */
 	protected void moveCursor(Address pos) {
 	}

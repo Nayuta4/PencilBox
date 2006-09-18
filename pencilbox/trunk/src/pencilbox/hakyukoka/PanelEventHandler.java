@@ -9,10 +9,9 @@ import pencilbox.common.gui.PanelEventHandlerBase;
  * 「波及効果」マウス／キー操作処理クラス
  */
 public class PanelEventHandler extends PanelEventHandlerBase {
-	
+
 	private Board board;
 
-	private Area draggingArea;
 	/**
 	 * 
 	 */
@@ -28,25 +27,30 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		((Panel) getPanel()).setSelectedNumber(n);
 	}
 
+	/**
+	 * @return the draggingArea
+	 */
+	Area getDraggingArea() {
+		return ((Panel) getPanel()).getDraggingArea();
+	}
+	/**
+	 * @param draggingArea the draggingArea to set
+	 */
+	void setDraggingArea(Area draggingArea) {
+		((Panel) getPanel()).setDraggingArea(draggingArea);
+	}
+
 	/*
 	 * 「波及効果」マウス操作
 	 */
 	protected void leftPressed(Address pos) {
 		if (isProblemEditMode()) {
-			Area oldArea = board.getArea(pos.r(), pos.c());
-			if (draggingArea == null) {
-				//	ここの if 文を有効にすれば，既存のAreaを内側から広げることができる
-				//	ただし，undo と整合をどうするかが問題				
-				//				if (oldArea != null)
-				//					draggingArea = oldArea;
-				//				else
-				draggingArea = new Area();
+			Area area = board.getArea(pos.r(), pos.c());
+			if (area == null) {
+				area = new Area();
+				board.addCellToArea(pos.r(), pos.c(), area);
 			}
-			if (oldArea != null && oldArea != draggingArea) {
-				board.removeArea(oldArea);
-			}
-			board.setArea(pos.r(), pos.c(), draggingArea);
-			draggingArea.add(pos);
+			setDraggingArea(area);
 		} else {
 			if (!isCursorOn() || getCellCursor().isAt(pos)) {
 				if (!board.isStable(pos.r(), pos.c()))
@@ -55,12 +59,35 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			setSelectedNumber(board.getNumber(pos.r(), pos.c()));
 		}
 	}
-	
+
+	protected void leftDragged(Address pos) {
+		if (isProblemEditMode()) {
+//			moveCursor(pos);
+			Area draggingArea = getDraggingArea();
+			if (draggingArea == null)
+				return;
+			Area oldArea = board.getArea(pos.r(), pos.c());
+			if (oldArea != null && oldArea != draggingArea) {
+				board.removeCellFromArea(pos.r(), pos.c(), oldArea);
+				board.addCellToArea(pos.r(), pos.c(), draggingArea);
+			} else if (oldArea != null && oldArea == draggingArea) {
+			} else if (oldArea == null) {
+				board.addCellToArea(pos.r(), pos.c(), draggingArea);
+			}
+		} else {
+			if (!isCursorOn() || getCellCursor().isAt(pos)) {
+				if (!board.isStable(pos.r(), pos.c()))
+					board.increaseNumber(pos.r(), pos.c());
+			}
+			setSelectedNumber(board.getNumber(pos.r(), pos.c()));
+		}
+	}
+
 	protected void rightPressed(Address pos) {
 		if (isProblemEditMode()) {
 			Area oldArea = board.getArea(pos.r(), pos.c());
 			if (oldArea != null) {
-				board.removeArea(oldArea);
+				board.removeCellFromArea(pos.r(), pos.c(), oldArea);
 			}
 		} else {
 			if (!isCursorOn() || getCellCursor().isAt(pos)) {
@@ -71,41 +98,19 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		}
 	}
 	
-	protected void leftDragged(Address pos) {
-		if (isProblemEditMode()) {
-//			moveCursor(pos);
-			leftPressed(pos);
-		}
-	}
-	
 	protected void rightDragged(Address pos) {
 		if (isProblemEditMode())
 			rightPressed(pos);
 	}
 	
 	protected void leftDragFixed(Address dragEnd) {
-		if (draggingArea == null)
-			return;
-		board.addArea(draggingArea);
-		draggingArea = null;
-	}
-	
-	protected void rightDragFixed(Address dragStart, Address dragEnd) {
-		//			board.removeSquare(dragStart.r, dragStart.c, dragEnd.r, dragEnd.c);
-		draggingArea = null;
+		setDraggingArea(null);
 	}
 	
 	protected void dragFailed() {
-		if (draggingArea == null)
-			return;
-		board.addArea(draggingArea);
-		draggingArea = null;
+		setDraggingArea(null);
 	}
-	//		protected boolean dragIneffective(Address oldPos, Address newPos) {
-	//			if (newPos.isNextTo(oldPos)) return false; // 隣接マス以外のイベントは無視
-	//			else return true;
-	//		}
-	//	}
+
 	/*
 	 * 「波及効果」キー操作
 	 */

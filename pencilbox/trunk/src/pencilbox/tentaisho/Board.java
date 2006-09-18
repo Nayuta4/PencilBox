@@ -48,7 +48,7 @@ public class Board extends BoardBase {
 	 */
 	public void initAreas() {
 		for (Iterator itr = areaList.iterator(); itr.hasNext(); ) {
-			setContainedStar((Area) itr.next());
+			initArea((Area) itr.next());
 		}
 	}
 	
@@ -134,53 +134,61 @@ public class Board extends BoardBase {
 	}
 	/**
 	 * 盤面に新しい領域を追加する
-	 * 変更をアンドゥリスナーに通知する
-	 * @param newArea 追加する領域
-	 */
-	public void addAreaA(Area newArea) {
-		fireUndoableEditUpdate(
-			new UndoableEditEvent(this, new Step(newArea, Step.ADDED)));
-		addArea(newArea);
-	}
-	/**
-	 * 盤面の領域を１つ消去する
-	 * 変更をアンドゥリスナーに通知する
-	 * @param oldArea 消去する領域
-	 */
-	public void removeAreaA(Area oldArea) {
-		fireUndoableEditUpdate(
-			new UndoableEditEvent(this, new Step(oldArea, Step.REMOVED)));
-		removeArea(oldArea);
-	}
-	/**
-	 * 盤面に新しい領域を追加する
 	 * @param newArea 追加する領域
 	 */
 	public void addArea(Area newArea) {
-		for (Iterator itr = newArea.iterator(); itr.hasNext(); ) {
+		for (Iterator itr = newArea.iterator(); itr.hasNext();) {
 			Address pos = (Address) itr.next();
-			area[pos.r()][pos.c()] = newArea;
+			setArea(pos.r(), pos.c(), newArea);
 		}
-		setContainedStar(newArea);
 		areaList.add(newArea);
 	}
+
+	void addCellToAreaA(int r, int c, Area area) {
+		fireUndoableEditUpdate(
+			new UndoableEditEvent(this, new Step(r, c, area, Step.ADDED)));
+		addCellToArea(r, c, area);
+	}
+
+	void removeCellFromAreaA(int r, int c, Area area) {
+		fireUndoableEditUpdate(
+			new UndoableEditEvent(this, new Step(r, c, area, Step.REMOVED)));
+		removeCellFromArea(r, c, area);
+	}
 	/**
-	 * 盤面の領域を１つ消去する
-	 * @param oldArea 消去する領域
+	 * マスを領域に追加する
+	 * @param r 追加するマスの行座標
+	 * @param c 追加するマスの列座標
+	 * @param area 追加される領域
 	 */
-	public void removeArea(Area oldArea) {
-		for (Iterator itr = oldArea.iterator(); itr.hasNext(); ) {
-			Address pos = (Address) itr.next();
-			if (area[pos.r()][pos.c()] == oldArea)
-				area[pos.r()][pos.c()] = null;
+	public void addCellToArea(int r, int c, Area area) {
+		if (area.isEmpty()) {
+			areaList.add(area);
 		}
-		areaList.remove(oldArea);
+		setArea(r, c, area);
+		area.add(r, c);
+		initArea(area);
+	}
+	/**
+	 * マスを領域から取り除く
+	 * @param r 取り除くマスの行座標
+	 * @param c 取り除くマスの列座標
+	 * @param area 取り除かれる領域
+	 */
+	public void removeCellFromArea(int r, int c, Area area) {
+		setArea(r, c, null);
+		area.remove(r, c);
+		if (area.isEmpty()) {
+			areaList.remove(area);
+		} else {
+			initArea(area);
+		}
 	}
 	/**
 	 * 新規作成した領域に含まれる星を設定する
 	 * @param newArea
 	 */
-	void setContainedStar(Area newArea) {
+	void initArea(Area newArea) {
 		Address pos;
 		int nStar = 0;
 		StarAddress starPos = new StarAddress();
@@ -254,36 +262,42 @@ public class Board extends BoardBase {
 		static final int ADDED = 1;
 		static final int REMOVED = 0;
 		static final int CHANGED = 2;
-
+		
+		private int r;
+		private int c;
 		private Area area;
 		private int operation;
 
 		/**
 		 * コンストラクタ
-		 * @param area Area
-		 * @param operation 操作
+		 * @param r 変更されたマスの行座標
+		 * @param c 変更されたマスの列座標
+		 * @param area 変更された領域
+		 * @param operation 操作の種類：領域にマスが追加されたのか，領域からマスが除かれたのか。）
 		 */
-		public Step(Area area, int operation) {
+		public Step(int r, int c, Area area, int operation) {
 			super();
+			this.r = r;
+			this.c = c;
 			this.area = area;
 			this.operation = operation;
 		}
+		
 		public void undo() throws CannotUndoException {
 			super.undo();
 			if (operation == ADDED) {
-				removeArea(area);
+				removeCellFromArea(r, c, area);
 			} else if (operation == REMOVED) {
-				addArea(area);
-			} else if (operation == CHANGED) {
-				addArea(area);
+				addCellToArea(r, c, area);
 			}
 		}
+
 		public void redo() throws CannotRedoException {
 			super.redo();
 			if (operation == ADDED) {
-				addArea(area);
+				addCellToArea(r, c, area);
 			} else if (operation == REMOVED) {
-				removeArea(area);
+				removeCellFromArea(r, c, area);
 			}
 		}
 	}

@@ -42,6 +42,18 @@ public class Panel extends PanelBase {
 	}
 
 	/**
+	 * @return the draggingArea
+	 */
+	Area getDraggingArea() {
+		return draggingArea;
+	}
+	/**
+	 * @param draggingArea The draggingArea to set.
+	 */
+	void setDraggingArea(Area draggingArea) {
+		this.draggingArea = draggingArea;
+	}
+	/**
 	 * @return Returns the areaBorderColor.
 	 */
 	public Color getAreaBorderColor() {
@@ -104,13 +116,6 @@ public class Panel extends PanelBase {
 		this.showAreaHint = useDifferentColor;
 	}
 
-//	/**
-//	 * 天体ショー専用カーソル on/off を切り替える
-//	 * @param on カーソル on かどうか
-//	 */
-//	public void setCursorOn(boolean on) {
-//		super.setCursorOn(on);
-//	}
 	protected void setDisplaySize(int size) {
 		halfStarSize = size / 7 + 1;
 		super.setDisplaySize(size);
@@ -143,23 +148,19 @@ public class Panel extends PanelBase {
 			for (int c = 0; c < board.cols(); c++) {
 				if (board.isCovered(r, c)) {
 					if (board.getArea(r,c) == draggingArea)
-						continue;
+						continue; // ドラッグ中領域は白抜き
 					if (showAreaHint) {
 						int starType = board.getArea(r,c).getStarType();
 						if (starType == -1) {
 							g.setColor(errorColor);
-						}
-						else if (starType == Board.WHITESTAR) {
+						} else if (starType == Board.WHITESTAR) {
 							g.setColor(whiteAreaColor);
-						}
-						else if (starType == Board.BLACKSTAR) {
+						} else if (starType == Board.BLACKSTAR) {
 							g.setColor(blackAreaColor);
-						}
-						else {
+						} else {
 							g.setColor(noStarAreaColor);
 						} 
-					}
-					else {
+					} else {
 						g.setColor(whiteAreaColor);
 					}
 					paintCell(g, r, c);
