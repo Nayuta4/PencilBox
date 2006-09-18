@@ -267,6 +267,35 @@ public class Board extends BoardBase {
 		areaList.remove(oldArea);
 	}
 	/**
+	 * マスを領域に追加する
+	 * @param r 追加するマスの行座標
+	 * @param c 追加するマスの列座標
+	 * @param area 追加される領域
+	 */
+	public void addCellToArea(int r, int c, Area area) {
+		if (area.isEmpty()) {
+			areaList.add(area);
+		}
+		setArea(r, c, area);
+		area.add(r, c);
+//		initArea(area);
+	}
+	/**
+	 * マスを領域から取り除く
+	 * @param r 取り除くマスの行座標
+	 * @param c 取り除くマスの列座標
+	 * @param area 取り除かれる領域
+	 */
+	public void removeCellFromArea(int r, int c, Area area) {
+		setArea(r, c, null);
+		area.remove(r, c);
+		if (area.isEmpty()) {
+			areaList.remove(area);
+		} else {
+//			initArea(area);
+		}
+	}
+	/**
 	 * @return Returns the areaList.
 	 */
 	List getAreaList() {

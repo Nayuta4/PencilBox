@@ -28,6 +28,7 @@ public class Panel extends PanelBase {
 	private int selectedNumber = 0;
 	private Color selectedNumberColor = new Color(0xAAFFAA);
 	private Color emissionColor = new Color(0x800000);
+	private Area draggingArea;
 
 	private boolean showAllowedNumberDot = false;
 	private HintDot hintDot = new HintDot();
@@ -57,6 +58,20 @@ public class Panel extends PanelBase {
 	 */
 	public void setSelectedNumber(int selectedNumber) {
 		this.selectedNumber = selectedNumber;
+	}
+
+	/**
+	 * @return the draggingArea
+	 */
+	Area getDraggingArea() {
+		return draggingArea;
+	}
+
+	/**
+	 * @param draggingArea the draggingArea to set
+	 */
+	void setDraggingArea(Area draggingArea) {
+		this.draggingArea = draggingArea;
 	}
 
 	/**
@@ -94,7 +109,7 @@ public class Panel extends PanelBase {
 		this.warnWrongNumber = warnWrongNumber;
 	}
 
-	protected void setDisplaySize(int cellSize) {
+	public void setDisplaySize(int cellSize) {
 		super.setDisplaySize(cellSize);
 		hintDot.setDotSize(cellSize);
 	}
@@ -176,7 +191,7 @@ public class Panel extends PanelBase {
 	private void paintCells(Graphics g) {
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
-				if (board.getArea(r, c) == null) {
+				if (board.getArea(r, c) == null || board.getArea(r, c) == draggingArea) {
 					g.setColor(noAreaColor);
 					paintCell(g, r, c);
 				}
