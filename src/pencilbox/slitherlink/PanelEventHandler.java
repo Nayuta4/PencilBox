@@ -61,17 +61,45 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 * 「スリザーリンク」キー操作
 	 */
 	protected void numberEntered(Address pos, int num) {
-		if (isProblemEditMode())
+		if (isProblemEditMode()) {
 			board.setNumber(pos.r(), pos.c(), num);
+			if (isSymmetricPlacementMode()) {
+				Address posS = getSymmetricPosition(pos);
+				if (!board.isNumber(posS.r(), posS.c()))
+					board.setNumber(posS.r(), posS.c(), Board.UNDECIDED_NUMBER);
+			}
+		}
 	}
 
 	protected void spaceEntered(Address pos) {
-		if (isProblemEditMode())
+		if (isProblemEditMode()) {
 			board.setNumber(pos.r(), pos.c(), Board.NONUMBER);
+			if (isSymmetricPlacementMode()) {
+				Address posS = getSymmetricPosition(pos);
+				if (board.isNumber(posS.r(), posS.c()))
+					board.setNumber(posS.r(), posS.c(), Board.NONUMBER);
+			}
+		}
 	}
 
 	protected void minusEntered(Address pos) {
-		if (isProblemEditMode())
+		if (isProblemEditMode()) {
 			board.setNumber(pos.r(), pos.c(), Board.UNDECIDED_NUMBER);
+			if (isSymmetricPlacementMode()) {
+				Address posS = getSymmetricPosition(pos);
+				if (!board.isNumber(posS.r(), posS.c()))
+					board.setNumber(posS.r(), posS.c(), Board.UNDECIDED_NUMBER);
+			}
+		}
 	}
+
+	/**
+	 * SL用点対称位置の座標を取得する。
+	 * @param pos　元座標
+	 * @return posと点対称な位置の座標
+	 */
+	public Address getSymmetricPosition(Address pos) {
+		return new Address(board.rows()-2-pos.r(), board.cols()-2-pos.c());
+	}
+
 }

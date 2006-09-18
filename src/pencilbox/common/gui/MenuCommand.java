@@ -348,6 +348,12 @@ public class MenuCommand {
 		panel.repaint();
 	}
 	/**
+	 *  [編集]-[対称配置]
+	 */
+	public void setSymmetricPlacementMode(boolean b) {
+		handler.setSymmetricPlacementMode(b);
+	}
+	/**
 	 *  [編集]-[正答判定]
 	 */
 	public void checkAnswer() {

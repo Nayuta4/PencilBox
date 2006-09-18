@@ -51,16 +51,36 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 * 「ましゅ」キー操作 
 	 */
 	protected void numberEntered(Address pos, int n) {
-		if (isProblemEditMode())
-			if(n == 1 || n == 2)
+		if (isProblemEditMode()) {
+			if(n == 1 || n == 2) {
 				board.setNumber(pos.r(), pos.c(), n);
+				if (isSymmetricPlacementMode()) {
+					Address posS = getSymmetricPosition(pos);
+					if (!board.isNumber(posS.r(), posS.c()))
+						board.setNumber(posS.r(), posS.c(), Board.GRAY_PEARL);
+				}
+			}
+		}
 	}
 	protected void spaceEntered(Address pos) {
-		if (isProblemEditMode())
+		if (isProblemEditMode()) {
 			board.setNumber(pos.r(), pos.c(), Board.NO_PEARL);
+			if (isSymmetricPlacementMode()) {
+				Address posS = getSymmetricPosition(pos);
+				if (board.isNumber(posS.r(), posS.c()))
+					board.setNumber(posS.r(), posS.c(), Board.NO_PEARL);
+			}
+		}
 	}
+
 	protected void minusEntered(Address pos) {
-		if (isProblemEditMode())
+		if (isProblemEditMode()) {
 			board.setNumber(pos.r(), pos.c(), Board.GRAY_PEARL);
+			if (isSymmetricPlacementMode()) {
+				Address posS = getSymmetricPosition(pos);
+				if (!board.isNumber(posS.r(), posS.c()))
+					board.setNumber(posS.r(), posS.c(), Board.GRAY_PEARL);
+			}
+		}
 	}
 }

@@ -28,7 +28,8 @@ public class Menu extends MenuBase {
 		addToViewMenu(colorForEachLinkItem = makeCheckBoxCommandMenuItem("線の色分け(D)", 'D', false));
 		addToViewMenu(highlightSelectedLinkItem = makeCheckBoxCommandMenuItem("選択数字ハイライト(H)", 'H', true));
 		addRenewColorMenu();
-//		addEraseCrossesMenu();
+//		addTrimAnswerMenuItem();
+		addSymmetricPlacementMenuItem();
 	}
 
 	public void executeCommand2(JMenuItem target) {

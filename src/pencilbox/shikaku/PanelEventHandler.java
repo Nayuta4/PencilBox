@@ -61,19 +61,38 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 * 「四角に切れ」キー操作
 	 */
 	protected void numberEntered(Address pos, int num) {
-		if (isProblemEditMode())
-			if (num > 0)
-			board.setNumber(pos.r(), pos.c(), num);
+		if (isProblemEditMode()) {
+			if (num > 0) {
+				board.setNumber(pos.r(), pos.c(), num);
+				if (isSymmetricPlacementMode()) {
+					Address posS = getSymmetricPosition(pos);
+					if (!board.isNumber(posS.r(), posS.c()))
+						board.setNumber(posS.r(), posS.c(), Board.UNDECIDED_NUMBER);
+				}
+			}
+		}
 	}
 	
 	protected void spaceEntered(Address pos) {
-		if (isProblemEditMode())
+		if (isProblemEditMode()) {
 			board.setNumber(pos.r(), pos.c(), 0);
+			if (isSymmetricPlacementMode()) {
+				Address posS = getSymmetricPosition(pos);
+				if (board.isNumber(posS.r(), posS.c()))
+					board.setNumber(posS.r(), posS.c(), 0);
+			}
+		}
 	}
 	
 	protected void minusEntered(Address pos) {
-		if (isProblemEditMode())
+		if (isProblemEditMode()) {
 			board.setNumber(pos.r(), pos.c(), Board.UNDECIDED_NUMBER);
+			if (isSymmetricPlacementMode()) {
+				Address posS = getSymmetricPosition(pos);
+				if (!board.isNumber(posS.r(), posS.c()))
+					board.setNumber(posS.r(), posS.c(), Board.UNDECIDED_NUMBER);
+			}
+		}
 	}
 
 	/**

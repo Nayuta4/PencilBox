@@ -27,6 +27,7 @@ public class Menu extends MenuBase {
 		addToViewMenu(showAreaHintItem = makeCheckBoxCommandMenuItem("–ÊÏ‚ÅF•ª‚¯(H)", 'H', false));
 		addToViewMenu(colorfulModeItem = makeCheckBoxCommandMenuItem("ƒ‰ƒ“ƒ_ƒ€‚ÉF•ª‚¯(D)", 'D', false));
 		addRenewColorMenu();
+		addSymmetricPlacementMenuItem();
 	}
 
 	public void executeCommand2(JMenuItem target) {

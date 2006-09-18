@@ -27,6 +27,7 @@ public class Menu extends MenuBase {
 		addCursorMenu();
 		addToViewMenu(showAreaBorderItem = makeCheckBoxCommandMenuItem("‹«ŠEü•\¦(B)", 'B', true));
 		addToViewMenu(showAreaHintItem = makeCheckBoxCommandMenuItem("–ÊÏ‚ÅF•ª‚¯(H)", 'H', false));
+		addSymmetricPlacementMenuItem();
 	}
 
 	public void executeCommand2(JMenuItem target) {

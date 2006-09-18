@@ -26,6 +26,7 @@ public class PanelEventHandlerBase {
 
 	private int maxInputNumber = 99;
 	private int previousInput = 0;
+	private int symmetricPlacementMode = 0;
 
 	/**
 	 * PanelEventHandlerを生成する
@@ -60,6 +61,19 @@ public class PanelEventHandlerBase {
 
 	public PanelBase getPanel() {
 		return panel;
+	}
+
+	/**
+	 * @return the symmetricPlacementMode
+	 */
+	public boolean isSymmetricPlacementMode() {
+		return symmetricPlacementMode == 1 ? true : false;
+	}
+	/**
+	 * @param symmetricPlacementMode the symmetricPlacementMode to set
+	 */
+	public void setSymmetricPlacementMode(boolean symmetricPlacementMode) {
+		this.symmetricPlacementMode = symmetricPlacementMode ? 1 : 0;
 	}
 
 	/**
@@ -151,6 +165,15 @@ public class PanelEventHandlerBase {
 	 */
 	public final int toR(int y) {
 		return (y + getCellSize() - getOffsety()) / getCellSize() - 1;
+	}
+
+	/**
+	 * 点対称位置の座標を取得する。
+	 * @param pos　元座標
+	 * @return posと点対称な位置の座標
+	 */
+	public Address getSymmetricPosition(Address pos) {
+		return new Address(board.rows()-1-pos.r(), board.cols()-1-pos.c());
 	}
 
 	/**

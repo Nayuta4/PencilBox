@@ -25,6 +25,8 @@ public class Menu extends MenuBase {
 		noilluminationColorItem = addColorMenuItem("Æ–¾‚È‚µ");
 		lluminatedColorItem = addColorMenuItem("”íÆ–¾ƒ}ƒX");
 		addToViewMenu(warnWrongIlluminationItem = makeCheckBoxCommandMenuItem("Œë‚è‚ğÔ‚Å•\¦(W)", 'W', false));
+		addSymmetricPlacementMenuItem();
+		addTrimAnswerMenuItem();
 	}
 
 	public void executeCommand2(JMenuItem target) {
