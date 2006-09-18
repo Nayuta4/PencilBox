@@ -15,7 +15,7 @@ public class Panel extends PanelBase {
 	private Board board;
 
 	private boolean showNumberHint = false;
-	private boolean warnWrongWall = true;
+	private boolean warnWrongWall = false;
 
 	private Color paintColor = Color.blue;
 	private Color circleColor = Color.magenta;

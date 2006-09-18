@@ -24,7 +24,7 @@ public class Menu extends MenuBase {
 		super.buildIndividualMenu();
 		paintColorItem = addColorMenuItem("黒マス");
 		circleColorItem = addColorMenuItem("白マス");
-		addToViewMenu(warnWrongWallItem = makeCheckBoxCommandMenuItem("誤りを赤で表示(W)", 'W', true));
+		addToViewMenu(warnWrongWallItem = makeCheckBoxCommandMenuItem("誤りを赤で表示(W)", 'W', false));
 		addToViewMenu(showNumberHintItem = makeCheckBoxCommandMenuItem("数字の色分け(H)", 'H', false));
 		addSymmetricPlacementMenuItem();
 		addTrimAnswerMenuItem();
