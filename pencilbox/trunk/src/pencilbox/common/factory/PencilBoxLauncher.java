@@ -29,7 +29,7 @@ public class PencilBoxLauncher {
 			e.printStackTrace();
 		}
 		new PencilBoxLauncher();
-		FileChooser.getInstance(); // FileChooser作成は時間がかかるので，このタイミングで作っておく
+		FileChooser.getProblemFileChooser(); // FileChooser作成は時間がかかるので，このタイミングで作っておく
 	}
 	
 	/**

@@ -49,26 +49,8 @@ public class PanelImageWriter {
 			return;
 		Iterator iter = ImageIO.getImageWritersByFormatName(formatName);
 		ImageWriter writer = (ImageWriter) iter.next();
-		final List writerSuffixes = Arrays.asList(writer.getOriginatingProvider().getFileSuffixes());
 
-		JFileChooser chooser = new JFileChooser();
-		chooser.setCurrentDirectory(new File("."));
-
-		chooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
-			public boolean accept(File f) {
-				if (f.isDirectory())
-					return true;
-				String name = f.getName();
-				int p = name.lastIndexOf('.');
-				if (p == -1)
-					return false;
-				String suffix = name.substring(p + 1).toLowerCase();
-				return writerSuffixes.contains(suffix);
-			}
-			public String getDescription() {
-				return formatName + " files";
-			}
-		});
+		JFileChooser chooser = FileChooser.getImageFileChooser();
 
 		int r = chooser.showSaveDialog(null);
 		if (r != JFileChooser.APPROVE_OPTION)
