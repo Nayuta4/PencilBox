@@ -7,33 +7,66 @@ import javax.swing.filechooser.FileFilter;
 
 /**
  * ファイルチューザー
- * 1つのインスタンスのみ生成して使い回す
+ * 用途ごとに１つずつのインスタンスを生成して使い回す
  */
 public class FileChooser extends JFileChooser {
 	
-	private static FileChooser instance = new FileChooser();
-
-    /**
-     * ファイルチューザーインスタンスを取得する
-     * @return ファイルチューザー
-     */
-	public static FileChooser getInstance() {
-		return instance;
-	}
+	private static FileChooser problemFileChooser = null;
+	private static FileChooser imageFileChooser = null;
+	private static FileChooser preferenceFileChooser = null;
 
 	private FileChooser() {
-		setFileFilter(new TxtFilter());
-		setCurrentDirectory(new File("."));
+	}
+	
+	public static FileChooser getProblemFileChooser() {
+		if (problemFileChooser == null) {
+			problemFileChooser = new FileChooser();
+			problemFileChooser.setFileFilter(new ProblemFileFilter());
+			problemFileChooser.setCurrentDirectory(new File("."));
+		}
+		return problemFileChooser;
+	}
+
+	public static FileChooser getImageFileChooser() {
+		if (imageFileChooser == null) {
+			imageFileChooser = new FileChooser();
+			imageFileChooser.setFileFilter(new ImageFileFilter());
+			imageFileChooser.setCurrentDirectory(new File("."));
+		}
+		return imageFileChooser;
+	}
+
+	public static FileChooser getPreferenceFileChooser() {
+		if (preferenceFileChooser == null) {
+			preferenceFileChooser = new FileChooser();
+			preferenceFileChooser.setCurrentDirectory(new File("."));
+		}
+		return preferenceFileChooser;
+	}
+	
+}
+
+class ProblemFileFilter extends FileFilter {
+
+	public boolean accept(File f) {
+		String name = f.getName().toLowerCase();
+		return name.endsWith(".txt") || name.endsWith(".xml") || name.endsWith(".pcl") || f.isDirectory();
+	}
+	
+	public String getDescription() {
+		return "txt or xml files";
 	}
 }
 
-class TxtFilter extends FileFilter {
+class ImageFileFilter extends FileFilter {
+
 	public boolean accept(File f) {
-		String ext = f.getName().toLowerCase();
-		return ext.endsWith(".txt") || ext.endsWith(".xml") || ext.endsWith(".pcl") || f.isDirectory();
+		String name = f.getName().toLowerCase();
+		return name.endsWith(".png") || f.isDirectory();
 	}
+
 	public String getDescription() {
-		return "txt or xml file";
-//		return "txt or xml or pcl file";
+		return "png files";
 	}
 }
+

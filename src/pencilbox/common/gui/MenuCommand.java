@@ -37,7 +37,6 @@ public class MenuCommand {
 	private BoardBase board;
 	private UndoManager undoManager;
 
-	private JFileChooser fileChooser;
 	private Timer playBackTimer;
 
 	/**
@@ -173,21 +172,21 @@ public class MenuCommand {
 		return true;
 	}
 	/**
-	 * ファイル選択ダイアログに現在のファイルパスを設定する
+	 * 問題ファイル選択ダイアログを取得し，現在のファイルパスを設定する。
 	 */
-	private void prepareFileChooser() {
-		if (fileChooser == null)
-			fileChooser = FileChooser.getInstance();
+	private FileChooser prepareFileChooser() {
+		FileChooser fileChooser = FileChooser.getProblemFileChooser();
 		File currentFile = problem.getFile();
 		if (currentFile != null)
 			fileChooser.setSelectedFile(currentFile);
+		return fileChooser;
 	}
 	/**
 	 *  [ファイル]-[開く]
 	 *  もとの問題がファイル名無しである場合は，もとのフレームは閉じる。
 	 */
 	public void open() {
-		prepareFileChooser();
+		FileChooser fileChooser = prepareFileChooser();
 		try {
 			if (fileChooser.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
 				File file = fileChooser.getSelectedFile();
@@ -203,7 +202,7 @@ public class MenuCommand {
 	 *  [ファイル]-[閉じて開く]
 	 */
 	public void closeAndOpen() {
-		prepareFileChooser();
+		FileChooser fileChooser = prepareFileChooser();
 		try {
 			if (fileChooser.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
 				File file = fileChooser.getSelectedFile();
@@ -217,7 +216,7 @@ public class MenuCommand {
 	 *  [ファイル]-[保存]
 	 */
 	public void save() {
-		prepareFileChooser();
+		FileChooser fileChooser = prepareFileChooser();
 		try {
 			if (fileChooser.showSaveDialog(frame) == JFileChooser.APPROVE_OPTION) {
 				File file = fileChooser.getSelectedFile();
