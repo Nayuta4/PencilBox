@@ -359,7 +359,6 @@ public class PanelEventHandlerBase {
 			newPos.set(toR(e.getY()), toC(e.getX()));
 			if (!isOn(newPos))
 				return;
-			moveCursor(newPos);
 			int modifier = e.getModifiers();
 			if ((modifier & InputEvent.BUTTON1_MASK) != 0) {
 				if ((e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK) != 0)
@@ -369,6 +368,7 @@ public class PanelEventHandlerBase {
 			} else if ((modifier & InputEvent.BUTTON3_MASK) != 0) {
 				rightPressed(newPos);
 			}
+			moveCursor(newPos);
 
 			oldPos.set(newPos); // åªç›à íuÇçXêV
 			repaint();
@@ -549,15 +549,12 @@ public class PanelEventHandlerBase {
 			int x = e.getX();
 			int y = e.getY();
 
-			if ((((y - getOffsety()) - (x - getOffsetx()) + board.cols()
-					* getCellSize() * 2)
-					/ getCellSize() + ((y - getOffsety()) + (x - getOffsetx()))
-					/ getCellSize()) % 2 == 0) {
-				position
-						.set(Direction.VERT, toR(y), toC(x - getHalfCellSize())); // ècÇÃï”è„
+			if ((((y - getOffsety()) - (x - getOffsetx()) + board.cols() * getCellSize() * 2) / getCellSize()
+					+ ((y - getOffsety()) + (x - getOffsetx()))	/ getCellSize())
+					% 2 == 0) {
+				position.set(Direction.VERT, toR(y), toC(x - getHalfCellSize())); // ècÇÃï”è„
 			} else {
-				position.set(Direction.HORIZ, toR(y - getHalfCellSize()),
-						toC(x)); // â°ÇÃï”è„
+				position.set(Direction.HORIZ, toR(y - getHalfCellSize()), toC(x)); // â°ÇÃï”è„
 			}
 			if (!isSideOn(position))
 				return;
