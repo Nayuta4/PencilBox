@@ -98,7 +98,11 @@ public class PencilFactory {
 		panel.setup(problem.getBoard());
 		handler.setup(panel, problem.getBoard());
 		frame.resize();
-		frame.centering();
+		if (caller == null) {
+			frame.locateAtCenter();
+		} else {
+			frame.locateAtShiftPosition(caller.getFrame());
+		}
 		frame.setVisible(true);
 	}
 	/**
@@ -124,6 +128,7 @@ public class PencilFactory {
 		panel.setup(problem.getBoard());
 		handler.setup(problem.getBoard());
 		frame.resize();
+		frame.locateAtSamePosition();
 	}
 	
 	/**

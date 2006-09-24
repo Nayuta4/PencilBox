@@ -389,7 +389,7 @@ public class MenuBase {
 		displaySizeItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panel.setDisplaySize(n);
-				frame.pack();
+				frame.resize();
 			}
 		});
 		displaySizeGroup.add(displaySizeItem);
