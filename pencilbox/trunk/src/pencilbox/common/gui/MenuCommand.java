@@ -133,8 +133,6 @@ public class MenuCommand {
 				Size newSize = newBoardDialog.getNewSize();
 				if (newSize != null && isValidSize(newSize)) {
 					PencilFactory.getInstance(pencilType, this).createNewFrame(newSize);
-					if (problem.getFile() == null)
-						frame.dispose();
 				}
 			}
 		} catch (PencilBoxClassException e) {
@@ -183,7 +181,6 @@ public class MenuCommand {
 	}
 	/**
 	 *  [ファイル]-[開く]
-	 *  もとの問題がファイル名無しである場合は，もとのフレームは閉じる。
 	 */
 	public void open() {
 		FileChooser fileChooser = prepareFileChooser();
@@ -191,8 +188,6 @@ public class MenuCommand {
 			if (fileChooser.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
 				File file = fileChooser.getSelectedFile();
 				PencilFactory.getInstance(pencilType, this).createNewFrame(file);
-				if (problem.getFile() == null)
-					frame.dispose();
 			}
 		} catch (PencilBoxException e) {
 			showErrorMessage(e);
@@ -456,7 +451,7 @@ public class MenuCommand {
 	 */
 	public void setShowIndexMode(boolean b) {
 		panel.changeShowIndexMode(b);
-		frame.pack();
+		frame.resize();
 	}
 	/**
 	 *  [表示]-[色の更新]

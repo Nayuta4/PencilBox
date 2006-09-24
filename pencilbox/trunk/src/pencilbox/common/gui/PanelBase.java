@@ -149,7 +149,7 @@ public class PanelBase extends JPanel implements Printable {
 	 */
 	protected void updatePreferredSize() {
 		setPreferredSize(getBoardRegionSize());
-//		revalidate();
+		revalidate();
 	}
 	/**
 	 * Panel‚Ì”Õ–Ê—Ìˆæ•”•ª‚ÌƒTƒCƒY‚ğæ“¾‚·‚é
