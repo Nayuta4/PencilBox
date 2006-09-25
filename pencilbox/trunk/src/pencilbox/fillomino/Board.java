@@ -47,8 +47,6 @@ public class Board extends BoardBase {
 					number[r][c] = 0;
 			}
 		}
-		ArrayUtil.initArrayObject2(area, null);
-		areaList.clear();
 		initBoard();
 	}
 
@@ -128,6 +126,8 @@ public class Board extends BoardBase {
 	 * Œ»İ‚Ì”Õ–Êó‘Ô‚ÉŠî‚Ã‚¢‚ÄC—Ìˆæ‚Ìİ’è‚ğs‚¤
 	 */
 	public void initAreas() {
+		ArrayUtil.initArrayObject2(area, null);
+		areaList.clear();
 		for (int r=0; r<rows(); r++) {
 			for (int c=0; c<cols(); c++) {
 				if (getNumber(r, c) > 0 && area[r][c] == null) {
