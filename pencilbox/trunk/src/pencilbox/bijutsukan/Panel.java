@@ -16,6 +16,7 @@ public class Panel extends PanelBase {
 	private Board board;
 	
 	private boolean warnWrongIllumination = false;
+	private boolean showBeamMode = false;
 
 	private Color wallColor = Color.BLACK;
 	private Color illuminationColor = Color.BLUE;
@@ -46,6 +47,20 @@ public class Panel extends PanelBase {
 	 */
 	public void setWarnWrongIllumination(boolean warnWrongIllumination) {
 		this.warnWrongIllumination = warnWrongIllumination;
+	}
+
+	/**
+	 * @return the showRayMode
+	 */
+	public boolean isShowBeamMode() {
+		return showBeamMode;
+	}
+
+	/**
+	 * @param showRayMode the showRayMode to set
+	 */
+	public void setShowBeamMode(boolean showRayMode) {
+		this.showBeamMode = showRayMode;
 	}
 
 	/**
@@ -113,19 +128,21 @@ public class Panel extends PanelBase {
 					g.setColor(illuminatedColor);
 					paintCell(g,r,c);
 				}
-				g.setColor(illuminationColor);
-				if (l > 0) {
-					if (warnWrongIllumination && l > 1) {
-						g.setColor(errorColor);
+				if (isShowBeamMode()) {
+					g.setColor(illuminationColor);
+					if (l > 0) {
+						if (isWarnWrongIllumination() && l > 1) {
+							g.setColor(errorColor);
+						}
+						placeMidline(g, r, c, Direction.HORIZ);
 					}
-					placeMidline(g, r, c, Direction.HORIZ);
-				}
-				g.setColor(illuminationColor);
-				if (m > 0) {
-					if (warnWrongIllumination && m > 1) {
-						g.setColor(errorColor);
+					g.setColor(illuminationColor);
+					if (m > 0) {
+						if (isWarnWrongIllumination() && m > 1) {
+							g.setColor(errorColor);
+						}
+						placeMidline(g, r, c, Direction.VERT);
 					}
-					placeMidline(g, r, c, Direction.VERT);
 				}
 				if (state >= 0 && state <= Board.NONUMBER_WALL) {
 					g.setColor(wallColor);
