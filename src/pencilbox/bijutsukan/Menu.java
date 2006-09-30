@@ -15,6 +15,7 @@ public class Menu extends MenuBase {
 	private JMenuItem noilluminationColorItem;
 	private JMenuItem lluminatedColorItem;
 	private JMenuItem warnWrongIlluminationItem;
+	private JMenuItem showBeamItem;
 
 	public Panel getPanel() {
 		return (Panel) getPanelBase();
@@ -25,6 +26,7 @@ public class Menu extends MenuBase {
 		noilluminationColorItem = addColorMenuItem("照明なし");
 		lluminatedColorItem = addColorMenuItem("被照明マス");
 		addToViewMenu(warnWrongIlluminationItem = makeCheckBoxCommandMenuItem("誤りを赤で表示(W)", 'W', false));
+		addToViewMenu(showBeamItem = makeCheckBoxCommandMenuItem("光線表示(B)", 'R', false));
 		addSymmetricPlacementMenuItem();
 		addTrimAnswerMenuItem();
 	}
@@ -32,6 +34,8 @@ public class Menu extends MenuBase {
 	public void executeCommand2(JMenuItem target) {
 		if (target == warnWrongIlluminationItem) {
 			getPanel().setWarnWrongIllumination(target.isSelected());
+		} else if (target == showBeamItem) {
+			getPanel().setShowBeamMode(target.isSelected());
 		}
 	}
 
