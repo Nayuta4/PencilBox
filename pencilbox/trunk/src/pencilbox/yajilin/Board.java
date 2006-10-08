@@ -340,13 +340,13 @@ public class Board extends BoardBase {
 		if (ra == rb) 
 			for (int c = ca; c < cb; c++) {
 				if (getState(VERT, ra, c) != st)
-					if (!hasNumber(VERT, ra, c))
+					if (!hasNumber(VERT, ra, c) || st == UNKNOWN)
 						changeStateA(VERT, ra, c, st);
 			}
 		if (ca == cb) 
 			for (int r = ra; r < rb; r++) {
 				if (getState(HORIZ, r, ca) != st)
-					if (!hasNumber(HORIZ, r, ca))
+					if (!hasNumber(HORIZ, r, ca) || st == UNKNOWN)
 						changeStateA(HORIZ, r, ca, st);
 			}
 	}
@@ -581,7 +581,7 @@ public class Board extends BoardBase {
 					result |= checkArrow(r,c);
 				}
 				if (isBlock(r,c)) {
-					result |= 16;
+					result |= 32;
 				}	
 			}
 		}
