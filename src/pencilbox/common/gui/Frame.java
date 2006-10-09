@@ -67,11 +67,12 @@ public class Frame extends JFrame {
 	}
 	
 	/**
-	 * 呼び出し元フレームと同じ位置にする。
-	 * その結果画面からはみ出す場合はその辺が画面端に接するようにずらす。
-	 * @param org　呼び出し元フレーム
+	 * 現在と同じ位置にする。
+	 * ただし，その結果画面からはみ出す場合はその辺が画面端に接するようにずらす。
 	 */
 	public void locateAtSamePosition() {
+		if ((getExtendedState() & Frame.MAXIMIZED_BOTH) == Frame.MAXIMIZED_BOTH)
+			return;
 		Point point = this.getLocation();
 		Dimension frameSize = this.getSize();
 		Dimension screenSize = getToolkit().getScreenSize();
