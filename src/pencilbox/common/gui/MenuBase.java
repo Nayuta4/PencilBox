@@ -88,6 +88,10 @@ public class MenuBase {
 		return panel;
 	}
 
+	protected PanelEventHandlerBase getPanelEventHandlerBase() {
+		return command.getPanelEventHandlerBase();
+	}
+
 	/**
 	 * 共通メニューを作成する。
 	 */
@@ -578,6 +582,18 @@ public class MenuBase {
 		JCheckBoxMenuItem item = makeJCheckBoxMenuItem(title, mnumonic, initial);
 		item.addActionListener(commandAction);
 		return item;
+	}
+
+	/**
+	 * 現在の設定に合わせてメニュー項目の選択状態を更新する。
+	 */
+	public void updateCurrentMenuSelection() {
+		showIndexModeItem.setSelected(getPanelBase().isShowIndexMode());
+		if (cursorItem != null)
+			cursorItem.setSelected(getPanelBase().isCursorOn());
+		if (symmetricPlacementItem != null)
+			symmetricPlacementItem.setSelected(getPanelEventHandlerBase().isSymmetricPlacementMode());
+		problemEditModeItem.setSelected(getPanelEventHandlerBase().isProblemEditMode());
 	}
 
 	/*

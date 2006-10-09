@@ -53,4 +53,10 @@ public class Menu extends MenuBase {
 			getPanel().setCircleColor(color);
 	}
 
+	public void updateCurrentMenuSelection() {
+		super.updateCurrentMenuSelection();
+		warnWrongWallItem.setSelected(getPanel().isWarnWrongWall());
+		showNumberHintItem.setSelected(getPanel().isShowNumberHint());
+	}
+
 }

@@ -57,18 +57,12 @@ public class Panel extends PanelBase {
 	protected void setSelectedNumber(int selectedNumber) {
 		this.selectedNumber = selectedNumber;
 	}
-	/**
-	 * @return Returns the selectedNumberColor.
-	 */
-	public Color getSelectedNumberColor() {
-		return selectedNumberColor;
-	}
 
 	/**
-	 * @param selectedNumberColor The selectedNumberColor to set.
+	 * @return the warnWrongNumber
 	 */
-	public void setSelectedNumberColor(Color selectedNumberColor) {
-		this.selectedNumberColor = selectedNumberColor;
+	public boolean isWarnWrongNumber() {
+		return warnWrongNumber;
 	}
 
 	/**
@@ -79,10 +73,31 @@ public class Panel extends PanelBase {
 	}
 
 	/**
+	 * @return the highlightSelectedNumber
+	 */
+	public boolean isHighlightSelectedNumber() {
+		return highlightSelectedNumber;
+	}
+
+	/**
 	 * @param highlightSelectedNumber The highlightSelectedNumber to set.
 	 */
 	public void setHighlightSelectedNumber(boolean highlightSelectedNumber) {
 		this.highlightSelectedNumber = highlightSelectedNumber;
+	}
+
+	/**
+	 * @return the showAllowedNumberDot
+	 */
+	public boolean isShowAllowedNumberDot() {
+		return showAllowedNumberDot;
+	}
+
+	/**
+	 * @param showAllowedNumberDot The showAllowedNumberDot to set.
+	 */
+	public void setShowAllowedNumberDot(boolean showAllowedNumberDot) {
+		this.showAllowedNumberDot = showAllowedNumberDot;
 	}
 
 	/**
@@ -100,14 +115,20 @@ public class Panel extends PanelBase {
 	}
 
 	/**
-	 * @param showAllowedNumberDot The showAllowedNumberDot to set.
+	 * @return Returns the selectedNumberColor.
 	 */
-	public void setShowAllowedNumberDot(boolean showAllowedNumberDot) {
-		this.showAllowedNumberDot = showAllowedNumberDot;
+	public Color getSelectedNumberColor() {
+		return selectedNumberColor;
 	}
 
+	/**
+	 * @param selectedNumberColor The selectedNumberColor to set.
+	 */
+	public void setSelectedNumberColor(Color selectedNumberColor) {
+		this.selectedNumberColor = selectedNumberColor;
+	}
 
-	protected void setDisplaySize(int cellSize) {
+	public void setDisplaySize(int cellSize) {
 		super.setDisplaySize(cellSize);
 		hintDot.setDotSize(cellSize);
 	}
@@ -160,7 +181,7 @@ public class Panel extends PanelBase {
 					if (board.isStable(r,c)) {
 						g.setColor(getNumberColor());
 						placeBoldCircle(g, r, c);
-					} else if (showAllowedNumberDot && unit >= 3 && unit <=5)
+					} else if (isShowAllowedNumberDot() && unit >= 3 && unit <=5)
 						drawHintDot(g, r, c);
 				}
 			}
@@ -168,7 +189,7 @@ public class Panel extends PanelBase {
 	}
 	// 選択数字と同じ行，列，ボックスを色塗り 
 	void paintCell(Graphics g, int r, int c, int num) {
-		if (highlightSelectedNumber && getSelectedNumber() > 0) {
+		if (isHighlightSelectedNumber() && getSelectedNumber() > 0) {
 			if (getSelectedNumber() == num) {
 				g.setColor(selectedNumberColor);
 				paintCell(g, r, c);
@@ -184,7 +205,7 @@ public class Panel extends PanelBase {
 		if (board.isStable(r, c)) {
 			g.setColor(getNumberColor());
 		} else if (
-			warnWrongNumber && board.isMultipleNumber(r, c)) {
+			isWarnWrongNumber() && board.isMultipleNumber(r, c)) {
 			g.setColor(errorColor);
 		} else {
 			g.setColor(inputColor);

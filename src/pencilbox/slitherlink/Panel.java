@@ -17,13 +17,11 @@ public class Panel extends PanelBase {
 	private Board board;
 
 	private boolean warnBranchedLink = false;
-	private boolean reddenWrongNumber = false;
 	private boolean colorForEachLink = false;
 
 	private Color lineColor = Color.BLUE;
 	private Color crossColor = Color.MAGENTA;
 	private Color errorColor = Color.RED;
-//	private Color successColor = Color.GREEN;
 	
 	/**
 	 * 
@@ -61,10 +59,22 @@ public class Panel extends PanelBase {
 		this.lineColor = lineColor;
 	}
 	/**
+	 * @return the colorForEachLink
+	 */
+	public boolean isColorForEachLink() {
+		return colorForEachLink;
+	}
+	/**
 	 * @param colorForEachLink The colorForEachLink to set.
 	 */
 	public void setColorForEachLink(boolean colorForEachLink) {
 		this.colorForEachLink = colorForEachLink;
+	}
+	/**
+	 * @return the warnBranchedLink
+	 */
+	public boolean isWarnBranchedLink() {
+		return warnBranchedLink;
 	}
 	/**
 	 * @param warnBranchedLink The warnBranchedLink to set.
@@ -108,7 +118,7 @@ public class Panel extends PanelBase {
 			for (int c = 0; c < board.cols() - 1; c++) {
 				number = board.getNumber(r, c);
 				if (number >= 0 && number <= 4) {
-					if (warnBranchedLink || reddenWrongNumber) {
+					if (isWarnBranchedLink()) {
 						nline = board.lineAround(r,c);
 						if (nline > number) g.setColor(errorColor);
 //						else if ( nline < state) g.setColor(errorColor);
@@ -126,7 +136,7 @@ public class Panel extends PanelBase {
 					number = board.getState(d, r, c);
 					if (number == Board.LINE) {
 						g.setColor(lineColor);
-						if (colorForEachLink)
+						if (isColorForEachLink())
 							g.setColor(Colors.getColor(board.getLink(d,r,c).getID()));
 						if (warnBranchedLink && board.isBranchedLink(d,r,c))
 							g.setColor(errorColor);

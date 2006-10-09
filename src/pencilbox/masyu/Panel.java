@@ -17,7 +17,6 @@ public class Panel extends PanelBase {
 
 	private boolean colorForEachLink = false;
 	private boolean warnBranchedLink = false;
-	private boolean warnWrongPearl = false;
 
 	private Color lineColor = Color.BLUE;
 	private Color crossColor = Color.MAGENTA;
@@ -73,22 +72,28 @@ public class Panel extends PanelBase {
 		this.pearlColor = pearlColor;
 	}
 	/**
+	 * @return the colorForEachLink
+	 */
+	public boolean isColorForEachLink() {
+		return colorForEachLink;
+	}
+	/**
 	 * @param colorForEachLink The colorForEachLink to set.
 	 */
 	public void setColorForEachLink(boolean colorForEachLink) {
 		this.colorForEachLink = colorForEachLink;
 	}
 	/**
+	 * @return the warnBranchedLink
+	 */
+	public boolean isWarnBranchedLink() {
+		return warnBranchedLink;
+	}
+	/**
 	 * @param warnBranchedLink The warnBranchedLink to set.
 	 */
 	public void setWarnBranchedLink(boolean warnBranchedLink) {
 		this.warnBranchedLink = warnBranchedLink;
-	}
-	/**
-	 * @param warnWrongPearl The warnWrongPearl to set.
-	 */
-	public void setWarnWrongPearl(boolean warnWrongPearl) {
-		this.warnWrongPearl = warnWrongPearl;
 	}
 
 	public void drawPanel(Graphics g) {
@@ -123,9 +128,9 @@ public class Panel extends PanelBase {
 					state = board.getState(d, r, c);
 					if (state == Board.LINE) {
 						g.setColor(lineColor);
-						if(colorForEachLink)
+						if(isColorForEachLink())
 							g.setColor(Colors.getColor(board.getLink(d,r,c).getID()));
-						if(warnBranchedLink && board.isBranchedLink(d,r,c))
+						if(isWarnBranchedLink() && board.isBranchedLink(d,r,c))
 							g.setColor(errorColor);
 						placeTraversalLine(g, d, r, c);
 					} else if (state == Board.NOLINE) {
@@ -139,7 +144,7 @@ public class Panel extends PanelBase {
 	
 	private void placeBlackPearl(Graphics g, int r, int c) {
 		g.setColor(pearlColor);
-		if (warnBranchedLink || warnWrongPearl) {
+		if (isWarnBranchedLink()) {
 			int p = board.checkBlackPearl(r,c);
 			if (p==-1) g.setColor(errorColor); 
 	//		else if (p==1) g.setColor(successColor);
@@ -150,7 +155,7 @@ public class Panel extends PanelBase {
 	
 	private void placeWhitePearl(Graphics g, int r, int c) {
 		g.setColor(pearlColor);
-		if (warnBranchedLink || warnWrongPearl) {
+		if (isWarnBranchedLink()) {
 			int p = board.checkWhitePearl(r,c);
 			if (p==-1) g.setColor(errorColor);
 	//		else if (p==1) g.setColor(successColor);

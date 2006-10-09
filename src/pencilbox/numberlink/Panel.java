@@ -17,11 +17,10 @@ public class Panel extends PanelBase {
 
 	private Color lineColor = Color.BLUE;
 	private Color crossColor = Color.MAGENTA;
-	private Color lightColor = Color.GREEN;
 
 	private boolean warnBranchedLink = false;
 	private boolean colorForEachLink = false;
-	private boolean highlightSelectedLink = true;
+	private boolean highlightSelectedLink = false;
 
 	private Link selectedLink = null;
 	private int selectedNumber = 0;  // ‘I‘ð‚³‚ê‚Ä‚¢‚È‚¢‚Æ‚«‚Í 0
@@ -71,6 +70,13 @@ public class Panel extends PanelBase {
 	}
 
 	/**
+	 * @return the colorForEachLink
+	 */
+	public boolean isColorForEachLink() {
+		return colorForEachLink;
+	}
+
+	/**
 	 * @param colorForEachLink The colorForEachLink to set.
 	 */
 	public void setColorForEachLink(boolean colorForEachLink) {
@@ -78,10 +84,24 @@ public class Panel extends PanelBase {
 	}
 
 	/**
+	 * @return the highlightSelectedLink
+	 */
+	public boolean isHighlightSelectedLink() {
+		return highlightSelectedLink;
+	}
+
+	/**
 	 * @param highlightSelectedLink The highlightSelectedLink to set.
 	 */
 	public void setHighlightSelectedLink(boolean highlightSelectedLink) {
 		this.highlightSelectedLink = highlightSelectedLink;
+	}
+
+	/**
+	 * @return the warnBranchedLink
+	 */
+	public boolean isWarnBranchedLink() {
+		return warnBranchedLink;
 	}
 
 	/**
@@ -156,7 +176,6 @@ public class Panel extends PanelBase {
 				if (number > 0) {
 					g.setColor(getBackgroundColor());
 					placeFilledCircle(g, r, c);
-					g.setColor(lightColor);
 					g.setColor(getNumberColor());
 					placeNumber(g, r, c, number);
 				} else if (number == Board.UNDECIDED_NUMBER) {
@@ -169,13 +188,13 @@ public class Panel extends PanelBase {
 	public void placeTraversalLine(Graphics g, int d, int r, int c) {
 		Link link = board.getLink(d,r,c);
 		int linkNo = link.getNumber();
-		if (warnBranchedLink && board.isBranchedLink(d,r,c)) {
+		if (isWarnBranchedLink() && board.isBranchedLink(d,r,c)) {
 			g.setColor(errorColor);
 		}
-		else if (highlightSelectedLink && ((linkNo > 0 && linkNo == getSelectedNumber())|| link == getSelectedLink())) {
+		else if (isHighlightSelectedLink() && ((linkNo > 0 && linkNo == getSelectedNumber())|| link == getSelectedLink())) {
 			g.setColor(selectedLinkColor);
 		}			
-		else if (colorForEachLink) {
+		else if (isColorForEachLink()) {
 			if (linkNo == 0) {
 				g.setColor(numberlessLinkColor);
 			}
@@ -190,13 +209,13 @@ public class Panel extends PanelBase {
 	}
 
 	public void placeNumber(Graphics g, int r, int c, int n) {
-		if (highlightSelectedLink && n == getSelectedNumber()) {
+		if (isHighlightSelectedLink() && n == getSelectedNumber()) {
 			g.setColor(selectedLinkColor);
 			super.paintCell(g, r, c);
 			g.setColor(getNumberColor());
 		}
 		else if (
-			warnBranchedLink
+			isWarnBranchedLink()
 				&& ((board.getLink(r, c) != null
 					&& board.getLink(r, c).getNumber() == -1)
 					|| board.countLine(r, c) > 1)) {
@@ -204,7 +223,7 @@ public class Panel extends PanelBase {
 //			super.paintCell(g, r, c);
 //			g.setColor(numberColor);
 		}
-		else if (colorForEachLink) {
+		else if (isColorForEachLink()) {
 			g.setColor(Colors.getDarkColor(board.getNumber(r,c)));
 		}
 		else {

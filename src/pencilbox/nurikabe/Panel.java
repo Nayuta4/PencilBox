@@ -30,16 +30,34 @@ public class Panel extends PanelBase {
 		board = (Board) aBoard; 
 	}
 	/**
+	 * @return the showShimaSize
+	 */
+	public boolean isShowShimaSize() {
+		return showShimaSize;
+	}
+	/**
 	 * @param showShimaSize The showShimaSize to set.
 	 */
 	public void setShowShimaSize(boolean showShimaSize) {
 		this.showShimaSize = showShimaSize;
 	}
 	/**
+	 * @return the showWrongWall
+	 */
+	public boolean isShowWrongWall() {
+		return showWrongWall;
+	}
+	/**
 	 * @param showWrongWall The showWrongWall to set.
 	 */
 	public void setShowWrongWall(boolean showWrongWall) {
 		this.showWrongWall = showWrongWall;
+	}
+	/**
+	 * @return the colorForEachWall
+	 */
+	public boolean isColorForEachWall() {
+		return colorForEachWall;
 	}
 	/**
 	 * @param colorForEachWall The colorForEachWall to set.
@@ -72,7 +90,7 @@ public class Panel extends PanelBase {
 		return circleColor;
 	}
 
-	protected void setDisplaySize(int size) {
+	public void setDisplaySize(int size) {
 		super.setDisplaySize(size);
 		countFont = new Font("SansSerif", Font.ITALIC, getCellSize() / 2);
 	}
@@ -113,7 +131,7 @@ public class Panel extends PanelBase {
 		g.setFont(countFont);
 		Area area = board.getArea(r,c);
 		int number = area.getNumber();
-		if (showShimaSize) {
+		if (isShowShimaSize()) {
 			if (number == 0 || (number > 0 && area.size() < number) || number == Board.UNDECIDED_NUMBER ) {
 				g.setColor(circleColor);
 				placeCircle(g, r, c);

@@ -66,10 +66,24 @@ public class Panel extends PanelBase {
 	}
 
 	/**
+	 * @return the colorfulMode
+	 */
+	public boolean isColorfulMode() {
+		return colorfulMode;
+	}
+
+	/**
 	 * @param colorfulMode The colorfulMode to set.
 	 */
 	public void setColorfulMode(boolean colorfulMode) {
 		this.colorfulMode = colorfulMode;
+	}
+
+	/**
+	 * @return the showAreaHint
+	 */
+	public boolean isShowAreaHint() {
+		return showAreaHint;
 	}
 
 	/**
@@ -101,7 +115,7 @@ public class Panel extends PanelBase {
 				domain = board.getSquare(r,c);
 				if (domain == null)
 					continue;
-				if (showAreaHint) {
+				if (isShowAreaHint()) {
 					int number = domain.getNumber();
 					if (number == Square.MULTIPLE_NUMBER) {
 						g.setColor(errorColor);
@@ -117,7 +131,7 @@ public class Panel extends PanelBase {
 						g.setColor(smallSizeColor);
 					}
 				}
-				else if (colorfulMode) {
+				else if (isColorfulMode()) {
 //					g.setColor(Colors.getColor(board.areaList.indexOf(board.domain[r][c])));
 					g.setColor(Colors.getBrightColor(board.getSquare(r,c).getId()));
 				}

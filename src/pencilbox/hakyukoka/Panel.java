@@ -23,7 +23,7 @@ public class Panel extends PanelBase {
 	private Color inputColor = Color.BLUE;
 	private Color areaBorderColor = Color.BLACK;
 	private Color errorColor = Color.RED;
-	private Color noAreaColor = new Color(0xCCCCCC);
+	private Color noAreaColor = new Color(0xC0C0C0);
 
 	private int selectedNumber = 0;
 	private Color selectedNumberColor = new Color(0xAAFFAA);
@@ -68,7 +68,8 @@ public class Panel extends PanelBase {
 	}
 
 	/**
-	 * @param draggingArea the draggingArea to set
+	 * @param draggingArea
+	 *            the draggingArea to set
 	 */
 	void setDraggingArea(Area draggingArea) {
 		this.draggingArea = draggingArea;
@@ -89,6 +90,13 @@ public class Panel extends PanelBase {
 	}
 
 	/**
+	 * @return the highlightSelectedNumber
+	 */
+	public boolean isHighlightSelectedNumber() {
+		return highlightSelectedNumber;
+	}
+
+	/**
 	 * @param highlightSelectedNumber The highlightSelectedNumber to set.
 	 */
 	public void setHighlightSelectedNumber(boolean highlightSelectedNumber) {
@@ -96,10 +104,24 @@ public class Panel extends PanelBase {
 	}
 
 	/**
+	 * @return the showAllowedNumberDot
+	 */
+	public boolean isShowAllowedNumberDot() {
+		return showAllowedNumberDot;
+	}
+
+	/**
 	 * @param showAllowedNumberDot The showAllowedNumberDot to set.
 	 */
 	public void setShowAllowedNumberDot(boolean showAllowedNumberDot) {
 		this.showAllowedNumberDot = showAllowedNumberDot;
+	}
+
+	/**
+	 * @return the warnWrongNumber
+	 */
+	public boolean isWarnWrongNumber() {
+		return warnWrongNumber;
 	}
 
 	/**
@@ -131,7 +153,7 @@ public class Panel extends PanelBase {
 		paintCells(g);
 		drawEmission(g);
 		drawNumbers(g);
-		if(showAllowedNumberDot)
+		if(isShowAllowedNumberDot())
 			drawDots(g);
 		drawBorders(g);
 	}
@@ -140,7 +162,7 @@ public class Panel extends PanelBase {
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
 				int n = board.getNumber(r, c);
-				if (highlightSelectedNumber && n > 0 && n == getSelectedNumber()) {
+				if (isHighlightSelectedNumber() && n > 0 && n == getSelectedNumber()) {
 					for (int cc = c-n; cc <= c+n; cc++) {
 						if (cc==c)
 							continue;
@@ -202,7 +224,7 @@ public class Panel extends PanelBase {
 //						paintCell(g, r, c);
 //					}
 //				}
-				if (highlightSelectedNumber && getSelectedNumber() > 0 && board.getNumber(r, c) == getSelectedNumber()) {
+				if (isHighlightSelectedNumber() && getSelectedNumber() > 0 && board.getNumber(r, c) == getSelectedNumber()) {
 					g.setColor(selectedNumberColor);
 					paintCell(g, r, c);
 				}
@@ -219,7 +241,7 @@ public class Panel extends PanelBase {
 					if (board.isStable(r, c)) {
 						g.setColor(getNumberColor());
 					} else {
-						if (warnWrongNumber && board.isError(r,c))
+						if (isWarnWrongNumber() && board.isError(r,c))
 							g.setColor(errorColor);
 						else
 							g.setColor(inputColor);

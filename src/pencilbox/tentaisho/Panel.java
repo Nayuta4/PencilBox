@@ -96,10 +96,24 @@ public class Panel extends PanelBase {
 	}
 
 	/**
+	 * @return the showAreaBorder
+	 */
+	public boolean isShowAreaBorder() {
+		return showAreaBorder;
+	}
+
+	/**
 	 * @param showAreaBorder The showAreaBorder to set.
 	 */
 	public void setShowAreaBorder(boolean showAreaBorder) {
 		this.showAreaBorder = showAreaBorder;
+	}
+
+	/**
+	 * @return the showStar
+	 */
+	public boolean isShowStar() {
+		return showStar;
 	}
 
 	/**
@@ -110,13 +124,20 @@ public class Panel extends PanelBase {
 	}
 
 	/**
+	 * @return the showAreaHint
+	 */
+	public boolean isShowAreaHint() {
+		return showAreaHint;
+	}
+
+	/**
 	 * @param useDifferentColor The useDifferentColor to set.
 	 */
 	public void setShowAreaHint(boolean useDifferentColor) {
 		this.showAreaHint = useDifferentColor;
 	}
 
-	protected void setDisplaySize(int size) {
+	public void setDisplaySize(int size) {
 		halfStarSize = size / 7 + 1;
 		super.setDisplaySize(size);
 	}
@@ -135,10 +156,10 @@ public class Panel extends PanelBase {
 	 */
 	void drawBoard(Graphics g) {
 		paintAreas(g);
-		if (showStar) {
+		if (isShowStar()) {
 			drawStars(g);
 		}
-		if (showAreaBorder) {
+		if (isShowAreaBorder()) {
 			drawAreaBorders(g);
 		}
 	}
@@ -149,7 +170,7 @@ public class Panel extends PanelBase {
 				if (board.isCovered(r, c)) {
 					if (board.getArea(r,c) == draggingArea)
 						continue; // ƒhƒ‰ƒbƒO’†—Ìˆæ‚Í”’”²‚«
-					if (showAreaHint) {
+					if (isShowAreaHint()) {
 						int starType = board.getArea(r,c).getStarType();
 						if (starType == -1) {
 							g.setColor(errorColor);

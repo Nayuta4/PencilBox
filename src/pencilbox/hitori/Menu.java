@@ -82,8 +82,15 @@ public class Menu extends MenuBase {
 					options[0]);
 		if (selection == JOptionPane.CLOSED_OPTION)
 			return;
-		getPanel().setLetter(selection);
+		getPanel().setLetters(Letters.getLetterSeries(selection));
 		getPanelBase().repaint();
+	}
+
+	public void updateCurrentMenuSelection() {
+		super.updateCurrentMenuSelection();
+		warnWrongWallItem.setSelected(getPanel().isWarnWrongWall());
+		hideSingleModeItem.setSelected(getPanel().isHideSingleMode());
+		warnMultipleNumberItem.setSelected(getPanel().isWarnMultipleNumber());
 	}
 
 }

@@ -24,7 +24,7 @@ public class Panel extends PanelBase {
 	private boolean showAllowedNumberDot = false;
 
 	private Color inputColor = Color.BLUE;
-	private Color wallColor = new Color(192,192,192);
+	private Color wallColor = new Color(0xC0C0C0);
 	private Color separationColor = Color.BLACK; // ï«É}ÉXÇÃéŒê¸
 	private Color errorColor = Color.RED;
 
@@ -58,10 +58,22 @@ public class Panel extends PanelBase {
 		this.inputColor = inputColor;
 	}
 	/**
+	 * @return the showAllowedNumberDot
+	 */
+	public boolean isShowAllowedNumberDot() {
+		return showAllowedNumberDot;
+	}
+	/**
 	 * @param showAllowedNumberDot The showAllowedNumberDot to set.
 	 */
 	public void setShowAllowedNumberDot(boolean showAllowedNumberDot) {
 		this.showAllowedNumberDot = showAllowedNumberDot;
+	}
+	/**
+	 * @return the warnWrongNumber
+	 */
+	public boolean isWarnWrongNumber() {
+		return warnWrongNumber;
 	}
 	/**
 	 * @param warnWrongNumber The warnWrongNumber to set.
@@ -69,7 +81,8 @@ public class Panel extends PanelBase {
 	public void setWarnWrongNumber(boolean warnWrongNumber) {
 		this.warnWrongNumber = warnWrongNumber;
 	}
-	protected void setDisplaySize(int size) {
+	
+	public void setDisplaySize(int size) {
 		super.setDisplaySize(size);
 		smallFont = new Font("SansSerif", Font.PLAIN, getCellSize() / 2);
 		hintDot.setDotSize(getCellSize());
@@ -107,12 +120,12 @@ public class Panel extends PanelBase {
 			for(int c=0; c<board.cols(); c++){
 				state = board.getNumber(r,c);
 				if (state > 0) {
-					if (warnWrongNumber && board.isMultipleNumber(r, c))
+					if (isWarnWrongNumber() && board.isMultipleNumber(r, c))
 						g.setColor(errorColor);
 					else
 						g.setColor(inputColor);
 					placeNumber(g, r, c, state);
-				} else if (showAllowedNumberDot) {
+				} else if (isShowAllowedNumberDot()) {
 					placeNumberHint(g, r, c);
 				}
 			}
@@ -141,7 +154,7 @@ public class Panel extends PanelBase {
 		FontMetrics metrics = g.getFontMetrics();
 		numS = Integer.toString(b);
 		if (b>0) {
-			if (warnWrongNumber && statusB == -1) g.setColor(errorColor);
+			if (isWarnWrongNumber() && statusB == -1) g.setColor(errorColor);
 //			else if (statusB == 1 ) g.setColor(successColor);
 			else g.setColor(separationColor);
 		g.drawString(

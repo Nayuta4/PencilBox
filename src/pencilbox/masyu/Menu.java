@@ -52,4 +52,11 @@ public class Menu extends MenuBase {
 		else if (target == crossColorItem)
 			getPanel().setCrossColor(color);
 	}
+	
+	public void updateCurrentMenuSelection() {
+		super.updateCurrentMenuSelection();
+		warnBranchedLinkItem.setSelected(getPanel().isWarnBranchedLink());
+		colorForEachLinkItem.setSelected(getPanel().isColorForEachLink());
+	}
+
 }

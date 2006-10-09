@@ -11,6 +11,7 @@ public class ClassUtil {
 	public static final String PANEL_CLASS = "Panel";
 	public static final String PANEL_EVENT_HANDLER_CLASS = "PanelEventHandler";
 	public static final String PROBLEM_COPIER_CLASS = "ProblemCopier";
+	public static final String PREFERENCES_COPIER_CLASS = "PreferencesCopier";
 	public static final String TXTREADER_CLASS = "TxtReader";
 	public static final String TXTWRITER_CLASS = "TxtWriter";
 	public static final String XMLREADER_CLASS = "XmlReader";
