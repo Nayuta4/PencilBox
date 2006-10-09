@@ -49,4 +49,12 @@ public class Menu extends MenuBase {
 			getPanel().getInputColor();
 		return null;
 	}
+
+	public void updateCurrentMenuSelection() {
+		super.updateCurrentMenuSelection();
+		warnWrongNumberItem.setSelected(getPanel().isWarnWrongNumber());
+		hilightSelectedNumberItem.setSelected(getPanel().isHighlightSelectedNumber());
+		showArrowedNumberDotItem.setSelected(getPanel().isShowAllowedNumberDot());
+	}
+
 }

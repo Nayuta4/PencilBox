@@ -21,7 +21,7 @@ public class Panel extends PanelBase {
 
 	private Color paintColor = Color.BLUE;
 	private Color circleColor = Color.MAGENTA;
-	private Color noRoomColor = new Color(0xCCCCCC);
+	private Color noRoomColor = new Color(0xC0C0C0);
 	private Color roomBorderColor = Color.BLACK;
 	private Color continuousRoomColor = new Color(0x800000);
 	private Color errorColor = Color.RED;
@@ -40,10 +40,10 @@ public class Panel extends PanelBase {
 	}
 
 	/**
-	 * @param showContinuousRoom The showContinuousRoom to set.
+	 * @return the warnWrongWall
 	 */
-	public void setShowContinuousRoom(boolean showContinuousRoom) {
-		this.showContinuousRoom = showContinuousRoom;
+	public boolean isWarnWrongWall() {
+		return warnWrongWall;
 	}
 
 	/**
@@ -51,6 +51,20 @@ public class Panel extends PanelBase {
 	 */
 	public void setWarnWrongWall(boolean warnWrongWall) {
 		this.warnWrongWall = warnWrongWall;
+	}
+
+	/**
+	 * @return the showContinuousRoom
+	 */
+	public boolean isShowContinuousRoom() {
+		return showContinuousRoom;
+	}
+
+	/**
+	 * @param showContinuousRoom The showContinuousRoom to set.
+	 */
+	public void setShowContinuousRoom(boolean showContinuousRoom) {
+		this.showContinuousRoom = showContinuousRoom;
 	}
 
 	/**
@@ -102,7 +116,7 @@ public class Panel extends PanelBase {
 		Square square;
 		g.setFont(getNumberFont());
 
-		if (showContinuousRoom) {
+		if (isShowContinuousRoom()) {
 			for (int r = 0; r < board.rows(); r++) {
 				for (int c = 0; c < board.cols(); c++) {
 					g.setColor(continuousRoomColor); 
@@ -132,7 +146,7 @@ public class Panel extends PanelBase {
 				if (st == Board.BLACK) {
 //					g.setColor(paintColor);
 					g.setColor(paintColor);
-					if (warnWrongWall && (board.isBlock(r,c) || board.chain[r][c]==-1)) {
+					if (isWarnWrongWall() && (board.isBlock(r,c) || board.chain[r][c]==-1)) {
 						g.setColor(errorColor);
 					}
 					paintCell(g, r, c);

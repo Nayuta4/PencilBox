@@ -56,4 +56,12 @@ public class Menu extends MenuBase {
 		else if (target == circleColorItem)
 			getPanel().setCircleColor(color);
 	}
+
+	public void updateCurrentMenuSelection() {
+		super.updateCurrentMenuSelection();
+		showWrongWallItem.setSelected(getPanel().isShowWrongWall());
+		colorForEachWallItem.setSelected(getPanel().isColorForEachWall());
+		showShimaSizeItem.setSelected(getPanel().isShowShimaSize());
+	}
+
 }

@@ -54,4 +54,10 @@ public class Menu extends MenuBase {
 			return null;
 	}
 
+	public void updateCurrentMenuSelection() {
+		super.updateCurrentMenuSelection();
+		warnWrongWallItem.setSelected(getPanel().isWarnWrongWall());
+		showContinuousRoomItem.setSelected(getPanel().isShowContinuousRoom());
+	}
+
 }

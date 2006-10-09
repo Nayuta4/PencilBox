@@ -53,4 +53,11 @@ public class Menu extends MenuBase {
 		makeDisplayStyleItem(0, "’Êí•\¦");
 		makeDisplayStyleItem(2, "Œrü”ñ•\¦").setSelected(true);
 	}
+
+	public void updateCurrentMenuSelection() {
+		super.updateCurrentMenuSelection();
+		showNumberHintItem.setSelected(getPanel().isShowNumberHint());
+		colorForEachLinkItem.setSelected(getPanel().isColorForEachLink());
+	}
+
 }

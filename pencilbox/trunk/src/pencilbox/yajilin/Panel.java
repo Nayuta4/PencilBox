@@ -20,10 +20,10 @@ public class Panel extends PanelBase {
 	private boolean warnBranchedLink = false;
 	private boolean colorForEachLink = false;
 
-	private Color whiteColor = Color.MAGENTA;
+	private Color circleColor = Color.MAGENTA;
 //	private Color backBlackColor = new Color(0xFFCCCC);
 	private Color lineColor = Color.BLUE;
-	private Color blackColor = Color.BLUE;
+	private Color paintColor = Color.BLUE;
 	private Color crossColor = Color.MAGENTA;
 	private Color errorColor = Color.RED;
 	
@@ -58,15 +58,15 @@ public class Panel extends PanelBase {
 	/**
 	 * @return Returns the blackColor.
 	 */
-	public Color getBlackColor() {
-		return blackColor;
+	public Color getPaintColor() {
+		return paintColor;
 	}
 
 	/**
 	 * @param blackColor The blackColor to set.
 	 */
-	public void setBlackColor(Color blackColor) {
-		this.blackColor = blackColor;
+	public void setPaintColor(Color blackColor) {
+		this.paintColor = blackColor;
 	}
 
 	/**
@@ -100,15 +100,15 @@ public class Panel extends PanelBase {
 	/**
 	 * @return Returns the whiteColor.
 	 */
-	public Color getWhiteColor() {
-		return whiteColor;
+	public Color getCircleColor() {
+		return circleColor;
 	}
 
 	/**
 	 * @param whiteColor The whiteColor to set.
 	 */
-	public void setWhiteColor(Color whiteColor) {
-		this.whiteColor = whiteColor;
+	public void setCircleColor(Color whiteColor) {
+		this.circleColor = whiteColor;
 	}
 
 	/**
@@ -148,15 +148,15 @@ public class Panel extends PanelBase {
 				if (state == Board.BLACK) {
 //					g.setColor(backBlackColor);
 //					paintCell(g, r, c);
-					g.setColor(blackColor);
-					if (warnBranchedLink && board.isBlock(r,c)) {
+					g.setColor(paintColor);
+					if (isWarnBranchedLink() && board.isBlock(r,c)) {
 						g.setColor(errorColor);
 					}
 					paintCell(g, r, c);
 //					g.setColor(whiteColor);
 //					placeCross(g, r, c);
 				} else if (state == Board.WHITE) {
-					g.setColor(whiteColor);
+					g.setColor(circleColor);
 					placeCircle(g, r, c);
 				} else if (state >= 0) {
 //					g.setColor(arrowBackColor);
@@ -176,9 +176,9 @@ public class Panel extends PanelBase {
 					state = board.getState(d, r, c);
 					if (state == Board.LINE) {
 						g.setColor(lineColor);
-						if (colorForEachLink)
+						if (isColorForEachLink())
 							g.setColor(Colors.getColor(board.getLink(d,r,c).getID()));
-						if (warnBranchedLink && board.isBranchedLink(d,r,c))
+						if (isWarnBranchedLink() && board.isBranchedLink(d,r,c))
 							g.setColor(errorColor);
 						placeTraversalLine(g, d, r, c);
 					} else if (state == Board.NOLINE) {

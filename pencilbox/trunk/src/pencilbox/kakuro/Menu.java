@@ -49,6 +49,12 @@ public class Menu extends MenuBase {
 	protected void buildRotationMenu() {
 		super.buildRotationMenu2();
 	}
-	
+
+	public void updateCurrentMenuSelection() {
+		super.updateCurrentMenuSelection();
+		warnWrongNumberItem.setSelected(getPanel().isWarnWrongNumber());
+		showArrowedNumberDotItem.setSelected(getPanel().isShowAllowedNumberDot());
+	}
+
 }
 

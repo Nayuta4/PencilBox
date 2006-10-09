@@ -104,7 +104,7 @@ public class Panel extends PanelBase {
 	 */
 	void drawBoard(Graphics g) {
 		drawNumbers(g);
-		if (showAreaBorder) 
+		if (isShowAreaBorder()) 
 			drawBorders(g);
 	}
 
@@ -114,7 +114,7 @@ public class Panel extends PanelBase {
 			for (int c = 0; c < board.cols(); c++) {
 				int number = board.getNumber(r, c);
 				if (number > 0) {
-					if (showAreaHint) {
+					if (isShowAreaHint()) {
 						int status = board.getArea(r,c).getStatus();
 						if (status == -1) {
 							g.setColor(errorColor);

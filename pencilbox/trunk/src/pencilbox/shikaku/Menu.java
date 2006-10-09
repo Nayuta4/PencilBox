@@ -22,8 +22,8 @@ public class Menu extends MenuBase {
 
 	protected void buildIndividualMenu(){
 		super.buildIndividualMenu();
-		areaBorderColorItem = addColorMenuItem("lŠp‚Ì˜g");
-		areaPaintColorItem = addColorMenuItem("lŠp‚Ì“à•”");
+		areaBorderColorItem = addColorMenuItem("—Ìˆæ‹«ŠE");
+		areaPaintColorItem = addColorMenuItem("—Ìˆæ“à•”");
 		addToViewMenu(showAreaHintItem = makeCheckBoxCommandMenuItem("–ÊÏ‚ÅF•ª‚¯(H)", 'H', false));
 		addToViewMenu(colorfulModeItem = makeCheckBoxCommandMenuItem("ƒ‰ƒ“ƒ_ƒ€‚ÉF•ª‚¯(D)", 'D', false));
 		addRenewColorMenu();
@@ -52,6 +52,12 @@ public class Menu extends MenuBase {
 			getPanel().setAreaBorderColor(color);
 		else if (target == areaPaintColorItem)
 			getPanel().setAreaPaintColor(color);
+	}
+	
+	public void updateCurrentMenuSelection() {
+		super.updateCurrentMenuSelection();
+		showAreaHintItem.setSelected(getPanel().isShowAreaHint());
+		colorfulModeItem.setSelected(getPanel().isColorfulMode());
 	}
 	
 }

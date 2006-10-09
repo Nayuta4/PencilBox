@@ -26,7 +26,7 @@ public class Menu extends MenuBase {
 		lineColorItem = addColorMenuItem("線");
 		addToViewMenu(warnBranchedLinkItem = makeCheckBoxCommandMenuItem("誤りを赤で表示(W)", 'W', false));
 		addToViewMenu(colorForEachLinkItem = makeCheckBoxCommandMenuItem("線の色分け(D)", 'D', false));
-		addToViewMenu(highlightSelectedLinkItem = makeCheckBoxCommandMenuItem("選択数字ハイライト(H)", 'H', true));
+		addToViewMenu(highlightSelectedLinkItem = makeCheckBoxCommandMenuItem("選択数字ハイライト(H)", 'H', false));
 		addRenewColorMenu();
 //		addTrimAnswerMenuItem();
 		addSymmetricPlacementMenuItem();
@@ -59,4 +59,12 @@ public class Menu extends MenuBase {
 		makeDisplayStyleItem(1, "経路表示");
 		makeDisplayStyleItem(2, "罫線非表示");
 	}
+
+	public void updateCurrentMenuSelection() {
+		super.updateCurrentMenuSelection();
+		warnBranchedLinkItem.setSelected(getPanel().isWarnBranchedLink());
+		colorForEachLinkItem.setSelected(getPanel().isColorForEachLink());
+		highlightSelectedLinkItem.setSelected(getPanel().isHighlightSelectedLink());
+	}
+
 }

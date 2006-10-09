@@ -57,6 +57,12 @@ public class Menu extends MenuBase {
 		else if (target == lluminatedColorItem)
 			getPanel().setIlluminatedColor(color);
 	}
+	
+	public void updateCurrentMenuSelection() {
+		super.updateCurrentMenuSelection();
+		warnWrongIlluminationItem.setSelected(getPanel().isWarnWrongIllumination());
+		showBeamItem.setSelected(getPanel().isShowBeamMode());
+	}
 
 }
 

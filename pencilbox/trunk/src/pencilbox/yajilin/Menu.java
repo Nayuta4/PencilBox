@@ -12,8 +12,8 @@ import pencilbox.common.gui.MenuBase;
 public class Menu extends MenuBase {
 	
 	private JMenuItem lineColorItem;
-	private JMenuItem blackColorItem;
-	private JMenuItem whiteColorItem;
+	private JMenuItem paintColorItem;
+	private JMenuItem circleColorItem;
 	private JMenuItem warnBranchedLinkItem;
 	private JMenuItem colorForEachLinkItem;
 	
@@ -23,8 +23,8 @@ public class Menu extends MenuBase {
 	
 	protected void buildIndividualMenu() {
 		lineColorItem = addColorMenuItem("線");
-		blackColorItem = addColorMenuItem("黒マス");
-		whiteColorItem = addColorMenuItem("○印");
+		paintColorItem = addColorMenuItem("黒マス");
+		circleColorItem = addColorMenuItem("白マス");
 		addToViewMenu(warnBranchedLinkItem = makeCheckBoxCommandMenuItem("誤りを赤で表示(W)", 'W', false));
 		addToViewMenu(colorForEachLinkItem = makeCheckBoxCommandMenuItem("線の色分け(D)", 'D', false));
 		addRenewColorMenu();
@@ -42,10 +42,10 @@ public class Menu extends MenuBase {
 	public Color getColor(JMenuItem target) {
 		if (target == lineColorItem)
 			return getPanel().getLineColor();
-		else if (target == blackColorItem)
-			return getPanel().getBlackColor();
-		else if (target == whiteColorItem)
-			return getPanel().getWhiteColor();
+		else if (target == paintColorItem)
+			return getPanel().getPaintColor();
+		else if (target == circleColorItem)
+			return getPanel().getCircleColor();
 		else
 			return null;
 	}
@@ -53,10 +53,16 @@ public class Menu extends MenuBase {
 	public void setColor(JMenuItem target, Color color) {
 		if (target == lineColorItem)
 			getPanel().setLineColor(color);
-		else if (target == blackColorItem)
-			getPanel().setBlackColor(color);
-		else if (target == whiteColorItem)
-			getPanel().setWhiteColor(color);
+		else if (target == paintColorItem)
+			getPanel().setPaintColor(color);
+		else if (target == circleColorItem)
+			getPanel().setCircleColor(color);
+	}
+
+	public void updateCurrentMenuSelection() {
+		super.updateCurrentMenuSelection();
+		warnBranchedLinkItem.setSelected(getPanel().isWarnBranchedLink());
+		colorForEachLinkItem.setSelected(getPanel().isColorForEachLink());
 	}
 
 }

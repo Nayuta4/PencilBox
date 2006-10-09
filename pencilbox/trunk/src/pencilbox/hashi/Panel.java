@@ -58,10 +58,24 @@ public class Panel extends PanelBase {
 	}
 
 	/**
+	 * @return the colorForEachLink
+	 */
+	public boolean isColorForEachLink() {
+		return colorForEachLink;
+	}
+
+	/**
 	 * @param colorForEachLink The colorForEachLink to set.
 	 */
 	public void setColorForEachLink(boolean colorForEachLink) {
 		this.colorForEachLink = colorForEachLink;
+	}
+
+	/**
+	 * @return the showNumberHint
+	 */
+	public boolean isShowNumberHint() {
+		return showNumberHint;
 	}
 
 	/**
@@ -99,7 +113,7 @@ public class Panel extends PanelBase {
 	void placeBridgeAndPier(Graphics g, int r0, int c0, int n) {
 
 		Pier pier = board.getPier(r0,c0);
-		if (colorForEachLink)
+		if (isColorForEachLink())
 			g.setColor(Colors.getColor(pier.getChain()));
 		else
 			g.setColor(bridgeColor);
@@ -127,7 +141,7 @@ public class Panel extends PanelBase {
 	 * @param n
 	 */
 	void placePier(Graphics g, int r, int c, int n) {
-		if (showNumberHint) {
+		if (isShowNumberHint()) {
 			if (board.checkPier(r, c) < 0) {
 				g.setColor(errorColor);
 				placeFilledCircle(g, r, c, getCellSize());

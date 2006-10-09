@@ -15,10 +15,10 @@ public class Panel extends PanelBase {
 
 	private Board board;
 
-	private Color paintColor = Color.blue;
-	private Color circleColor = Color.magenta;
-	private Color errorColor = Color.red;
-	private Color singleNumberColor = new Color(0xCCCCCC);
+	private Color paintColor = Color.BLUE;
+	private Color circleColor = Color.MAGENTA;
+	private Color errorColor = Color.RED;
+	private Color singleNumberColor = new Color(0xC0C0C0);
 
 	private boolean hideSingleMode = false;
 	private boolean warnMultipleNumber = false;
@@ -26,7 +26,7 @@ public class Panel extends PanelBase {
 
 //	private int selectedNumber = 0;
 
-	private char[] letter = {
+	private char[] letters = {
 	};
 
 	/**
@@ -68,10 +68,24 @@ public class Panel extends PanelBase {
 	}
 
 	/**
+	 * @return the warnWrongWall
+	 */
+	public boolean isWarnWrongWall() {
+		return warnWrongWall;
+	}
+
+	/**
 	 * @param warnWrongWall The warnWrongWall to set.
 	 */
 	public void setWarnWrongWall(boolean warnWrongWall) {
 		this.warnWrongWall = warnWrongWall;
+	}
+
+	/**
+	 * @return the warnMultipleNumber
+	 */
+	public boolean isWarnMultipleNumber() {
+		return warnMultipleNumber;
 	}
 
 	/**
@@ -82,12 +96,10 @@ public class Panel extends PanelBase {
 	}
 
 	/**
-	 * 数字の代わりに使用する文字集合を設定する
-	 * @param option 設定する文字集合タイプの番号
-	 * @see pencilbox.hitori.Letters#getLetterSeries(int)
+	 * @return the hideSingleMode
 	 */
-	public void setLetter(int option) {
-		letter = Letters.getLetterSeries(option);
+	public boolean isHideSingleMode() {
+		return hideSingleMode;
 	}
 
 	/**
@@ -95,6 +107,22 @@ public class Panel extends PanelBase {
 	 */
 	public void setHideSingleMode(boolean hideSingleMode) {
 		this.hideSingleMode = hideSingleMode;
+	}
+
+	/**
+	 * 数字の代わりに使用する現在の文字集合を取得する。Stringで返す。
+	 * @return the letter
+	 */
+	String getLetters() {
+		return new String(letters);
+	}
+
+	/**
+	 * 数字の代わりに使用する文字集合を設定する。Stringで設定する。
+	 * @param letters the letter to set
+	 */
+	void setLetters(String string) {
+		this.letters = string.toCharArray();
 	}
 
 	public void drawPanel(Graphics g) {
@@ -133,7 +161,7 @@ public class Panel extends PanelBase {
 //		}
 		if (state == Board.BLACK) {
 			g.setColor(paintColor);
-			if (warnWrongWall) {
+			if (isWarnWrongWall()) {
 				if (board.getChain(r,c) == -1)
 					g.setColor(Colors.getError());
 				else // if (board.chain[r][c] == 1)
@@ -151,9 +179,9 @@ public class Panel extends PanelBase {
 	}
 	private void drawNumber(Graphics g, int r, int c, int number) {
 //			if (!hideSingleMode || !board.isSingle(r, c)) {
-				if (hideSingleMode && board.isSingle(r, c)) {
+				if (isHideSingleMode() && board.isSingle(r, c)) {
 					g.setColor(singleNumberColor);
-				} else if (warnMultipleNumber
+				} else if (isWarnMultipleNumber()
 					&& !board.isBlack(r, c)
 					&& board.isMultipleNumber(r, c)) {
 					g.setColor(errorColor);
@@ -162,8 +190,8 @@ public class Panel extends PanelBase {
 				} else {
 					g.setColor(getNumberColor());
 				}
-				if (number <= letter.length)
-					placeLetter(g, r, c, letter[number-1]);
+				if (number <= letters.length)
+					placeLetter(g, r, c, letters[number-1]);
 				else
 					placeNumber(g, r, c, number);
 //			}

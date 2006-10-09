@@ -24,13 +24,13 @@ public class Menu extends MenuBase {
 
 	protected void buildIndividualMenu(){
 		super.buildIndividualMenu();
-		areaBorderColorItem = addColorMenuItem("lŠp‚Ì˜g");
+		areaBorderColorItem = addColorMenuItem("—Ìˆæ‹«ŠE");
 		whiteAreaColorItem = addColorMenuItem("”’¯—Ìˆæ");
 		blackAreaColorItem = addColorMenuItem("•¯—Ìˆæ");
 		addToViewMenu(showStarItem = makeCheckBoxCommandMenuItem("¯‚Ì•\¦(S)", 'S', true));
 		addToViewMenu(showAreaBorderItem = makeCheckBoxCommandMenuItem("‹«ŠEü•\¦(B)", 'B', true));
 		addToViewMenu(showAreaHintItem = makeCheckBoxCommandMenuItem("—Ìˆæ‚ÌF•ª‚¯(D)", 'D', false));
-		addRenewColorMenu();
+//		addRenewColorMenu();
 	}
 
 	public void executeCommand2(JMenuItem target) {
@@ -59,6 +59,13 @@ public class Menu extends MenuBase {
 			getPanel().setWhiteAreaColor(color);
 		else if (target == blackAreaColorItem)
 			getPanel().setBlackAreaColor(color);
+	}
+
+	public void updateCurrentMenuSelection() {
+		super.updateCurrentMenuSelection();
+		showStarItem.setSelected(getPanel().isShowStar());
+		showAreaBorderItem.setSelected(getPanel().isShowAreaBorder());
+		showAreaHintItem.setSelected(getPanel().isShowAreaHint());
 	}
 
 }
