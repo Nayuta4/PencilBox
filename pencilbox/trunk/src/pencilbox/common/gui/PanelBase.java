@@ -242,6 +242,7 @@ public class PanelBase extends JPanel implements Printable {
 	 */
 	public void drawBorder(Graphics g) {
 		g.setColor(borderColor);
+//		g.drawRect(offsetx - 2, offsety - 2, cellSize * cols() + 4,	cellSize * rows() + 4);
 		g.drawRect(offsetx - 1, offsety - 1, cellSize * cols() + 2,	cellSize * rows() + 2);
 		g.drawRect(offsetx, offsety, cellSize * cols(), cellSize * rows());
 	}
@@ -862,8 +863,8 @@ public class PanelBase extends JPanel implements Printable {
 			setOffsetx(this.getCellSize());
 			setOffsety(this.getCellSize());
 		} else {
-			setOffsetx(1);
-			setOffsety(1);
+			setOffsetx(5);
+			setOffsety(5);
 		}
 		updatePreferredSize();
 	}
