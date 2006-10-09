@@ -3,15 +3,16 @@ package pencilbox.common.factory;
 import java.io.File;
 
 import pencilbox.common.core.BoardBase;
-import pencilbox.common.core.ProblemCopierBase;
 import pencilbox.common.core.PencilBoxException;
 import pencilbox.common.core.Problem;
+import pencilbox.common.core.ProblemCopierBase;
 import pencilbox.common.core.Size;
 import pencilbox.common.gui.Frame;
 import pencilbox.common.gui.MenuBase;
 import pencilbox.common.gui.MenuCommand;
 import pencilbox.common.gui.PanelBase;
 import pencilbox.common.gui.PanelEventHandlerBase;
+import pencilbox.common.gui.PreferencesCopierBase;
 import pencilbox.common.io.IOController;
 
 
@@ -93,10 +94,12 @@ public class PencilFactory {
 		PanelBase panel = (PanelBase) ClassUtil.createInstance(pencilType, ClassUtil.PANEL_CLASS);
 		PanelEventHandlerBase handler = (PanelEventHandlerBase) ClassUtil.createInstance(pencilType, ClassUtil.PANEL_EVENT_HANDLER_CLASS);
 		frame.setup(panel);
-		menu.setup(command, frame, panel);
 		command.setup(pencilType, frame, panel, handler, problem);
 		panel.setup(problem.getBoard());
 		handler.setup(panel, problem.getBoard());
+		copyPreferences(command);
+		menu.setup(command, frame, panel);
+		menu.updateCurrentMenuSelection();
 		frame.resize();
 		if (caller == null) {
 			frame.locateAtCenter();
@@ -151,6 +154,20 @@ public class PencilFactory {
 		Problem problem = caller.getProblem();
 		problem.setBoard(copier.duplicateBoard(problem.getBoard(), n));
 		createNewBoard(problem);
+	}
+	/**
+	 * 呼び出し元フレームと設定を合せる。
+	 */
+	private void copyPreferences(MenuCommand dst) {
+		if (caller == null)
+			return;
+		PreferencesCopierBase copier;
+		try {
+			copier = (PreferencesCopierBase) ClassUtil.createInstance(pencilType, ClassUtil.PREFERENCES_COPIER_CLASS);
+		} catch (PencilBoxClassException e) {
+			copier = new PreferencesCopierBase();
+		}
+		copier.copyPreferences(caller, dst);
 	}
 
 }
