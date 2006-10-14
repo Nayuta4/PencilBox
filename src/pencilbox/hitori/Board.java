@@ -237,21 +237,15 @@ public class Board extends BoardBase {
 	void initChain() {
 		maxChain = 1;
 		ArrayUtil.initArrayInt2(chain,0);
-		for (int r = 0; r < rows(); r = r + rows()-1) {
+		for (int r = 0; r < rows(); r++) {
 			for (int c = 0; c < cols(); c++) {
-				if (isBlack(r, c) && chain[r][c] == 0) {
-					if (initChain1(r, c, 0, 0, 1) == -1) {
-						setChain(r, c, -1);
+				if (isOnPeriphery(r, c)) {
+					if (isBlack(r, c) && chain[r][c] == 0) {
+						if (initChain1(r, c, 0, 0, 1) == -1) {
+							setChain(r, c, -1);
+						}
 					}
-				}
-			}
-		}
-		for (int r = 1; r < rows()-1; r++) {
-			for (int c = 0; c < cols(); c = c + cols()-1) {
-				if (isBlack(r, c) && chain[r][c] == 0) {
-					if (initChain1(r, c, 0, 0, 1) == -1) {
-						setChain(r, c, -1);
-					}
+					
 				}
 			}
 		}
