@@ -436,7 +436,7 @@ public class MenuCommand {
 			return;
 		if (b==false)
 			board.initBoard();
-		panel.setProblemEditMode(b);
+		handler.setProblemEditMode(b);
 		panel.repaint();
 	}
 	/**
