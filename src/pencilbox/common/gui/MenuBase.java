@@ -3,6 +3,7 @@ package pencilbox.common.gui;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ButtonGroup;
@@ -15,6 +16,8 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.KeyStroke;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
+
+import pencilbox.common.factory.Constants;
 
 /**
  * 共通メニュークラス
@@ -158,7 +161,6 @@ public class MenuBase {
 		editMenu.add(palybackItem = makeCommandMenuItem("履歴再生(P)", 'P'));
 		editMenu.addSeparator();
 		editMenu.add(checkAnswerItem = makeCommandMenuItem("正答判定(H)", 'H'));
-		editMenu.addSeparator();
 
 		modeGroup = new ButtonGroup();
 		modeGroup.add(answerModeItem);
@@ -185,7 +187,7 @@ public class MenuBase {
 	 */
 	protected void buildHelpMenu() {
 		helpMenu = makeJMenu("ヘルプ(H)", 'H');
-		helpMenu.add(aboutItem = makeCommandMenuItem("PencilBoxについて(A)", 'A'));
+		helpMenu.add(aboutItem = makeCommandMenuItem(Constants.TITLE + "について(A)", 'A'));
 	}
 
 	/**
@@ -269,23 +271,23 @@ public class MenuBase {
 	 */
 	private void setAccelerators() {
 		newBoardItem.setAccelerator(
-				KeyStroke.getKeyStroke('N',	KeyEvent.CTRL_MASK));
+				KeyStroke.getKeyStroke('N',	InputEvent.CTRL_MASK));
 		openItem.setAccelerator(
-				KeyStroke.getKeyStroke('O', KeyEvent.CTRL_MASK));
+				KeyStroke.getKeyStroke('O', InputEvent.CTRL_MASK));
 		coloseAndOpenItem.setAccelerator(
-				KeyStroke.getKeyStroke('O',KeyEvent.CTRL_MASK | KeyEvent.SHIFT_MASK));
+				KeyStroke.getKeyStroke('O', InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
 		saveItem.setAccelerator(
-				KeyStroke.getKeyStroke('S', KeyEvent.CTRL_MASK));
+				KeyStroke.getKeyStroke('S', InputEvent.CTRL_MASK));
 		closeItem.setAccelerator(
-				KeyStroke.getKeyStroke('W', KeyEvent.CTRL_MASK));
+				KeyStroke.getKeyStroke('W', InputEvent.CTRL_MASK));
 		undoItem.setAccelerator(
-				KeyStroke.getKeyStroke('Z', KeyEvent.CTRL_MASK));
+				KeyStroke.getKeyStroke('Z', InputEvent.CTRL_MASK));
 		redoItem.setAccelerator(
-				KeyStroke.getKeyStroke('Y', KeyEvent.CTRL_MASK));
+				KeyStroke.getKeyStroke('Y', InputEvent.CTRL_MASK));
 		answerModeItem.setAccelerator(
 				KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
 		problemEditModeItem.setAccelerator(
-				KeyStroke.getKeyStroke(KeyEvent.VK_F2, KeyEvent.SHIFT_MASK));
+				KeyStroke.getKeyStroke(KeyEvent.VK_F2, InputEvent.SHIFT_MASK));
 		if (renewColorItem != null)
 			renewColorItem.setAccelerator(
 					KeyStroke.getKeyStroke(KeyEvent.VK_F6, 0));
