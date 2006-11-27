@@ -43,7 +43,7 @@ public class Frame extends JFrame {
 	 * pack() の代わりに使用する。
 	 */
 	public void resize() {
-		if ((getExtendedState() & Frame.MAXIMIZED_BOTH) == Frame.MAXIMIZED_BOTH)
+		if ((getExtendedState() & java.awt.Frame.MAXIMIZED_BOTH) == java.awt.Frame.MAXIMIZED_BOTH)
 			return;
 		pack(); //盤面に合わせてサイズ調節
 		Dimension screenSize = getToolkit().getScreenSize();
@@ -71,7 +71,7 @@ public class Frame extends JFrame {
 	 * ただし，その結果画面からはみ出す場合はその辺が画面端に接するようにずらす。
 	 */
 	public void locateAtSamePosition() {
-		if ((getExtendedState() & Frame.MAXIMIZED_BOTH) == Frame.MAXIMIZED_BOTH)
+		if ((getExtendedState() & java.awt.Frame.MAXIMIZED_BOTH) == java.awt.Frame.MAXIMIZED_BOTH)
 			return;
 		Point point = this.getLocation();
 		Dimension frameSize = this.getSize();
@@ -123,12 +123,4 @@ public class Frame extends JFrame {
 		}
 		this.setLocation(point);
 	}
-	/**
-	 * ステータスバーに文字列を表示
-	 * @param text 表示する文字列
-	 */
-//	public void statusBarMessage(String text) {
-//		statusBar.setText(text);
-//	}
-
 }
