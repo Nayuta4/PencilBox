@@ -1,7 +1,9 @@
 package pencilbox.hashi;
 
 import javax.swing.event.UndoableEditEvent;
-import javax.swing.undo.*;
+import javax.swing.undo.AbstractUndoableEdit;
+import javax.swing.undo.CannotRedoException;
+import javax.swing.undo.CannotUndoException;
 
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
@@ -561,11 +563,11 @@ public class Board extends BoardBase {
 		return true;
 	}
 	
-	static final String ERR_CROSS_BRIDGE = "‹´‚ªŒğ·‚µ‚Ä‚¢‚é";
-	static final String YET_MULTIPLE_LINE = "‘S‘Ì‚ª‚Ğ‚Æ‚Â‚È‚ª‚è‚É‚È‚Á‚Ä‚¢‚È‚¢";
-	static final String ERR_WRONG_NUMBER = "‹´‚ª”‚ª”š‚Æˆê’v‚µ‚Ä‚¢‚È‚¢";
-//	static final String ERR_TOO_MANY_LINE = "‹´‚ª”‚ª‘½‚·‚¬‚é”š‚ª‚ ‚é";
-//	static final String YET_TOO_FEW_LINE= "‹´‚ª‘«‚è‚È‚¢”š‚ª‚ ‚é";
+	static final String ERR_CROSS_BRIDGE = "‹´‚ªŒğ·‚µ‚Ä‚¢‚é\n";
+	static final String YET_MULTIPLE_LINE = "‘S‘Ì‚ª‚Ğ‚Æ‚Â‚È‚ª‚è‚É‚È‚Á‚Ä‚¢‚È‚¢\n";
+	static final String ERR_WRONG_NUMBER = "‹´‚Ì”‚ª”š‚Æˆê’v‚µ‚Ä‚¢‚È‚¢\n";
+//	static final String ERR_TOO_MANY_LINE = "‹´‚Ì”‚ª‘½‚·‚¬‚é”š‚ª‚ ‚é\n";
+//	static final String YET_TOO_FEW_LINE= "‹´‚Ì”‚ª‘«‚è‚È‚¢”š‚ª‚ ‚é\n";
 	
 	int sumAllNumbers() {
 		int ret = 0;
@@ -625,132 +627,4 @@ public class Board extends BoardBase {
 			}
 		}
 	}
-
-//	void printChain() {
-//		System.out.println("printChain");
-//		for (int r = 0; r < rows(); r++) {
-//			for (int c = 0; c < cols(); c++) {
-//				if (isPier(r, c))
-//					System.out.print(pier[r][c].getChain());
-//				else
-//					System.out.print(0);
-//			}
-//			System.out.print('\n');
-//		}
-//	}
-//	void printBridges() {
-//		System.out.println("printVBridges");
-//		for (int r = 0; r < rows(); r++) {
-//			for (int c = 0; c < cols(); c++) {
-//				int i = getVertBridge(r,c);
-//				char ch;
-//				switch(i) {
-//					case -1:
-//						ch = ' ';
-//						break;
-//					case 0:
-//						ch = '0';
-//						break;
-//					case 1:
-//						ch = '1';
-//						break;
-//					case 2:
-//						ch = '2';
-//						break;
-//					default:
-//						ch = '?';
-//						break;
-//				}
-//				if (isPier(r,c))
-//					ch = '*';
-//				System.out.print(ch);
-//			}
-//			System.out.print('\n');
-//		}
-//		System.out.println("printHBridges");
-//		for (int r = 0; r < rows(); r++) {
-//			for (int c = 0; c < cols(); c++) {
-//				int i = getHorizBridge(r,c);
-//				char ch;
-//				switch (i) {
-//					case -1 :
-//						ch = ' ';
-//						break;
-//					case 0 :
-//						ch = '0';
-//						break;
-//					case 1 :
-//						ch = '1';
-//						break;
-//					case 2 :
-//						ch = '2';
-//						break;
-//					default :
-//						ch = '?';
-//						break;
-//				}
-//				if (isPier(r,c))
-//					ch = '*';
-//				System.out.print(ch);
-//			}
-//			System.out.print('\n');
-//		}
-//		System.out.println("printVCapacity");
-//		for (int r = 0; r < rows(); r++) {
-//			for (int c = 0; c < cols(); c++) {
-//				int i = getVertCapacity(r,c);
-//				char ch;
-//				switch(i) {
-//					case -1:
-//						ch = ' ';
-//						break;
-//					case 0:
-//						ch = '0';
-//						break;
-//					case 1:
-//						ch = '1';
-//						break;
-//					case 2:
-//						ch = '2';
-//						break;
-//					default:
-//						ch = '?';
-//						break;
-//				}
-//				if (isPier(r,c))
-//					ch = '*';
-//				System.out.print(ch);
-//			}
-//			System.out.print('\n');
-//		}
-//		System.out.println("printHCapacity");
-//		for (int r = 0; r < rows(); r++) {
-//			for (int c = 0; c < cols(); c++) {
-//				int i = getHorizCapacity(r,c);
-//				char ch;
-//				switch (i) {
-//					case -1 :
-//						ch = ' ';
-//						break;
-//					case 0 :
-//						ch = '0';
-//						break;
-//					case 1 :
-//						ch = '1';
-//						break;
-//					case 2 :
-//						ch = '2';
-//						break;
-//					default :
-//						ch = '?';
-//						break;
-//				}
-//				if (isPier(r,c))
-//					ch = '*';
-//				System.out.print(ch);
-//			}
-//			System.out.print('\n');
-//		}
-//	}
-//
 }
