@@ -1,7 +1,7 @@
 package pencilbox.hashi;
 
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
@@ -27,7 +27,6 @@ public class Panel extends PanelBase {
 	private boolean showNumberHint = false;
 
 	private Color bridgeColor = Color.BLUE;
-	private Color crossBridgeColor = Color.RED;
 	private Color errorColor = Color.RED;
 	private Color successColor = Color.GREEN;
 
@@ -85,7 +84,7 @@ public class Panel extends PanelBase {
 		this.showNumberHint = showNumberHint;
 	}
 
-	public void drawPanel(Graphics g) {
+	public void drawPanel(Graphics2D g) {
 		paintBackground(g);
 		drawIndex(g);
 		if (getDisplayStyle() == 0)
@@ -98,7 +97,7 @@ public class Panel extends PanelBase {
 	 * 盤面を描画する
 	 * @param g
 	 */
-	void drawBoard(Graphics g) {
+	protected void drawBoard(Graphics2D g) {
 		g.setFont(getNumberFont());
 		g.setColor(getNumberColor());
 		for (int r = 0; r < board.rows(); r++) {
@@ -110,7 +109,7 @@ public class Panel extends PanelBase {
 		}
 	}
 	
-	void placeBridgeAndPier(Graphics g, int r0, int c0, int n) {
+	void placeBridgeAndPier(Graphics2D g, int r0, int c0, int n) {
 
 		Pier pier = board.getPier(r0,c0);
 		if (isColorForEachLink())
@@ -140,7 +139,7 @@ public class Panel extends PanelBase {
 	 * @param c
 	 * @param n
 	 */
-	void placePier(Graphics g, int r, int c, int n) {
+	void placePier(Graphics2D g, int r, int c, int n) {
 		if (isShowNumberHint()) {
 			if (board.checkPier(r, c) < 0) {
 				g.setColor(errorColor);
@@ -156,24 +155,6 @@ public class Panel extends PanelBase {
 			placeNumber(g, r, c, n);
 	}
 	/**
-	 * 橋を配置する
-	 * @param g
-	 * @param r
-	 * @param c
-	 */
-	void placeBridge(Graphics g, int r, int c) {
-		int v = board.getVertBridge(r, c);
-		int h = board.getHorizBridge(r, c);
-		if (v > 0 && h > 0)
-			g.setColor(crossBridgeColor);
-		else
-			g.setColor(bridgeColor);
-		if (v > 0)
-			placeMidlines(g, r, c, VERT, v);
-		if (h > 0)
-			placeMidlines(g, r, c, HORIZ, h);
-	}
-	/**
 	 * マスの中心に横または縦の線を配置する
 	 * @param g
 	 * @param r 盤面行座標
@@ -181,7 +162,7 @@ public class Panel extends PanelBase {
 	 * @param dir 横線なら HORIZ 縦線なら VERT
 	 * @param n 線の本数(1or2)
 	 */
-	public void placeMidlines(Graphics g, int r, int c, int dir, int n) {
+	public void placeMidlines(Graphics2D g, int r, int c, int dir, int n) {
 		if (n == 1) {
 			drawMidline(g, toX(c), toY(r), dir);
 		} else if (n == 2) {
@@ -194,7 +175,7 @@ public class Panel extends PanelBase {
 	 * @param y
 	 * @param direction 横線か縦線か
 	 */
-	public void drawMidline(Graphics g, int x, int y, int direction) {
+	public void drawMidline(Graphics2D g, int x, int y, int direction) {
 		if (direction == HORIZ) {
 			g.fillRect(x, y + getHalfCellSize() - 1, getCellSize() + 1, 3);
 		} else if (direction == VERT) {
@@ -208,7 +189,7 @@ public class Panel extends PanelBase {
 	 * @param y
 	 * @param direction 横線か縦線か
 	 */
-	public void drawMidline2(Graphics g, int x, int y, int direction) {
+	public void drawMidline2(Graphics2D g, int x, int y, int direction) {
 		if (direction == HORIZ) {
 			g.fillRect(x, y + getCellSize() / 3 - 1, getCellSize() + 1, 3);
 			g.fillRect(x, y + getCellSize() * 2 / 3 - 1, getCellSize() + 1, 3);

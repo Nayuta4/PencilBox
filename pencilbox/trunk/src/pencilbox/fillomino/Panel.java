@@ -1,7 +1,7 @@
 package pencilbox.fillomino;
 
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
@@ -90,7 +90,7 @@ public class Panel extends PanelBase {
 		this.showAreaHint = showAreaHint;
 	}
 
-	public void drawPanel(Graphics g) {
+	public void drawPanel(Graphics2D g) {
 		paintBackground(g);
 		drawIndex(g);
 		drawBoard(g);
@@ -102,13 +102,13 @@ public class Panel extends PanelBase {
 	 * ”Õ–Ê‚ð•`‰æ‚·‚é
 	 * @param g
 	 */
-	void drawBoard(Graphics g) {
+	protected void drawBoard(Graphics2D g) {
 		drawNumbers(g);
 		if (isShowAreaBorder()) 
 			drawBorders(g);
 	}
 
-	private void drawNumbers(Graphics g) {
+	private void drawNumbers(Graphics2D g) {
 		g.setFont(getNumberFont());
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
@@ -143,7 +143,7 @@ public class Panel extends PanelBase {
 		}
 	}
 
-	private void drawBorders(Graphics g) {
+	private void drawBorders(Graphics2D g) {
 		g.setColor(areaBorderColor);
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols() - 1; c++) {

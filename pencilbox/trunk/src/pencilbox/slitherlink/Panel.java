@@ -2,7 +2,7 @@ package pencilbox.slitherlink;
 
 import java.awt.Color;
 import java.awt.FontMetrics;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.gui.PanelBase;
@@ -83,7 +83,7 @@ public class Panel extends PanelBase {
 		this.warnBranchedLink = warnBranchedLink;
 	}
 
-	public void drawPanel(Graphics g) {
+	public void drawPanel(Graphics2D g) {
 		paintBackground(g);
 		drawIndex(g);
 		drawBoard(g);
@@ -94,7 +94,7 @@ public class Panel extends PanelBase {
 	/**
 	 * Œrü‚Ì•Ï‚í‚è‚Éƒ}ƒX‚Ì’†S‚É“_‚ğ‘Å‚Â
 	 */
-	public void drawGrid(Graphics g) {
+	public void drawGrid(Graphics2D g) {
 		g.setColor(getGridColor());
 		for (int r = 0; r < rows(); r++) {
 			for (int c = 0; c < cols(); c++) {
@@ -109,7 +109,7 @@ public class Panel extends PanelBase {
 	 * ”Õ–Ê‚ğ•`‰æ‚·‚é
 	 * @param g
 	 */
-	void drawBoard(Graphics g) {
+	protected void drawBoard(Graphics2D g) {
 		int number;
 		int nline;
 		g.setFont(getNumberFont());
@@ -157,7 +157,7 @@ public class Panel extends PanelBase {
 	 * @param c
 	 * @param num
 	 */
-	void placeNumber2(Graphics g, int r, int c, int num) {
+	void placeNumber2(Graphics2D g, int r, int c, int num) {
 		FontMetrics metrics = g.getFontMetrics();
 		String numS = Integer.toString(num);
 		g.drawString(
@@ -179,7 +179,7 @@ public class Panel extends PanelBase {
 	 * @param r
 	 * @param c
 	 */
-	protected void placeCircle2(Graphics g, int r, int c) {
+	protected void placeCircle2(Graphics2D g, int r, int c) {
 		int x = toX(c) + (getCellSize() - getCircleSize()) / 2 + getHalfCellSize();
 		int y = toY(r) + (getCellSize() - getCircleSize()) / 2 + getHalfCellSize();
 		g.drawOval(x, y, getCircleSize(), getCircleSize());
@@ -190,7 +190,7 @@ public class Panel extends PanelBase {
 	 * ”š‚ğˆÍ‚Ş‚æ‚¤‚É•`‚­
 	 * @param g
 	 */
-	public void drawCursor(Graphics g) {
+	public void drawCursor(Graphics2D g) {
 		if (isProblemEditMode()) {
 			g.setColor(getCursorColor());
 			g.drawRect(

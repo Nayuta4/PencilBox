@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.awt.print.PageFormat;
@@ -49,7 +50,7 @@ public class PanelBase extends JPanel implements Printable {
 	private Color numberColor = Color.BLACK;
 
 	private Color cursorColor = new Color(0xFF0000);
-	private Color cursorColor2 = new Color(0x0000FF);
+	private Color answerCursorColor = new Color(0x0000FF);
 
 	private Font indexFont = new Font("SansSerif", Font.ITALIC, 13);
 	private Font numberFont = new Font("SansSerif", Font.PLAIN, 20);
@@ -192,17 +193,23 @@ public class PanelBase extends JPanel implements Printable {
 	 */
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		//		Graphics2D g2 = (Graphics2D) g;
-		//		context = g2.getFontRenderContext();
-		drawPanel(g);
+		Graphics2D g2 = (Graphics2D) g;
+		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		drawPanel(g2);
 	}
 	/**
-	 * パネル描画メソッドで，画面表示用と印刷用で共用する．
-	 * 個々のサブクラスで実装する
+	 * パネルを描画する。
+	 * 画面表示用，印刷用，画像作成用で共通に使用する。
+	 * 個々のサブクラスで実装する。
 	 * @param g
 	 */
-	public void drawPanel(Graphics g) {
+	public void drawPanel(Graphics2D g) {
 	}
+	
+	protected void drawBoard(Graphics2D g) {
+	}
+
 	/**
 	 * Panel上の列座標をピクセルx座標に変換する
 	 * @param c Panel上の列座標
@@ -227,10 +234,9 @@ public class PanelBase extends JPanel implements Printable {
 	 * 盤面の背景を backgraoundColor で塗りつぶす
 	 * @param g
 	 */
-	public void paintBackground(Graphics g) {
+	public void paintBackground(Graphics2D g) {
 		if (useBackgroundImage && backgroundImage != null) {
-			Graphics2D g2 = (Graphics2D) g;
-            g2.drawImage(backgroundImage, backgroundImageTransform, null);
+			g.drawImage(backgroundImage, backgroundImageTransform, null);
 		} else {
 			g.setColor(backgroundColor);
 			g.fillRect(offsetx, offsety, cellSize * cols(), cellSize * rows());
@@ -240,7 +246,7 @@ public class PanelBase extends JPanel implements Printable {
 	 * 盤面の外枠を描く
 	 * @param g
 	 */
-	public void drawBorder(Graphics g) {
+	public void drawBorder(Graphics2D g) {
 		g.setColor(borderColor);
 //		g.drawRect(offsetx - 2, offsety - 2, cellSize * cols() + 4,	cellSize * rows() + 4);
 		g.drawRect(offsetx - 1, offsety - 1, cellSize * cols() + 2,	cellSize * rows() + 2);
@@ -250,7 +256,7 @@ public class PanelBase extends JPanel implements Printable {
 	 * 罫線を描く
 	 * @param g
 	 */
-	public void drawGrid(Graphics g) {
+	public void drawGrid(Graphics2D g) {
 		g.setColor(gridColor);
 		for (int r = 1; r < rows(); r++) {
 			g.drawLine(toX(0), toY(r), toX(cols()), toY(r));
@@ -263,7 +269,7 @@ public class PanelBase extends JPanel implements Printable {
 	 * 盤面の上と左の端に座標数字を描く
 	 * @param g
 	 */
-	public void drawIndex(Graphics g) {
+	public void drawIndex(Graphics2D g) {
 		int firstIndex = 1;
 		g.setFont(indexFont);
 		g.setColor(numberColor);
@@ -280,11 +286,11 @@ public class PanelBase extends JPanel implements Printable {
 	 * カーソルを描く
 	 * @param g
 	 */
-	public void drawCursor(Graphics g) {
+	public void drawCursor(Graphics2D g) {
 		if (isProblemEditMode()) {
 			g.setColor(cursorColor);
 		} else if (cursorOn) {
-			g.setColor(cursorColor2);
+			g.setColor(answerCursorColor);
 		} else {
 			return;
 		}
@@ -371,7 +377,7 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param c 盤面上の列座標
 	 * @param letter 描く文字
 	 */
-	public void placeLetter(Graphics g, int r, int c, char letter) {
+	public void placeLetter(Graphics2D g, int r, int c, char letter) {
 		FontMetrics metrics = g.getFontMetrics();
 		try {
 			String string = Character.toString(letter);
@@ -395,7 +401,7 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param c 盤面上の列座標
 	 * @param number 描く数字
 	 */
-	public void placeNumber(Graphics g, int r, int c, int number) {
+	public void placeNumber(Graphics2D g, int r, int c, int number) {
 		FontMetrics metrics = g.getFontMetrics();
 		try {
 			String numS = Integer.toString(number);
@@ -419,7 +425,7 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param c 盤面上の列座標
 	 * @param number 描く数字
 	 */
-	public void placeIndexNumber(Graphics g, int r, int c, int number) {
+	public void placeIndexNumber(Graphics2D g, int r, int c, int number) {
 		FontMetrics metrics = g.getFontMetrics();
 		try {
 			String numS = Integer.toString(number);
@@ -443,7 +449,7 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param r 盤面行座標
 	 * @param c 盤面列座標
 	 */
-	public void paintCell(Graphics g, int r, int c) {
+	public void paintCell(Graphics2D g, int r, int c) {
 		g.fillRect(
 			toX(c) + 1,
 			toY(r) + 1,
@@ -458,7 +464,7 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param r 盤面行座標
 	 * @param c 盤面列座標
 	 */
-	public void placeCircle(Graphics g, int r, int c) {
+	public void placeCircle(Graphics2D g, int r, int c) {
 		g.drawOval(
 			toX(c) + (cellSize - circleSize) / 2,
 			toY(r) + (cellSize - circleSize) / 2,
@@ -473,7 +479,7 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param c 盤面列座標
 	 * @param circleSize 配置する○印の直径
 	 */
-	public void placeCircle(Graphics g, int r, int c, int circleSize) {
+	public void placeCircle(Graphics2D g, int r, int c, int circleSize) {
 		g.drawOval(
 			toX(c) + (cellSize - circleSize) / 2,
 			toY(r) + (cellSize - circleSize) / 2,
@@ -487,7 +493,7 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param r 盤面行座標
 	 * @param c 盤面列座標
 	 */
-	public void placeLargeCircle(Graphics g, int r, int c) {
+	public void placeLargeCircle(Graphics2D g, int r, int c) {
 		placeCircle(g, r, c, cellSize - 2);
 	}
 	/**
@@ -497,7 +503,7 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param r 盤面行座標
 	 * @param c 盤面列座標
 	 */
-	public void placeBoldCircle(Graphics g, int r, int c) {
+	public void placeBoldCircle(Graphics2D g, int r, int c) {
 		int x = toX(c) + (cellSize - circleSize) / 2;
 		int y = toY(r) + (cellSize - circleSize) / 2;
 		g.drawOval(x, y, circleSize, circleSize);
@@ -511,7 +517,7 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param c 盤面列座標
 	 * @param circleSize 配置する○印の直径
 	 */
-	public void placeBoldCircle(Graphics g, int r, int c, int circleSize) {
+	public void placeBoldCircle(Graphics2D g, int r, int c, int circleSize) {
 		int x = toX(c) + (cellSize - circleSize) / 2;
 		int y = toY(r) + (cellSize - circleSize) / 2;
 		g.drawOval(x, y, circleSize, circleSize);
@@ -523,7 +529,7 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param r 盤面行座標
 	 * @param c 盤面列座標
 	 */
-	public void placeFilledCircle(Graphics g, int r, int c) {
+	public void placeFilledCircle(Graphics2D g, int r, int c) {
 		g.fillOval(
 			toX(c) + (cellSize - circleSize) / 2,
 			toY(r) + (cellSize - circleSize) / 2,
@@ -536,7 +542,7 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param r 盤面行座標
 	 * @param c 盤面列座標
 	 */
-	public void placeLargeFilledCircle(Graphics g, int r, int c) {
+	public void placeLargeFilledCircle(Graphics2D g, int r, int c) {
 		placeFilledCircle(g, r, c, cellSize - 2);
 	}
 	/**
@@ -546,7 +552,7 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param c 盤面列座標
 	 * @param circleSize 配置する●印の直径
 	 */
-	public void placeFilledCircle(Graphics g, int r, int c, int circleSize) {
+	public void placeFilledCircle(Graphics2D g, int r, int c, int circleSize) {
 		g.fillOval(
 			toX(c) + (cellSize - circleSize) / 2,
 			toY(r) + (cellSize - circleSize) / 2,
@@ -559,7 +565,7 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param r 盤面行座標
 	 * @param c 盤面列座標
 	 */
-	public void placeCross(Graphics g, int r, int c) {
+	public void placeCross(Graphics2D g, int r, int c) {
 		drawCross(
 			g,
 			toX(c) + getHalfCellSize(),
@@ -573,7 +579,7 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param r
 	 * @param c
 	 */
-	public void placeSideLine(Graphics g, int d, int r, int c) {
+	public void placeSideLine(Graphics2D g, int d, int r, int c) {
 		drawLineSegment(
 			g,
 			toX(c + (d ^ 1)),
@@ -587,7 +593,7 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param r
 	 * @param c
 	 */
-	public void placeTraversalLine(Graphics g, int d, int r, int c) {
+	public void placeTraversalLine(Graphics2D g, int d, int r, int c) {
 		drawLineSegment(
 			g,
 			toX(c) + getHalfCellSize(),
@@ -601,7 +607,7 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param r
 	 * @param c
 	 */
-	public void placeSideCross(Graphics g, int d, int r, int c) {
+	public void placeSideCross(Graphics2D g, int d, int r, int c) {
 		if (d == Direction.VERT)
 			drawCross(
 				g,
@@ -622,7 +628,7 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param c
 	 * @param dir
 	 */
-	public void placeMidline(Graphics g, int r, int c, int dir) {
+	public void placeMidline(Graphics2D g, int r, int c, int dir) {
 		drawMidline(
 			g,
 			toX(c) + getHalfCellSize(),
@@ -637,7 +643,7 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param r1 盤面行座標
 	 * @param c1 盤面列座標
 	 */
-	public void placeSquare(Graphics g, int r0, int c0, int r1, int c1) {
+	public void placeSquare(Graphics2D g, int r0, int c0, int r1, int c1) {
 		g.drawRect(
 			toX((c0 < c1) ? c0 : c1) + 1,
 			toY((r0 < r1) ? r0 : r1) + 1,

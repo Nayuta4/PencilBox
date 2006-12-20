@@ -2,7 +2,7 @@ package pencilbox.nurikabe;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.gui.PanelBase;
@@ -95,7 +95,7 @@ public class Panel extends PanelBase {
 		countFont = new Font("SansSerif", Font.ITALIC, getCellSize() / 2);
 	}
 
-	public void drawPanel(Graphics g) {
+	public void drawPanel(Graphics2D g) {
 		paintBackground(g);
 		drawIndex(g);
 		drawBoard(g);
@@ -107,7 +107,7 @@ public class Panel extends PanelBase {
 	 * ”Õ–Ê‚ð•`‰æ‚·‚é
 	 * @param g
 	 */
-	void drawBoard(Graphics g) {
+	protected void drawBoard(Graphics2D g) {
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
 				int st = board.getState(r, c);
@@ -127,7 +127,7 @@ public class Panel extends PanelBase {
 		}
 	}
 
-	void paintSpace(Graphics g, int r, int c) {
+	void paintSpace(Graphics2D g, int r, int c) {
 		g.setFont(countFont);
 		Area area = board.getArea(r,c);
 		int number = area.getNumber();
@@ -151,12 +151,12 @@ public class Panel extends PanelBase {
 		placeFilledCircle(g, r, c);
 	}
 
-	void paintWall(Graphics g, int r, int c) {
+	void paintWall(Graphics2D g, int r, int c) {
 		g.setColor(paintColor);
-		if (colorForEachWall) {
+		if (isColorForEachWall()) {
 			g.setColor(Colors.get(board.getArea(r,c).getID()));
 		}
-		if (showWrongWall) {
+		if (isShowWrongWall()) {
 			if (board.is2x2Block(r, c) ) {
 				g.setColor(errorColor);
 			}

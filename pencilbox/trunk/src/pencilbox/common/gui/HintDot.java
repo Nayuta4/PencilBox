@@ -1,7 +1,7 @@
 package pencilbox.common.gui;
 
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 
 
@@ -54,7 +54,7 @@ public class HintDot{
 	 * @param r
 	 * @param c
 	 */
-	public void placeHintCross(Graphics g, int r, int c) {
+	public void placeHintCross(Graphics2D g, int r, int c) {
 		g.setColor(Color.red);
 		panel.placeCross(g, r, c);
 	}
@@ -64,7 +64,7 @@ public class HintDot{
 	 * @param c
 	 * @param pattern
 	 */
-	public void placeHintDot(Graphics g, int r, int c, int pattern) {
+	public void placeHintDot(Graphics2D g, int r, int c, int pattern) {
 		g.setColor(dotColor);
 		int x = panel.toX(c) + dotOffset;
 		int y = panel.toY(r) + dotOffset;
