@@ -1,7 +1,7 @@
 package pencilbox.numberlink;
 
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.gui.PanelBase;
@@ -139,20 +139,19 @@ public class Panel extends PanelBase {
 		this.selectedNumber = selectedNumber;
 	}
 
-	public void drawPanel(Graphics g) {
+	public void drawPanel(Graphics2D g) {
 		paintBackground(g);
 		drawIndex(g);
 		drawBoard(g);
-		this.drawGrid(g);
+		drawGrid(g);
 		drawBorder(g);
 		drawCursor(g);
 	}
-
 	/**
 	 * ”Õ–Ê‚ð•`‰æ‚·‚é
 	 * @param g
 	 */
-	void drawBoard(Graphics g) {
+	protected void drawBoard(Graphics2D g) {
 		int number;
 		int state;
 		for (int d = 0; d <= 1; d++) {
@@ -185,7 +184,7 @@ public class Panel extends PanelBase {
 			}
 		}
 	}
-	public void placeTraversalLine(Graphics g, int d, int r, int c) {
+	public void placeTraversalLine(Graphics2D g, int d, int r, int c) {
 		Link link = board.getLink(d,r,c);
 		int linkNo = link.getNumber();
 		if (isWarnBranchedLink() && board.isBranchedLink(d,r,c)) {
@@ -208,7 +207,7 @@ public class Panel extends PanelBase {
 		super.placeTraversalLine(g, d, r, c);
 	}
 
-	public void placeNumber(Graphics g, int r, int c, int n) {
+	public void placeNumber(Graphics2D g, int r, int c, int n) {
 		if (isHighlightSelectedLink() && n == getSelectedNumber()) {
 			g.setColor(selectedLinkColor);
 			super.paintCell(g, r, c);
@@ -235,7 +234,7 @@ public class Panel extends PanelBase {
 	/**
 	 * Œrü‚ÌƒIƒvƒVƒ‡ƒ“‚ð’ñ‹Ÿ
 	 */
-	public void drawGrid(Graphics g) {
+	public void drawGrid(Graphics2D g) {
 		g.setColor(getGridColor());
 		switch (getDisplayStyle()) {
 			case 0 : // ’Êí•\Ž¦

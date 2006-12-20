@@ -1,7 +1,7 @@
 package pencilbox.kurodoko;
 
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.gui.PanelBase;
@@ -17,8 +17,8 @@ public class Panel extends PanelBase {
 	private boolean showNumberHint = false;
 	private boolean warnWrongWall = false;
 
-	private Color paintColor = Color.blue;
-	private Color circleColor = Color.magenta;
+	private Color paintColor = Color.BLUE;
+	private Color circleColor = Color.MAGENTA;
 	private Color successColor = new Color(0x00FF00);
 	private Color errorColor = new Color(0xFF0000);
 	private Color errorColor2 = new Color(0xFFFF00);
@@ -76,7 +76,7 @@ public class Panel extends PanelBase {
 		this.showNumberHint = showNumberHint;
 	}
 
-	public void drawPanel(Graphics g) {
+	public void drawPanel(Graphics2D g) {
 		paintBackground(g);
 		drawIndex(g);
 		drawBoard(g);
@@ -88,7 +88,7 @@ public class Panel extends PanelBase {
 	 * ”Õ–Ê‚ð•`‰æ‚·‚é
 	 * @param g
 	 */
-	void drawBoard(Graphics g) {
+	protected void drawBoard(Graphics2D g) {
 		g.setFont(getNumberFont());
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
@@ -111,7 +111,7 @@ public class Panel extends PanelBase {
 		}
 	}
 	
-	public void paintCell(Graphics g, int r, int c) {
+	public void paintCell(Graphics2D g, int r, int c) {
 			if (isWarnWrongWall() && board.isBlock(r,c)) {
 				g.setColor(errorColor);
 			} else if (isWarnWrongWall() && board.getChain(r,c) < 0) {
@@ -122,7 +122,7 @@ public class Panel extends PanelBase {
 			super.paintCell(g,r,c);
 	}
 
-	public void placeNumber(Graphics g, int r, int c, int num) {
+	public void placeNumber(Graphics2D g, int r, int c, int num) {
 			if (!isShowNumberHint())
 				super.placeNumber(g,r,c,num);
 			else{

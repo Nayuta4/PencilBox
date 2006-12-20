@@ -1,7 +1,7 @@
 package pencilbox.shikaku;
 
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.Iterator;
 
 import pencilbox.common.core.BoardBase;
@@ -93,11 +93,10 @@ public class Panel extends PanelBase {
 		this.showAreaHint = showAreaHint;
 	}
 
-	public void drawPanel(Graphics g) {
+	public void drawPanel(Graphics2D g) {
 		paintBackground(g);
 		drawIndex(g);
 		drawBoard(g);
-		//		if (mouseListener.draggingArea != null)
 		drawDragging(g);
 		drawGrid(g);
 		drawBorder(g);
@@ -107,7 +106,7 @@ public class Panel extends PanelBase {
 	 * ”Õ–Ê‚ð•`‰æ‚·‚é
 	 * @param g
 	 */
-	void drawBoard(Graphics g) {
+	protected void drawBoard(Graphics2D g) {
 		g.setColor(smallSizeColor);
 		Square domain;
 		for (int r = 0; r < board.rows(); r++) {
@@ -165,7 +164,7 @@ public class Panel extends PanelBase {
 		}
 	}
 	
-	public void placeNumber(Graphics g, int r, int c, int num) {
+	public void placeNumber(Graphics2D g, int r, int c, int num) {
 		g.setColor(Color.BLACK);
 		super.placeFilledCircle(g, r, c, (int)(getCellSize()*0.85) );
 		g.setColor(Color.WHITE);
@@ -177,10 +176,11 @@ public class Panel extends PanelBase {
 	 *  ƒhƒ‰ƒbƒO’†‚ÌŽlŠp‚ð•`‰æ‚·‚é
 	 * @param g
 	 */
-	private void drawDragging(Graphics g) {
+	private void drawDragging(Graphics2D g) {
 		Square area = getDraggingArea();
 		if (area == null)
 			return;
+		g.setColor(areaBorderColor);	
 		placeSquare(g, area.r0, area.c0, area.r1, area.c1);
 	}
 

@@ -1,11 +1,10 @@
 package pencilbox.hitori;
 
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.gui.PanelBase;
-import pencilbox.util.Colors;
 
 
 /**
@@ -125,7 +124,7 @@ public class Panel extends PanelBase {
 		this.letters = string.toCharArray();
 	}
 
-	public void drawPanel(Graphics g) {
+	public void drawPanel(Graphics2D g) {
 		paintBackground(g);
 		drawIndex(g);
 		drawBoard(g);
@@ -133,12 +132,11 @@ public class Panel extends PanelBase {
 		drawBorder(g);
 		drawCursor(g);
 	}
-
 	/**
 	 * ”Õ–Ê‚ð•`‰æ‚·‚é
 	 * @param g
 	 */
-	void drawBoard(Graphics g) {
+	protected void drawBoard(Graphics2D g) {
 		g.setFont(getNumberFont());
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
@@ -152,7 +150,7 @@ public class Panel extends PanelBase {
 			}
 		}
 	}
-	private void drawState(Graphics g, int r, int c, int state) {
+	private void drawState(Graphics2D g, int r, int c, int state) {
 //		if (state != Board.BLACK) {
 //			if (board.number[r][c] == selectedNumber) {
 //				g.setColor(Color.CYAN);
@@ -163,13 +161,13 @@ public class Panel extends PanelBase {
 			g.setColor(paintColor);
 			if (isWarnWrongWall()) {
 				if (board.getChain(r,c) == -1)
-					g.setColor(Colors.getError());
+					g.setColor(errorColor);
 				else // if (board.chain[r][c] == 1)
 					g.setColor(paintColor);
 //				else
 //					g.setColor(Colors.get(board.chain[r][c]));
 				if (board.isBlock(r,c))
-					g.setColor(Colors.getError());
+					g.setColor(errorColor);
 			}
 			paintCell(g, r, c);
 		} else if (state == Board.WHITE) {
@@ -177,7 +175,7 @@ public class Panel extends PanelBase {
 			placeCircle(g, r, c);
 		}
 	}
-	private void drawNumber(Graphics g, int r, int c, int number) {
+	private void drawNumber(Graphics2D g, int r, int c, int number) {
 //			if (!hideSingleMode || !board.isSingle(r, c)) {
 				if (isHideSingleMode() && board.isSingle(r, c)) {
 					g.setColor(singleNumberColor);

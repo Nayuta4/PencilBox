@@ -1,7 +1,7 @@
 package pencilbox.hakyukoka;
 
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
@@ -136,7 +136,7 @@ public class Panel extends PanelBase {
 		hintDot.setDotSize(cellSize);
 	}
 
-	public void drawPanel(Graphics g) {
+	public void drawPanel(Graphics2D g) {
 		paintBackground(g);
 		drawIndex(g);
 		drawBoard(g);
@@ -148,7 +148,7 @@ public class Panel extends PanelBase {
 	 * ”Õ–Ê‚ð•`‰æ‚·‚é
 	 * @param g
 	 */
-	void drawBoard(Graphics g) {
+	protected void drawBoard(Graphics2D g) {
 //		paintEmission(g);
 		paintCells(g);
 		drawEmission(g);
@@ -158,7 +158,7 @@ public class Panel extends PanelBase {
 		drawBorders(g);
 	}
 	
-	private void drawEmission(Graphics g) {
+	private void drawEmission(Graphics2D g) {
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
 				int n = board.getNumber(r, c);
@@ -187,7 +187,7 @@ public class Panel extends PanelBase {
 			}
 		}
 	}
-//	private void paintEmission(Graphics g) {
+//	private void paintEmission(Graphics2D g) {
 //		for (int r = 0; r < board.rows(); r++) {
 //			for (int c = 0; c < board.cols(); c++) {
 //				int number = board.getNumber(r, c);
@@ -210,7 +210,7 @@ public class Panel extends PanelBase {
 //			}
 //		}
 //	}
-	private void paintCells(Graphics g) {
+	private void paintCells(Graphics2D g) {
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
 				if (board.getArea(r, c) == null || board.getArea(r, c) == draggingArea) {
@@ -232,7 +232,7 @@ public class Panel extends PanelBase {
 		}
 	}
 	
-	private void drawNumbers(Graphics g) {
+	private void drawNumbers(Graphics2D g) {
 		g.setFont(getNumberFont());
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
@@ -258,7 +258,7 @@ public class Panel extends PanelBase {
 		}
 	}
 	
-	private void drawBorders(Graphics g) {
+	private void drawBorders(Graphics2D g) {
 		g.setColor(areaBorderColor);
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols() - 1; c++) {
@@ -284,7 +284,7 @@ public class Panel extends PanelBase {
 		}
 	}
 
-	private void drawDots(Graphics g) {
+	private void drawDots(Graphics2D g) {
 		g.setFont(getNumberFont());
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {

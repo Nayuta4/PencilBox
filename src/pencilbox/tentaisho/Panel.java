@@ -1,7 +1,7 @@
 package pencilbox.tentaisho;
 
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
@@ -142,7 +142,7 @@ public class Panel extends PanelBase {
 		super.setDisplaySize(size);
 	}
 	
-	public void drawPanel(Graphics g) {
+	public void drawPanel(Graphics2D g) {
 		paintBackground(g);
 		drawIndex(g);
 		drawBoard(g);
@@ -154,7 +154,7 @@ public class Panel extends PanelBase {
 	 * 盤面を描画する
 	 * @param g
 	 */
-	void drawBoard(Graphics g) {
+	protected void drawBoard(Graphics2D g) {
 		paintAreas(g);
 		if (isShowStar()) {
 			drawStars(g);
@@ -164,7 +164,7 @@ public class Panel extends PanelBase {
 		}
 	}
 
-	private void paintAreas(Graphics g) {
+	private void paintAreas(Graphics2D g) {
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
 				if (board.isCovered(r, c)) {
@@ -189,7 +189,7 @@ public class Panel extends PanelBase {
 			}
 		}
 	}
-	private void drawStars(Graphics g) {
+	private void drawStars(Graphics2D g) {
 		g.setColor(starColor);
 		for (int r = 0; r < board.rows() * 2 - 1; r++) {
 			for (int c = 0; c < board.cols() * 2 - 1; c++) {
@@ -198,7 +198,7 @@ public class Panel extends PanelBase {
 			}
 		}
 	}
-	private void drawAreaBorders(Graphics g) {
+	private void drawAreaBorders(Graphics2D g) {
 		g.setColor(areaBorderColor);
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols() - 1; c++) {
@@ -223,7 +223,7 @@ public class Panel extends PanelBase {
 	 * @param c
 	 * @param star
 	 */
-	public void placeStar(Graphics g, int r, int c, int star) {
+	public void placeStar(Graphics2D g, int r, int c, int star) {
 		if (star == Board.WHITESTAR)
 			g.drawOval(
 				getOffsetx() + getHalfCellSize() * (c + 1) - halfStarSize,
@@ -241,7 +241,7 @@ public class Panel extends PanelBase {
 	 * 天体ショー専用カーソルを描く
 	 * @param g
 	 */
-	public void drawCursor(Graphics g) {
+	public void drawCursor(Graphics2D g) {
 		if (isProblemEditMode()) {
 			g.setColor(getCursorColor());
 			g.drawRect(

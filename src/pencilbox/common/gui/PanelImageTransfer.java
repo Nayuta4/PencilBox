@@ -33,6 +33,8 @@ public class PanelImageTransfer {
 	 	// ”wŒi‚ğ”’‚Å“h‚éB‚»‚¤‚µ‚È‚¢‚ÆC”wŒi‚ª•‚­‚È‚Á‚Ä‚µ‚Ü‚¤
 		g2.setColor(Color.WHITE);
 		g2.fillRect(0, 0, panel.getWidth(), panel.getHeight());
+		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		panel.drawPanel(g2);
 	}
 

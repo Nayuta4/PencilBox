@@ -2,7 +2,7 @@ package pencilbox.yajilin;
 
 import java.awt.Color;
 import java.awt.FontMetrics;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
@@ -123,7 +123,7 @@ public class Panel extends PanelBase {
 		board = (Board) aBoard; 
 	}
 
-	public void drawPanel(Graphics g) {
+	public void drawPanel(Graphics2D g) {
 		paintBackground(g);
 		drawIndex(g);
 		drawBoard(g);
@@ -135,7 +135,7 @@ public class Panel extends PanelBase {
 	 * ”Õ–Ê‚ð•`‰æ‚·‚é
 	 * @param g
 	 */
-	void drawBoard(Graphics g) {
+	protected void drawBoard(Graphics2D g) {
 		int state;
 		g.setFont(getNumberFont());
 		for (int r = 0; r < board.rows(); r++) {
@@ -195,7 +195,7 @@ public class Panel extends PanelBase {
 	 * @param c
 	 * @param arrow
 	 */
-	private void placeArrow(Graphics g, int r, int c, int arrow) {
+	private void placeArrow(Graphics2D g, int r, int c, int arrow) {
 		placeSquare(g, r,c,r,c);
 		g.setColor(Color.BLACK);
 //		paintCell(g,r,c);
@@ -212,7 +212,7 @@ public class Panel extends PanelBase {
 	 * @param number
 	 * @param direction
 	 */
-	private void drawArrow(Graphics g, int r, int c, int number, int direction) {
+	private void drawArrow(Graphics2D g, int r, int c, int number, int direction) {
 		char arrowChar = 0;
 		if (direction == Direction.UP) {
 			arrowChar = 'ª';

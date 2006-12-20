@@ -1,7 +1,7 @@
 package pencilbox.masyu;
 
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.gui.PanelBase;
@@ -96,7 +96,7 @@ public class Panel extends PanelBase {
 		this.warnBranchedLink = warnBranchedLink;
 	}
 
-	public void drawPanel(Graphics g) {
+	public void drawPanel(Graphics2D g) {
 		paintBackground(g);
 		drawIndex(g);
 		drawBoard(g);
@@ -108,7 +108,7 @@ public class Panel extends PanelBase {
 	 * ”Õ–Ê‚ð•`‰æ‚·‚é
 	 * @param g
 	 */
-	void drawBoard(Graphics g) {
+	protected void drawBoard(Graphics2D g) {
 		int state;
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
@@ -142,7 +142,7 @@ public class Panel extends PanelBase {
 		}
 	}
 	
-	private void placeBlackPearl(Graphics g, int r, int c) {
+	private void placeBlackPearl(Graphics2D g, int r, int c) {
 		g.setColor(pearlColor);
 		if (isWarnBranchedLink()) {
 			int p = board.checkBlackPearl(r,c);
@@ -153,7 +153,7 @@ public class Panel extends PanelBase {
 		placeFilledCircle(g, r, c);
 	}
 	
-	private void placeWhitePearl(Graphics g, int r, int c) {
+	private void placeWhitePearl(Graphics2D g, int r, int c) {
 		g.setColor(pearlColor);
 		if (isWarnBranchedLink()) {
 			int p = board.checkWhitePearl(r,c);
@@ -164,7 +164,7 @@ public class Panel extends PanelBase {
 		placeBoldCircle(g, r, c);
 	}
 	
-	private void placeGrayPearl(Graphics g, int r, int c) {
+	private void placeGrayPearl(Graphics2D g, int r, int c) {
 		g.setColor(grayPearlColor);
 		placeFilledCircle(g, r, c);
 	}

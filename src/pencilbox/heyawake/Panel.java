@@ -1,7 +1,7 @@
 package pencilbox.heyawake;
 
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.Iterator;
 
 import pencilbox.common.core.BoardBase;
@@ -95,27 +95,23 @@ public class Panel extends PanelBase {
 		this.paintColor = paintColor;
 	}
 
-	public void drawPanel(Graphics g) {
+	public void drawPanel(Graphics2D g) {
 		paintBackground(g);
 		drawIndex(g);
 		drawBoard(g);
 		drawGrid(g);
 		drawBorder(g);
-		if (isProblemEditMode())
-			drawDragging(g);
+		drawDragging(g);
 		drawCursor(g);
 	}
 	/**
 	 * 盤面を描画する
-	 * できれば，左上マスに数字が表示されるようにしたいが・・・
 	 * @param g
 	 */
-	void drawBoard(Graphics g) {
-		
+	protected void drawBoard(Graphics2D g) {
 		int st;
 		Square square;
 		g.setFont(getNumberFont());
-
 		if (isShowContinuousRoom()) {
 			for (int r = 0; r < board.rows(); r++) {
 				for (int c = 0; c < board.cols(); c++) {
@@ -189,7 +185,9 @@ public class Panel extends PanelBase {
 	 *  ドラッグ中の四角を描画する
 	 * @param g
 	 */
-	void drawDragging(Graphics g) {
+	void drawDragging(Graphics2D g) {
+		if (!isProblemEditMode())
+			return;
 		Square square = getDraggingSquare();
 		if (square == null)
 			return;

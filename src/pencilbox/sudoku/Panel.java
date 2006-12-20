@@ -1,7 +1,7 @@
 package pencilbox.sudoku;
 
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.gui.HintDot;
@@ -133,7 +133,7 @@ public class Panel extends PanelBase {
 		hintDot.setDotSize(cellSize);
 	}
 
-	public void drawPanel(Graphics g) {
+	public void drawPanel(Graphics2D g) {
 		paintBackground(g);
 		drawIndex(g);
 		drawBoard(g);
@@ -143,7 +143,7 @@ public class Panel extends PanelBase {
 	/**
 	 * 外枠を含め，罫線を引く
 	 */
-	public void drawGrid(Graphics g) {
+	public void drawGrid(Graphics2D g) {
 		g.setColor(getBorderColor());
 		for (int r = 0; r <= rows(); r++) {
 			if (r % board.getUnit() == 0) {
@@ -167,7 +167,7 @@ public class Panel extends PanelBase {
 	 * 盤面を描画する
 	 * @param g
 	 */
-	void drawBoard(Graphics g) {
+	protected void drawBoard(Graphics2D g) {
 		int num;
 		g.setFont(getNumberFont());
 		for (int r = 0; r < board.rows(); r++) {
@@ -188,7 +188,7 @@ public class Panel extends PanelBase {
 		}
 	}
 	// 選択数字と同じ行，列，ボックスを色塗り 
-	void paintCell(Graphics g, int r, int c, int num) {
+	void paintCell(Graphics2D g, int r, int c, int num) {
 		if (isHighlightSelectedNumber() && getSelectedNumber() > 0) {
 			if (getSelectedNumber() == num) {
 				g.setColor(selectedNumberColor);
@@ -201,7 +201,7 @@ public class Panel extends PanelBase {
 		}
 	}
 	
-	void drawNumber(Graphics g, int r, int c, int num) {
+	void drawNumber(Graphics2D g, int r, int c, int num) {
 		if (board.isStable(r, c)) {
 			g.setColor(getNumberColor());
 		} else if (
@@ -213,7 +213,7 @@ public class Panel extends PanelBase {
 		placeNumber(g, r, c, num);
 	}
 
-	void drawHintDot(Graphics g, int r, int c) {
+	void drawHintDot(Graphics2D g, int r, int c) {
 		int pat = board.getPattern(r, c);
 		if (pat == 0) {
 			hintDot.placeHintCross(g, r, c);

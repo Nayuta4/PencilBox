@@ -3,7 +3,7 @@ package pencilbox.kakuro;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
@@ -92,11 +92,11 @@ public class Panel extends PanelBase {
 		return new KakuroCursor();
 	}
 
-	public void drawPanel(Graphics g){
+	public void drawPanel(Graphics2D g){
 		paintBackground(g);
 		drawIndex(g);
-		drawGrid(g);
 		drawBoard(g);
+		drawGrid(g);
 		drawBorder(g);
 		drawCursor(g);
 	}
@@ -104,7 +104,7 @@ public class Panel extends PanelBase {
 	 * 盤面を描画する
 	 * @param g
 	 */
-	void drawBoard(Graphics g){
+	protected void drawBoard(Graphics2D g){
 		int state;
 		g.setFont(smallFont);
 		for (int r = 0; r < board.rows(); r++) {
@@ -139,7 +139,7 @@ public class Panel extends PanelBase {
 	 * @param a 斜線右上の数字
 	 * @param b 斜線左下の数字
 	 */
-	void drawWall(Graphics g, int r, int c, int a, int b){
+	void drawWall(Graphics2D g, int r, int c, int a, int b){
 
 		String numS;
 		g.setColor(wallColor);
@@ -183,7 +183,7 @@ public class Panel extends PanelBase {
 	/**
 	 * カックロ問題入力用カーソルを描く
 	 */
-	public void drawCursor(Graphics g) {
+	public void drawCursor(Graphics2D g) {
 		super.drawCursor(g);
 		if (isProblemEditMode()) {
 			KakuroCursor kcursor = (KakuroCursor) getCellCursor();
@@ -195,7 +195,7 @@ public class Panel extends PanelBase {
 		}
 	}
 	
-	void placeNumberHint(Graphics g, int r, int c) {
+	void placeNumberHint(Graphics2D g, int r, int c) {
 		if (board.getRemNo(r,c) == 0) {
 			hintDot.placeHintCross(g, r, c);
 		} else {
