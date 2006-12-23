@@ -127,7 +127,7 @@ public class MenuCommand {
 	public void newBoard() {
 		try {
 			NewBoardDialog newBoardDialog = NewBoardDialog.getInstance();
-			newBoardDialog.setPencilType(pencilType);
+//			newBoardDialog.setPencilType(pencilType);
 			newBoardDialog.setCurrentSize(board.getSize());
 			if (newBoardDialog.showDialog(frame, "êVãKî’ñ ") == PencilBoxDialog.OK_OPTION) {
 				Size newSize = newBoardDialog.getNewSize();
@@ -315,7 +315,7 @@ public class MenuCommand {
 		JOptionPane.showMessageDialog(
 				frame,
 				getAboutText(),
-				"PencilBoxÇ…Ç¬Ç¢Çƒ",
+				Constants.TITLE + "Ç…Ç¬Ç¢Çƒ",
 				JOptionPane.INFORMATION_MESSAGE);
 	}
 	private String getAboutText() {
