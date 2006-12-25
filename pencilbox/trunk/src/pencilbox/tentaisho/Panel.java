@@ -189,6 +189,7 @@ public class Panel extends PanelBase {
 			}
 		}
 	}
+	
 	private void drawStars(Graphics2D g) {
 		g.setColor(starColor);
 		for (int r = 0; r < board.rows() * 2 - 1; r++) {
@@ -198,6 +199,7 @@ public class Panel extends PanelBase {
 			}
 		}
 	}
+	
 	private void drawAreaBorders(Graphics2D g) {
 		g.setColor(areaBorderColor);
 		for (int r = 0; r < board.rows(); r++) {
@@ -225,17 +227,13 @@ public class Panel extends PanelBase {
 	 */
 	public void placeStar(Graphics2D g, int r, int c, int star) {
 		if (star == Board.WHITESTAR)
-			g.drawOval(
-				getOffsetx() + getHalfCellSize() * (c + 1) - halfStarSize,
-				getOffsety() + getHalfCellSize() * (r + 1) - halfStarSize,
-				halfStarSize * 2,
-				halfStarSize * 2);
+			drawCircle(g, getOffsetx() + getHalfCellSize() * (c + 1),
+					getOffsety() + getHalfCellSize() * (r + 1),
+					halfStarSize);
 		else if (star == Board.BLACKSTAR)
-			g.fillOval(
-				getOffsetx() + getHalfCellSize() * (c + 1) - halfStarSize,
-				getOffsety() + getHalfCellSize() * (r + 1) - halfStarSize,
-				halfStarSize * 2,
-				halfStarSize * 2);
+			fillCircle(g, getOffsetx() + getHalfCellSize() * (c + 1),
+					getOffsety() + getHalfCellSize() * (r + 1),
+					halfStarSize);
 	}
 	/**
 	 * 天体ショー専用カーソルを描く

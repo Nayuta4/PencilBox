@@ -120,14 +120,14 @@ public class Panel extends PanelBase {
 						g.setColor(showContinuousWhiteColor);
 					}
 					if (board.contH[r][c] >= 3) {
-						placeMidline(g,r,c,Direction.HORIZ);
+						placeCenterLine(g,r,c,Direction.HORIZ);
 					}
 					g.setColor(continuousRoomColor); 
 					if (board.contWV[r][c] >= 3) {
 						g.setColor(showContinuousWhiteColor);
 					}
 					if (board.contV[r][c] >= 3) {
-						placeMidline(g,r,c,Direction.VERT);
+						placeCenterLine(g,r,c,Direction.VERT);
 					}
 				}
 			}
@@ -165,7 +165,6 @@ public class Panel extends PanelBase {
 				}
 			}
 		}
-
 		for (Iterator itr = board.getSquareListIterator(); itr.hasNext();) {
 			g.setColor(roomBorderColor);
 			square = (Square) itr.next();

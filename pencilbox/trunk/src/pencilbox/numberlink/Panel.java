@@ -27,7 +27,6 @@ public class Panel extends PanelBase {
 
 	private Color numberlessLinkColor = Color.CYAN;
 	private Color selectedLinkColor = Color.GREEN;
-	private Color branchedLinkColor = Color.RED;
 	private Color errorColor = Color.RED;
 
 	/**
@@ -159,8 +158,7 @@ public class Panel extends PanelBase {
 				for (int c = 0; c < board.cols(); c++) {
 					state = board.getState(d, r, c);
 					if (state == Board.LINE) {
-						g.setColor(lineColor);
-						placeTraversalLine(g, d, r, c);
+						placeLink1(g, d, r, c);
 					} else if (state == Board.NOLINE) {
 						g.setColor(crossColor);
 						placeSideCross(g, d, r, c);
@@ -176,7 +174,7 @@ public class Panel extends PanelBase {
 					g.setColor(getBackgroundColor());
 					placeFilledCircle(g, r, c);
 					g.setColor(getNumberColor());
-					placeNumber(g, r, c, number);
+					placeNumber1(g, r, c, number);
 				} else if (number == Board.UNDECIDED_NUMBER) {
 					g.setColor(getNumberColor());
 					placeBoldCircle(g, r, c);
@@ -184,48 +182,45 @@ public class Panel extends PanelBase {
 			}
 		}
 	}
-	public void placeTraversalLine(Graphics2D g, int d, int r, int c) {
+	
+	private void placeLink1(Graphics2D g, int d, int r, int c) {
 		Link link = board.getLink(d,r,c);
 		int linkNo = link.getNumber();
-		if (isWarnBranchedLink() && board.isBranchedLink(d,r,c)) {
-			g.setColor(errorColor);
-		}
-		else if (isHighlightSelectedLink() && ((linkNo > 0 && linkNo == getSelectedNumber())|| link == getSelectedLink())) {
-			g.setColor(selectedLinkColor);
-		}			
-		else if (isColorForEachLink()) {
+		g.setColor(lineColor);
+		if (isWarnBranchedLink()) {
+			if (board.isBranchedLink(d,r,c)) {
+				g.setColor(errorColor);
+			}
+		} else if (isHighlightSelectedLink()) {
+			if ((linkNo > 0 && linkNo == getSelectedNumber())|| link == getSelectedLink()) {
+				g.setColor(selectedLinkColor);
+			}
+		} else if (isColorForEachLink()) {
 			if (linkNo == 0) {
 				g.setColor(numberlessLinkColor);
-			}
-			else if (linkNo == -1) {
-				g.setColor(branchedLinkColor);
-			}
-			else {
+			} else if (linkNo == -1) {
+				g.setColor(errorColor);
+			} else {
 				g.setColor(Colors.getDarkColor(linkNo));
 			}
 		}
-		super.placeTraversalLine(g, d, r, c);
+		super.placeLink(g, d, r, c);
 	}
 
-	public void placeNumber(Graphics2D g, int r, int c, int n) {
+	private void placeNumber1(Graphics2D g, int r, int c, int n) {
 		if (isHighlightSelectedLink() && n == getSelectedNumber()) {
 			g.setColor(selectedLinkColor);
 			super.paintCell(g, r, c);
 			g.setColor(getNumberColor());
-		}
-		else if (
+		} else if (
 			isWarnBranchedLink()
 				&& ((board.getLink(r, c) != null
 					&& board.getLink(r, c).getNumber() == -1)
 					|| board.countLine(r, c) > 1)) {
 			g.setColor(errorColor);
-//			super.paintCell(g, r, c);
-//			g.setColor(numberColor);
-		}
-		else if (isColorForEachLink()) {
+		} else if (isColorForEachLink()) {
 			g.setColor(Colors.getDarkColor(board.getNumber(r,c)));
-		}
-		else {
+		} else {
 			g.setColor(getNumberColor());
 		}
 		super.placeNumber(g, r, c, n);
