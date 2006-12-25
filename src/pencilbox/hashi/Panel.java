@@ -14,13 +14,6 @@ import pencilbox.util.Colors;
  */
 public class Panel extends PanelBase {
 
-	static final int HORIZ = Direction.HORIZ;
-	static final int VERT = Direction.VERT;
-	static final int UP = Direction.UP;
-	static final int DN = Direction.DN;
-	static final int LT = Direction.LT;
-	static final int RT = Direction.RT;
-
 	private Board board;
 
 	private boolean colorForEachLink = false;
@@ -118,16 +111,16 @@ public class Panel extends PanelBase {
 			g.setColor(bridgeColor);
 		int r = r0;
 		int c = c0;
-		if (pier.getNBridge(DN) > 0) {
+		if (pier.getNBridge(Direction.DN) > 0) {
 			while (!board.isPier(++r, c)) {
-				placeMidlines(g, r, c, VERT, pier.getNBridge(DN));
+				placeBridge(g, r, c, Direction.VERT, pier.getNBridge(Direction.DN));
 			}
 		}
 		r = r0;
 		c = c0;
-		if (pier.getNBridge(RT) > 0) {
+		if (pier.getNBridge(Direction.RT) > 0) {
 			while (!board.isPier(r, ++c)) {
-				placeMidlines(g, r, c, HORIZ, pier.getNBridge(RT));
+				placeBridge(g, r, c, Direction.HORIZ, pier.getNBridge(Direction.RT));
 			}
 		}
 		placePier(g, r0, c0, n);
@@ -155,48 +148,28 @@ public class Panel extends PanelBase {
 			placeNumber(g, r, c, n);
 	}
 	/**
-	 * マスの中心に横または縦の線を配置する
+	 * マスに横または縦の線を配置する
 	 * @param g
 	 * @param r 盤面行座標
 	 * @param c 盤面列座標
 	 * @param dir 横線なら HORIZ 縦線なら VERT
 	 * @param n 線の本数(1or2)
 	 */
-	public void placeMidlines(Graphics2D g, int r, int c, int dir, int n) {
+	public void placeBridge(Graphics2D g, int r, int c, int dir, int n) {
 		if (n == 1) {
-			drawMidline(g, toX(c), toY(r), dir);
+			if (dir == Direction.HORIZ) {
+				drawLineSegment(g, toX(c), toY(r) + getHalfCellSize(), dir, 3);
+			} else if (dir == Direction.VERT) {
+				drawLineSegment(g, toX(c) + getHalfCellSize(), toY(r), dir, 3);
+			}
 		} else if (n == 2) {
-			drawMidline2(g, toX(c), toY(r), dir);
+			if (dir == Direction.HORIZ) {
+				drawLineSegment(g, toX(c), toY(r) + getCellSize()/3, dir, 3);
+				drawLineSegment(g, toX(c), toY(r+1) - getCellSize()/3, dir, 3);
+			} else if (dir == Direction.VERT) {
+				drawLineSegment(g, toX(c) + getCellSize()/3, toY(r), dir, 3);
+				drawLineSegment(g, toX(c+1) - getCellSize()/3, toY(r), dir, 3);
+			}
 		}
 	}
-	/**
-	 * 引数の座標を左上角とするセルに，セルの１辺の長さと同じ長さの横または縦の線を描く
-	 * @param x
-	 * @param y
-	 * @param direction 横線か縦線か
-	 */
-	public void drawMidline(Graphics2D g, int x, int y, int direction) {
-		if (direction == HORIZ) {
-			g.fillRect(x, y + getHalfCellSize() - 1, getCellSize() + 1, 3);
-		} else if (direction == VERT) {
-			g.fillRect(x + getHalfCellSize() - 1, y, 3, getCellSize() + 1);
-		}
-	}
-	/**
-	 * 引数の座標を左上角とするセルに，セルの１辺の長さと同じ長さ+2pixelの横または縦の線を2本描く
-	 * @param g
-	 * @param x
-	 * @param y
-	 * @param direction 横線か縦線か
-	 */
-	public void drawMidline2(Graphics2D g, int x, int y, int direction) {
-		if (direction == HORIZ) {
-			g.fillRect(x, y + getCellSize() / 3 - 1, getCellSize() + 1, 3);
-			g.fillRect(x, y + getCellSize() * 2 / 3 - 1, getCellSize() + 1, 3);
-		} else if (direction == VERT) {
-			g.fillRect(x + getCellSize() / 3 - 1, y, 3, getCellSize() + 1);
-			g.fillRect(x + getCellSize() * 2 / 3 - 1, y, 3, getCellSize() + 1);
-		}
-	}
-
 }

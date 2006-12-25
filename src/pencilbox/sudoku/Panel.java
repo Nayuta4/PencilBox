@@ -150,16 +150,18 @@ public class Panel extends PanelBase {
 				g.drawLine(toX(0), toY(r) - 1, toX(cols()), toY(r) - 1);
 				g.drawLine(toX(0), toY(r), toX(cols()), toY(r));
 				g.drawLine(toX(0), toY(r) + 1, toX(cols()), toY(r) + 1);
-			} else
+			} else {
 				g.drawLine(toX(0), toY(r), toX(cols()), toY(r));
+			}
 		}
 		for (int c = 0; c <= cols(); c++) {
 			if (c % board.getUnit() == 0) {
 				g.drawLine(toX(c) - 1, toY(0), toX(c) - 1, toY(rows()));
 				g.drawLine(toX(c), toY(0), toX(c), toY(rows()));
 				g.drawLine(toX(c) + 1, toY(0), toX(c) + 1, toY(rows()));
-			} else
+			} else {
 				g.drawLine(toX(c), toY(0), toX(c), toY(rows()));
+			}
 		}
 	}
 
@@ -173,11 +175,10 @@ public class Panel extends PanelBase {
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
 				num = board.getNumber(r, c);
-				paintCell(g, r, c, num);
+				paintCell1(g, r, c, num);
 				if (num > 0) {
-					drawNumber(g, r, c, num);
-				}
-				else if (num == Board.UNKNOWN) {
+					placeNumber1(g, r, c, num);
+				} else if (num == Board.UNKNOWN) {
 					if (board.isStable(r,c)) {
 						g.setColor(getNumberColor());
 						placeBoldCircle(g, r, c);
@@ -188,32 +189,33 @@ public class Panel extends PanelBase {
 		}
 	}
 	// 選択数字と同じ行，列，ボックスを色塗り 
-	void paintCell(Graphics2D g, int r, int c, int num) {
+	private void paintCell1(Graphics2D g, int r, int c, int num) {
 		if (isHighlightSelectedNumber() && getSelectedNumber() > 0) {
 			if (getSelectedNumber() == num) {
 				g.setColor(selectedNumberColor);
 				paintCell(g, r, c);
-			}
-			else if (board.canPlace(r, c, getSelectedNumber())) {
+			} else if (board.canPlace(r, c, getSelectedNumber())) {
 				g.setColor(selectedNumberColor2);
 				paintCell(g, r, c);
 			}
 		}
 	}
 	
-	void drawNumber(Graphics2D g, int r, int c, int num) {
+	private void placeNumber1(Graphics2D g, int r, int c, int num) {
 		if (board.isStable(r, c)) {
 			g.setColor(getNumberColor());
-		} else if (
-			isWarnWrongNumber() && board.isMultipleNumber(r, c)) {
-			g.setColor(errorColor);
 		} else {
 			g.setColor(inputColor);
+			if (isWarnWrongNumber()) {
+				if (board.isMultipleNumber(r, c)) {
+					g.setColor(errorColor);
+				}
+			}
 		}
 		placeNumber(g, r, c, num);
 	}
 
-	void drawHintDot(Graphics2D g, int r, int c) {
+	private void drawHintDot(Graphics2D g, int r, int c) {
 		int pat = board.getPattern(r, c);
 		if (pat == 0) {
 			hintDot.placeHintCross(g, r, c);

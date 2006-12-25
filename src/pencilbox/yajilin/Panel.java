@@ -180,7 +180,7 @@ public class Panel extends PanelBase {
 							g.setColor(Colors.getColor(board.getLink(d,r,c).getID()));
 						if (isWarnBranchedLink() && board.isBranchedLink(d,r,c))
 							g.setColor(errorColor);
-						placeTraversalLine(g, d, r, c);
+						placeLink(g, d, r, c);
 					} else if (state == Board.NOLINE) {
 						g.setColor(crossColor);
 						placeSideCross(g, d, r, c);

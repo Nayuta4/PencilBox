@@ -140,7 +140,7 @@ public class Panel extends PanelBase {
 							g.setColor(Colors.getColor(board.getLink(d,r,c).getID()));
 						if (warnBranchedLink && board.isBranchedLink(d,r,c))
 							g.setColor(errorColor);
-						placeTraversalLine(g, d, r, c);
+						placeLink(g, d, r, c);
 					} else if (number == Board.NOLINE) {
 						g.setColor(crossColor);
 						placeSideCross(g, d, r, c);
@@ -157,7 +157,7 @@ public class Panel extends PanelBase {
 	 * @param c
 	 * @param num
 	 */
-	void placeNumber2(Graphics2D g, int r, int c, int num) {
+	protected void placeNumber2(Graphics2D g, int r, int c, int num) {
 		FontMetrics metrics = g.getFontMetrics();
 		String numS = Integer.toString(num);
 		g.drawString(
@@ -180,10 +180,10 @@ public class Panel extends PanelBase {
 	 * @param c
 	 */
 	protected void placeCircle2(Graphics2D g, int r, int c) {
-		int x = toX(c) + (getCellSize() - getCircleSize()) / 2 + getHalfCellSize();
-		int y = toY(r) + (getCellSize() - getCircleSize()) / 2 + getHalfCellSize();
-		g.drawOval(x, y, getCircleSize(), getCircleSize());
-		g.drawOval(x + 1, y + 1, getCircleSize() - 2, getCircleSize() - 2);
+		int x = toX(c) + getCellSize();
+		int y = toY(r) + getCellSize();
+		drawCircle(g, x, y, getCircleSize()/2);
+		drawCircle(g, x, y, getCircleSize()/2 - 1);
 	}
 	/**
 	 * スリザーリンク問題入力用カーソルを描く

@@ -107,69 +107,61 @@ public class Panel extends PanelBase {
 	 * @param g
 	 */
 	protected void drawBoard(Graphics2D g) {
-		g.setColor(smallSizeColor);
-		Square domain;
+		Square area;
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
-				domain = board.getSquare(r,c);
-				if (domain == null)
+				area = board.getSquare(r,c);
+				if (area == null)
 					continue;
 				if (isShowAreaHint()) {
-					int number = domain.getNumber();
+					int number = area.getNumber();
 					if (number == Square.MULTIPLE_NUMBER) {
 						g.setColor(errorColor);
 					} else if (number == Square.NO_NUMBER) {
 						g.setColor(smallSizeColor);
 					} else if (number == Board.UNDECIDED_NUMBER) {
 						g.setColor(areaPaintColor);
-					} else if (number < domain.getSquareSize()) {
+					} else if (number < area.getSquareSize()) {
 						g.setColor(errorColor);
-					} else if (number == domain.getSquareSize()) {
+					} else if (number == area.getSquareSize()) {
 						g.setColor(areaPaintColor);
-					} else if (number > domain.getSquareSize()) {
+					} else if (number > area.getSquareSize()) {
 						g.setColor(smallSizeColor);
 					}
-				}
-				else if (isColorfulMode()) {
-//					g.setColor(Colors.getColor(board.areaList.indexOf(board.domain[r][c])));
+				} else if (isColorfulMode()) {
 					g.setColor(Colors.getBrightColor(board.getSquare(r,c).getId()));
-				}
-				else {
+				} else {
 					g.setColor(areaPaintColor);
 				}
 				paintCell(g, r, c);
 			}
 		}
 		g.setFont(getNumberFont());
-		g.setColor(getNumberColor());
 		int num;
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
 				num = board.getNumber(r, c);
 				if (num > 0) {
-					placeNumber(g, r, c, num);
+					placeNumber1(g, r, c, num);
 				} else if (num == Board.UNDECIDED_NUMBER) {
-					placeNumber(g, r, c, num);
-//					g.setColor(Color.BLACK);
-//					placeBoldCircle(g, r, c);
+					placeNumber1(g, r, c, num);
 				}
 			}
 		}
 		g.setColor(areaBorderColor);
-		Square area;
 		for (Iterator itr = board.getSquareListIterator(); itr.hasNext();) {
 			area = (Square) itr.next();
 			placeSquare(g, area.r0, area.c0, area.r1, area.c1);
-			//			System.out.println(++c + area.toString());
 		}
 	}
 	
-	public void placeNumber(Graphics2D g, int r, int c, int num) {
+	private void placeNumber1(Graphics2D g, int r, int c, int num) {
 		g.setColor(Color.BLACK);
 		super.placeFilledCircle(g, r, c, (int)(getCellSize()*0.85) );
 		g.setColor(Color.WHITE);
-		if (num > 0)
-		super.placeNumber(g, r, c, num);
+		if (num > 0) {
+			super.placeNumber(g, r, c, num);
+		}
 	}
 
 	/**

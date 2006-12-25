@@ -302,17 +302,28 @@ public class PanelBase extends JPanel implements Printable {
 	 * 特殊図形描画のためのメソッド群
 	 */
 	/**
-	 * 引数の座標を左または上の端点として，セルの１辺の長さと同じ長さの横または縦の線を描く
+	 * 引数の座標を左または上の端点として，セルの１辺の長さと同じ長さの横または縦の線を描く。
 	 * @param g
-	 * @param x    中心のx座標
-	 * @param y    中心のy座標
+	 * @param x 端点のx座標
+	 * @param y 端点のy座標
+	 * @param direction 縦辺 なら 縦の線， 横辺 なら 横の線 を引く
+	 * @param width 線幅
+	 */
+	public void drawLineSegment(Graphics g, int x, int y, int direction, int width) {
+		if (direction == Direction.HORIZ)
+			g.fillRect(x, y - width/2, cellSize + 1, width);
+		else if (direction == Direction.VERT)
+			g.fillRect(x - width/2, y, width, cellSize + 1);
+	}
+	/**
+	 * 引数の座標を左または上の端点として，セルの１辺の長さの横または縦の線を描く
+	 * @param g
+	 * @param x 中心のx座標
+	 * @param y 中心のy座標
 	 * @param direction 縦辺 なら 縦の線， 横辺 なら 横の線 を引く
 	 */
 	public void drawLineSegment(Graphics g, int x, int y, int direction) {
-		if (direction == Direction.HORIZ)
-			g.fillRect(x, y - 1, cellSize + 1, 3);
-		else if (direction == Direction.VERT)
-			g.fillRect(x - 1, y, 3, cellSize + 1);
+		drawLineSegment(g, x, y, direction, 3);
 	}
 	/**
 	 * 引数の点を中心に，引数の大きさのバツ印を描く
@@ -326,37 +337,24 @@ public class PanelBase extends JPanel implements Printable {
 		g.drawLine(x - halfSize, y + halfSize, x + halfSize, y - halfSize);
 	}
 	/**
-	 * 引数の座標を中心として，セルの１辺の長さと同じ長さの横または縦の線を描く
+	 * 中心の座標と半径を与えて，円を描く
 	 * @param g
-	 * @param x
-	 * @param y
-	 * @param direction
+	 * @param x 中心のx座標
+	 * @param y 中心のy座標
+	 * @param radius 半径
 	 */
-	public void drawMidline(Graphics g, int x, int y, int direction) {
-		int length = getHalfCellSize();
-		if (direction == Direction.HORIZ)
-			g.drawLine(x - length, y, x + length, y);
-		else if (direction == Direction.VERT)
-			g.drawLine(x, y - length, x, y + length);
+	public void drawCircle(Graphics g, int x, int y, int radius) {
+		g.drawOval(x-radius, y-radius, radius+radius, radius+radius);
 	}
 	/**
-	 * 引数の座標を中心として，セルの１辺の長さと同じ長さで太さ3の横または縦の線を描く
+	 * 中心の座標と半径を与えて，塗りつぶした円を描く。
 	 * @param g
-	 * @param x
-	 * @param y
-	 * @param direction
+	 * @param x 中心のx座標
+	 * @param y 中心のy座標
+	 * @param radius 半径
 	 */
-	public void drawMidline3(Graphics g, int x, int y, int direction) {
-		int length = getHalfCellSize();
-		if (direction == Direction.HORIZ) {
-			g.drawLine(x - length, y - 1, x + length, y - 1);
-			g.drawLine(x - length, y, x + length, y);
-			g.drawLine(x - length, y + 1, x + length, y + 1);
-		} else if (direction == Direction.VERT) {
-			g.drawLine(x - 1, y - length, x - 1, y + length);
-			g.drawLine(x, y - length, x, y + length);
-			g.drawLine(x + 1, y - length, x + 1, y + length);
-		}
+	public void fillCircle(Graphics g, int x, int y, int radius) {
+		g.fillOval(x-radius, y-radius, radius+radius+1, radius+radius+1);		
 	}
 
 	/*
@@ -465,11 +463,7 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param c 盤面列座標
 	 */
 	public void placeCircle(Graphics2D g, int r, int c) {
-		g.drawOval(
-			toX(c) + (cellSize - circleSize) / 2,
-			toY(r) + (cellSize - circleSize) / 2,
-			circleSize,
-			circleSize);
+		placeCircle(g, r, c, getCircleSize());
 	}
 	/**
 	 * マスに○印を配置する
@@ -480,11 +474,8 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param circleSize 配置する○印の直径
 	 */
 	public void placeCircle(Graphics2D g, int r, int c, int circleSize) {
-		g.drawOval(
-			toX(c) + (cellSize - circleSize) / 2,
-			toY(r) + (cellSize - circleSize) / 2,
-			circleSize,
-			circleSize);
+		drawCircle(g, toX(c) + getHalfCellSize(), toY(r) + getHalfCellSize(),
+				circleSize / 2);
 	}
 	/**
 	 * マスに○印を配置する
@@ -504,10 +495,7 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param c 盤面列座標
 	 */
 	public void placeBoldCircle(Graphics2D g, int r, int c) {
-		int x = toX(c) + (cellSize - circleSize) / 2;
-		int y = toY(r) + (cellSize - circleSize) / 2;
-		g.drawOval(x, y, circleSize, circleSize);
-		g.drawOval(x + 1, y + 1, circleSize - 2, circleSize - 2);
+		placeBoldCircle(g, r, c, getCircleSize());
 	}
 	/**
 	 * マスに線幅2の○印を配置する
@@ -518,10 +506,10 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param circleSize 配置する○印の直径
 	 */
 	public void placeBoldCircle(Graphics2D g, int r, int c, int circleSize) {
-		int x = toX(c) + (cellSize - circleSize) / 2;
-		int y = toY(r) + (cellSize - circleSize) / 2;
-		g.drawOval(x, y, circleSize, circleSize);
-		g.drawOval(x + 1, y + 1, circleSize - 2, circleSize - 2);
+		int x = toX(c) + getHalfCellSize();
+		int y = toY(r) + getHalfCellSize();
+		drawCircle(g, x, y, circleSize / 2);
+		drawCircle(g, x, y, circleSize / 2 - 1);
 	}
 	/**
 	 * マスに塗りつぶした●印を配置する
@@ -530,11 +518,7 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param c 盤面列座標
 	 */
 	public void placeFilledCircle(Graphics2D g, int r, int c) {
-		g.fillOval(
-			toX(c) + (cellSize - circleSize) / 2,
-			toY(r) + (cellSize - circleSize) / 2,
-			circleSize + 1,
-			circleSize + 1);
+		placeFilledCircle(g, r, c, getCircleSize());
 	}
 	/**
 	 * マスに内接する大きさの塗りつぶした●印を配置する
@@ -553,11 +537,8 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param circleSize 配置する●印の直径
 	 */
 	public void placeFilledCircle(Graphics2D g, int r, int c, int circleSize) {
-		g.fillOval(
-			toX(c) + (cellSize - circleSize) / 2,
-			toY(r) + (cellSize - circleSize) / 2,
-			circleSize + 1,
-			circleSize + 1);
+		fillCircle(g, toX(c) + getHalfCellSize(), toY(r) + getHalfCellSize(),
+				circleSize / 2);
 	}
 	/**
 	 * マスに×印を配置する
@@ -566,60 +547,45 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param c 盤面列座標
 	 */
 	public void placeCross(Graphics2D g, int r, int c) {
-		drawCross(
-			g,
-			toX(c) + getHalfCellSize(),
-			toY(r) + getHalfCellSize(),
-			crossSize);
+		drawCross(g, toX(c) + getHalfCellSize(), toY(r) + getHalfCellSize(),
+				crossSize);
 	}
 	/**
 	 * 辺上に線を配置する
 	 * @param g
-	 * @param d
-	 * @param r
-	 * @param c
+	 * @param d 辺座標
+	 * @param r 辺座標
+	 * @param c 辺座標
 	 */
 	public void placeSideLine(Graphics2D g, int d, int r, int c) {
-		drawLineSegment(
-			g,
-			toX(c + (d ^ 1)),
-			toY(r + d),
-			d);
+		if (d == Direction.VERT)
+			drawLineSegment(g, toX(c + 1), toY(r), d, 3);
+		else if (d == Direction.HORIZ)
+			drawLineSegment(g, toX(c), toY(r + 1), d, 3);
 	}
 	/**
 	 * 辺と交差する線を配置する
 	 * @param g
-	 * @param d
-	 * @param r
-	 * @param c
+	 * @param d 辺座標
+	 * @param r 辺座標
+	 * @param c 辺座標
 	 */
-	public void placeTraversalLine(Graphics2D g, int d, int r, int c) {
-		drawLineSegment(
-			g,
-			toX(c) + getHalfCellSize(),
-			toY(r) + getHalfCellSize(),
-			d ^ 1);
+	public void placeLink(Graphics2D g, int d, int r, int c) {
+		drawLineSegment(g, toX(c) + getHalfCellSize(), toY(r)
+				+ getHalfCellSize(), d ^ 1, 3);
 	}
 	/**
 	 * 辺上に×印を配置する
 	 * @param g
-	 * @param d
-	 * @param r
-	 * @param c
+	 * @param d 辺座標
+	 * @param r 辺座標
+	 * @param c 辺座標
 	 */
 	public void placeSideCross(Graphics2D g, int d, int r, int c) {
 		if (d == Direction.VERT)
-			drawCross(
-				g,
-				toX(c + 1),
-				toY(r) + getHalfCellSize(),
-				smallCrossSize);
+			drawCross(g, toX(c + 1), toY(r) + getHalfCellSize(), smallCrossSize);
 		else if (d == Direction.HORIZ)
-			drawCross(
-				g,
-				toX(c) + getHalfCellSize(),
-				toY(r + 1),
-				smallCrossSize);
+			drawCross(g, toX(c) + getHalfCellSize(), toY(r + 1), smallCrossSize);
 	}
 	/**
 	 * マスの中心に横または縦の線を配置する
@@ -628,12 +594,11 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param c
 	 * @param dir
 	 */
-	public void placeMidline(Graphics2D g, int r, int c, int dir) {
-		drawMidline(
-			g,
-			toX(c) + getHalfCellSize(),
-			toY(r) + getHalfCellSize(),
-			dir);
+	public void placeCenterLine(Graphics2D g, int r, int c, int dir) {
+		if (dir == Direction.HORIZ)
+			drawLineSegment(g, toX(c), toY(r) + getHalfCellSize(), dir, 1);
+		else if (dir == Direction.VERT)
+			drawLineSegment(g, toX(c) + getHalfCellSize(), toY(r), dir, 1);
 	}
 	/**
 	 * 四角を配置する 
@@ -647,8 +612,8 @@ public class PanelBase extends JPanel implements Printable {
 		g.drawRect(
 			toX((c0 < c1) ? c0 : c1) + 1,
 			toY((r0 < r1) ? r0 : r1) + 1,
-			cellSize * (((c0 < c1) ? c1-c0 : c0-c1) + 1) - 2,
-			cellSize * (((r0 < r1) ? r1-r0 : r0-r1) + 1) - 2);
+			getCellSize() * ((c0 < c1) ? c1-c0+1 : c0-c1+1) - 2,
+			getCellSize() * ((r0 < r1) ? r1-r0+1 : r0-r1+1) - 2);
 	}
 
 	/* 

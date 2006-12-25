@@ -68,8 +68,7 @@ public class Panel extends PanelBase {
 	}
 
 	/**
-	 * @param draggingArea
-	 *            the draggingArea to set
+	 * @param draggingArea the draggingArea to set
 	 */
 	void setDraggingArea(Area draggingArea) {
 		this.draggingArea = draggingArea;
@@ -168,7 +167,7 @@ public class Panel extends PanelBase {
 							continue;
 						if (board.isOn(r,cc)) {
 							g.setColor(emissionColor);
-							placeMidline(g, r, cc, Direction.HORIZ);
+							placeCenterLine(g, r, cc, Direction.HORIZ);
 //							g.setColor(selectedNumberColor2);
 //							paintCell(g, r, cc);
 						}
@@ -178,7 +177,7 @@ public class Panel extends PanelBase {
 							continue;
 						if (board.isOn(rr,c)) {
 							g.setColor(emissionColor);
-							placeMidline(g, rr, c, Direction.VERT);
+							placeCenterLine(g, rr, c, Direction.VERT);
 //							g.setColor(selectedNumberColor2);
 //							paintCell(g, rr, c);
 						}

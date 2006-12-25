@@ -134,14 +134,14 @@ public class Panel extends PanelBase {
 						if (isWarnWrongIllumination() && l > 1) {
 							g.setColor(errorColor);
 						}
-						placeMidline(g, r, c, Direction.HORIZ);
+						placeCenterLine(g, r, c, Direction.HORIZ);
 					}
 					g.setColor(illuminationColor);
 					if (m > 0) {
 						if (isWarnWrongIllumination() && m > 1) {
 							g.setColor(errorColor);
 						}
-						placeMidline(g, r, c, Direction.VERT);
+						placeCenterLine(g, r, c, Direction.VERT);
 					}
 				}
 				if (state >= 0 && state <= Board.NONUMBER_WALL) {
