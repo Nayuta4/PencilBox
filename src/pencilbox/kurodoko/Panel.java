@@ -21,7 +21,7 @@ public class Panel extends PanelBase {
 	private Color circleColor = Color.MAGENTA;
 	private Color successColor = new Color(0x00FF00);
 	private Color errorColor = new Color(0xFF0000);
-	private Color errorColor2 = new Color(0xFFFF00);
+	private Color error2Color = new Color(0xFFFF00);
 
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard; 
@@ -94,63 +94,47 @@ public class Panel extends PanelBase {
 			for (int c = 0; c < board.cols(); c++) {
 				int st = board.getState(r, c);
 				if (st == Board.BLACK) {
-					g.setColor(paintColor);
-					paintCell(g, r, c);
+					paintCell1(g, r, c);
 				} else if (st == Board.WHITE) {
 					g.setColor(circleColor);
 					placeCircle(g, r, c);
 				} else if (st > 0) {
-					g.setColor(getNumberColor());
-					placeLargeCircle(g, r, c);
-					placeNumber(g, r, c, st);
+					placeNumber1(g, r, c, st);
 				} else if (st == Board.UNDECIDED_NUMBER) {
 					g.setColor(getNumberColor());
-					placeLargeCircle(g, r, c);
+					placeCircle(g, r, c, getCellSize()-2);
 				}
 			}
 		}
 	}
 	
-	public void paintCell(Graphics2D g, int r, int c) {
-			if (isWarnWrongWall() && board.isBlock(r,c)) {
+	private void paintCell1(Graphics2D g, int r, int c) {
+		g.setColor(paintColor);	
+		if (isWarnWrongWall()) {
+			if (board.isBlock(r,c) || board.getChain(r,c) < 0) {
 				g.setColor(errorColor);
-			} else if (isWarnWrongWall() && board.getChain(r,c) < 0) {
-				g.setColor(errorColor);
-			} else {
-				g.setColor(paintColor);	
-			}
-			super.paintCell(g,r,c);
-	}
-
-	public void placeNumber(Graphics2D g, int r, int c, int num) {
-			if (!isShowNumberHint())
-				super.placeNumber(g,r,c,num);
-			else{
-				int nSpace = board.getSumSpace(r,c);
-				int nWhite = board.getSumWhite(r,c);
-				if (nSpace < num) {
-					g.setColor(errorColor);
-					placeLargeFilledCircle(g, r, c);
-					g.setColor(getNumberColor());
-					placeLargeCircle(g, r, c);
-					super.placeNumber(g, r, c, num);
-				} else if (nSpace == num) {
-					g.setColor(successColor);
-					placeLargeFilledCircle(g, r, c);
-					g.setColor(getNumberColor());
-					placeLargeCircle(g, r, c);
-					super.placeNumber(g, r, c, num);
-				} else if (nWhite > num) {
-					g.setColor(errorColor2);
-					placeLargeFilledCircle(g, r, c);
-					g.setColor(getNumberColor());
-					placeLargeCircle(g, r, c);
-					super.placeNumber(g, r, c, num);
-				} else if (nSpace > num) {
-					g.setColor(getNumberColor());
-					placeLargeCircle(g, r, c);
-					super.placeNumber(g, r, c, num);
-				}
 			}
 		}
+		paintCell(g, r, c);
+	}
+
+	private void placeNumber1(Graphics2D g, int r, int c, int num) {
+		if (isShowNumberHint()) {
+			int nSpace = board.getSumSpace(r,c);
+			int nWhite = board.getSumWhite(r,c);
+			if (nSpace < num) {
+				g.setColor(errorColor);
+				placeFilledCircle(g, r, c, getCellSize()-2);
+			} else if (nSpace == num) {
+				g.setColor(successColor);
+				placeFilledCircle(g, r, c, getCellSize()-2);
+			} else if (nWhite > num) {
+				g.setColor(error2Color);
+				placeFilledCircle(g, r, c, getCellSize()-2);
+			}
+		}
+		g.setColor(getNumberColor());
+		placeNumber(g, r, c, num);
+		placeCircle(g, r, c, getCellSize()-2);
+	}
 }
