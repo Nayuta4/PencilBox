@@ -1,7 +1,6 @@
 package pencilbox.yajilin;
 
 import java.awt.Color;
-import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 
 import pencilbox.common.core.BoardBase;
@@ -190,57 +189,42 @@ public class Panel extends PanelBase {
 		}
 	}
 	/**
+	 * マスに矢印付き数字を配置する。
 	 * @param g
 	 * @param r
 	 * @param c
 	 * @param arrow
 	 */
 	private void placeArrow(Graphics2D g, int r, int c, int arrow) {
-		placeSquare(g, r,c,r,c);
-		g.setColor(Color.BLACK);
-//		paintCell(g,r,c);
+		placeSquare(g, r, c, r, c);
+//		g.setColor(wallColor);
+//		paintCell(g, r, c);
+//		g.setColor(numberColor);
 		int direction = (arrow >> 4) & 3;
 		int number = arrow & 15;
-//		g.setColor(Color.WHITE);
-		drawArrow(g, r, c, number, direction);
+		String arrowS = getArrowString(direction);
+		String numberS = Integer.toString(number);
+		if (direction == Direction.UP || direction == Direction.DN) {
+			drawString(g, toX(c+1) - getCellSize()*1/6, toY(r) + getHalfCellSize(), arrowS);
+			drawString(g, toX(c) + getHalfCellSize() - getCellSize()*1/12, toY(r) + getHalfCellSize(), numberS);
+		} else if  (direction == Direction.LT || direction == Direction.RT) {
+			drawString(g, toX(c) + getHalfCellSize(), toY(r) + getCellSize()*1/6, arrowS);
+			drawString(g, toX(c) + getHalfCellSize(), toY(r) + getHalfCellSize() + getCellSize()*1/12, numberS);
+		}
 	}
 	
-	/**
-	 * @param g
-	 * @param r
-	 * @param c
-	 * @param number
-	 * @param direction
-	 */
-	private void drawArrow(Graphics2D g, int r, int c, int number, int direction) {
-		char arrowChar = 0;
-		if (direction == Direction.UP) {
-			arrowChar = '↑';
-		} else if (direction == Direction.DN) {
-			arrowChar = '↓';
-		} else if (direction == Direction.LT) {
-			arrowChar = '←';
-		} else if (direction == Direction.RT) {
-			arrowChar = '→';
+	private String getArrowString(int direction) {
+		switch (direction) {
+		case Direction.UP:
+			return "↑";
+		case Direction.DN:
+			return "↓";
+		case Direction.LT:
+			return "←";
+		case Direction.RT:
+			return "→";
+		default:
+			return "";
 		}
-		String arrowS = Character.toString(arrowChar);
-		String numberS = Integer.toString(number);
-		FontMetrics metrics = g.getFontMetrics();
-		if ((direction & 1) == Direction.VERT) {
-			g.drawString(
-				arrowS,
-				(toX(c) + (getCellSize() - 1 - metrics.charWidth(arrowChar)) / 2 + 1 +(getHalfCellSize()*4/5)),
-				(toY(r)	+ (getCellSize() - 1 - metrics.getHeight()) / 2 + metrics.getAscent())+ 1);
-		}
-		else if ((direction & 1) == Direction.HORIZ) {
-			g.drawString(
-				arrowS,
-				(toX(c) + (getCellSize() - 1 - metrics.charWidth(arrowChar)) / 2 + 1),
-				(toY(r)	+ (getCellSize() - 1 - metrics.getHeight()) / 2 + metrics.getAscent())+ 1-(getHalfCellSize()*4/5));
-		}
-		g.drawString(
-			numberS,
-			(toX(c) + (getCellSize() - 1 - metrics.stringWidth(numberS)) / 2 + 1),
-			(toY(r) + (getCellSize() - 1 - metrics.getHeight()) / 2 + metrics.getAscent()) + 1);
 	}
 }

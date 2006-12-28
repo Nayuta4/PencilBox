@@ -2,10 +2,8 @@ package pencilbox.kakuro;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 
-import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
 import pencilbox.common.gui.CellCursor;
@@ -30,7 +28,6 @@ public class Panel extends PanelBase {
 
 	private Font smallFont = new Font("SansSerif", Font.PLAIN, 13);
 
-	private Address wallPos = new Address();
 	private HintDot hintDot = new HintDot();
 
 	/**
@@ -140,45 +137,33 @@ public class Panel extends PanelBase {
 	 * @param b 斜線左下の数字
 	 */
 	void drawWall(Graphics2D g, int r, int c, int a, int b){
-
-		String numS;
 		g.setColor(wallColor);
-		wallPos.set(r,c);
-		int statusA = board.getWordStatus(r,c,Direction.HORIZ);
-		int statusB = board.getWordStatus(r,c,Direction.VERT);
-//		r = wallPos.r;
-//		c = wallPos.c;
-		g.fillRect(toX(wallPos.c())+1, toY(wallPos.r())+1, getCellSize()-1, getCellSize()-1);
+		paintCell(g, r, c);
 		g.setColor(separationColor);
-		g.drawLine(toX(wallPos.c()),toY(wallPos.r()), toX(wallPos.c()+1), toY(wallPos.r()+1));
-		FontMetrics metrics = g.getFontMetrics();
-		numS = Integer.toString(b);
+		g.drawLine(toX(c), toY(r), toX(c+1), toY(r+1));
 		if (b>0) {
-			if (isWarnWrongNumber() && statusB == -1) g.setColor(errorColor);
-//			else if (statusB == 1 ) g.setColor(successColor);
-			else g.setColor(separationColor);
-		g.drawString(
-			numS,
-			(toX(wallPos.c()) + (getHalfCellSize() - metrics.stringWidth(numS)) / 2 + 1),
-			(toY(wallPos.r()) + (getHalfCellSize() - metrics.getHeight()) / 2 + metrics.getAscent())  + getHalfCellSize());
+			int statusB = board.getWordStatus(r,c,Direction.VERT);
+			if (isWarnWrongNumber() && statusB == -1)
+				g.setColor(errorColor);
+			else
+				g.setColor(separationColor);
+			drawString(g, toX(c) + getHalfCellSize()/2 + 1, toY(r+1) - getHalfCellSize()/2, Integer.toString(b));
 		}
-		numS = Integer.toString(a);
 		if (a>0) {
-			if (warnWrongNumber && statusA == -1) g.setColor(errorColor);
-//			else if (statusA == 1 ) g.setColor(successColor);
-			else g.setColor(separationColor);
-		g.drawString(
-			numS,
-			(toX(wallPos.c()) + (getHalfCellSize() - metrics.stringWidth(numS)) / 2  + getHalfCellSize()),
-			(toY(wallPos.r()) + (getHalfCellSize() - metrics.getHeight()) / 2 + metrics.getAscent()) + 1);
+			int statusA = board.getWordStatus(r,c,Direction.HORIZ);
+			if (isWarnWrongNumber() && statusA == -1)
+				g.setColor(errorColor);
+			else
+				g.setColor(separationColor);
+			drawString(g, toX(c+1) - getHalfCellSize()/2, toY(r) + getHalfCellSize()/2 + 1, Integer.toString(a));
 		}
-		g.setColor(separationColor);
-		if (board.isWall(r, c+1)) {
-			g.drawLine(toX(wallPos.c()+1),toY(wallPos.r()), toX(wallPos.c()+1), toY(wallPos.r()+1));
-		}
-		if (board.isWall(r+1, c)) {
-			g.drawLine(toX(wallPos.c()),toY(wallPos.r()+1), toX(wallPos.c()+1), toY(wallPos.r()+1));
-		}
+//		g.setColor(separationColor);
+//		if (board.isWall(r, c+1)) {
+//			g.drawLine(toX(c+1), toY(r), toX(c+1), toY(r+1));
+//		}
+//		if (board.isWall(r+1, c)) {
+//			g.drawLine(toX(c), toY(r+1), toX(c+1), toY(r+1));
+//		}
 	}
 	/**
 	 * カックロ問題入力用カーソルを描く

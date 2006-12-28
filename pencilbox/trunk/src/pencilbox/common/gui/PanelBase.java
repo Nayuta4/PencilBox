@@ -356,6 +356,20 @@ public class PanelBase extends JPanel implements Printable {
 	public void fillCircle(Graphics g, int x, int y, int radius) {
 		g.fillOval(x-radius, y-radius, radius+radius+1, radius+radius+1);		
 	}
+	/**
+	 * 引数の座標を中心として文字列を描く
+	 * @param g
+	 * @param x 中心のx座標
+	 * @param y 中心のy座標
+	 * @param str 描く文字列
+	 */
+	public void drawString(Graphics g, int x, int y, String str) {
+		FontMetrics metrics = g.getFontMetrics();
+		g.drawString(
+				str,
+				x - metrics.stringWidth(str) / 2,
+				y - metrics.getHeight() / 2 + metrics.getAscent());
+	}
 
 	/*
 	 * マスの内容を描画するためのメソッド群
@@ -369,6 +383,16 @@ public class PanelBase extends JPanel implements Printable {
 	 * 横線または縦線を描く
 	 */
 	/**
+	 * マスの中央に文字列を配置する
+	 * @param g
+	 * @param r 盤面上の行座標
+	 * @param c 盤面上の列座標
+	 * @param string 描く文字列
+	 */
+	public void placeString(Graphics2D g, int r, int c, String string) {
+		drawString(g, toX(c) + getHalfCellSize(), toY(r) + getHalfCellSize(), string);
+	}
+	/**
 	 * マスに文字を配置する
 	 * @param g
 	 * @param r 盤面上の行座標
@@ -376,21 +400,7 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param letter 描く文字
 	 */
 	public void placeLetter(Graphics2D g, int r, int c, char letter) {
-		FontMetrics metrics = g.getFontMetrics();
-		try {
-			String string = Character.toString(letter);
-			g.drawString(
-				string,
-				(toX(c)
-					+ (cellSize - 1 - metrics.stringWidth(string)) / 2
-					+ 1),
-				(toY(r)
-					+ (cellSize - 1 - metrics.getHeight()) / 2
-					+ metrics.getAscent())
-					+ 1);
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		}
+		placeString(g, r, c, Character.toString(letter));
 	}
 	/**
 	 * マスに数字を配置する
@@ -400,21 +410,7 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param number 描く数字
 	 */
 	public void placeNumber(Graphics2D g, int r, int c, int number) {
-		FontMetrics metrics = g.getFontMetrics();
-		try {
-			String numS = Integer.toString(number);
-			g.drawString(
-				numS,
-				(toX(c)
-					+ (cellSize - 1 - metrics.stringWidth(numS)) / 2
-					+ 1),
-				(toY(r)
-					+ (cellSize - 1 - metrics.getHeight()) / 2
-					+ metrics.getAscent())
-					+ 1);
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		}
+		placeString(g, r, c, Integer.toString(number));
 	}
 	/**
 	 * マスに数字を配置する
@@ -424,23 +420,8 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param number 描く数字
 	 */
 	public void placeIndexNumber(Graphics2D g, int r, int c, int number) {
-		FontMetrics metrics = g.getFontMetrics();
-		try {
-			String numS = Integer.toString(number);
-			g.drawString(
-				numS,
-				(toX(c)
-					+ (cellSize - 1 - metrics.stringWidth(numS)) / 2
-					+ 1),
-				(toY(r)
-					+ (cellSize - 1 - metrics.getHeight()) / 2
-					+ metrics.getAscent())
-					+ 1);
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		}
+		placeString(g, r, c, Integer.toString(number));
 	}
-
 	/**
 	 * マスを塗りつぶす
 	 * @param g
