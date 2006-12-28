@@ -1,7 +1,6 @@
 package pencilbox.slitherlink;
 
 import java.awt.Color;
-import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 
 import pencilbox.common.core.BoardBase;
@@ -120,9 +119,12 @@ public class Panel extends PanelBase {
 				if (number >= 0 && number <= 4) {
 					if (isWarnBranchedLink()) {
 						nline = board.lineAround(r,c);
-						if (nline > number) g.setColor(errorColor);
-//						else if ( nline < state) g.setColor(errorColor);
-						else g.setColor(getNumberColor());
+						if (nline > number)
+							g.setColor(errorColor);
+//						else if ( nline < state)
+//							g.setColor(errorColor);
+						else
+							g.setColor(getNumberColor());
 					}
 					placeNumber2(g, r, c, number);
 				} else if (number == Board.UNDECIDED_NUMBER) {
@@ -138,7 +140,7 @@ public class Panel extends PanelBase {
 						g.setColor(lineColor);
 						if (isColorForEachLink())
 							g.setColor(Colors.getColor(board.getLink(d,r,c).getID()));
-						if (warnBranchedLink && board.isBranchedLink(d,r,c))
+						if (isWarnBranchedLink() && board.isBranchedLink(d,r,c))
 							g.setColor(errorColor);
 						placeLink(g, d, r, c);
 					} else if (number == Board.NOLINE) {
@@ -158,19 +160,7 @@ public class Panel extends PanelBase {
 	 * @param num
 	 */
 	protected void placeNumber2(Graphics2D g, int r, int c, int num) {
-		FontMetrics metrics = g.getFontMetrics();
-		String numS = Integer.toString(num);
-		g.drawString(
-			numS,
-			(toX(c)
-				+ (getCellSize() - 1 - metrics.stringWidth(numS)) / 2
-				+ 1
-				+ getHalfCellSize()),
-			(toY(r)
-				+ (getCellSize() - 1 - metrics.getHeight()) / 2
-				+ metrics.getAscent())
-				+ 1
-				+ getHalfCellSize());
+		drawString(g, toX(c+1), toY(r+1), Integer.toString(num));
 	}
 	/**
 	 * スリザーリンク用数字配置メソッド
