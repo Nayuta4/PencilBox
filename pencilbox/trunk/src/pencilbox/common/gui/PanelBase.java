@@ -37,7 +37,6 @@ public class PanelBase extends JPanel implements Printable {
     protected boolean useBackgroundImage = false;
 
 	private int cellSize = 26;
-	private int halfCellSize = cellSize / 2;
 	private int circleSize = 18;
 	private int crossSize = 8; // 片側サイズ
 	private int smallCrossSize = 3; // 片側サイズ
@@ -109,25 +108,17 @@ public class PanelBase extends JPanel implements Printable {
 	 * 表示サイズを変更する
 	 * @param cellSize マスのサイズ
 	 */
-	protected void setDisplaySize(int cellSize) {
-
+	public void setDisplaySize(int cellSize) {
 		this.cellSize = cellSize;
 		if (showIndexMode) {
 			offsetx = cellSize;
 			offsety = cellSize;
 		}
-		setHalfCellSize(cellSize / 2);
 		circleSize = (int) (cellSize * 0.7);
 		crossSize = (int) (cellSize * 0.3);
 		smallCrossSize = (int) (cellSize * 0.15);
 		numberFont = new Font("SansSerif", Font.PLAIN, cellSize * 4 / 5);
 		indexFont = new Font("SansSerif", Font.ITALIC, cellSize / 2);
-		//		if (size==14){
-		//		}
-		//		else if (size==20) {
-		//		}
-		//		else if (size==26) {
-		//		}
 		updatePreferredSize();
 		repaint();
 	}
@@ -626,16 +617,10 @@ public class PanelBase extends JPanel implements Printable {
 		return cellSize;
 	}
 	/**
-	 * @param halfCellSize The halfCellSize to set.
-	 */
-	public void setHalfCellSize(int halfCellSize) {
-		this.halfCellSize = halfCellSize;
-	}
-	/**
 	 * @return Returns the halfCellSize.
 	 */
 	public int getHalfCellSize() {
-		return halfCellSize;
+		return cellSize / 2;
 	}
 	/**
 	 * @param circleSize The circleSize to set.
