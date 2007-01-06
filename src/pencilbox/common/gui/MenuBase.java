@@ -51,6 +51,8 @@ public class MenuBase {
 //	private JMenuItem redoAllItem;
 	private JMenuItem palybackItem;
 	private JMenuItem checkAnswerItem;
+	private JMenuItem cellSizeItem;
+	private JMenuItem showIndexModeItem;
 	private JMenuItem renewColorItem;
 	private JMenuItem cursorItem;
 	private ButtonGroup modeGroup;
@@ -59,11 +61,8 @@ public class MenuBase {
 
 	private JMenu colorMenu;
 	private JMenu rotationMenu;
-	private JMenu displaySizeMenu;
-	private ButtonGroup displaySizeGroup;
 	private JMenu gridStyleMenu;
 	private ButtonGroup gridStyleGroup;
-	private JMenuItem showIndexModeItem;
 
 	private Frame frame;
 	private MenuCommand command;
@@ -173,10 +172,9 @@ public class MenuBase {
 	 */
 	protected void buildViewMenu() {
 		viewMenu = makeJMenu("表示(V)", 'V');
-		buildDisplaySizeMenu();
 		buildGridStyleMenu();
 		viewMenu.add(colorMenu = makeJMenu("色の設定(L)", 'L'));
-		viewMenu.add(displaySizeMenu);
+		viewMenu.add(cellSizeItem = makeCommandMenuItem("表示サイズ(S)...", 'S'));
 		viewMenu.add(showIndexModeItem = makeCheckBoxCommandMenuItem("行列番号表示(I)", 'I', true));
 		viewMenu.addSeparator();
 		viewMenu.addMenuListener(new ViewMenuListener());
@@ -208,18 +206,6 @@ public class MenuBase {
 	 */
 	protected void buildRotationMenu2() {
 		makeRotationItem("縦横交換(4)", '4', "4");
-	}
-
-	/**
-	 * [表示サイズ]メニュー作成
-	 */
-	void buildDisplaySizeMenu() {
-		displaySizeMenu = makeJMenu("表示サイズ(S)", 'S');
-		displaySizeGroup = new ButtonGroup();
-		makeDisplaySizeItem(32, "大");
-		makeDisplaySizeItem(26, "中").setSelected(true);
-		makeDisplaySizeItem(20, "小");
-		makeDisplaySizeItem(14, "極小");
 	}
 
 	/**
@@ -385,25 +371,6 @@ public class MenuBase {
 	};
 
 	/**
-	 * 「表示サイズ変更」のサブメニュー項目を作成し，グループに追加する。
-	 * @param n 設定するセルサイズ
-	 * @param text メニュー表示文字列
-	 * @return 作成したメニュー項目
-	 */
-	protected JRadioButtonMenuItem makeDisplaySizeItem(final int n, String text) {
-		JRadioButtonMenuItem displaySizeItem = new JRadioButtonMenuItem(text);
-		displaySizeItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				panel.setDisplaySize(n);
-				frame.resize();
-			}
-		});
-		displaySizeGroup.add(displaySizeItem);
-		displaySizeMenu.add(displaySizeItem);
-		return displaySizeItem;
-	}
-
-	/**
 	 * 「罫線スタイル選択」のサブメニューを作成し，グループに追加する。
 	 * @param n スタイル番号
 	 * @param text メニュー表示文字列
@@ -535,6 +502,8 @@ public class MenuBase {
 			command.setProblemEditMode(true);
 		else if (target == showIndexModeItem)
 			command.setShowIndexMode(target.isSelected());
+		else if (target == cellSizeItem)
+			command.cellSize();
 		else
 			executeCommand2(target);
 		panel.repaint();
