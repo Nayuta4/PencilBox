@@ -129,7 +129,7 @@ public class MenuCommand {
 			NewBoardDialog newBoardDialog = NewBoardDialog.getInstance();
 //			newBoardDialog.setPencilType(pencilType);
 			newBoardDialog.setCurrentSize(board.getSize());
-			if (newBoardDialog.showDialog(frame, "新規盤面") == PencilBoxDialog.OK_OPTION) {
+			if (newBoardDialog.showDialog(frame, "新規作成") == PencilBoxDialog.OK_OPTION) {
 				Size newSize = newBoardDialog.getNewSize();
 				if (newSize != null && isValidSize(newSize)) {
 					PencilFactory.getInstance(pencilType, this).createNewFrame(newSize);
@@ -445,6 +445,26 @@ public class MenuCommand {
 	public void setCursorOn(boolean b) {
 		panel.setCursorOn(b);
 		panel.repaint();
+	}
+	/**
+	 *  [表示]-[表示サイズ]
+	 */
+	public void cellSize() {
+		int currentCellSize = getPanelBase().getCellSize();
+		CellSizeDialog cellSizeDialog = CellSizeDialog.getInstance();
+		cellSizeDialog.setPanel(getPanelBase());
+		cellSizeDialog.setCellSize(currentCellSize);
+		int result = cellSizeDialog.showDialog(frame, "表示サイズ");
+		int newCellSize = cellSizeDialog.getCellSize();
+		if (result == PencilBoxDialog.OK_OPTION) {
+			getPanelBase().setDisplaySize(newCellSize);
+			getFrame().resize();
+		} else if (result == PencilBoxDialog.CANCEL_OPTION || result == PencilBoxDialog.CLOSED_OPTION) {
+			if (currentCellSize != newCellSize) {
+				getPanelBase().setDisplaySize(currentCellSize);
+				getFrame().resize();
+			}
+		}
 	}
 	/**
 	 *  [表示]-[行列番号表示]
