@@ -24,6 +24,10 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	private int previousInput = 0;
 	private int symmetricPlacementMode = 0;
 
+	private Address oldPos = new Address(-1, -1);
+	private Address newPos = new Address(-1, -1);
+	private SideAddress sidePos = new SideAddress();
+
 	/**
 	 * PanelEventHandlerを生成する
 	 */
@@ -42,7 +46,6 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	public void setup(BoardBase board) {
 		this.board = board;
 		setBoard(board);
-		getCellCursor().resetPosition();
 		resetPreviousInput();
 	}
 
@@ -174,89 +177,89 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	/*
 	 * キーリスナー
 	 */
-		public void keyPressed(KeyEvent e) {
-			int keyCode = e.getKeyCode();
-			switch (keyCode) {
-			case KeyEvent.VK_SLASH:
-			case KeyEvent.VK_DIVIDE:
-				slashKeyEntered();
-				break;
-			case KeyEvent.VK_LEFT: // 0x25
-				arrowKeyEntered(Direction.LT);
-				break;
-			case KeyEvent.VK_UP: // 0x26
-				arrowKeyEntered(Direction.UP);
-				break;
-			case KeyEvent.VK_RIGHT: // 0x27
-				arrowKeyEntered(Direction.RT);
-				break;
-			case KeyEvent.VK_DOWN: // 0x28
-				arrowKeyEntered(Direction.DN);
-				break;
-			case KeyEvent.VK_SPACE:
-			case KeyEvent.VK_PERIOD:
-			case KeyEvent.VK_DECIMAL:
-				spaceKeyEntered();
-				break;
-			case KeyEvent.VK_MINUS:
-			case KeyEvent.VK_SUBTRACT:
-				minusKeyEntered();
-				break;
-			case KeyEvent.VK_SEMICOLON:
-			case KeyEvent.VK_ADD:
-				break;
-			case KeyEvent.VK_COLON:
-			case KeyEvent.VK_MULTIPLY:
-				break;
-			case KeyEvent.VK_0:
-			case KeyEvent.VK_NUMPAD0:
-				numberKeyEntered(0);
-				break;
-			case KeyEvent.VK_1:
-			case KeyEvent.VK_NUMPAD1:
-				numberKeyEntered(1);
-				break;
-			case KeyEvent.VK_2:
-			case KeyEvent.VK_NUMPAD2:
-				numberKeyEntered(2);
-				break;
-			case KeyEvent.VK_3:
-			case KeyEvent.VK_NUMPAD3:
-				numberKeyEntered(3);
-				break;
-			case KeyEvent.VK_4:
-			case KeyEvent.VK_NUMPAD4:
-				numberKeyEntered(4);
-				break;
-			case KeyEvent.VK_5:
-			case KeyEvent.VK_NUMPAD5:
-				numberKeyEntered(5);
-				break;
-			case KeyEvent.VK_6:
-			case KeyEvent.VK_NUMPAD6:
-				numberKeyEntered(6);
-				break;
-			case KeyEvent.VK_7:
-			case KeyEvent.VK_NUMPAD7:
-				numberKeyEntered(7);
-				break;
-			case KeyEvent.VK_8:
-			case KeyEvent.VK_NUMPAD8:
-				numberKeyEntered(8);
-				break;
-			case KeyEvent.VK_9:
-			case KeyEvent.VK_NUMPAD9:
-				numberKeyEntered(9);
-				break;
-			}
-			repaint();
+	public void keyPressed(KeyEvent e) {
+		int keyCode = e.getKeyCode();
+		switch (keyCode) {
+		case KeyEvent.VK_SLASH:
+		case KeyEvent.VK_DIVIDE:
+			slashKeyEntered();
+			break;
+		case KeyEvent.VK_LEFT: // 0x25
+			arrowKeyEntered(Direction.LT);
+			break;
+		case KeyEvent.VK_UP: // 0x26
+			arrowKeyEntered(Direction.UP);
+			break;
+		case KeyEvent.VK_RIGHT: // 0x27
+			arrowKeyEntered(Direction.RT);
+			break;
+		case KeyEvent.VK_DOWN: // 0x28
+			arrowKeyEntered(Direction.DN);
+			break;
+		case KeyEvent.VK_SPACE:
+		case KeyEvent.VK_PERIOD:
+		case KeyEvent.VK_DECIMAL:
+			spaceKeyEntered();
+			break;
+		case KeyEvent.VK_MINUS:
+		case KeyEvent.VK_SUBTRACT:
+			minusKeyEntered();
+			break;
+		case KeyEvent.VK_SEMICOLON:
+		case KeyEvent.VK_ADD:
+			break;
+		case KeyEvent.VK_COLON:
+		case KeyEvent.VK_MULTIPLY:
+			break;
+		case KeyEvent.VK_0:
+		case KeyEvent.VK_NUMPAD0:
+			numberKeyEntered(0);
+			break;
+		case KeyEvent.VK_1:
+		case KeyEvent.VK_NUMPAD1:
+			numberKeyEntered(1);
+			break;
+		case KeyEvent.VK_2:
+		case KeyEvent.VK_NUMPAD2:
+			numberKeyEntered(2);
+			break;
+		case KeyEvent.VK_3:
+		case KeyEvent.VK_NUMPAD3:
+			numberKeyEntered(3);
+			break;
+		case KeyEvent.VK_4:
+		case KeyEvent.VK_NUMPAD4:
+			numberKeyEntered(4);
+			break;
+		case KeyEvent.VK_5:
+		case KeyEvent.VK_NUMPAD5:
+			numberKeyEntered(5);
+			break;
+		case KeyEvent.VK_6:
+		case KeyEvent.VK_NUMPAD6:
+			numberKeyEntered(6);
+			break;
+		case KeyEvent.VK_7:
+		case KeyEvent.VK_NUMPAD7:
+			numberKeyEntered(7);
+			break;
+		case KeyEvent.VK_8:
+		case KeyEvent.VK_NUMPAD8:
+			numberKeyEntered(8);
+			break;
+		case KeyEvent.VK_9:
+		case KeyEvent.VK_NUMPAD9:
+			numberKeyEntered(9);
+			break;
 		}
+		repaint();
+	}
 
-		public void keyTyped(KeyEvent e) {
-		}
+	public void keyTyped(KeyEvent e) {
+	}
 
-		public void keyReleased(KeyEvent e) {
-		}
+	public void keyReleased(KeyEvent e) {
+	}
 
 	/**
 	 * 矢印キー入力を処理する。 矢印の方向にカーソルを移動する。
@@ -341,128 +344,131 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	/*
 	 * マウスリスナー
 	 */
-		private Address oldPos = new Address(-1, -1);
-		private Address newPos = new Address(-1, -1);
-		private SideAddress position = new SideAddress();
+	public void mousePressed(MouseEvent e) {
+		newPos.set(toR(e.getY()), toC(e.getX()));
+		if (!isOn(newPos))
+			return;
+		int modifier = e.getModifiers();
+		if ((modifier & InputEvent.BUTTON1_MASK) != 0) {
+			if ((e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK) != 0)
+				leftPressedShift(newPos);
+			else
+				leftPressed(newPos);
+		} else if ((modifier & InputEvent.BUTTON3_MASK) != 0) {
+			rightPressed(newPos);
+		}
+		moveCursor(newPos);
+		oldPos.set(newPos); // 現在位置を更新
+		repaint();
+	}
 
-		public void mousePressed(MouseEvent e) {
+	public void mouseDragged(MouseEvent e) {
+		newPos.set(toR(e.getY()), toC(e.getX()));
+		if (!isOn(newPos)) {
+			oldPos.setNowhere();
+			return;
+		}
+		if (newPos.equals(oldPos))
+			return; // 同じマス内に止まるイベントは無視
+		// if (!newPos.isNextTo(oldPos)) return; // 隣接マス以外のイベントは無視
+		// if (dragIneffective(oldPos, newPos)) return; // 隣接マス以外のイベントは無視
+		if ((e.getModifiers() & InputEvent.BUTTON1_MASK) != 0) {
+			leftDragged(oldPos, newPos);
+		} else if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
+			rightDragged(oldPos, newPos);
+		}
+		moveCursor(newPos);
+		oldPos.set(newPos); // 現在位置を更新
+		repaint();
+	}
 
-			newPos.set(toR(e.getY()), toC(e.getX()));
-			if (!isOn(newPos))
-				return;
-			int modifier = e.getModifiers();
-			if ((modifier & InputEvent.BUTTON1_MASK) != 0) {
-				if ((e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK) != 0)
-					leftPressedShift(newPos);
-				else
-					leftPressed(newPos);
-			} else if ((modifier & InputEvent.BUTTON3_MASK) != 0) {
-				rightPressed(newPos);
-			}
-			moveCursor(newPos);
-
-			oldPos.set(newPos); // 現在位置を更新
+	public void mouseReleased(MouseEvent e) {
+		if (!isOn(oldPos)) {
+			dragFailed();
 			repaint();
+			return;
 		}
-
-		public void mouseDragged(MouseEvent e) {
-
-			newPos.set(toR(e.getY()), toC(e.getX()));
-			if (!isOn(newPos)) {
-				oldPos.setNowhere();
-				// この文を入れないと，盤外を経由したドラッグが無効化されない あってもなくても同じ
-				return;
-			}
-
-			if (newPos.equals(oldPos))
-				return; // 同じマス内に止まるイベントは無視
-			// if (!newPos.isNextTo(oldPos)) return; // 隣接マス以外のイベントは無視
-			// if (dragIneffective(oldPos, newPos)) return; // 隣接マス以外のイベントは無視
-
-			if ((e.getModifiers() & InputEvent.BUTTON1_MASK) != 0) {
-				leftDragged(oldPos, newPos);
-			} else if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
-				rightDragged(oldPos, newPos);
-			}
-			moveCursor(newPos);
-			oldPos.set(newPos); // 現在位置を更新
-			repaint();
+		if ((e.getModifiers() & InputEvent.BUTTON1_MASK) != 0) {
+			leftDragFixed(oldPos);
+		} else if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
+			rightDragFixed(oldPos);
 		}
+		repaint();
+	}
 
-		public void mouseReleased(MouseEvent e) {
+	public void mouseExited(MouseEvent e) {
+	}
 
-			if (!isOn(oldPos)) {
-				dragFailed();
-				repaint();
-				return;
-			}
-			if ((e.getModifiers() & InputEvent.BUTTON1_MASK) != 0) {
-				leftDragFixed(oldPos);
-			} else if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
-				rightDragFixed(oldPos);
-			}
-			repaint();
-		}
+	public void mouseEntered(MouseEvent e) {
+	}
 
-		public void mouseExited(MouseEvent e) {
-		}
+	public void mouseClicked(MouseEvent e) {
+		mouseClicked1(e);
+		mouseClicked2(e);
+		repaint();
+	}
 
-		public void mouseEntered(MouseEvent e) {
+	public void mouseClicked1(MouseEvent e) {
+		if (!isOn(newPos))
+			return;
+		int modifier = e.getModifiers();
+		if ((modifier & InputEvent.BUTTON1_MASK) != 0) {
+			if ((e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK) != 0)
+				leftClickedShift(newPos);
+			else
+				leftClicked(newPos);
+		} else if ((modifier & InputEvent.BUTTON3_MASK) != 0) {
+			rightClicked(newPos);
 		}
+	}
+	/**
+	 * 辺の位置のクリック操作を処理する。
+	 * @param e
+	 */
+	public void mouseClicked2(MouseEvent e) {
+		setSidePosition(e);
+		if (!isSideOn(sidePos))
+			return;
+		int modifier = e.getModifiers();
+		if ((modifier & InputEvent.BUTTON1_MASK) != 0) {
+			if ((e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK) != 0)
+				leftClickedShiftEdge(sidePos);
+			else
+				leftClickedEdge(sidePos);
+		} else if ((modifier & InputEvent.BUTTON3_MASK) != 0) {
+			rightClickedEdge(sidePos);
+		}
+	}
 
-		public void mouseClicked(MouseEvent e) {
-			mouseClicked1(e);
-			mouseClicked2(e);
-			repaint();
+	/**
+	 * マウス位置に最も近い辺座標を設定する。
+	 * @param e
+	 */
+	public void setSidePosition(MouseEvent e) {
+		int r = toR(e.getY());
+		int c = toC(e.getX());
+		int resx = e.getX() - getOffsetx() - getCellSize() * c;
+		int resy = e.getY() - getOffsety() - getCellSize() * r;
+		if (resx + resy < getCellSize()) {
+			if (resx < resy)
+				sidePos.set(Direction.VERT, r, c-1);
+			else
+				sidePos.set(Direction.HORIZ, r-1, c);
+		} else {
+			if (resy < resx)
+				sidePos.set(Direction.VERT, r, c);
+			else
+				sidePos.set(Direction.HORIZ, r, c);
 		}
+	}
 
-		public void mouseClicked1(MouseEvent e) {
-			if (!isOn(newPos))
-				return;
-			int modifier = e.getModifiers();
-			if ((modifier & InputEvent.BUTTON1_MASK) != 0) {
-				if ((e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK) != 0)
-					leftClickedShift(newPos);
-				else
-					leftClicked(newPos);
-			} else if ((modifier & InputEvent.BUTTON3_MASK) != 0) {
-				rightClicked(newPos);
-			}
-		}
-		/**
-		 * 辺の位置のクリック操作を処理する。
-		 * @param e
-		 */
-		public void mouseClicked2(MouseEvent e) {
-			int x = e.getX();
-			int y = e.getY();
-			if ((((y - getOffsety()) - (x - getOffsetx()) + board.cols() * getCellSize() * 2) / getCellSize()
-					+ ((y - getOffsety()) + (x - getOffsetx()))	/ getCellSize())
-					% 2 == 0) {
-				position.set(Direction.VERT, toR(y), toC(x - getHalfCellSize())); // 縦の辺上
-			} else {
-				position.set(Direction.HORIZ, toR(y - getHalfCellSize()), toC(x)); // 横の辺上
-			}
-			if (!isSideOn(position))
-				return;
-			int modifier = e.getModifiers();
-			if ((modifier & InputEvent.BUTTON1_MASK) != 0) {
-				if ((e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK) != 0)
-					leftClickedShiftEdge(position);
-				else
-					leftClickedEdge(position);
-			} else if ((modifier & InputEvent.BUTTON3_MASK) != 0) {
-				rightClickedEdge(position);
-			}
-		}
-
-		public void mouseMoved(MouseEvent e) {
-			// movePos.set(toR(e.getY()), toC(e.getX()));
-			// if (!isOn(movePos))
-			// return;
-			// mouseMovedTo(movePos);
-			// repaint();
-		}
+	public void mouseMoved(MouseEvent e) {
+		// movePos.set(toR(e.getY()), toC(e.getX()));
+		// if (!isOn(movePos))
+		// return;
+		// mouseMovedTo(movePos);
+		// repaint();
+	}
 
 	/**
 	 * 左ボタンが押されたときに呼ばれる。
