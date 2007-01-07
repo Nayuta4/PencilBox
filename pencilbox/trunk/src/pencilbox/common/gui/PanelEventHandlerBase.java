@@ -7,6 +7,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import javax.swing.JOptionPane;
+
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
@@ -23,6 +25,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	private int maxInputNumber = 99;
 	private int previousInput = 0;
 	private int symmetricPlacementMode = 0;
+	private int immediateAnswerCheckMode = -1; // -1:OFF, 0:ON, 1:ALREADY_CHECKED
 
 	private Address oldPos = new Address(-1, -1);
 	private Address newPos = new Address(-1, -1);
@@ -36,17 +39,17 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 
 	public void setup(PanelBase panel, BoardBase board) {
 		this.panel = panel;
-		this.board = board;
-		setBoard(board);
 		panel.addKeyListener(this);
 		panel.addMouseListener(this);
 		panel.addMouseMotionListener(this);
+		setup(board);
 	}
 
 	public void setup(BoardBase board) {
 		this.board = board;
 		setBoard(board);
 		resetPreviousInput();
+		resetImmediateAnswerCheckMode();
 	}
 
 	/**
@@ -68,12 +71,31 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 		return symmetricPlacementMode == 1 ? true : false;
 	}
 	/**
-	 * @param symmetricPlacementMode the symmetricPlacementMode to set
+	 * @param b the symmetricPlacementMode to set
 	 */
-	public void setSymmetricPlacementMode(boolean symmetricPlacementMode) {
-		this.symmetricPlacementMode = symmetricPlacementMode ? 1 : 0;
+	public void setSymmetricPlacementMode(boolean b) {
+		this.symmetricPlacementMode = b ? 1 : 0;
 	}
 
+	/**
+	 * @return the immediateAnswerCheckMode
+	 */
+	public boolean isImmediateAnswerCheckMode() {
+		return this.immediateAnswerCheckMode >= 0 ? true : false;
+	}
+	/**
+	 * @param b the immediateAnswerCheckMode to set
+	 */
+	public void setImmediateAnswerCheckMode(boolean b) {
+		this.immediateAnswerCheckMode = b ? 0 : -1;
+	}
+	/**
+	 * 即時正解判定モードの場合に，正解済み状態から未正解状態に戻す。
+	 */
+	public void resetImmediateAnswerCheckMode() {
+		if (immediateAnswerCheckMode == 1)
+			immediateAnswerCheckMode = 0;
+	}
 	/**
 	 * 入力可能な最大数字を設定する
 	 * @param number 設定する数値
@@ -111,6 +133,8 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	public void setProblemEditMode(boolean b) {
 		panel.setProblemEditMode(b);
 		resetPreviousInput();
+		if (b == false)
+			resetImmediateAnswerCheckMode();
 	}
 
 	public CellCursor getCellCursor() {
@@ -259,6 +283,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	}
 
 	public void keyReleased(KeyEvent e) {
+		checkAnswer();
 	}
 
 	/**
@@ -394,6 +419,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 			rightDragFixed(oldPos);
 		}
 		repaint();
+		checkAnswer();
 	}
 
 	public void mouseExited(MouseEvent e) {
@@ -406,6 +432,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 		mouseClicked1(e);
 		mouseClicked2(e);
 		repaint();
+		checkAnswer();
 	}
 
 	public void mouseClicked1(MouseEvent e) {
@@ -568,6 +595,21 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	 * @param position
 	 */
 	protected void rightClickedEdge(SideAddress position) {
+	}
+
+	/**
+	 * 	即時正解判定
+	 */
+	public void checkAnswer() {
+		if (isProblemEditMode())
+			return;
+		if (immediateAnswerCheckMode == 0) {
+			if (board.checkAnswerCode() == 0) {
+				JOptionPane.showMessageDialog(panel, board.checkAnswerString(),
+						"正解判定", JOptionPane.INFORMATION_MESSAGE);
+				immediateAnswerCheckMode = 1;
+			}
+		}
 	}
 
 }

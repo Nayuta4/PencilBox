@@ -332,6 +332,7 @@ public class MenuCommand {
 	public void clear() {
 		undoManager.discardAllEdits();
 		board.clearBoard();
+		handler.resetImmediateAnswerCheckMode();
 		panel.repaint();
 	}
 	/**
@@ -348,14 +349,20 @@ public class MenuCommand {
 		handler.setSymmetricPlacementMode(b);
 	}
 	/**
-	 *  [編集]-[正答判定]
+	 *  [編集]-[正解判定]
 	 */
 	public void checkAnswer() {
 		JOptionPane.showMessageDialog(
 			frame,
 			board.checkAnswerString(),
-			"正答判定",
+			"正解判定",
 			JOptionPane.INFORMATION_MESSAGE);
+	}
+	/**
+	 *  [編集]-[即時正解判定]
+	 */
+	public void setCheckAnswerImmediatelyMode(boolean b) {
+		handler.setImmediateAnswerCheckMode(b);
 	}
 	/**
 	 * [編集]-[UNDO]

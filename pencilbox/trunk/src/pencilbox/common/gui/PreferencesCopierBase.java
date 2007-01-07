@@ -26,5 +26,6 @@ public class PreferencesCopierBase {
 		panelD.setCursorOn(panelS.isCursorOn());
 		handlerD.setProblemEditMode(handlerS.isProblemEditMode());
 		handlerD.setSymmetricPlacementMode(handlerS.isSymmetricPlacementMode());
+		handlerD.setImmediateAnswerCheckMode(handlerS.isImmediateAnswerCheckMode());
 	}
 }
