@@ -15,14 +15,10 @@ import pencilbox.common.core.SideAddress;
 /**
  * パネルに対するマウス，キーボードのイベント処理を行うクラス
  */
-public class PanelEventHandlerBase {
+public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseMotionListener {
 
 	private PanelBase panel;
 	private BoardBase board;
-
-	private KeyHandler keyHandler = new KeyHandler();
-	private MouseHandler mouseHandler = new MouseHandler();
-	private MouseHandlerEdge mouseHandlerEdge = new MouseHandlerEdge();
 
 	private int maxInputNumber = 99;
 	private int previousInput = 0;
@@ -38,10 +34,9 @@ public class PanelEventHandlerBase {
 		this.panel = panel;
 		this.board = board;
 		setBoard(board);
-		panel.addKeyListener(keyHandler);
-		panel.addMouseListener(mouseHandler);
-		panel.addMouseMotionListener(mouseHandler);
-		panel.addMouseListener(mouseHandlerEdge);
+		panel.addKeyListener(this);
+		panel.addMouseListener(this);
+		panel.addMouseMotionListener(this);
 	}
 
 	public void setup(BoardBase board) {
@@ -176,11 +171,9 @@ public class PanelEventHandlerBase {
 		return new Address(board.rows()-1-pos.r(), board.cols()-1-pos.c());
 	}
 
-	/**
+	/*
 	 * キーリスナー
 	 */
-	public class KeyHandler implements KeyListener {
-
 		public void keyPressed(KeyEvent e) {
 			int keyCode = e.getKeyCode();
 			switch (keyCode) {
@@ -264,7 +257,7 @@ public class PanelEventHandlerBase {
 
 		public void keyReleased(KeyEvent e) {
 		}
-	}
+
 	/**
 	 * 矢印キー入力を処理する。 矢印の方向にカーソルを移動する。
 	 */
@@ -345,14 +338,12 @@ public class PanelEventHandlerBase {
 		setProblemEditMode(!isProblemEditMode());
 	}
 
-	/**
-	 * マウスリスナーの共通スーパークラス
-	 * マウスを押したとき，ドラッグしたまま新しいマスに移動したとき，ドラッグ終了したときの動作を定義している。
+	/*
+	 * マウスリスナー
 	 */
-	public class MouseHandler implements MouseListener, MouseMotionListener {
-
 		private Address oldPos = new Address(-1, -1);
 		private Address newPos = new Address(-1, -1);
+		private SideAddress position = new SideAddress();
 
 		public void mousePressed(MouseEvent e) {
 
@@ -420,6 +411,12 @@ public class PanelEventHandlerBase {
 		}
 
 		public void mouseClicked(MouseEvent e) {
+			mouseClicked1(e);
+			mouseClicked2(e);
+			repaint();
+		}
+
+		public void mouseClicked1(MouseEvent e) {
 			if (!isOn(newPos))
 				return;
 			int modifier = e.getModifiers();
@@ -431,7 +428,32 @@ public class PanelEventHandlerBase {
 			} else if ((modifier & InputEvent.BUTTON3_MASK) != 0) {
 				rightClicked(newPos);
 			}
-			repaint();
+		}
+		/**
+		 * 辺の位置のクリック操作を処理する。
+		 * @param e
+		 */
+		public void mouseClicked2(MouseEvent e) {
+			int x = e.getX();
+			int y = e.getY();
+			if ((((y - getOffsety()) - (x - getOffsetx()) + board.cols() * getCellSize() * 2) / getCellSize()
+					+ ((y - getOffsety()) + (x - getOffsetx()))	/ getCellSize())
+					% 2 == 0) {
+				position.set(Direction.VERT, toR(y), toC(x - getHalfCellSize())); // 縦の辺上
+			} else {
+				position.set(Direction.HORIZ, toR(y - getHalfCellSize()), toC(x)); // 横の辺上
+			}
+			if (!isSideOn(position))
+				return;
+			int modifier = e.getModifiers();
+			if ((modifier & InputEvent.BUTTON1_MASK) != 0) {
+				if ((e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK) != 0)
+					leftClickedShiftEdge(position);
+				else
+					leftClickedEdge(position);
+			} else if ((modifier & InputEvent.BUTTON3_MASK) != 0) {
+				rightClickedEdge(position);
+			}
 		}
 
 		public void mouseMoved(MouseEvent e) {
@@ -441,7 +463,6 @@ public class PanelEventHandlerBase {
 			// mouseMovedTo(movePos);
 			// repaint();
 		}
-	}
 
 	/**
 	 * 左ボタンが押されたときに呼ばれる。
@@ -525,58 +546,21 @@ public class PanelEventHandlerBase {
 	}
 
 	/**
-	 * SL, MS 用
-	 * 辺の操作を行うパズル用のマウスリスナーの共通スーパークラス。
+	 * 辺の位置を左クリックしたときの動作を定める。
+	 * @param position
 	 */
-	public class MouseHandlerEdge implements MouseListener {
-
-		private SideAddress position = new SideAddress();
-
-		public void mousePressed(MouseEvent e) {
-		}
-
-		public void mouseReleased(MouseEvent e) {
-		}
-
-		public void mouseExited(MouseEvent e) {
-		}
-
-		public void mouseEntered(MouseEvent e) {
-		}
-
-		public void mouseClicked(MouseEvent e) {
-
-			int x = e.getX();
-			int y = e.getY();
-
-			if ((((y - getOffsety()) - (x - getOffsetx()) + board.cols() * getCellSize() * 2) / getCellSize()
-					+ ((y - getOffsety()) + (x - getOffsetx()))	/ getCellSize())
-					% 2 == 0) {
-				position.set(Direction.VERT, toR(y), toC(x - getHalfCellSize())); // 縦の辺上
-			} else {
-				position.set(Direction.HORIZ, toR(y - getHalfCellSize()), toC(x)); // 横の辺上
-			}
-			if (!isSideOn(position))
-				return;
-			int modifier = e.getModifiers();
-			if ((modifier & InputEvent.BUTTON1_MASK) != 0) {
-				if ((e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK) != 0)
-					leftClickedShiftEdge(position);
-				else
-					leftClickedEdge(position);
-			} else if ((modifier & InputEvent.BUTTON3_MASK) != 0) {
-				rightClickedEdge(position);
-			}
-			repaint();
-		}
-	}
-
 	protected void leftClickedEdge(SideAddress position) {
 	}
-
+	/**
+	 * 辺の位置を左シフトクリックしたときの動作を定める。不使用。
+	 * @param position
+	 */
 	protected void leftClickedShiftEdge(SideAddress position) {
 	}
-
+	/**
+	 * 辺の位置を右クリックしたときの動作を定める。
+	 * @param position
+	 */
 	protected void rightClickedEdge(SideAddress position) {
 	}
 
