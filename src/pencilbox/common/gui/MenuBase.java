@@ -51,6 +51,7 @@ public class MenuBase {
 //	private JMenuItem redoAllItem;
 	private JMenuItem palybackItem;
 	private JMenuItem checkAnswerItem;
+	private JMenuItem immediateAnswerCheckModeItem;
 	private JMenuItem cellSizeItem;
 	private JMenuItem showIndexModeItem;
 	private JMenuItem renewColorItem;
@@ -159,7 +160,8 @@ public class MenuBase {
 		// editMenu.add(redoAllItem = makeCommandMenuItem("ç≈å„Ç‹Ç≈êiÇﬂÇÈ(L)", 'L'));
 		editMenu.add(palybackItem = makeCommandMenuItem("óöóçƒê∂(P)", 'P'));
 		editMenu.addSeparator();
-		editMenu.add(checkAnswerItem = makeCommandMenuItem("ê≥ìöîªíË(H)", 'H'));
+		editMenu.add(checkAnswerItem = makeCommandMenuItem("ê≥âîªíË(H)", 'H'));
+		editMenu.add(immediateAnswerCheckModeItem = makeCheckBoxCommandMenuItem("ë¶éûê≥âîªíË(M)", 'M', false));
 
 		modeGroup = new ButtonGroup();
 		modeGroup.add(answerModeItem);
@@ -492,6 +494,8 @@ public class MenuBase {
 			command.playback();
 		else if (target == checkAnswerItem)
 			command.checkAnswer();
+		else if (target == immediateAnswerCheckModeItem)
+			command.setCheckAnswerImmediatelyMode(target.isSelected());
 		else if (target == renewColorItem)
 			command.renewColor();
 		else if (target == cursorItem)
@@ -564,6 +568,8 @@ public class MenuBase {
 			cursorItem.setSelected(getPanelBase().isCursorOn());
 		if (symmetricPlacementItem != null)
 			symmetricPlacementItem.setSelected(getPanelEventHandlerBase().isSymmetricPlacementMode());
+		if (immediateAnswerCheckModeItem != null)
+			immediateAnswerCheckModeItem.setSelected(getPanelEventHandlerBase().isImmediateAnswerCheckMode());
 		problemEditModeItem.setSelected(getPanelEventHandlerBase().isProblemEditMode());
 	}
 
