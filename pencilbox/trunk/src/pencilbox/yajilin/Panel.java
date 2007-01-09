@@ -20,11 +20,11 @@ public class Panel extends PanelBase {
 	private boolean colorForEachLink = false;
 
 	private Color circleColor = Color.MAGENTA;
-//	private Color backBlackColor = new Color(0xFFCCCC);
 	private Color lineColor = Color.BLUE;
 	private Color paintColor = Color.BLUE;
 	private Color crossColor = Color.MAGENTA;
 	private Color errorColor = Color.RED;
+//	private Color wallColor = new Color(0xC0C0C0);
 	
 	/**
 	 * @return Returns the colorForEachLink.
@@ -140,29 +140,20 @@ public class Panel extends PanelBase {
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
 				state = board.getNumber(r, c);
-//				if (board.hasLine(r,c)){
-//					g.setColor(backLineColor);
-//					paintCell(g,r,c);
-//				}
 				if (state == Board.BLACK) {
-//					g.setColor(backBlackColor);
-//					paintCell(g, r, c);
 					g.setColor(paintColor);
-					if (isWarnBranchedLink() && board.isBlock(r,c)) {
-						g.setColor(errorColor);
+					if (isWarnBranchedLink()) {
+						if (board.isBlock(r,c)) {
+							g.setColor(errorColor);
+						}
 					}
 					paintCell(g, r, c);
-//					g.setColor(whiteColor);
-//					placeCross(g, r, c);
 				} else if (state == Board.WHITE) {
 					g.setColor(circleColor);
 					placeCircle(g, r, c);
 				} else if (state >= 0) {
-//					g.setColor(arrowBackColor);
-//					paintCell(g, r, c);
 					g.setColor(getNumberColor());
 					placeArrow(g, r, c, state);
-//					g.drawRect(toX(c) + 1,	toY(r) + 1, cellSize - 2, cellSize - 2);
 				} else if (state == Board.UNDECIDED_NUMBER) {
 					g.setColor(getNumberColor());
 					placeBoldCircle(g, r, c);
@@ -177,8 +168,10 @@ public class Panel extends PanelBase {
 						g.setColor(lineColor);
 						if (isColorForEachLink())
 							g.setColor(Colors.getColor(board.getLink(d,r,c).getID()));
-						if (isWarnBranchedLink() && board.isBranchedLink(d,r,c))
-							g.setColor(errorColor);
+						if (isWarnBranchedLink()) {
+							if (board.isBranchedLink(d,r,c) || board.isBuriedLink(d,r,c))
+								g.setColor(errorColor);
+						}
 						placeLink(g, d, r, c);
 					} else if (state == Board.NOLINE) {
 						g.setColor(crossColor);
@@ -199,7 +192,7 @@ public class Panel extends PanelBase {
 		placeSquare(g, r, c, r, c);
 //		g.setColor(wallColor);
 //		paintCell(g, r, c);
-//		g.setColor(numberColor);
+//		g.setColor(getNumberColor());
 		int direction = (arrow >> 4) & 3;
 		int number = arrow & 15;
 		String arrowS = getArrowString(direction);
