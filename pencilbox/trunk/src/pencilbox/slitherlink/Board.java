@@ -454,8 +454,10 @@ public class Board extends BoardBase {
 				}
 			}
 		}
-		if (hasMultipleLinks())
+		if (linkList.size() > 1)
 			result |= 16;
+		else if (linkList.size() == 0)
+			result |= 128;
 		return result;
 	}
 
@@ -470,6 +472,8 @@ public class Board extends BoardBase {
 			message.append("•Â‚¶‚Ä‚¢‚È‚¢ü‚ª‚ ‚é\n");
 		if ((result & 16) == 16)
 			message.append("•¡”‚Ìü‚ª‚ ‚é\n");
+		if ((result & 128) == 128)
+			message.append("ü‚ª‚È‚¢\n");
 		if ((result & 4) == 4)
 			message.append("ü‚Ì”‚ª”š‚æ‚è‘½‚¢‚Æ‚±‚ë‚ª‚ ‚é\n");
 		if ((result & 32) == 32)
