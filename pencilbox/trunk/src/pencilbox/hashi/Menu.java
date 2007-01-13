@@ -22,7 +22,6 @@ public class Menu extends MenuBase {
 
 	protected void buildIndividualMenu(){
 		bridgeColorItem = addColorMenuItem("橋");
-		addGridStyleMenu();
 		addToViewMenu(showNumberHintItem = makeCheckBoxCommandMenuItem("数字の色分け(H)", 'H', false));
 		addToViewMenu(colorForEachLinkItem = makeCheckBoxCommandMenuItem("橋の色分け(D)", 'D', false));
 		addRenewColorMenu();
@@ -46,12 +45,6 @@ public class Menu extends MenuBase {
 	public void setColor(JMenuItem target, Color color) {
 		if (target == bridgeColorItem)
 			getPanel().setBridgeColor(color);
-	}
-
-	protected void buildGridStyleMenu() {
-		super.buildGridStyleMenu();
-		makeDisplayStyleItem(0, "通常表示");
-		makeDisplayStyleItem(2, "罫線非表示").setSelected(true);
 	}
 
 	public void updateCurrentMenuSelection() {

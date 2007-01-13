@@ -140,6 +140,7 @@ public class Panel extends PanelBase {
 		g.setColor(wallColor);
 		paintCell(g, r, c);
 		g.setColor(separationColor);
+		g.drawRect(toX(c), toY(r), getCellSize(), getCellSize());
 		g.drawLine(toX(c), toY(r), toX(c+1), toY(r+1));
 		if (b>0) {
 			int statusB = board.getWordStatus(r,c,Direction.VERT);

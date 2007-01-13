@@ -94,6 +94,8 @@ public class Panel extends PanelBase {
 	 * 罫線の変わりにマスの中心に点を打つ
 	 */
 	public void drawGrid(Graphics2D g) {
+		if (getGridStyle() == 0)
+			return;
 		g.setColor(getGridColor());
 		for (int r = 0; r < rows(); r++) {
 			for (int c = 0; c < cols(); c++) {

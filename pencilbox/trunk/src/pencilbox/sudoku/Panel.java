@@ -138,20 +138,20 @@ public class Panel extends PanelBase {
 		drawIndex(g);
 		drawBoard(g);
 		drawGrid(g);
+		drawBorder(g);
 		drawCursor(g);
 	}
+
 	/**
-	 * 外枠を含め，罫線を引く
+	 * ブロックの太枠線を描画する。
 	 */
-	public void drawGrid(Graphics2D g) {
+	public void drawBorder(Graphics2D g) {
 		g.setColor(getBorderColor());
 		for (int r = 0; r <= rows(); r++) {
 			if (r % board.getUnit() == 0) {
 				g.drawLine(toX(0), toY(r) - 1, toX(cols()), toY(r) - 1);
 				g.drawLine(toX(0), toY(r), toX(cols()), toY(r));
 				g.drawLine(toX(0), toY(r) + 1, toX(cols()), toY(r) + 1);
-			} else {
-				g.drawLine(toX(0), toY(r), toX(cols()), toY(r));
 			}
 		}
 		for (int c = 0; c <= cols(); c++) {
@@ -159,8 +159,6 @@ public class Panel extends PanelBase {
 				g.drawLine(toX(c) - 1, toY(0), toX(c) - 1, toY(rows()));
 				g.drawLine(toX(c), toY(0), toX(c), toY(rows()));
 				g.drawLine(toX(c) + 1, toY(0), toX(c) + 1, toY(rows()));
-			} else {
-				g.drawLine(toX(c), toY(0), toX(c), toY(rows()));
 			}
 		}
 	}

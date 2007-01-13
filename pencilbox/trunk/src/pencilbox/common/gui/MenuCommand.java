@@ -481,6 +481,12 @@ public class MenuCommand {
 		frame.resize();
 	}
 	/**
+	 *  [表示]-[罫線表示]
+	 */
+	public void setGridStyle(boolean b) {
+		panel.setGridStyle(b ? 1 : 0);
+	}
+	/**
 	 *  [表示]-[色の更新]
 	 */
 	public void renewColor() {
