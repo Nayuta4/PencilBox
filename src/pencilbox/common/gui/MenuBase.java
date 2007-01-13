@@ -54,6 +54,7 @@ public class MenuBase {
 	private JMenuItem immediateAnswerCheckModeItem;
 	private JMenuItem cellSizeItem;
 	private JMenuItem showIndexModeItem;
+	private JMenuItem gridStyleItem;
 	private JMenuItem renewColorItem;
 	private JMenuItem cursorItem;
 	private ButtonGroup modeGroup;
@@ -62,8 +63,6 @@ public class MenuBase {
 
 	private JMenu colorMenu;
 	private JMenu rotationMenu;
-	private JMenu gridStyleMenu;
-	private ButtonGroup gridStyleGroup;
 
 	private Frame frame;
 	private MenuCommand command;
@@ -174,10 +173,10 @@ public class MenuBase {
 	 */
 	protected void buildViewMenu() {
 		viewMenu = makeJMenu("表示(V)", 'V');
-		buildGridStyleMenu();
 		viewMenu.add(colorMenu = makeJMenu("色の設定(L)", 'L'));
 		viewMenu.add(cellSizeItem = makeCommandMenuItem("表示サイズ(S)...", 'S'));
 		viewMenu.add(showIndexModeItem = makeCheckBoxCommandMenuItem("行列番号表示(I)", 'I', true));
+		viewMenu.add(gridStyleItem = makeCheckBoxCommandMenuItem("罫線表示(G)", 'G', true));
 		viewMenu.addSeparator();
 		viewMenu.addMenuListener(new ViewMenuListener());
 	}
@@ -208,15 +207,6 @@ public class MenuBase {
 	 */
 	protected void buildRotationMenu2() {
 		makeRotationItem("縦横交換(4)", '4', "4");
-	}
-
-	/**
-	 * 罫線表示スタイルメニューを作成する。
-	 * 具体的内容は，必要なときのみサブクラスでオーバーライドして作成する
-	 */
-	protected void buildGridStyleMenu() {
-		gridStyleMenu = makeJMenu("罫線表示(G)", 'G');
-		gridStyleGroup = new ButtonGroup();
 	}
 
 	/**
@@ -320,7 +310,7 @@ public class MenuBase {
 	protected void addCursorMenu() {
 		cursorItem = makeJCheckBoxMenuItem("カーソル(C)", 'C', panel.isCursorOn());
 		cursorItem.addActionListener(commandAction);
-		viewMenu.add(cursorItem, 3);
+		viewMenu.add(cursorItem, 4);
 	}
 	/**
 	 * [色の更新]メニュー項目を[表示]メニューに追加する。
@@ -328,12 +318,6 @@ public class MenuBase {
 	protected void addRenewColorMenu() {
 		renewColorItem = makeCommandMenuItem("色の更新(U)", 'U');
 		viewMenu.add(renewColorItem);
-	}
-	/**
-	 * [罫線表示]メニューを[表示]メニューの上から4番目に追加する。
-	 */
-	protected void addGridStyleMenu() {
-		viewMenu.add(gridStyleMenu, 3);
 	}
 
 	/**
@@ -371,25 +355,6 @@ public class MenuBase {
 			panel.repaint();
 		}
 	};
-
-	/**
-	 * 「罫線スタイル選択」のサブメニューを作成し，グループに追加する。
-	 * @param n スタイル番号
-	 * @param text メニュー表示文字列
-	 * @return 作成したメニュー項目
-	 */
-	protected JRadioButtonMenuItem makeDisplayStyleItem(final int n, String text) {
-		JRadioButtonMenuItem gridStyleItem = new JRadioButtonMenuItem(text);
-		gridStyleItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				panel.setDisplayStyle(n);
-				panel.repaint();
-			}
-		});
-		gridStyleGroup.add(gridStyleItem);
-		gridStyleMenu.add(gridStyleItem);
-		return gridStyleItem;
-	}
 
 	/**
 	 * 色選択メニュー作成用補助メソッド
@@ -506,6 +471,8 @@ public class MenuBase {
 			command.setProblemEditMode(true);
 		else if (target == showIndexModeItem)
 			command.setShowIndexMode(target.isSelected());
+		else if (target == gridStyleItem)
+			command.setGridStyle(target.isSelected());
 		else if (target == cellSizeItem)
 			command.cellSize();
 		else
@@ -564,6 +531,7 @@ public class MenuBase {
 	 */
 	public void updateCurrentMenuSelection() {
 		showIndexModeItem.setSelected(getPanelBase().isShowIndexMode());
+		gridStyleItem.setSelected(getPanelBase().getGridStyle() > 0);
 		if (cursorItem != null)
 			cursorItem.setSelected(getPanelBase().isCursorOn());
 		if (symmetricPlacementItem != null)

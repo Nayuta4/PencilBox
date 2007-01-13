@@ -226,34 +226,4 @@ public class Panel extends PanelBase {
 		super.placeNumber(g, r, c, n);
 	}
 	
-	/**
-	 * 罫線のオプションを提供
-	 */
-	public void drawGrid(Graphics2D g) {
-		g.setColor(getGridColor());
-		switch (getDisplayStyle()) {
-			case 0 : // 通常表示
-				super.drawGrid(g);
-				break;
-			case 1 : // 経路表示
-				for (int r = 0; r < rows(); r++) {
-					g.drawLine(
-						toX(0) + getCellSize() / 2,
-						toY(r) + getCellSize() / 2,
-						toX(cols()) - getCellSize() / 2,
-						toY(r) + getCellSize() / 2);
-				}
-				for (int c = 0; c < cols(); c++) {
-					g.drawLine(
-						toX(c) + getCellSize() / 2,
-						toY(0) + getCellSize() / 2,
-						toX(c) + getCellSize() / 2,
-						toY(rows()) - getCellSize() / 2);
-				}
-				break;
-			case 2 : // 非表示
-				break;
-		}
-	}
-
 }

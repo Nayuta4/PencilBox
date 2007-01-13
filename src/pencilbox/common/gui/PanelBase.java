@@ -54,7 +54,7 @@ public class PanelBase extends JPanel implements Printable {
 	private Font indexFont = new Font("SansSerif", Font.ITALIC, 13);
 	private Font numberFont = new Font("SansSerif", Font.PLAIN, 20);
 
-	private int displayStyle = 0;
+	private int gridStyle = 1;   // 0:非表示　１：表示
 	private boolean showIndexMode = true;
 	private boolean cursorOn = false;
 	private CellCursor cellCursor;
@@ -126,15 +126,15 @@ public class PanelBase extends JPanel implements Printable {
 	 * 罫線表示スタイル取得
 	 * @return 現在の番号
 	 */
-	protected int getDisplayStyle() {
-		return displayStyle;
+	protected int getGridStyle() {
+		return gridStyle;
 	}
 	/**
 	 * 罫線表示スタイル設定
 	 * @param i 設定する番号
 	 */
-	protected void setDisplayStyle(int i) {
-		displayStyle = i;
+	protected void setGridStyle(int i) {
+		gridStyle = i;
 	}
 	/**
 	 * 現在の盤面の状態に合わせて，setPreferredSize() を行う
@@ -248,6 +248,8 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param g
 	 */
 	public void drawGrid(Graphics2D g) {
+		if (getGridStyle() == 0)
+			return;
 		g.setColor(gridColor);
 		for (int r = 1; r < rows(); r++) {
 			g.drawLine(toX(0), toY(r), toX(cols()), toY(r));
@@ -420,19 +422,17 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param c 盤面列座標
 	 */
 	public void paintCell(Graphics2D g, int r, int c) {
-		g.fillRect(
-			toX(c) + 1,
-			toY(r) + 1,
-			cellSize - 1,
-			cellSize - 1);
+		g.fillRect(toX(c), toY(r), getCellSize(), getCellSize());
 	}
 
 	/**
-	 * マスに○印を配置する
-	 * 大きさはクラスで定める標準値
+	 * マスに○印を配置する 大きさはクラスで定める標準値
+	 * 
 	 * @param g
-	 * @param r 盤面行座標
-	 * @param c 盤面列座標
+	 * @param r
+	 *            盤面行座標
+	 * @param c
+	 *            盤面列座標
 	 */
 	public void placeCircle(Graphics2D g, int r, int c) {
 		placeCircle(g, r, c, getCircleSize());
@@ -448,16 +448,6 @@ public class PanelBase extends JPanel implements Printable {
 	public void placeCircle(Graphics2D g, int r, int c, int circleSize) {
 		drawCircle(g, toX(c) + getHalfCellSize(), toY(r) + getHalfCellSize(),
 				circleSize / 2);
-	}
-	/**
-	 * マスに○印を配置する
-	 * 大きさはセルに内接する大きさとする
-	 * @param g
-	 * @param r 盤面行座標
-	 * @param c 盤面列座標
-	 */
-	public void placeLargeCircle(Graphics2D g, int r, int c) {
-		placeCircle(g, r, c, cellSize - 2);
 	}
 	/**
 	 * マスに線幅2の○印を配置する
@@ -491,15 +481,6 @@ public class PanelBase extends JPanel implements Printable {
 	 */
 	public void placeFilledCircle(Graphics2D g, int r, int c) {
 		placeFilledCircle(g, r, c, getCircleSize());
-	}
-	/**
-	 * マスに内接する大きさの塗りつぶした●印を配置する
-	 * @param g
-	 * @param r 盤面行座標
-	 * @param c 盤面列座標
-	 */
-	public void placeLargeFilledCircle(Graphics2D g, int r, int c) {
-		placeFilledCircle(g, r, c, cellSize - 2);
 	}
 	/**
 	 * マスに塗りつぶした●印を配置する
@@ -581,11 +562,12 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param c1 盤面列座標
 	 */
 	public void placeSquare(Graphics2D g, int r0, int c0, int r1, int c1) {
-		g.drawRect(
-			toX((c0 < c1) ? c0 : c1) + 1,
-			toY((r0 < r1) ? r0 : r1) + 1,
-			getCellSize() * ((c0 < c1) ? c1-c0+1 : c0-c1+1) - 2,
-			getCellSize() * ((r0 < r1) ? r1-r0+1 : r0-r1+1) - 2);
+		for (int i = 0; i <= 1; i++)
+			g.drawRect(
+				toX((c0 < c1) ? c0 : c1) + i,
+				toY((r0 < r1) ? r0 : r1) + i,
+				getCellSize() * ((c0 < c1) ? c1-c0+1 : c0-c1+1) - i*2,
+				getCellSize() * ((r0 < r1) ? r1-r0+1 : r0-r1+1) - i*2);
 	}
 
 	/* 

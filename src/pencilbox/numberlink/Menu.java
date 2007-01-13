@@ -53,13 +53,6 @@ public class Menu extends MenuBase {
 			getPanel().setLineColor(color);
 	}
 
-	protected void buildGridStyleMenu() {
-		super.buildGridStyleMenu();
-		makeDisplayStyleItem(0, "通常表示").setSelected(true);
-		makeDisplayStyleItem(1, "経路表示");
-		makeDisplayStyleItem(2, "罫線非表示");
-	}
-
 	public void updateCurrentMenuSelection() {
 		super.updateCurrentMenuSelection();
 		warnBranchedLinkItem.setSelected(getPanel().isWarnBranchedLink());

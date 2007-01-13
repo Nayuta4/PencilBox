@@ -21,7 +21,7 @@ public class PreferencesCopierBase {
 		PanelEventHandlerBase handlerD = dst.getPanelEventHandlerBase();
 		panelD.setDisplaySize(panelS.getCellSize());
 		panelD.changeShowIndexMode(panelS.isShowIndexMode());
-		panelD.setDisplayStyle(panelS.getDisplayStyle());
+		panelD.setGridStyle(panelS.getGridStyle());
 		panelD.changeShowIndexMode(panelS.isShowIndexMode());
 		panelD.setCursorOn(panelS.isCursorOn());
 		handlerD.setProblemEditMode(handlerS.isProblemEditMode());

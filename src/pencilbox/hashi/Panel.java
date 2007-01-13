@@ -28,7 +28,7 @@ public class Panel extends PanelBase {
 	 */
 	public Panel() {
 		setGridColor(Color.GRAY);
-		setDisplayStyle(2);
+		setGridStyle(0);
 	}
 
 	protected void setBoard(BoardBase aBoard) {
@@ -80,8 +80,7 @@ public class Panel extends PanelBase {
 	public void drawPanel(Graphics2D g) {
 		paintBackground(g);
 		drawIndex(g);
-		if (getDisplayStyle() == 0)
-			drawGrid(g); // årê¸Ç»ÇµÇ≈Ç‡ÇÊÇ¢Ç™
+		drawGrid(g);
 		drawBoard(g);
 		drawBorder(g);
 		drawCursor(g);
