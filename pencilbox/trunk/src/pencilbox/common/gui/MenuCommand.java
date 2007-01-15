@@ -363,6 +363,8 @@ public class MenuCommand {
 	 */
 	public void setCheckAnswerImmediatelyMode(boolean b) {
 		handler.setImmediateAnswerCheckMode(b);
+		if (b == true)
+			handler.checkAnswer();
 	}
 	/**
 	 * [ï“èW]-[UNDO]
