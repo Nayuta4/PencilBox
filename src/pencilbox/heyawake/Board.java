@@ -129,7 +129,7 @@ public class Board extends BoardBase {
 	 * @return 黒マスなら true
 	 */
 	public boolean isBlack(int r, int c) {
-		return state[r][c] == BLACK;
+		return isOn(r, c) && state[r][c] == BLACK;
 	}
 	/**
 	 * そのマスの状態が白マス確定かどうかを調べる
@@ -139,15 +139,6 @@ public class Board extends BoardBase {
 	 */
 	public boolean isWhite(int r, int c) {
 		return state[r][c] == WHITE;
-	}
-	/**
-	 * そのマスの状態が未定マスかどうかを調べる
-	 * @param r マスの行座標
-	 * @param c マスの列座標
-	 * @return 未定マスなら true
-	 */
-	public boolean isUnknown(int r, int c) {
-		return state[r][c] == UNKNOWN;
 	}
 
 	void initCont() {
@@ -335,19 +326,14 @@ public class Board extends BoardBase {
 	}
 	
 	/**
-	 * そのマスが連続黒マスかどうかを調べる
-	 * つまり，そのマスが黒マスで，上下左右の隣接４マスに黒マスがあるかどうかを調べる
+	 * そのマスの上下左右の隣接４マスに黒マスがあるかどうかを調べる
 	 * @param r
 	 * @param c
-	 * @return 連続黒マスならば true
+	 * @return 上下左右に黒マスがひとつでもあれば true
 	 */
 	boolean isBlock(int r, int c) {
-		if (isBlack(r,c)) {
-			if (r > 0 && isBlack(r-1,c)) return true;
-			if (r < rows()-1 && isBlack(r+1,c)) return true;
-			if (c > 0 && isBlack(r,c-1)) return true;
-			if (c < cols()-1 && isBlack(r,c+1)) return true;
-		}
+		if (isBlack(r-1, c) || isBlack(r+1, c) || isBlack(r, c-1) || isBlack(r, c+1))
+			return true;
 		return false;
 	}
 	/**
@@ -511,8 +497,6 @@ public class Board extends BoardBase {
 			for (int v = -1; v < 2; v += 2) {
 				if ((u == -uu) && (v == -vv))
 					continue; // 今来たところはとばす
-				if (!isOn(r + u, c + v))
-					continue; // 盤外はとばす
 				if (!isBlack(r + u, c + v))
 					continue; // 黒マス以外はとばす
 				if (chain[r + u][c + v] == n) // 輪が閉じた
@@ -582,8 +566,6 @@ public class Board extends BoardBase {
 		chain[r][c] = n;
 		for (int u = -1; u < 2; u += 2) {
 			for (int v = -1; v < 2; v += 2) {
-				if (!isOn(r + u, c + v))
-					continue;
 				if (!isBlack(r + u, c + v))
 					continue; // 黒マス以外はとばす
 				if (chain[r + u][c + v] == n)
@@ -593,32 +575,15 @@ public class Board extends BoardBase {
 		}
 	}
 	
-	/**
-	 * 盤面全体で，縦横に連続する黒マスがないかどうかを調査する
-	 * @return　連続する黒マスがなければ true, あれば false を返す　
-	 */
-	public boolean checkContinuousBlack() {
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				if (isBlock(r,c))
-					return false;
-			}
-		}
-		return true;
-	}
-
 	public int checkAnswerCode() {
 		int result = 0;
 		for (int r = 0; r < rows(); r++) {
 			for (int c = 0; c < cols(); c++) {
-				if (isBlock(r,c))
-					result |= 1;
-			}
-		}
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				if (chain[r][c] == -1) {
-					result |= 2;
+				if (isBlack(r,c)) {
+					if (isBlock(r,c))
+						result |= 1;
+					if (chain[r][c] == -1)
+						result |= 2;
 				}
 			}
 		}
