@@ -30,6 +30,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 */
 	private Address dragStart = new Address(-1, -1);
 	private int currentState = Board.UNKNOWN;
+	
 	protected void leftPressed(Address pos) {
 		if (isProblemEditMode()) {
 			Address dragEnd = pos;
@@ -37,8 +38,10 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			setDraggingSquare(new Square(dragStart.r(), dragStart.c(), dragEnd.r(), dragEnd.c()));
 		} else {
 			board.toggleState(pos.r(), pos.c(), Board.BLACK);
+			currentState = board.getState(pos.r(), pos.c());
 		}
 	}
+	
 	protected void rightPressed(Address pos) {
 		if (isProblemEditMode()) {
 			Address dragEnd = pos;
@@ -49,13 +52,22 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			currentState = board.getState(pos.r(), pos.c());
 		}
 	}
+	
 	protected void leftDragged(Address pos) {
 		if (isProblemEditMode()) {
 			if (getDraggingSquare() == null)
 				return;
 			getDraggingSquare().set(dragStart.r(), dragStart.c(), pos.r(), pos.c());
+		} else {
+			int st = board.getState(pos.r(), pos.c());
+			if (st == currentState)
+				return;
+			if (currentState == Board.BLACK && board.isBlock(pos.r(), pos.c()))
+				return;
+			board.changeStateA(pos.r(), pos.c(), currentState);
 		}
 	}
+	
 	protected void leftDragFixed(Address pos) {
 		if (isProblemEditMode()) {
 			Address dragEnd = pos;
@@ -66,6 +78,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			dragStart.setNowhere();
 		}
 	}
+	
 	protected void rightDragged(Address pos) {
 		if (isProblemEditMode()) {
 			Address dragEnd = pos;
@@ -74,9 +87,12 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			int st = board.getState(pos.r(), pos.c());
 			if (st == currentState)
 				return;
+			if (currentState == Board.WHITE && st == Board.BLACK)
+				return;
 			board.changeStateA(pos.r(), pos.c(), currentState);
 		}
 	}
+	
 	protected void dragFailed() {
 		setDraggingSquare(null);
 		dragStart.setNowhere();
@@ -85,18 +101,19 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 * 「へやわけ」キー操作
 	 */
 	protected void numberEntered(Address pos, int num) {
-		if (!isProblemEditMode())
-			return;
-		Square square = board.getSquare(pos.r(), pos.c());
-		if (square != null)
-			square.setNumber(num);
+		if (isProblemEditMode()) {
+			Square square = board.getSquare(pos.r(), pos.c());
+			if (square != null)
+				square.setNumber(num);
+		}
 	}
+	
 	protected void spaceEntered(Address pos) {
-		if (!isProblemEditMode())
-			return;
-		Square square = board.getSquare(pos.r(), pos.c());
-		if (square != null)
-			square.setNumber(Square.ANY);
+		if (isProblemEditMode()) {
+			Square square = board.getSquare(pos.r(), pos.c());
+			if (square != null)
+				square.setNumber(Square.ANY);
+		}
 	}
 
 	/**

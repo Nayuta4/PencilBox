@@ -23,6 +23,11 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 
 	protected void leftPressed(Address pos) {
 		board.toggleState(pos.r(), pos.c(), Board.BLACK);
+		int st = board.getState(pos.r(), pos.c());
+		if (st > 0 || st == Board.UNDECIDED_NUMBER)
+			currentState = Board.UNKNOWN;
+		else
+			currentState = st;
 	}
 
 	protected void rightPressed(Address pos) {
@@ -31,11 +36,18 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		if (st > 0 || st == Board.UNDECIDED_NUMBER)
 			currentState = Board.WHITE;
 		else
-			currentState = board.getState(pos.r(), pos.c());
+			currentState = st;
 	}
 
 	protected void leftDragged(Address pos) {
-		// ‰½‚à‚µ‚È‚¢
+		int st = board.getState(pos.r(), pos.c());
+		if (st >0 || st == Board.UNDECIDED_NUMBER)
+			return;
+		if (st == currentState)
+			return;
+		if (currentState == Board.BLACK && board.isBlock(pos.r(), pos.c()))
+			return;
+		board.changeStateA(pos.r(), pos.c(), currentState);
 	}
 
 	protected void rightDragged(Address pos) {
@@ -43,6 +55,8 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		if (st >0 || st == Board.UNDECIDED_NUMBER)
 			return;
 		if (st == currentState)
+			return;
+		if (currentState == Board.WHITE && st == Board.BLACK)
 			return;
 		board.changeStateA(pos.r(), pos.c(), currentState);
 	}
