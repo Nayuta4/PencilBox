@@ -75,14 +75,17 @@ public class Board extends BoardBase {
 	public boolean isNumber(int r, int c) {
 		return state[r][c] > 0;
 	}
+	/**
+	 * 引数の座標が黒マスかどうか。
+	 * @param r 行座標
+	 * @param c 列座標
+	 * @return 黒マスなら true を返す。
+	 */
 	public boolean isBlack(int r, int c) {
-		return state[r][c] == BLACK;
+		return isOn(r, c) && state[r][c] == BLACK;
 	}
 	public boolean isWhiteOrNumber(int r, int c) {
 		return state[r][c] == WHITE || state[r][c]>0 || state[r][c] == UNDECIDED_NUMBER;
-	}
-	public boolean isUnknown(int r, int c) {
-		return state[r][c] == UNKNOWN;
 	}
 
 	public void initBoard() {
@@ -156,19 +159,14 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * そのマスが連続黒マスかどうかを調べる
-	 * つまり，そのマスが黒マスで，上下左右の隣接４マスに黒マスがあるかどうかを調べる
+	 * そのマスの上下左右の隣接４マスに黒マスがあるかどうかを調べる
 	 * @param r
 	 * @param c
-	 * @return 連続黒マスならば true
+	 * @return 上下左右に黒マスがひとつでもあれば true
 	 */
 	boolean isBlock(int r, int c) {
-		if (isBlack(r,c)) {
-			if (isOn(r-1,c) && isBlack(r-1,c)) return true;
-			if (isOn(r,c-1) && isBlack(r,c-1)) return true;
-			if (isOn(r+1,c) && isBlack(r+1,c)) return true;
-			if (isOn(r,c+1) && isBlack(r,c+1)) return true;
-		}
+		if (isBlack(r-1, c) || isBlack(r+1, c) || isBlack(r, c-1) || isBlack(r, c+1))
+			return true;
 		return false;
 	}
 
@@ -222,8 +220,6 @@ public class Board extends BoardBase {
 			for (int v = -1; v < 2; v += 2) {
 				if ((u == -uu) && (v == -vv))
 					continue; // 今来たところはとばす
-				if (!isOn(r + u, c + v))
-					continue; // 盤外はとばす
 				if (!isBlack(r + u, c + v))
 					continue; // 黒マス以外はとばす
 				if (chain[r + u][c + v] == n) // 輪が閉じた
@@ -252,8 +248,6 @@ public class Board extends BoardBase {
 			newChain = 1;
 		for (int u = -1; u < 2; u += 2) {
 			for (int v = -1; v < 2; v += 2) {
-				if (!isOn(r + u, c + v))
-					continue;
 				if (!isBlack(r + u, c + v))
 					continue; // 黒マス以外はとばす
 				if (isOnPeriphery(r, c) && chain[r + u][c + v] == 1) {
@@ -294,8 +288,6 @@ public class Board extends BoardBase {
 		chain[r][c] = n;
 		for (int u = -1; u < 2; u += 2) {
 			for (int v = -1; v < 2; v += 2) {
-				if (!isOn(r + u, c + v))
-					continue; // 黒マス以外はとばす
 				if (!isBlack(r + u, c + v))
 					continue; // 黒マス以外はとばす
 				if (chain[r + u][c + v] == n)
@@ -379,19 +371,12 @@ public class Board extends BoardBase {
 		int result = 0;
 		for (int r = 0; r < rows(); r++) {
 			for (int c = 0; c < cols(); c++) {
-				if (isBlock(r,c))
-					result |= (1<<0);
-			}
-		}
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				if (chain[r][c] == -1)
-					result |= (1<<1);
-			}
-		}
-
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
+				if (isBlack(r, c)) {
+					if (isBlock(r,c))
+						result |= (1<<0);
+					if (chain[r][c] == -1)
+						result |= (1<<1);
+				}
 				if (isNumber(r, c)) {
 					int remainder = number[r][c].getSumSpace() - number[r][c].getNumber();
 					if (remainder < 0)

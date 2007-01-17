@@ -52,6 +52,12 @@ public class Board extends BoardBase {
 		link[HORIZ] = new Link[rows() - 1][cols()];
 	}
 	
+	/**
+	 * 引数の座標が黒マスかどうか。
+	 * @param r 行座標
+	 * @param c 列座標
+	 * @return 黒マスなら true を返す。
+	 */
 	public boolean isBlack(int r, int c) {
 		return isOn(r,c) && number[r][c] == BLACK;
 	}
@@ -390,19 +396,14 @@ public class Board extends BoardBase {
 	}
 	
 	/**
-	 * そのマスが連続黒マスかどうかを調べる
-	 * つまり，そのマスが黒マスで，上下左右の隣接４マスに黒マスがあるかどうかを調べる
+	 * そのマスの上下左右の隣接４マスに黒マスがあるかどうかを調べる
 	 * @param r
 	 * @param c
-	 * @return 連続黒マスならば true
+	 * @return 上下左右に黒マスがひとつでもあれば true
 	 */
 	boolean isBlock(int r, int c) {
-		if (isBlack(r,c)) {
-			if (isBlack(r-1,c)) return true;
-			if (isBlack(r+1,c)) return true;
-			if (isBlack(r,c-1)) return true;
-			if (isBlack(r,c+1)) return true;
-		}
+		if (isBlack(r-1, c) || isBlack(r+1, c) || isBlack(r, c-1) || isBlack(r, c+1))
+			return true;
 		return false;
 	}
 
@@ -598,12 +599,14 @@ public class Board extends BoardBase {
 		int result = 0;
 		for (int r=0; r<rows(); r++) {
 			for (int c=0; c<cols(); c++) {
-				if (getNumber(r,c) >= 0) {
+				if (getNumber(r, c) >= 0) {
 					result |= checkArrow(r,c);
 				}
-				if (isBlock(r,c)) {
-					result |= 32;
-				}	
+				if (isBlack(r, c)) {
+					if (isBlock(r, c)) {
+						result |= 32;
+					}
+				}
 			}
 		}
 		return result;
