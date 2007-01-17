@@ -30,19 +30,28 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 
 	protected void leftPressed(Address pos) {
 		board.toggleState(pos.r(), pos.c(), Board.BLACK);
+		currentState = board.getState(pos.r(), pos.c());
 	}
+
 	protected void rightPressed(Address pos) {
 		board.toggleState(pos.r(), pos.c(), Board.WHITE);
 		currentState = board.getState(pos.r(), pos.c());
 	}
 
 	protected void leftDragged(Address pos) {
-		// ‰½‚à‚µ‚È‚¢
+		int st = board.getState(pos.r(), pos.c());
+		if (st == currentState)
+			return;
+		if (currentState == Board.BLACK && board.isBlock(pos.r(), pos.c()))
+			return;
+		board.changeStateA(pos.r(), pos.c(), currentState);
 	}
 
 	protected void rightDragged(Address pos) {
 		int st = board.getState(pos.r(), pos.c());
 		if (st == currentState)
+			return;
+		if (currentState == Board.WHITE && st == Board.BLACK)
 			return;
 		board.changeStateA(pos.r(), pos.c(), currentState);
 	}
