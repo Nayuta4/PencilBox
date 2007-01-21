@@ -18,13 +18,19 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 * 
 	 */
 	public PanelEventHandler() {
-		setMaxInputNumber(9);
 	}
 
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard; 
 	}
 
+	protected int getMaxInputNumber() {
+		Address pos = getCellCursor().getPosition();
+		Square square = board.getSquare(pos.r(), pos.c());
+		if (square != null)
+			return square.mx();
+		return 0;
+	}
 	/*
 	 * 「へやわけ」マウス操作
 	 */

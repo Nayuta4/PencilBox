@@ -97,6 +97,12 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 			immediateAnswerCheckMode = 0;
 	}
 	/**
+	 * 入力可能な最大数字を取得する。
+	 */
+	protected int getMaxInputNumber() {
+		return maxInputNumber;
+	}
+	/**
 	 * 入力可能な最大数字を設定する
 	 * @param number 設定する数値
 	 */
@@ -304,22 +310,14 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	 * 0-9 の数字キーが入力されたときに，状況に応じて2桁の数字にして numberEnteredメソッドに渡す
 	 */
 	protected void numberKeyEntered(int number) {
-		if (!isProblemEditMode() && !isCursorOn())
-			return;
-		Address pos = getCellCursor().getPosition();
-		if (previousInput >= 1 && previousInput <= 9) {
-			if (previousInput * 10 + number <= maxInputNumber) {
-				number = previousInput * 10 + number;
-			}
-			if (number <= maxInputNumber) {
-				numberEntered(pos, number);
-				previousInput = 0;
-			}
-		} else {
-			if (number <= maxInputNumber) {
-				numberEntered(pos, number);
-				previousInput = number;
-			}
+		int maxInput = getMaxInputNumber();
+		if (previousInput * 10 + number <= maxInput) {
+			number = previousInput * 10 + number;
+		}
+		if (number <= maxInput) {
+			Address pos = getCellCursor().getPosition();
+			numberEntered(pos, number);
+			previousInput = number;
 		}
 	}
 	/**
@@ -341,6 +339,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	protected void spaceKeyEntered() {
 		Address pos = getCellCursor().getPosition();
 		spaceEntered(pos);
+		resetPreviousInput();
 	}
 
 	/**
