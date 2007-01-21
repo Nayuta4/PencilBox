@@ -133,4 +133,47 @@ public class Square {
 	public String toString() {
 		return "["+r0+","+c0+","+r1+","+c1+","+getNumber()+"]";
 	}
+
+	int mx() {
+		
+		int min;
+		int max;
+		int mx;
+		
+		if (this.sizeC() < this.sizeR()) {
+			min = this.sizeC();
+			max = this.sizeR();
+		} else {
+			min = this.sizeR();
+			max = this.sizeC();
+		}
+		
+		if (min == 1) {
+			mx = (max + 1) / 2;
+		} else if (min == 3) {
+			mx = (max / 4) * 5;
+			
+			switch (max & 0x3) {
+				case 1:
+					mx += 2;
+					break;
+				case 2:
+					mx += 3;
+					break;
+				case 3:
+					mx += 5;
+					break;
+			}
+		} else if ((min & max & 0x1) != 0) {
+			if (min == max && (max & (max + 1)) == 0) {
+				mx = (min * max + min + max) / 3;
+			} else {
+				mx = (min * max + min + max - 1) / 3;
+			}
+		} else {
+			mx = (min * max + min + max - 2) / 3;
+		}
+		
+		return mx;
+	}
 }
