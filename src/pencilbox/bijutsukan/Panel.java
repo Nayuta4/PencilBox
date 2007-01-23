@@ -15,13 +15,14 @@ public class Panel extends PanelBase {
 
 	private Board board;
 	
-	private boolean warnWrongIllumination = false;
+	private boolean warnWrongBulb = false;
 	private boolean showBeamMode = false;
+	private boolean paintIlluminatedCellMode = true;
 
 	private Color wallColor = Color.BLACK;
-	private Color illuminationColor = Color.BLUE;
-	private Color illuminatedColor = new Color(0xAAFFFF);
-	private Color noilluminationColor = Color.MAGENTA;
+	private Color bulbColor = Color.BLUE;
+	private Color illuminatedCellColor = new Color(0xAAFFFF);
+	private Color noBulbColor = Color.MAGENTA;
 	private Color wallNumberColor = Color.WHITE;
 	private Color errorColor = Color.RED;
 
@@ -36,17 +37,31 @@ public class Panel extends PanelBase {
 	}
 
 	/**
-	 * @return Returns the warnWrongIllumination.
+	 * @return Returns the warnWrongBulb.
 	 */
-	public boolean isWarnWrongIllumination() {
-		return warnWrongIllumination;
+	public boolean isWarnWrongBulb() {
+		return warnWrongBulb;
 	}
 
 	/**
-	 * @param warnWrongIllumination The warnWrongIllumination to set.
+	 * @param warnWrongBulb The warnWrongBulb to set.
 	 */
-	public void setWarnWrongIllumination(boolean warnWrongIllumination) {
-		this.warnWrongIllumination = warnWrongIllumination;
+	public void setWarnWrongBulb(boolean warnWrongBulb) {
+		this.warnWrongBulb = warnWrongBulb;
+	}
+
+	/**
+	 * @return the paintIlluminatedCellMode
+	 */
+	public boolean isPaintIlluminatedCellMode() {
+		return paintIlluminatedCellMode;
+	}
+
+	/**
+	 * @param paintIlluminatedCellMode the paintIlluminatedCellMode to set
+	 */
+	public void setPaintIlluminatedCellMode(boolean paintIlluminatedCellMode) {
+		this.paintIlluminatedCellMode = paintIlluminatedCellMode;
 	}
 
 	/**
@@ -64,45 +79,45 @@ public class Panel extends PanelBase {
 	}
 
 	/**
-	 * @return Returns the illuminatedColor.
+	 * @return Returns the illuminatedCellColor.
 	 */
-	public Color getIlluminatedColor() {
-		return illuminatedColor;
+	public Color getIlluminatedCellColor() {
+		return illuminatedCellColor;
 	}
 
 	/**
-	 * @param illuminatedColor The illuminatedColor to set.
+	 * @param illuminatedCellColor The illuminatedCellColor to set.
 	 */
-	public void setIlluminatedColor(Color illuminatedColor) {
-		this.illuminatedColor = illuminatedColor;
+	public void setIlluminatedCellColor(Color illuminatedCellColor) {
+		this.illuminatedCellColor = illuminatedCellColor;
 	}
 
 	/**
-	 * @return Returns the illuminationColor.
+	 * @return Returns the bulbColor.
 	 */
-	public Color getIlluminationColor() {
-		return illuminationColor;
+	public Color getBulbColor() {
+		return bulbColor;
 	}
 
 	/**
-	 * @param illuminationColor The illuminationColor to set.
+	 * @param bulbColor The bulbColor to set.
 	 */
-	public void setIlluminationColor(Color illuminationColor) {
-		this.illuminationColor = illuminationColor;
+	public void setBulbColor(Color bulbColor) {
+		this.bulbColor = bulbColor;
 	}
 
 	/**
-	 * @return Returns the noilluminationColor.
+	 * @return Returns the noBulbColor.
 	 */
-	public Color getNoilluminationColor() {
-		return noilluminationColor;
+	public Color getNoBulbColor() {
+		return noBulbColor;
 	}
 
 	/**
-	 * @param noilluminationColor The noilluminationColor to set.
+	 * @param noBulbColor The noBulbColor to set.
 	 */
-	public void setNoilluminationColor(Color noilluminationColor) {
-		this.noilluminationColor = noilluminationColor;
+	public void setNoBulbColor(Color noBulbColor) {
+		this.noBulbColor = noBulbColor;
 	}
 
 	public void drawPanel(Graphics2D g) {
@@ -124,21 +139,23 @@ public class Panel extends PanelBase {
 				int state = board.getState(r, c);
 				int l = board.getHorizIlluminated(r,c);
 				int m = board.getVertIlluminated(r,c);
-				if (l>0 || m>0) {
-					g.setColor(illuminatedColor);
-					paintCell(g,r,c);
+				if (isPaintIlluminatedCellMode()) {
+					if (l>0 || m>0) {
+						g.setColor(illuminatedCellColor);
+						paintCell(g,r,c);
+					}
 				}
 				if (isShowBeamMode()) {
-					g.setColor(illuminationColor);
+					g.setColor(bulbColor);
 					if (l > 0) {
-						if (isWarnWrongIllumination() && l > 1) {
+						if (isWarnWrongBulb() && l > 1) {
 							g.setColor(errorColor);
 						}
 						placeCenterLine(g, r, c, Direction.HORIZ);
 					}
-					g.setColor(illuminationColor);
+					g.setColor(bulbColor);
 					if (m > 0) {
-						if (isWarnWrongIllumination() && m > 1) {
+						if (isWarnWrongBulb() && m > 1) {
 							g.setColor(errorColor);
 						}
 						placeCenterLine(g, r, c, Direction.VERT);
@@ -149,12 +166,7 @@ public class Panel extends PanelBase {
 					paintCell(g, r, c);
 					if (state >= 0 && state <= 4) {
 						g.setColor(wallNumberColor);
-//						if (numberHintMode) {
-//							int st = board.getWallState(r,c);
-//							if (st == -1) g.setColor(errorColor);
-//							else if (st == 1) g.setColor(successColor);
-//						} else
-						if (warnWrongIllumination == true) {
+						if (isWarnWrongBulb()) {
 							int st = board.checkAdjacentIllumination(r,c);
 							if (st == -1)
 								g.setColor(errorColor);
@@ -162,13 +174,15 @@ public class Panel extends PanelBase {
 						placeNumber(g, r, c, state);
 					}
 				} else if (state == Board.ILLUMINATION) {
-					g.setColor(illuminationColor);
-					if (warnWrongIllumination == true && board.isMultiIlluminated(r,c)) {
-						g.setColor(errorColor);
+					g.setColor(bulbColor);
+					if (isWarnWrongBulb()) {
+						if (board.isMultiIlluminated(r,c)) {
+							g.setColor(errorColor);
+						}
 					}
 					placeFilledCircle(g, r, c);
 				} else if (state == Board.NOILLUMINATION) {
-					g.setColor(noilluminationColor);
+					g.setColor(noBulbColor);
 					placeCross(g, r, c);
 				}
 			}

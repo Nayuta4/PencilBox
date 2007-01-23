@@ -12,10 +12,11 @@ public class PreferencesCopier extends PreferencesCopierBase {
 		super.copyPreferences(src, dst);
 		Panel panelS = (Panel) src.getPanelBase();
 		Panel panelD = (Panel) dst.getPanelBase();
-		panelD.setWarnWrongIllumination(panelS.isWarnWrongIllumination());
+		panelD.setWarnWrongBulb(panelS.isWarnWrongBulb());
 		panelD.setShowBeamMode(panelS.isShowBeamMode());
-		panelD.setIlluminationColor(panelS.getIlluminationColor());
-		panelD.setNoilluminationColor(panelS.getNoilluminationColor());
-		panelD.setIlluminatedColor(panelS.getIlluminatedColor());
+		panelD.setPaintIlluminatedCellMode(panelS.isPaintIlluminatedCellMode());
+		panelD.setBulbColor(panelS.getBulbColor());
+		panelD.setNoBulbColor(panelS.getNoBulbColor());
+		panelD.setIlluminatedCellColor(panelS.getIlluminatedCellColor());
 	}
 }
