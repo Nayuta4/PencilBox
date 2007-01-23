@@ -11,10 +11,11 @@ import pencilbox.common.gui.MenuBase;
  */
 public class Menu extends MenuBase {
 
-	private JMenuItem illuminationColorItem;
-	private JMenuItem noilluminationColorItem;
-	private JMenuItem lluminatedColorItem;
-	private JMenuItem warnWrongIlluminationItem;
+	private JMenuItem bulbColorItem;
+	private JMenuItem noBulbColorItem;
+	private JMenuItem lluminatedCellColorItem;
+	private JMenuItem warnWrongBulbItem;
+	private JMenuItem paintIlluminatedCellModeItem;
 	private JMenuItem showBeamItem;
 
 	public Panel getPanel() {
@@ -22,45 +23,49 @@ public class Menu extends MenuBase {
 	}
 
 	protected void buildIndividualMenu(){
-		illuminationColorItem = addColorMenuItem("照明");
-		noilluminationColorItem = addColorMenuItem("照明なし");
-		lluminatedColorItem = addColorMenuItem("被照明マス");
-		addToViewMenu(warnWrongIlluminationItem = makeCheckBoxCommandMenuItem("誤りを赤で表示(W)", 'W', false));
-		addToViewMenu(showBeamItem = makeCheckBoxCommandMenuItem("光線表示(B)", 'R', false));
+		bulbColorItem = addColorMenuItem("照明");
+		noBulbColorItem = addColorMenuItem("照明なし");
+		lluminatedCellColorItem = addColorMenuItem("照らされたマス");
+		addToViewMenu(warnWrongBulbItem = makeCheckBoxCommandMenuItem("誤りを赤で表示(W)", 'W', false));
+		addToViewMenu(paintIlluminatedCellModeItem = makeCheckBoxCommandMenuItem("照らされたマスを塗る(P)", 'P', true));
+		addToViewMenu(showBeamItem = makeCheckBoxCommandMenuItem("光線表示(B)", 'B', false));
 		addSymmetricPlacementMenuItem();
 		addTrimAnswerMenuItem();
 	}
 
 	public void executeCommand2(JMenuItem target) {
-		if (target == warnWrongIlluminationItem) {
-			getPanel().setWarnWrongIllumination(target.isSelected());
+		if (target == warnWrongBulbItem) {
+			getPanel().setWarnWrongBulb(target.isSelected());
+		} else if (target == paintIlluminatedCellModeItem) {
+			getPanel().setPaintIlluminatedCellMode(target.isSelected());
 		} else if (target == showBeamItem) {
 			getPanel().setShowBeamMode(target.isSelected());
 		}
 	}
 
 	public Color getColor(JMenuItem target) {
-		if (target == illuminationColorItem)
-			return getPanel().getIlluminationColor();
-		else if (target == noilluminationColorItem)
-			return getPanel().getNoilluminationColor();
-		else if (target == lluminatedColorItem)
-			return getPanel().getIlluminatedColor();
+		if (target == bulbColorItem)
+			return getPanel().getBulbColor();
+		else if (target == noBulbColorItem)
+			return getPanel().getNoBulbColor();
+		else if (target == lluminatedCellColorItem)
+			return getPanel().getIlluminatedCellColor();
 		return null;
 	}
 
 	public void setColor(JMenuItem target, Color color) {
-		if (target == illuminationColorItem)
-			getPanel().setIlluminationColor(color);
-		else if (target == noilluminationColorItem)
-			getPanel().setNoilluminationColor(color);
-		else if (target == lluminatedColorItem)
-			getPanel().setIlluminatedColor(color);
+		if (target == bulbColorItem)
+			getPanel().setBulbColor(color);
+		else if (target == noBulbColorItem)
+			getPanel().setNoBulbColor(color);
+		else if (target == lluminatedCellColorItem)
+			getPanel().setIlluminatedCellColor(color);
 	}
 	
 	public void updateCurrentMenuSelection() {
 		super.updateCurrentMenuSelection();
-		warnWrongIlluminationItem.setSelected(getPanel().isWarnWrongIllumination());
+		warnWrongBulbItem.setSelected(getPanel().isWarnWrongBulb());
+		paintIlluminatedCellModeItem.setSelected(getPanel().isPaintIlluminatedCellMode());
 		showBeamItem.setSelected(getPanel().isShowBeamMode());
 	}
 
