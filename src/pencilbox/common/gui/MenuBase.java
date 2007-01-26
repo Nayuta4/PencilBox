@@ -31,7 +31,7 @@ public class MenuBase {
 	
 	private JMenuItem newBoardItem;
 	private JMenuItem openItem;
-	private JMenuItem coloseAndOpenItem;
+	private JMenuItem closeAndOpenItem;
 	private JMenuItem saveItem;
 	private JMenuItem duplicateItem;
 	private JMenuItem exportProblemDataStringItem;
@@ -40,7 +40,7 @@ public class MenuBase {
 	private JMenuItem printItem;
 	private JMenuItem propertyItem;
 	private JMenuItem closeItem;
-	private JMenuItem quiteItem;
+	private JMenuItem quitItem;
 	private JMenuItem aboutItem;
 	private JMenuItem clearItem;
 	private JMenuItem trimAnswerItem;
@@ -99,7 +99,7 @@ public class MenuBase {
 	 */
 	protected void buildCommonMenu() {
 		buildFileMenu();
-		buiildEditMenu();
+		buildEditMenu();
 		buildViewMenu();
 		buildHelpMenu();
 
@@ -124,7 +124,7 @@ public class MenuBase {
 		fileMenu = makeJMenu("ファイル(F)", 'F');
 		fileMenu.add(newBoardItem = makeCommandMenuItem("新規作成(N)...", 'N'));
 		fileMenu.add(openItem = makeCommandMenuItem("開く(O)...", 'O'));
-		fileMenu.add(coloseAndOpenItem = makeCommandMenuItem("閉じて開く(L)...", 'L'));
+		fileMenu.add(closeAndOpenItem = makeCommandMenuItem("閉じて開く(L)...", 'L'));
 		fileMenu.add(saveItem = makeCommandMenuItem("保存(S)...", 'S'));
 		fileMenu.add(duplicateItem = makeCommandMenuItem("複製(D)", 'D'));
 		fileMenu.add(rotationMenu = makeJMenu("回転・反転(R)", 'R'));
@@ -138,13 +138,13 @@ public class MenuBase {
 		fileMenu.add(propertyItem = makeCommandMenuItem("プロパティ(T)", 'T'));
 		fileMenu.addSeparator();
 		fileMenu.add(closeItem = makeCommandMenuItem("閉じる(C)", 'C'));
-		fileMenu.add(quiteItem = makeCommandMenuItem("終了(Q)", 'Q'));
+		fileMenu.add(quitItem = makeCommandMenuItem("終了(Q)", 'Q'));
 	}
 
 	/**
 	 * [編集]メニュー作成
 	 */
-	protected void buiildEditMenu() {
+	protected void buildEditMenu() {
 		editMenu = makeJMenu("編集(E)", 'E');
 		editMenu.add(answerModeItem = makeCommandRadioButtonMenuItem("解答モード(A)", 'A'));
 		editMenu.add(problemEditModeItem = makeCommandRadioButtonMenuItem("問題入力モード(E)", 'E'));
@@ -252,7 +252,7 @@ public class MenuBase {
 				KeyStroke.getKeyStroke('N',	InputEvent.CTRL_MASK));
 		openItem.setAccelerator(
 				KeyStroke.getKeyStroke('O', InputEvent.CTRL_MASK));
-		coloseAndOpenItem.setAccelerator(
+		closeAndOpenItem.setAccelerator(
 				KeyStroke.getKeyStroke('O', InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
 		saveItem.setAccelerator(
 				KeyStroke.getKeyStroke('S', InputEvent.CTRL_MASK));
@@ -419,7 +419,7 @@ public class MenuBase {
 			command.newBoard();
 		else if (target == openItem)
 			command.open();
-		else if (target == coloseAndOpenItem)
+		else if (target == closeAndOpenItem)
 			command.closeAndOpen();
 		else if (target == saveItem)
 			command.save();
@@ -437,7 +437,7 @@ public class MenuBase {
 			command.property();
 		else if (target == closeItem)
 			command.close();
-		else if (target == quiteItem)
+		else if (target == quitItem)
 			command.quit();
 		else if (target == aboutItem)
 			command.about();
