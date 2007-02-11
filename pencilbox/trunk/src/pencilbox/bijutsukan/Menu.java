@@ -31,6 +31,7 @@ public class Menu extends MenuBase {
 		addToViewMenu(showBeamItem = makeCheckBoxCommandMenuItem("Œõü•\¦(B)", 'B', false));
 		addSymmetricPlacementMenuItem();
 		addTrimAnswerMenuItem();
+		buildMarkStyleMenu("Æ–¾‚È‚µ‚Ìˆó(N)", 'N', new int[] {3, 4});
 	}
 
 	public void executeCommand2(JMenuItem target) {

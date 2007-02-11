@@ -26,6 +26,11 @@ public class Panel extends PanelBase {
 	private boolean showWrongWall = false;
 	private boolean showShimaSize = false;
 
+	public Panel() {
+		setGridColor(Color.BLACK);
+		setMarkStyle(2);
+	}
+
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard; 
 	}
@@ -116,10 +121,18 @@ public class Panel extends PanelBase {
 				} else if (st == Board.SPACE) {
 					paintSpace(g, r, c);
 				} else if (st > 0) {
+					if (getMarkStyle() == 5) {
+						g.setColor(circleColor);
+						paintCell(g, r, c);
+					}
 					g.setFont(getNumberFont());
 					g.setColor(getNumberColor());
 					placeNumber(g, r, c, st);
 				} else if (st == Board.UNDECIDED_NUMBER) {
+					if (getMarkStyle() == 5) {
+						g.setColor(circleColor);
+						paintCell(g, r, c);
+					}
 					g.setColor(getNumberColor());
 					placeBoldCircle(g, r, c);
 				}
@@ -143,12 +156,12 @@ public class Panel extends PanelBase {
 				placeNumber(g, r, c, area.size());
 			} else {
 				g.setColor(circleColor);
-				placeFilledCircle(g, r, c);
+				placeMark(g, r, c);
 			}
-			return;
+		} else {
+			g.setColor(circleColor);
+			placeMark(g, r, c);
 		}
-		g.setColor(circleColor);
-		placeFilledCircle(g, r, c);
 	}
 
 	void paintWall(Graphics2D g, int r, int c) {

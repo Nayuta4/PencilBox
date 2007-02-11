@@ -63,6 +63,8 @@ public class MenuBase {
 
 	private JMenu colorMenu;
 	private JMenu rotationMenu;
+	private JMenu markStyleMenu;
+	private ButtonGroup markStyleGroup;
 
 	private Frame frame;
 	private MenuCommand command;
@@ -207,6 +209,41 @@ public class MenuBase {
 	 */
 	protected void buildRotationMenu2() {
 		makeRotationItem("縦横交換(4)", '4', "4");
+	}
+
+	/**
+	 * 白マス確定記号スタイルメニューを作成する。
+	 */
+	protected void buildMarkStyleMenu(String text, char mnemonic, int[] styles) {
+		markStyleMenu = makeJMenu(text, mnemonic);
+		viewMenu.add(markStyleMenu, 4);
+		markStyleGroup = new ButtonGroup();
+		for (int i = 1; i <= styles.length; i++) {
+			switch (styles[i-1]) {
+			case 0:
+				makeMarkStyleItem(i + " 非表示", (char)('0'+i), "0");
+				break;
+			case 1:
+				makeMarkStyleItem(i + " ○", (char)('0'+i), "1");
+				break;
+			case 2:
+				makeMarkStyleItem(i+ " ●", (char)('0'+i), "2");
+				break;
+			case 3:
+				makeMarkStyleItem(i+ " ■", (char)('0'+i), "3");
+				break;
+			case 4:
+				makeMarkStyleItem(i + " ×", (char)('0'+i), "4");
+				break;
+			case 5:
+				makeMarkStyleItem(i + " 塗りつぶし", (char)('0'+i), "5");
+				break;
+			}
+		}
+	}
+
+	protected void addNoPaintMarkStyleMenu() {
+		buildMarkStyleMenu("塗らない印(N)", 'N', new int[] {1, 2, 3, 4, 5});
 	}
 
 	/**
@@ -356,6 +393,30 @@ public class MenuBase {
 		}
 	};
 
+	/**
+	 * 「白マス確定記号スタイル選択」のサブメニュー項目を作成し，グループに追加する。
+	 * @param text メニュー表示文字列
+	 * @param n スタイル番号
+	 * @return 作成したメニュー項目
+	 */
+	protected JRadioButtonMenuItem makeMarkStyleItem(String text, char mnemonic, String n) {
+		JRadioButtonMenuItem markStyleItem = new JRadioButtonMenuItem(text);
+		markStyleItem.setMnemonic(mnemonic);
+		markStyleItem.addActionListener(markStyleAction);
+		markStyleItem.setActionCommand(n);
+		markStyleGroup.add(markStyleItem);
+		markStyleMenu.add(markStyleItem);
+		return markStyleItem;
+	}
+	
+	private ActionListener markStyleAction = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			JMenuItem target = (JMenuItem) e.getSource();
+			panel.setMarkStyle(Integer.parseInt(target.getActionCommand()));
+			panel.repaint();
+		}
+	};
+	
 	/**
 	 * 色選択メニュー作成用補助メソッド
 	 * メニュー項目を作成して，[色の選択]メニューに追加する。
@@ -538,6 +599,16 @@ public class MenuBase {
 			symmetricPlacementItem.setSelected(getPanelEventHandlerBase().isSymmetricPlacementMode());
 		if (immediateAnswerCheckModeItem != null)
 			immediateAnswerCheckModeItem.setSelected(getPanelEventHandlerBase().isImmediateAnswerCheckMode());
+		if (markStyleMenu != null) {
+			int s = getPanelBase().getMarkStyle();
+			for (int i = 0, count = markStyleMenu.getItemCount(); i < count; i++) {
+				JRadioButtonMenuItem item = (JRadioButtonMenuItem) markStyleMenu.getItem(i);
+				if (Integer.parseInt(item.getActionCommand()) == s) {
+					item.setSelected(true);
+					break;
+				}
+			}
+		}
 		problemEditModeItem.setSelected(getPanelEventHandlerBase().isProblemEditMode());
 	}
 

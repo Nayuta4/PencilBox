@@ -23,6 +23,7 @@ public class PreferencesCopierBase {
 		panelD.changeShowIndexMode(panelS.isShowIndexMode());
 		panelD.setGridStyle(panelS.getGridStyle());
 		panelD.changeShowIndexMode(panelS.isShowIndexMode());
+		panelD.setMarkStyle(panelS.getMarkStyle());
 		panelD.setCursorOn(panelS.isCursorOn());
 		handlerD.setProblemEditMode(handlerS.isProblemEditMode());
 		handlerD.setSymmetricPlacementMode(handlerS.isSymmetricPlacementMode());

@@ -30,6 +30,7 @@ public class Panel extends PanelBase {
 	 * Panel Çê∂ê¨Ç∑ÇÈ
 	 */
 	public Panel() {
+		setMarkStyle(3);
 	}
 
 	protected void setBoard(BoardBase aBoard) {
@@ -183,7 +184,7 @@ public class Panel extends PanelBase {
 					placeFilledCircle(g, r, c);
 				} else if (state == Board.NOILLUMINATION) {
 					g.setColor(noBulbColor);
-					placeCross(g, r, c);
+					placeMark(g, r, c);
 				}
 			}
 		}

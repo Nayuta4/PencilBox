@@ -27,6 +27,19 @@ public class Panel extends PanelBase {
 //	private Color wallColor = new Color(0xC0C0C0);
 	
 	/**
+	 * 
+	 */
+	public Panel() {
+		super();
+		setGridColor(Color.BLACK);
+		setMarkStyle(3);
+	}
+
+	protected void setBoard(BoardBase aBoard) {
+		board = (Board) aBoard; 
+	}
+
+	/**
 	 * @return Returns the colorForEachLink.
 	 */
 	public boolean isColorForEachLink() {
@@ -110,18 +123,6 @@ public class Panel extends PanelBase {
 		this.circleColor = whiteColor;
 	}
 
-	/**
-	 * 
-	 */
-	public Panel() {
-		super();
-		setGridColor(Color.BLACK);
-	}
-
-	protected void setBoard(BoardBase aBoard) {
-		board = (Board) aBoard; 
-	}
-
 	public void drawPanel(Graphics2D g) {
 		paintBackground(g);
 		drawIndex(g);
@@ -150,7 +151,7 @@ public class Panel extends PanelBase {
 					paintCell(g, r, c);
 				} else if (state == Board.WHITE) {
 					g.setColor(circleColor);
-					placeCircle(g, r, c);
+					placeMark(g, r, c);
 				} else if (state >= 0) {
 					g.setColor(getNumberColor());
 					placeArrow(g, r, c, state);

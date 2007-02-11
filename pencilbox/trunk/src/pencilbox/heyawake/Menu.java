@@ -28,6 +28,7 @@ public class Menu extends MenuBase {
 		addToViewMenu(warnWrongWallItem = makeCheckBoxCommandMenuItem("Œë‚è‚ğÔ‚Å•\¦(W)", 'W', false));
 		addToViewMenu(showContinuousRoomItem = makeCheckBoxCommandMenuItem("‚R•”‰®˜A‘±Œx(C)", 'C', false));
 		addTrimAnswerMenuItem();
+		addNoPaintMarkStyleMenu();
 	}
 
 	public void executeCommand2(JMenuItem target) {
