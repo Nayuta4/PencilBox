@@ -30,8 +30,9 @@ public class Menu extends MenuBase {
 		addRenewColorMenu();
 		addSymmetricPlacementMenuItem();
 		addTrimAnswerMenuItem();
+		addNoPaintMarkStyleMenu();
 	}
-	
+
 	public void executeCommand2(JMenuItem target) {
 		if (target == warnBranchedLinkItem)
 			getPanel().setWarnBranchedLink(target.isSelected());

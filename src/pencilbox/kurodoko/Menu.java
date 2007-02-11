@@ -28,6 +28,7 @@ public class Menu extends MenuBase {
 		addToViewMenu(showNumberHintItem = makeCheckBoxCommandMenuItem("”š‚ÌF•ª‚¯(H)", 'H', false));
 		addSymmetricPlacementMenuItem();
 		addTrimAnswerMenuItem();
+		addNoPaintMarkStyleMenu();
 	}
 
 	public void executeCommand2(JMenuItem target) {

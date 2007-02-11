@@ -38,7 +38,6 @@ public class PanelBase extends JPanel implements Printable {
 
 	private int cellSize = 26;
 	private int circleSize = 18;
-	private int crossSize = 8; // 片側サイズ
 	private int smallCrossSize = 3; // 片側サイズ
 	private int offsetx = 26;
 	private int offsety = 26;
@@ -55,6 +54,7 @@ public class PanelBase extends JPanel implements Printable {
 	private Font numberFont = new Font("SansSerif", Font.PLAIN, 20);
 
 	private int gridStyle = 1;   // 0:非表示　１：表示
+	private int markStyle = 1;
 	private boolean showIndexMode = true;
 	private boolean cursorOn = false;
 	private CellCursor cellCursor;
@@ -115,7 +115,6 @@ public class PanelBase extends JPanel implements Printable {
 			offsety = cellSize;
 		}
 		circleSize = (int) (cellSize * 0.7);
-		crossSize = (int) (cellSize * 0.3);
 		smallCrossSize = (int) (cellSize * 0.15);
 		numberFont = new Font("SansSerif", Font.PLAIN, cellSize * 4 / 5);
 		indexFont = new Font("SansSerif", Font.ITALIC, cellSize / 2);
@@ -135,6 +134,18 @@ public class PanelBase extends JPanel implements Printable {
 	 */
 	protected void setGridStyle(int i) {
 		gridStyle = i;
+	}
+	/**
+	 * @return the markStyle
+	 */
+	public int getMarkStyle() {
+		return markStyle;
+	}
+	/**
+	 * @param markStyle the markStyle to set
+	 */
+	public void setMarkStyle(int markStyle) {
+		this.markStyle = markStyle;
 	}
 	/**
 	 * 現在の盤面の状態に合わせて，setPreferredSize() を行う
@@ -207,7 +218,7 @@ public class PanelBase extends JPanel implements Printable {
 	 * @return 変換後のピクセル座標
 	 */
 	public final int toX(int c) {
-		return offsetx + cellSize * c;
+		return getOffsetx() + getCellSize() * c;
 	}
 	/**
 	 * Panel上の列座標をピクセルy座標に変換する
@@ -215,7 +226,7 @@ public class PanelBase extends JPanel implements Printable {
 	 * @return 変換後のピクセル座標
 	 */
 	public final int toY(int r) {
-		return offsety + cellSize * r;
+		return getOffsety() + getCellSize() * r;
 	}
 
 	/*
@@ -317,6 +328,16 @@ public class PanelBase extends JPanel implements Printable {
 	 */
 	public void drawLineSegment(Graphics g, int x, int y, int direction) {
 		drawLineSegment(g, x, y, direction, 3);
+	}
+	/**
+	 * 引数の点を中心に，引数の大きさの四角を描く （大きさ　halfSize*2+1）
+	 * @param g
+	 * @param x   中心のx座標
+	 * @param y   中心のy座標
+	 * @param halfSize  大きさ（片側）
+	 */
+	public void fillSquare(Graphics g, int x, int y, int halfSize) {
+		g.fillRect(x - halfSize, y - halfSize, halfSize + halfSize + 1, halfSize + halfSize + 1);
 	}
 	/**
 	 * 引数の点を中心に，引数の大きさのバツ印を描く
@@ -426,13 +447,11 @@ public class PanelBase extends JPanel implements Printable {
 	}
 
 	/**
-	 * マスに○印を配置する 大きさはクラスで定める標準値
-	 * 
+	 * マスに○印を配置する
+	 * 大きさはクラスで定める標準値
 	 * @param g
-	 * @param r
-	 *            盤面行座標
-	 * @param c
-	 *            盤面列座標
+	 * @param r 盤面行座標
+	 * @param c 盤面列座標
 	 */
 	public void placeCircle(Graphics2D g, int r, int c) {
 		placeCircle(g, r, c, getCircleSize());
@@ -494,6 +513,15 @@ public class PanelBase extends JPanel implements Printable {
 				circleSize / 2);
 	}
 	/**
+	 * マスの中央に■を配置する
+	 * @param g
+	 * @param r 盤面行座標
+	 * @param c 盤面列座標
+	 */
+	public void placeFilledSquare(Graphics2D g, int r, int c) {
+		fillSquare(g, toX(c) + getHalfCellSize(), toY(r) + getHalfCellSize(), getSmallCrossSize());
+	}
+	/**
 	 * マスに×印を配置する
 	 * @param g
 	 * @param r 盤面行座標
@@ -501,7 +529,7 @@ public class PanelBase extends JPanel implements Printable {
 	 */
 	public void placeCross(Graphics2D g, int r, int c) {
 		drawCross(g, toX(c) + getHalfCellSize(), toY(r) + getHalfCellSize(),
-				crossSize);
+				getSmallCrossSize());
 	}
 	/**
 	 * 辺上に線を配置する
@@ -570,6 +598,33 @@ public class PanelBase extends JPanel implements Printable {
 				getCellSize() * ((r0 < r1) ? r1-r0+1 : r0-r1+1) - i*2);
 	}
 
+	/**
+	 * マスに白マス確定（など）記号を配置する
+	 * 大きさはクラスで定める標準値
+	 * @param g
+	 * @param r 盤面行座標
+	 * @param c 盤面列座標
+	 */
+	public void placeMark(Graphics2D g, int r, int c) {
+		switch (getMarkStyle()) {
+		case 1:
+			placeCircle(g, r, c);
+			break;
+		case 2:
+			placeFilledCircle(g, r, c);
+			break;
+		case 3:
+			placeFilledSquare(g, r, c);
+			break;
+		case 4:
+			placeCross(g, r, c);
+			break;
+		case 5:
+			paintCell(g, r, c);
+			break;
+		}
+	}
+
 	/* 
 	 * 盤面印刷用メソッド
 	 * @see java.awt.print.Printable#print(java.awt.Graphics, java.awt.print.PageFormat, int)
@@ -615,18 +670,6 @@ public class PanelBase extends JPanel implements Printable {
 	 */
 	public int getCircleSize() {
 		return circleSize;
-	}
-	/**
-	 * @param crossSize The crossSize to set.
-	 */
-	public void setCrossSize(int crossSize) {
-		this.crossSize = crossSize;
-	}
-	/**
-	 * @return Returns the crossSize.
-	 */
-	public int getCrossSize() {
-		return crossSize;
 	}
 	/**
 	 * @param smallCrossSize The smallCrossSize to set.

@@ -23,8 +23,6 @@ public class Panel extends PanelBase {
 	private boolean warnMultipleNumber = false;
 	private boolean warnWrongWall = false;
 
-//	private int selectedNumber = 0;
-
 	private char[] letters = {
 	};
 
@@ -32,6 +30,7 @@ public class Panel extends PanelBase {
 	 * 
 	 */
 	public Panel() {
+		setMarkStyle(1);
 	}
 	
 	protected void setBoard(BoardBase aBoard) {
@@ -144,55 +143,45 @@ public class Panel extends PanelBase {
 				int number = board.getNumber(r, c);
 				drawState(g, r, c, state);
 				if (number > 0) 
-					drawNumber(g, r, c, number);
+					drawNumber1(g, r, c, number);
 				else if (number == Board.UNDECIDED_NUMBER) 
 					placeBoldCircle(g, r, c);
 			}
 		}
 	}
+
 	private void drawState(Graphics2D g, int r, int c, int state) {
-//		if (state != Board.BLACK) {
-//			if (board.number[r][c] == selectedNumber) {
-//				g.setColor(Color.CYAN);
-//				paintCell(g,r,c);
-//			}
-//		}
 		if (state == Board.BLACK) {
 			g.setColor(paintColor);
 			if (isWarnWrongWall()) {
 				if (board.getChain(r,c) == -1)
 					g.setColor(errorColor);
-				else // if (board.chain[r][c] == 1)
-					g.setColor(paintColor);
-//				else
-//					g.setColor(Colors.get(board.chain[r][c]));
 				if (board.isBlock(r,c))
 					g.setColor(errorColor);
 			}
 			paintCell(g, r, c);
 		} else if (state == Board.WHITE) {
 			g.setColor(circleColor);
-			placeCircle(g, r, c);
+			placeMark(g, r, c);
 		}
 	}
-	private void drawNumber(Graphics2D g, int r, int c, int number) {
-//			if (!hideSingleMode || !board.isSingle(r, c)) {
-				if (isHideSingleMode() && board.isSingle(r, c)) {
-					g.setColor(singleNumberColor);
-				} else if (isWarnMultipleNumber()
-					&& !board.isBlack(r, c)
-					&& board.isMultipleNumber(r, c)) {
-					g.setColor(errorColor);
-//				} else if (colorfulMode) {
-//					g.setColor(Colors.getColor(number));
-				} else {
-					g.setColor(getNumberColor());
-				}
-				if (number <= letters.length)
-					placeLetter(g, r, c, letters[number-1]);
-				else
-					placeNumber(g, r, c, number);
-//			}
+
+	private void drawNumber1(Graphics2D g, int r, int c, int number) {
+		g.setColor(getNumberColor());
+		if (isHideSingleMode()) {
+			if (board.isSingle(r, c)) {
+				g.setColor(singleNumberColor);
+			}
+		}
+		if (isWarnMultipleNumber()) {
+			if (!board.isBlack(r, c) && board.isMultipleNumber(r, c)) {
+				g.setColor(errorColor);
+			}
+		}
+		if (number <= letters.length)
+			placeLetter(g, r, c, letters[number-1]);
+		else
+			placeNumber(g, r, c, number);
 	}
 
 }

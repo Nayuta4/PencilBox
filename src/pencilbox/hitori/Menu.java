@@ -34,6 +34,7 @@ public class Menu extends MenuBase {
 		addToViewMenu(hideSingleModeItem = makeCheckBoxCommandMenuItem("Å‰‚©‚ç‚Ğ‚Æ‚è‚Ì”š‚ğ‰B‚·(S)", 'S', false));
 		addToViewMenu(warnMultipleNumberItem = makeCheckBoxCommandMenuItem("‚Ğ‚Æ‚è‚Å‚È‚¢”š‚ğÔ‚Å¦‚·(H)", 'H', false));
 		addTrimAnswerMenuItem();
+		addNoPaintMarkStyleMenu();
 	}
 
 	public void executeCommand2(JMenuItem target) {

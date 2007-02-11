@@ -33,6 +33,7 @@ public class Panel extends PanelBase {
 	 * 
 	 */
 	public Panel() {
+		setMarkStyle(1);
 	}
 
 	protected void setBoard(BoardBase aBoard) {
@@ -140,10 +141,11 @@ public class Panel extends PanelBase {
 					paintCell(g, r, c);
 				}
 				if (st == Board.BLACK) {
-//					g.setColor(paintColor);
 					g.setColor(paintColor);
-					if (isWarnWrongWall() && (board.isBlock(r,c) || board.chain[r][c]==-1)) {
-						g.setColor(errorColor);
+					if (isWarnWrongWall()) {
+						if (board.isBlock(r,c) || board.chain[r][c]==-1) {
+							g.setColor(errorColor);
+						}
 					}
 					paintCell(g, r, c);
 				}
@@ -153,15 +155,8 @@ public class Panel extends PanelBase {
 			for (int c = 0; c < board.cols(); c++) {
 				st = board.getState(r, c);
 				if (st == Board.WHITE) {
-//					g.setColor(circleColor);
 					g.setColor(circleColor);
-//					if (board.hcontw[r][c] >= 3) {
-//						g.setColor(errorCircleColor);
-//					}
-//					if (board.vcontw[r][c] >= 3) {
-//						g.setColor(errorCircleColor);
-//					}
-					placeCircle(g, r, c);
+					placeMark(g, r, c);
 				}
 			}
 		}
@@ -169,13 +164,15 @@ public class Panel extends PanelBase {
 			g.setColor(roomBorderColor);
 			square = (Square) itr.next();
 			placeSquare(g, square.r0, square.c0, square.r1, square.c1);
-			g.setColor(getNumberColor());
 			if (square.getNumber() >= 0) {
-				if (warnWrongWall && square.getNumber() < square.getNBlack()) {
-					g.setColor(Color.WHITE);
-					placeFilledCircle(g, square.r0, square.c0);
-					g.setColor(errorColor);
-			}
+				g.setColor(getNumberColor());
+				if (isWarnWrongWall()) {
+					if (square.getNumber() < square.getNBlack()) {
+						g.setColor(Color.WHITE);
+						placeFilledCircle(g, square.r0, square.c0);
+						g.setColor(errorColor);
+					}
+				}
 				placeNumber(g, square.r0, square.c0, square.getNumber());
 			}
 		}
