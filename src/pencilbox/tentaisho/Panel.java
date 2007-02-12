@@ -26,7 +26,7 @@ public class Panel extends PanelBase {
 	private Color starColor = Color.BLACK;
 	private Color errorColor = Color.RED;
 
-	private int halfStarSize = 4; // 星の半径
+	private int halfStarSize = 3;
 
 	private Area draggingArea;
 
@@ -53,6 +53,21 @@ public class Panel extends PanelBase {
 	void setDraggingArea(Area draggingArea) {
 		this.draggingArea = draggingArea;
 	}
+
+	/**
+	 * @return the halfStarSize
+	 */
+	public int getHalfStarSize() {
+		return halfStarSize;
+	}
+
+	/**
+	 * @param halfStarSize the halfStarSize to set
+	 */
+	public void setHalfStarSize(int halfStarSize) {
+		this.halfStarSize = halfStarSize;
+	}
+
 	/**
 	 * @return Returns the areaBorderColor.
 	 */
@@ -137,9 +152,9 @@ public class Panel extends PanelBase {
 		this.showAreaHint = useDifferentColor;
 	}
 
-	public void setDisplaySize(int size) {
-		halfStarSize = size / 7 + 1;
-		super.setDisplaySize(size);
+	public void setDisplaySize(int cellSize) {
+		halfStarSize = (int) (cellSize * 0.15);
+		super.setDisplaySize(cellSize);
 	}
 	
 	public void drawPanel(Graphics2D g) {
@@ -199,7 +214,7 @@ public class Panel extends PanelBase {
 			}
 		}
 	}
-	
+
 	private void drawAreaBorders(Graphics2D g) {
 		g.setColor(areaBorderColor);
 		for (int r = 0; r < board.rows(); r++) {
@@ -227,13 +242,13 @@ public class Panel extends PanelBase {
 	 */
 	public void placeStar(Graphics2D g, int r, int c, int star) {
 		if (star == Board.WHITESTAR)
-			drawCircle(g, getOffsetx() + getHalfCellSize() * (c + 1),
-					getOffsety() + getHalfCellSize() * (r + 1),
-					halfStarSize);
+			drawCircle(g, getOffsetx() + getCellSize() * (c + 1) / 2,
+					getOffsety() + getCellSize() * (r + 1) / 2,
+					getHalfStarSize());
 		else if (star == Board.BLACKSTAR)
-			fillCircle(g, getOffsetx() + getHalfCellSize() * (c + 1),
-					getOffsety() + getHalfCellSize() * (r + 1),
-					halfStarSize);
+			fillCircle(g, getOffsetx() + getCellSize() * (c + 1) / 2,
+					getOffsety() + getCellSize() * (r + 1) / 2,
+					getHalfStarSize());
 	}
 	/**
 	 * 天体ショー専用カーソルを描く
