@@ -449,43 +449,39 @@ public class Board extends BoardBase  {
 	 * @param r
 	 * @param c
 	 * @return
-	 * 完成していれば +2 を
+	 * 線が通過して両隣のいずれかで曲がっていれば +2 を
 	 * 線が通過していて，間違いがなければ +1 を
-	 * 間違いがあれば -1 を
-	 * それ以外は 0 を返す
+	 * 線が通過していて，間違いがあれば -1 を
+	 * 線が通過していなければ 0 を返す
 	 */
 	int checkWhitePearl(int r, int c) {
-		int miss = 0;
-		int success = 0;
-		int result = 0;
+		int l = countLine(r,c);
+		if (l > 2)
+			return -1; 
+		else if (l < 2)
+			return 0; 
 
-		if (isLineJ(r,c,UP)) {
-			if (isLineJ(r,c,RT)) miss = -1;
-			if (isLineJ(r,c,LT)) miss = -1;
-		}
-		if (isLineJ(r,c,DN)) {
-			if (isLineJ(r,c,RT)) miss = -1;
-			if (isLineJ(r,c,LT)) miss = -1;
-		} 
+		if (isLineJ(r,c,UP) && isLineJ(r,c,RT)) return -1;
+		if (isLineJ(r,c,UP) && isLineJ(r,c,LT)) return -1;
+		if (isLineJ(r,c,DN) && isLineJ(r,c,RT)) return -1;
+		if (isLineJ(r,c,DN) && isLineJ(r,c,LT)) return -1;
 		if (isLineJ(r,c,UP) && isLineJ(r,c,DN)) {
-			if (isLineJ(r-1,c,UP) && isLineJ(r+1,c,DN)) miss = -1;
-			if (isLineJ(r-1,c,RT)) success = 2;
-			if (isLineJ(r-1,c,LT)) success = 2;
-			if (isLineJ(r+1,c,RT)) success = 2;
-			if (isLineJ(r+1,c,LT)) success = 2;
-			else success = 1;
+			if (isLineJ(r-1,c,UP) && isLineJ(r+1,c,DN)) return -1;
+			if (isLineJ(r-1,c,RT)) return 2;
+			if (isLineJ(r-1,c,LT)) return 2;
+			if (isLineJ(r+1,c,RT)) return 2;
+			if (isLineJ(r+1,c,LT)) return 2;
+			return 1;
 		}
 		if (isLineJ(r,c,LT) &&  isLineJ(r,c,RT)) {
-			if (isLineJ(r,c-1,LT) && isLineJ(r,c+1,RT)) miss = -1;
-			if (isLineJ(r,c-1,UP)) success = 2;
-			if (isLineJ(r,c-1,DN)) success = 2;
-			if (isLineJ(r,c+1,UP)) success = 2;
-			if (isLineJ(r,c+1,DN)) success = 2;
-			else success = 1;
+			if (isLineJ(r,c-1,LT) && isLineJ(r,c+1,RT)) return -1;
+			if (isLineJ(r,c-1,UP)) return 2;
+			if (isLineJ(r,c-1,DN)) return 2;
+			if (isLineJ(r,c+1,UP)) return 2;
+			if (isLineJ(r,c+1,DN)) return 2;
+			return 1;
 		}
-		if (success > 0) result = success;
-		if (miss == -1) result = -1;
-		return result;
+		return -9;
 	}
 	
 	/**
@@ -496,48 +492,50 @@ public class Board extends BoardBase  {
 	 * @param r
 	 * @param c
 	 * @return
-	 * 完成していれば +2 を
+	 * 線が曲がって両側で直進していれば +2 を
 	 * 線が通過していて，間違いがなければ +1 を
-	 * 間違いがあれば -1 を
-	 * それ以外は 0 を返す
+	 * 線が通過していて，間違いがあれば -1 を
+	 * 線が通過していなければ 0 を返す
 	 */
 	int checkBlackPearl(int r, int c) {
-		int miss = 0;
 		int success = 0;
-		int result = 0;
 
-		if (isLineJ(r,c,UP) && isLineJ(r,c,DN)) miss = -1;
-		if (isLineJ(r,c,RT) && isLineJ(r,c,LT)) miss = -1;
+		int l = countLine(r,c);
+		if (l > 2)
+			return -1; 
+		else if (l < 2)
+			return 0; 
+
+		if (isLineJ(r,c,UP) && isLineJ(r,c,DN)) return -1;
+		if (isLineJ(r,c,RT) && isLineJ(r,c,LT)) return -1;
 
 		if (isLineJ(r,c,UP)) {
-			if (isLineJ(r-1,c,LT)) miss = -1;
-			if (isLineJ(r-1,c,RT)) miss = -1;
+			if (isLineJ(r-1,c,LT)) return -1;
+			if (isLineJ(r-1,c,RT)) return -1;
 			if (isLineJ(r-1,c,UP)) success |= 2;
 			else success |= 1;
 		}
 		if (isLineJ(r,c,DN)) {
-			if (isLineJ(r+1,c,LT)) miss = -1;
-			if (isLineJ(r+1,c,RT)) miss = -1;
+			if (isLineJ(r+1,c,LT)) return -1;
+			if (isLineJ(r+1,c,RT)) return -1;
 			if (isLineJ(r+1,c,DN)) success |= 2;
 			else success |= 1;
 		} 
 		if (isLineJ(r,c,LT)) {
-			if (isLineJ(r,c-1,UP)) miss = -1;
-			if (isLineJ(r,c-1,DN)) miss = -1;
+			if (isLineJ(r,c-1,UP)) return -1;
+			if (isLineJ(r,c-1,DN)) return -1;
 			if (isLineJ(r,c-1,LT)) success |= 8;
 			else success |= 4;
 		}
 		if (isLineJ(r,c,RT)) {
-			if (isLineJ(r,c+1,UP)) miss = -1;
-			if (isLineJ(r,c+1,DN)) miss = -1;
+			if (isLineJ(r,c+1,UP)) return -1;
+			if (isLineJ(r,c+1,DN)) return -1;
 			if (isLineJ(r,c+1,RT)) success |= 8;
 			else success |= 4;
 		}
-		if (success == 10) result = 2;
-		else if (success == 9 || success == 6) result = 1;
-		else result = 0;
-		if (miss < 0 ) result = -1;
-		return result;
+		if (success == 10) return 2;
+		else if (success > 0) return 1;
+		return -9;
 	}
 
 	public int checkAnswerCode() {
