@@ -265,8 +265,11 @@ public class MenuCommand {
 	void exporProblemDatatString() {
 		DataExportDialog dataExportFrame = new DataExportDialog();
 		try {
-			String problemDataS = IOController.getInstance(pencilType).getProblemDataString(board);
-			dataExportFrame.setText("problem=" + problemDataS);
+			String url = "http://www.kanpen.net/"
+					+ pencilType.getPencilName()
+					+ ".html?problem="
+					+ IOController.getInstance(pencilType).getProblemDataString(board);
+			dataExportFrame.setText(url);
 			dataExportFrame.showDialog(frame, "問題データ文字列出力");
 		} catch (PencilBoxClassException e) {
 			e.printStackTrace();
