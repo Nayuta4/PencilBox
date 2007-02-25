@@ -147,7 +147,7 @@ public class BoardBase {
 	/**
 	 * 正解チェックで完成の場合のコメント文字列
 	 */
-	public static final String COMPLETE_MESSAGE = "完成です";
+	public static final String COMPLETE_MESSAGE = "正解です";
 	
 	/**
 	 * 正解をチェックし，結果を文字列で返す
