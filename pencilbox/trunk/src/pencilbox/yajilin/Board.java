@@ -135,17 +135,17 @@ public class Board extends BoardBase {
 		return number[r][c] >= 0 || number[r][c] == UNDECIDED_NUMBER;
 	}
 	/**
-	 * 線座標の両側の2マスいずれかが数字マスか
+	 * 線座標の両側の2マスいずれかが数字マスないし黒マスかどうか
 	 * @param d
 	 * @param r
 	 * @param c
-	 * @return
+	 * @return 線座標の両側の2マスいずれかが数字マスないし黒マスであれば true
 	 */
-	public boolean hasNumber(int d, int r, int c) {
+	public boolean hasNumberOrBlack(int d, int r, int c) {
 		if (d == VERT)
-			return isNumber(r, c) || isNumber(r, c+1);
+			return isNumber(r, c) || isNumber(r, c+1) || isBlack(r, c) || isBlack(r, c+1);
 		else if (d == HORIZ)
-			return isNumber(r, c) || isNumber(r+1, c);
+			return isNumber(r, c) || isNumber(r+1, c) || isBlack(r, c) || isBlack(r+1, c);
 		return false;
 	}
 	/**
@@ -323,9 +323,9 @@ public class Board extends BoardBase {
 	public void toggleState(int r, int c, int st) {
 		if (isNumber(r, c))
 			return;
-//		if (st == BLACK) {
-//			eraseLinesAround(r,c);
-//		}
+		if (st == BLACK) {
+			eraseLinesAround(r,c);
+		}
 		if (number[r][c] == st)
 			changeStateA(r, c, BLANK);
 		else
@@ -346,13 +346,13 @@ public class Board extends BoardBase {
 		if (ra == rb) 
 			for (int c = ca; c < cb; c++) {
 				if (getState(VERT, ra, c) != st)
-					if (!hasNumber(VERT, ra, c) || st == UNKNOWN)
+					if (!hasNumberOrBlack(VERT, ra, c) || st == UNKNOWN)
 						changeStateA(VERT, ra, c, st);
 			}
 		if (ca == cb) 
 			for (int r = ra; r < rb; r++) {
 				if (getState(HORIZ, r, ca) != st)
-					if (!hasNumber(HORIZ, r, ca) || st == UNKNOWN)
+					if (!hasNumberOrBlack(HORIZ, r, ca) || st == UNKNOWN)
 						changeStateA(HORIZ, r, ca, st);
 			}
 	}
@@ -612,7 +612,7 @@ public class Board extends BoardBase {
 		return result;
 	}
 	
-	private int checkArrow(int r, int c) {
+	int checkArrow(int r, int c) {
 		int result = 0;
 		int blackCount = 0;
 		int dir = getArrowDirection(r,c);
