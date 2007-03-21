@@ -46,6 +46,7 @@ public class PanelBase extends JPanel implements Printable {
 	private Color borderColor = Color.BLACK;
 	private Color gridColor = Color.BLACK;
 	private Color numberColor = Color.BLACK;
+	private Color errorColor = Color.RED;
 
 	private Color cursorColor = new Color(0xFF0000);
 	private Color answerCursorColor = new Color(0x0000FF);
@@ -754,6 +755,12 @@ public class PanelBase extends JPanel implements Printable {
 	 */
 	public Color getNumberColor() {
 		return numberColor;
+	}
+	/**
+	 * @return Returns the errorColor.
+	 */
+	public Color getErrorColor() {
+		return errorColor;
 	}
 	/**
 	 * @param cursorColor The cursorColor to set.

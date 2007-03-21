@@ -17,20 +17,20 @@ public class Panel extends PanelBase {
 	
 	private Board board;
 
-	private boolean warnWrongNumber = false;
-	private boolean highlightSelectedNumber = false;
+	private boolean indicateErrorMode = false;
+	private boolean highlightSelectionMode = false;
 
 	private Color inputColor = Color.BLUE;
 	private Color areaBorderColor = Color.BLACK;
-	private Color errorColor = Color.RED;
 	private Color noAreaColor = new Color(0xC0C0C0);
 
 	private int selectedNumber = 0;
-	private Color selectedNumberColor = new Color(0xAAFFAA);
-	private Color emissionColor = new Color(0x800000);
+	private Color highlightColor = new Color(0x00FF00);
+//	private Color highlight2Color = new Color(0xFFFF80);
+	private Color beamColor = new Color(0x800000);
 	private Area draggingArea;
 
-	private boolean showAllowedNumberDot = false;
+	private boolean dotHintMode = false;
 	private HintDot hintDot = new HintDot();
 
 	/**
@@ -89,45 +89,45 @@ public class Panel extends PanelBase {
 	}
 
 	/**
-	 * @return the highlightSelectedNumber
+	 * @return the highlightSelectionMode
 	 */
-	public boolean isHighlightSelectedNumber() {
-		return highlightSelectedNumber;
+	public boolean isHighlightSelectionMode() {
+		return highlightSelectionMode;
 	}
 
 	/**
-	 * @param highlightSelectedNumber The highlightSelectedNumber to set.
+	 * @param highlightSelectionMode The highlightSelectionMode to set.
 	 */
-	public void setHighlightSelectedNumber(boolean highlightSelectedNumber) {
-		this.highlightSelectedNumber = highlightSelectedNumber;
+	public void setHighlightSelectionMode(boolean highlightSelectionMode) {
+		this.highlightSelectionMode = highlightSelectionMode;
 	}
 
 	/**
-	 * @return the showAllowedNumberDot
+	 * @return the dotHintMode
 	 */
-	public boolean isShowAllowedNumberDot() {
-		return showAllowedNumberDot;
+	public boolean isDotHintMode() {
+		return dotHintMode;
 	}
 
 	/**
-	 * @param showAllowedNumberDot The showAllowedNumberDot to set.
+	 * @param dotHintMode The dotHintMode to set.
 	 */
-	public void setShowAllowedNumberDot(boolean showAllowedNumberDot) {
-		this.showAllowedNumberDot = showAllowedNumberDot;
+	public void setDotHintMode(boolean dotHintMode) {
+		this.dotHintMode = dotHintMode;
 	}
 
 	/**
-	 * @return the warnWrongNumber
+	 * @return the indicateErrorMode
 	 */
-	public boolean isWarnWrongNumber() {
-		return warnWrongNumber;
+	public boolean isIndicateErrorMode() {
+		return indicateErrorMode;
 	}
 
 	/**
-	 * @param warnWrongNumber The warnWrongNumber to set.
+	 * @param indicateErrorMode The indicateErrorMode to set.
 	 */
-	public void setWarnWrongNumber(boolean warnWrongNumber) {
-		this.warnWrongNumber = warnWrongNumber;
+	public void setIndicateErrorMode(boolean indicateErrorMode) {
+		this.indicateErrorMode = indicateErrorMode;
 	}
 
 	public void setDisplaySize(int cellSize) {
@@ -148,67 +148,44 @@ public class Panel extends PanelBase {
 	 * @param g
 	 */
 	protected void drawBoard(Graphics2D g) {
-//		paintEmission(g);
 		paintCells(g);
-		drawEmission(g);
+		drawBeams(g);
 		drawNumbers(g);
-		if(isShowAllowedNumberDot())
-			drawDots(g);
-		drawBorders(g);
+		drawAreaBorders(g);
 	}
 	
-	private void drawEmission(Graphics2D g) {
+	private void drawBeams(Graphics2D g) {
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
 				int n = board.getNumber(r, c);
-				if (isHighlightSelectedNumber() && n > 0 && n == getSelectedNumber()) {
-					for (int cc = c-n; cc <= c+n; cc++) {
-						if (cc==c)
-							continue;
-						if (board.isOn(r,cc)) {
-							g.setColor(emissionColor);
-							placeCenterLine(g, r, cc, Direction.HORIZ);
-//							g.setColor(selectedNumberColor2);
-//							paintCell(g, r, cc);
+				if (isHighlightSelectionMode()) {
+					if (n > 0 && n == getSelectedNumber()) {
+						for (int cc = c-n; cc <= c+n; cc++) {
+							if (cc==c)
+								continue;
+							if (board.isOn(r,cc)) {
+								g.setColor(beamColor);
+								placeCenterLine(g, r, cc, Direction.HORIZ);
+//								g.setColor(selectedNumberColor2);
+//								paintCell(g, r, cc);
+							}
 						}
-					}
-					for (int rr = r-n; rr <= r+n; rr++) {
-						if (rr==r)
-							continue;
-						if (board.isOn(rr,c)) {
-							g.setColor(emissionColor);
-							placeCenterLine(g, rr, c, Direction.VERT);
-//							g.setColor(selectedNumberColor2);
-//							paintCell(g, rr, c);
+						for (int rr = r-n; rr <= r+n; rr++) {
+							if (rr==r)
+								continue;
+							if (board.isOn(rr,c)) {
+								g.setColor(beamColor);
+								placeCenterLine(g, rr, c, Direction.VERT);
+//								g.setColor(selectedNumberColor2);
+//								paintCell(g, rr, c);
+							}
 						}
 					}
 				}
 			}
 		}
 	}
-//	private void paintEmission(Graphics2D g) {
-//		for (int r = 0; r < board.rows(); r++) {
-//			for (int c = 0; c < board.cols(); c++) {
-//				int number = board.getNumber(r, c);
-//				if (highlightSelectedNumber && number > 0 && number == selectedNumber) {
-//					for (int cc = c-number; cc <= c+number; cc++) {
-//						if (cc==c) continue;
-//						if (board.isOn(r,cc)) {
-//							g.setColor(selectedNumberColor2);
-//							paintCell(g, r, cc);
-//						}
-//					}
-//					for (int rr = r-number; rr <= r+number; rr++) {
-//						if (rr==r) continue;
-//						if (board.isOn(rr,c)) {
-//							g.setColor(selectedNumberColor2);
-//							paintCell(g, rr, c);
-//						}
-//					}
-//				}
-//			}
-//		}
-//	}
+
 	private void paintCells(Graphics2D g) {
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
@@ -216,16 +193,18 @@ public class Panel extends PanelBase {
 					g.setColor(noAreaColor);
 					paintCell(g, r, c);
 				}
-				// 選択数字配置不可のマスを色塗り
-//				if (highlightSelectedNumber && selectedNumber > 0) {
-//					if (!board.canPlace(r, c, selectedNumber)) {
-//						g.setColor(selectedNumberColor2);
+				// 選択数字配置可能なマスを色塗り
+//				if (isHighlightSelectionMode()) {
+//					if (getSelectedNumber() > 0 && board.canPlace(r, c, selectedNumber)) {
+//						g.setColor(highlight2Color);
 //						paintCell(g, r, c);
 //					}
 //				}
-				if (isHighlightSelectedNumber() && getSelectedNumber() > 0 && board.getNumber(r, c) == getSelectedNumber()) {
-					g.setColor(selectedNumberColor);
-					paintCell(g, r, c);
+				if (isHighlightSelectionMode()) {
+					if (getSelectedNumber() > 0 && board.getNumber(r, c) == getSelectedNumber()) {
+						g.setColor(highlightColor);
+						paintCell(g, r, c);
+					}
 				}
 			}
 		}
@@ -236,19 +215,22 @@ public class Panel extends PanelBase {
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
 				int n = board.getNumber(r, c);
-				if (board.getNumber(r, c) > 0) {
+				if (n > 0) {
 					if (board.isStable(r, c)) {
 						g.setColor(getNumberColor());
 					} else {
-						if (isWarnWrongNumber() && board.isError(r,c))
-							g.setColor(errorColor);
-						else
-							g.setColor(inputColor);
+						g.setColor(getInputColor());
+						if (isIndicateErrorMode()) {
+							if (board.isError(r,c))
+								g.setColor(getErrorColor());
+						}
 					}
-					placeNumber(g, r, c, board.getNumber(r, c));
-				}
-				else if (n == Board.UNKNOWN) {
-					if(board.isStable(r,c)) {
+					placeNumber(g, r, c, n);
+				} else if (n == Board.UNKNOWN) {
+					if (isDotHintMode()) {
+						placeHintDot(g, r, c);
+					}
+					if (board.isStable(r,c)) {
 						g.setColor(getNumberColor());
 						placeBoldCircle(g, r, c);
 					}
@@ -257,7 +239,7 @@ public class Panel extends PanelBase {
 		}
 	}
 	
-	private void drawBorders(Graphics2D g) {
+	private void drawAreaBorders(Graphics2D g) {
 		g.setColor(areaBorderColor);
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols() - 1; c++) {
@@ -283,20 +265,12 @@ public class Panel extends PanelBase {
 		}
 	}
 
-	private void drawDots(Graphics2D g) {
-		g.setFont(getNumberFont());
-		for (int r = 0; r < board.rows(); r++) {
-			for (int c = 0; c < board.cols(); c++) {
-				int num = board.getNumber(r, c);
-				if (num == 0) {
-					int pat = board.getPattern(r, c);
-					if (pat == 0) {
-						hintDot.placeHintCross(g, r, c);
-					} else {
-						hintDot.placeHintDot(g, r, c, pat);
-					}
-				}
-			}
+	private void placeHintDot(Graphics2D g, int r, int c) {
+		int pat = board.getPattern(r, c);
+		if (pat == 0) {
+			hintDot.placeHintCross(g, r, c);
+		} else {
+			hintDot.placeHintDot(g, r, c, pat);
 		}
 	}
 

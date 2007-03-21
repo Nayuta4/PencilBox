@@ -18,13 +18,12 @@ public class Panel extends PanelBase {
 
 	private Board board;
 
-	private boolean warnWrongNumber = false;
-	private boolean showAllowedNumberDot = false;
+	private boolean indicateErrorMode = false;
+	private boolean dotHintMode = false;
 
 	private Color inputColor = Color.BLUE;
 	private Color wallColor = new Color(0xC0C0C0);
-	private Color separationColor = Color.BLACK; // ï«É}ÉXÇÃéŒê¸
-	private Color errorColor = Color.RED;
+	private Color diagonalLineColor = Color.BLACK;
 
 	private Font smallFont = new Font("SansSerif", Font.PLAIN, 13);
 
@@ -55,28 +54,28 @@ public class Panel extends PanelBase {
 		this.inputColor = inputColor;
 	}
 	/**
-	 * @return the showAllowedNumberDot
+	 * @return the dotHintMode
 	 */
-	public boolean isShowAllowedNumberDot() {
-		return showAllowedNumberDot;
+	public boolean isDotHintMode() {
+		return dotHintMode;
 	}
 	/**
-	 * @param showAllowedNumberDot The showAllowedNumberDot to set.
+	 * @param dotHintMode The dotHintMode to set.
 	 */
-	public void setShowAllowedNumberDot(boolean showAllowedNumberDot) {
-		this.showAllowedNumberDot = showAllowedNumberDot;
+	public void setDotHintMode(boolean dotHintMode) {
+		this.dotHintMode = dotHintMode;
 	}
 	/**
-	 * @return the warnWrongNumber
+	 * @return the indicateErrorMode
 	 */
-	public boolean isWarnWrongNumber() {
-		return warnWrongNumber;
+	public boolean isIndicateErrorMode() {
+		return indicateErrorMode;
 	}
 	/**
-	 * @param warnWrongNumber The warnWrongNumber to set.
+	 * @param indicateErrorMode The indicateErrorMode to set.
 	 */
-	public void setWarnWrongNumber(boolean warnWrongNumber) {
-		this.warnWrongNumber = warnWrongNumber;
+	public void setIndicateErrorMode(boolean indicateErrorMode) {
+		this.indicateErrorMode = indicateErrorMode;
 	}
 	
 	public void setDisplaySize(int size) {
@@ -106,24 +105,26 @@ public class Panel extends PanelBase {
 		g.setFont(smallFont);
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
-				if(board.isWall(r,c)){
-					drawWall(g,r,c,board.getSumH(r,c),board.getSumV(r,c));
+				if (board.isWall(r, c)) {
+					drawWall(g, r, c, board.getSumH(r, c), board.getSumV(r, c));
 				}
 			}
 		}
 		g.setFont(getNumberFont());
-		g.setColor(inputColor);
-		for(int r=0; r<board.rows(); r++){
-			for(int c=0; c<board.cols(); c++){
-				state = board.getNumber(r,c);
+		for (int r = 0; r < board.rows(); r++) {
+			for (int c = 0; c < board.cols(); c++) {
+				state = board.getNumber(r, c);
 				if (state > 0) {
-					if (isWarnWrongNumber() && board.isMultipleNumber(r, c))
-						g.setColor(errorColor);
-					else
-						g.setColor(inputColor);
+					g.setColor(getInputColor());
+					if (isIndicateErrorMode()) {
+						if (board.isMultipleNumber(r, c))
+							g.setColor(getErrorColor());
+					}
 					placeNumber(g, r, c, state);
-				} else if (isShowAllowedNumberDot()) {
-					placeNumberHint(g, r, c);
+				} else if (state == 0) {
+					if (isDotHintMode()) {
+						placeHintDot(g, r, c);
+					}
 				}
 			}
 		}
@@ -139,26 +140,26 @@ public class Panel extends PanelBase {
 	void drawWall(Graphics2D g, int r, int c, int a, int b){
 		g.setColor(wallColor);
 		paintCell(g, r, c);
-		g.setColor(separationColor);
+		g.setColor(diagonalLineColor);
 		g.drawRect(toX(c), toY(r), getCellSize(), getCellSize());
 		g.drawLine(toX(c), toY(r), toX(c+1), toY(r+1));
 		if (b>0) {
-			int statusB = board.getWordStatus(r,c,Direction.VERT);
-			if (isWarnWrongNumber() && statusB == -1)
-				g.setColor(errorColor);
-			else
-				g.setColor(separationColor);
+			g.setColor(diagonalLineColor);
+			if (isIndicateErrorMode()) {
+				if (board.getWordStatus(r,c,Direction.VERT) == -1) 
+					g.setColor(getErrorColor());
+			}
 			drawString(g, toX(c) + getHalfCellSize()/2 + 1, toY(r+1) - getHalfCellSize()/2, Integer.toString(b));
 		}
 		if (a>0) {
-			int statusA = board.getWordStatus(r,c,Direction.HORIZ);
-			if (isWarnWrongNumber() && statusA == -1)
-				g.setColor(errorColor);
-			else
-				g.setColor(separationColor);
+			g.setColor(diagonalLineColor);
+			if (isIndicateErrorMode()) {
+				if (board.getWordStatus(r,c,Direction.HORIZ) == -1)
+					g.setColor(getErrorColor());
+			}
 			drawString(g, toX(c+1) - getHalfCellSize()/2, toY(r) + getHalfCellSize()/2 + 1, Integer.toString(a));
 		}
-//		g.setColor(separationColor);
+//		g.setColor(diagonalLineColor);
 //		if (board.isWall(r, c+1)) {
 //			g.drawLine(toX(c+1), toY(r), toX(c+1), toY(r+1));
 //		}
@@ -181,7 +182,7 @@ public class Panel extends PanelBase {
 		}
 	}
 	
-	void placeNumberHint(Graphics2D g, int r, int c) {
+	void placeHintDot(Graphics2D g, int r, int c) {
 		if (board.getRemNo(r,c) == 0) {
 			hintDot.placeHintCross(g, r, c);
 		} else {
