@@ -12,9 +12,9 @@ import pencilbox.common.gui.MenuBase;
 public class Menu extends MenuBase {
 
 	private JMenuItem inputColorItem;
-	private JMenuItem warnWrongNumberItem;
-	private JMenuItem hilightSelectedNumberItem;
-	private JMenuItem showArrowedNumberDotItem;
+	private JMenuItem indicateErrorItem;
+	private JMenuItem highlightSelectionItem;
+	private JMenuItem dotHintItem;
 	
 	public Panel getPanel() {
 		return (Panel)getPanelBase();
@@ -24,19 +24,19 @@ public class Menu extends MenuBase {
 		super.buildIndividualMenu();
 		inputColorItem = addColorMenuItem("入力数字");
 		addCursorMenu();
-		addToViewMenu(warnWrongNumberItem = makeCheckBoxCommandMenuItem("誤りを赤で表示(W)", 'W', false));
-		addToViewMenu(hilightSelectedNumberItem = makeCheckBoxCommandMenuItem("選択数字ハイライト(H)", 'H', false));
-		addToViewMenu(showArrowedNumberDotItem = makeCheckBoxCommandMenuItem("可能な数字をドット表示(D)", 'D', false));
+		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("誤りを赤で示す(E)", 'E', false));
+		addToViewMenu(highlightSelectionItem = makeCheckBoxCommandMenuItem("選択数字ハイライト(H)", 'H', false));
+		addToViewMenu(dotHintItem = makeCheckBoxCommandMenuItem("可能な数字をドットで示す(D)", 'D', false));
 		addSymmetricPlacementMenuItem();
 	}
 
 	public void executeCommand2(JMenuItem target) {
-		if (target == warnWrongNumberItem)
-			getPanel().setWarnWrongNumber(target.isSelected());
-		else if (target == hilightSelectedNumberItem)
-			getPanel().setHighlightSelectedNumber(target.isSelected());
-		else if (target == showArrowedNumberDotItem)
-			getPanel().setShowAllowedNumberDot(target.isSelected());
+		if (target == indicateErrorItem)
+			getPanel().setIndicateErrorMode(target.isSelected());
+		else if (target == highlightSelectionItem)
+			getPanel().setHighlightSelectionMode(target.isSelected());
+		else if (target == dotHintItem)
+			getPanel().setDotHintMode(target.isSelected());
 	}
 
 	public void setColor(JMenuItem target, Color color) {
@@ -52,9 +52,9 @@ public class Menu extends MenuBase {
 
 	public void updateCurrentMenuSelection() {
 		super.updateCurrentMenuSelection();
-		warnWrongNumberItem.setSelected(getPanel().isWarnWrongNumber());
-		hilightSelectedNumberItem.setSelected(getPanel().isHighlightSelectedNumber());
-		showArrowedNumberDotItem.setSelected(getPanel().isShowAllowedNumberDot());
+		indicateErrorItem.setSelected(getPanel().isIndicateErrorMode());
+		highlightSelectionItem.setSelected(getPanel().isHighlightSelectionMode());
+		dotHintItem.setSelected(getPanel().isDotHintMode());
 	}
 
 }

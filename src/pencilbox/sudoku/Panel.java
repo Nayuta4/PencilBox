@@ -15,16 +15,15 @@ public class Panel extends PanelBase {
 
 	private Board board;
 
-	private boolean highlightSelectedNumber = false;
-	private boolean warnWrongNumber = false;
-	private boolean showAllowedNumberDot = false;
+	private boolean highlightSelectionMode = false;
+	private boolean indicateErrorMode = false;
+	private boolean dotHintMode = false;
 
 	private Color inputColor = Color.BLUE;
-	private Color errorColor = Color.RED;
 
 	private int selectedNumber = 0;
-	private Color selectedNumberColor = Color.GREEN;
-	private Color selectedNumberColor2 = new Color(0xFFFF80);
+	private Color highlightColor = Color.GREEN;
+	private Color highlight2Color = new Color(0xFFFF80);
 
 	private HintDot hintDot = new HintDot();
 	private int unit;
@@ -59,45 +58,45 @@ public class Panel extends PanelBase {
 	}
 
 	/**
-	 * @return the warnWrongNumber
+	 * @return the indicateErrorMode
 	 */
-	public boolean isWarnWrongNumber() {
-		return warnWrongNumber;
+	public boolean isIndicateErrorMode() {
+		return indicateErrorMode;
 	}
 
 	/**
-	 * @param warnWrongNumber The warnWrongNumber to set.
+	 * @param indicateErrorMode The indicateErrorMode to set.
 	 */
-	public void setWarnWrongNumber(boolean warnWrongNumber) {
-		this.warnWrongNumber = warnWrongNumber;
+	public void setIndicateErrorMode(boolean indicateErrorMode) {
+		this.indicateErrorMode = indicateErrorMode;
 	}
 
 	/**
-	 * @return the highlightSelectedNumber
+	 * @return the highlightSelectionMode
 	 */
-	public boolean isHighlightSelectedNumber() {
-		return highlightSelectedNumber;
+	public boolean isHighlightSelectionMode() {
+		return highlightSelectionMode;
 	}
 
 	/**
-	 * @param highlightSelectedNumber The highlightSelectedNumber to set.
+	 * @param highlightSelectionMode The highlightSelectionMode to set.
 	 */
-	public void setHighlightSelectedNumber(boolean highlightSelectedNumber) {
-		this.highlightSelectedNumber = highlightSelectedNumber;
+	public void setHighlightSelectionMode(boolean highlightSelectionMode) {
+		this.highlightSelectionMode = highlightSelectionMode;
 	}
 
 	/**
-	 * @return the showAllowedNumberDot
+	 * @return the dotHintMode
 	 */
-	public boolean isShowAllowedNumberDot() {
-		return showAllowedNumberDot;
+	public boolean isDotHintMode() {
+		return dotHintMode;
 	}
 
 	/**
-	 * @param showAllowedNumberDot The showAllowedNumberDot to set.
+	 * @param dotHintMode The dotHintMode to set.
 	 */
-	public void setShowAllowedNumberDot(boolean showAllowedNumberDot) {
-		this.showAllowedNumberDot = showAllowedNumberDot;
+	public void setDotHintMode(boolean dotHintMode) {
+		this.dotHintMode = dotHintMode;
 	}
 
 	/**
@@ -115,17 +114,17 @@ public class Panel extends PanelBase {
 	}
 
 	/**
-	 * @return Returns the selectedNumberColor.
+	 * @return Returns the highlightColor.
 	 */
-	public Color getSelectedNumberColor() {
-		return selectedNumberColor;
+	public Color getHighlightColor() {
+		return highlightColor;
 	}
 
 	/**
-	 * @param selectedNumberColor The selectedNumberColor to set.
+	 * @param highlightColor The highlightColor to set.
 	 */
-	public void setSelectedNumberColor(Color selectedNumberColor) {
-		this.selectedNumberColor = selectedNumberColor;
+	public void setHighlightColor(Color highlightColor) {
+		this.highlightColor = highlightColor;
 	}
 
 	public void setDisplaySize(int cellSize) {
@@ -168,32 +167,33 @@ public class Panel extends PanelBase {
 	 * @param g
 	 */
 	protected void drawBoard(Graphics2D g) {
-		int num;
 		g.setFont(getNumberFont());
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
-				num = board.getNumber(r, c);
-				paintCell1(g, r, c, num);
-				if (num > 0) {
-					placeNumber1(g, r, c, num);
-				} else if (num == Board.UNKNOWN) {
+				int n = board.getNumber(r, c);
+				paintCell1(g, r, c, n);
+				if (n > 0) {
+					placeNumber1(g, r, c, n);
+				} else if (n == Board.UNKNOWN) {
+					if (isDotHintMode() && unit >= 3 && unit <=5) {
+						placeHintDot(g, r, c);
+					}
 					if (board.isStable(r,c)) {
 						g.setColor(getNumberColor());
 						placeBoldCircle(g, r, c);
-					} else if (isShowAllowedNumberDot() && unit >= 3 && unit <=5)
-						drawHintDot(g, r, c);
+					} 
 				}
 			}
 		}
 	}
 	// 選択数字と同じ行，列，ボックスを色塗り 
 	private void paintCell1(Graphics2D g, int r, int c, int num) {
-		if (isHighlightSelectedNumber() && getSelectedNumber() > 0) {
+		if (isHighlightSelectionMode() && getSelectedNumber() > 0) {
 			if (getSelectedNumber() == num) {
-				g.setColor(selectedNumberColor);
+				g.setColor(highlightColor);
 				paintCell(g, r, c);
 			} else if (board.canPlace(r, c, getSelectedNumber())) {
-				g.setColor(selectedNumberColor2);
+				g.setColor(highlight2Color);
 				paintCell(g, r, c);
 			}
 		}
@@ -203,17 +203,17 @@ public class Panel extends PanelBase {
 		if (board.isStable(r, c)) {
 			g.setColor(getNumberColor());
 		} else {
-			g.setColor(inputColor);
-			if (isWarnWrongNumber()) {
+			g.setColor(getInputColor());
+			if (isIndicateErrorMode()) {
 				if (board.isMultipleNumber(r, c)) {
-					g.setColor(errorColor);
+					g.setColor(getErrorColor());
 				}
 			}
 		}
 		placeNumber(g, r, c, num);
 	}
 
-	private void drawHintDot(Graphics2D g, int r, int c) {
+	private void placeHintDot(Graphics2D g, int r, int c) {
 		int pat = board.getPattern(r, c);
 		if (pat == 0) {
 			hintDot.placeHintCross(g, r, c);
