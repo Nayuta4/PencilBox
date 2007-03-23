@@ -18,16 +18,15 @@ public class Panel extends PanelBase {
 	private Color lineColor = Color.BLUE;
 	private Color crossColor = Color.MAGENTA;
 
-	private boolean warnBranchedLink = false;
-	private boolean colorForEachLink = false;
-	private boolean highlightSelectedLink = false;
+	private boolean indicateErrorMode = false;
+	private boolean separateLinkColorMode = false;
+	private boolean highlightSelectionMode = false;
 
 	private Link selectedLink = null;
 	private int selectedNumber = 0;  // ‘I‘ð‚³‚ê‚Ä‚¢‚È‚¢‚Æ‚«‚Í 0
 
-	private Color numberlessLinkColor = Color.CYAN;
-	private Color selectedLinkColor = Color.GREEN;
-	private Color errorColor = Color.RED;
+//	private Color numberlessLinkColor = Color.CYAN;
+	private Color highlightColor = Color.GREEN;
 
 	/**
 	 * 
@@ -69,45 +68,45 @@ public class Panel extends PanelBase {
 	}
 
 	/**
-	 * @return the colorForEachLink
+	 * @return the separateLinkColorMode
 	 */
-	public boolean isColorForEachLink() {
-		return colorForEachLink;
+	public boolean isSeparateLinkColorMode() {
+		return separateLinkColorMode;
 	}
 
 	/**
-	 * @param colorForEachLink The colorForEachLink to set.
+	 * @param separateLinkColorMode The separateLinkColorMode to set.
 	 */
-	public void setColorForEachLink(boolean colorForEachLink) {
-		this.colorForEachLink = colorForEachLink;
+	public void setSeparateLinkColorMode(boolean separateLinkColorMode) {
+		this.separateLinkColorMode = separateLinkColorMode;
 	}
 
 	/**
-	 * @return the highlightSelectedLink
+	 * @return the highlightSelectionMode
 	 */
-	public boolean isHighlightSelectedLink() {
-		return highlightSelectedLink;
+	public boolean isHighlightSelectionMode() {
+		return highlightSelectionMode;
 	}
 
 	/**
-	 * @param highlightSelectedLink The highlightSelectedLink to set.
+	 * @param highlightSelectionMode The highlightSelectionMode to set.
 	 */
-	public void setHighlightSelectedLink(boolean highlightSelectedLink) {
-		this.highlightSelectedLink = highlightSelectedLink;
+	public void setHighlightSelectionMode(boolean highlightSelectionMode) {
+		this.highlightSelectionMode = highlightSelectionMode;
 	}
 
 	/**
-	 * @return the warnBranchedLink
+	 * @return the indicateErrorMode
 	 */
-	public boolean isWarnBranchedLink() {
-		return warnBranchedLink;
+	public boolean isIndicateErrorMode() {
+		return indicateErrorMode;
 	}
 
 	/**
-	 * @param warnBranchedLink The warnBranchedLink to set.
+	 * @param indicateErrorMode The indicateErrorMode to set.
 	 */
-	public void setWarnBranchedLink(boolean warnBranchedLink) {
-		this.warnBranchedLink = warnBranchedLink;
+	public void setIndicateErrorMode(boolean indicateErrorMode) {
+		this.indicateErrorMode = indicateErrorMode;
 	}
 
 	/**
@@ -146,12 +145,12 @@ public class Panel extends PanelBase {
 		drawBorder(g);
 		drawCursor(g);
 	}
+
 	/**
 	 * ”Õ–Ê‚ð•`‰æ‚·‚é
 	 * @param g
 	 */
 	protected void drawBoard(Graphics2D g) {
-		int number;
 		int state;
 		for (int d = 0; d <= 1; d++) {
 			for (int r = 0; r < board.rows(); r++) {
@@ -159,13 +158,14 @@ public class Panel extends PanelBase {
 					state = board.getState(d, r, c);
 					if (state == Board.LINE) {
 						placeLink1(g, d, r, c);
-					} else if (state == Board.NOLINE) {
-						g.setColor(crossColor);
-						placeSideCross(g, d, r, c);
+//					} else if (state == Board.NOLINE) {
+//						g.setColor(getCrossColor());
+//						placeSideCross(g, d, r, c);
 					}
 				}
 			}
 		}
+		int number;
 		g.setFont(getNumberFont());
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
@@ -182,46 +182,51 @@ public class Panel extends PanelBase {
 			}
 		}
 	}
-	
+
 	private void placeLink1(Graphics2D g, int d, int r, int c) {
 		Link link = board.getLink(d,r,c);
 		int linkNo = link.getNumber();
-		g.setColor(lineColor);
-		if (isWarnBranchedLink()) {
-			if (board.isBranchedLink(d,r,c)) {
-				g.setColor(errorColor);
-			}
-		} else if (isHighlightSelectedLink()) {
-			if ((linkNo > 0 && linkNo == getSelectedNumber())|| link == getSelectedLink()) {
-				g.setColor(selectedLinkColor);
-			}
-		} else if (isColorForEachLink()) {
+		g.setColor(getLineColor());
+		if (isSeparateLinkColorMode()) {
 			if (linkNo == 0) {
-				g.setColor(numberlessLinkColor);
+				g.setColor(getLineColor());
 			} else if (linkNo == -1) {
-				g.setColor(errorColor);
+				g.setColor(getErrorColor());
 			} else {
 				g.setColor(Colors.getDarkColor(linkNo));
 			}
 		}
+		if (isHighlightSelectionMode()) {
+			if ((linkNo > 0 && linkNo == getSelectedNumber())
+					|| link == getSelectedLink()) {
+				g.setColor(highlightColor);
+			}
+		}
+//		if (isIndicateErrorMode()) {
+//			if (board.isBranchedLink(d,r,c)) {
+//				g.setColor(getErrorColor());
+//			}
+//		}
 		super.placeLink(g, d, r, c);
 	}
 
 	private void placeNumber1(Graphics2D g, int r, int c, int n) {
-		if (isHighlightSelectedLink() && n == getSelectedNumber()) {
-			g.setColor(selectedLinkColor);
-			super.paintCell(g, r, c);
-			g.setColor(getNumberColor());
-		} else if (
-			isWarnBranchedLink()
-				&& ((board.getLink(r, c) != null
-					&& board.getLink(r, c).getNumber() == -1)
-					|| board.countLine(r, c) > 1)) {
-			g.setColor(errorColor);
-		} else if (isColorForEachLink()) {
+		if (isHighlightSelectionMode()) {
+			if (n == getSelectedNumber()) {
+				g.setColor(highlightColor);
+				super.paintCell(g, r, c);
+			}
+		}
+		g.setColor(getNumberColor());
+		if (isSeparateLinkColorMode()) {
 			g.setColor(Colors.getDarkColor(board.getNumber(r,c)));
-		} else {
-			g.setColor(getNumberColor());
+		}
+		if (isIndicateErrorMode()) {
+			if (board.getLink(r, c) != null
+					&& board.getLink(r, c).getNumber() == -1)
+				g.setColor(getErrorColor());
+//			if (board.countLine(r, c) > 1)
+//				g.setColor(getErrorColor());
 		}
 		super.placeNumber(g, r, c, n);
 	}

@@ -12,9 +12,9 @@ import pencilbox.common.gui.MenuBase;
 public class Menu extends MenuBase {
 
 	private JMenuItem lineColorItem;
-	private JMenuItem warnBranchedLinkItem;
-	private JMenuItem colorForEachLinkItem;
-	private JMenuItem highlightSelectedLinkItem;
+	private JMenuItem indicateErrorItem;
+	private JMenuItem separateLinkColorItem;
+	private JMenuItem highlightSelectionItem;
 	
 	public Panel getPanel() {
 		return (Panel) getPanelBase();
@@ -24,21 +24,21 @@ public class Menu extends MenuBase {
 	protected void buildIndividualMenu(){
 		super.buildIndividualMenu();
 		lineColorItem = addColorMenuItem("線");
-		addToViewMenu(warnBranchedLinkItem = makeCheckBoxCommandMenuItem("誤りを赤で表示(W)", 'W', false));
-		addToViewMenu(colorForEachLinkItem = makeCheckBoxCommandMenuItem("線の色分け(D)", 'D', false));
-		addToViewMenu(highlightSelectedLinkItem = makeCheckBoxCommandMenuItem("選択数字ハイライト(H)", 'H', false));
+		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("誤りを赤で示す(E)", 'E', false));
+		addToViewMenu(separateLinkColorItem = makeCheckBoxCommandMenuItem("線の色分け(R)", 'R', false));
+		addToViewMenu(highlightSelectionItem = makeCheckBoxCommandMenuItem("選択数字ハイライト(H)", 'H', false));
 		addRenewColorMenu();
 //		addTrimAnswerMenuItem();
 		addSymmetricPlacementMenuItem();
 	}
 
 	public void executeCommand2(JMenuItem target) {
-		if (target == warnBranchedLinkItem)
-			getPanel().setWarnBranchedLink(target.isSelected());
-		else if (target == colorForEachLinkItem)
-			getPanel().setColorForEachLink(target.isSelected());
-		else if (target == highlightSelectedLinkItem)
-			getPanel().setHighlightSelectedLink(target.isSelected());
+		if (target == indicateErrorItem)
+			getPanel().setIndicateErrorMode(target.isSelected());
+		else if (target == separateLinkColorItem)
+			getPanel().setSeparateLinkColorMode(target.isSelected());
+		else if (target == highlightSelectionItem)
+			getPanel().setHighlightSelectionMode(target.isSelected());
 	}
 
 	public Color getColor(JMenuItem target) {
@@ -55,9 +55,9 @@ public class Menu extends MenuBase {
 
 	public void updateCurrentMenuSelection() {
 		super.updateCurrentMenuSelection();
-		warnBranchedLinkItem.setSelected(getPanel().isWarnBranchedLink());
-		colorForEachLinkItem.setSelected(getPanel().isColorForEachLink());
-		highlightSelectedLinkItem.setSelected(getPanel().isHighlightSelectedLink());
+		indicateErrorItem.setSelected(getPanel().isIndicateErrorMode());
+		separateLinkColorItem.setSelected(getPanel().isSeparateLinkColorMode());
+		highlightSelectionItem.setSelected(getPanel().isHighlightSelectionMode());
 	}
 
 }

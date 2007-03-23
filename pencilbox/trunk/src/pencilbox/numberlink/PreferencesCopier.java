@@ -12,9 +12,9 @@ public class PreferencesCopier extends PreferencesCopierBase {
 		super.copyPreferences(src, dst);
 		Panel panelS = (Panel) src.getPanelBase();
 		Panel panelD = (Panel) dst.getPanelBase();
-		panelD.setWarnBranchedLink(panelS.isWarnBranchedLink());
-		panelD.setColorForEachLink(panelS.isColorForEachLink());
-		panelD.setHighlightSelectedLink(panelS.isHighlightSelectedLink());
+		panelD.setIndicateErrorMode(panelS.isIndicateErrorMode());
+		panelD.setSeparateLinkColorMode(panelS.isSeparateLinkColorMode());
+		panelD.setHighlightSelectionMode(panelS.isHighlightSelectionMode());
 		panelD.setLineColor(panelS.getLineColor());
 	}
 }
