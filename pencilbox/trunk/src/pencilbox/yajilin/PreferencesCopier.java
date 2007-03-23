@@ -12,8 +12,8 @@ public class PreferencesCopier extends PreferencesCopierBase {
 		super.copyPreferences(src, dst);
 		Panel panelS = (Panel) src.getPanelBase();
 		Panel panelD = (Panel) dst.getPanelBase();
-		panelD.setWarnBranchedLink(panelS.isWarnBranchedLink());
-		panelD.setColorForEachLink(panelS.isColorForEachLink());
+		panelD.setIndicateErrorMode(panelS.isIndicateErrorMode());
+		panelD.setSeparateLinkColorMode(panelS.isSeparateLinkColorMode());
 		panelD.setLineColor(panelS.getLineColor());
 		panelD.setPaintColor(panelS.getPaintColor());
 		panelD.setCircleColor(panelS.getCircleColor());

@@ -16,14 +16,13 @@ public class Panel extends PanelBase {
 
 	private Board board;
 
-	private boolean warnBranchedLink = false;
-	private boolean colorForEachLink = false;
+	private boolean indicateErrorMode = false;
+	private boolean separateLinkColorMode = false;
 
 	private Color circleColor = Color.MAGENTA;
 	private Color lineColor = Color.BLUE;
 	private Color paintColor = Color.BLUE;
 	private Color crossColor = Color.MAGENTA;
-	private Color errorColor = Color.RED;
 //	private Color wallColor = new Color(0xC0C0C0);
 	
 	/**
@@ -40,31 +39,31 @@ public class Panel extends PanelBase {
 	}
 
 	/**
-	 * @return Returns the colorForEachLink.
+	 * @return Returns the separateLinkColorMode.
 	 */
-	public boolean isColorForEachLink() {
-		return colorForEachLink;
+	public boolean isSeparateLinkColorMode() {
+		return separateLinkColorMode;
 	}
 
 	/**
-	 * @param colorForEachLink The colorForEachLink to set.
+	 * @param separateLinkColorMode The separateLinkColorMode to set.
 	 */
-	public void setColorForEachLink(boolean colorForEachLink) {
-		this.colorForEachLink = colorForEachLink;
+	public void setSeparateLinkColorMode(boolean separateLinkColorMode) {
+		this.separateLinkColorMode = separateLinkColorMode;
 	}
 
 	/**
-	 * @return Returns the warnBranchedLink.
+	 * @return Returns the indicateErrorMode.
 	 */
-	public boolean isWarnBranchedLink() {
-		return warnBranchedLink;
+	public boolean isIndicateErrorMode() {
+		return indicateErrorMode;
 	}
 
 	/**
-	 * @param warnBranchedLink The warnBranchedLink to set.
+	 * @param indicateErrorMode The indicateErrorMode to set.
 	 */
-	public void setWarnBranchedLink(boolean warnBranchedLink) {
-		this.warnBranchedLink = warnBranchedLink;
+	public void setIndicateErrorMode(boolean indicateErrorMode) {
+		this.indicateErrorMode = indicateErrorMode;
 	}
 
 	/**
@@ -142,18 +141,17 @@ public class Panel extends PanelBase {
 			for (int c = 0; c < board.cols(); c++) {
 				state = board.getNumber(r, c);
 				if (state == Board.BLACK) {
-					g.setColor(paintColor);
-					if (isWarnBranchedLink()) {
-						if (board.isBlock(r,c)) {
-							g.setColor(errorColor);
-						}
-					}
+					g.setColor(getPaintColor());
+//					if (isIndicateErrorMode()) {
+//						if (board.isBlock(r, c)) {
+//							g.setColor(getErrorColor());
+//						}
+//					}
 					paintCell(g, r, c);
 				} else if (state == Board.WHITE) {
-					g.setColor(circleColor);
+					g.setColor(getCircleColor());
 					placeMark(g, r, c);
 				} else if (state >= 0) {
-					g.setColor(getNumberColor());
 					placeArrow(g, r, c, state);
 				} else if (state == Board.UNDECIDED_NUMBER) {
 					g.setColor(getNumberColor());
@@ -166,17 +164,19 @@ public class Panel extends PanelBase {
 				for (int c = 0; c < board.cols(); c++) {
 					state = board.getState(d, r, c);
 					if (state == Board.LINE) {
-						g.setColor(lineColor);
-						if (isColorForEachLink())
+						g.setColor(getLineColor());
+						if (isSeparateLinkColorMode())
 							g.setColor(Colors.getColor(board.getLink(d,r,c).getID()));
-						if (isWarnBranchedLink()) {
-							if (board.isBranchedLink(d,r,c) || board.isBuriedLink(d,r,c))
-								g.setColor(errorColor);
-						}
+//						if (isIndicateErrorMode()) {
+//							if (board.isBranchedLink(d,r,c))
+//								g.setColor(getErrorColor());
+//							else if (board.isBuriedLink(d,r,c))
+//								g.setColor(getErrorColor());
+//						}
 						placeLink(g, d, r, c);
-					} else if (state == Board.NOLINE) {
-						g.setColor(crossColor);
-						placeSideCross(g, d, r, c);
+//					} else if (state == Board.NOLINE) {
+//						g.setColor(getCrossColor());
+//						placeSideCross(g, d, r, c);
 					}
 				}
 			}
@@ -190,7 +190,12 @@ public class Panel extends PanelBase {
 	 * @param arrow
 	 */
 	private void placeArrow(Graphics2D g, int r, int c, int arrow) {
+		g.setColor(getNumberColor());
 		placeSquare(g, r, c, r, c);
+		if (isIndicateErrorMode()) {
+			if (board.checkArrow(r, c) == 16)
+				g.setColor(getErrorColor());
+		}
 //		g.setColor(wallColor);
 //		paintCell(g, r, c);
 //		g.setColor(getNumberColor());
