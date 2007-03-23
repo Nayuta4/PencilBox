@@ -13,8 +13,8 @@ public class Menu extends MenuBase {
 
 	private JMenuItem lineColorItem;
 	private JMenuItem crossColorItem;
-	private JMenuItem warnBranchedLinkItem;
-	private JMenuItem colorForEachLinkItem;
+	private JMenuItem indicateErrorItem;
+	private JMenuItem separateLinkColorItem;
 	
 	public Panel getPanel() {
 		return (Panel) getPanelBase();
@@ -23,18 +23,18 @@ public class Menu extends MenuBase {
 	protected void buildIndividualMenu() {
 		lineColorItem = addColorMenuItem("ê¸");
 		crossColorItem = addColorMenuItem("Å~àÛ");
-		addToViewMenu(warnBranchedLinkItem = makeCheckBoxCommandMenuItem("åÎÇËÇê‘Ç≈ï\é¶(W)", 'W', false));
-		addToViewMenu(colorForEachLinkItem = makeCheckBoxCommandMenuItem("ê¸ÇÃêFï™ÇØ(D)", 'D', false));
+		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("åÎÇËÇê‘Ç≈é¶Ç∑(E)", 'E', false));
+		addToViewMenu(separateLinkColorItem = makeCheckBoxCommandMenuItem("ê¸ÇÃêFï™ÇØ(R)", 'R', false));
 		addRenewColorMenu();
 		addSymmetricPlacementMenuItem();
 		addTrimAnswerMenuItem();
 	}
 
 	public void executeCommand2(JMenuItem target) {
-		if (target == warnBranchedLinkItem)
-			getPanel().setWarnBranchedLink(target.isSelected());
-		else if (target == colorForEachLinkItem)
-			getPanel().setColorForEachLink(target.isSelected());
+		if (target == indicateErrorItem)
+			getPanel().setIndicateErrorMode(target.isSelected());
+		else if (target == separateLinkColorItem)
+			getPanel().setSeparateLinkColorMode(target.isSelected());
 	}
 
 	public Color getColor(JMenuItem target) {
@@ -55,8 +55,8 @@ public class Menu extends MenuBase {
 	
 	public void updateCurrentMenuSelection() {
 		super.updateCurrentMenuSelection();
-		warnBranchedLinkItem.setSelected(getPanel().isWarnBranchedLink());
-		colorForEachLinkItem.setSelected(getPanel().isColorForEachLink());
+		indicateErrorItem.setSelected(getPanel().isIndicateErrorMode());
+		separateLinkColorItem.setSelected(getPanel().isSeparateLinkColorMode());
 	}
 
 }

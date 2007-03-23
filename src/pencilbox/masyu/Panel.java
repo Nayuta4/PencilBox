@@ -15,14 +15,12 @@ public class Panel extends PanelBase {
 
 	private Board board;
 
-	private boolean colorForEachLink = false;
-	private boolean warnBranchedLink = false;
+	private boolean separateLinkColorMode = false;
+	private boolean indicateErrorMode = false;
 
 	private Color lineColor = Color.BLUE;
 	private Color crossColor = Color.MAGENTA;
-	private Color pearlColor = Color.BLACK;
 	private Color grayPearlColor = Color.GRAY;
-	private Color errorColor = Color.RED;
 
 	/**
 	 * 
@@ -60,40 +58,28 @@ public class Panel extends PanelBase {
 		this.crossColor = crossColor;
 	}
 	/**
-	 * @return Returns the pearlColor.
+	 * @return the separateLinkColorMode
 	 */
-	public Color getPearlColor() {
-		return pearlColor;
+	public boolean isSeparateLinkColorMode() {
+		return separateLinkColorMode;
 	}
 	/**
-	 * @param pearlColor The pearlColor to set.
+	 * @param separateLinkColorMode The separateLinkColorMode to set.
 	 */
-	public void setPearlColor(Color pearlColor) {
-		this.pearlColor = pearlColor;
+	public void setSeparateLinkColorMode(boolean separateLinkColorMode) {
+		this.separateLinkColorMode = separateLinkColorMode;
 	}
 	/**
-	 * @return the colorForEachLink
+	 * @return the indicateErrorMode
 	 */
-	public boolean isColorForEachLink() {
-		return colorForEachLink;
+	public boolean isIndicateErrorMode() {
+		return indicateErrorMode;
 	}
 	/**
-	 * @param colorForEachLink The colorForEachLink to set.
+	 * @param indicateErrorMode The indicateErrorMode to set.
 	 */
-	public void setColorForEachLink(boolean colorForEachLink) {
-		this.colorForEachLink = colorForEachLink;
-	}
-	/**
-	 * @return the warnBranchedLink
-	 */
-	public boolean isWarnBranchedLink() {
-		return warnBranchedLink;
-	}
-	/**
-	 * @param warnBranchedLink The warnBranchedLink to set.
-	 */
-	public void setWarnBranchedLink(boolean warnBranchedLink) {
-		this.warnBranchedLink = warnBranchedLink;
+	public void setIndicateErrorMode(boolean indicateErrorMode) {
+		this.indicateErrorMode = indicateErrorMode;
 	}
 
 	public void drawPanel(Graphics2D g) {
@@ -127,14 +113,16 @@ public class Panel extends PanelBase {
 				for (int c = 0; c < board.cols(); c++) {
 					state = board.getState(d, r, c);
 					if (state == Board.LINE) {
-						g.setColor(lineColor);
-						if(isColorForEachLink())
+						g.setColor(getLineColor());
+						if (isSeparateLinkColorMode())
 							g.setColor(Colors.getColor(board.getLink(d,r,c).getID()));
-						if(isWarnBranchedLink() && board.isBranchedLink(d,r,c))
-							g.setColor(errorColor);
+//						if (isIndicateErrorMode()) {
+//							if (board.isBranchedLink(d,r,c))
+//								g.setColor(getErrorColor());
+//						}
 						placeLink(g, d, r, c);
 					} else if (state == Board.NOLINE) {
-						g.setColor(crossColor);
+						g.setColor(getCrossColor());
 						placeSideCross(g, d, r, c);
 					}
 				}
@@ -143,23 +131,33 @@ public class Panel extends PanelBase {
 	}
 	
 	private void placeBlackPearl(Graphics2D g, int r, int c) {
-		g.setColor(pearlColor);
-		if (isWarnBranchedLink()) {
+		g.setColor(getNumberColor());
+		if (isIndicateErrorMode()) {
 			int p = board.checkBlackPearl(r,c);
-			if (p==-1) g.setColor(errorColor); 
-	//		else if (p==1) g.setColor(successColor);
-			else g.setColor(pearlColor); 
+			if (p==-1)
+				g.setColor(getErrorColor()); 
+			else if (p==0)
+				g.setColor(getErrorColor()); 
+//			else if (p==1)
+//				g.setColor(getErrorColor()); 
+//			else if (p==2)
+//				g.setColor(getNumberColor());
 		}
 		placeFilledCircle(g, r, c);
 	}
 	
 	private void placeWhitePearl(Graphics2D g, int r, int c) {
-		g.setColor(pearlColor);
-		if (isWarnBranchedLink()) {
+		g.setColor(getNumberColor());
+		if (isIndicateErrorMode()) {
 			int p = board.checkWhitePearl(r,c);
-			if (p==-1) g.setColor(errorColor);
-	//		else if (p==1) g.setColor(successColor);
-			else g.setColor(pearlColor);
+			if (p==-1)
+				g.setColor(getErrorColor()); 
+			else if (p==0)
+				g.setColor(getErrorColor()); 
+//			else if (p==1)
+//				g.setColor(getErrorColor()); 
+//			else if (p==2)
+//				g.setColor(getNumberColor());
 		}
 		placeBoldCircle(g, r, c);
 	}
