@@ -15,12 +15,11 @@ public class Panel extends PanelBase {
 
 	private Board board;
 
-	private boolean warnBranchedLink = false;
-	private boolean colorForEachLink = false;
+	private boolean indicateErrorMode = false;
+	private boolean separateLinkColorMode = false;
 
 	private Color lineColor = Color.BLUE;
 	private Color crossColor = Color.MAGENTA;
-	private Color errorColor = Color.RED;
 	
 	/**
 	 * 
@@ -58,28 +57,28 @@ public class Panel extends PanelBase {
 		this.lineColor = lineColor;
 	}
 	/**
-	 * @return the colorForEachLink
+	 * @return the separateLinkColorMode
 	 */
-	public boolean isColorForEachLink() {
-		return colorForEachLink;
+	public boolean isSeparateLinkColorMode() {
+		return separateLinkColorMode;
 	}
 	/**
-	 * @param colorForEachLink The colorForEachLink to set.
+	 * @param separateLinkColorMode The separateLinkColorMode to set.
 	 */
-	public void setColorForEachLink(boolean colorForEachLink) {
-		this.colorForEachLink = colorForEachLink;
+	public void setSeparateLinkColorMode(boolean separateLinkColorMode) {
+		this.separateLinkColorMode = separateLinkColorMode;
 	}
 	/**
-	 * @return the warnBranchedLink
+	 * @return the indicateErrorMode
 	 */
-	public boolean isWarnBranchedLink() {
-		return warnBranchedLink;
+	public boolean isIndicateErrorMode() {
+		return indicateErrorMode;
 	}
 	/**
-	 * @param warnBranchedLink The warnBranchedLink to set.
+	 * @param indicateErrorMode The indicateErrorMode to set.
 	 */
-	public void setWarnBranchedLink(boolean warnBranchedLink) {
-		this.warnBranchedLink = warnBranchedLink;
+	public void setIndicateErrorMode(boolean indicateErrorMode) {
+		this.indicateErrorMode = indicateErrorMode;
 	}
 
 	public void drawPanel(Graphics2D g) {
@@ -99,10 +98,7 @@ public class Panel extends PanelBase {
 		g.setColor(getGridColor());
 		for (int r = 0; r < rows(); r++) {
 			for (int c = 0; c < cols(); c++) {
-				g.fillRect(	toX(c) + getHalfCellSize() - 1,
-					toY(r) + getHalfCellSize() - 1,
-					3,
-					3);
+				fillSquare(g, toX(c) + getHalfCellSize(), toY(r) + getHalfCellSize(), 1);
 			}
 		}
 	}
@@ -111,25 +107,23 @@ public class Panel extends PanelBase {
 	 * @param g
 	 */
 	protected void drawBoard(Graphics2D g) {
-		int number;
-		int nline;
+		int state;
 		g.setFont(getNumberFont());
 		g.setColor(getNumberColor());
 		for (int r = 0; r < board.rows() - 1; r++) {
 			for (int c = 0; c < board.cols() - 1; c++) {
-				number = board.getNumber(r, c);
-				if (number >= 0 && number <= 4) {
-					if (isWarnBranchedLink()) {
-						nline = board.lineAround(r,c);
-						if (nline > number)
-							g.setColor(errorColor);
-//						else if ( nline < state)
-//							g.setColor(errorColor);
-						else
-							g.setColor(getNumberColor());
+				state = board.getNumber(r, c);
+				if (state >= 0 && state <= 4) {
+					g.setColor(getNumberColor());
+					if (isIndicateErrorMode()) {
+						int nline = board.lineAround(r,c);
+						if (nline > state)
+							g.setColor(getErrorColor());
+						else if (nline < state)
+							g.setColor(getErrorColor());
 					}
-					placeNumber2(g, r, c, number);
-				} else if (number == Board.UNDECIDED_NUMBER) {
+					placeNumber2(g, r, c, state);
+				} else if (state == Board.UNDECIDED_NUMBER) {
 					placeCircle2(g, r, c);
 				}
 			}
@@ -137,16 +131,18 @@ public class Panel extends PanelBase {
 		for (int d = 0; d <= 1; d++) {
 			for (int r = 0; r < board.rows(); r++) {
 				for (int c = 0; c < board.cols(); c++) {
-					number = board.getState(d, r, c);
-					if (number == Board.LINE) {
-						g.setColor(lineColor);
-						if (isColorForEachLink())
+					state = board.getState(d, r, c);
+					if (state == Board.LINE) {
+						g.setColor(getLineColor());
+						if (isSeparateLinkColorMode())
 							g.setColor(Colors.getColor(board.getLink(d,r,c).getID()));
-						if (isWarnBranchedLink() && board.isBranchedLink(d,r,c))
-							g.setColor(errorColor);
+//						if (isIndicateErrorMode()) {
+//							if (board.isBranchedLink(d,r,c))
+//								g.setColor(getErrorColor());
+//						}
 						placeLink(g, d, r, c);
-					} else if (number == Board.NOLINE) {
-						g.setColor(crossColor);
+					} else if (state == Board.NOLINE) {
+						g.setColor(getCrossColor());
 						placeSideCross(g, d, r, c);
 					}
 				}
