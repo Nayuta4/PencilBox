@@ -18,13 +18,12 @@ public class Panel extends PanelBase {
 
 	private Color paintColor = Color.BLUE;
 	private Color circleColor = Color.MAGENTA;
-	private Color errorColor = Color.RED;
 
 	private Font countFont = new Font("SansSerif", Font.ITALIC, 13);
 
-	private boolean colorForEachWall = false;
-	private boolean showWrongWall = false;
-	private boolean showShimaSize = false;
+	private boolean separateAreaColorMode = false;
+//	private boolean indicateErrorMode = false;
+	private boolean countAreaSizeMode = false;
 
 	public Panel() {
 		setGridColor(Color.BLACK);
@@ -35,40 +34,40 @@ public class Panel extends PanelBase {
 		board = (Board) aBoard; 
 	}
 	/**
-	 * @return the showShimaSize
+	 * @return the countAreaSizeMode
 	 */
-	public boolean isShowShimaSize() {
-		return showShimaSize;
+	public boolean isCountAreaSizeMode() {
+		return countAreaSizeMode;
 	}
 	/**
-	 * @param showShimaSize The showShimaSize to set.
+	 * @param countAreaSizeMode The countAreaSizeMode to set.
 	 */
-	public void setShowShimaSize(boolean showShimaSize) {
-		this.showShimaSize = showShimaSize;
+	public void setCountAreaSizeMode(boolean countAreaSizeMode) {
+		this.countAreaSizeMode = countAreaSizeMode;
+	}
+//	/**
+//	 * @return the indicateErrorMode
+//	 */
+//	public boolean isIndicateError() {
+//		return indicateErrorMode;
+//	}
+//	/**
+//	 * @param indicateErrorMode The indicateErrorMode to set.
+//	 */
+//	public void setIndicateError(boolean indicateErrorMode) {
+//		this.indicateErrorMode = indicateErrorMode;
+//	}
+	/**
+	 * @return the separateAreaColorMode
+	 */
+	public boolean isSeparateAreaColorMode() {
+		return separateAreaColorMode;
 	}
 	/**
-	 * @return the showWrongWall
+	 * @param separateAreaColorMode The separateAreaColorMode to set.
 	 */
-	public boolean isShowWrongWall() {
-		return showWrongWall;
-	}
-	/**
-	 * @param showWrongWall The showWrongWall to set.
-	 */
-	public void setShowWrongWall(boolean showWrongWall) {
-		this.showWrongWall = showWrongWall;
-	}
-	/**
-	 * @return the colorForEachWall
-	 */
-	public boolean isColorForEachWall() {
-		return colorForEachWall;
-	}
-	/**
-	 * @param colorForEachWall The colorForEachWall to set.
-	 */
-	public void setColorForEachWall(boolean colorForEachWall) {
-		this.colorForEachWall = colorForEachWall;
+	public void setSeparateAreaColorMode(boolean separateAreaColorMode) {
+		this.separateAreaColorMode = separateAreaColorMode;
 	}
 	/**
 	 * @param paintColor The paintColor to set.
@@ -122,7 +121,7 @@ public class Panel extends PanelBase {
 					paintSpace(g, r, c);
 				} else if (st > 0) {
 					if (getMarkStyle() == 5) {
-						g.setColor(circleColor);
+						g.setColor(getCircleColor());
 						paintCell(g, r, c);
 					}
 					g.setFont(getNumberFont());
@@ -130,7 +129,7 @@ public class Panel extends PanelBase {
 					placeNumber(g, r, c, st);
 				} else if (st == Board.UNDECIDED_NUMBER) {
 					if (getMarkStyle() == 5) {
-						g.setColor(circleColor);
+						g.setColor(getCircleColor());
 						paintCell(g, r, c);
 					}
 					g.setColor(getNumberColor());
@@ -144,36 +143,37 @@ public class Panel extends PanelBase {
 		g.setFont(countFont);
 		Area area = board.getArea(r,c);
 		int number = area.getNumber();
-		if (isShowShimaSize()) {
+		if (isCountAreaSizeMode()) {
 			if (number == 0 || (number > 0 && area.size() < number) || number == Board.UNDECIDED_NUMBER ) {
-				g.setColor(circleColor);
+				g.setColor(getCircleColor());
 				placeCircle(g, r, c);
 				placeNumber(g, r, c, area.size());
 			} else if (
 				number == Area.MULTIPLE_NUMBER	|| (number > 0 && area.size() > number)) {
 				g.setColor(Color.RED);
-				placeBoldCircle(g, r, c);
+				placeCircle(g, r, c);
+//				placeBoldCircle(g, r, c);
 				placeNumber(g, r, c, area.size());
 			} else {
-				g.setColor(circleColor);
+				g.setColor(getCircleColor());
 				placeMark(g, r, c);
 			}
 		} else {
-			g.setColor(circleColor);
+			g.setColor(getCircleColor());
 			placeMark(g, r, c);
 		}
 	}
 
 	void paintWall(Graphics2D g, int r, int c) {
-		g.setColor(paintColor);
-		if (isColorForEachWall()) {
+		g.setColor(getPaintColor());
+		if (isSeparateAreaColorMode()) {
 			g.setColor(Colors.get(board.getArea(r,c).getID()));
 		}
-		if (isShowWrongWall()) {
-			if (board.is2x2Block(r, c) ) {
-				g.setColor(errorColor);
-			}
-		}
+//		if (isIndicateError()) {
+//			if (board.is2x2Block(r, c) ) {
+//				g.setColor(getErrorColor());
+//			}
+//		}
 		paintCell(g, r, c);
 	}
 }
