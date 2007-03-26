@@ -14,9 +14,9 @@ public class Menu extends MenuBase {
 	
 	private JMenuItem paintColorItem;
 	private JMenuItem circleColorItem;
-	private JMenuItem showWrongWallItem;
-	private JMenuItem showShimaSizeItem;
-	private JMenuItem colorForEachWallItem;
+//	private JMenuItem indicateErrorItem;
+	private JMenuItem countAreaSizeItem;
+	private JMenuItem separateAreaColorItem;
 
 	public Panel getPanel() {
 		return (Panel) getPanelBase();
@@ -25,9 +25,9 @@ public class Menu extends MenuBase {
 	protected void buildIndividualMenu() {
 		paintColorItem = addColorMenuItem("黒マス");
 		circleColorItem = addColorMenuItem("白マス");
-		addToViewMenu(showWrongWallItem = makeCheckBoxCommandMenuItem("誤りを赤で表示(W)", 'W', false));
-		addToViewMenu(colorForEachWallItem = makeCheckBoxCommandMenuItem("壁の色分け(D)", 'D', false));
-		addToViewMenu(showShimaSizeItem = makeCheckBoxCommandMenuItem("シマの数を数える(H)",'H', false));
+//		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("誤りを赤で示す(E)", 'E', false));
+		addToViewMenu(separateAreaColorItem = makeCheckBoxCommandMenuItem("壁の色分け(R)", 'R', false));
+		addToViewMenu(countAreaSizeItem = makeCheckBoxCommandMenuItem("シマのマス数を数える(C)",'C', false));
 		addRenewColorMenu();	
 		addSymmetricPlacementMenuItem();
 		addTrimAnswerMenuItem();
@@ -35,12 +35,13 @@ public class Menu extends MenuBase {
 	}
 
 	public void executeCommand2(JMenuItem target) {
-		if (target == showWrongWallItem)
-			getPanel().setShowWrongWall(target.isSelected());
-		else if (target == showShimaSizeItem)
-			getPanel().setShowShimaSize(target.isSelected());
-		else if (target == colorForEachWallItem)
-			getPanel().setColorForEachWall(target.isSelected());
+//		if (target == indicateErrorItem)
+//			getPanel().setIndicateError(target.isSelected());
+//		else
+		if (target == countAreaSizeItem)
+			getPanel().setCountAreaSizeMode(target.isSelected());
+		else if (target == separateAreaColorItem)
+			getPanel().setSeparateAreaColorMode(target.isSelected());
 	}
 
 	public Color getColor(JMenuItem target) {
@@ -60,9 +61,9 @@ public class Menu extends MenuBase {
 
 	public void updateCurrentMenuSelection() {
 		super.updateCurrentMenuSelection();
-		showWrongWallItem.setSelected(getPanel().isShowWrongWall());
-		colorForEachWallItem.setSelected(getPanel().isColorForEachWall());
-		showShimaSizeItem.setSelected(getPanel().isShowShimaSize());
+//		indicateErrorItem.setSelected(getPanel().isIndicateError());
+		separateAreaColorItem.setSelected(getPanel().isSeparateAreaColorMode());
+		countAreaSizeItem.setSelected(getPanel().isCountAreaSizeMode());
 	}
 
 }
