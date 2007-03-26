@@ -25,12 +25,12 @@ public class TxtWriter extends TxtWriterBase {
 					out.print(st);
 				else if (st == Board.UNKNOWN)
 					out.print('.');
-				else if (st == Board.ILLUMINATION)
+				else if (st == Board.BULB)
 					if (mode == QUESTION_ONLY)
 						out.print('.');
 					else
 						out.print('+');
-				else if (st == Board.NOILLUMINATION)
+				else if (st == Board.NOBULB)
 					if (mode == QUESTION_ONLY)
 						out.print('.');
 					else

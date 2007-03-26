@@ -14,7 +14,7 @@ public class Menu extends MenuBase {
 	private JMenuItem bulbColorItem;
 	private JMenuItem noBulbColorItem;
 	private JMenuItem lluminatedCellColorItem;
-	private JMenuItem warnWrongBulbItem;
+	private JMenuItem indicateErrorItem;
 	private JMenuItem paintIlluminatedCellModeItem;
 	private JMenuItem showBeamItem;
 
@@ -26,7 +26,7 @@ public class Menu extends MenuBase {
 		bulbColorItem = addColorMenuItem("照明");
 		noBulbColorItem = addColorMenuItem("照明なし");
 		lluminatedCellColorItem = addColorMenuItem("照らされたマス");
-		addToViewMenu(warnWrongBulbItem = makeCheckBoxCommandMenuItem("誤りを赤で表示(W)", 'W', false));
+		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("誤りを赤で示す(E)", 'E', false));
 		addToViewMenu(paintIlluminatedCellModeItem = makeCheckBoxCommandMenuItem("照らされたマスを塗る(P)", 'P', true));
 		addToViewMenu(showBeamItem = makeCheckBoxCommandMenuItem("光線表示(B)", 'B', false));
 		addSymmetricPlacementMenuItem();
@@ -35,8 +35,8 @@ public class Menu extends MenuBase {
 	}
 
 	public void executeCommand2(JMenuItem target) {
-		if (target == warnWrongBulbItem) {
-			getPanel().setWarnWrongBulb(target.isSelected());
+		if (target == indicateErrorItem) {
+			getPanel().setIndicateErrorMode(target.isSelected());
 		} else if (target == paintIlluminatedCellModeItem) {
 			getPanel().setPaintIlluminatedCellMode(target.isSelected());
 		} else if (target == showBeamItem) {
@@ -65,7 +65,7 @@ public class Menu extends MenuBase {
 	
 	public void updateCurrentMenuSelection() {
 		super.updateCurrentMenuSelection();
-		warnWrongBulbItem.setSelected(getPanel().isWarnWrongBulb());
+		indicateErrorItem.setSelected(getPanel().isIndicateErrorMode());
 		paintIlluminatedCellModeItem.setSelected(getPanel().isPaintIlluminatedCellMode());
 		showBeamItem.setSelected(getPanel().isShowBeamMode());
 	}

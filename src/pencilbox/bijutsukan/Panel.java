@@ -15,7 +15,7 @@ public class Panel extends PanelBase {
 
 	private Board board;
 	
-	private boolean warnWrongBulb = false;
+	private boolean indicateErrorMode = false;
 	private boolean showBeamMode = false;
 	private boolean paintIlluminatedCellMode = true;
 
@@ -24,7 +24,6 @@ public class Panel extends PanelBase {
 	private Color illuminatedCellColor = new Color(0xAAFFFF);
 	private Color noBulbColor = Color.MAGENTA;
 	private Color wallNumberColor = Color.WHITE;
-	private Color errorColor = Color.RED;
 
 	/**
 	 * Panel ‚ð¶¬‚·‚é
@@ -38,17 +37,17 @@ public class Panel extends PanelBase {
 	}
 
 	/**
-	 * @return Returns the warnWrongBulb.
+	 * @return Returns the indicateErrorMode.
 	 */
-	public boolean isWarnWrongBulb() {
-		return warnWrongBulb;
+	public boolean isIndicateErrorMode() {
+		return indicateErrorMode;
 	}
 
 	/**
-	 * @param warnWrongBulb The warnWrongBulb to set.
+	 * @param indicateErrorMode The indicateErrorMode to set.
 	 */
-	public void setWarnWrongBulb(boolean warnWrongBulb) {
-		this.warnWrongBulb = warnWrongBulb;
+	public void setIndicateErrorMode(boolean indicateErrorMode) {
+		this.indicateErrorMode = indicateErrorMode;
 	}
 
 	/**
@@ -146,45 +145,46 @@ public class Panel extends PanelBase {
 						paintCell(g,r,c);
 					}
 				}
-				if (isShowBeamMode()) {
-					g.setColor(bulbColor);
-					if (l > 0) {
-						if (isWarnWrongBulb() && l > 1) {
-							g.setColor(errorColor);
-						}
-						placeCenterLine(g, r, c, Direction.HORIZ);
-					}
-					g.setColor(bulbColor);
-					if (m > 0) {
-						if (isWarnWrongBulb() && m > 1) {
-							g.setColor(errorColor);
-						}
-						placeCenterLine(g, r, c, Direction.VERT);
-					}
-				}
-				if (state >= 0 && state <= Board.NONUMBER_WALL) {
+				if (state >= 0 && state <= 4) {
 					g.setColor(wallColor);
 					paintCell(g, r, c);
-					if (state >= 0 && state <= 4) {
-						g.setColor(wallNumberColor);
-						if (isWarnWrongBulb()) {
-							int st = board.checkAdjacentIllumination(r,c);
-							if (st == -1)
-								g.setColor(errorColor);
+					g.setColor(wallNumberColor);
+					if (isIndicateErrorMode()) {
+						if (board.checkAdjacentBulbs(r,c) <= 0) {
+							g.setColor(getErrorColor());
 						}
-						placeNumber(g, r, c, state);
 					}
-				} else if (state == Board.ILLUMINATION) {
-					g.setColor(bulbColor);
-					if (isWarnWrongBulb()) {
+					placeNumber(g, r, c, state);
+				} else if (state == Board.NONUMBER_WALL) {
+					g.setColor(wallColor);
+					paintCell(g, r, c);
+				} else if (state == Board.BULB) {
+					g.setColor(getBulbColor());
+					if (isIndicateErrorMode()) {
 						if (board.isMultiIlluminated(r,c)) {
-							g.setColor(errorColor);
+							g.setColor(getErrorColor());
 						}
 					}
 					placeFilledCircle(g, r, c);
-				} else if (state == Board.NOILLUMINATION) {
-					g.setColor(noBulbColor);
+				} else if (state == Board.NOBULB) {
+					g.setColor(getNoBulbColor());
 					placeMark(g, r, c);
+				}
+				if (isShowBeamMode()) {
+					g.setColor(getBulbColor());
+					if (l > 0) {
+						if (isIndicateErrorMode() && l > 1) {
+							g.setColor(getErrorColor());
+						}
+						placeCenterLine(g, r, c, Direction.HORIZ);
+					}
+					g.setColor(getBulbColor());
+					if (m > 0) {
+						if (isIndicateErrorMode() && m > 1) {
+							g.setColor(getErrorColor());
+						}
+						placeCenterLine(g, r, c, Direction.VERT);
+					}
 				}
 			}
 		}

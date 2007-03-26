@@ -26,9 +26,9 @@ public class XmlWriter extends XmlWriterBase {
 			startArow(r);
 			for (int c = 0; c < cols; c++) {
 				int st = board.getState(r, c);
-				if (st == Board.ILLUMINATION) {
+				if (st == Board.BULB) {
 					out(WALL);
-				} else if (st == Board.NOILLUMINATION) {
+				} else if (st == Board.NOBULB) {
 					out(SPACE);
 				} else {
 					out(UNKNOWN);
