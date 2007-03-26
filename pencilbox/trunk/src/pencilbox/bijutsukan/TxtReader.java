@@ -43,8 +43,8 @@ public class TxtReader extends TxtReaderBase {
 				else if (str.equals("3")) board.setState(i,j,3);
 				else if (str.equals("4")) board.setState(i,j,4);
 				else if (str.equals("5")) board.setState(i,j,Board.NONUMBER_WALL);
-				else if (str.equals("+")) board.setState(i,j,Board.ILLUMINATION);
-				else if (str.equals("*")) board.setState(i,j,Board.NOILLUMINATION);
+				else if (str.equals("+")) board.setState(i,j,Board.BULB);
+				else if (str.equals("*")) board.setState(i,j,Board.NOBULB);
 				else ;
 				j++;
 			}

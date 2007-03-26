@@ -19,8 +19,8 @@ public class XmlReader extends XmlReaderBase {
 	}
 	protected void setAType(int r, int c, String t) {
 		if (t == WALL)
-			board.setState(r, c, Board.ILLUMINATION);
+			board.setState(r, c, Board.BULB);
 		else if (t == SPACE)
-			board.setState(r, c, Board.NOILLUMINATION);
+			board.setState(r, c, Board.NOBULB);
 	}
 }

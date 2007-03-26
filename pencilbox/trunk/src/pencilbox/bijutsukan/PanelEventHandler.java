@@ -29,11 +29,11 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	private int currentState = Board.UNKNOWN;
 
 	protected void leftPressed(Address pos) {
-		board.toggleState(pos.r(), pos.c(), Board.ILLUMINATION);
+		board.toggleState(pos.r(), pos.c(), Board.BULB);
 	}
 
 	protected void rightPressed(Address pos) {
-		board.toggleState(pos.r(), pos.c(), Board.NOILLUMINATION);
+		board.toggleState(pos.r(), pos.c(), Board.NOBULB);
 		if (board.isWall(pos.r(), pos.c()))
 			currentState = Board.UNKNOWN;
 		else

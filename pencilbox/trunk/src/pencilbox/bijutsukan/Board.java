@@ -15,8 +15,8 @@ import pencilbox.util.ArrayUtil;
 public class Board extends BoardBase {
 
 	static final int NONUMBER_WALL = 5;
-	static final int ILLUMINATION = -2;
-	static final int NOILLUMINATION = -3;
+	static final int BULB = -2;
+	static final int NOBULB = -3;
 	static final int UNKNOWN = -1;
 	static final int OUTER = 6;
 
@@ -47,7 +47,7 @@ public class Board extends BoardBase {
 	public void trimAnswer() {
 		for (int r=0; r<rows(); r++) {
 			for (int c=0; c<cols(); c++) {
-				if (getState(r, c) == NOILLUMINATION)
+				if (getState(r, c) == NOBULB)
 					setState(r, c, UNKNOWN);
 				}
 		}
@@ -64,7 +64,7 @@ public class Board extends BoardBase {
 		ArrayUtil.initArrayInt2(illuminatedH, 0);
 		for (int r=0; r<rows(); r++) {
 			for (int c=0; c<cols(); c++) {
-				if (isIllumination(r,c)) {
+				if (isBulb(r,c)) {
 					illuminate(r, c, true);
 				}
 			}
@@ -120,7 +120,7 @@ public class Board extends BoardBase {
 	 * @return 盤内でかつ壁でないなら true
 	 */
 	public boolean isFloor(int r, int c){
-		return isOn(r,c) && (state[r][c] == UNKNOWN || state[r][c] == NOILLUMINATION || state[r][c] == ILLUMINATION);
+		return isOn(r,c) && (state[r][c] == UNKNOWN || state[r][c] == NOBULB || state[r][c] == BULB);
 	}
 	/**
 	 * そのマスに照明が置かれているかどうか
@@ -128,8 +128,8 @@ public class Board extends BoardBase {
 	 * @param c 列座標
 	 * @return 照明が置かれているなら true
 	 */
-	public boolean isIllumination(int r, int c){
-		return isOn(r,c) && state[r][c] == ILLUMINATION;
+	public boolean isBulb(int r, int c){
+		return isOn(r,c) && state[r][c] == BULB;
 	}
 	/**
 	 * そのマスの照明配置が未定かどうか
@@ -212,9 +212,9 @@ public class Board extends BoardBase {
 	 * @param st 状態
 	 */
 	public void changeState(int r, int c, int st) {
-		if (st == ILLUMINATION && state[r][c] != ILLUMINATION)
+		if (st == BULB && state[r][c] != BULB)
 			illuminate(r, c, true);
-		else if (state[r][c] == ILLUMINATION && st != ILLUMINATION)
+		else if (state[r][c] == BULB && st != BULB)
 			illuminate(r, c, false);
 		setState(r, c, st);
 	}
@@ -250,12 +250,12 @@ public class Board extends BoardBase {
 	 * @param c 列座標
 	 * @return 隣接する４マスの照明個数
 	 */
-	public int countAdjacentIllumination(int r, int c) {
+	public int countAdjacentBulbs(int r, int c) {
 		int count = 0;
-		if (isIllumination(r-1,c)) count++;
-		if (isIllumination(r+1,c)) count++;
-		if (isIllumination(r,c-1)) count++;
-		if (isIllumination(r,c+1)) count++;
+		if (isBulb(r-1,c)) count++;
+		if (isBulb(r+1,c)) count++;
+		if (isBulb(r,c-1)) count++;
+		if (isBulb(r,c+1)) count++;
 		return count;
 	}
 	/**
@@ -266,14 +266,14 @@ public class Board extends BoardBase {
 	 * 照明個数が多すぎるなら -1, 
 	 * 照明個数が数字より小さいなら 0
 	 */
-	public int checkAdjacentIllumination(int r, int c) {
-		int nIllumination = countAdjacentIllumination(r,c);
+	public int checkAdjacentBulbs(int r, int c) {
+		int nBulb = countAdjacentBulbs(r,c);
 		int number = getState(r,c);
-		if (nIllumination > number) {
+		if (nBulb > number) {
 			return -1;
-		} else if (nIllumination == number) {
+		} else if (nBulb == number) {
 			return 1;
-		} else if (nIllumination < number) {
+		} else if (nBulb < number) {
 			return 0;
 		}
 		return 0;
@@ -292,10 +292,10 @@ public class Board extends BoardBase {
 					}
 				}
 				else if (isNumberedWall(r,c)) {
-					if (countAdjacentIllumination(r,c) > getState(r,c)) {
+					if (countAdjacentBulbs(r,c) > getState(r,c)) {
 						result |= 4;
 					}
-					else if (countAdjacentIllumination(r,c) < getState(r,c)) {
+					else if (countAdjacentBulbs(r,c) < getState(r,c)) {
 						result |= 8;
 					}
 				}
