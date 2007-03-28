@@ -113,7 +113,7 @@ public class Board extends BoardBase {
 	 * @param c —ñÀ•W
 	 * @return •ƒ}ƒX‚ÅÁ‚³‚ê‚Ä‚¢‚È‚¢“¯‚¶”Žš‚ª‚ ‚ê‚Î true, ‚È‚¯‚ê‚Î false
 	 */
-	public boolean isMultipleNumber(int r, int c) {
+	public boolean isRedundantNumber(int r, int c) {
 		return multiH[r][c] > 1 || multiV[r][c] > 1;
 	}
 	/**
@@ -387,7 +387,7 @@ public class Board extends BoardBase {
 	boolean checkMulti() {
 		for (int r = 0; r < rows(); r++) {
 			for (int c = 0; c < cols(); c++) {
-				if (isMultipleNumber(r, c))
+				if (isRedundantNumber(r, c))
 					return false;
 			}
 		}

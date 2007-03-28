@@ -12,9 +12,9 @@ public class PreferencesCopier extends PreferencesCopierBase {
 		super.copyPreferences(src, dst);
 		Panel panelS = (Panel) src.getPanelBase();
 		Panel panelD = (Panel) dst.getPanelBase();
-		panelD.setHideSingleMode(panelS.isHideSingleMode());
-		panelD.setWarnWrongWall(panelS.isWarnWrongWall());
-		panelD.setWarnMultipleNumber(panelS.isWarnMultipleNumber());
+		panelD.setHideSoleNumberMode(panelS.isHideSoleNumberMode());
+		panelD.setIndicateErrorMode(panelS.isIndicateErrorMode());
+//		panelD.setIndicateRedundantNumberMode(panelS.isIndicateRedundantNumberMode());
 		panelD.setPaintColor(panelS.getPaintColor());
 		panelD.setCircleColor(panelS.getCircleColor());
 		panelD.setLetters(panelS.getLetters());
