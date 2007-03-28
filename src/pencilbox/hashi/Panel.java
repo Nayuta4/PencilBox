@@ -16,11 +16,10 @@ public class Panel extends PanelBase {
 
 	private Board board;
 
-	private boolean colorForEachLink = false;
-	private boolean showNumberHint = false;
+	private boolean separateLinkColorMode = false;
+	private boolean indicateErrorMode = false;
 
-	private Color bridgeColor = Color.BLUE;
-	private Color errorColor = Color.RED;
+	private Color lineColor = Color.BLUE;
 	private Color successColor = Color.GREEN;
 
 	/**
@@ -36,45 +35,45 @@ public class Panel extends PanelBase {
 	}
 
 	/**
-	 * @return Returns the bridgeColor.
+	 * @return Returns the lineColor.
 	 */
-	public Color getBridgeColor() {
-		return bridgeColor;
+	public Color getLineColor() {
+		return lineColor;
 	}
 
 	/**
-	 * @param bridgeColor The bridgeColor to set.
+	 * @param lineColor The lineColor to set.
 	 */
-	public void setBridgeColor(Color bridgeColor) {
-		this.bridgeColor = bridgeColor;
+	public void setLineColor(Color lineColor) {
+		this.lineColor = lineColor;
 	}
 
 	/**
-	 * @return the colorForEachLink
+	 * @return the separateLinkColorMode
 	 */
-	public boolean isColorForEachLink() {
-		return colorForEachLink;
+	public boolean isSeparateLinkColorMode() {
+		return separateLinkColorMode;
 	}
 
 	/**
-	 * @param colorForEachLink The colorForEachLink to set.
+	 * @param separateLinkColorMode The separateLinkColorMode to set.
 	 */
-	public void setColorForEachLink(boolean colorForEachLink) {
-		this.colorForEachLink = colorForEachLink;
+	public void setSeparateLinkColorMode(boolean separateLinkColorMode) {
+		this.separateLinkColorMode = separateLinkColorMode;
 	}
 
 	/**
-	 * @return the showNumberHint
+	 * @return the indicateErrorMode
 	 */
-	public boolean isShowNumberHint() {
-		return showNumberHint;
+	public boolean isIndicateErrorMode() {
+		return indicateErrorMode;
 	}
 
 	/**
-	 * @param showNumberHint The showNumberHint to set.
+	 * @param indicateErrorMode The indicateErrorMode to set.
 	 */
-	public void setShowNumberHint(boolean showNumberHint) {
-		this.showNumberHint = showNumberHint;
+	public void setIndicateErrorMode(boolean indicateErrorMode) {
+		this.indicateErrorMode = indicateErrorMode;
 	}
 
 	public void drawPanel(Graphics2D g) {
@@ -91,7 +90,6 @@ public class Panel extends PanelBase {
 	 */
 	protected void drawBoard(Graphics2D g) {
 		g.setFont(getNumberFont());
-		g.setColor(getNumberColor());
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
 				if (board.isPier(r, c)) {
@@ -104,10 +102,10 @@ public class Panel extends PanelBase {
 	void placeBridgeAndPier(Graphics2D g, int r0, int c0, int n) {
 
 		Pier pier = board.getPier(r0,c0);
-		if (isColorForEachLink())
+		if (isSeparateLinkColorMode())
 			g.setColor(Colors.getColor(pier.getChain()));
 		else
-			g.setColor(bridgeColor);
+			g.setColor(getLineColor());
 		int r = r0;
 		int c = c0;
 		if (pier.getNBridge(Direction.DN) > 0) {
@@ -132,19 +130,21 @@ public class Panel extends PanelBase {
 	 * @param n
 	 */
 	void placePier(Graphics2D g, int r, int c, int n) {
-		if (isShowNumberHint()) {
-			if (board.checkPier(r, c) < 0) {
-				g.setColor(errorColor);
+		if (isIndicateErrorMode()) {
+			int check = board.checkPier(r, c);
+			if (check < 0) {
+				g.setColor(getErrorColor());
 				placeFilledCircle(g, r, c, getCellSize());
-			} else if (board.checkPier(r, c) == 0) {
+			} else if (check == 0) {
 				g.setColor(successColor);
 				placeFilledCircle(g, r, c, getCellSize());
 			}
 		}
 		g.setColor(getNumberColor());
 		placeCircle(g, r, c, getCellSize());
-		if (n <= 8)
+		if (n >= 1 && n <= 8) {
 			placeNumber(g, r, c, n);
+		}
 	}
 	/**
 	 * マスに横または縦の線を配置する
