@@ -14,8 +14,8 @@ public class Menu extends MenuBase {
 
 	private JMenuItem paintColorItem;
 	private JMenuItem circleColorItem;
-	private JMenuItem warnWrongWallItem;
-	private JMenuItem showContinuousRoomItem;
+	private JMenuItem indicateErrorItem;
+//	private JMenuItem indicateContinuousRoomItem;
 
 	public Panel getPanel() {
 		return (Panel) getPanelBase();
@@ -25,17 +25,17 @@ public class Menu extends MenuBase {
 		super.buildIndividualMenu();
 		paintColorItem = addColorMenuItem("黒マス");
 		circleColorItem = addColorMenuItem("白マス");
-		addToViewMenu(warnWrongWallItem = makeCheckBoxCommandMenuItem("誤りを赤で表示(W)", 'W', false));
-		addToViewMenu(showContinuousRoomItem = makeCheckBoxCommandMenuItem("３部屋連続警告(C)", 'C', false));
+		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("誤りを赤で示す(E)", 'E', false));
+//		addToViewMenu(indicateContinuousRoomItem = makeCheckBoxCommandMenuItem("３部屋連続警告(C)", 'C', false));
 		addTrimAnswerMenuItem();
 		addNoPaintMarkStyleMenu();
 	}
 
 	public void executeCommand2(JMenuItem target) {
-		if (target == warnWrongWallItem)
-			getPanel().setWarnWrongWall(target.isSelected());
-		else if (target == showContinuousRoomItem)
-			getPanel().setShowContinuousRoom(target.isSelected());
+		if (target == indicateErrorItem)
+			getPanel().setIndicateErrorMode(target.isSelected());
+//		else if (target == indicateContinuousRoomItem)
+//			getPanel().setIndicateContinuousRoomMode(target.isSelected());
 		getPanelBase().repaint();
 	}
 
@@ -57,8 +57,8 @@ public class Menu extends MenuBase {
 
 	public void updateCurrentMenuSelection() {
 		super.updateCurrentMenuSelection();
-		warnWrongWallItem.setSelected(getPanel().isWarnWrongWall());
-		showContinuousRoomItem.setSelected(getPanel().isShowContinuousRoom());
+		indicateErrorItem.setSelected(getPanel().isIndicateErrorMode());
+//		indicateContinuousRoomItem.setSelected(getPanel().isIndicateContinuousRoomMode());
 	}
 
 }

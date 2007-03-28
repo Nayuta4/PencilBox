@@ -16,16 +16,14 @@ public class Panel extends PanelBase {
 
 	private Board board;
 
-	private boolean warnWrongWall = false;
-	private boolean showContinuousRoom = false;
+	private boolean indicateErrorMode = false;
+//	private boolean indicateContinuousRoomMode = false;
 
 	private Color paintColor = Color.BLUE;
 	private Color circleColor = Color.MAGENTA;
-	private Color noRoomColor = new Color(0xC0C0C0);
-	private Color roomBorderColor = Color.BLACK;
+	private Color noAreaColor = new Color(0xC0C0C0);
+	private Color areaBorderColor = Color.BLACK;
 	private Color continuousRoomColor = new Color(0x800000);
-	private Color errorColor = Color.RED;
-	private Color showContinuousWhiteColor = Color.RED;
 
 	private Square draggingSquare;
 
@@ -41,32 +39,32 @@ public class Panel extends PanelBase {
 	}
 
 	/**
-	 * @return the warnWrongWall
+	 * @return the indicateErrorMode
 	 */
-	public boolean isWarnWrongWall() {
-		return warnWrongWall;
+	public boolean isIndicateErrorMode() {
+		return indicateErrorMode;
 	}
 
 	/**
-	 * @param warnWrongWall The warnWrongWall to set.
+	 * @param indicateErrorMode The indicateErrorMode to set.
 	 */
-	public void setWarnWrongWall(boolean warnWrongWall) {
-		this.warnWrongWall = warnWrongWall;
+	public void setIndicateErrorMode(boolean indicateErrorMode) {
+		this.indicateErrorMode = indicateErrorMode;
 	}
 
-	/**
-	 * @return the showContinuousRoom
-	 */
-	public boolean isShowContinuousRoom() {
-		return showContinuousRoom;
-	}
-
-	/**
-	 * @param showContinuousRoom The showContinuousRoom to set.
-	 */
-	public void setShowContinuousRoom(boolean showContinuousRoom) {
-		this.showContinuousRoom = showContinuousRoom;
-	}
+//	/**
+//	 * @return the indicateContinuousRoomMode
+//	 */
+//	public boolean isIndicateContinuousRoomMode() {
+//		return indicateContinuousRoomMode;
+//	}
+//
+//	/**
+//	 * @param indicateContinuousRoomMode The indicateContinuousRoomMode to set.
+//	 */
+//	public void setIndicateContinuousRoomMode(boolean indicateContinuousRoomMode) {
+//		this.indicateContinuousRoomMode = indicateContinuousRoomMode;
+//	}
 
 	/**
 	 * @return Returns the circleColor.
@@ -113,67 +111,67 @@ public class Panel extends PanelBase {
 		int st;
 		Square square;
 		g.setFont(getNumberFont());
-		if (isShowContinuousRoom()) {
-			for (int r = 0; r < board.rows(); r++) {
-				for (int c = 0; c < board.cols(); c++) {
-					g.setColor(continuousRoomColor); 
-					if (board.contWH[r][c] >= 3) {
-						g.setColor(showContinuousWhiteColor);
-					}
-					if (board.contH[r][c] >= 3) {
-						placeCenterLine(g,r,c,Direction.HORIZ);
-					}
-					g.setColor(continuousRoomColor); 
-					if (board.contWV[r][c] >= 3) {
-						g.setColor(showContinuousWhiteColor);
-					}
-					if (board.contV[r][c] >= 3) {
-						placeCenterLine(g,r,c,Direction.VERT);
-					}
-				}
-			}
-		}
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
 				st = board.getState(r, c);
 				if (board.getSquare(r,c)  == null) {
-					g.setColor(noRoomColor);
+					g.setColor(noAreaColor);
 					paintCell(g, r, c);
 				}
 				if (st == Board.BLACK) {
-					g.setColor(paintColor);
-					if (isWarnWrongWall()) {
+					g.setColor(getPaintColor());
+					if (isIndicateErrorMode()) {
 						if (board.isBlock(r,c) || board.chain[r][c]==-1) {
-							g.setColor(errorColor);
+							g.setColor(getErrorColor());
 						}
 					}
 					paintCell(g, r, c);
-				}
-			}
-		}
-		for (int r = 0; r < board.rows(); r++) {
-			for (int c = 0; c < board.cols(); c++) {
-				st = board.getState(r, c);
-				if (st == Board.WHITE) {
-					g.setColor(circleColor);
+				} else if (st == Board.WHITE) {
+					g.setColor(getCircleColor());
 					placeMark(g, r, c);
 				}
 			}
 		}
 		for (Iterator itr = board.getSquareListIterator(); itr.hasNext();) {
-			g.setColor(roomBorderColor);
+			g.setColor(areaBorderColor);
 			square = (Square) itr.next();
 			placeSquare(g, square.r0, square.c0, square.r1, square.c1);
 			if (square.getNumber() >= 0) {
 				g.setColor(getNumberColor());
-				if (isWarnWrongWall()) {
-					if (square.getNumber() < square.getNBlack()) {
-						g.setColor(Color.WHITE);
-						placeFilledCircle(g, square.r0, square.c0);
-						g.setColor(errorColor);
+				if (isIndicateErrorMode()) {
+					if (square.getNumber() != square.getNBlack()) {
+//						g.setColor(Color.WHITE);
+//						placeFilledCircle(g, square.r0, square.c0);
+						if (board.isBlock(square.r0, square.c0) || board.chain[square.r0][square.c0]==-1) {
+							;
+						} else {
+							g.setColor(getErrorColor());
+						}
 					}
 				}
 				placeNumber(g, square.r0, square.c0, square.getNumber());
+			}
+		}
+		if (isIndicateErrorMode()) {
+			for (int r = 0; r < board.rows(); r++) {
+				for (int c = 0; c < board.cols(); c++) {
+//					if (board.contWH[r][c] >= 3) {
+//						g.setColor(getErrorColor());
+//						placeCenterLine(g,r,c,Direction.HORIZ);
+//					} else
+					if (board.contH[r][c] >= 3) {
+						g.setColor(continuousRoomColor); 
+						placeCenterLine(g,r,c,Direction.HORIZ);
+					}
+//					if (board.contWV[r][c] >= 3) {
+//						g.setColor(getErrorColor());
+//						placeCenterLine(g,r,c,Direction.VERT);
+//					} else
+					if (board.contV[r][c] >= 3) {
+						g.setColor(continuousRoomColor); 
+						placeCenterLine(g,r,c,Direction.VERT);
+					}
+				}
 			}
 		}
 	}
@@ -187,7 +185,7 @@ public class Panel extends PanelBase {
 		Square square = getDraggingSquare();
 		if (square == null)
 			return;
-		g.setColor(roomBorderColor);
+		g.setColor(areaBorderColor);
 		placeSquare(g, square.r0, square.c0, square.r1, square.c1);
 	}
 
@@ -206,4 +204,3 @@ public class Panel extends PanelBase {
 	}
 
 }
-

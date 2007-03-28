@@ -12,8 +12,8 @@ public class PreferencesCopier extends PreferencesCopierBase {
 		super.copyPreferences(src, dst);
 		Panel panelS = (Panel) src.getPanelBase();
 		Panel panelD = (Panel) dst.getPanelBase();
-		panelD.setWarnWrongWall(panelS.isWarnWrongWall());
-		panelD.setShowContinuousRoom(panelS.isShowContinuousRoom());
+		panelD.setIndicateErrorMode(panelS.isIndicateErrorMode());
+//		panelD.setIndicateContinuousRoomMode(panelS.isIndicateContinuousRoomMode());
 		panelD.setPaintColor(panelS.getPaintColor());
 		panelD.setCircleColor(panelS.getCircleColor());
 	}
