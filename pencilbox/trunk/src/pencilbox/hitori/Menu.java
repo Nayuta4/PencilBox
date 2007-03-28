@@ -16,9 +16,9 @@ public class Menu extends MenuBase {
 	private JMenuItem selectLetterItem;
 	private JMenuItem paintColorItem;
 	private JMenuItem circleColorItem;
-	private JMenuItem warnWrongWallItem;
-	private JMenuItem hideSingleModeItem;
-	private JMenuItem warnMultipleNumberItem;
+	private JMenuItem indicateErrorItem;
+	private JMenuItem hideSoleNumberItem;
+//	private JMenuItem indicateRedundantNumberItem;
 
 	public Panel getPanel() {
 		return (Panel) getPanelBase();
@@ -28,22 +28,22 @@ public class Menu extends MenuBase {
 		super.buildIndividualMenu();
 		paintColorItem = addColorMenuItem("黒マス");
 		circleColorItem = addColorMenuItem("白マス");
-		addToViewMenu(selectLetterItem = makeCommandMenuItem("文字種類の設定(L)...", 'L'));
+		addToViewMenu(selectLetterItem = makeCommandMenuItem("文字種類の設定(T)...", 'T'));
 		addToViewMenu(selectLetterItem);
-		addToViewMenu(warnWrongWallItem = makeCheckBoxCommandMenuItem("誤りを赤で表示(W)", 'W', false));
-		addToViewMenu(hideSingleModeItem = makeCheckBoxCommandMenuItem("最初からひとりの数字を隠す(S)", 'S', false));
-		addToViewMenu(warnMultipleNumberItem = makeCheckBoxCommandMenuItem("ひとりでない数字を赤で示す(H)", 'H', false));
+		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("誤りを赤で示す(E)", 'E', false));
+		addToViewMenu(hideSoleNumberItem = makeCheckBoxCommandMenuItem("初めからひとりの数字を隠す(H)", 'H', false));
+//		addToViewMenu(indicateRedundantNumberItem = makeCheckBoxCommandMenuItem("重複する数字を赤で示す(R)", 'R', false));
 		addTrimAnswerMenuItem();
 		addNoPaintMarkStyleMenu();
 	}
 
 	public void executeCommand2(JMenuItem target) {
-		if (target == warnWrongWallItem)
-			getPanel().setWarnWrongWall(target.isSelected());
-		else if (target == hideSingleModeItem)
-			getPanel().setHideSingleMode(target.isSelected());
-		else if (target == warnMultipleNumberItem)
-			getPanel().setWarnMultipleNumber(target.isSelected());
+		if (target == indicateErrorItem)
+			getPanel().setIndicateErrorMode(target.isSelected());
+		else if (target == hideSoleNumberItem)
+			getPanel().setHideSoleNumberMode(target.isSelected());
+//		else if (target == indicateRedundantNumberItem)
+//			getPanel().setIndicateRedundantNumberMode(target.isSelected());
 		else if (target == selectLetterItem)
 			selectLetter();
 	}
@@ -89,9 +89,9 @@ public class Menu extends MenuBase {
 
 	public void updateCurrentMenuSelection() {
 		super.updateCurrentMenuSelection();
-		warnWrongWallItem.setSelected(getPanel().isWarnWrongWall());
-		hideSingleModeItem.setSelected(getPanel().isHideSingleMode());
-		warnMultipleNumberItem.setSelected(getPanel().isWarnMultipleNumber());
+		indicateErrorItem.setSelected(getPanel().isIndicateErrorMode());
+		hideSoleNumberItem.setSelected(getPanel().isHideSoleNumberMode());
+//		indicateRedundantNumberItem.setSelected(getPanel().isIndicateRedundantNumberMode());
 	}
 
 }

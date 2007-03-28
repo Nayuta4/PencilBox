@@ -16,12 +16,11 @@ public class Panel extends PanelBase {
 
 	private Color paintColor = Color.BLUE;
 	private Color circleColor = Color.MAGENTA;
-	private Color errorColor = Color.RED;
-	private Color singleNumberColor = new Color(0xC0C0C0);
+	private Color soleNumberColor = new Color(0xC0C0C0);
 
-	private boolean hideSingleMode = false;
-	private boolean warnMultipleNumber = false;
-	private boolean warnWrongWall = false;
+	private boolean hideSoleNumberMode = false;
+//	private boolean indicateRedundantNumberMode = false;
+	private boolean indicateErrorMode = false;
 
 	private char[] letters = {
 	};
@@ -66,45 +65,45 @@ public class Panel extends PanelBase {
 	}
 
 	/**
-	 * @return the warnWrongWall
+	 * @return the indicateErrorMode
 	 */
-	public boolean isWarnWrongWall() {
-		return warnWrongWall;
+	public boolean isIndicateErrorMode() {
+		return indicateErrorMode;
 	}
 
 	/**
-	 * @param warnWrongWall The warnWrongWall to set.
+	 * @param indicateErrorMode The indicateErrorMode to set.
 	 */
-	public void setWarnWrongWall(boolean warnWrongWall) {
-		this.warnWrongWall = warnWrongWall;
+	public void setIndicateErrorMode(boolean indicateErrorMode) {
+		this.indicateErrorMode = indicateErrorMode;
+	}
+
+//	/**
+//	 * @return the indicateRedundantNumberMode
+//	 */
+//	public boolean isIndicateRedundantNumberMode() {
+//		return indicateRedundantNumberMode;
+//	}
+//
+//	/**
+//	 * @param indicateRedundantNumberMode The indicateRedundantNumberMode to set.
+//	 */
+//	public void setIndicateRedundantNumberMode(boolean indicateRedundantNumberMode) {
+//		this.indicateRedundantNumberMode = indicateRedundantNumberMode;
+//	}
+
+	/**
+	 * @return the hideSoleNumberMode
+	 */
+	public boolean isHideSoleNumberMode() {
+		return hideSoleNumberMode;
 	}
 
 	/**
-	 * @return the warnMultipleNumber
+	 * @param hideSoleNumberMode The hideSoleNumberMode to set.
 	 */
-	public boolean isWarnMultipleNumber() {
-		return warnMultipleNumber;
-	}
-
-	/**
-	 * @param warnMultilpleNumber The warnMultilpleNumber to set.
-	 */
-	public void setWarnMultipleNumber(boolean warnMultilpleNumber) {
-		this.warnMultipleNumber = warnMultilpleNumber;
-	}
-
-	/**
-	 * @return the hideSingleMode
-	 */
-	public boolean isHideSingleMode() {
-		return hideSingleMode;
-	}
-
-	/**
-	 * @param hideSingleMode The hideSingleMode to set.
-	 */
-	public void setHideSingleMode(boolean hideSingleMode) {
-		this.hideSingleMode = hideSingleMode;
+	public void setHideSoleNumberMode(boolean hideSoleNumberMode) {
+		this.hideSoleNumberMode = hideSoleNumberMode;
 	}
 
 	/**
@@ -152,30 +151,30 @@ public class Panel extends PanelBase {
 
 	private void drawState(Graphics2D g, int r, int c, int state) {
 		if (state == Board.BLACK) {
-			g.setColor(paintColor);
-			if (isWarnWrongWall()) {
+			g.setColor(getPaintColor());
+			if (isIndicateErrorMode()) {
 				if (board.getChain(r,c) == -1)
-					g.setColor(errorColor);
+					g.setColor(getErrorColor());
 				if (board.isBlock(r,c))
-					g.setColor(errorColor);
+					g.setColor(getErrorColor());
 			}
 			paintCell(g, r, c);
 		} else if (state == Board.WHITE) {
-			g.setColor(circleColor);
+			g.setColor(getCircleColor());
 			placeMark(g, r, c);
 		}
 	}
 
 	private void drawNumber1(Graphics2D g, int r, int c, int number) {
 		g.setColor(getNumberColor());
-		if (isHideSingleMode()) {
+		if (isHideSoleNumberMode()) {
 			if (board.isSingle(r, c)) {
-				g.setColor(singleNumberColor);
+				g.setColor(soleNumberColor);
 			}
 		}
-		if (isWarnMultipleNumber()) {
-			if (!board.isBlack(r, c) && board.isMultipleNumber(r, c)) {
-				g.setColor(errorColor);
+		if (isIndicateErrorMode()) {
+			if (!board.isBlack(r, c) && board.isRedundantNumber(r, c)) {
+				g.setColor(getErrorColor());
 			}
 		}
 		if (number <= letters.length)
