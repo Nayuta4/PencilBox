@@ -12,45 +12,45 @@ import pencilbox.common.gui.MenuBase;
  */
 public class Menu extends MenuBase {
 
-	private JMenuItem bridgeColorItem;
-	private JMenuItem showNumberHintItem;
-	private JMenuItem colorForEachLinkItem;
+	private JMenuItem lineColorItem;
+	private JMenuItem indicateErrorItem;
+	private JMenuItem separateLinkColorItem;
 
 	public Panel getPanel() {
 		return (Panel) getPanelBase();
 	}
 
 	protected void buildIndividualMenu(){
-		bridgeColorItem = addColorMenuItem("橋");
-		addToViewMenu(showNumberHintItem = makeCheckBoxCommandMenuItem("数字の色分け(H)", 'H', false));
-		addToViewMenu(colorForEachLinkItem = makeCheckBoxCommandMenuItem("橋の色分け(D)", 'D', false));
+		lineColorItem = addColorMenuItem("橋");
+		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("正誤を色で示す(E)", 'E', false));
+		addToViewMenu(separateLinkColorItem = makeCheckBoxCommandMenuItem("橋の色分け(R)", 'R', false));
 		addRenewColorMenu();
 		addSymmetricPlacementMenuItem();
 	}
 	
 	public void executeCommand2(JMenuItem target) {
-		if (target == showNumberHintItem)
-			getPanel().setShowNumberHint(target.isSelected());
-		else if (target == colorForEachLinkItem)
-			getPanel().setColorForEachLink(target.isSelected());
+		if (target == indicateErrorItem)
+			getPanel().setIndicateErrorMode(target.isSelected());
+		else if (target == separateLinkColorItem)
+			getPanel().setSeparateLinkColorMode(target.isSelected());
 	}
 	
 	public Color getColor(JMenuItem target) {
-		if (target == bridgeColorItem)
-			return getPanel().getBridgeColor();
+		if (target == lineColorItem)
+			return getPanel().getLineColor();
 		else
 			return null;
 	}
 
 	public void setColor(JMenuItem target, Color color) {
-		if (target == bridgeColorItem)
-			getPanel().setBridgeColor(color);
+		if (target == lineColorItem)
+			getPanel().setLineColor(color);
 	}
 
 	public void updateCurrentMenuSelection() {
 		super.updateCurrentMenuSelection();
-		showNumberHintItem.setSelected(getPanel().isShowNumberHint());
-		colorForEachLinkItem.setSelected(getPanel().isColorForEachLink());
+		indicateErrorItem.setSelected(getPanel().isIndicateErrorMode());
+		separateLinkColorItem.setSelected(getPanel().isSeparateLinkColorMode());
 	}
 
 }
