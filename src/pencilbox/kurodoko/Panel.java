@@ -14,14 +14,11 @@ public class Panel extends PanelBase {
 
 	private Board board;
 
-	private boolean showNumberHint = false;
-	private boolean warnWrongWall = false;
+	private boolean indicateErrorMode = false;
 
 	private Color paintColor = Color.BLUE;
 	private Color circleColor = Color.MAGENTA;
-	private Color successColor = new Color(0x00FF00);
-	private Color errorColor = new Color(0xFF0000);
-	private Color error2Color = new Color(0xFFFF00);
+//	private Color successColor = new Color(0x00FF00);
 
 	public Panel() {
 		setGridColor(Color.BLACK);
@@ -57,28 +54,16 @@ public class Panel extends PanelBase {
 		this.paintColor = paintColor;
 	}
 	/**
-	 * @return Returns the warnWrongWall.
+	 * @return Returns the indicateErrorMode.
 	 */
-	public boolean isWarnWrongWall() {
-		return warnWrongWall;
+	public boolean isIndicateErrorMode() {
+		return indicateErrorMode;
 	}
 	/**
-	 * @param warnWrongWall The warnWrongWall to set.
+	 * @param indicateErrorMode The indicateErrorMode to set.
 	 */
-	public void setWarnWrongWall(boolean warnWrongWall) {
-		this.warnWrongWall = warnWrongWall;
-	}
-	/**
-	 * @return Returns the showNumberHint.
-	 */
-	public boolean isShowNumberHint() {
-		return showNumberHint;
-	}
-	/**
-	 * @param showNumberHint The showNumberHint to set.
-	 */
-	public void setShowNumberHint(boolean showNumberHint) {
-		this.showNumberHint = showNumberHint;
+	public void setIndicateErrorMode(boolean indicateErrorMode) {
+		this.indicateErrorMode = indicateErrorMode;
 	}
 
 	public void drawPanel(Graphics2D g) {
@@ -101,7 +86,7 @@ public class Panel extends PanelBase {
 				if (st == Board.BLACK) {
 					paintCell1(g, r, c);
 				} else if (st == Board.WHITE) {
-					g.setColor(circleColor);
+					g.setColor(getCircleColor());
 					placeMark(g, r, c);
 				} else if (st > 0 || st == Board.UNDECIDED_NUMBER) {
 					placeNumber1(g, r, c, st);
@@ -111,10 +96,10 @@ public class Panel extends PanelBase {
 	}
 	
 	private void paintCell1(Graphics2D g, int r, int c) {
-		g.setColor(paintColor);	
-		if (isWarnWrongWall()) {
+		g.setColor(getPaintColor());	
+		if (isIndicateErrorMode()) {
 			if (board.isBlock(r,c) || board.getChain(r,c) < 0) {
-				g.setColor(errorColor);
+				g.setColor(getErrorColor());
 			}
 		}
 		paintCell(g, r, c);
@@ -122,27 +107,33 @@ public class Panel extends PanelBase {
 
 	private void placeNumber1(Graphics2D g, int r, int c, int num) {
 		if (getMarkStyle() == 5) {
-			g.setColor(circleColor);
+			g.setColor(getCircleColor());
 			paintCell(g, r, c);
 		}
 		g.setColor(getBackgroundColor());
-		if (isShowNumberHint()) {
-			if (num > 0) {
-				int nSpace = board.getSumSpace(r,c);
-				int nWhite = board.getSumWhite(r,c);
-				if (nSpace < num) {
-					g.setColor(errorColor);
-				} else if (nSpace == num) {
-					g.setColor(successColor);
-				} else if (nWhite > num) {
-					g.setColor(error2Color);
-				}
-			}
-		}
+//		if (isIndicateErrorMode()) {
+//			if (num > 0) {
+//				int nSpace = board.getSumSpace(r,c);
+//				int nWhite = board.getSumWhite(r,c);
+//				if (nSpace < num) {
+//					g.setColor(getErrorColor());
+//				} else if (nSpace == num) {
+//					g.setColor(successColor);
+//				} else if (nWhite > num) {
+//					g.setColor(getErrorColor());
+//				}
+//			}
+//		}
 		placeFilledCircle(g, r, c, getCellSize()-2);
 		g.setColor(getNumberColor());
 		placeCircle(g, r, c, getCellSize()-2);
 		if (num > 0) {
+			if (isIndicateErrorMode()) {
+				int nSpace = board.getSumSpace(r,c);
+				if (nSpace != num) {
+					g.setColor(getErrorColor());
+				}
+			}
 			placeNumber(g, r, c, num);
 		}
 	}
