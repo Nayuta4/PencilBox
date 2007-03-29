@@ -15,16 +15,16 @@ public class Panel extends PanelBase {
 
 	private Board board;
 
-	private boolean showStar = true;
-	private boolean showAreaBorder = true;
-	private boolean showAreaHint = false;
+	private boolean hideStarMode = false;
+	private boolean showAreaBorderMode = true;
+	private boolean indicateErrorMode = false;
+	private boolean separateAreaColorMode = false;
 
 	private Color areaBorderColor = Color.BLUE;
 	private Color noStarAreaColor = new Color(0xFFFF80);
 	private Color whiteAreaColor = new Color(0x80FFFF);
 	private Color blackAreaColor = new Color(0xFF80FF);
 	private Color starColor = Color.BLACK;
-	private Color errorColor = Color.RED;
 
 	private int halfStarSize = 3;
 
@@ -111,45 +111,59 @@ public class Panel extends PanelBase {
 	}
 
 	/**
-	 * @return the showAreaBorder
+	 * @return the showAreaBorderMode
 	 */
-	public boolean isShowAreaBorder() {
-		return showAreaBorder;
+	public boolean isShowAreaBorderMode() {
+		return showAreaBorderMode;
 	}
 
 	/**
-	 * @param showAreaBorder The showAreaBorder to set.
+	 * @param showAreaBorderMode The showAreaBorderMode to set.
 	 */
-	public void setShowAreaBorder(boolean showAreaBorder) {
-		this.showAreaBorder = showAreaBorder;
+	public void setShowAreaBorderMode(boolean showAreaBorderMode) {
+		this.showAreaBorderMode = showAreaBorderMode;
 	}
 
 	/**
-	 * @return the showStar
+	 * @return the hideStarMode
 	 */
-	public boolean isShowStar() {
-		return showStar;
+	public boolean isHideStarMode() {
+		return hideStarMode;
 	}
 
 	/**
-	 * @param showStar The showStar to set.
+	 * @param hideStarMode The hideStarMode to set.
 	 */
-	public void setShowStar(boolean showStar) {
-		this.showStar = showStar;
+	public void setHideStarMode(boolean hideStarMode) {
+		this.hideStarMode = hideStarMode;
 	}
 
 	/**
-	 * @return the showAreaHint
+	 * @return the indicateErrorMode
 	 */
-	public boolean isShowAreaHint() {
-		return showAreaHint;
+	public boolean isIndicateErrorMode() {
+		return indicateErrorMode;
 	}
 
 	/**
-	 * @param useDifferentColor The useDifferentColor to set.
+	 * @param indicateErrorMode the indicateErrorMode to set.
 	 */
-	public void setShowAreaHint(boolean useDifferentColor) {
-		this.showAreaHint = useDifferentColor;
+	public void setIndicateErrorMode(boolean indicateErrorMode) {
+		this.indicateErrorMode = indicateErrorMode;
+	}
+
+	/**
+	 * @return Returns the separateAreaColorMode.
+	 */
+	public boolean isSeparateAreaColorMode() {
+		return separateAreaColorMode;
+	}
+
+	/**
+	 * @param separateAreaColorMode The separateAreaColorMode to set.
+	 */
+	public void setSeparateAreaColorMode(boolean separateAreaColorMode) {
+		this.separateAreaColorMode = separateAreaColorMode;
 	}
 
 	public void setDisplaySize(int cellSize) {
@@ -171,10 +185,10 @@ public class Panel extends PanelBase {
 	 */
 	protected void drawBoard(Graphics2D g) {
 		paintAreas(g);
-		if (isShowStar()) {
+		if (!isHideStarMode()) {
 			drawStars(g);
 		}
-		if (isShowAreaBorder()) {
+		if (isShowAreaBorderMode()) {
 			drawAreaBorders(g);
 		}
 	}
@@ -185,10 +199,11 @@ public class Panel extends PanelBase {
 				if (board.isCovered(r, c)) {
 					if (board.getArea(r,c) == draggingArea)
 						continue; // ƒhƒ‰ƒbƒO’†—Ìˆæ‚Í”’”²‚«
-					if (isShowAreaHint()) {
-						int starType = board.getArea(r,c).getStarType();
+					int starType = board.getArea(r, c).getStarType();
+					g.setColor(whiteAreaColor);
+					if (isSeparateAreaColorMode()) {
 						if (starType == -1) {
-							g.setColor(errorColor);
+							g.setColor(getErrorColor());
 						} else if (starType == Board.WHITESTAR) {
 							g.setColor(whiteAreaColor);
 						} else if (starType == Board.BLACKSTAR) {
@@ -196,8 +211,15 @@ public class Panel extends PanelBase {
 						} else {
 							g.setColor(noStarAreaColor);
 						} 
-					} else {
-						g.setColor(whiteAreaColor);
+					}
+					if (isIndicateErrorMode()) {
+						if (starType == -1) {
+							g.setColor(getErrorColor());
+						} else if (starType == 0) {
+							g.setColor(noStarAreaColor);
+						} else if (!board.getArea(r, c).isPointSymmetry()) {
+							g.setColor(getErrorColor());
+						}
 					}
 					paintCell(g, r, c);
 				}

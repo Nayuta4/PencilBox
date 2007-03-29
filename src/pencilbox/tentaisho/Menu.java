@@ -14,9 +14,10 @@ public class Menu extends MenuBase {
 	private JMenuItem areaBorderColorItem;
 	private JMenuItem whiteAreaColorItem;
 	private JMenuItem blackAreaColorItem;
-	private JMenuItem showStarItem;
+	private JMenuItem hideStarItem;
 	private JMenuItem showAreaBorderItem;
-	private JMenuItem showAreaHintItem;
+	private JMenuItem indicateErrorItem;
+	private JMenuItem separateAreaColorItem;
 	
 	public Panel getPanel() {
 		return (Panel)getPanelBase();
@@ -27,19 +28,22 @@ public class Menu extends MenuBase {
 		areaBorderColorItem = addColorMenuItem("領域境界");
 		whiteAreaColorItem = addColorMenuItem("白星領域");
 		blackAreaColorItem = addColorMenuItem("黒星領域");
-		addToViewMenu(showStarItem = makeCheckBoxCommandMenuItem("星の表示(S)", 'S', true));
+		addToViewMenu(hideStarItem = makeCheckBoxCommandMenuItem("星の非表示(H)", 'H', false));
 		addToViewMenu(showAreaBorderItem = makeCheckBoxCommandMenuItem("境界線表示(B)", 'B', true));
-		addToViewMenu(showAreaHintItem = makeCheckBoxCommandMenuItem("領域の色分け(D)", 'D', false));
+		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("正誤を色で示す(E)", 'E', false));
+		addToViewMenu(separateAreaColorItem = makeCheckBoxCommandMenuItem("領域の色分け(R)", 'R', false));
 //		addRenewColorMenu();
 	}
 
 	public void executeCommand2(JMenuItem target) {
-		if (target == showAreaHintItem)
-			getPanel().setShowAreaHint(target.isSelected());
+		if (target == indicateErrorItem)
+			getPanel().setIndicateErrorMode(target.isSelected());
 		else if (target == showAreaBorderItem)
-			getPanel().setShowAreaBorder(target.isSelected());
-		else if (target == showStarItem)
-			getPanel().setShowStar(target.isSelected());
+			getPanel().setShowAreaBorderMode(target.isSelected());
+		else if (target == separateAreaColorItem)
+			getPanel().setSeparateAreaColorMode(target.isSelected());
+		else if (target == hideStarItem)
+			getPanel().setHideStarMode(target.isSelected());
 	}
 	
 	public Color getColor(JMenuItem target) {
@@ -63,9 +67,10 @@ public class Menu extends MenuBase {
 
 	public void updateCurrentMenuSelection() {
 		super.updateCurrentMenuSelection();
-		showStarItem.setSelected(getPanel().isShowStar());
-		showAreaBorderItem.setSelected(getPanel().isShowAreaBorder());
-		showAreaHintItem.setSelected(getPanel().isShowAreaHint());
+		hideStarItem.setSelected(getPanel().isHideStarMode());
+		showAreaBorderItem.setSelected(getPanel().isShowAreaBorderMode());
+		separateAreaColorItem.setSelected(getPanel().isSeparateAreaColorMode());
+		indicateErrorItem.setSelected(getPanel().isIndicateErrorMode());
 	}
 
 }
