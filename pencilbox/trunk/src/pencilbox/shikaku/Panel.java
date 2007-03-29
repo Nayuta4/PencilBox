@@ -17,14 +17,13 @@ public class Panel extends PanelBase {
 	private Board board;
 
 	private Color areaBorderColor = Color.BLUE;
-	private Color errorColor = new Color(0xFF0000);
 	private Color smallSizeColor = new Color(0xFFFF80); // 面積小さい
 	private Color areaPaintColor   = new Color(0x80FFFF); // 標準色
 
 	private Square draggingArea; // ドラッグして今まさに描こうとしている四角
 
-	private boolean colorfulMode = false;
-	private boolean showAreaHint = false;
+	private boolean separateAreaColorMode = false;
+	private boolean indicateErrorMode = false;
 
 	/**
 	 * パネルを生成する
@@ -66,31 +65,31 @@ public class Panel extends PanelBase {
 	}
 
 	/**
-	 * @return the colorfulMode
+	 * @return the separateAreaColorMode
 	 */
-	public boolean isColorfulMode() {
-		return colorfulMode;
+	public boolean isSeparateAreaColorMode() {
+		return separateAreaColorMode;
 	}
 
 	/**
-	 * @param colorfulMode The colorfulMode to set.
+	 * @param separateAreaColorMode The separateAreaColorMode to set.
 	 */
-	public void setColorfulMode(boolean colorfulMode) {
-		this.colorfulMode = colorfulMode;
+	public void setSeparateAreaColorMode(boolean separateAreaColorMode) {
+		this.separateAreaColorMode = separateAreaColorMode;
 	}
 
 	/**
-	 * @return the showAreaHint
+	 * @return the indicateErrorMode
 	 */
-	public boolean isShowAreaHint() {
-		return showAreaHint;
+	public boolean isIndicateErrorMode() {
+		return indicateErrorMode;
 	}
 
 	/**
-	 * @param showAreaHint The showAreaHint to set.
+	 * @param indicateErrorMode The indicateErrorMode to set.
 	 */
-	public void setShowAreaHint(boolean showAreaHint) {
-		this.showAreaHint = showAreaHint;
+	public void setIndicateErrorMode(boolean indicateErrorMode) {
+		this.indicateErrorMode = indicateErrorMode;
 	}
 
 	public void drawPanel(Graphics2D g) {
@@ -113,25 +112,24 @@ public class Panel extends PanelBase {
 				area = board.getSquare(r,c);
 				if (area == null)
 					continue;
-				if (isShowAreaHint()) {
+				g.setColor(areaPaintColor);
+				if (isIndicateErrorMode()) {
 					int number = area.getNumber();
 					if (number == Square.MULTIPLE_NUMBER) {
-						g.setColor(errorColor);
+						g.setColor(getErrorColor());
 					} else if (number == Square.NO_NUMBER) {
 						g.setColor(smallSizeColor);
 					} else if (number == Board.UNDECIDED_NUMBER) {
 						g.setColor(areaPaintColor);
 					} else if (number < area.getSquareSize()) {
-						g.setColor(errorColor);
+						g.setColor(getErrorColor());
 					} else if (number == area.getSquareSize()) {
 						g.setColor(areaPaintColor);
 					} else if (number > area.getSquareSize()) {
 						g.setColor(smallSizeColor);
 					}
-				} else if (isColorfulMode()) {
+				} else if (isSeparateAreaColorMode()) {
 					g.setColor(Colors.getBrightColor(board.getSquare(r,c).getId()));
-				} else {
-					g.setColor(areaPaintColor);
 				}
 				paintCell(g, r, c);
 			}

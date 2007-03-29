@@ -13,8 +13,8 @@ public class Menu extends MenuBase {
 	
 	private JMenuItem areaBorderColorItem;
 	private JMenuItem areaPaintColorItem;
-	private JMenuItem showAreaHintItem;
-	private JMenuItem colorfulModeItem;
+	private JMenuItem indicateErrorItem;
+	private JMenuItem separateAreaColorItem;
 	
 	public Panel getPanel() {
 		return (Panel)getPanelBase();
@@ -24,17 +24,17 @@ public class Menu extends MenuBase {
 		super.buildIndividualMenu();
 		areaBorderColorItem = addColorMenuItem("領域境界");
 		areaPaintColorItem = addColorMenuItem("領域内部");
-		addToViewMenu(showAreaHintItem = makeCheckBoxCommandMenuItem("面積で色分け(H)", 'H', false));
-		addToViewMenu(colorfulModeItem = makeCheckBoxCommandMenuItem("ランダムに色分け(D)", 'D', false));
+		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("正誤を色で示す(E)", 'E', false));
+		addToViewMenu(separateAreaColorItem = makeCheckBoxCommandMenuItem("領域の色分け(R)", 'R', false));
 		addRenewColorMenu();
 		addSymmetricPlacementMenuItem();
 	}
 
 	public void executeCommand2(JMenuItem target) {
-		if (target == showAreaHintItem) {
-			getPanel().setShowAreaHint(target.isSelected());
-		} else if (target == colorfulModeItem) {
-			getPanel().setColorfulMode(target.isSelected());
+		if (target == indicateErrorItem) {
+			getPanel().setIndicateErrorMode(target.isSelected());
+		} else if (target == separateAreaColorItem) {
+			getPanel().setSeparateAreaColorMode(target.isSelected());
 		}
 	}
 
@@ -56,8 +56,8 @@ public class Menu extends MenuBase {
 	
 	public void updateCurrentMenuSelection() {
 		super.updateCurrentMenuSelection();
-		showAreaHintItem.setSelected(getPanel().isShowAreaHint());
-		colorfulModeItem.setSelected(getPanel().isColorfulMode());
+		indicateErrorItem.setSelected(getPanel().isIndicateErrorMode());
+		separateAreaColorItem.setSelected(getPanel().isSeparateAreaColorMode());
 	}
 	
 }
