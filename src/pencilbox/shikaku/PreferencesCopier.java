@@ -12,8 +12,8 @@ public class PreferencesCopier extends PreferencesCopierBase {
 		super.copyPreferences(src, dst);
 		Panel panelS = (Panel) src.getPanelBase();
 		Panel panelD = (Panel) dst.getPanelBase();
-		panelD.setShowAreaHint(panelS.isShowAreaHint());
-		panelD.setColorfulMode(panelS.isColorfulMode());
+		panelD.setIndicateErrorMode(panelS.isIndicateErrorMode());
+		panelD.setSeparateAreaColorMode(panelS.isSeparateAreaColorMode());
 		panelD.setAreaPaintColor(panelS.getAreaPaintColor());
 		panelD.setAreaBorderColor(panelS.getAreaBorderColor());
 	}
