@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
 import pencilbox.common.gui.PanelBase;
+import pencilbox.util.Colors;
 
 
 /**
@@ -15,12 +16,12 @@ public class Panel extends PanelBase {
 
 	private Board board;
 
-	private boolean showAreaBorder = true;
-	private boolean showAreaHint = false;
+	private boolean showAreaBorderMode = true;
+	private boolean indicateErrorMode = false;
+	private boolean separateAreaColorMode = false;
 
 	private Color inputColor = Color.BLUE;
 	private Color areaBorderColor = Color.BLUE;
-	private Color errorColor = Color.RED;
 	private Color successColor = new Color(0x80FFFF);
 
 	/**
@@ -63,31 +64,45 @@ public class Panel extends PanelBase {
 	}
 
 	/**
-	 * @return Returns the showAreaBorder.
+	 * @return Returns the showAreaBorderMode.
 	 */
-	public boolean isShowAreaBorder() {
-		return showAreaBorder;
+	public boolean isShowAreaBorderMode() {
+		return showAreaBorderMode;
 	}
 
 	/**
-	 * @param showAreaBorder The showAreaBorder to set.
+	 * @param showAreaBorderMode The showAreaBorderMode to set.
 	 */
-	public void setShowAreaBorder(boolean showAreaBorder) {
-		this.showAreaBorder = showAreaBorder;
+	public void setShowAreaBorderMode(boolean showAreaBorderMode) {
+		this.showAreaBorderMode = showAreaBorderMode;
 	}
 
 	/**
-	 * @return Returns the showAreaHint.
+	 * @return Returns the indicateErrorMode.
 	 */
-	public boolean isShowAreaHint() {
-		return showAreaHint;
+	public boolean isIndicateErrorMode() {
+		return indicateErrorMode;
 	}
 
 	/**
-	 * @param showAreaHint The showAreaHint to set.
+	 * @param indicateErrorMode The indicateErrorMode to set.
 	 */
-	public void setShowAreaHint(boolean showAreaHint) {
-		this.showAreaHint = showAreaHint;
+	public void setIndicateErrorMode(boolean indicateErrorMode) {
+		this.indicateErrorMode = indicateErrorMode;
+	}
+
+	/**
+	 * @return the separateAreaColorMode
+	 */
+	public boolean isSeparateAreaColorMode() {
+		return separateAreaColorMode;
+	}
+
+	/**
+	 * @param separateAreaColorMode the separateAreaColorMode to set
+	 */
+	public void setSeparateAreaColorMode(boolean separateAreaColorMode) {
+		this.separateAreaColorMode = separateAreaColorMode;
 	}
 
 	public void drawPanel(Graphics2D g) {
@@ -104,8 +119,8 @@ public class Panel extends PanelBase {
 	 */
 	protected void drawBoard(Graphics2D g) {
 		drawNumbers(g);
-		if (isShowAreaBorder()) 
-			drawBorders(g);
+		if (isShowAreaBorderMode()) 
+			drawAreaBorders(g);
 	}
 
 	private void drawNumbers(Graphics2D g) {
@@ -114,23 +129,25 @@ public class Panel extends PanelBase {
 			for (int c = 0; c < board.cols(); c++) {
 				int number = board.getNumber(r, c);
 				if (number > 0) {
-					if (isShowAreaHint()) {
+					if (isIndicateErrorMode()) {
 						int status = board.getArea(r,c).getStatus();
 						if (status == -1) {
-							g.setColor(errorColor);
+							g.setColor(getErrorColor());
 							paintCell(g, r, c);
-						} 
-						else if (status == 1) {
+						} else if (status == 1) {
 							g.setColor(successColor); 
 							paintCell(g, r, c);
 						}
+					} else if (isSeparateAreaColorMode()) {
+						g.setColor(Colors.getBrightColor(board.getNumber(r,c)));
+						paintCell(g, r, c);
 					}
 				}
 				if (number > 0) {
 					if (board.isStable(r, c)) {
 						g.setColor(getNumberColor());
 					} else {
-						g.setColor(inputColor);
+						g.setColor(getInputColor());
 					}
 					placeNumber(g, r, c, board.getNumber(r, c));
 				} else if (number == Board.UNKNOWN) {
@@ -143,7 +160,7 @@ public class Panel extends PanelBase {
 		}
 	}
 
-	private void drawBorders(Graphics2D g) {
+	private void drawAreaBorders(Graphics2D g) {
 		g.setColor(areaBorderColor);
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols() - 1; c++) {
