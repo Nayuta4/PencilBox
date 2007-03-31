@@ -262,16 +262,22 @@ public class MenuCommand {
 	/**
 	 *  [ファイル]-[問題データ文字列出力]
 	 */
-	void exporProblemDatatString() {
+	public void exporProblemDatatString() {
 		DataExportDialog dataExportFrame = new DataExportDialog();
 		try {
-			String url = "http://www.kanpen.net/"
-					+ pencilType.getPencilName()
-					+ ".html?problem="
-					+ IOController.getInstance(pencilType).getProblemDataString(board);
+			String problemDataS = IOController.getInstance(pencilType).getProblemDataString(board);
+			String url = "http://www.kanpen.net/" + pencilType.getPencilName()
+					+ ".html?problem=" + problemDataS;
 			dataExportFrame.setText(url);
-			dataExportFrame.showDialog(frame, "問題データ文字列出力");
-		} catch (PencilBoxClassException e) {
+			int ret = dataExportFrame.showDialog(frame, "問題データ文字列出力");
+			if (ret == PencilBoxDialog.OK_OPTION) {
+				String s = dataExportFrame.getText();
+				Problem problem = IOController
+						.getInstance(pencilType)
+						.readProblemData(s.substring(s.indexOf("problem=") + 8));
+				PencilFactory.getInstance(pencilType, this).createNewFrame(problem);
+			}
+		} catch (PencilBoxException e) {
 			e.printStackTrace();
 		}
 	}
