@@ -132,20 +132,17 @@ public class Panel extends PanelBase {
 		hintDot.setDotSize(cellSize);
 	}
 
-	public void drawPanel(Graphics2D g) {
-		paintBackground(g);
-		drawIndex(g);
-		drawBoard(g);
+	public void drawBoard(Graphics2D g) {
+		drawNumbers(g);
 		drawGrid(g);
-		drawBorder(g);
-		drawCursor(g);
+		drawAreaBorders(g);
 	}
 
 	/**
 	 * ƒuƒƒbƒN‚Ì‘¾˜gü‚ğ•`‰æ‚·‚éB
 	 */
-	public void drawBorder(Graphics2D g) {
-		g.setColor(getBorderColor());
+	public void drawAreaBorders(Graphics2D g) {
+		g.setColor(getBoardBorderColor());
 		for (int r = 0; r <= rows(); r++) {
 			if (r % board.getUnit() == 0) {
 				g.drawLine(toX(0), toY(r) - 1, toX(cols()), toY(r) - 1);
@@ -162,11 +159,7 @@ public class Panel extends PanelBase {
 		}
 	}
 
-	/**
-	 * ”Õ–Ê‚ğ•`‰æ‚·‚é
-	 * @param g
-	 */
-	protected void drawBoard(Graphics2D g) {
+	protected void drawNumbers(Graphics2D g) {
 		g.setFont(getNumberFont());
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {

@@ -7,8 +7,6 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
@@ -31,11 +29,6 @@ public class PanelBase extends JPanel implements Printable {
 
 	private Size size;
 
-	protected BufferedImage backgroundImage;
-    protected BufferedImage originalImage;
-    protected AffineTransform backgroundImageTransform = AffineTransform.getRotateInstance(Math.toRadians(0.0));
-    protected boolean useBackgroundImage = false;
-
 	private int cellSize = 26;
 	private int circleSize = 18;
 	private int smallCrossSize = 3; // 片側サイズ
@@ -43,9 +36,10 @@ public class PanelBase extends JPanel implements Printable {
 	private int offsety = 26;
 
 	private Color backgroundColor = Color.WHITE;
-	private Color borderColor = Color.BLACK;
+	private Color boardBorderColor = Color.BLACK;
 	private Color gridColor = Color.BLACK;
 	private Color numberColor = Color.BLACK;
+	private Color indexColor = Color.BLACK;
 	private Color errorColor = Color.RED;
 
 	private Color cursorColor = new Color(0xFF0000);
@@ -96,15 +90,7 @@ public class PanelBase extends JPanel implements Printable {
 	 */
 	protected void setBoard(BoardBase board) {
 	}
-	/**
-	 * 背景画像設定
-	 * @param image
-	 */
-	public void setImage(BufferedImage image) {
-		this.backgroundImage = image;
-		this.originalImage = image;
-		repaint();
-	}
+
 	/**
 	 * 表示サイズを変更する
 	 * @param cellSize マスのサイズ
@@ -196,21 +182,28 @@ public class PanelBase extends JPanel implements Printable {
 	 */
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D) g;
-		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-		drawPanel(g2);
+		drawPanel((Graphics2D) g);
 	}
 	/**
 	 * パネルを描画する。
 	 * 画面表示用，印刷用，画像作成用で共通に使用する。
-	 * 個々のサブクラスで実装する。
 	 * @param g
 	 */
 	public void drawPanel(Graphics2D g) {
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		paintBackground(g);
+		drawBoard(g);
+		drawCursor(g);
+		drawIndex(g);
 	}
 	
-	protected void drawBoard(Graphics2D g) {
+	/**
+	 * パネルに盤面を描画する
+	 * 個々のサブクラスで実装する。
+	 * @param g
+	 */
+	public void drawBoard(Graphics2D g) {
 	}
 
 	/**
@@ -238,22 +231,17 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param g
 	 */
 	public void paintBackground(Graphics2D g) {
-		if (useBackgroundImage && backgroundImage != null) {
-			g.drawImage(backgroundImage, backgroundImageTransform, null);
-		} else {
-			g.setColor(backgroundColor);
-			g.fillRect(offsetx, offsety, cellSize * cols(), cellSize * rows());
-		}
+		g.setColor(backgroundColor);
+		g.fillRect(offsetx, offsety, cellSize * cols(), cellSize * rows());
 	}
 	/**
 	 * 盤面の外枠を描く
 	 * @param g
 	 */
-	public void drawBorder(Graphics2D g) {
-		g.setColor(borderColor);
-//		g.drawRect(offsetx - 2, offsety - 2, cellSize * cols() + 4,	cellSize * rows() + 4);
-		g.drawRect(offsetx - 1, offsety - 1, cellSize * cols() + 2,	cellSize * rows() + 2);
-		g.drawRect(offsetx, offsety, cellSize * cols(), cellSize * rows());
+	public void drawBoardBorder(Graphics2D g) {
+		g.setColor(boardBorderColor);
+		for (int i=0; i<=1; i++)
+			g.drawRect(offsetx - i, offsety - i, cellSize * cols() + i + i,	cellSize * rows() + i + i);
 	}
 	/**
 	 * 罫線を描く
@@ -277,8 +265,8 @@ public class PanelBase extends JPanel implements Printable {
 	public void drawIndex(Graphics2D g) {
 		int firstIndex = 1;
 		g.setFont(indexFont);
-		g.setColor(numberColor);
-		if (showIndexMode == false)
+		g.setColor(indexColor);
+		if (isShowIndexMode() == false)
 			return;
 		for (int r = 0; r < rows(); r++) {
 			placeIndexNumber(g, r, -1, r + firstIndex);
@@ -299,9 +287,8 @@ public class PanelBase extends JPanel implements Printable {
 		} else {
 			return;
 		}
-		g.drawRect(toX(cellCursor.c()), toY(cellCursor.r()), cellSize, cellSize);
-		g.drawRect(toX(cellCursor.c()) + 1,	toY(cellCursor.r()) + 1, cellSize - 2, cellSize - 2);
-		g.drawRect(toX(cellCursor.c()) + 2,	toY(cellCursor.r()) + 2, cellSize - 4, cellSize - 4);
+		for (int i = 0; i <= 2; i++)
+			g.drawRect(toX(cellCursor.c())+i, toY(cellCursor.r())+i, cellSize-i-i, cellSize-i-i);
 	}
 	/*
 	 * 特殊図形描画のためのメソッド群
@@ -600,8 +587,17 @@ public class PanelBase extends JPanel implements Printable {
 	}
 
 	/**
-	 * マスに白マス確定（など）記号を配置する
-	 * 大きさはクラスで定める標準値
+	 * マスの縁取り 
+	 * @param g 
+	 * @param r0 盤面行座標
+	 * @param c0 盤面列座標
+	 */
+	public void edgeCell(Graphics2D g, int r0, int c0) {
+		g.drawRect(toX(c0), toY(r0), getCellSize(), getCellSize());
+	}
+
+	/**
+	 * マスに白マス確定（など）記号を配置する 大きさはクラスで定める標準値
 	 * @param g
 	 * @param r 盤面行座標
 	 * @param c 盤面列座標
@@ -721,16 +717,16 @@ public class PanelBase extends JPanel implements Printable {
 		return backgroundColor;
 	}
 	/**
-	 * @param borderColor The borderColor to set.
+	 * @param boardBorderColor The boardBorderColor to set.
 	 */
-	public void setBorderColor(Color borderColor) {
-		this.borderColor = borderColor;
+	public void setBoardBorderColor(Color boardBorderColor) {
+		this.boardBorderColor = boardBorderColor;
 	}
 	/**
-	 * @return Returns the borderColor.
+	 * @return Returns the boardBorderColor.
 	 */
-	public Color getBorderColor() {
-		return borderColor;
+	public Color getBoardBorderColor() {
+		return boardBorderColor;
 	}
 	/**
 	 * @param gridColor The gridColor to set.

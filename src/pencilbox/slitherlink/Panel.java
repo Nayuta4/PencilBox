@@ -81,13 +81,11 @@ public class Panel extends PanelBase {
 		this.indicateErrorMode = indicateErrorMode;
 	}
 
-	public void drawPanel(Graphics2D g) {
-		paintBackground(g);
-		drawIndex(g);
-		drawBoard(g);
+	public void drawBoard(Graphics2D g) {
+		drawNumbers(g);
+		drawLinks(g);
 		drawGrid(g);
-		drawBorder(g);
-		drawCursor(g);
+		drawBoardBorder(g);
 	}
 	/**
 	 * 罫線の変わりにマスの中心に点を打つ
@@ -102,32 +100,33 @@ public class Panel extends PanelBase {
 			}
 		}
 	}
-	/**
-	 * 盤面を描画する
-	 * @param g
-	 */
-	protected void drawBoard(Graphics2D g) {
-		int state;
+
+	private void drawNumbers(Graphics2D g) {
+		int number;
 		g.setFont(getNumberFont());
 		g.setColor(getNumberColor());
 		for (int r = 0; r < board.rows() - 1; r++) {
 			for (int c = 0; c < board.cols() - 1; c++) {
-				state = board.getNumber(r, c);
-				if (state >= 0 && state <= 4) {
+				number = board.getNumber(r, c);
+				if (number >= 0 && number <= 4) {
 					g.setColor(getNumberColor());
 					if (isIndicateErrorMode()) {
 						int nline = board.lineAround(r,c);
-						if (nline > state)
+						if (nline > number)
 							g.setColor(getErrorColor());
-						else if (nline < state)
+						else if (nline < number)
 							g.setColor(getErrorColor());
 					}
-					placeNumber2(g, r, c, state);
-				} else if (state == Board.UNDECIDED_NUMBER) {
+					placeNumber2(g, r, c, number);
+				} else if (number == Board.UNDECIDED_NUMBER) {
 					placeCircle2(g, r, c);
 				}
 			}
 		}
+	}
+	
+	private void drawLinks(Graphics2D g) {
+		int state;
 		for (int d = 0; d <= 1; d++) {
 			for (int r = 0; r < board.rows(); r++) {
 				for (int c = 0; c < board.cols(); c++) {

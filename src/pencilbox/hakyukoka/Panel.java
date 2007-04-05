@@ -89,6 +89,20 @@ public class Panel extends PanelBase {
 	}
 
 	/**
+	 * @param areaBorderColor the areaBorderColor to set
+	 */
+	public void setAreaBorderColor(Color areaBorderColor) {
+		this.areaBorderColor = areaBorderColor;
+	}
+
+	/**
+	 * @return the areaBorderColor
+	 */
+	public Color getAreaBorderColor() {
+		return areaBorderColor;
+	}
+
+	/**
 	 * @return the highlightSelectionMode
 	 */
 	public boolean isHighlightSelectionMode() {
@@ -135,25 +149,15 @@ public class Panel extends PanelBase {
 		hintDot.setDotSize(cellSize);
 	}
 
-	public void drawPanel(Graphics2D g) {
-		paintBackground(g);
-		drawIndex(g);
-		drawBoard(g);
-		drawGrid(g);
-		drawBorder(g);
-		drawCursor(g);
-	}
-	/**
-	 * ”Õ–Ê‚ð•`‰æ‚·‚é
-	 * @param g
-	 */
-	protected void drawBoard(Graphics2D g) {
+	public void drawBoard(Graphics2D g) {
 		paintCells(g);
 		drawBeams(g);
 		drawNumbers(g);
+		drawGrid(g);
 		drawAreaBorders(g);
+		drawBoardBorder(g);
 	}
-	
+
 	private void drawBeams(Graphics2D g) {
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
@@ -240,7 +244,7 @@ public class Panel extends PanelBase {
 	}
 	
 	private void drawAreaBorders(Graphics2D g) {
-		g.setColor(areaBorderColor);
+		g.setColor(getAreaBorderColor());
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols() - 1; c++) {
 				if (board.getArea(r, c) != board.getArea(r, c + 1)) {

@@ -122,19 +122,14 @@ public class Panel extends PanelBase {
 		this.circleColor = whiteColor;
 	}
 
-	public void drawPanel(Graphics2D g) {
-		paintBackground(g);
-		drawIndex(g);
-		drawBoard(g);
+	public void drawBoard(Graphics2D g) {
+		drawNumbers(g);
 		drawGrid(g);
-		drawBorder(g);
-		drawCursor(g);
+		drawLinks(g);
+		drawBoardBorder(g);
 	}
-	/**
-	 * ”Õ–Ê‚ð•`‰æ‚·‚é
-	 * @param g
-	 */
-	protected void drawBoard(Graphics2D g) {
+
+	private void drawNumbers(Graphics2D g) {
 		int state;
 		g.setFont(getNumberFont());
 		for (int r = 0; r < board.rows(); r++) {
@@ -159,6 +154,10 @@ public class Panel extends PanelBase {
 				}
 			}
 		}
+	}
+
+	private void drawLinks(Graphics2D g) {
+		int state;
 		for (int d = 0; d <= 1; d++) {
 			for (int r = 0; r < board.rows(); r++) {
 				for (int c = 0; c < board.cols(); c++) {
@@ -190,8 +189,10 @@ public class Panel extends PanelBase {
 	 * @param arrow
 	 */
 	private void placeArrow(Graphics2D g, int r, int c, int arrow) {
+//		g.setColor(wallColor);
+//		paintCell(g, r, c);
 		g.setColor(getNumberColor());
-		placeSquare(g, r, c, r, c);
+//		placeSquare(g, r, c, r, c);
 		if (isIndicateErrorMode()) {
 			if (board.checkArrow(r, c) == 16)
 				g.setColor(getErrorColor());
