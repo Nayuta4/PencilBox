@@ -99,19 +99,13 @@ public class Panel extends PanelBase {
 		countFont = new Font("SansSerif", Font.ITALIC, getCellSize() / 2);
 	}
 
-	public void drawPanel(Graphics2D g) {
-		paintBackground(g);
-		drawIndex(g);
-		drawBoard(g);
+	public void drawBoard(Graphics2D g) {
+		drawCells(g);
 		drawGrid(g);
-		drawBorder(g);
-		drawCursor(g);
+		drawBoardBorder(g);
 	}
-	/**
-	 * ”Õ–Ê‚ð•`‰æ‚·‚é
-	 * @param g
-	 */
-	protected void drawBoard(Graphics2D g) {
+
+	private void drawCells(Graphics2D g) {
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
 				int st = board.getState(r, c);
@@ -152,7 +146,6 @@ public class Panel extends PanelBase {
 				number == Area.MULTIPLE_NUMBER	|| (number > 0 && area.size() > number)) {
 				g.setColor(Color.RED);
 				placeCircle(g, r, c);
-//				placeBoldCircle(g, r, c);
 				placeNumber(g, r, c, area.size());
 			} else {
 				g.setColor(getCircleColor());

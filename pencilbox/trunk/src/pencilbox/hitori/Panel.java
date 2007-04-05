@@ -122,25 +122,19 @@ public class Panel extends PanelBase {
 		this.letters = string.toCharArray();
 	}
 
-	public void drawPanel(Graphics2D g) {
-		paintBackground(g);
-		drawIndex(g);
-		drawBoard(g);
+	public void drawBoard(Graphics2D g) {
+		drawCells(g);
 		drawGrid(g);
-		drawBorder(g);
-		drawCursor(g);
+		drawBoardBorder(g);
 	}
-	/**
-	 * ”Õ–Ê‚ð•`‰æ‚·‚é
-	 * @param g
-	 */
-	protected void drawBoard(Graphics2D g) {
+
+	private void drawCells(Graphics2D g) {
 		g.setFont(getNumberFont());
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
 				int state = board.getState(r, c);
-				int number = board.getNumber(r, c);
 				drawState(g, r, c, state);
+				int number = board.getNumber(r, c);
 				if (number > 0) 
 					drawNumber1(g, r, c, number);
 				else if (number == Board.UNDECIDED_NUMBER) 

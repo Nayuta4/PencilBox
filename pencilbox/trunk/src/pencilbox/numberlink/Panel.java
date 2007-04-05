@@ -137,20 +137,14 @@ public class Panel extends PanelBase {
 		this.selectedNumber = selectedNumber;
 	}
 
-	public void drawPanel(Graphics2D g) {
-		paintBackground(g);
-		drawIndex(g);
-		drawBoard(g);
+	public void drawBoard(Graphics2D g) {
 		drawGrid(g);
-		drawBorder(g);
-		drawCursor(g);
+		drawLinks(g);
+		drawNumbers(g);
+		drawBoardBorder(g);
 	}
 
-	/**
-	 * ”Õ–Ê‚ð•`‰æ‚·‚é
-	 * @param g
-	 */
-	protected void drawBoard(Graphics2D g) {
+	private void drawLinks(Graphics2D g) {
 		int state;
 		for (int d = 0; d <= 1; d++) {
 			for (int r = 0; r < board.rows(); r++) {
@@ -165,6 +159,9 @@ public class Panel extends PanelBase {
 				}
 			}
 		}
+	}
+
+	private void drawNumbers(Graphics2D g) {
 		int number;
 		g.setFont(getNumberFont());
 		for (int r = 0; r < board.rows(); r++) {

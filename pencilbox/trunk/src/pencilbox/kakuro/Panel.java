@@ -23,7 +23,6 @@ public class Panel extends PanelBase {
 
 	private Color inputColor = Color.BLUE;
 	private Color wallColor = new Color(0xC0C0C0);
-	private Color diagonalLineColor = Color.BLACK;
 
 	private Font smallFont = new Font("SansSerif", Font.PLAIN, 13);
 
@@ -53,6 +52,20 @@ public class Panel extends PanelBase {
 	public void setInputColor(Color inputColor) {
 		this.inputColor = inputColor;
 	}
+	/**
+	 * @param wallColor the wallColor to set
+	 */
+	public void setWallColor(Color wallColor) {
+		this.wallColor = wallColor;
+	}
+
+	/**
+	 * @return the wallColor
+	 */
+	public Color getWallColor() {
+		return wallColor;
+	}
+
 	/**
 	 * @return the dotHintMode
 	 */
@@ -88,20 +101,14 @@ public class Panel extends PanelBase {
 		return new KakuroCursor();
 	}
 
-	public void drawPanel(Graphics2D g){
-		paintBackground(g);
-		drawIndex(g);
-		drawBoard(g);
+	public void drawBoard(Graphics2D g){
+		drawWalls(g);
+		drawNumbers(g);
 		drawGrid(g);
-		drawBorder(g);
-		drawCursor(g);
+		drawBoardBorder(g);
 	}
-	/**
-	 * 盤面を描画する
-	 * @param g
-	 */
-	protected void drawBoard(Graphics2D g){
-		int state;
+
+	private void drawWalls(Graphics2D g) {
 		g.setFont(smallFont);
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
@@ -110,18 +117,22 @@ public class Panel extends PanelBase {
 				}
 			}
 		}
+	}
+
+	private void drawNumbers(Graphics2D g) {
+		int number;
 		g.setFont(getNumberFont());
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
-				state = board.getNumber(r, c);
-				if (state > 0) {
+				number = board.getNumber(r, c);
+				if (number > 0) {
 					g.setColor(getInputColor());
 					if (isIndicateErrorMode()) {
 						if (board.isMultipleNumber(r, c))
 							g.setColor(getErrorColor());
 					}
-					placeNumber(g, r, c, state);
-				} else if (state == 0) {
+					placeNumber(g, r, c, number);
+				} else if (number == 0) {
 					if (isDotHintMode()) {
 						placeHintDot(g, r, c);
 					}
@@ -138,13 +149,13 @@ public class Panel extends PanelBase {
 	 * @param b 斜線左下の数字
 	 */
 	void drawWall(Graphics2D g, int r, int c, int a, int b){
-		g.setColor(wallColor);
+		g.setColor(getWallColor());
 		paintCell(g, r, c);
-		g.setColor(diagonalLineColor);
-		g.drawRect(toX(c), toY(r), getCellSize(), getCellSize());
+		g.setColor(getGridColor());
+		edgeCell(g, r, c);
 		g.drawLine(toX(c), toY(r), toX(c+1), toY(r+1));
 		if (b>0) {
-			g.setColor(diagonalLineColor);
+			g.setColor(getNumberColor());
 			if (isIndicateErrorMode()) {
 				if (board.getWordStatus(r,c,Direction.VERT) == -1) 
 					g.setColor(getErrorColor());
@@ -152,20 +163,13 @@ public class Panel extends PanelBase {
 			drawString(g, toX(c) + getHalfCellSize()/2 + 1, toY(r+1) - getHalfCellSize()/2, Integer.toString(b));
 		}
 		if (a>0) {
-			g.setColor(diagonalLineColor);
+			g.setColor(getNumberColor());
 			if (isIndicateErrorMode()) {
 				if (board.getWordStatus(r,c,Direction.HORIZ) == -1)
 					g.setColor(getErrorColor());
 			}
 			drawString(g, toX(c+1) - getHalfCellSize()/2, toY(r) + getHalfCellSize()/2 + 1, Integer.toString(a));
 		}
-//		g.setColor(diagonalLineColor);
-//		if (board.isWall(r, c+1)) {
-//			g.drawLine(toX(c+1), toY(r), toX(c+1), toY(r+1));
-//		}
-//		if (board.isWall(r+1, c)) {
-//			g.drawLine(toX(c), toY(r+1), toX(c+1), toY(r+1));
-//		}
 	}
 	/**
 	 * カックロ問題入力用カーソルを描く

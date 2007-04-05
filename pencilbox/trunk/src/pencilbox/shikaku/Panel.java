@@ -92,20 +92,15 @@ public class Panel extends PanelBase {
 		this.indicateErrorMode = indicateErrorMode;
 	}
 
-	public void drawPanel(Graphics2D g) {
-		paintBackground(g);
-		drawIndex(g);
-		drawBoard(g);
-		drawDragging(g);
+	public void drawBoard(Graphics2D g) {
+		paintAreas(g);
+		drawNumbers(g);
 		drawGrid(g);
-		drawBorder(g);
-		drawCursor(g);
+		drawAreaBorders(g);
+		drawBoardBorder(g);
 	}
-	/**
-	 * ”Õ–Ê‚ð•`‰æ‚·‚é
-	 * @param g
-	 */
-	protected void drawBoard(Graphics2D g) {
+
+	private void paintAreas(Graphics2D g) {
 		Square area;
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
@@ -134,44 +129,37 @@ public class Panel extends PanelBase {
 				paintCell(g, r, c);
 			}
 		}
+	}
+
+	private void drawNumbers(Graphics2D g) {
 		g.setFont(getNumberFont());
-		int num;
+		int number;
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
-				num = board.getNumber(r, c);
-				if (num > 0) {
-					placeNumber1(g, r, c, num);
-				} else if (num == Board.UNDECIDED_NUMBER) {
-					placeNumber1(g, r, c, num);
+				number = board.getNumber(r, c);
+				if (number > 0 || number == Board.UNDECIDED_NUMBER) {
+					g.setColor(getNumberColor());
+					super.placeFilledCircle(g, r, c, (int)(getCellSize()*0.85) );
+				}
+				if (number > 0) {
+					g.setColor(getBackgroundColor());
+					super.placeNumber(g, r, c, number);
 				}
 			}
 		}
-		g.setColor(areaBorderColor);
+	}
+
+	private void drawAreaBorders(Graphics2D g) {
+		Square area;
+		g.setColor(getAreaBorderColor());
 		for (Iterator itr = board.getSquareListIterator(); itr.hasNext();) {
 			area = (Square) itr.next();
 			placeSquare(g, area.r0, area.c0, area.r1, area.c1);
 		}
-	}
-	
-	private void placeNumber1(Graphics2D g, int r, int c, int num) {
-		g.setColor(Color.BLACK);
-		super.placeFilledCircle(g, r, c, (int)(getCellSize()*0.85) );
-		g.setColor(Color.WHITE);
-		if (num > 0) {
-			super.placeNumber(g, r, c, num);
+		area = getDraggingArea();
+		if (area != null) {
+			placeSquare(g, area.r0, area.c0, area.r1, area.c1);
 		}
-	}
-
-	/**
-	 *  ƒhƒ‰ƒbƒO’†‚ÌŽlŠp‚ð•`‰æ‚·‚é
-	 * @param g
-	 */
-	private void drawDragging(Graphics2D g) {
-		Square area = getDraggingArea();
-		if (area == null)
-			return;
-		g.setColor(areaBorderColor);	
-		placeSquare(g, area.r0, area.c0, area.r1, area.c1);
 	}
 
 	/**

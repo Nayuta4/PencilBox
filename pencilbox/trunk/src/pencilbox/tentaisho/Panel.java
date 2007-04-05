@@ -171,26 +171,16 @@ public class Panel extends PanelBase {
 		super.setDisplaySize(cellSize);
 	}
 	
-	public void drawPanel(Graphics2D g) {
-		paintBackground(g);
-		drawIndex(g);
-		drawBoard(g);
-		drawGrid(g);
-		drawBorder(g);
-		drawCursor(g);
-	}
-	/**
-	 * 盤面を描画する
-	 * @param g
-	 */
-	protected void drawBoard(Graphics2D g) {
+	public void drawBoard(Graphics2D g) {
 		paintAreas(g);
+		drawGrid(g);
 		if (!isHideStarMode()) {
 			drawStars(g);
 		}
 		if (isShowAreaBorderMode()) {
 			drawAreaBorders(g);
 		}
+		drawBoardBorder(g);
 	}
 
 	private void paintAreas(Graphics2D g) {
@@ -228,7 +218,6 @@ public class Panel extends PanelBase {
 	}
 	
 	private void drawStars(Graphics2D g) {
-		g.setColor(starColor);
 		for (int r = 0; r < board.rows() * 2 - 1; r++) {
 			for (int c = 0; c < board.cols() * 2 - 1; c++) {
 				if (board.hasStar(r, c))
@@ -263,14 +252,22 @@ public class Panel extends PanelBase {
 	 * @param star
 	 */
 	public void placeStar(Graphics2D g, int r, int c, int star) {
-		if (star == Board.WHITESTAR)
-			drawCircle(g, getOffsetx() + getCellSize() * (c + 1) / 2,
-					getOffsety() + getCellSize() * (r + 1) / 2,
-					getHalfStarSize());
-		else if (star == Board.BLACKSTAR)
-			fillCircle(g, getOffsetx() + getCellSize() * (c + 1) / 2,
-					getOffsety() + getCellSize() * (r + 1) / 2,
-					getHalfStarSize());
+		if (star == Board.WHITESTAR) {
+			if (isSeparateAreaColorMode()) {
+				g.setColor(getWhiteAreaColor());
+			} else {
+				g.setColor(getBackgroundColor());
+			}
+		} else if (star == Board.BLACKSTAR) {
+			if (isSeparateAreaColorMode()) {
+				g.setColor(getBlackAreaColor());
+			} else {
+				g.setColor(starColor);
+			}
+		}
+		fillCircle(g, getOffsetx() + getCellSize()*(c+1)/2, getOffsety() + getCellSize()*(r+1)/2, getHalfStarSize());
+		g.setColor(starColor);
+		drawCircle(g, getOffsetx() + getCellSize()*(c+1)/2, getOffsety() + getCellSize()*(r+1)/2, getHalfStarSize());
 	}
 	/**
 	 * 天体ショー専用カーソルを描く

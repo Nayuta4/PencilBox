@@ -94,30 +94,45 @@ public class Panel extends PanelBase {
 		this.paintColor = paintColor;
 	}
 
-	public void drawPanel(Graphics2D g) {
-		paintBackground(g);
-		drawIndex(g);
-		drawBoard(g);
-		drawGrid(g);
-		drawBorder(g);
-		drawDragging(g);
-		drawCursor(g);
-	}
 	/**
-	 * ”Õ–Ê‚ð•`‰æ‚·‚é
-	 * @param g
+	 * @param areaBorderColor the areaBorderColor to set
 	 */
-	protected void drawBoard(Graphics2D g) {
+	public void setAreaBorderColor(Color areaBorderColor) {
+		this.areaBorderColor = areaBorderColor;
+	}
+
+	/**
+	 * @return the areaBorderColor
+	 */
+	public Color getAreaBorderColor() {
+		return areaBorderColor;
+	}
+
+	public void drawBoard(Graphics2D g) {
+		paintAreas(g);
+		drawCells(g);
+		drawBeams(g);
+		drawGrid(g);
+		drawAreaBorders(g);
+		drawBoardBorder(g);
+	}
+	
+	private void paintAreas(Graphics2D g) {
+		g.setColor(noAreaColor);
+		for (int r = 0; r < board.rows(); r++) {
+			for (int c = 0; c < board.cols(); c++) {
+				if (board.getSquare(r,c)  == null) {
+					paintCell(g, r, c);
+				}
+			}
+		}
+	}
+
+	private void drawCells(Graphics2D g) {
 		int st;
-		Square square;
-		g.setFont(getNumberFont());
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
 				st = board.getState(r, c);
-				if (board.getSquare(r,c)  == null) {
-					g.setColor(noAreaColor);
-					paintCell(g, r, c);
-				}
 				if (st == Board.BLACK) {
 					g.setColor(getPaintColor());
 					if (isIndicateErrorMode()) {
@@ -132,8 +147,13 @@ public class Panel extends PanelBase {
 				}
 			}
 		}
+	}
+
+	private void drawAreaBorders(Graphics2D g) {
+		Square square;
+		g.setFont(getNumberFont());
 		for (Iterator itr = board.getSquareListIterator(); itr.hasNext();) {
-			g.setColor(areaBorderColor);
+			g.setColor(getAreaBorderColor());
 			square = (Square) itr.next();
 			placeSquare(g, square.r0, square.c0, square.r1, square.c1);
 			if (square.getNumber() >= 0) {
@@ -152,6 +172,14 @@ public class Panel extends PanelBase {
 				placeNumber(g, square.r0, square.c0, square.getNumber());
 			}
 		}
+		square = getDraggingSquare();
+		if (square != null	) {
+			g.setColor(areaBorderColor);
+			placeSquare(g, square.r0, square.c0, square.r1, square.c1);
+		}
+	}
+
+	private void drawBeams(Graphics2D g) {
 		if (isIndicateErrorMode()) {
 			for (int r = 0; r < board.rows(); r++) {
 				for (int c = 0; c < board.cols(); c++) {
@@ -174,19 +202,6 @@ public class Panel extends PanelBase {
 				}
 			}
 		}
-	}
-	/**
-	 *  ƒhƒ‰ƒbƒO’†‚ÌŽlŠp‚ð•`‰æ‚·‚é
-	 * @param g
-	 */
-	void drawDragging(Graphics2D g) {
-		if (!isProblemEditMode())
-			return;
-		Square square = getDraggingSquare();
-		if (square == null)
-			return;
-		g.setColor(areaBorderColor);
-		placeSquare(g, square.r0, square.c0, square.r1, square.c1);
 	}
 
 	/**

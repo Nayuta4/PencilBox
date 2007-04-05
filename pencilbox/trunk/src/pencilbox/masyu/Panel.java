@@ -82,32 +82,31 @@ public class Panel extends PanelBase {
 		this.indicateErrorMode = indicateErrorMode;
 	}
 
-	public void drawPanel(Graphics2D g) {
-		paintBackground(g);
-		drawIndex(g);
-		drawBoard(g);
+	public void drawBoard(Graphics2D g) {
+		drawNumbers(g);
 		drawGrid(g);
-		drawBorder(g);
-		drawCursor(g);
+		drawLinks(g);
+		drawBoardBorder(g);
 	}
-	/**
-	 * ”Õ–Ê‚ð•`‰æ‚·‚é
-	 * @param g
-	 */
-	protected void drawBoard(Graphics2D g) {
-		int state;
+
+	private void drawNumbers(Graphics2D g) {
+		int number;
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
-				state = board.getNumber(r, c);
-				if (state == Board.WHITE_PEARL) {
+				number = board.getNumber(r, c);
+				if (number == Board.WHITE_PEARL) {
 					placeWhitePearl(g,r,c);
-				} else if (state == Board.BLACK_PEARL) {
+				} else if (number == Board.BLACK_PEARL) {
 					placeBlackPearl(g,r,c);
-				} else if (state == Board.GRAY_PEARL) {
+				} else if (number == Board.GRAY_PEARL) {
 					placeGrayPearl(g,r,c);
 				}
 			}
 		}
+	}
+
+	private void drawLinks(Graphics2D g) {
+		int state;
 		for (int d = 0; d <= 1; d++) {
 			for (int r = 0; r < board.rows(); r++) {
 				for (int c = 0; c < board.cols(); c++) {

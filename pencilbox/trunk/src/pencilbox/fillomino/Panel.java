@@ -105,26 +105,16 @@ public class Panel extends PanelBase {
 		this.separateAreaColorMode = separateAreaColorMode;
 	}
 
-	public void drawPanel(Graphics2D g) {
-		paintBackground(g);
-		drawIndex(g);
-		drawBoard(g);
-		drawGrid(g);
-		drawBorder(g);
-		drawCursor(g);
-	}
-	/**
-	 * ”Õ–Ê‚ð•`‰æ‚·‚é
-	 * @param g
-	 */
-	protected void drawBoard(Graphics2D g) {
+	public void drawBoard(Graphics2D g) {
+		paintAreas(g);
 		drawNumbers(g);
+		drawGrid(g);
 		if (isShowAreaBorderMode()) 
 			drawAreaBorders(g);
+		drawBoardBorder(g);
 	}
 
-	private void drawNumbers(Graphics2D g) {
-		g.setFont(getNumberFont());
+	private void paintAreas(Graphics2D g) {
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
 				int number = board.getNumber(r, c);
@@ -143,6 +133,15 @@ public class Panel extends PanelBase {
 						paintCell(g, r, c);
 					}
 				}
+			}
+		}
+	}
+
+	private void drawNumbers(Graphics2D g) {
+		g.setFont(getNumberFont());
+		for (int r = 0; r < board.rows(); r++) {
+			for (int c = 0; c < board.cols(); c++) {
+				int number = board.getNumber(r, c);
 				if (number > 0) {
 					if (board.isStable(r, c)) {
 						g.setColor(getNumberColor());

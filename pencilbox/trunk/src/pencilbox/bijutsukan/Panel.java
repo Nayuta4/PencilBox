@@ -23,13 +23,13 @@ public class Panel extends PanelBase {
 	private Color bulbColor = Color.BLUE;
 	private Color illuminatedCellColor = new Color(0xAAFFFF);
 	private Color noBulbColor = Color.MAGENTA;
-	private Color wallNumberColor = Color.WHITE;
 
 	/**
 	 * Panel Çê∂ê¨Ç∑ÇÈ
 	 */
 	public Panel() {
 		setMarkStyle(3);
+		setNumberColor(Color.WHITE);
 	}
 
 	protected void setBoard(BoardBase aBoard) {
@@ -120,19 +120,27 @@ public class Panel extends PanelBase {
 		this.noBulbColor = noBulbColor;
 	}
 
-	public void drawPanel(Graphics2D g) {
-		paintBackground(g);
-		drawIndex(g);
-		drawBoard(g);
-		drawGrid(g);
-		drawBorder(g);
-		drawCursor(g);
-	}
 	/**
-	 * î’ñ Çï`âÊÇ∑ÇÈ
-	 * @param g
+	 * @param wallColor the wallColor to set
 	 */
-	protected void drawBoard(Graphics2D g) {
+	public void setWallColor(Color wallColor) {
+		this.wallColor = wallColor;
+	}
+
+	/**
+	 * @return the wallColor
+	 */
+	public Color getWallColor() {
+		return wallColor;
+	}
+
+	public void drawBoard(Graphics2D g) {
+		drawCells(g);
+		drawGrid(g);
+		drawBoardBorder(g);
+	}
+
+	private void drawCells(Graphics2D g) {
 		g.setFont(getNumberFont());
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
@@ -146,9 +154,9 @@ public class Panel extends PanelBase {
 					}
 				}
 				if (state >= 0 && state <= 4) {
-					g.setColor(wallColor);
+					g.setColor(getWallColor());
 					paintCell(g, r, c);
-					g.setColor(wallNumberColor);
+					g.setColor(getNumberColor());
 					if (isIndicateErrorMode()) {
 						if (board.checkAdjacentBulbs(r,c) <= 0) {
 							g.setColor(getErrorColor());
@@ -156,7 +164,7 @@ public class Panel extends PanelBase {
 					}
 					placeNumber(g, r, c, state);
 				} else if (state == Board.NONUMBER_WALL) {
-					g.setColor(wallColor);
+					g.setColor(getWallColor());
 					paintCell(g, r, c);
 				} else if (state == Board.BULB) {
 					g.setColor(getBulbColor());

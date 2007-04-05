@@ -76,19 +76,13 @@ public class Panel extends PanelBase {
 		this.indicateErrorMode = indicateErrorMode;
 	}
 
-	public void drawPanel(Graphics2D g) {
-		paintBackground(g);
-		drawIndex(g);
+	public void drawBoard(Graphics2D g) {
 		drawGrid(g);
-		drawBoard(g);
-		drawBorder(g);
-		drawCursor(g);
+		drawBridgesAndPiers(g);
+		drawBoardBorder(g);
 	}
-	/**
-	 * ”Õ–Ê‚ð•`‰æ‚·‚é
-	 * @param g
-	 */
-	protected void drawBoard(Graphics2D g) {
+
+	private void drawBridgesAndPiers(Graphics2D g) {
 		g.setFont(getNumberFont());
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
