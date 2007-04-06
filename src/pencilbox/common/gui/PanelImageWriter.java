@@ -1,17 +1,14 @@
 package pencilbox.common.gui;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.IOException;
 
-import javax.imageio.*;
-import javax.imageio.stream.ImageOutputStream;
+import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-
-
 
 /**
  * パネルの表示内容を png形式の画像としてファイルに書き込む処理を行うクラス
@@ -23,52 +20,31 @@ public class PanelImageWriter {
 
 	private static final String formatName = "png";
 	
-	private BufferedImage image;
-	private PanelBase panel;
-
 	/**
 	 * パネルの表示内容を png形式の画像としてファイルに書き込む一連の処理を実行する
 	 * @param panel 画像として保存するパネル
 	 */
-	public void run(PanelBase panel) {
-		this.panel = panel;
-		makePanelImage();
-		saveFile();
-	}
-
-	private void makePanelImage() {
-		image = new BufferedImage(panel.getBoardRegionSize().width, panel.getBoardRegionSize().height, BufferedImage.TYPE_INT_ARGB);
-		Graphics2D g2 = image.createGraphics();
-		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-		panel.drawPanel(g2);
-	}
-
-	/**
-		  Save the current image in a file
-	 */
-	private void saveFile() {
-		if (image == null)
-			return;
-		Iterator iter = ImageIO.getImageWritersByFormatName(formatName);
-		ImageWriter writer = (ImageWriter) iter.next();
-
+	public void saveImage(PanelBase panel) {
+		BufferedImage image = makePanelImage(panel);
 		JFileChooser chooser = FileChooser.getImageFileChooser();
-
 		int r = chooser.showSaveDialog(null);
 		if (r != JFileChooser.APPROVE_OPTION)
 			return;
-		File f = chooser.getSelectedFile();
+		File file = chooser.getSelectedFile();
 		try {
-			ImageOutputStream imageOut = ImageIO.createImageOutputStream(f);
-			writer.setOutput(imageOut);
-
-			writer.write(new IIOImage(image, null, null));
-
-			imageOut.close();
-
+			ImageIO.write(image, formatName, file);
 		} catch (IOException exception) {
 			JOptionPane.showMessageDialog(null, exception);
 		}
+	}
+
+	public BufferedImage makePanelImage(PanelBase panel) {
+		BufferedImage image = new BufferedImage(panel.getBoardRegionSize().width, panel.getBoardRegionSize().height, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2 = image.createGraphics();
+	 	// 背景を白で塗る。
+		g2.setColor(Color.WHITE);
+		g2.fillRect(0, 0, image.getWidth(), image.getHeight());
+		panel.drawPanel(g2);
+		return image;
 	}
 }
