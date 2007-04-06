@@ -285,13 +285,13 @@ public class MenuCommand {
 	 *  [ファイル]-[画像保存]
 	 */
 	public void saveImage() {
-		new PanelImageWriter().run(panel);
+		new PanelImageWriter().saveImage(panel);
 	}
 	/**
 	 *  [ファイル]-[画像コピー]
 	 */
 	public void copyImage() {
-		new PanelImageTransfer().run(panel);
+		new PanelImageTransfer().copyImage(panel);
 	}
 	/**
 	 *  [ファイル]-[プロパティ]
