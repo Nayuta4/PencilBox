@@ -1,12 +1,15 @@
 package pencilbox.common.gui;
 
 import java.awt.BorderLayout;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -14,9 +17,9 @@ import javax.swing.event.ChangeListener;
  * マスの大きさを設定するダイアログ。
  * モーダルダイアログなので，1つのインスタンスのみを生成して使い回す。
  * 互いに連動したスライダーまたはスピナーでマスの大きさを設定する。
- * 値はマスのピッチのピクセル数で，偶数に制限する。
+ * 値はマスのピッチのピクセル数。
  */
-public class CellSizeDialog extends PencilBoxDialog {
+public class CellSizeDialog extends PencilBoxDialog implements MouseWheelListener {
 
 	private static CellSizeDialog instance = new CellSizeDialog();
 
@@ -58,10 +61,11 @@ public class CellSizeDialog extends PencilBoxDialog {
 		mainPanel.add(slider);
 		mainPanel.add(spinner);
 		this.add(mainPanel, BorderLayout.NORTH);
+		addMouseWheelListener(this);
 	}
 	
 	private void makeSlider() {
-		slider = new JSlider(JSlider.HORIZONTAL, VALUE_MIN, VALUE_MAX, VALUE_INIT);
+		slider = new JSlider(SwingConstants.HORIZONTAL, VALUE_MIN, VALUE_MAX, VALUE_INIT);
 		slider.setMajorTickSpacing(12);
 		slider.setMinorTickSpacing(2);
 		slider.setPaintTicks(true);
@@ -69,7 +73,7 @@ public class CellSizeDialog extends PencilBoxDialog {
 //		slider.setSnapToTicks(true); // キーボード操作等に対して期待通りに動作しないので不採用
 		slider.addChangeListener(new ChangeListener() {
 	       public void stateChanged(ChangeEvent e) {
-				int value = slider.getValue() / 2 * 2; // 偶数に丸める
+				int value = slider.getValue();
 				if (slider.getValueIsAdjusting()) {
 					spinner.setValue(Integer.valueOf(value));
 //					panel.setDisplaySize(value);
@@ -82,7 +86,7 @@ public class CellSizeDialog extends PencilBoxDialog {
 	}
 	
 	private void makeSpinner() {
-        SpinnerModel numberModel = new SpinnerNumberModel(VALUE_INIT, VALUE_MIN, VALUE_MAX, 2);
+        SpinnerModel numberModel = new SpinnerNumberModel(VALUE_INIT, VALUE_MIN, VALUE_MAX, 1);
 		spinner = new JSpinner(numberModel);
         spinner.setEditor(new JSpinner.NumberEditor(spinner, "#"));
 		spinner.addChangeListener(new ChangeListener() {
@@ -106,5 +110,15 @@ public class CellSizeDialog extends PencilBoxDialog {
 	public void setCellSize(int cellSize) {
 		slider.setValue(cellSize);
 	}
-
+	
+	/**
+	 * マウスホイールが回転すると呼び出されます。
+	 * 
+	 * @param e マウスホイールのイベント
+	 * @see java.awt.event.MouseWheelListener#mouseWheelMoved(java.awt.event.MouseWheelEvent)
+	 */
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		
+		setCellSize(getCellSize() + e.getWheelRotation());
+	}
 }
