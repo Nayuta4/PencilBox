@@ -12,7 +12,7 @@ import pencilbox.common.gui.MenuBase;
 public class Menu extends MenuBase {
 
 	private JMenuItem lineColorItem;
-	private JMenuItem indicateErrorItem;
+//	private JMenuItem indicateErrorItem;
 	private JMenuItem separateLinkColorItem;
 	private JMenuItem highlightSelectionItem;
 	
@@ -24,7 +24,7 @@ public class Menu extends MenuBase {
 	protected void buildIndividualMenu(){
 		super.buildIndividualMenu();
 		lineColorItem = addColorMenuItem("線");
-		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("誤りを赤で示す(E)", 'E', false));
+//		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("誤りを赤で示す(E)", 'E', false));
 		addToViewMenu(separateLinkColorItem = makeCheckBoxCommandMenuItem("線の色分け(R)", 'R', false));
 		addToViewMenu(highlightSelectionItem = makeCheckBoxCommandMenuItem("選択数字ハイライト(H)", 'H', false));
 		addRenewColorMenu();
@@ -33,9 +33,9 @@ public class Menu extends MenuBase {
 	}
 
 	public void executeCommand2(JMenuItem target) {
-		if (target == indicateErrorItem)
-			getPanel().setIndicateErrorMode(target.isSelected());
-		else if (target == separateLinkColorItem)
+//		if (target == indicateErrorItem)
+//			getPanel().setIndicateErrorMode(target.isSelected());
+		if (target == separateLinkColorItem)
 			getPanel().setSeparateLinkColorMode(target.isSelected());
 		else if (target == highlightSelectionItem)
 			getPanel().setHighlightSelectionMode(target.isSelected());
@@ -55,7 +55,7 @@ public class Menu extends MenuBase {
 
 	public void updateCurrentMenuSelection() {
 		super.updateCurrentMenuSelection();
-		indicateErrorItem.setSelected(getPanel().isIndicateErrorMode());
+//		indicateErrorItem.setSelected(getPanel().isIndicateErrorMode());
 		separateLinkColorItem.setSelected(getPanel().isSeparateLinkColorMode());
 		highlightSelectionItem.setSelected(getPanel().isHighlightSelectionMode());
 	}
