@@ -18,7 +18,7 @@ public class Panel extends PanelBase {
 	private Color lineColor = Color.BLUE;
 	private Color crossColor = Color.MAGENTA;
 
-	private boolean indicateErrorMode = false;
+//	private boolean indicateErrorMode = false;
 	private boolean separateLinkColorMode = false;
 	private boolean highlightSelectionMode = false;
 
@@ -95,19 +95,19 @@ public class Panel extends PanelBase {
 		this.highlightSelectionMode = highlightSelectionMode;
 	}
 
-	/**
-	 * @return the indicateErrorMode
-	 */
-	public boolean isIndicateErrorMode() {
-		return indicateErrorMode;
-	}
-
-	/**
-	 * @param indicateErrorMode The indicateErrorMode to set.
-	 */
-	public void setIndicateErrorMode(boolean indicateErrorMode) {
-		this.indicateErrorMode = indicateErrorMode;
-	}
+//	/**
+//	 * @return the indicateErrorMode
+//	 */
+//	public boolean isIndicateErrorMode() {
+//		return indicateErrorMode;
+//	}
+//
+//	/**
+//	 * @param indicateErrorMode The indicateErrorMode to set.
+//	 */
+//	public void setIndicateErrorMode(boolean indicateErrorMode) {
+//		this.indicateErrorMode = indicateErrorMode;
+//	}
 
 	/**
 	 * @return the selectedLink
@@ -218,13 +218,13 @@ public class Panel extends PanelBase {
 		if (isSeparateLinkColorMode()) {
 			g.setColor(Colors.getDarkColor(board.getNumber(r,c)));
 		}
-		if (isIndicateErrorMode()) {
-			if (board.getLink(r, c) != null
-					&& board.getLink(r, c).getNumber() == -1)
-				g.setColor(getErrorColor());
-//			if (board.countLine(r, c) > 1)
+//		if (isIndicateErrorMode()) {
+//			if (board.getLink(r, c) != null
+//					&& board.getLink(r, c).getNumber() == -1)
 //				g.setColor(getErrorColor());
-		}
+////			if (board.countLine(r, c) > 1)
+////				g.setColor(getErrorColor());
+//		}
 		super.placeNumber(g, r, c, n);
 	}
 	
