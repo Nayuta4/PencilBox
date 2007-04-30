@@ -104,7 +104,7 @@ public class Panel extends PanelBase {
 			g.setColor(getCircleColor());
 			paintCell(g, r, c);
 		}
-		g.setColor(getBackgroundColor());
+//		g.setColor(getBackgroundColor());
 //		if (isIndicateErrorMode()) {
 //			if (num > 0) {
 //				int nSpace = board.getSumSpace(r,c);
@@ -118,7 +118,7 @@ public class Panel extends PanelBase {
 //				}
 //			}
 //		}
-		placeFilledCircle(g, r, c, getCellSize()-2);
+//		placeFilledCircle(g, r, c, getCellSize()-2);
 		g.setColor(getNumberColor());
 		placeCircle(g, r, c, getCellSize()-2);
 		if (num > 0) {
