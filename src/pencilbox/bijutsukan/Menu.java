@@ -22,16 +22,21 @@ public class Menu extends MenuBase {
 		return (Panel) getPanelBase();
 	}
 
-	protected void buildIndividualMenu(){
+	protected void buildEditMenu() {
+		addSymmetricPlacementMenuItem();
+		addTrimAnswerMenuItem();
+		super.buildEditMenu();
+	}
+
+	protected void buildViewMenu() {
+		buildMarkStyleMenu("照明なしの印(N)", 'N', new int[] {3, 4});
+		super.buildViewMenu();
 		bulbColorItem = addColorMenuItem("照明");
 		noBulbColorItem = addColorMenuItem("照明なし");
 		lluminatedCellColorItem = addColorMenuItem("照らされたマス");
 		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("誤りを赤で示す(E)", 'E', false));
 		addToViewMenu(paintIlluminatedCellModeItem = makeCheckBoxCommandMenuItem("照らされたマスを塗る(P)", 'P', true));
 		addToViewMenu(showBeamItem = makeCheckBoxCommandMenuItem("光線表示(B)", 'B', false));
-		addSymmetricPlacementMenuItem();
-		addTrimAnswerMenuItem();
-		buildMarkStyleMenu("照明なしの印(N)", 'N', new int[] {3, 4});
 	}
 
 	public void executeCommand2(JMenuItem target) {
@@ -62,7 +67,7 @@ public class Menu extends MenuBase {
 		else if (target == lluminatedCellColorItem)
 			getPanel().setIlluminatedCellColor(color);
 	}
-	
+
 	public void updateCurrentMenuSelection() {
 		super.updateCurrentMenuSelection();
 		indicateErrorItem.setSelected(getPanel().isIndicateErrorMode());
@@ -71,4 +76,3 @@ public class Menu extends MenuBase {
 	}
 
 }
-

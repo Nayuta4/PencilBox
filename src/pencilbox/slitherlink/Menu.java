@@ -20,14 +20,19 @@ public class Menu extends MenuBase {
 		return (Panel) getPanelBase();
 	}
 	
-	protected void buildIndividualMenu() {
+	protected void buildEditMenu() {
+		addSymmetricPlacementMenuItem();
+		addTrimAnswerMenuItem();
+		super.buildEditMenu();
+	}
+
+	protected void buildViewMenu() {
+		super.buildViewMenu();
 		lineColorItem = addColorMenuItem("ü");
 		crossColorItem = addColorMenuItem("~ˆó");
 		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("Œë‚è‚ğÔ‚Å¦‚·(E)", 'E', false));
 		addToViewMenu(separateLinkColorItem = makeCheckBoxCommandMenuItem("ü‚ÌF•ª‚¯(R)", 'R', false));
-		addRenewColorMenu();
-		addSymmetricPlacementMenuItem();
-		addTrimAnswerMenuItem();
+		addRenewColorMenuItem();
 	}
 
 	public void executeCommand2(JMenuItem target) {

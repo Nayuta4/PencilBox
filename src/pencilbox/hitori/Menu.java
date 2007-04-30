@@ -24,17 +24,20 @@ public class Menu extends MenuBase {
 		return (Panel) getPanelBase();
 	}
 
-	protected void buildIndividualMenu(){
-		super.buildIndividualMenu();
+	protected void buildEditMenu() {
+		addTrimAnswerMenuItem();
+		super.buildEditMenu();
+	}
+
+	protected void buildViewMenu() {
+		addNoPaintMarkStyleMenu();
+		super.buildViewMenu();
 		paintColorItem = addColorMenuItem("黒マス");
 		circleColorItem = addColorMenuItem("白マス");
 		addToViewMenu(selectLetterItem = makeCommandMenuItem("文字種類の設定(T)...", 'T'));
-		addToViewMenu(selectLetterItem);
 		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("誤りを赤で示す(E)", 'E', false));
 		addToViewMenu(hideSoleNumberItem = makeCheckBoxCommandMenuItem("初めからひとりの数字を隠す(H)", 'H', false));
 //		addToViewMenu(indicateRedundantNumberItem = makeCheckBoxCommandMenuItem("重複する数字を赤で示す(R)", 'R', false));
-		addTrimAnswerMenuItem();
-		addNoPaintMarkStyleMenu();
 	}
 
 	public void executeCommand2(JMenuItem target) {

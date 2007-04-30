@@ -20,14 +20,18 @@ public class Menu extends MenuBase {
 		return (Panel)getPanelBase();
 	}
 
-	protected void buildIndividualMenu(){
-		super.buildIndividualMenu();
+	protected void buildEditMenu() {
+		addSymmetricPlacementMenuItem();
+		super.buildEditMenu();
+	}
+
+	protected void buildViewMenu() {
+		super.buildViewMenu();
 		areaBorderColorItem = addColorMenuItem("—Ìˆæ‹«ŠE");
 		areaPaintColorItem = addColorMenuItem("—Ìˆæ“à•”");
 		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("³Œë‚ğF‚Å¦‚·(E)", 'E', false));
 		addToViewMenu(separateAreaColorItem = makeCheckBoxCommandMenuItem("—Ìˆæ‚ÌF•ª‚¯(R)", 'R', false));
-		addRenewColorMenu();
-		addSymmetricPlacementMenuItem();
+		addRenewColorMenuItem();
 	}
 
 	public void executeCommand2(JMenuItem target) {
@@ -38,7 +42,6 @@ public class Menu extends MenuBase {
 		}
 	}
 
-	
 	public Color getColor(JMenuItem target) {
 		if (target == areaBorderColorItem)
 			getPanel().getAreaBorderColor();
