@@ -11,6 +11,8 @@ import pencilbox.common.gui.MenuBase;
  */
 public class Menu extends MenuBase {
 	
+	private JMenuItem numberColorItem;
+//	private JMenuItem wallColorItem;
 	private JMenuItem lineColorItem;
 	private JMenuItem paintColorItem;
 	private JMenuItem circleColorItem;
@@ -30,6 +32,8 @@ public class Menu extends MenuBase {
 	protected void buildViewMenu() {
 		addNoPaintMarkStyleMenu();
 		super.buildViewMenu();
+//		wallColorItem = addColorMenuItem("数字マス");
+		numberColorItem = addColorMenuItem("数字");
 		lineColorItem = addColorMenuItem("線");
 		paintColorItem = addColorMenuItem("黒マス");
 		circleColorItem = addColorMenuItem("白マス");
@@ -52,8 +56,12 @@ public class Menu extends MenuBase {
 			return getPanel().getPaintColor();
 		else if (target == circleColorItem)
 			return getPanel().getCircleColor();
+		else if (target == numberColorItem)
+			return getPanel().getNumberColor();
+//		else if (target == wallColorItem)
+//			return getPanel().getWallColor();
 		else
-			return null;
+			return super.getColor(target);
 	}
 
 	public void setColor(JMenuItem target, Color color) {
@@ -63,6 +71,12 @@ public class Menu extends MenuBase {
 			getPanel().setPaintColor(color);
 		else if (target == circleColorItem)
 			getPanel().setCircleColor(color);
+		else if (target == numberColorItem)
+			getPanel().setNumberColor(color);
+//		else if (target == wallColorItem)
+//			getPanel().setWallColor(color);
+		else
+			super.setColor(target, color);
 	}
 
 	public void updateCurrentMenuSelection() {

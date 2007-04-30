@@ -65,6 +65,9 @@ public class MenuBase {
 	private JMenu rotationMenu;
 	private JMenu markStyleMenu;
 	private ButtonGroup markStyleGroup;
+	
+	private JMenuItem backgroundColorItem;
+	private JMenuItem gridColorItem;
 
 	private Frame frame;
 	private MenuCommand command;
@@ -172,6 +175,8 @@ public class MenuBase {
 	protected void buildViewMenu() {
 		viewMenu = makeJMenu("表示(V)", 'V');
 		viewMenu.add(colorMenu = makeJMenu("色の設定(L)", 'L'));
+		backgroundColorItem = addColorMenuItem("背景");
+		gridColorItem = addColorMenuItem("罫線");
 		viewMenu.add(cellSizeItem = makeCommandMenuItem("表示サイズ(S)...", 'S'));
 		viewMenu.add(showIndexModeItem = makeCheckBoxCommandMenuItem("行列番号表示(I)", 'I', true));
 		viewMenu.add(gridStyleItem = makeCheckBoxCommandMenuItem("罫線表示(G)", 'G', true));
@@ -444,8 +449,13 @@ public class MenuBase {
 	 * @param name 選択されたメニュー
 	 * @return 取得した色
 	 */
-	public Color getColor(JMenuItem name) {
-		return null;
+	public Color getColor(JMenuItem target) {
+		if (target == backgroundColorItem)
+			return getPanelBase().getBackgroundColor();
+		else if (target == gridColorItem)
+			return getPanelBase().getGridColor();
+		else
+			return null;
 	}
 
 	/**
@@ -453,7 +463,11 @@ public class MenuBase {
 	 * @param name 選択されたメニュー
 	 * @param color 設定する色
 	 */
-	public void setColor(JMenuItem name, Color color) {
+	public void setColor(JMenuItem target, Color color) {
+		if (target == backgroundColorItem)
+			getPanelBase().setBackgroundColor(color);
+		else if (target == gridColorItem)
+			getPanelBase().setGridColor(color);
 	}
 
 	/**
