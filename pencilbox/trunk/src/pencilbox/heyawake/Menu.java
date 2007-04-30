@@ -12,6 +12,8 @@ import pencilbox.common.gui.MenuBase;
  */
 public class Menu extends MenuBase {
 
+	private JMenuItem numberColorItem;
+	private JMenuItem areaBorderColorItem;
 	private JMenuItem paintColorItem;
 	private JMenuItem circleColorItem;
 	private JMenuItem indicateErrorItem;
@@ -29,6 +31,8 @@ public class Menu extends MenuBase {
 	protected void buildViewMenu() {
 		addNoPaintMarkStyleMenu();
 		super.buildViewMenu();
+		areaBorderColorItem = addColorMenuItem("領域境界");
+		numberColorItem = addColorMenuItem("問題数字");
 		paintColorItem = addColorMenuItem("黒マス");
 		circleColorItem = addColorMenuItem("白マス");
 		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("誤りを赤で示す(E)", 'E', false));
@@ -48,15 +52,22 @@ public class Menu extends MenuBase {
 			getPanel().setPaintColor(color);
 		else if (target == circleColorItem)
 			getPanel().setCircleColor(color);
+		else if (target == areaBorderColorItem)
+			getPanel().setAreaBorderColor(color);
+		else if (target == numberColorItem)
+			getPanel().setNumberColor(color);
 	}
 	
-	public Color getColorS(AbstractButton target) {
+	public Color getColor(AbstractButton target) {
 		if (target == paintColorItem)
 			return getPanel().getPaintColor();
 		else if (target == circleColorItem)
 			return getPanel().getCircleColor();
-		else
-			return null;
+		else if (target == numberColorItem)
+			return getPanel().getNumberColor();
+		else if (target == areaBorderColorItem)
+			return getPanel().getAreaBorderColor();
+		return null;
 	}
 
 	public void updateCurrentMenuSelection() {

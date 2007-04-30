@@ -11,6 +11,7 @@ import pencilbox.common.gui.MenuBase;
  */
 public class Menu extends MenuBase {
 	
+	private JMenuItem numberColorItem;
 	private JMenuItem inputColorItem;
 	private JMenuItem areaBorderColorItem;
 	private JMenuItem showAreaBorderItem;
@@ -29,7 +30,8 @@ public class Menu extends MenuBase {
 	protected void buildViewMenu() {
 		addCursorMenuItem();
 		super.buildViewMenu();
-		inputColorItem = addColorMenuItem("“ü—Í”š");
+		numberColorItem = addColorMenuItem("–â‘è”š");
+		inputColorItem = addColorMenuItem("‰ğ“š”š");
 		areaBorderColorItem = addColorMenuItem("—Ìˆæ‹«ŠE");
 		addToViewMenu(showAreaBorderItem = makeCheckBoxCommandMenuItem("‹«ŠEü•\¦(B)", 'B', true));
 		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("³Œë‚ğF‚Å¦‚·(E)", 'E', false));
@@ -49,15 +51,20 @@ public class Menu extends MenuBase {
 
 	public Color getColor(JMenuItem target) {
 		if (target == inputColorItem)
-			getPanel().getInputColor();
+			return getPanel().getInputColor();
+		else if (target == numberColorItem)
+			return getPanel().getNumberColor();
 		else if (target == areaBorderColorItem)
-			getPanel().getAreaBorderColor();
-		return null;
+			return getPanel().getAreaBorderColor();
+		else
+			return super.getColor(target);
 	}
 
 	public void setColor(JMenuItem target, Color color) {
 		if (target == inputColorItem)
 			getPanel().setInputColor(color);
+		else if (target == numberColorItem)
+			getPanel().setNumberColor(color);
 		else if (target == areaBorderColorItem)
 			getPanel().setAreaBorderColor(color);
 	}

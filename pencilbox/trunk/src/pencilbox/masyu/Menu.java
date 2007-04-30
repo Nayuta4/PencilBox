@@ -11,6 +11,7 @@ import pencilbox.common.gui.MenuBase;
  */
 public class Menu extends MenuBase {
 
+	private JMenuItem numberColorItem;
 	private JMenuItem lineColorItem;
 	private JMenuItem crossColorItem;
 	private JMenuItem indicateErrorItem;
@@ -28,6 +29,7 @@ public class Menu extends MenuBase {
 
 	protected void buildViewMenu() {
 		super.buildViewMenu();
+		numberColorItem = addColorMenuItem("ä€àÛ");
 		lineColorItem = addColorMenuItem("ê¸");
 		crossColorItem = addColorMenuItem("Å~àÛ");
 		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("åÎÇËÇê‘Ç≈é¶Ç∑(E)", 'E', false));
@@ -47,8 +49,10 @@ public class Menu extends MenuBase {
 			return getPanel().getLineColor();
 		else if (target == crossColorItem)
 			return getPanel().getCrossColor();
+		else if (target == numberColorItem)
+			return getPanel().getNumberColor();
 		else
-			return null;
+			return super.getColor(target);
 	}
 
 	public void setColor(JMenuItem target, Color color) {
@@ -56,6 +60,10 @@ public class Menu extends MenuBase {
 			getPanel().setLineColor(color);
 		else if (target == crossColorItem)
 			getPanel().setCrossColor(color);
+		else if (target == numberColorItem)
+			getPanel().setNumberColor(color);
+		else
+			super.setColor(target, color);
 	}
 	
 	public void updateCurrentMenuSelection() {

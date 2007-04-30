@@ -14,6 +14,7 @@ import pencilbox.common.gui.MenuBase;
 public class Menu extends MenuBase {
 
 	private JMenuItem selectLetterItem;
+	private JMenuItem numberColorItem;
 	private JMenuItem paintColorItem;
 	private JMenuItem circleColorItem;
 	private JMenuItem indicateErrorItem;
@@ -32,6 +33,7 @@ public class Menu extends MenuBase {
 	protected void buildViewMenu() {
 		addNoPaintMarkStyleMenu();
 		super.buildViewMenu();
+		numberColorItem = addColorMenuItem("数字");
 		paintColorItem = addColorMenuItem("黒マス");
 		circleColorItem = addColorMenuItem("白マス");
 		addToViewMenu(selectLetterItem = makeCommandMenuItem("文字種類の設定(T)...", 'T'));
@@ -56,8 +58,10 @@ public class Menu extends MenuBase {
 			return getPanel().getPaintColor();
 		else if (target == circleColorItem)
 			return getPanel().getCircleColor();
+		else if (target == numberColorItem)
+			return getPanel().getNumberColor();
 		else
-			return null;
+			return super.getColor(target);
 	}
 
 	public void setColor(JMenuItem target, Color color) {
@@ -65,6 +69,10 @@ public class Menu extends MenuBase {
 			getPanel().setPaintColor(color);
 		else if (target == circleColorItem)
 			getPanel().setCircleColor(color);
+		else if (target == numberColorItem)
+			getPanel().setNumberColor(color);
+		else
+			super.setColor(target, color);
 	}
 	
 	/**

@@ -52,12 +52,13 @@ public class Menu extends MenuBase {
 	
 	public Color getColor(JMenuItem target) {
 		if (target == areaBorderColorItem)
-			getPanel().getAreaBorderColor();
+			return getPanel().getAreaBorderColor();
 		else if (target == whiteAreaColorItem)
-			getPanel().getWhiteAreaColor();
+			return getPanel().getWhiteAreaColor();
 		else if (target == blackAreaColorItem)
-			getPanel().getBlackAreaColor();
-		return null;
+			return getPanel().getBlackAreaColor();
+		else
+			return super.getColor(target);
 	}
 
 	public void setColor(JMenuItem target, Color color) {
@@ -67,6 +68,8 @@ public class Menu extends MenuBase {
 			getPanel().setWhiteAreaColor(color);
 		else if (target == blackAreaColorItem)
 			getPanel().setBlackAreaColor(color);
+		else
+			super.setColor(target, color);
 	}
 
 	public void updateCurrentMenuSelection() {
