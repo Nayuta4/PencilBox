@@ -20,6 +20,7 @@ public class Panel extends PanelBase {
 	private boolean dotHintMode = false;
 
 	private Color inputColor = Color.BLUE;
+	private Color areaBorderColor = Color.BLACK;
 
 	private int selectedNumber = 0;
 	private Color highlightColor = Color.GREEN;
@@ -114,6 +115,20 @@ public class Panel extends PanelBase {
 	}
 
 	/**
+	 * @param areaBorderColor the areaBorderColor to set
+	 */
+	public void setAreaBorderColor(Color areaBorderColor) {
+		this.areaBorderColor = areaBorderColor;
+	}
+
+	/**
+	 * @return the areaBorderColor
+	 */
+	public Color getAreaBorderColor() {
+		return areaBorderColor;
+	}
+
+	/**
 	 * @return Returns the highlightColor.
 	 */
 	public Color getHighlightColor() {
@@ -142,7 +157,7 @@ public class Panel extends PanelBase {
 	 * ブロックの太枠線を描画する。
 	 */
 	public void drawAreaBorders(Graphics2D g) {
-		g.setColor(getBoardBorderColor());
+		g.setColor(getAreaBorderColor());
 		for (int r = 0; r <= rows(); r++) {
 			if (r % board.getUnit() == 0) {
 				g.drawLine(toX(0), toY(r) - 1, toX(cols()), toY(r) - 1);
