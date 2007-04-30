@@ -81,7 +81,6 @@ public class MenuBase {
 		this.command = command;
 		this.panel = panel;
 		buildCommonMenu();
-		buildIndividualMenu();
 		setAccelerators();
 	}
 
@@ -110,13 +109,6 @@ public class MenuBase {
 		jMenuBar.add(editMenu);
 		jMenuBar.add(viewMenu);
 		jMenuBar.add(helpMenu);
-	}
-
-	/**
-	 * 個々のパズル用メニューを作成する。 
-	 * 各サブクラスでオーバーライドする。
-	 */
-	protected void buildIndividualMenu() {
 	}
 
 	/**
@@ -152,8 +144,12 @@ public class MenuBase {
 		editMenu.add(problemEditModeItem = makeCommandRadioButtonMenuItem("問題入力モード(E)", 'E'));
 		editMenu.addSeparator();
 		editMenu.add(clearItem = makeCommandMenuItem("解答消去(C)", 'C'));
-//		editMenu.add(trimAnswerItem = makeCommandMenuItem("補助記号消去(T)", 'T'));
-//		editMenu.add(symmetricPlacementItem = makeCheckBoxCommandMenuItem("対称配置(S)", 'S'));
+		if (trimAnswerItem != null) 
+			editMenu.add(trimAnswerItem = makeCommandMenuItem("補助記号消去(T)", 'T'));
+		if (symmetricPlacementItem != null) {
+			editMenu.addSeparator();
+			editMenu.add(symmetricPlacementItem = makeCheckBoxCommandMenuItem("対称配置(S)", 'S', false));
+		}
 		editMenu.addSeparator();
 		editMenu.add(undoItem = makeCommandMenuItem("元に戻す(U)", 'U'));
 		editMenu.add(redoItem = makeCommandMenuItem("やり直し(R)", 'R'));
@@ -179,6 +175,10 @@ public class MenuBase {
 		viewMenu.add(cellSizeItem = makeCommandMenuItem("表示サイズ(S)...", 'S'));
 		viewMenu.add(showIndexModeItem = makeCheckBoxCommandMenuItem("行列番号表示(I)", 'I', true));
 		viewMenu.add(gridStyleItem = makeCheckBoxCommandMenuItem("罫線表示(G)", 'G', true));
+		if (markStyleMenu != null)
+			viewMenu.add(markStyleMenu);
+		if (cursorItem != null)
+			viewMenu.add(cursorItem = makeCheckBoxCommandMenuItem("カーソル(C)", 'C', panel.isCursorOn()));
 		viewMenu.addSeparator();
 		viewMenu.addMenuListener(new ViewMenuListener());
 	}
@@ -216,7 +216,6 @@ public class MenuBase {
 	 */
 	protected void buildMarkStyleMenu(String text, char mnemonic, int[] styles) {
 		markStyleMenu = makeJMenu(text, mnemonic);
-		viewMenu.add(markStyleMenu, 4);
 		markStyleGroup = new ButtonGroup();
 		for (int i = 1; i <= styles.length; i++) {
 			switch (styles[i-1]) {
@@ -324,37 +323,33 @@ public class MenuBase {
 	}
 
 	/*
-	 * 何種類かのパズルに共通なメニューの作成と追加を行う
+	 * 何種類かのパズルに共通なメニューの作成のみを行う。
+	 * 作成した項目はメニュー作成時に追加される。
 	 */
 	/**
-	 * [補助記号消去]メニュー項目を[編集]メニューの上から?番目に追加する。
+	 * [補助記号消去]メニュー項目を作成する。
 	 */
 	protected void addTrimAnswerMenuItem() {
 		trimAnswerItem = makeCommandMenuItem("補助記号消去(T)", 'T');
-		editMenu.add(trimAnswerItem, 4);
 	}
 	/**
-	 * [対称配置]メニュー項目を[編集]メニューの上から?番目に追加する。
+	 * [対称配置]メニュー項目を作成する。
 	 */
 	protected void addSymmetricPlacementMenuItem() {
 		symmetricPlacementItem = makeCheckBoxCommandMenuItem("対称配置(S)", 'S', false);
-		editMenu.insertSeparator(8);
-		editMenu.add(symmetricPlacementItem, 9);
 	}
 	/**
-	 * [カーソル]メニュー項目を[表示]メニューの上から5番目に追加する。
+	 * [カーソル]メニュー項目を作成する。
 	 */
-	protected void addCursorMenu() {
-		cursorItem = makeJCheckBoxMenuItem("カーソル(C)", 'C', panel.isCursorOn());
-		cursorItem.addActionListener(commandAction);
-		viewMenu.add(cursorItem, 4);
+	protected void addCursorMenuItem() {
+		cursorItem = makeCheckBoxCommandMenuItem("カーソル(C)", 'C', panel.isCursorOn());
 	}
 	/**
-	 * [色の更新]メニュー項目を[表示]メニューに追加する。
+	 * [色の更新]メニュー項目を作成し，[色の設定]メニューに追加する。
 	 */
-	protected void addRenewColorMenu() {
+	protected void addRenewColorMenuItem() {
 		renewColorItem = makeCommandMenuItem("色の更新(U)", 'U');
-		viewMenu.add(renewColorItem);
+		colorMenu.add(renewColorItem);
 	}
 
 	/**

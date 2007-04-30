@@ -20,14 +20,18 @@ public class Menu extends MenuBase {
 		return (Panel)getPanelBase();
 	}
 
-	protected void buildIndividualMenu(){
-		super.buildIndividualMenu();
+	protected void buildEditMenu() {
+		addSymmetricPlacementMenuItem();
+		super.buildEditMenu();
+	}
+
+	protected void buildViewMenu() {
+		addCursorMenuItem();
+		super.buildViewMenu();
 		inputColorItem = addColorMenuItem("入力数字");
-		addCursorMenu();
 		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("誤りを赤で示す(E)", 'E', false));
 		addToViewMenu(highlightSelectionItem = makeCheckBoxCommandMenuItem("選択数字ハイライト(H)", 'H', false));
 		addToViewMenu(dotHintItem = makeCheckBoxCommandMenuItem("可能な数字をドットで示す(D)", 'D', false));
-		addSymmetricPlacementMenuItem();
 	}
 
 	public void executeCommand2(JMenuItem target) {

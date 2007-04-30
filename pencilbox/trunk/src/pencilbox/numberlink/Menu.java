@@ -20,16 +20,19 @@ public class Menu extends MenuBase {
 		return (Panel) getPanelBase();
 	}
 	
-	
-	protected void buildIndividualMenu(){
-		super.buildIndividualMenu();
+	protected void buildEditMenu() {
+		addSymmetricPlacementMenuItem();
+//		addTrimAnswerMenuItem();
+		super.buildEditMenu();
+	}
+
+	protected void buildViewMenu() {
+		super.buildViewMenu();
 		lineColorItem = addColorMenuItem("線");
 //		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("誤りを赤で示す(E)", 'E', false));
 		addToViewMenu(separateLinkColorItem = makeCheckBoxCommandMenuItem("線の色分け(R)", 'R', false));
 		addToViewMenu(highlightSelectionItem = makeCheckBoxCommandMenuItem("選択数字ハイライト(H)", 'H', false));
-		addRenewColorMenu();
-//		addTrimAnswerMenuItem();
-		addSymmetricPlacementMenuItem();
+		addRenewColorMenuItem();
 	}
 
 	public void executeCommand2(JMenuItem target) {

@@ -21,16 +21,21 @@ public class Menu extends MenuBase {
 		return (Panel)getPanelBase();
 	}
 	
-	protected void buildIndividualMenu() {
+	protected void buildEditMenu() {
+		addSymmetricPlacementMenuItem();
+		addTrimAnswerMenuItem();
+		super.buildEditMenu();
+	}
+
+	protected void buildViewMenu() {
+		addNoPaintMarkStyleMenu();
+		super.buildViewMenu();
 		lineColorItem = addColorMenuItem("線");
 		paintColorItem = addColorMenuItem("黒マス");
 		circleColorItem = addColorMenuItem("白マス");
 		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("誤りを赤で示す(E)", 'E', false));
 		addToViewMenu(separateLinkColorItem = makeCheckBoxCommandMenuItem("線の色分け(R)", 'R', false));
-		addRenewColorMenu();
-		addSymmetricPlacementMenuItem();
-		addTrimAnswerMenuItem();
-		addNoPaintMarkStyleMenu();
+		addRenewColorMenuItem();
 	}
 
 	public void executeCommand2(JMenuItem target) {
