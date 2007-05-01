@@ -67,6 +67,8 @@ public class Menu extends MenuBase {
 			getPanel().setNumberColor(color);
 		else if (target == areaBorderColorItem)
 			getPanel().setAreaBorderColor(color);
+		else
+			super.setColor(target, color);
 	}
 
 	public void updateCurrentMenuSelection() {

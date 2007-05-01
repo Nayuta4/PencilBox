@@ -2,7 +2,6 @@ package pencilbox.heyawake;
 
 import java.awt.Color;
 
-import javax.swing.AbstractButton;
 import javax.swing.JMenuItem;
 
 import pencilbox.common.gui.MenuBase;
@@ -47,6 +46,19 @@ public class Menu extends MenuBase {
 		getPanelBase().repaint();
 	}
 
+	public Color getColor(JMenuItem target) {
+		if (target == paintColorItem)
+			return getPanel().getPaintColor();
+		else if (target == circleColorItem)
+			return getPanel().getCircleColor();
+		else if (target == numberColorItem)
+			return getPanel().getNumberColor();
+		else if (target == areaBorderColorItem)
+			return getPanel().getAreaBorderColor();
+		else
+			return super.getColor(target);
+	}
+
 	public void setColor(JMenuItem target, Color color) {
 		if (target == paintColorItem)
 			getPanel().setPaintColor(color);
@@ -56,20 +68,10 @@ public class Menu extends MenuBase {
 			getPanel().setAreaBorderColor(color);
 		else if (target == numberColorItem)
 			getPanel().setNumberColor(color);
+		else
+			super.setColor(target, color);
 	}
 	
-	public Color getColor(AbstractButton target) {
-		if (target == paintColorItem)
-			return getPanel().getPaintColor();
-		else if (target == circleColorItem)
-			return getPanel().getCircleColor();
-		else if (target == numberColorItem)
-			return getPanel().getNumberColor();
-		else if (target == areaBorderColorItem)
-			return getPanel().getAreaBorderColor();
-		return null;
-	}
-
 	public void updateCurrentMenuSelection() {
 		super.updateCurrentMenuSelection();
 		indicateErrorItem.setSelected(getPanel().isIndicateErrorMode());
