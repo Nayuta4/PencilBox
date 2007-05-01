@@ -370,7 +370,7 @@ public class MenuCommand {
 	/**
 	 *  [編集]-[即時正解判定]
 	 */
-	public void setCheckAnswerImmediatelyMode(boolean b) {
+	public void setImmediateAnswerCheckMode(boolean b) {
 		handler.setImmediateAnswerCheckMode(b);
 		if (b == true)
 			handler.checkAnswer();
@@ -458,10 +458,10 @@ public class MenuCommand {
 		panel.repaint();
 	}
 	/**
-	 *  [表示]-[カーソルON]
+	 *  [表示]-[カーソル]
 	 */
-	public void setCursorOn(boolean b) {
-		panel.setCursorOn(b);
+	public void setCursorMode(boolean b) {
+		panel.setCursorMode(b);
 		panel.repaint();
 	}
 	/**
@@ -487,8 +487,8 @@ public class MenuCommand {
 	/**
 	 *  [表示]-[行列番号表示]
 	 */
-	public void setShowIndexMode(boolean b) {
-		panel.changeShowIndexMode(b);
+	public void setIndexMode(boolean b) {
+		panel.changeIndexMode(b);
 		frame.resize();
 	}
 	/**

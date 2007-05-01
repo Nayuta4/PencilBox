@@ -51,9 +51,9 @@ public class MenuBase {
 //	private JMenuItem redoAllItem;
 	private JMenuItem palybackItem;
 	private JMenuItem checkAnswerItem;
-	private JMenuItem immediateAnswerCheckModeItem;
+	private JMenuItem immediateAnswerCheckItem;
 	private JMenuItem cellSizeItem;
-	private JMenuItem showIndexModeItem;
+	private JMenuItem indexItem;
 	private JMenuItem gridStyleItem;
 	private JMenuItem renewColorItem;
 	private JMenuItem cursorItem;
@@ -161,7 +161,7 @@ public class MenuBase {
 		editMenu.add(palybackItem = makeCommandMenuItem("履歴再生(P)", 'P'));
 		editMenu.addSeparator();
 		editMenu.add(checkAnswerItem = makeCommandMenuItem("正解判定(H)", 'H'));
-		editMenu.add(immediateAnswerCheckModeItem = makeCheckBoxCommandMenuItem("即時正解判定(M)", 'M', false));
+		editMenu.add(immediateAnswerCheckItem = makeCheckBoxCommandMenuItem("即時正解判定(M)", 'M', false));
 
 		modeGroup = new ButtonGroup();
 		modeGroup.add(answerModeItem);
@@ -178,12 +178,12 @@ public class MenuBase {
 		backgroundColorItem = addColorMenuItem("背景");
 		gridColorItem = addColorMenuItem("罫線");
 		viewMenu.add(cellSizeItem = makeCommandMenuItem("表示サイズ(S)...", 'S'));
-		viewMenu.add(showIndexModeItem = makeCheckBoxCommandMenuItem("行列番号表示(I)", 'I', true));
+		viewMenu.add(indexItem = makeCheckBoxCommandMenuItem("行列番号表示(I)", 'I', true));
 		viewMenu.add(gridStyleItem = makeCheckBoxCommandMenuItem("罫線表示(G)", 'G', true));
 		if (markStyleMenu != null)
 			viewMenu.add(markStyleMenu);
 		if (cursorItem != null)
-			viewMenu.add(cursorItem = makeCheckBoxCommandMenuItem("カーソル(C)", 'C', panel.isCursorOn()));
+			viewMenu.add(cursorItem = makeCheckBoxCommandMenuItem("カーソル(C)", 'C', panel.isCursorMode()));
 		viewMenu.addSeparator();
 		viewMenu.addMenuListener(new ViewMenuListener());
 	}
@@ -347,7 +347,7 @@ public class MenuBase {
 	 * [カーソル]メニュー項目を作成する。
 	 */
 	protected void addCursorMenuItem() {
-		cursorItem = makeCheckBoxCommandMenuItem("カーソル(C)", 'C', panel.isCursorOn());
+		cursorItem = makeCheckBoxCommandMenuItem("カーソル(C)", 'C', panel.isCursorMode());
 	}
 	/**
 	 * [色の更新]メニュー項目を作成し，[色の設定]メニューに追加する。
@@ -529,18 +529,18 @@ public class MenuBase {
 			command.playback();
 		else if (target == checkAnswerItem)
 			command.checkAnswer();
-		else if (target == immediateAnswerCheckModeItem)
-			command.setCheckAnswerImmediatelyMode(target.isSelected());
+		else if (target == immediateAnswerCheckItem)
+			command.setImmediateAnswerCheckMode(target.isSelected());
 		else if (target == renewColorItem)
 			command.renewColor();
 		else if (target == cursorItem)
-			command.setCursorOn(target.isSelected());
+			command.setCursorMode(target.isSelected());
 		else if (target == answerModeItem)
 			command.setProblemEditMode(false);
 		else if (target == problemEditModeItem)
 			command.setProblemEditMode(true);
-		else if (target == showIndexModeItem)
-			command.setShowIndexMode(target.isSelected());
+		else if (target == indexItem)
+			command.setIndexMode(target.isSelected());
 		else if (target == gridStyleItem)
 			command.setGridStyle(target.isSelected());
 		else if (target == cellSizeItem)
@@ -600,14 +600,14 @@ public class MenuBase {
 	 * 現在の設定に合わせてメニュー項目の選択状態を更新する。
 	 */
 	public void updateCurrentMenuSelection() {
-		showIndexModeItem.setSelected(getPanelBase().isShowIndexMode());
+		indexItem.setSelected(getPanelBase().isIndexMode());
 		gridStyleItem.setSelected(getPanelBase().getGridStyle() > 0);
 		if (cursorItem != null)
-			cursorItem.setSelected(getPanelBase().isCursorOn());
+			cursorItem.setSelected(getPanelBase().isCursorMode());
 		if (symmetricPlacementItem != null)
 			symmetricPlacementItem.setSelected(getPanelEventHandlerBase().isSymmetricPlacementMode());
-		if (immediateAnswerCheckModeItem != null)
-			immediateAnswerCheckModeItem.setSelected(getPanelEventHandlerBase().isImmediateAnswerCheckMode());
+		if (immediateAnswerCheckItem != null)
+			immediateAnswerCheckItem.setSelected(getPanelEventHandlerBase().isImmediateAnswerCheckMode());
 		if (markStyleMenu != null) {
 			int s = getPanelBase().getMarkStyle();
 			for (int i = 0, count = markStyleMenu.getItemCount(); i < count; i++) {

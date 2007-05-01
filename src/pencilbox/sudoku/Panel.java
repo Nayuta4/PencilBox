@@ -33,7 +33,7 @@ public class Panel extends PanelBase {
 	 * 
 	 */
 	public Panel() {
-		setCursorOn(true);
+		setCursorMode(true);
 	}
 
 	protected void setBoard(BoardBase aBoard) {

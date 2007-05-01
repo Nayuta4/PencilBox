@@ -148,7 +148,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	}
 
 	public boolean isCursorOn() {
-		return panel.isCursorOn();
+		return panel.isCursorMode();
 	}
 
 	public void repaint() {

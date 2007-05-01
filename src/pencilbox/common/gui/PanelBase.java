@@ -50,8 +50,8 @@ public class PanelBase extends JPanel implements Printable {
 
 	private int gridStyle = 1;   // 0:非表示　１：表示
 	private int markStyle = 1;
-	private boolean showIndexMode = true;
-	private boolean cursorOn = false;
+	private boolean indexMode = true;
+	private boolean cursorMode = false;
 	private CellCursor cellCursor;
 
 	/**
@@ -97,7 +97,7 @@ public class PanelBase extends JPanel implements Printable {
 	 */
 	public void setDisplaySize(int cellSize) {
 		this.cellSize = cellSize;
-		if (showIndexMode) {
+		if (indexMode) {
 			offsetx = cellSize;
 			offsety = cellSize;
 		}
@@ -266,7 +266,7 @@ public class PanelBase extends JPanel implements Printable {
 		int firstIndex = 1;
 		g.setFont(indexFont);
 		g.setColor(indexColor);
-		if (isShowIndexMode() == false)
+		if (isIndexMode() == false)
 			return;
 		for (int r = 0; r < rows(); r++) {
 			placeIndexNumber(g, r, -1, r + firstIndex);
@@ -282,7 +282,7 @@ public class PanelBase extends JPanel implements Printable {
 	public void drawCursor(Graphics2D g) {
 		if (isProblemEditMode()) {
 			g.setColor(cursorColor);
-		} else if (cursorOn) {
+		} else if (cursorMode) {
 			g.setColor(answerCursorColor);
 		} else {
 			return;
@@ -771,16 +771,16 @@ public class PanelBase extends JPanel implements Printable {
 		return cursorColor;
 	}
 	/**
-	 * @param cursorOn The cursorOn to set.
+	 * @param cursorMode The cursorMode to set.
 	 */
-	public void setCursorOn(boolean cursorOn) {
-		this.cursorOn = cursorOn;
+	public void setCursorMode(boolean cursorMode) {
+		this.cursorMode = cursorMode;
 	}
 	/**
-	 * @return Returns the cursorOn.
+	 * @return Returns the cursorMode.
 	 */
-	public boolean isCursorOn() {
-		return cursorOn;
+	public boolean isCursorMode() {
+		return cursorMode;
 	}
 	/**
 	 * @param numberFont The numberFont to set.
@@ -807,23 +807,23 @@ public class PanelBase extends JPanel implements Printable {
 		return cellCursor;
 	}
 	/**
-	 * @return the showIndex
+	 * @return the indexMode
 	 */
-	public boolean isShowIndexMode() {
-		return showIndexMode;
+	public boolean isIndexMode() {
+		return indexMode;
 	}
 	/**
-	 * @param showIndex the showIndex to set
+	 * @param indexMode the indexMode to set
 	 */
-	public void setShowIndexMode(boolean showIndex) {
-		this.showIndexMode = showIndex;
+	public void setIndexMode(boolean indexMode) {
+		this.indexMode = indexMode;
 	}
 
 	/**
-	 * @param b the showIndex to set
+	 * @param b the indexMode to set
 	 */
-	public void changeShowIndexMode(boolean b) {
-		this.showIndexMode = b;
+	public void changeIndexMode(boolean b) {
+		this.indexMode = b;
 		if (b == true) {
 			setOffsetx(this.getCellSize());
 			setOffsety(this.getCellSize());
