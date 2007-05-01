@@ -33,7 +33,7 @@ public class Panel extends PanelBase {
 	 */
 	public Panel() {
 		setGridColor(Color.BLACK);
-		setCursorOn(true);
+		setCursorMode(true);
 	}
 
 	protected void setBoard(BoardBase aBoard) {
