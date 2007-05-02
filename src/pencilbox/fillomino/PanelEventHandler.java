@@ -73,7 +73,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 				}
 			}
 		} else if (isCursorOn()) {
-			if (num > 0) {
+			if (num >= 0) {
 				if (!board.isStable(pos.r(), pos.c())) {
 					board.enterNumberA(pos.r(), pos.c(), num);
 				}
