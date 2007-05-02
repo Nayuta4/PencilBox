@@ -159,15 +159,12 @@ public class PencilFactory {
 	 * 呼び出し元フレームと設定を合せる。
 	 */
 	private void copyPreferences(MenuCommand dst) {
-		if (caller == null)
-			return;
-		PreferencesCopierBase copier;
-		try {
-			copier = (PreferencesCopierBase) ClassUtil.createInstance(pencilType, ClassUtil.PREFERENCES_COPIER_CLASS);
-		} catch (PencilBoxClassException e) {
-			copier = new PreferencesCopierBase();
+		PreferencesCopierBase copier = PreferencesCopierBase.createInstance(pencilType);
+		if (caller == null) {
+		
+		} else {
+			copier.copyPreferences(caller, dst);
 		}
-		copier.copyPreferences(caller, dst);
 	}
 
 }
