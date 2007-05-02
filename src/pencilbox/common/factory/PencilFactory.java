@@ -156,12 +156,17 @@ public class PencilFactory {
 		createNewBoard(problem);
 	}
 	/**
-	 * 呼び出し元フレームと設定を合せる。
+	 * 他のフレームから呼び出された場合は，呼び出し元フレームの設定を引き継ぐ。
+	 * そうでない場合は，デフォルト設定ファイルの設定を読み込む。
+	 * @param dst 作成中アプリケーションの MenuCommand インスタンス
 	 */
 	private void copyPreferences(MenuCommand dst) {
 		PreferencesCopierBase copier = PreferencesCopierBase.createInstance(pencilType);
 		if (caller == null) {
-		
+			File iniFile = new File("PencilBox.ini");
+			if (iniFile.canRead()) {
+				copier.loadPreferences(dst, iniFile);
+			}
 		} else {
 			copier.copyPreferences(caller, dst);
 		}
