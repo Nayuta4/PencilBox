@@ -303,6 +303,31 @@ public class MenuCommand {
 			propertyDialog.getPropertyFromDialog(problem.getProperty());
 	}
 	/**
+	 *  [ファイル]-[設定読込]
+	 */
+	public void loadPreferences() {
+		PreferencesCopierBase copier = PreferencesCopierBase.createInstance(pencilType);
+		FileChooser fileChooser = FileChooser.getPreferenceFileChooser();
+		if (fileChooser.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
+			File file = fileChooser.getSelectedFile();
+			copier.loadPreferences(this, file);
+			frame.resize();
+//			menu.updateCurrentMenuSelection();
+		}
+	}
+	/**
+	 *  [ファイル]-[設定保存]
+	 */
+	public void storePreferences() {
+		PreferencesCopierBase copier = PreferencesCopierBase.createInstance(pencilType);
+		FileChooser fileChooser = FileChooser.getPreferenceFileChooser();
+		if (fileChooser.showSaveDialog(frame) == JFileChooser.APPROVE_OPTION) {
+			File file = fileChooser.getSelectedFile();
+			copier.storePreferences(this, file);
+		}
+	}
+	
+	/**
 	 *  [ファイル]-[閉じる]
 	 */
 	public void close() {

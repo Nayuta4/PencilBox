@@ -60,6 +60,8 @@ public class MenuBase {
 	private ButtonGroup modeGroup;
 	private JMenuItem problemEditModeItem;
 	private JMenuItem answerModeItem;
+	private JMenuItem loadPreferencesItem;
+	private JMenuItem storePreferencesItem;
 
 	private JMenu colorMenu;
 	private JMenu rotationMenu;
@@ -128,11 +130,14 @@ public class MenuBase {
 		buildRotationMenu();
 		fileMenu.addSeparator();
 		fileMenu.add(exportProblemDataStringItem = makeCommandMenuItem("問題データ文字列出力(E)...", 'E'));
-		fileMenu.add(saveImageItem = makeCommandMenuItem("画像保存(I)...", 'I'));
+		fileMenu.add(saveImageItem = makeCommandMenuItem("画像保存(G)...", 'G'));
 		fileMenu.add(copyImageItem = makeCommandMenuItem("画像コピー(M)", 'M'));
 		fileMenu.add(printItem = makeCommandMenuItem("印刷(P)...", 'P'));
 		fileMenu.addSeparator();
-		fileMenu.add(propertyItem = makeCommandMenuItem("プロパティ(T)", 'T'));
+		fileMenu.add(loadPreferencesItem = makeCommandMenuItem("設定読込(F)...", 'F'));
+		fileMenu.add(storePreferencesItem = makeCommandMenuItem("設定保存(T)...",'T'));
+		fileMenu.addSeparator();
+		fileMenu.add(propertyItem = makeCommandMenuItem("プロパティ(I)", 'I'));
 		fileMenu.addSeparator();
 		fileMenu.add(closeItem = makeCommandMenuItem("閉じる(C)", 'C'));
 		fileMenu.add(quitItem = makeCommandMenuItem("終了(Q)", 'Q'));
@@ -503,6 +508,10 @@ public class MenuBase {
 			command.copyImage();
 		else if (target == printItem)
 			command.print();
+		else if (target == loadPreferencesItem)
+			command.loadPreferences();
+		else if (target == storePreferencesItem)
+			command.storePreferences();
 		else if (target == propertyItem)
 			command.property();
 		else if (target == closeItem)

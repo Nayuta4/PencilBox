@@ -2,19 +2,31 @@ package pencilbox.numberlink;
 
 import pencilbox.common.gui.MenuCommand;
 import pencilbox.common.gui.PreferencesCopierBase;
+import pencilbox.common.gui.PreferencesKeys;
 
 /**
  * 
  */
 public class PreferencesCopier extends PreferencesCopierBase {
 
-	public void copyPreferences(MenuCommand src, MenuCommand dst) {
-		super.copyPreferences(src, dst);
-		Panel panelS = (Panel) src.getPanelBase();
-		Panel panelD = (Panel) dst.getPanelBase();
-//		panelD.setIndicateErrorMode(panelS.isIndicateErrorMode());
-		panelD.setSeparateLinkColorMode(panelS.isSeparateLinkColorMode());
-		panelD.setHighlightSelectionMode(panelS.isHighlightSelectionMode());
-		panelD.setLineColor(panelS.getLineColor());
+	public void applyCurrentPreferences(MenuCommand command) {
+		super.applyCurrentPreferences(command);
+		Panel panel = (Panel) command.getPanelBase();
+		panel.setHighlightSelectionMode(getBooleanProperty(PreferencesKeys.HIGHLIGHT_SELECTION_MODE));
+		panel.setSeparateLinkColorMode(getBooleanProperty(PreferencesKeys.SEPARATE_LINK_COLOR_MODE));
+		panel.setNumberColor(getColorProperty(PreferencesKeys.NUMBER_COLOR));
+		panel.setLineColor(getColorProperty(PreferencesKeys.LINE_COLOR));
+//		panel.setCrossColor(getColorProperty(PreferencesKeys.CrossColor));
 	}
+	
+	public void acquireCurrentPreferences(MenuCommand command) {
+		super.acquireCurrentPreferences(command);
+		Panel panel = (Panel) command.getPanelBase();
+		setBooleanProperty(PreferencesKeys.HIGHLIGHT_SELECTION_MODE, panel.isHighlightSelectionMode());
+		setBooleanProperty(PreferencesKeys.SEPARATE_LINK_COLOR_MODE, panel.isSeparateLinkColorMode());
+		setColorProperty(PreferencesKeys.NUMBER_COLOR, panel.getNumberColor());
+		setColorProperty(PreferencesKeys.LINE_COLOR, panel.getLineColor());
+//		setColorProperty(PreferencesKeys.CrossColor, panel.getCrossColor());
+	}
+	
 }
