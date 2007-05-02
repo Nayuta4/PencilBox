@@ -76,11 +76,13 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 */
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {
-			board.setNumber(pos.r(), pos.c(), num);
-			if (isSymmetricPlacementMode()) {
-				Address posS = getSymmetricPosition(pos);
-				if (!board.isNumber(posS.r(), posS.c()))
-					board.setNumber(posS.r(), posS.c(), Board.UNDECIDED_NUMBER);
+			if (num > 0) {
+				board.setNumber(pos.r(), pos.c(), num);
+				if (isSymmetricPlacementMode()) {
+					Address posS = getSymmetricPosition(pos);
+					if (!board.isNumber(posS.r(), posS.c()))
+						board.setNumber(posS.r(), posS.c(), Board.UNDECIDED_NUMBER);
+				}
 			}
 		}
 	}
