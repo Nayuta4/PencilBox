@@ -125,6 +125,7 @@ public class MenuBase {
 		fileMenu.add(openItem = makeCommandMenuItem("開く(O)...", 'O'));
 		fileMenu.add(closeAndOpenItem = makeCommandMenuItem("閉じて開く(L)...", 'L'));
 		fileMenu.add(saveItem = makeCommandMenuItem("保存(S)...", 'S'));
+		fileMenu.addSeparator();
 		fileMenu.add(duplicateItem = makeCommandMenuItem("複製(D)", 'D'));
 		fileMenu.add(rotationMenu = makeJMenu("回転・反転(R)", 'R'));
 		buildRotationMenu();
@@ -153,10 +154,10 @@ public class MenuBase {
 		editMenu.addSeparator();
 		editMenu.add(clearItem = makeCommandMenuItem("解答消去(C)", 'C'));
 		if (trimAnswerItem != null) 
-			editMenu.add(trimAnswerItem = makeCommandMenuItem("補助記号消去(T)", 'T'));
+			editMenu.add(trimAnswerItem);  // ("補助記号消去(T)", 'T')
 		if (symmetricPlacementItem != null) {
 			editMenu.addSeparator();
-			editMenu.add(symmetricPlacementItem = makeCheckBoxCommandMenuItem("対称配置(S)", 'S', false));
+			editMenu.add(symmetricPlacementItem); // ("対称配置(S)", 'S')
 		}
 		editMenu.addSeparator();
 		editMenu.add(undoItem = makeCommandMenuItem("元に戻す(U)", 'U'));
@@ -188,7 +189,7 @@ public class MenuBase {
 		if (markStyleMenu != null)
 			viewMenu.add(markStyleMenu);
 		if (cursorItem != null)
-			viewMenu.add(cursorItem = makeCheckBoxCommandMenuItem("カーソル(C)", 'C', panel.isCursorMode()));
+			viewMenu.add(cursorItem);  // ("カーソル(C)", 'C')
 		viewMenu.addSeparator();
 		viewMenu.addMenuListener(new ViewMenuListener());
 	}
@@ -508,8 +509,10 @@ public class MenuBase {
 			command.copyImage();
 		else if (target == printItem)
 			command.print();
-		else if (target == loadPreferencesItem)
+		else if (target == loadPreferencesItem) {
 			command.loadPreferences();
+			this.updateCurrentMenuSelection();
+		}
 		else if (target == storePreferencesItem)
 			command.storePreferences();
 		else if (target == propertyItem)
