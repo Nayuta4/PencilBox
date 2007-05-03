@@ -17,9 +17,9 @@ public class HintDot{
 			DIGIT[i] = 1 << i;
 		}
 	}
-	private Color dotColor = Color.MAGENTA;
-	private int dotSize = 6;
-	private int dotDist = 6;
+	private Color dotColor = new Color(255, 175, 175);
+	private int dotSize = 3;
+	private int dotPitch = 5;
 	private int dotOffset = 1;
 	private int unit = 3;
 	private int maxNumber = 9;
@@ -30,10 +30,10 @@ public class HintDot{
 	 * @param unit
 	 * @param cellSize
 	 */
-	public void setDot(PanelBase panel, int unit, int cellSize){
+	public void setDot(PanelBase panel, int unit, int cellSize) {
 		this.panel = panel;
-		maxNumber = unit * unit;
 		this.unit = unit;
+		this.maxNumber = unit * unit;
 		setDotSize(cellSize);
 	}
 	/**
@@ -41,13 +41,12 @@ public class HintDot{
 	 * @param cellSize パネルのセルピッチのピクセル数
 	 */
 	public void setDotSize(int cellSize) {
-		int s = (cellSize - 3) / unit;
-		if (s <= 3)
+		dotPitch = cellSize / unit;
+		if (dotPitch <= 3)
 			dotSize = 2;
 		else
-			dotSize = s - 2;
-		dotOffset = 2;
-		dotDist = (cellSize - dotOffset * 2 - dotSize) / (unit - 1);
+			dotSize = (dotPitch + 1) / 2;
+		dotOffset = (cellSize - dotPitch * (unit-1) - dotSize) / 2;
 	}
 	/**
 	 * @param g
@@ -55,7 +54,7 @@ public class HintDot{
 	 * @param c
 	 */
 	public void placeHintCross(Graphics2D g, int r, int c) {
-		g.setColor(Color.red);
+		g.setColor(Color.RED);
 		panel.placeCross(g, r, c);
 	}
 	/**
@@ -66,25 +65,17 @@ public class HintDot{
 	 */
 	public void placeHintDot(Graphics2D g, int r, int c, int pattern) {
 		g.setColor(dotColor);
-		int x = panel.toX(c) + dotOffset;
-		int y = panel.toY(r) + dotOffset;
+		int x = panel.toX(c);
+		int y = panel.toY(r);
 		for (int d = 1; d <= maxNumber; d++) {
 			if ((pattern & DIGIT[d]) != 0) {
 				int dy = (d - 1) / unit;
 				int dx = (d - 1) % unit;
-				if (dotSize >= 5) {
-					g.fillOval(
-						x + dotDist * dx,
-						y + dotDist * dy,
-						dotSize,
-						dotSize);
-				} else {
-					g.fillRect(
-						x + dotDist * dx,
-						y + dotDist * dy,
-						dotSize,
-						dotSize);
-				}
+				g.fillRect(
+					x + dotOffset + dotPitch * dx,
+					y + dotOffset + dotPitch * dy,
+					dotSize,
+					dotSize);
 			}
 		}
 	}
