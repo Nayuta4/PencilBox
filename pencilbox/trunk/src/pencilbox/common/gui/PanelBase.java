@@ -32,8 +32,8 @@ public class PanelBase extends JPanel implements Printable {
 	private int cellSize = 26;
 	private int circleSize = 18;
 	private int smallCrossSize = 3; // 片側サイズ
-	private int offsetx = 26;
-	private int offsety = 26;
+	private int offsetx = 10;
+	private int offsety = 10;
 
 	private Color backgroundColor = Color.WHITE;
 	private Color boardBorderColor = Color.BLACK;
@@ -50,7 +50,7 @@ public class PanelBase extends JPanel implements Printable {
 
 	private int gridStyle = 1;   // 0:非表示　１：表示
 	private int markStyle = 1;
-	private boolean indexMode = true;
+	private boolean indexMode = false;
 	private boolean cursorMode = false;
 	private CellCursor cellCursor;
 
@@ -828,8 +828,8 @@ public class PanelBase extends JPanel implements Printable {
 			setOffsetx(this.getCellSize());
 			setOffsety(this.getCellSize());
 		} else {
-			setOffsetx(5);
-			setOffsety(5);
+			setOffsetx(10);
+			setOffsety(10);
 		}
 		updatePreferredSize();
 	}
