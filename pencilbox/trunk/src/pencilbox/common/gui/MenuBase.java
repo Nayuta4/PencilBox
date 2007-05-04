@@ -452,7 +452,7 @@ public class MenuBase {
 
 	/**
 	 * メニュー項目に対応した色を取得する 中身は各サブクラスごとに実装する。
-	 * @param name 選択されたメニュー
+	 * @param target 選択されたメニュー
 	 * @return 取得した色
 	 */
 	public Color getColor(JMenuItem target) {
@@ -466,7 +466,7 @@ public class MenuBase {
 
 	/**
 	 * メニュー項目に対応した色を取得する 中身は各サブクラスごとに実装する。
-	 * @param name 選択されたメニュー
+	 * @param target 選択されたメニュー
 	 * @param color 設定する色
 	 */
 	public void setColor(JMenuItem target, Color color) {

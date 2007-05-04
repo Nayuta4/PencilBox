@@ -77,9 +77,10 @@ public class Board extends BoardBase {
 	}
 	
 	/**
-	 *　黒マスか 
-	 * @param position
-	 * @return
+	 * 引数の座標が黒マスかどうか。
+	 * @param r 行座標
+	 * @param c 列座標
+	 * @return 黒マスなら true を返す。
 	 */
 	public boolean isBlack(int r, int c) {
 		return isOn(r, c) && (state[r][c] == BLACK);
@@ -153,8 +154,7 @@ public class Board extends BoardBase {
 	}
 	/**
 	 * マスを領域に追加する
-	 * @param r 追加するマスの行座標
-	 * @param c 追加するマスの列座標
+	 * @param pos 追加するマスの座標
 	 * @param a 追加される領域
 	 */
 	public void addCellToArea(Address pos, Area a) {
@@ -167,8 +167,7 @@ public class Board extends BoardBase {
 	}
 	/**
 	 * マスを領域から取り除く
-	 * @param r 取り除くマスの行座標
-	 * @param c 取り除くマスの列座標
+	 * @param pos 取り除くマスの座標
 	 * @param a 取り除かれる領域
 	 */
 	public void removeCellFromArea(Address pos, Area a) {
