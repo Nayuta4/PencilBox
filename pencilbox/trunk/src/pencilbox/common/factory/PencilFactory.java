@@ -163,7 +163,7 @@ public class PencilFactory {
 	private void copyPreferences(MenuCommand dst) {
 		PreferencesCopierBase copier = PreferencesCopierBase.createInstance(pencilType);
 		if (caller == null) {
-			File iniFile = new File("PencilBox.ini");
+			File iniFile = new File("pencilbox.ini");
 			if (iniFile.canRead()) {
 				copier.loadPreferences(dst, iniFile);
 			}
