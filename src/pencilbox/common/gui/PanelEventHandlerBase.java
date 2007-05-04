@@ -570,7 +570,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 
 	/**
 	 * マウス操作でカーソルを移動する。
-	 *@param pos
+	 * @param position
 	 */
 	protected void moveCursor(Address position) {
 		getCellCursor().setPosition(position);

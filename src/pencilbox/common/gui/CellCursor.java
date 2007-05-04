@@ -12,7 +12,6 @@ public class CellCursor {
 	/**
 	 * カーソルを作成する
 	 * Panelと関連付ける
-	 * @param panel
 	 */
 	public CellCursor() {
 		pos = new Address();
