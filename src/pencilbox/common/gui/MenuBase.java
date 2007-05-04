@@ -184,7 +184,7 @@ public class MenuBase {
 		backgroundColorItem = addColorMenuItem("背景");
 		gridColorItem = addColorMenuItem("罫線");
 		viewMenu.add(cellSizeItem = makeCommandMenuItem("表示サイズ(S)...", 'S'));
-		viewMenu.add(indexItem = makeCheckBoxCommandMenuItem("行列番号表示(I)", 'I', true));
+		viewMenu.add(indexItem = makeCheckBoxCommandMenuItem("行列番号表示(I)", 'I', false));
 		viewMenu.add(gridStyleItem = makeCheckBoxCommandMenuItem("罫線表示(G)", 'G', true));
 		if (markStyleMenu != null)
 			viewMenu.add(markStyleMenu);
