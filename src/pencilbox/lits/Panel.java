@@ -25,7 +25,7 @@ public class Panel extends PanelBase {
 	private Color tetrominoTColor = new Color(0x00CCCC);
 	private Color tetrominoSColor = new Color(0x00CC00);
 	
-	private boolean separateTetrominoColorMode = true;
+	private boolean separateTetrominoColorMode = false;
 	
 	private Area draggingArea;
 
