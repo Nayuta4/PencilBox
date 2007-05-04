@@ -32,6 +32,7 @@ public final class PencilType {
 		new PencilType("heyawake",    "‚Ö‚â‚í‚¯",         10),
 		new PencilType("masyu",       "‚Ü‚µ‚ã",           10),
 		new PencilType("yajilin",     "ƒ„ƒWƒŠƒ“",         10),
+		new PencilType("lits",     "‚k‚h‚s‚r",         10),
 	};
 	/**
 	 * ‘¶İ‚·‚éPencilType‚ÌŒÂ”‚ğæ“¾‚·‚é
