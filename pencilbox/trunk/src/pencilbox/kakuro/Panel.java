@@ -187,10 +187,11 @@ public class Panel extends PanelBase {
 	}
 	
 	void placeHintDot(Graphics2D g, int r, int c) {
-		if (board.getRemNo(r,c) == 0) {
+		int pattern = board.getPattern(r, c);
+		if (pattern == 0) {
 			hintDot.placeHintCross(g, r, c);
 		} else {
-			hintDot.placeHintDot(g, r, c, board.getRemPattern(r,c));
+			hintDot.placeHintDot(g, r, c, pattern);
 		}
 	}
 

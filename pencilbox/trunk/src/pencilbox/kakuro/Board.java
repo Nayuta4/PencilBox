@@ -47,10 +47,8 @@ public class Board extends BoardBase {
 		wordH = new Word[rows()][cols()];
 		wordV = new Word[rows()][cols()];
 		multi = new int[rows()][cols()];
-		initWord();
-		initMulti();
 		hint = new DigitPatternHint();
-		initHint();
+		hint.setupHint(this);
 	}
 
 	public void clearBoard() {
@@ -227,7 +225,7 @@ public class Board extends BoardBase {
 		wordV[r][c].changeNumber(getNumber(r,c), n);
 		updateMulti(r, c, n);
 		setNumber(r, c, n);
-		help(r, c);
+		updateHint(r, c);
 	}
 	/**
 	 * マスに数字を入力し，アンドゥリスナーに通知する
@@ -387,16 +385,14 @@ public class Board extends BoardBase {
 	}
 
 	void initHint() {
-		hint.init(this);
+		hint.initHint();
 	}
-	protected void help(int r, int c) {
-		hint.helpCheck(r, c);
+	protected void updateHint(int r, int c) {
+		hint.updatePattern(r, c);
 	}
-	int getRemNo(int r, int c) {
-		return hint.getRemNo(r,c);
-	}
-	int getRemPattern(int r, int c) {
-		return hint.getRemPattern(r,c);
+
+	int getPattern(int r, int c) {
+		return hint.getPattern(r,c);
 	}
 	/**
 	 * そのマスを含むWordのマス数を返す
