@@ -64,9 +64,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			if (pivotR >= 0 && pivotC >= 0) {
 				draggingSquare.set(pivotR, pivotC, pos.r(), pos.c());
 			} else if (pivotR >= 0 && pivotC == -1) {
-				draggingSquare.set(pivotR, draggingSquare.c0, pos.r(), draggingSquare.c1);
+				draggingSquare.set(pivotR, draggingSquare.c0(), pos.r(), draggingSquare.c1());
 			} else if (pivotR == -1 && pivotC >= 0) {
-				draggingSquare.set(draggingSquare.r0, pivotC, draggingSquare.r1, pos.c());
+				draggingSquare.set(draggingSquare.r0(), pivotC, draggingSquare.r1(), pos.c());
 			} else if (pivotR == -1 && pivotC == -1) {
 //				draggingSquare.set(draggingSquare.r0, draggingSquare.c0, draggingSquare.r1, drggingSquare.c1());
 			}
@@ -83,17 +83,17 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	
 	private void fixPivot(Square s, int r, int c) {
 		if (pivotR == -1) {
-			if (r == s.r0) {
-				pivotR = s.r1;
-			} else if (r == s.r1) {
-				pivotR = s.r0;
+			if (r == s.r0()) {
+				pivotR = s.r1();
+			} else if (r == s.r1()) {
+				pivotR = s.r0();
 			}
 		}
 		if (pivotC == -1) {
-			if (c == s.c0) {
-				pivotC = s.c1;
-			} else if (c == s.c1) {
-				pivotC = s.c0;
+			if (c == s.c0()) {
+				pivotC = s.c1();
+			} else if (c == s.c1()) {
+				pivotC = s.c0();
 			}
 		}
 	}
@@ -103,14 +103,14 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			Square draggingSquare = getDraggingSquare();
 			if (draggingSquare == null)
 				return;
-			int rp = pivotR >= 0 ? pivotR : draggingSquare.r0; 
-			int cp = pivotC >= 0 ? pivotC : draggingSquare.c0; 
+			int rp = pivotR >= 0 ? pivotR : draggingSquare.r0(); 
+			int cp = pivotC >= 0 ? pivotC : draggingSquare.c0(); 
 			Square sq = board.getSquare(rp, cp);
 			if (sq == null) {
 				board.removeOverlappedSquares(draggingSquare, null);
 				board.addSquare(new Square(draggingSquare));
 			} else {
-				if (sq.r0 == draggingSquare.r0 && sq.c0 == draggingSquare.c0 && sq.r1 == draggingSquare.r1 && sq.c1 == draggingSquare.c1) {
+				if (sq.r0() == draggingSquare.r0() && sq.c0() == draggingSquare.c0() && sq.r1() == draggingSquare.r1() && sq.c1() == draggingSquare.c1()) {
 					;
 				} else {
 					board.removeOverlappedSquares(draggingSquare, sq);

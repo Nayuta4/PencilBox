@@ -155,27 +155,27 @@ public class Panel extends PanelBase {
 		for (Iterator itr = board.getSquareListIterator(); itr.hasNext();) {
 			g.setColor(getAreaBorderColor());
 			square = (Square) itr.next();
-			placeSquare(g, square.r0, square.c0, square.r1, square.c1);
+			placeSquare(g, square.r0(), square.c0(), square.r1(), square.c1());
 			if (square.getNumber() >= 0) {
 				g.setColor(getNumberColor());
 				if (isIndicateErrorMode()) {
 					if (square.getNumber() != square.getNBlack()) {
 //						g.setColor(Color.WHITE);
 //						placeFilledCircle(g, square.r0, square.c0);
-						if (board.isBlock(square.r0, square.c0) || board.chain[square.r0][square.c0]==-1) {
+						if (board.isBlock(square.r0(), square.c0()) || board.chain[square.r0()][square.c0()]==-1) {
 							;
 						} else {
 							g.setColor(getErrorColor());
 						}
 					}
 				}
-				placeNumber(g, square.r0, square.c0, square.getNumber());
+				placeNumber(g, square.r0(), square.c0(), square.getNumber());
 			}
 		}
 		square = getDraggingSquare();
 		if (square != null	) {
 			g.setColor(areaBorderColor);
-			placeSquare(g, square.r0, square.c0, square.r1, square.c1);
+			placeSquare(g, square.r0(), square.c0(), square.r1(), square.c1());
 		}
 	}
 
