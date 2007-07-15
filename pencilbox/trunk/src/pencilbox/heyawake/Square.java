@@ -47,6 +47,15 @@ public class Square {
 		this.setNumber(ANY);
 	}
 	/**
+	 * コンストラクタ
+	 * 引数の四角と同じ座標の四角を作成する。
+	 * @param s 四角
+	 */
+	public Square(Square s) {
+		this(s.r0, s.c0, s.r1, s.c1);
+	}
+
+	/**
 	 * 座標の設定
 	 * @param ra 一方の角の行座標
 	 * @param ca 一方の角の列座標
