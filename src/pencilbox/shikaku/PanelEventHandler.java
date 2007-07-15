@@ -12,7 +12,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 
 	private Board board;
 
-//	private Square draggingArea; // ドラッグして今まさに描こうとしている四角
+//	private Square draggingSquare; // ドラッグして今まさに描こうとしている四角
 
 	/**
 	 * パネルを生成する
@@ -31,7 +31,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 
 	protected void leftPressed(Address pos) {
 		dragStart.set(pos);
-		setDraggingArea(new Square(dragStart.r(), dragStart.c(), pos.r(), pos.c()));
+		setDraggingSquare(new Square(dragStart.r(), dragStart.c(), pos.r(), pos.c()));
 	}
 
 	protected void rightPressed(Address dragEnd) {
@@ -39,21 +39,21 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 	
 	protected void leftDragged(Address dragEnd) {
-		if (getDraggingArea() == null)
+		if (getDraggingSquare() == null)
 			return;
-		getDraggingArea().set(dragStart.r(), dragStart.c(), dragEnd.r(), dragEnd.c());
+		getDraggingSquare().set(dragStart.r(), dragStart.c(), dragEnd.r(), dragEnd.c());
 	}
 	
 	protected void leftDragFixed(Address dragEnd) {
-		if (getDraggingArea() == null)
+		if (getDraggingSquare() == null)
 			return;
-		setDraggingArea(null);
+		setDraggingSquare(null);
 		board.addSquareSpanning(dragStart, dragEnd);
 		dragStart.setNowhere();
 	}
 	
 	protected void dragFailed() {
-		setDraggingArea(null);
+		setDraggingSquare(null);
 		dragStart.setNowhere();
 	}
 
@@ -96,16 +96,16 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/**
-	 * @param draggingArea the draggingArea to set
+	 * @param draggingSquare the draggingSquare to set
 	 */
-	void setDraggingArea(Square draggingArea) {
-		((Panel)getPanel()).setDraggingArea(draggingArea);
+	void setDraggingSquare(Square draggingSquare) {
+		((Panel)getPanel()).setDraggingSquare(draggingSquare);
 	}
 
 	/**
-	 * @return the draggingArea
+	 * @return the draggingSquare
 	 */
-	Square getDraggingArea() {
-		return ((Panel)getPanel()).getDraggingArea();
+	Square getDraggingSquare() {
+		return ((Panel)getPanel()).getDraggingSquare();
 	}
 }
