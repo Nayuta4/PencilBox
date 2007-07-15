@@ -9,6 +9,7 @@ import javax.swing.undo.AbstractUndoableEdit;
 import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
 
+import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.util.ArrayUtil;
 
@@ -60,6 +61,15 @@ public class Board extends BoardBase {
 	public Square getSquare(int r, int c) {
 		return square[r][c];
 	}
+	
+	public Square getSquare(Address pos) {
+		return square[pos.r()][pos.c()];
+	}
+	
+	public void setSquare(int r, int c, Square sq) {
+		square[r][c] = sq;
+	}
+	
 	public void clearBoard() {
 		super.clearBoard();
 		ArrayUtil.initArrayInt2(state, UNKNOWN);
@@ -263,65 +273,64 @@ public class Board extends BoardBase {
 		else
 			changeStateA(r, c, st);
 	}
+
 	/**
-	 * 四角を追加する
-	 * その際に，追加する四角と重なる四角がすでにあったら，その四角を消去する
-	 * @param r0 一方の角の行座標
-	 * @param c0 一方の角の列座標
-	 * @param r1 他方の角の行座標
-	 * @param c1 他方の角の列座標
+	 * 四角を追加，変更したときにすでにある他の四角と重なる場合，その四角を除去する。
+	 * @param sq 追加,変更する四角
+	 * @param org 変更する場合のもとの四角
 	 */
-	public void addSquareSpanning(int r0, int c0, int r1, int c1) {
-		int ra = r0<r1 ? r0 : r1;
-		int rb = r0<r1 ? r1 : r0;
-		int ca = c0<c1 ? c0 : c1;
-		int cb = c0<c1 ? c1 : c0;
-		Square newSquare = new Square(ra, ca, rb, cb);
-		for (int r = ra; r <= rb; r++ ) {
-			for (int c = ca; c <= cb; c++) {
-				if(square[r][c] != null) {
-					removeSquare(square[r][c]);
+	void removeOverlappedSquares(Square sq, Square org) {
+		for (int r = sq.r0; r <= sq.r1; r++ ) {
+			for (int c = sq.c0; c <= sq.c1; c++) {
+				Square s = getSquare(r, c);
+				if (s != null && s != org) {
+					removeSquare(s);
 				}
 			}
 		}
-		addSquare(newSquare);
 	}
-
-	/**
-	 * 引数に与えられたマスを含む四角を消去する
-	 * @param r
-	 * @param c 
-	 */
-	public void removeSquareIncluding(int r, int c) {
-		if (square[r][c] != null) {
-			removeSquare(square[r][c]);
-		}
-	}
-	/**
-	 * 四角を追加する
-	 * @param sq 消去する四角
-	 */
-	public void addSquare(Square sq) {
+	
+	public void initSquare1(Square sq) {
 		for (int r = sq.r0; r <= sq.r1; r++ ) {
 			for (int c = sq.c0; c <= sq.c1; c++) {
-				if(square[r][c] != null) {
-					removeSquare(square[r][c]);
-				}
 				square[r][c] = sq;
 			}
 		}
-		squareList.add(sq);
 	}
-	/**
-	 * 四角を消去する
-	 * @param sq 消去する四角
-	 */
-	public void removeSquare(Square sq) {
+
+	public void clearSquare1(Square sq) {
 		for (int r = sq.r0; r <= sq.r1; r++ ) {
 			for (int c = sq.c0; c <= sq.c1; c++) {
 				square[r][c] = null;
 			}
 		}
+	}
+	/**
+	 * 四角を追加する
+	 * @param sq 追加する四角
+	 */
+	public void addSquare(Square sq) {
+		initSquare1(sq);
+		squareList.add(sq);
+	}
+
+	/**
+	 * 四角を変更する
+	 * @param sq 変更される四角
+	 * @param newSq 変更後の四角の形
+	 */
+	public void changeSquare(Square sq, Square newSq) {
+		clearSquare1(sq);
+		sq.set(newSq.r0, newSq.c0, newSq.r1, newSq.c1);
+		initSquare1(sq);
+	}
+
+	/**
+	 * 四角を消去する
+	 * @param sq 消去する四角
+	 */
+	public void removeSquare(Square sq) {
+		clearSquare1(sq);
 		squareList.remove(sq);
 	}
 	
