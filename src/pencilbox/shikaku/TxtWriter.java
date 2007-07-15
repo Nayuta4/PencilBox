@@ -32,13 +32,13 @@ public class TxtWriter extends TxtWriterBase {
 		out.println( board.getSquareListSize());
 		for(Iterator itr = board.getSquareListIterator(); itr.hasNext(); ) {
 			Square sq = (Square) itr.next();
-			out.print( sq.r0 );
+			out.print( sq.r0() );
 			out.print( ' ' );
-			out.print( sq.c0 );
+			out.print( sq.c0() );
 			out.print( ' ' );
-			out.print( sq.r1 );
+			out.print( sq.r1() );
 			out.print( ' ' );
-			out.print( sq.c1 );
+			out.print( sq.c1() );
 			out.println();
 		}
 		

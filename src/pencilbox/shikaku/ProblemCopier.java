@@ -20,8 +20,8 @@ public class ProblemCopier extends ProblemCopierBase {
 		rotator.rotateArrayInt2(s.getNumber(), d.getNumber());
 		for (int i=0; i<s.getSquareList().size(); i++ ) {
 			Square srcSquare = (Square) s.getSquareList().get(i);
-			Address pos0 = rotator.rotateAddress(new Address(srcSquare.r0, srcSquare.c0));
-			Address pos1 = rotator.rotateAddress(new Address(srcSquare.r1, srcSquare.c1));
+			Address pos0 = rotator.rotateAddress(new Address(srcSquare.r0(), srcSquare.c0()));
+			Address pos1 = rotator.rotateAddress(new Address(srcSquare.r1(), srcSquare.c1()));
 			Square dstSquare = new Square(pos0.r(), pos0.c(), pos1.r(), pos1.c());
 			d.addSquare(dstSquare);
 		}

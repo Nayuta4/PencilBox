@@ -3,11 +3,6 @@ package pencilbox.shikaku;
 /**
  * 「四角に切れ」四角クラス
  */
-/*
- * int でなく Address を主体の引数とするようにしたい
- * heyawake.Square と統一したい
- * r0, c0, r1, c1 を private にしたい
- */
 public class Square {
 	
 	static final int NO_NUMBER = 0;
@@ -16,10 +11,10 @@ public class Square {
 	
 	private int id;  // 領域番号
 	
-	int r0;
-	int c0;
-	int r1;
-	int c1;
+	private int r0;
+	private int c0;
+	private int r1;
+	private int c1;
 	private int number; // 四角の数字
 	
 	/**
@@ -46,6 +41,30 @@ public class Square {
 		this(s.r0, s.c0, s.r1, s.c1);
 	}
 
+	/**
+	 * @return the r0
+	 */
+	public int r0() {
+		return r0;
+	}
+	/**
+	 * @return the c0
+	 */
+	public int c0() {
+		return c0;
+	}
+	/**
+	 * @return the r1
+	 */
+	public int r1() {
+		return r1;
+	}
+	/**
+	 * @return the c1
+	 */
+	public int c1() {
+		return c1;
+	}
 	/**
 	 * 座標の設定
 	 * @param ra 一方の角の行座標
