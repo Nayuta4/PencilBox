@@ -59,22 +59,22 @@ public class Board extends BoardBase {
 	}
 	/**
 	 * 四角に数字を設定し，マスに四角を設定する
-	 * @param a 追加する四角
+	 * @param sq 追加する四角
 	 */
-	public void initSquare1(Square a) {
+	public void initSquare1(Square sq) {
 		int n = 0;
-		for (int r = a.r0; r <= a.r1; r++ ) {
-			for (int c = a.c0; c <= a.c1; c++) {
+		for (int r = sq.r0; r <= sq.r1; r++ ) {
+			for (int c = sq.c0; c <= sq.c1; c++) {
 				if (isNumber(r,c)) {
 					if (n != 0)
 						n = Square.MULTIPLE_NUMBER;
 					else
 						n = number[r][c];
 				}
-				square[r][c] = a;
+				square[r][c] = sq;
 			}
 		}
-		a.setNumber(n);
+		sq.setNumber(n);
 	}
 
 	/**
@@ -178,20 +178,20 @@ public class Board extends BoardBase {
 	/**
 	 * 四角を追加する
 	 * アンドゥリスナーに通知する
-	 * @param aq 追加する四角
+	 * @param sq 追加する四角
 	 */
-	public void addSquareA(Square aq){
-		fireUndoableEditUpdate(new UndoableEditEvent(this, new Step(aq,Step.ADDED)));
-		addSquare(aq);
+	public void addSquareA(Square sq){
+		fireUndoableEditUpdate(new UndoableEditEvent(this, new Step(sq, Step.ADDED)));
+		addSquare(sq);
 	}
 	/**
 	 * 四角を除去する
 	 * アンドゥリスナーに通知する
-	 * @param a 除去する四角
+	 * @param sq 除去する四角
 	 */
-	public void removeSquareA(Square a){
-		fireUndoableEditUpdate(new UndoableEditEvent(this, new Step(a,Step.REMOVED)));
-		removeSquare(a);
+	public void removeSquareA(Square sq){
+		fireUndoableEditUpdate(new UndoableEditEvent(this, new Step(sq, Step.REMOVED)));
+		removeSquare(sq);
 	}
 	
 	/**
@@ -217,20 +217,20 @@ public class Board extends BoardBase {
 
 	public int checkAnswerCode() {
 		int errorCode = 0;
-		Square a;
+		Square sq;
 		int nNumber = 0;
 		for (Iterator itr = squareList.iterator(); itr.hasNext(); ) {
-			a = (Square)itr.next();
-			int n = a.getNumber();
+			sq = (Square)itr.next();
+			int n = sq.getNumber();
 			if (n == Square.MULTIPLE_NUMBER) {
 				errorCode |= 1; 
 			} else if (n == Square.NO_NUMBER) {
 				errorCode |= 2; 
 			} else if (n == UNDECIDED_NUMBER) {
 				;
-			} else if (n < a.getSquareSize()) {
+			} else if (n < sq.getSquareSize()) {
 				errorCode |= 4; 
-			} else if (n > a.getSquareSize()) {
+			} else if (n > sq.getSquareSize()) {
 				errorCode |= 8; 
 			}
 		}
@@ -276,7 +276,10 @@ public class Board extends BoardBase {
 		static final int ADDED = 1;
 		static final int REMOVED = 0;
 		
-		private Square square;
+		private int r0;
+		private int c0;
+		private int r1;
+		private int c1;
 		private int operation;
 
 		/**
@@ -286,25 +289,28 @@ public class Board extends BoardBase {
 		 */
 		public Step(Square sq, int operation) {
 			super();
-			this.square = sq;
+			this.r0 = sq.r0;
+			this.c0 = sq.c0;
+			this.r1 = sq.r1;
+			this.c1 = sq.c1;
 			this.operation = operation;
 		}
 		
 		public void undo() throws CannotUndoException {
 			super.undo();
 			if (operation==ADDED) {
-				removeSquare(square);
+				removeSquare(getSquare(r0, c0));
 			} else if (operation==REMOVED){
-				addSquare(square);
+				addSquare(new Square(r0, c0, r1, c1));
 			}
 		}
 
 		public void redo() throws CannotRedoException {
 			super.redo();
 			if (operation==ADDED) {
-				addSquare(square);
+				addSquare(new Square(r0, c0, r1, c1));
 			} else if (operation==REMOVED){
-				removeSquare(square);
+				removeSquare(getSquare(r0, c0));
 			}
 		}
 	}
