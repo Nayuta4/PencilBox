@@ -20,7 +20,7 @@ public class Panel extends PanelBase {
 	private Color smallSizeColor = new Color(0xFFFF80); // 面積小さい
 	private Color areaPaintColor   = new Color(0x80FFFF); // 標準色
 
-	private Square draggingArea; // ドラッグして今まさに描こうとしている四角
+	private Square draggingSquare; // ドラッグして今まさに描こうとしている四角
 
 	private boolean separateAreaColorMode = false;
 	private boolean indicateErrorMode = false;
@@ -101,26 +101,26 @@ public class Panel extends PanelBase {
 	}
 
 	private void paintAreas(Graphics2D g) {
-		Square area;
+		Square square;
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
-				area = board.getSquare(r,c);
-				if (area == null)
+				square = board.getSquare(r,c);
+				if (square == null)
 					continue;
 				g.setColor(areaPaintColor);
 				if (isIndicateErrorMode()) {
-					int number = area.getNumber();
+					int number = square.getNumber();
 					if (number == Square.MULTIPLE_NUMBER) {
 						g.setColor(getErrorColor());
 					} else if (number == Square.NO_NUMBER) {
 						g.setColor(smallSizeColor);
 					} else if (number == Board.UNDECIDED_NUMBER) {
 						g.setColor(areaPaintColor);
-					} else if (number < area.getSquareSize()) {
+					} else if (number < square.getSquareSize()) {
 						g.setColor(getErrorColor());
-					} else if (number == area.getSquareSize()) {
+					} else if (number == square.getSquareSize()) {
 						g.setColor(areaPaintColor);
-					} else if (number > area.getSquareSize()) {
+					} else if (number > square.getSquareSize()) {
 						g.setColor(smallSizeColor);
 					}
 				} else if (isSeparateAreaColorMode()) {
@@ -150,30 +150,30 @@ public class Panel extends PanelBase {
 	}
 
 	private void drawAreaBorders(Graphics2D g) {
-		Square area;
+		Square square;
 		g.setColor(getAreaBorderColor());
 		for (Iterator itr = board.getSquareListIterator(); itr.hasNext();) {
-			area = (Square) itr.next();
-			placeSquare(g, area.r0, area.c0, area.r1, area.c1);
+			square = (Square) itr.next();
+			placeSquare(g, square.r0, square.c0, square.r1, square.c1);
 		}
-		area = getDraggingArea();
-		if (area != null) {
-			placeSquare(g, area.r0, area.c0, area.r1, area.c1);
+		square = getDraggingSquare();
+		if (square != null) {
+			placeSquare(g, square.r0, square.c0, square.r1, square.c1);
 		}
 	}
 
 	/**
-	 * @param draggingArea the draggingArea to set
+	 * @param draggingSquare the draggingSquare to set
 	 */
-	void setDraggingArea(Square draggingArea) {
-		this.draggingArea = draggingArea;
+	void setDraggingSquare(Square draggingSquare) {
+		this.draggingSquare = draggingSquare;
 	}
 
 	/**
-	 * @return the draggingArea
+	 * @return the draggingSquare
 	 */
-	Square getDraggingArea() {
-		return draggingArea;
+	Square getDraggingSquare() {
+		return draggingSquare;
 	}
 
 }
