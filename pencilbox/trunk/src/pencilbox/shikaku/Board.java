@@ -63,8 +63,8 @@ public class Board extends BoardBase {
 	 */
 	public void initSquare1(Square sq) {
 		int n = 0;
-		for (int r = sq.r0; r <= sq.r1; r++ ) {
-			for (int c = sq.c0; c <= sq.c1; c++) {
+		for (int r = sq.r0(); r <= sq.r1(); r++ ) {
+			for (int c = sq.c0(); c <= sq.c1(); c++) {
 				if (isNumber(r,c)) {
 					if (n != 0)
 						n = Square.MULTIPLE_NUMBER;
@@ -78,8 +78,8 @@ public class Board extends BoardBase {
 	}
 
 	public void clearSquare1(Square sq) {
-		for (int r = sq.r0; r <= sq.r1; r++ ) {
-			for (int c = sq.c0; c <= sq.c1; c++) {
+		for (int r = sq.r0(); r <= sq.r1(); r++ ) {
+			for (int c = sq.c0(); c <= sq.c1(); c++) {
 				square[r][c] = null;
 			}
 		}
@@ -167,8 +167,8 @@ public class Board extends BoardBase {
 	 * @param org •ÏX‚·‚éê‡‚Ì‚à‚Æ‚ÌŽlŠp
 	 */
 	void removeOverlappedSquares(Square sq, Square org) {
-		for (int r = sq.r0; r <= sq.r1; r++ ) {
-			for (int c = sq.c0; c <= sq.c1; c++) {
+		for (int r = sq.r0(); r <= sq.r1(); r++ ) {
+			for (int c = sq.c0(); c <= sq.c1(); c++) {
 				Square s = getSquare(r, c);
 				if (s != null && s != org) {
 					removeSquareA(s);
@@ -183,7 +183,7 @@ public class Board extends BoardBase {
 	 * @param sq
 	 */
 	public void addSquareA(Square sq) {
-		fireUndoableEditUpdate(new UndoableEditEvent(this, new Step(sq.r0, sq.c0, sq.r1, sq.c1, Step.ADDED)));
+		fireUndoableEditUpdate(new UndoableEditEvent(this, new Step(sq.r0(), sq.c0(), sq.r1(), sq.c1(), Step.ADDED)));
 		addSquare(sq);
 	}
 
@@ -198,31 +198,31 @@ public class Board extends BoardBase {
 		int cOld= -1;
 		int rNew = -1;
 		int cNew= -1;
-		if (sq.r0 == newSq.r0) {
-			rOld = sq.r1;
-			rNew = newSq.r1;
-		} else if (sq.r1 == newSq.r0) {
-			rOld = sq.r0;
-			rNew = newSq.r1;
-		} else if (sq.r0 == newSq.r1) {
-			rOld = sq.r1;
-			rNew = newSq.r0;
-		} else if (sq.r1 == newSq.r1) {
-			rOld = sq.r0;
-			rNew = newSq.r0;
+		if (sq.r0() == newSq.r0()) {
+			rOld = sq.r1();
+			rNew = newSq.r1();
+		} else if (sq.r1() == newSq.r0()) {
+			rOld = sq.r0();
+			rNew = newSq.r1();
+		} else if (sq.r0() == newSq.r1()) {
+			rOld = sq.r1();
+			rNew = newSq.r0();
+		} else if (sq.r1() == newSq.r1()) {
+			rOld = sq.r0();
+			rNew = newSq.r0();
 		}
-		if (sq.c0 == newSq.c0) {
-			cOld = sq.c1;
-			cNew = newSq.c1;
-		} else if (sq.c1 == newSq.c0) {
-			cOld = sq.c0;
-			cNew = newSq.c1;
-		} else if (sq.c0 == newSq.c1) {
-			cOld = sq.c1;
-			cNew = newSq.c0;
-		} else if (sq.c1 == newSq.c1) {
-			cOld = sq.c0;
-			cNew = newSq.c0;
+		if (sq.c0() == newSq.c0()) {
+			cOld = sq.c1();
+			cNew = newSq.c1();
+		} else if (sq.c1() == newSq.c0()) {
+			cOld = sq.c0();
+			cNew = newSq.c1();
+		} else if (sq.c0() == newSq.c1()) {
+			cOld = sq.c1();
+			cNew = newSq.c0();
+		} else if (sq.c1() == newSq.c1()) {
+			cOld = sq.c0();
+			cNew = newSq.c0();
 		}
 		fireUndoableEditUpdate(new UndoableEditEvent(this, new Step(rOld, cOld, rNew, cNew, Step.CHANGED)));
 		changeSquare(sq, newSq);
@@ -234,7 +234,7 @@ public class Board extends BoardBase {
 	 * @param sq œ‹Ž‚·‚éŽlŠp
 	 */
 	public void removeSquareA(Square sq) {
-		fireUndoableEditUpdate(new UndoableEditEvent(this, new Step(sq.r0, sq.c0, sq.r1, sq.c1, Step.REMOVED)));
+		fireUndoableEditUpdate(new UndoableEditEvent(this, new Step(sq.r0(), sq.c0(), sq.r1(), sq.c1(), Step.REMOVED)));
 		removeSquare(sq);
 	}
 	
@@ -280,7 +280,7 @@ public class Board extends BoardBase {
 	 */
 	public void changeSquare(Square sq, Square newSq) {
 		clearSquare1(sq);
-		sq.set(newSq.r0, newSq.c0, newSq.r1, newSq.c1);
+		sq.set(newSq.r0(), newSq.c0(), newSq.r1(), newSq.c1());
 		initSquare1(sq);
 	}
 

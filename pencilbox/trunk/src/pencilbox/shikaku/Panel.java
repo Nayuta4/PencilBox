@@ -154,11 +154,11 @@ public class Panel extends PanelBase {
 		g.setColor(getAreaBorderColor());
 		for (Iterator itr = board.getSquareListIterator(); itr.hasNext();) {
 			square = (Square) itr.next();
-			placeSquare(g, square.r0, square.c0, square.r1, square.c1);
+			placeSquare(g, square.r0(), square.c0(), square.r1(), square.c1());
 		}
 		square = getDraggingSquare();
 		if (square != null) {
-			placeSquare(g, square.r0, square.c0, square.r1, square.c1);
+			placeSquare(g, square.r0(), square.c0(), square.r1(), square.c1());
 		}
 	}
 
