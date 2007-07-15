@@ -7,10 +7,10 @@ public class Square {
 
 	static final int ANY = -1;
 
-	int r0;
-	int c0;
-	int r1;
-	int c1;
+	private int r0;
+	private int c0;
+	private int r1;
+	private int c1;
 	private int number;
 	private int nBlack;  // 黒確定マス数
 	private int nWhite;  // 白確定マス数
@@ -55,6 +55,30 @@ public class Square {
 		this(s.r0, s.c0, s.r1, s.c1);
 	}
 
+	/**
+	 * @return the r0
+	 */
+	public int r0() {
+		return r0;
+	}
+	/**
+	 * @return the c0
+	 */
+	public int c0() {
+		return c0;
+	}
+	/**
+	 * @return the r1
+	 */
+	public int r1() {
+		return r1;
+	}
+	/**
+	 * @return the c1
+	 */
+	public int c1() {
+		return c1;
+	}
 	/**
 	 * 座標の設定
 	 * @param ra 一方の角の行座標

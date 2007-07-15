@@ -280,8 +280,8 @@ public class Board extends BoardBase {
 	 * @param org •ÏX‚·‚éê‡‚Ì‚à‚Æ‚ÌlŠp
 	 */
 	void removeOverlappedSquares(Square sq, Square org) {
-		for (int r = sq.r0; r <= sq.r1; r++ ) {
-			for (int c = sq.c0; c <= sq.c1; c++) {
+		for (int r = sq.r0(); r <= sq.r1(); r++ ) {
+			for (int c = sq.c0(); c <= sq.c1(); c++) {
 				Square s = getSquare(r, c);
 				if (s != null && s != org) {
 					removeSquare(s);
@@ -291,16 +291,16 @@ public class Board extends BoardBase {
 	}
 	
 	public void initSquare1(Square sq) {
-		for (int r = sq.r0; r <= sq.r1; r++ ) {
-			for (int c = sq.c0; c <= sq.c1; c++) {
+		for (int r = sq.r0(); r <= sq.r1(); r++ ) {
+			for (int c = sq.c0(); c <= sq.c1(); c++) {
 				square[r][c] = sq;
 			}
 		}
 	}
 
 	public void clearSquare1(Square sq) {
-		for (int r = sq.r0; r <= sq.r1; r++ ) {
-			for (int c = sq.c0; c <= sq.c1; c++) {
+		for (int r = sq.r0(); r <= sq.r1(); r++ ) {
+			for (int c = sq.c0(); c <= sq.c1(); c++) {
 				square[r][c] = null;
 			}
 		}
@@ -321,7 +321,7 @@ public class Board extends BoardBase {
 	 */
 	public void changeSquare(Square sq, Square newSq) {
 		clearSquare1(sq);
-		sq.set(newSq.r0, newSq.c0, newSq.r1, newSq.c1);
+		sq.set(newSq.r0(), newSq.c0(), newSq.r1(), newSq.c1());
 		initSquare1(sq);
 	}
 

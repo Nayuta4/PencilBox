@@ -20,13 +20,13 @@ public class TxtWriter extends TxtWriterBase {
 			out.println(board.getSquareListSize());
 			for(Iterator itr = board.getSquareListIterator(); itr.hasNext(); ){
 				Square room = (Square) itr.next();
-				out.print(room.r0);
+				out.print(room.r0());
 				out.print(' ');
-				out.print(room.c0);
+				out.print(room.c0());
 				out.print(' ');
-				out.print(room.r1);
+				out.print(room.r1());
 				out.print(' ');
-				out.print(room.c1);
+				out.print(room.c1());
 				out.print(' ');
 				if(room.getNumber()>=0){
 					out.print(room.getNumber());

@@ -37,6 +37,6 @@ public class XmlWriter extends XmlWriterBase {
 		}
 	}
 	void outRoom(Square area) {
-		writer.println(2,"<area r0=\"" + (area.r0+1) + "\" c0=\"" + (area.c0+1) + "\" r1=\"" + (area.r1+1) + "\" c1=\"" + (area.c1+1) + "\" n=\"" + area.getNumber() + "\"/>");
+		writer.println(2,"<area r0=\"" + (area.r0()+1) + "\" c0=\"" + (area.c0()+1) + "\" r1=\"" + (area.r1()+1) + "\" c1=\"" + (area.c1()+1) + "\" n=\"" + area.getNumber() + "\"/>");
 	}
 }
