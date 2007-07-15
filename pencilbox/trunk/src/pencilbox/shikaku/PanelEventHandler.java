@@ -109,6 +109,13 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		}
 	}
 	
+	protected void rightDragged(Address pos) {
+		Square s = board.getSquare(pos);
+		if(s != null) {
+			board.removeSquareA(s);
+		}
+	}
+	
 	private void resetPivot() {
 		pivotR = -1;
 		pivotC = -1;
