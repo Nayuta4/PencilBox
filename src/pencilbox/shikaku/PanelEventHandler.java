@@ -11,7 +11,7 @@ import pencilbox.common.gui.PanelEventHandlerBase;
 public class PanelEventHandler extends PanelEventHandlerBase {
 
 	private Board board;
-	
+
 	private int pivotR = -1;  // ドラッグ時に固定する頂点の行座標
 	private int pivotC = -1;  // ドラッグ時に固定する頂点の列座標
 //	private Square draggingSquare; // ドラッグして今まさに描こうとしている四角
@@ -29,14 +29,13 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	/*
 	 * 「四角に切れ」マウス操作
 	 */
-
 	protected void leftPressed(Address pos) {
 		Square draggingSquare;
 		Square sq = board.getSquare(pos);
 		if (sq == null) {
 			draggingSquare = new Square(pos.r(), pos.c(), pos.r(), pos.c());
 		} else {
-			draggingSquare = new Square(sq.r0, sq.c0, sq.r1, sq.c1);
+			draggingSquare = new Square(sq);
 		}
 		fixPivot(draggingSquare, pos.r(), pos.c());
 		setDraggingSquare(draggingSquare);
@@ -80,13 +79,22 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		Square draggingSquare = getDraggingSquare();
 		if (draggingSquare == null)
 			return;
-		board.addSquareSpanning(draggingSquare);
+		int rp = pivotR >= 0 ? pivotR : draggingSquare.r0; 
+		int cp = pivotC >= 0 ? pivotC : draggingSquare.c0; 
+		Square sq = board.getSquare(rp, cp);
+		if (sq == null) {
+			board.removeOverlappedSquares(draggingSquare, null);
+			board.addSquareA(new Square(draggingSquare));
+		} else {
+			if (sq.r0 == draggingSquare.r0 && sq.c0 == draggingSquare.c0 && sq.r1 == draggingSquare.r1 && sq.c1 == draggingSquare.c1) {
+				;
+			} else {
+				board.removeOverlappedSquares(draggingSquare, sq);
+				board.changeSquareA(sq, draggingSquare);
+			}
+		}
 		setDraggingSquare(null);
 		resetPivot();
-	}
-	
-	protected void rightPressed(Address pos) {
-		board.removeSquareIncluding(pos);
 	}
 	
 	protected void dragFailed() {
@@ -94,6 +102,13 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		resetPivot();
 	}
 
+	protected void rightPressed(Address pos) {
+		Square s = board.getSquare(pos);
+		if(s != null) {
+			board.removeSquareA(s);
+		}
+	}
+	
 	private void resetPivot() {
 		pivotR = -1;
 		pivotC = -1;
