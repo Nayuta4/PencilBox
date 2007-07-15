@@ -11,7 +11,9 @@ import pencilbox.common.gui.PanelEventHandlerBase;
 public class PanelEventHandler extends PanelEventHandlerBase {
 
 	private Board board;
-
+	
+	private int pivotR = -1;  // ドラッグ時に固定する頂点の行座標
+	private int pivotC = -1;  // ドラッグ時に固定する頂点の列座標
 //	private Square draggingSquare; // ドラッグして今まさに描こうとしている四角
 
 	/**
@@ -27,34 +29,74 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	/*
 	 * 「四角に切れ」マウス操作
 	 */
-	private Address dragStart = new Address(Address.NOWEHER);
 
 	protected void leftPressed(Address pos) {
-		dragStart.set(pos);
-		setDraggingSquare(new Square(dragStart.r(), dragStart.c(), pos.r(), pos.c()));
+		Square draggingSquare;
+		Square sq = board.getSquare(pos);
+		if (sq == null) {
+			draggingSquare = new Square(pos.r(), pos.c(), pos.r(), pos.c());
+		} else {
+			draggingSquare = new Square(sq.r0, sq.c0, sq.r1, sq.c1);
+		}
+		fixPivot(draggingSquare, pos.r(), pos.c());
+		setDraggingSquare(draggingSquare);
 	}
 
-	protected void rightPressed(Address dragEnd) {
-		board.removeSquareIncluding(dragEnd);
+	protected void leftDragged(Address pos) {
+		Square draggingSquare = getDraggingSquare();
+		if (draggingSquare == null) {
+			return;
+		}
+		if (pivotR >= 0 && pivotC >= 0) {
+			draggingSquare.set(pivotR, pivotC, pos.r(), pos.c());
+		} else if (pivotR >= 0 && pivotC == -1) {
+			draggingSquare.set(pivotR, draggingSquare.c0, pos.r(), draggingSquare.c1);
+		} else if (pivotR == -1 && pivotC >= 0) {
+			draggingSquare.set(draggingSquare.r0, pivotC, draggingSquare.r1, pos.c());
+		} else if (pivotR == -1 && pivotC == -1) {
+//			draggingSquare.set(draggingSquare.r0, draggingSquare.c0, draggingSquare.r1, drggingSquare.c1());
+		}
+		fixPivot(draggingSquare, pos.r(), pos.c());
 	}
 	
-	protected void leftDragged(Address dragEnd) {
-		if (getDraggingSquare() == null)
-			return;
-		getDraggingSquare().set(dragStart.r(), dragStart.c(), dragEnd.r(), dragEnd.c());
+	private void fixPivot(Square s, int r, int c) {
+		if (pivotR == -1) {
+			if (r == s.r0) {
+				pivotR = s.r1;
+			} else if (r == s.r1) {
+				pivotR = s.r0;
+			}
+		}
+		if (pivotC == -1) {
+			if (c == s.c0) {
+				pivotC = s.c1;
+			} else if (c == s.c1) {
+				pivotC = s.c0;
+			}
+		}
 	}
 	
-	protected void leftDragFixed(Address dragEnd) {
-		if (getDraggingSquare() == null)
+	protected void leftDragFixed(Address pos) {
+		Square draggingSquare = getDraggingSquare();
+		if (draggingSquare == null)
 			return;
+		board.addSquareSpanning(draggingSquare);
 		setDraggingSquare(null);
-		board.addSquareSpanning(dragStart, dragEnd);
-		dragStart.setNowhere();
+		resetPivot();
+	}
+	
+	protected void rightPressed(Address pos) {
+		board.removeSquareIncluding(pos);
 	}
 	
 	protected void dragFailed() {
 		setDraggingSquare(null);
-		dragStart.setNowhere();
+		resetPivot();
+	}
+
+	private void resetPivot() {
+		pivotR = -1;
+		pivotC = -1;
 	}
 
 	/*
