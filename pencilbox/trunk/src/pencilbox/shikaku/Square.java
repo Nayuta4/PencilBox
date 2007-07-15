@@ -38,6 +38,15 @@ public class Square {
 		this.c1 = ca<cb?cb:ca;
 	}
 	/**
+	 * コンストラクタ
+	 * 引数の四角と同じ座標の四角を作成する。
+	 * @param s 四角
+	 */
+	public Square(Square s) {
+		this(s.r0, s.c0, s.r1, s.c1);
+	}
+
+	/**
 	 * 座標の設定
 	 * @param ra 一方の角の行座標
 	 * @param ca 一方の角の列座標
@@ -51,6 +60,31 @@ public class Square {
 		this.c1 = ca<cb?cb:ca;
 	}
 	
+	/**
+	 * 四角の1つの頂点を固定したまま，対角位置の頂点の座標を変更する。
+	 * @param rOld 変更前の頂点の行座標
+	 * @param cOld 変更前の頂点の行座標
+	 * @param rNew 変更後の頂点の行座標
+	 * @param cNew 変更後の頂点の行座標
+	 */
+	public void changeCorner(int rOld, int cOld, int rNew, int cNew) {
+		int ra = this.r0;
+		int ca = this.c0;
+		int rb = this.r1;
+		int cb = this.c1;
+		if (ra == rOld) {
+			ra = rNew;
+		} else if (rb == rOld) {
+			rb = rNew;
+		}
+		if (ca == cOld) {
+			ca = cNew;
+		} else if (cb == cOld) {
+			cb = cNew;
+		}
+		this.set(ra, ca, rb, cb);
+	}
+
 	/**
 	 * 長方形領域の面積を返す
 	 * @return 領域の面積
