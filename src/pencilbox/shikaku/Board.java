@@ -120,6 +120,10 @@ public class Board extends BoardBase {
 	public Square getSquare(int r, int c) {
 		return square[r][c];
 	}
+
+	public Square getSquare(Address pos) {
+		return square[pos.r()][pos.c()];
+	}
 	/**
 	 * 領域リストのIteratorを取得する
 	 * @return 領域リストのIterator
@@ -151,28 +155,27 @@ public class Board extends BoardBase {
 	 * @param pos0 一方の角の座標
 	 * @param pos1 他方の角の座標
 	 */
-	public void addSquareSpanning(Address pos0, Address pos1) {
-		int ra = pos0.r()<pos1.r() ? pos0.r() : pos1.r();
-		int rb = pos0.r()<pos1.r() ? pos1.r() : pos0.r();
-		int ca = pos0.c()<pos1.c() ? pos0.c() : pos1.c();
-		int cb = pos0.c()<pos1.c() ? pos1.c() : pos0.c();
-		Square newArea = new Square(ra, ca, rb, cb);
-		for (int r = ra; r <= rb; r++ ) {
-			for (int c = ca; c <= cb; c++) {
-				if(getSquare(r,c) != null) {
-					removeSquareA(getSquare(r,c));
+	public void addSquareSpanning(Square sq) {
+		Square newSquare = new Square(sq.r0, sq.c0, sq.r1, sq.c1);
+		for (int r = sq.r0; r <= sq.r1; r++ ) {
+			for (int c = sq.c0; c <= sq.c1; c++) {
+				Square s = getSquare(r, c);
+				if(s != null) {
+					removeSquareA(s);
 				}
 			}
 		}
-		addSquareA(newArea);
+		addSquareA(newSquare);
 	}
+	
 	/**
 	 * 引数に与えられたマスを含む四角を消去する
 	 * @param pos 座標 
 	 */
 	public void removeSquareIncluding(Address pos) {
-		if(getSquare(pos.r(),pos.c()) != null) {
-			removeSquareA(getSquare(pos.r(),pos.c()));
+		Square s = getSquare(pos);
+		if(s != null) {
+			removeSquareA(s);
 		}
 	}
 	/**
