@@ -156,6 +156,17 @@ public class PencilFactory {
 		createNewBoard(problem);
 	}
 	/**
+	 * 盤面サイズを変更する
+	 * @param size 変更後の盤面サイズ
+	 * @throws PencilBoxClassException
+	 */
+	public void changeBoardSize(Size size) throws PencilBoxClassException {
+		ProblemCopierBase copier = (ProblemCopierBase) ClassUtil.createInstance(pencilType, ClassUtil.PROBLEM_COPIER_CLASS);
+		Problem problem = caller.getProblem();
+		problem.setBoard(copier.duplicateBoard(problem.getBoard(), size));
+		createNewBoard(problem);
+	}
+	/**
 	 * 他のフレームから呼び出された場合は，呼び出し元フレームの設定を引き継ぐ。
 	 * そうでない場合は，デフォルト設定ファイルの設定を読み込む。
 	 * @param dst 作成中アプリケーションの MenuCommand インスタンス

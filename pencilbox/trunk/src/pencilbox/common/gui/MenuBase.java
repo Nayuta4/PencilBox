@@ -34,6 +34,7 @@ public class MenuBase {
 	private JMenuItem closeAndOpenItem;
 	private JMenuItem saveItem;
 	private JMenuItem duplicateItem;
+	private JMenuItem changeBoardSizeItem;
 	private JMenuItem exportProblemDataStringItem;
 	private JMenuItem saveImageItem;
 	private JMenuItem copyImageItem;
@@ -128,6 +129,7 @@ public class MenuBase {
 		fileMenu.addSeparator();
 		fileMenu.add(duplicateItem = makeCommandMenuItem("複製(D)", 'D'));
 		fileMenu.add(rotationMenu = makeJMenu("回転・反転(R)", 'R'));
+		fileMenu.add(changeBoardSizeItem = makeCommandMenuItem("盤面サイズ変更(Z)", 'Z'));
 		buildRotationMenu();
 		fileMenu.addSeparator();
 		fileMenu.add(exportProblemDataStringItem = makeCommandMenuItem("問題データ文字列出力(E)...", 'E'));
@@ -501,6 +503,8 @@ public class MenuBase {
 			command.save();
 		else if (target == duplicateItem)
 			command.duplicate();
+		else if (target == changeBoardSizeItem)
+			command.changeBoardSize();
 		else if (target == exportProblemDataStringItem)
 			command.exporProblemDatatString();
 		else if (target == saveImageItem)

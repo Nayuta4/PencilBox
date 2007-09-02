@@ -19,7 +19,9 @@ public class ProblemCopier extends ProblemCopierBase {
 		for (int i=0; i<s.getAreaList().size(); i++) {
 			Area a = new Area();
 			rotator.rotateArea((Area)(s.getAreaList().get(i)), a);
-			d.addArea(a);
+			if (d.isAreaOn(a)) {
+				d.addArea(a);
+			}
 		}
 		Rotator rotator2 = new Rotator(s.rows()*2-1, s.cols()*2-1, n);
 		rotator2.rotateArrayInt2(s.getStar(), d.getStar());

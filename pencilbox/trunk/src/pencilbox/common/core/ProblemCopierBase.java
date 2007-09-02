@@ -44,6 +44,22 @@ public class ProblemCopierBase {
 	}
 	
 	/**
+	 */
+	/**
+	 * 盤面をサイズ変更して複製する。
+	 * @param src 複製元の盤面
+	 * @param size 変更後のサイズ
+	 * @return 複製した盤面
+	 * @throws PencilBoxClassException
+	 */
+	public BoardBase duplicateBoard(BoardBase src, Size size) throws PencilBoxClassException {
+		BoardBase dst = (BoardBase) ClassUtil.createInstance(this.getClass(), ClassUtil.BOARD_CLASS);
+		dst.setSize(size);
+		copyBoardStates(src, dst, 0);
+		return dst;
+	}
+	
+	/**
 	 * 盤面状態を回転して複製する。
 	 * 各サブクラスで実装する。
 	 * @param src 複製元の盤面

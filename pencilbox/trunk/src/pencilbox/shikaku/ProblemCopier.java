@@ -22,8 +22,10 @@ public class ProblemCopier extends ProblemCopierBase {
 			Square srcSquare = (Square) s.getSquareList().get(i);
 			Address pos0 = rotator.rotateAddress(new Address(srcSquare.r0(), srcSquare.c0()));
 			Address pos1 = rotator.rotateAddress(new Address(srcSquare.r1(), srcSquare.c1()));
-			Square dstSquare = new Square(pos0.r(), pos0.c(), pos1.r(), pos1.c());
-			d.addSquare(dstSquare);
+			if (d.isOn(pos0) && d.isOn(pos1)) {
+				Square dstSquare = new Square(pos0.r(), pos0.c(), pos1.r(), pos1.c());
+				d.addSquare(dstSquare);
+			}
 		}
 	}
 }

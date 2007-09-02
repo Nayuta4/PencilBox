@@ -1,5 +1,7 @@
 package pencilbox.common.core;
 
+import java.util.Iterator;
+
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.undo.UndoManager;
 
@@ -108,6 +110,19 @@ public class BoardBase {
 	 */
 	public boolean isSideOn(SideAddress position) {
 		return isSideOn(position.d(), position.r(), position.c());
+	}
+
+	/**
+	 * 引数で与えられた領域全体が盤内にあるか
+	 * @param area 領域
+	 * @return 領域全体が盤内にあれば true, そうでなければ false を返す。
+	 */
+	public boolean isAreaOn(Area area) {
+		for (Iterator itr = area.iterator(); itr.hasNext(); ) {
+			if (!isOn((Address)itr.next()))
+				return false;
+		}
+		return true;
 	}
 	/**
 	 * 解答を消去し，問題の初期盤面に戻す
