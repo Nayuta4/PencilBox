@@ -515,7 +515,7 @@ public class MenuBase {
 		else if (target == changeBoardSizeItem)
 			command.changeBoardSize();
 		else if (target == exportProblemDataStringItem)
-			command.exporProblemDatatString();
+			command.exportProblemDataString();
 		else if (target == saveImageItem)
 			command.saveImage();
 		else if (target == copyImageItem)
