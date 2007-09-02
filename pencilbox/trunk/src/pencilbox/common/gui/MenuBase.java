@@ -336,6 +336,15 @@ public class MenuBase {
 	}
 
 	/*
+	 * 何種類かのパズルに不適用のメニューの削除を行う。
+	 */
+	/**
+	 * [盤面サイズ変更]メニュー項目を削除する。
+	 */
+	protected void removeChangeBoardSizeMenuItem() {
+		fileMenu.remove(changeBoardSizeItem);
+	}
+	/*
 	 * 何種類かのパズルに共通なメニューの作成のみを行う。
 	 * 作成した項目はメニュー作成時に追加される。
 	 */
