@@ -280,7 +280,7 @@ public class MenuCommand {
 	/**
 	 *  [ファイル]-[問題データ文字列出力]
 	 */
-	public void exporProblemDatatString() {
+	public void exportProblemDataString() {
 		DataExportDialog dataExportFrame = new DataExportDialog();
 		try {
 			String problemDataS = IOController.getInstance(pencilType).getProblemDataString(board);
