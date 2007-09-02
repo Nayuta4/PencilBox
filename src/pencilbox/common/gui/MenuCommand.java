@@ -245,6 +245,24 @@ public class MenuCommand {
 		}
 	}
 	/**
+	 *  [ファイル]-[サイズ変更]
+	 */
+	public void changeBoardSize() {
+		try {
+			NewBoardDialog newBoardDialog = NewBoardDialog.getInstance();
+			newBoardDialog.setCurrentSize(board.getSize());
+			if (newBoardDialog.showDialog(frame, "盤面サイズ変更") == PencilBoxDialog.OK_OPTION) {
+				Size newSize = newBoardDialog.getNewSize();
+				if (newSize != null && isValidSize(newSize)) {
+					PencilFactory.getInstance(pencilType, this).changeBoardSize(newSize);
+				}
+			}
+		} catch (PencilBoxClassException e) {
+			showErrorMessage(e);
+		}
+	}
+
+	/**
 	 *  [ファイル]-[印刷]
 	 * いい加減なつくり
 	 */

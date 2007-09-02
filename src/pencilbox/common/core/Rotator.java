@@ -176,7 +176,8 @@ public class Rotator {
 			for (int c = 0; c < cols; c++) {
 				address.set(r, c);
 				address = rotateAddress(address);
-				dst[address.r()][address.c()] = src[r][c];
+				if (address.r() < dst.length && address.c() < dst[address.r()].length)
+					dst[address.r()][address.c()] = src[r][c];
 			}
 		}
 	}

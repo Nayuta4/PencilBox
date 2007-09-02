@@ -24,6 +24,8 @@ public class ProblemCopier extends ProblemCopierBase {
 			for (int c = 0; c < s.cols(); c++) {
 				pos0.set(r, c);
 				pos = rotator.rotateAddress(pos0);
+				if (!d.isOn(pos))
+					continue;
 				if (s.getNumber(r,c) >= 0) {
 					d.setArrowNumber(pos.r(), pos.c(), s.getArrowNumber(r, c));
 					d.setArrowDirection(pos.r(), pos.c(), rotator.rotateDirection(s.getArrowDirection(r, c)));

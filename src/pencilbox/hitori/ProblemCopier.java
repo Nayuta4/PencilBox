@@ -18,6 +18,13 @@ public class ProblemCopier extends ProblemCopierBase {
 		Rotator rotator =  new Rotator(src.rows(), src.cols(), n);
     	rotator.rotateArrayInt2(s.getState(), d.getState());
     	rotator.rotateArrayInt2(s.getNumber(), d.getNumber());
+    	for (int r = 0; r < d.rows(); r++) {
+    		for (int c = 0; c < d.cols(); c++) {
+    			if (d.getNumber(r, c) > d.getMaxNumber()) {
+    				d.setNumber(r, c, 0);
+    			}
+    		}
+    	}
 	}
 
 }
