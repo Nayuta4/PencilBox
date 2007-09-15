@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.StringTokenizer;
 
-import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Size;
 import pencilbox.common.io.TxtReaderBase;
@@ -69,7 +68,7 @@ public class TxtReader extends TxtReaderBase {
 				if (str.equals(".")) ;
 				else {
 					int n = Integer.parseInt(str);
-					areas[n].add(new Address(i, j));
+					areas[n].add(i, j);
 					board.setArea(i,j,areas[n]); 
 				}
 				j++;
