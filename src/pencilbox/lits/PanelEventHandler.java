@@ -44,7 +44,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			Area area = board.getArea(pos.r(), pos.c());
 			if (area == null) {
 				area = new Area();
-				board.addCellToArea(pos, area);
+				board.addCellToArea(pos.r(), pos.c(), area);
 			}
 			setDraggingArea(area);
 		} else {
@@ -61,11 +61,11 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 				return;
 			Area oldArea = board.getArea(pos.r(), pos.c());
 			if (oldArea != null && oldArea != draggingArea) {
-				board.removeCellFromArea(pos, oldArea);
-				board.addCellToArea(pos, draggingArea);
+				board.removeCellFromArea(pos.r(), pos.c(), oldArea);
+				board.addCellToArea(pos.r(), pos.c(), draggingArea);
 			} else if (oldArea != null && oldArea == draggingArea) {
 			} else if (oldArea == null) {
-				board.addCellToArea(pos, draggingArea);
+				board.addCellToArea(pos.r(), pos.c(), draggingArea);
 			}
 		} else {
 			int st = board.getState(pos.r(), pos.c());
@@ -79,7 +79,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		if (isProblemEditMode()) {
 			Area oldArea = board.getArea(pos.r(), pos.c());
 			if (oldArea != null) {
-				board.removeCellFromArea(pos, oldArea);
+				board.removeCellFromArea(pos.r(), pos.c(), oldArea);
 			}
 		} else {
 			board.toggleState(pos.r(), pos.c(), Board.WHITE);

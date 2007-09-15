@@ -157,12 +157,12 @@ public class Board extends BoardBase {
 	 * @param pos 追加するマスの座標
 	 * @param a 追加される領域
 	 */
-	public void addCellToArea(Address pos, Area a) {
+	public void addCellToArea(int r, int c, Area a) {
 		if (a.isEmpty()) {
 			areaList.add(a);
 		}
-		setArea(pos.r(), pos.c(), a);
-		a.add(pos);
+		setArea(r, c, a);
+		a.add(r, c);
 //		initArea(a);
 	}
 	/**
@@ -170,9 +170,9 @@ public class Board extends BoardBase {
 	 * @param pos 取り除くマスの座標
 	 * @param a 取り除かれる領域
 	 */
-	public void removeCellFromArea(Address pos, Area a) {
-		setArea(pos.r(), pos.c(), null);
-		a.remove(pos);
+	public void removeCellFromArea(int r, int c, Area a) {
+		setArea(r, c, null);
+		a.remove(r, c);
 		if (a.isEmpty()) {
 			areaList.remove(a);
 		} else {
