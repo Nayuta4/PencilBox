@@ -137,34 +137,30 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * あるマスを含む Area の初期化
-	 * domain[][] は消去されているものとする
+	 * 指定したマスを起点としてマスのつながりを調べてAreaを作成する
 	 * @param r
 	 * @param c
 	 */
 	void initArea(int r, int c) {
 		initializingArea = new Area(getNumber(r,c));
-		initializingArea.add(r,c);
-		setArea(r,c,initializingArea);
-		areaList.add(initializingArea);
 		initArea1(r, c);
+		areaList.add(initializingArea);
 	}
 
 	private void initArea1(int r, int c) {
-		if (initArea2(r-1,c) == true) initArea1(r-1,c);
-		if (initArea2(r,c-1) == true) initArea1(r,c-1);
-		if (initArea2(r+1,c) == true) initArea1(r+1,c);
-		if (initArea2(r,c+1) == true) initArea1(r,c+1);
-	}
-	
-	private boolean initArea2(int r, int c) {
-		if (!isOn(r,c)) return false;
-		if (getNumber(r,c) != initializingArea.getNumber()) return false;
-		if (getArea(r,c) == initializingArea) return false;
-
-		initializingArea.add(r,c);
+		if (!isOn(r, c))
+			return;
+		if (getArea(r, c) == initializingArea)
+			return;
+		if (getNumber(r, c) != initializingArea.getNumber())
+			return;
+		initializingArea.add(r, c);
 		setArea(r, c, initializingArea);
-		return true;
+		initArea1(r - 1, c);
+		initArea1(r, c - 1);
+		initArea1(r + 1, c);
+		initArea1(r, c + 1);
+		return;
 	}
 	/**
 	 * そのマスの所属する領域を取得する
