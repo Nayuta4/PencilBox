@@ -369,36 +369,29 @@ public class Board extends BoardBase {
 		return 0;
 	}
 	/**
-	 * あるマスを含む Wall の初期化
+	 * あるマスを起点とする黒マスのつながりを調べてWallを作成する
 	 * @param r
 	 * @param c
 	 */
 	private void initWall(int r, int c) {
 		initializingWall = new Wall();
-		initializingWall.add(r, c);
-		setWall(r, c, initializingWall);
-		wallList.add(initializingWall);
 		initWall1(r, c);
+		wallList.add(initializingWall);
 	}
 
-	private void initWall1(int r, int c) {
-		if (initWall2(r-1,c) == true)
-			initWall1(r-1,c);
-		if (initWall2(r,c-1) == true)
-			initWall1(r,c-1);
-		if (initWall2(r+1,c) == true)
-			initWall1(r+1,c);
-		if (initWall2(r,c+1) == true)
-			initWall1(r,c+1);
-	}
-	
-	private boolean initWall2(int r, int c) {
-		if (!isBlack(r,c))
+	private boolean initWall1(int r, int c) {
+		if (!isOn(r, c))
 			return false;
-		if (getWall(r,c) == initializingWall)
+		if (!isBlack(r, c))
 			return false;
-		initializingWall.add(r,c);
+		if (getWall(r, c) == initializingWall)
+			return false;
+		initializingWall.add(r, c);
 		setWall(r, c, initializingWall);
+		initWall1(r-1, c);
+		initWall1(r, c-1);
+		initWall1(r+1, c);
+		initWall1(r, c+1);
 		return true;
 	}
 	
