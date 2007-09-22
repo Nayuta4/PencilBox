@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 
@@ -184,12 +183,12 @@ public class PreferencesCopierBase {
 /**
  * java.util.TreeMap クラスに java.util.Properties クラスと同様の store() メソッドを追加したもの。
  */
-class TreeMapA extends java.util.TreeMap {
+class TreeMapA extends java.util.TreeMap<Object, Object> {
 
     /**
      * @param m
      */
-    public TreeMapA(Map m) {
+    public TreeMapA(Map<Object, Object> m) {
         super(m);
     }
 
@@ -206,8 +205,8 @@ class TreeMapA extends java.util.TreeMap {
         if (comments != null)
             writeln(awriter, "#" + comments);
         writeln(awriter, "#" + new Date().toString());
-        for (Iterator e = keySet().iterator(); e.hasNext();) {
-            String key = (String)e.next();
+        for (Object k : keySet()) {
+        	String key = (String)k;
             String val = (String)get(key);
             key = saveConvert(key, true);
 

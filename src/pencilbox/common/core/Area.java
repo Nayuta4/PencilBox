@@ -8,26 +8,26 @@ import java.util.*;
  * 領域クラス
  * 複数のアドレスの集合
  */
-public class Area implements Set {
+public class Area implements Set<Address> {
 	
-	private Set cellList;
+	private Set<Address> cellList;
 	
 	/**
 	 * コンストラクタ
 	 */
 	public Area() {
-		cellList = new TreeSet();
+		cellList = new TreeSet<Address>();
 	}
 	public String toString() {
 		return cellList.toString();	
 	}
 	/**
 	 * セルを領域に追加する
-	 * @param position
+	 * @param o
      * @return <tt>true</tt> if the collection changed as a result of the call.
 	 */
-	public boolean add(Address position) {
-		return cellList.add(new Address(position));
+	public boolean add(Address o) {
+		return cellList.add(o);
 	}
 	/**
 	 * セルを領域に追加する
@@ -39,19 +39,11 @@ public class Area implements Set {
 	public boolean add(int r, int c) {
 		return cellList.add(new Address(r, c));
 	}
-	/**
-	 * 他の領域を併合する
-	 * @param other
-     * @return <tt>true</tt> if this collection changed as a result of the
-     *         call.
-	 */
-	public boolean addAll(Area other) {
-		return cellList.addAll(other.cellList);
-	}
+
 	public int size() {
 		return cellList.size(); 
 	}
-	public Iterator iterator() {
+	public Iterator<Address> iterator() {
 		return cellList.iterator(); 
 	}
 	public boolean contains(Object o) {
@@ -72,23 +64,23 @@ public class Area implements Set {
 		return cellList.remove(new Address(r, c));
 	}
 
-	public boolean addAll(Collection c) {
+	public boolean addAll(Collection<? extends Address> c) {
 		return cellList.addAll( c );
 	}
 
-	public boolean containsAll(Collection c) {
+	public boolean containsAll(Collection<?> c) {
 		return cellList.containsAll(c);
 	}
 
-	public boolean removeAll(Collection c) {
+	public boolean removeAll(Collection<?> c) {
 		return cellList.removeAll(c);
 	}
 
-	public boolean retainAll(Collection c) {
+	public boolean retainAll(Collection<?> c) {
 		return cellList.retainAll(c);
 	}
 
-	public Object[] toArray(Object[] a) {
+	public<T> T[] toArray(T[] a) {
 		return cellList.toArray(a);
 	}
 
@@ -101,9 +93,6 @@ public class Area implements Set {
 	}
 	public Object[] toArray() {
 		return cellList.toArray();
-	}
-	public boolean add(Object o) {
-		return cellList.add(o);
 	}
 
 }

@@ -1,7 +1,5 @@
 package pencilbox.tentaisho;
 
-import java.util.Iterator;
-
 import pencilbox.common.core.Address;
 
 
@@ -54,10 +52,9 @@ public class Area extends pencilbox.common.core.Area {
 	 */
 	public boolean isPointSymmetry() {
 		if (starPos.isNowhere()) return false;
-		Address posa, posb;
-		for (Iterator itr = iterator(); itr.hasNext(); ) {
-			posa = (Address) itr.next();
-			posb = getPointSymmericAddress(posa, starPos);
+		Address posb;
+		for (Address pos : this) {
+			posb = getPointSymmericAddress(pos, starPos);
 			if (!contains(posb)) { 
 				return false;  
 			}
@@ -68,10 +65,9 @@ public class Area extends pencilbox.common.core.Area {
 	 * —Ìˆæ‚ª—^‚¦‚ç‚ê‚½’†S“_‚É‘Î‚µ‚Ä“_‘ÎÌ‚©‚Ç‚¤‚©
 	 */
 //	private boolean isPointSymmetry(StarAddress center) {
-//		Address posa, posb;
-//		for (Iterator itr = iterator(); itr.hasNext(); ) {
-//			posa = (Address) itr.next();
-//			posb = getPointSymmericAddress(posa, center);
+//		Address posb;
+//		for (Address pos : this) {
+//			posb = getPointSymmericAddress(pos, center);
 //			if (!contains(posb)) { 
 //				return false;  
 //			}

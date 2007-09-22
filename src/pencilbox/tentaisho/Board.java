@@ -23,13 +23,13 @@ public class Board extends BoardBase {
 
 	private int[][] star;
 	private Area[][] area;
-	private List areaList;
+	private List<Area> areaList;
 
 	protected void setup () {
 		super.setup();
 		star = new int[rows()*2-1][cols()*2-1];
 		area = new Area[rows()][cols()];
-		areaList = new LinkedList();
+		areaList = new LinkedList<Area>();
 	}
 
 
@@ -47,8 +47,8 @@ public class Board extends BoardBase {
 	 * ”Õ–Êã‚Ì—Ìˆæ‚Ì‰Šúˆ—‚ğs‚¤
 	 */
 	public void initAreas() {
-		for (Iterator itr = areaList.iterator(); itr.hasNext(); ) {
-			initArea((Area) itr.next());
+		for (Area a : areaList) {
+			initArea(a);
 		}
 	}
 	
@@ -137,8 +137,7 @@ public class Board extends BoardBase {
 	 * @param newArea ’Ç‰Á‚·‚é—Ìˆæ
 	 */
 	public void addArea(Area newArea) {
-		for (Iterator itr = newArea.iterator(); itr.hasNext();) {
-			Address pos = (Address) itr.next();
+		for (Address pos : newArea) {
 			setArea(pos.r(), pos.c(), newArea);
 		}
 		areaList.add(newArea);
@@ -189,11 +188,9 @@ public class Board extends BoardBase {
 	 * @param newArea
 	 */
 	void initArea(Area newArea) {
-		Address pos;
 		int nStar = 0;
 		StarAddress starPos = new StarAddress();
-		for (Iterator itr = newArea.iterator(); itr.hasNext(); ) {
-			pos = (Address) itr.next();
+		for (Address pos : newArea) {
 			for (int i=2*pos.r()-1; i<=2*pos.r()+1; i++) {
 				for (int j=2*pos.c()-1; j<=2*pos.c()+1; j++) {
 					if (isOnStar(i, j) && hasStar(i, j)) {
@@ -216,9 +213,7 @@ public class Board extends BoardBase {
 	
 	public int checkAnswerCode() {
 		int result = 0;
-		Area a;
-		for (Iterator itr = areaList.iterator(); itr.hasNext(); ) {
-			a = (Area) itr.next();
+		for (Area a : areaList) {
 			if (a.isPointSymmetry() == false) {
 				result |= 1;
 			} 
@@ -244,7 +239,7 @@ public class Board extends BoardBase {
 	/**
 	 * @return Returns the areaList.
 	 */
-	List getAreaList() {
+	List<Area> getAreaList() {
 		return areaList;
 	}
 	/**

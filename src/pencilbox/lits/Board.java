@@ -1,6 +1,5 @@
 package pencilbox.lits;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,10 +22,10 @@ public class Board extends BoardBase {
 	public static final int BLACK = -2;
 	public static final int UNKNOWN = 0;
 	
-	private List areaList;
+	private List<Area> areaList;
 	private Area[][] area;
 	private int[][] state;
-	private List wallList;
+	private List<Wall> wallList;
 	private Wall[][] wall;
 	private Wall initializingWall;
 
@@ -34,9 +33,9 @@ public class Board extends BoardBase {
 		super.setup();
 		state = new int[rows()][cols()];
 		area = new Area[rows()][cols()];
-		areaList = new LinkedList();
+		areaList = new LinkedList<Area>();
 		wall = new Wall[rows()][cols()];
-		wallList = new LinkedList();
+		wallList = new LinkedList<Wall>();
 	}
 
 	public void clearBoard() {
@@ -133,8 +132,7 @@ public class Board extends BoardBase {
 	 * @param newArea
 	 */
 	public void addArea(Area newArea) {
-		for (Iterator itr = newArea.iterator(); itr.hasNext();) {
-			Address pos = (Address) itr.next();
+		for (Address pos : newArea) {
 			area[pos.r()][pos.c()] = newArea;
 		}
 		areaList.add(newArea);
@@ -145,8 +143,7 @@ public class Board extends BoardBase {
 	 * @param oldArea
 	 */
 	public void removeArea(Area oldArea) {
-		for (Iterator itr = oldArea.iterator(); itr.hasNext();) {
-			Address pos = (Address) itr.next();
+		for (Address pos : oldArea) {
 			if (area[pos.r()][pos.c()] == oldArea)
 				area[pos.r()][pos.c()] = null;
 		}
@@ -221,7 +218,7 @@ public class Board extends BoardBase {
 	/**
 	 * @return Returns the areaList.
 	 */
-	List getAreaList() {
+	List<Area> getAreaList() {
 		return areaList;
 	}
 
@@ -291,9 +288,7 @@ public class Board extends BoardBase {
 	public int checkTetrominos() {
 		int result = 0;
 		int[] count = new int[6];
-		Area a;
-		for (Iterator itr = areaList.iterator(); itr.hasNext(); ) {
-			a = (Area) itr.next();
+		for (Area a : areaList) {
 			count[a.getTetrominoType()] ++;
 		}
 //		System.out.println("L\tI\tT\tS\tO\tother");
@@ -309,8 +304,8 @@ public class Board extends BoardBase {
 	 * Œ»İ‚Ì”Õ–Êó‘Ô‚ÉŠî‚Ã‚¢‚ÄC—Ìˆæ‚Ìİ’è‚ğs‚¤
 	 */
 	public void initTetrominos() {
-		for (Iterator itr = areaList.iterator(); itr.hasNext(); ) {
-			((Area) itr.next()).getTetromino().clear();
+		for (Area a : areaList) {
+			a.getTetromino().clear();
 		}
 		for (int r=0; r<rows(); r++) {
 			for (int c=0; c<cols(); c++) {

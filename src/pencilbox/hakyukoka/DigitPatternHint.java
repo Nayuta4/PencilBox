@@ -1,7 +1,5 @@
 package pencilbox.hakyukoka;
 
-import java.util.Iterator;
-
 import pencilbox.common.core.Address;
 
 
@@ -94,8 +92,7 @@ public class DigitPatternHint {
 		}
 		Area area = board.getArea(r0,c0);
 		if (area != null) {
-			for (Iterator itr = board.getArea(r0,c0).iterator(); itr.hasNext(); ) {
-				Address pos = (Address) itr.next();
+			for (Address pos : board.getArea(r0,c0)) {
 				pattern[pos.r()][pos.c()] &= pat;
 			}
 		}

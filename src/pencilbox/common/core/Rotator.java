@@ -3,7 +3,6 @@
  */
 package pencilbox.common.core;
 
-import java.util.Iterator;
 
 /**
  * 座標回転計算用補助クラス
@@ -158,8 +157,8 @@ public class Rotator {
 	 * @return dstと同じ
 	 */
 	public Area rotateArea(Area src, Area dst) {
-		for (Iterator itr = src.iterator(); itr.hasNext(); ) {
-			dst.add(rotateAddress((Address)itr.next()));
+		for (Address p : src) {
+			dst.add(rotateAddress(p));
 		}
 		return dst;
 	}

@@ -1,6 +1,5 @@
 package pencilbox.hakyukoka;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,7 +23,7 @@ public class Board extends BoardBase {
 	static final int STABLE = 1;
 	static final int UNKNOWN = 0;
 	
-	private List areaList;
+	private List<Area> areaList;
 	private int maxNumber = 9; // Å‘å”š9‚Æ‚·‚é
 	private int[][] state; // –â‘è‚Ì”š:1, ‰ğ“š‚·‚×‚«”š:0,
 	private int[][] number;
@@ -39,7 +38,7 @@ public class Board extends BoardBase {
 		state = new int[rows()][cols()];
 		number = new int[rows()][cols()];
 		area = new Area[rows()][cols()];
-		areaList = new LinkedList();
+		areaList = new LinkedList<Area>();
 		multi = new int[rows()][cols()];
 		multi2 = new int[rows()][cols()];
 		hint = new DigitPatternHint();
@@ -247,8 +246,7 @@ public class Board extends BoardBase {
 	 * @param newArea
 	 */
 	public void addArea(Area newArea) {
-		for (Iterator itr = newArea.iterator(); itr.hasNext();) {
-			Address pos = (Address) itr.next();
+		for (Address pos : newArea) {
 			area[pos.r()][pos.c()] = newArea;
 		}
 		areaList.add(newArea);
@@ -259,8 +257,7 @@ public class Board extends BoardBase {
 	 * @param oldArea
 	 */
 	public void removeArea(Area oldArea) {
-		for (Iterator itr = oldArea.iterator(); itr.hasNext();) {
-			Address pos = (Address) itr.next();
+		for (Address pos : oldArea) {
 			if (area[pos.r()][pos.c()] == oldArea)
 				area[pos.r()][pos.c()] = null;
 		}
@@ -298,7 +295,7 @@ public class Board extends BoardBase {
 	/**
 	 * @return Returns the areaList.
 	 */
-	List getAreaList() {
+	List<Area> getAreaList() {
 		return areaList;
 	}
 	/**
@@ -409,10 +406,8 @@ public class Board extends BoardBase {
 		}
 	}
 	private void initMulti21(int r0, int c0, int num) {
-		Address pos;
 		multi2[r0][c0] = 1;
-		for (Iterator itr = getArea(r0,c0).iterator(); itr.hasNext(); ) {
-			pos = (Address) itr.next();
+		for (Address pos : getArea(r0,c0)) {
 			if (pos.equals(r0,c0))
 				continue;
 			if (getNumber(pos.r(),pos.c()) == num) {
@@ -427,11 +422,9 @@ public class Board extends BoardBase {
 	 * @param num •ÏXŒã‚Ì”š
 	 */
 	void updateMulti2(int r0, int c0, int num) {
-		Address pos;
 		int prevNum = getNumber(r0, c0);
 		if (multi2[r0][c0]>1) {
-			for (Iterator itr = getArea(r0,c0).iterator(); itr.hasNext(); ) {
-				pos = (Address) itr.next();
+			for (Address pos : getArea(r0,c0)) {
 				if (pos.equals(r0,c0))
 					continue;
 				if (getNumber(pos.r(),pos.c()) == prevNum) {
@@ -443,8 +436,7 @@ public class Board extends BoardBase {
 			multi2[r0][c0]=0;
 		else if (num>0) {
 			multi2[r0][c0] = 1;
-			for (Iterator itr = getArea(r0,c0).iterator(); itr.hasNext(); ) {
-				pos = (Address) itr.next();
+			for (Address pos : getArea(r0,c0)) {
 				if (pos.equals(r0,c0))
 					continue;
 				if (getNumber(pos.r(),pos.c()) == num) {

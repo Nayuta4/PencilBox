@@ -1,6 +1,5 @@
 package pencilbox.heyawake;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class Board extends BoardBase {
 
 	private int[][] state;
 	private Square[][] square;
-	private List squareList;  // 部屋
+	private List<Square> squareList;  // 部屋
 
 	int[][] chain;
 	int maxChain;
@@ -38,7 +37,7 @@ public class Board extends BoardBase {
 		super.setup();
 		state = new int[rows()][cols()];
 		square = new Square[rows()][cols()];
-		squareList = new LinkedList();
+		squareList = new LinkedList<Square>();
 		contH = new int[rows()][cols()];
 		contV = new int[rows()][cols()];
 		contWH = new int[rows()][cols()];
@@ -97,22 +96,8 @@ public class Board extends BoardBase {
 		initRoomCount();
 	}
 	
-	List getSquareList() {
+	List<Square> getSquareList() {
 		return squareList;
-	}
-	/**
-	 * 部屋リストを巡回するIteratorを取得する
-	 * @return 部屋リストのIterator
-	 */
-	public Iterator getSquareListIterator() {
-		return squareList.iterator();
-	}
-	/**
-	 * 部屋リストのサイズ，つまり総部屋数を取得する
-	 * @return 部屋リストのサイズ
-	 */
-	public int getSquareListSize() {
-		return squareList.size();
 	}
 	/**
 	 * マスの状態を取得
@@ -603,10 +588,8 @@ public class Board extends BoardBase {
 				}
 			}
 		}
-		Square room = null;
-		for (Iterator itr = getSquareListIterator(); itr.hasNext(); ) {
-			room = (Square) itr.next();
-			if (room.getNumber()>=0 && room.getNumber() != room.getNBlack()) {
+		for (Square sq : squareList) {
+			if (sq.getNumber()>=0 && sq.getNumber() != sq.getNBlack()) {
 				result |= 4;
 			}
 		}
