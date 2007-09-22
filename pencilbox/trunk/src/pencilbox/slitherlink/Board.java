@@ -1,6 +1,5 @@
 package pencilbox.slitherlink;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,7 +33,7 @@ public class Board extends BoardBase {
 	private int[][] number;
 	private int[][][] state;
 
-	private List linkList;
+	private List<Link> linkList;
 	private Link[][][] link;
 	private Link initializingLink;
 
@@ -45,7 +44,7 @@ public class Board extends BoardBase {
 		state = new int[2][][];
 		state[0] = new int[rows()][cols() - 1];
 		state[1] = new int[rows() - 1][cols()];
-		linkList = new LinkedList();
+		linkList = new LinkedList<Link>();
 		link = new Link[2][][];
 		link[VERT] = new Link[rows()][cols() - 1];
 		link[HORIZ] = new Link[rows() - 1][cols()];
@@ -328,16 +327,16 @@ public class Board extends BoardBase {
 			if (link1.size() >= link2.size()) {
 				newLink = link1;
 				newLink.addAll(link2);
-				for(Iterator itr = link2.iterator(); itr.hasNext(); ) {
-					setLink((SideAddress) itr.next(), newLink);
+				for(SideAddress joint : link2) {
+					setLink(joint, newLink);
 				}
 				linkList.remove(link2);
 			}
 			else {
 				newLink = link2;
 				newLink.addAll(link1);
-				for(Iterator itr = link1.iterator(); itr.hasNext(); ) {
-					setLink((SideAddress) itr.next(), newLink);
+				for(SideAddress joint : link1) {
+					setLink(joint, newLink);
 				}
 				linkList.remove(link1);
 			}
@@ -352,8 +351,8 @@ public class Board extends BoardBase {
 	void cutLink(int d, int r, int c) {
 		Link oldLink = getLink(d,r,c);
 		Link longerLink = null;
-		for (Iterator itr = oldLink.iterator(); itr.hasNext(); ) {
-			setLink((SideAddress) itr.next(), null);
+		for (SideAddress joint : oldLink) {
+			setLink(joint, null);
 		}
 		linkList.remove(oldLink);
 		if (d==VERT) {

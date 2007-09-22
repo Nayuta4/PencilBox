@@ -39,7 +39,7 @@ public class ClassUtil {
 	 * @return 生成したクラスのインスタンス
 	 * @throws PencilBoxClassException
 	 */
-	public static final Object createInstance(Class c, String className)
+	public static final Object createInstance(Class<?> c, String className)
 			throws PencilBoxClassException {
 		return createInstance(c.getPackage().getName() + '.' + className);
 	}
@@ -53,7 +53,7 @@ public class ClassUtil {
 	public static final Object createInstance(String fullClassName)
 			throws PencilBoxClassException {
 		try {
-			Class cls = Class.forName(fullClassName);
+			Class<?> cls = Class.forName(fullClassName);
 			return cls.newInstance();
 		} catch (ClassNotFoundException e) {
 			throw new PencilBoxClassException(e);

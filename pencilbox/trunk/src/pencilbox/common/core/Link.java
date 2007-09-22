@@ -11,10 +11,10 @@ import java.util.TreeSet;
  * リンククラス
  * ひとつながりの線がひとつのLinkインスタンスとなる
  */
-public class Link implements Set {
+public class Link implements Set<SideAddress> {
 	
 	private static int NEXT_ID = 1;
-	private Set jointSet;
+	private Set<SideAddress> jointSet;
 	private int id;
 
 	public static void resetID() {
@@ -24,7 +24,7 @@ public class Link implements Set {
 	 * コンストラクタ
 	 */
 	public Link() {
-		jointSet = new TreeSet();
+		jointSet = new TreeSet<SideAddress>();
 		id = NEXT_ID++;
 		if (NEXT_ID == Integer.MAX_VALUE) NEXT_ID = 1;
 	}
@@ -61,7 +61,7 @@ public class Link implements Set {
 	/**
 	 * リンクに線分を追加する
 	 */
-	public boolean add(Object o) {
+	public boolean add(SideAddress o) {
 		return jointSet.add(o);
 	}
 	/**
@@ -84,27 +84,27 @@ public class Link implements Set {
 		return jointSet.remove(o);
 	}
 
-	public boolean addAll(Collection c) {
+	public boolean addAll(Collection<? extends SideAddress> c) {
 		return jointSet.addAll( ((Link) c).jointSet);
 	}
 
-	public boolean containsAll(Collection c) {
+	public boolean containsAll(Collection<?> c) {
 		return jointSet.containsAll(c);
 	}
 
-	public boolean removeAll(Collection c) {
+	public boolean removeAll(Collection<?> c) {
 		return jointSet.removeAll(c);
 	}
 
-	public boolean retainAll(Collection c) {
+	public boolean retainAll(Collection<?> c) {
 		return jointSet.retainAll(c);
 	}
 
-	public Iterator iterator() {
+	public Iterator<SideAddress> iterator() {
 		return jointSet.iterator();
 	}
 
-	public Object[] toArray(Object[] a) {
+	public<T> T[] toArray(T[] a) {
 		return jointSet.toArray(a);
 	}
 	public String toString() {

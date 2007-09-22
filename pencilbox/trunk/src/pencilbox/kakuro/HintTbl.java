@@ -21,17 +21,17 @@ public class HintTbl {
 	static final int MAX[] = {9, 17, 24, 30, 35, 39, 42, 44, 45};
 	//  9876543210
 	
-	static ArrayList wk;
+	static ArrayList<ArrayList<ArrayList<Integer>>> wk;
 	static int[][][] pattern; // [Œ…”][‡Œv][index]
 	static{
-		wk = new ArrayList(9);
+		wk = new ArrayList<ArrayList<ArrayList<Integer>>>(9);
 		// ArrayList[”š”][‡Œv]
 		for(int d=1; d<=9; d++){
 			int min = MIN[d-1];
 			int max = MAX[d-1];
-			wk.add(d-1, new ArrayList(max-min+1));
+			wk.add(d-1, new ArrayList<ArrayList<Integer>>(max-min+1));
 			for(int i=min; i<=max; i++){
-				((ArrayList)wk.get(d-1)).add(i-min, new ArrayList());
+				wk.get(d-1).add(i-min, new ArrayList<Integer>());
 			}
 		}
 		for(int d0=1; d0<=9; d0++){
@@ -81,15 +81,15 @@ public class HintTbl {
 		}
 		pattern = new int[9][][];
 		for(int d=0; d<=8; d++){
-			ArrayList a2 = (ArrayList)wk.get(d);
+			ArrayList<ArrayList<Integer>> a2 = wk.get(d);
 			int size2 = a2.size();
 			int[][] p2 = pattern[d] = new int[size2][];
 			for(int i2=0; i2<size2; i2++){
-				ArrayList a3 = (ArrayList)a2.get(i2);
+				ArrayList<Integer> a3 = a2.get(i2);
 				int size3 = a3.size();
 				int[] p3 = p2[i2] = new int[size3];
 				for(int i3=0; i3<size3; i3++){
-					p3[i3] = ((Integer)a3.get(i3)).intValue();
+					p3[i3] = a3.get(i3).intValue();
 				}
 			}
 		}
@@ -97,7 +97,7 @@ public class HintTbl {
 //		printAllPatterns();
 	}
 	static void addPatInWk(int nn, int sum, int pat){
-		((ArrayList)((ArrayList)wk.get(nn)).get(sum)).add(new Integer(pat));		
+		wk.get(nn).get(sum).add(new Integer(pat));		
 	}
 	static int getRemainingDigit(int sum, int no, int used) {
 		int allowedPattern = 0;

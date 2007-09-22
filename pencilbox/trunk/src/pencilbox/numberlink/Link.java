@@ -1,6 +1,5 @@
 package pencilbox.numberlink;
 
-import java.util.Collection;
 
 /**
  * 「ナンバーリンク」リンククラス
@@ -23,8 +22,8 @@ public class Link extends pencilbox.common.core.Link {
 		number = 0;
 	}
 
-	public boolean addAll(Collection c) {
-		setNumber(((Link) c).number);
+	public boolean addAll(Link c) {
+		setNumber(c.getNumber());
 		return super.addAll(c);
 	}
 

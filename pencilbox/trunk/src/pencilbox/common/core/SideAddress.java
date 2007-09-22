@@ -4,7 +4,7 @@ package pencilbox.common.core;
 /**
  * 盤上の辺の整数値の座標を表すクラス
  */
-public class SideAddress implements Comparable {
+public class SideAddress implements Comparable<SideAddress> {
 	
 	public static final SideAddress NOWEHER = new SideAddress(0, -1,-1);
 	
@@ -103,17 +103,16 @@ public class SideAddress implements Comparable {
 	 * 行座標が等しければ，列座標 c が小さい方が前．
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
-	public int compareTo(Object o) {
-		SideAddress other = (SideAddress) o;
-		if (this.d < other.d) return -1;
-		else if (this.d > other.d) return 1;
+	public int compareTo(SideAddress o) {
+		if (this.d < o.d) return -1;
+		else if (this.d > o.d) return 1;
 		else {
-			if (this.r < other.r) return -1;
-			else if (this.r > other.r) return 1;
+			if (this.r < o.r) return -1;
+			else if (this.r > o.r) return 1;
 			else {
-				if (this.r < other.r) return -1;
-				if (this.c < other.c) return -1;
-				else if (this.c > other.c) return 1;
+				if (this.r < o.r) return -1;
+				if (this.c < o.c) return -1;
+				else if (this.c > o.c) return 1;
 				else return 0; 
 			}
 		}

@@ -4,7 +4,7 @@ package pencilbox.common.core;
 /**
  * 整数値の座標を表すクラス
  */
-public class Address implements Comparable {
+public class Address implements Comparable<Address> {
 	
 	/**
 	 *  盤外座標
@@ -166,13 +166,12 @@ public class Address implements Comparable {
 	 * 行座標が等しければ，列座標 c が小さい方が前．
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
-	public int compareTo(Object o) {
-		Address other = (Address) o;
-		if (this.r < other.r) return -1;
-		else if (this.r > other.r) return 1;
+	public int compareTo(Address o) {
+		if (this.r < o.r) return -1;
+		else if (this.r > o.r) return 1;
 		else {
-			if (this.c < other.c) return -1;
-			else if (this.c > other.c) return 1;
+			if (this.c < o.c) return -1;
+			else if (this.c > o.c) return 1;
 			else return 0; 
 		}
 	}

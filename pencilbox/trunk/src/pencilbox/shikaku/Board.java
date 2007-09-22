@@ -1,6 +1,5 @@
 package pencilbox.shikaku;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,13 +22,13 @@ public class Board extends BoardBase {
 	
 	private int[][] number;
 	private Square[][] square;
-	private List squareList;
+	private List<Square> squareList;
 
 	protected void setup() {
 		super.setup();
 		number = new int[rows()][cols()];
 		square = new Square[rows()][cols()];
-		squareList = new LinkedList();
+		squareList = new LinkedList<Square>();
 	}
 
 	public void clearBoard() {
@@ -53,8 +52,8 @@ public class Board extends BoardBase {
 	 * 盤面上の領域の初期処理を行う
 	 */
 	public void initSquares() {
-		for (Iterator itr = squareList.iterator(); itr.hasNext(); ) {
-			initSquare1((Square)itr.next());
+		for (Square sq : squareList) {
+			initSquare1(sq);
 		}
 	}
 	/**
@@ -88,7 +87,7 @@ public class Board extends BoardBase {
 	/**
 	 * @return Returns the squareList.
 	 */
-	List getSquareList() {
+	List<Square> getSquareList() {
 		return squareList;
 	}
 
@@ -136,21 +135,7 @@ public class Board extends BoardBase {
 	public Square getSquare(Address pos) {
 		return square[pos.r()][pos.c()];
 	}
-	/**
-	 * 領域リストのIteratorを取得する
-	 * @return 領域リストのIterator
-	 */
-	public Iterator getSquareListIterator() {
-		return squareList.iterator();
-	}
-	/**
-	 * 領域リストのサイズ，つまり領域数を取得する
-	 * @return 領域リストのサイズ
-	 */
-	public int getSquareListSize() {
-		return squareList.size();
-	}
-	
+
 	/**
 	 * 引数のマスがいずれかの四角に含まれているかどうか
 	 * @param r 行座標
@@ -305,10 +290,8 @@ public class Board extends BoardBase {
 
 	public int checkAnswerCode() {
 		int errorCode = 0;
-		Square sq;
 		int nNumber = 0;
-		for (Iterator itr = squareList.iterator(); itr.hasNext(); ) {
-			sq = (Square)itr.next();
+		for (Square sq : squareList) {
 			int n = sq.getNumber();
 			if (n == Square.MULTIPLE_NUMBER) {
 				errorCode |= 1; 

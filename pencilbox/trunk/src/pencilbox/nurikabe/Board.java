@@ -1,6 +1,5 @@
 package pencilbox.nurikabe;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,14 +26,14 @@ public class Board extends BoardBase {
 	private int[][] state;
 
 	private Area[][] area;
-	private List areaList;
+	private List<Area> areaList;
 	private Area initializingArea;
 
 	protected void setup(){
 		super.setup();
 		state = new int[rows()][cols()];
 		area = new Area[rows()][cols()];
-		areaList = new LinkedList();
+		areaList = new LinkedList<Area>();
 	}
 
 	public void clearBoard() {
@@ -119,7 +118,7 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * 指定したマスを起点としてマスのつながりを調べてAreaを作成する。
+	 * 指定したマスを起点としてマスのつながりを調べてAreaを作成する
 	 * @param r
 	 * @param c
 	 */
@@ -237,8 +236,7 @@ public class Board extends BoardBase {
 				mergedArea = area;
 			} else if (mergedArea != area) {
 				mergedArea.addAll(area);
-				for (Iterator itr = area.iterator(); itr.hasNext(); ) {
-					Address pos = (Address) itr.next();
+				for (Address pos : area) {
 					setArea(pos.r(), pos.c(), mergedArea);
 					if (isNumber(pos.r(),pos.c()))
 						mergedArea.addNumber(getState(pos.r(),pos.c()));
@@ -255,11 +253,10 @@ public class Board extends BoardBase {
 	 * @param type 変更後の領域の種類
 	 */
 	void splitArea(int r, int c, int type) {
-		Area oldArea = getArea(r,c);
+		Area oldArea = getArea(r, c);
 		Area largerArea = null;
-		areaList.remove(getArea(r,c));
-		for (Iterator itr = getArea(r,c).iterator(); itr.hasNext(); ) {
-			Address pos = (Address) itr.next();
+		areaList.remove(oldArea);
+		for (Address pos : oldArea) {
 			setArea(pos.r(), pos.c(), null);
 		}
 		if (isOn(r-1,c) && getSpaceOrWall(r-1,c)==type && getArea(r-1,c) == null) {
@@ -356,10 +353,8 @@ public class Board extends BoardBase {
 	private int checkAreas() {
 		int ret = 0;
 		int blackAreaCount = 0;
-		Area area;
 		int number;
-		for (Iterator itr = areaList.iterator(); itr.hasNext(); ) {
-			area = (Area) itr.next();
+		for (Area area : areaList) {
 			number = area.getNumber();
 			if (area.getAreaType() == SPACE) {
 				if (number == 0) {

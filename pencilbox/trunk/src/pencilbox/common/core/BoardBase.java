@@ -1,7 +1,5 @@
 package pencilbox.common.core;
 
-import java.util.Iterator;
-
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.undo.UndoManager;
 
@@ -118,8 +116,8 @@ public class BoardBase {
 	 * @return —Ìˆæ‘S‘Ì‚ª”Õ“à‚É‚ ‚ê‚Î true, ‚»‚¤‚Å‚È‚¯‚ê‚Î false ‚ğ•Ô‚·B
 	 */
 	public boolean isAreaOn(Area area) {
-		for (Iterator itr = area.iterator(); itr.hasNext(); ) {
-			if (!isOn((Address)itr.next()))
+		for (Address pos : area) {
+			if (!isOn(pos))
 				return false;
 		}
 		return true;

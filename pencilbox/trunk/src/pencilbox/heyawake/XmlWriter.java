@@ -1,7 +1,5 @@
 package pencilbox.heyawake;
 
-import java.util.Iterator;
-
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.io.XmlWriterBase;
 
@@ -12,9 +10,8 @@ import pencilbox.common.io.XmlWriterBase;
 public class XmlWriter extends XmlWriterBase {
 	protected void setBoardData(BoardBase theboard){
 		Board board = (Board)theboard;
-		for(Iterator itr = board.getSquareListIterator(); itr.hasNext(); ) {
-			Square area = (Square) itr.next();
-			outRoom(area);
+		for(Square sq : board.getSquareList()) {
+			outRoom(sq);
 		}
 	}
 	protected void setAnswerData(BoardBase theboard){

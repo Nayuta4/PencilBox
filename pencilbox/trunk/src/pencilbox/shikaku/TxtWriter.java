@@ -1,7 +1,6 @@
 package pencilbox.shikaku;
 
 import java.io.PrintWriter;
-import java.util.Iterator;
 
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.io.TxtWriterBase;
@@ -29,9 +28,8 @@ public class TxtWriter extends TxtWriterBase {
 		}
 		if (mode == QUESTION_ONLY)
 			return;
-		out.println( board.getSquareListSize());
-		for(Iterator itr = board.getSquareListIterator(); itr.hasNext(); ) {
-			Square sq = (Square) itr.next();
+		out.println(board.getSquareList().size());
+		for(Square sq : board.getSquareList()) {
 			out.print( sq.r0() );
 			out.print( ' ' );
 			out.print( sq.c0() );

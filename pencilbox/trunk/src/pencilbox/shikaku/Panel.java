@@ -2,7 +2,6 @@ package pencilbox.shikaku;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.util.Iterator;
 
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.gui.PanelBase;
@@ -150,13 +149,11 @@ public class Panel extends PanelBase {
 	}
 
 	private void drawAreaBorders(Graphics2D g) {
-		Square square;
 		g.setColor(getAreaBorderColor());
-		for (Iterator itr = board.getSquareListIterator(); itr.hasNext();) {
-			square = (Square) itr.next();
+		for (Square square : board.getSquareList()) {
 			placeSquare(g, square.r0(), square.c0(), square.r1(), square.c1());
 		}
-		square = getDraggingSquare();
+		Square square = getDraggingSquare();
 		if (square != null) {
 			placeSquare(g, square.r0(), square.c0(), square.r1(), square.c1());
 		}

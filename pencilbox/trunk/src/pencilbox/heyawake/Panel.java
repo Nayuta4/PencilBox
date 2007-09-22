@@ -2,7 +2,6 @@ package pencilbox.heyawake;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.util.Iterator;
 
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
@@ -150,11 +149,9 @@ public class Panel extends PanelBase {
 	}
 
 	private void drawAreaBorders(Graphics2D g) {
-		Square square;
 		g.setFont(getNumberFont());
-		for (Iterator itr = board.getSquareListIterator(); itr.hasNext();) {
+		for (Square square : board.getSquareList()) {
 			g.setColor(getAreaBorderColor());
-			square = (Square) itr.next();
 			placeSquare(g, square.r0(), square.c0(), square.r1(), square.c1());
 			if (square.getNumber() >= 0) {
 				g.setColor(getNumberColor());
@@ -172,7 +169,7 @@ public class Panel extends PanelBase {
 				placeNumber(g, square.r0(), square.c0(), square.getNumber());
 			}
 		}
-		square = getDraggingSquare();
+		Square square = getDraggingSquare();
 		if (square != null	) {
 			g.setColor(areaBorderColor);
 			placeSquare(g, square.r0(), square.c0(), square.r1(), square.c1());

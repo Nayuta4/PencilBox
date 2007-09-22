@@ -1,6 +1,5 @@
 package pencilbox.fillomino;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class Board extends BoardBase {
 	private int[][] number;
 	
 	private Area[][] area;
-	private List areaList;
+	private List<Area> areaList;
 	private Area initializingArea;
 
 	protected void setup(){
@@ -36,7 +35,7 @@ public class Board extends BoardBase {
 		state = new int[rows()][cols()];
 		number = new int[rows()][cols()];
 		area = new Area[rows()][cols()];
-		areaList = new LinkedList();
+		areaList = new LinkedList<Area>();
 	}
 
 	public void clearBoard() {
@@ -260,8 +259,7 @@ public class Board extends BoardBase {
 				mergedArea = area;
 			} else if (mergedArea != area) {
 				mergedArea.addAll(area);
-				for (Iterator itr = area.iterator(); itr.hasNext(); ) {
-					Address pos = (Address) itr.next();
+				for (Address pos : area) {
 					setArea(pos.r(), pos.c(), mergedArea);
 				}
 				areaList.remove(area);
@@ -276,9 +274,8 @@ public class Board extends BoardBase {
 	 * @param number •ÏXŒã‚Ì”š
 	 */
 	void splitArea(int r, int c, int number) {
-		areaList.remove(getArea(r,c));
-		for (Iterator itr = getArea(r,c).iterator(); itr.hasNext(); ) {
-			Address pos = (Address) itr.next();
+		areaList.remove(getArea(r, c));
+		for (Address pos : getArea(r, c)) {
 			setArea(pos.r(), pos.c(), null);
 		}
 		if (isOn(r-1,c) && getNumber(r-1,c)==number && getArea(r-1,c) == null)
@@ -299,8 +296,8 @@ public class Board extends BoardBase {
 					result |= 1;
 			}
 		}
-		for (Iterator itr = areaList.iterator(); itr.hasNext(); ) {
-			int status = ((Area) itr.next()).getStatus();
+		for (Area area : areaList) {
+			int status = area.getStatus();
 			if (status == -1) result |= 2;
 			else if (status == 0) result |= 4;
 		}
