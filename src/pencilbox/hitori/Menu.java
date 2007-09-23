@@ -95,7 +95,6 @@ public class Menu extends MenuBase {
 		if (selection == JOptionPane.CLOSED_OPTION)
 			return;
 		getPanel().setLetters(Letters.getLetterSeries(selection));
-		getPanelBase().repaint();
 	}
 
 	public void updateCurrentMenuSelection() {
