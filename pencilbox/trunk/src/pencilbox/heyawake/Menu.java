@@ -43,7 +43,6 @@ public class Menu extends MenuBase {
 			getPanel().setIndicateErrorMode(target.isSelected());
 //		else if (target == indicateContinuousRoomItem)
 //			getPanel().setIndicateContinuousRoomMode(target.isSelected());
-		getPanelBase().repaint();
 	}
 
 	public Color getColor(JMenuItem target) {
