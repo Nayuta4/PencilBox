@@ -27,21 +27,27 @@ public class ProblemCopier extends ProblemCopierBase {
 			for (int c = 1; c < src.cols(); c++) {
 				p0.set(r-1, c-1);
 				p = rotator2.rotateAddress(p0);
-				sum = s.getNumber(r, c);
-				d.setNumber(p.r()+1, p.c()+1, sum);
+				p.set(p.r()+1, p.c()+1);
+				if (d.isOn(p)) {
+					sum = s.getNumber(r, c);
+					d.setNumber(p.r(), p.c(), sum);
+				}
 			}
 		}
 		for (int r = 1; r < src.rows(); r++) {
 			for (int c = 1; c < src.cols(); c++) {
 				p0.set(r-1, c-1);
 				p = rotator2.rotateAddress(p0);
-				if (!s.isWall(r, c) && s.isWall(r-1, c)) {
-					sum = s.getSumV(r-1, c);
-					setSum(p.r()+1, p.c()+1, sum, Direction.VERT, n);
-				}
-				if (!s.isWall(r, c) && s.isWall(r, c-1)) {
-					sum = s.getSumH(r, c-1);
-					setSum(p.r()+1, p.c()+1, sum, Direction.HORIZ, n);
+				p.set(p.r()+1, p.c()+1);
+				if (d.isOn(p)) {
+					if (!s.isWall(r, c) && s.isWall(r-1, c)) {
+						sum = s.getSumV(r-1, c);
+							setSum(p.r(), p.c(), sum, Direction.VERT, n);
+					}
+					if (!s.isWall(r, c) && s.isWall(r, c-1)) {
+						sum = s.getSumH(r, c-1);
+							setSum(p.r(), p.c(), sum, Direction.HORIZ, n);
+					}
 				}
 			}
 		}
