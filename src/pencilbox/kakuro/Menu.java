@@ -65,10 +65,6 @@ public class Menu extends MenuBase {
 			super.setColor(target, color);
 	}
 
-	protected void buildRotationMenu() {
-		super.buildRotationMenu2();
-	}
-
 	public void updateCurrentMenuSelection() {
 		super.updateCurrentMenuSelection();
 		indicateErrorItem.setSelected(getPanel().isIndicateErrorMode());
