@@ -98,8 +98,8 @@ public class MenuBase {
 		return panel;
 	}
 
-	protected PanelEventHandlerBase getPanelEventHandlerBase() {
-		return command.getPanelEventHandlerBase();
+	protected EventHandlerManager getEventHandlerManager() {
+		return command.getEventHandlerManager();
 	}
 
 	/**
@@ -642,9 +642,9 @@ public class MenuBase {
 		if (cursorItem != null)
 			cursorItem.setSelected(getPanelBase().isCursorMode());
 		if (symmetricPlacementItem != null)
-			symmetricPlacementItem.setSelected(getPanelEventHandlerBase().isSymmetricPlacementMode());
+			symmetricPlacementItem.setSelected(getEventHandlerManager().isSymmetricPlacementMode());
 		if (immediateAnswerCheckItem != null)
-			immediateAnswerCheckItem.setSelected(getPanelEventHandlerBase().isImmediateAnswerCheckMode());
+			immediateAnswerCheckItem.setSelected(getEventHandlerManager().isImmediateAnswerCheckMode());
 		if (markStyleMenu != null) {
 			int s = getPanelBase().getMarkStyle();
 			for (int i = 0, count = markStyleMenu.getItemCount(); i < count; i++) {

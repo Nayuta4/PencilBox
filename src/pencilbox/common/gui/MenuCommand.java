@@ -32,7 +32,7 @@ public class MenuCommand {
 
 	private Frame frame;
 	private PanelBase panel;
-	private PanelEventHandlerBase handler;
+	private EventHandlerManager handler;
 	private Problem problem;
 	private BoardBase board;
 	private UndoManager undoManager;
@@ -47,7 +47,7 @@ public class MenuCommand {
 	 * @param panel 関連付けるPanel
 	 * @param problem 関連付けるProblem
 	 */
-	public void setup(PencilType puzzleType, Frame frame, PanelBase panel, PanelEventHandlerBase handler, Problem problem) {
+	public void setup(PencilType puzzleType, Frame frame, PanelBase panel, EventHandlerManager handler, Problem problem) {
 		this.pencilType = puzzleType;
 		this.frame = frame;
 		this.panel = panel;
@@ -81,7 +81,7 @@ public class MenuCommand {
 	/**
 	 * @return Returns the handler.
 	 */
-	public PanelEventHandlerBase getPanelEventHandlerBase() {
+	public EventHandlerManager getEventHandlerManager() {
 		return handler;
 	}
 	/**
@@ -498,9 +498,8 @@ public class MenuCommand {
 	public void setEditMode(int mode) {
 		if (panel.getEditMode() == mode)
 			return;
-		handler.setProblemEditMode(mode == PanelBase.PROBLEM_INPUT_MODE);
+		handler.setEditMode(mode);
 		board.initBoard();
-		panel.setEditMode(mode);
 	}
 	
 	/**

@@ -50,8 +50,8 @@ public class PreferencesCopierBase {
 	 */
 	public void applyCurrentPreferences(MenuCommand command) {
 		PanelBase panel = command.getPanelBase();
-		PanelEventHandlerBase handler = command.getPanelEventHandlerBase();
-		handler.setProblemEditMode(getBooleanProperty(PreferencesKeys.EDIT_MODE));
+		EventHandlerManager handler = command.getEventHandlerManager();
+		handler.setEditMode(getIntProperty(PreferencesKeys.EDIT_MODE));
 		handler.setSymmetricPlacementMode(getBooleanProperty(PreferencesKeys.SYMMETRIC_PLACEMENT_MODE));
 		handler.setImmediateAnswerCheckMode(getBooleanProperty(PreferencesKeys.IMMEDIATE_ANSWER_CHECK_MODE));
 		panel.setDisplaySize(getIntProperty(PreferencesKeys.CELL_SIZE));
@@ -69,8 +69,8 @@ public class PreferencesCopierBase {
 	 */
 	public void acquireCurrentPreferences(MenuCommand command) {
 		PanelBase panel = command.getPanelBase();
-		PanelEventHandlerBase handler = command.getPanelEventHandlerBase();
-		setBooleanProperty(PreferencesKeys.EDIT_MODE, panel.isProblemEditMode());
+		EventHandlerManager handler = command.getEventHandlerManager();
+		setIntProperty(PreferencesKeys.EDIT_MODE, panel.getEditMode());
 		setBooleanProperty(PreferencesKeys.SYMMETRIC_PLACEMENT_MODE, handler.isSymmetricPlacementMode());
 		setBooleanProperty(PreferencesKeys.IMMEDIATE_ANSWER_CHECK_MODE, handler.isImmediateAnswerCheckMode());
 		setIntProperty(PreferencesKeys.CELL_SIZE, panel.getCellSize());
