@@ -6,13 +6,13 @@ package pencilbox.kakuro;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
-import pencilbox.common.core.ProblemCopierBase;
+import pencilbox.common.core.BoardCopierBase;
 import pencilbox.common.core.Rotator;
 
 /**
  * 
  */
-public class ProblemCopier extends ProblemCopierBase {
+public class BoardCopier extends BoardCopierBase {
 	
 	private Board d;
 

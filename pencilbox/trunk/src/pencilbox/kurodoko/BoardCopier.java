@@ -1,16 +1,15 @@
 /**
  * 
  */
-package pencilbox.nurikabe;
+package pencilbox.kurodoko;
 
 import pencilbox.common.core.BoardBase;
-import pencilbox.common.core.ProblemCopierBase;
 import pencilbox.common.core.Rotator;
 
 /**
  * 
  */
-public class ProblemCopier extends ProblemCopierBase {
+public class BoardCopier extends pencilbox.common.core.BoardCopierBase {
 	
 	public void copyBoardStates(BoardBase src, BoardBase dst, int n) {
 		Board s = (Board) src;
