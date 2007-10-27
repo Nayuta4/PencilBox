@@ -61,6 +61,7 @@ public class MenuBase {
 	private ButtonGroup modeGroup;
 	private JMenuItem problemEditModeItem;
 	private JMenuItem answerModeItem;
+	private JMenuItem regionEditModeItem;
 	private JMenuItem loadPreferencesItem;
 	private JMenuItem storePreferencesItem;
 
@@ -153,6 +154,7 @@ public class MenuBase {
 		editMenu = makeJMenu("編集(E)", 'E');
 		editMenu.add(answerModeItem = makeCommandRadioButtonMenuItem("解答モード(A)", 'A'));
 		editMenu.add(problemEditModeItem = makeCommandRadioButtonMenuItem("問題入力モード(E)", 'E'));
+		editMenu.add(regionEditModeItem = makeCommandRadioButtonMenuItem("領域編集モード(G)", 'G'));
 		editMenu.addSeparator();
 		editMenu.add(clearItem = makeCommandMenuItem("解答消去(C)", 'C'));
 		if (trimAnswerItem != null) 
@@ -174,6 +176,7 @@ public class MenuBase {
 		modeGroup = new ButtonGroup();
 		modeGroup.add(answerModeItem);
 		modeGroup.add(problemEditModeItem);
+		modeGroup.add(regionEditModeItem);
 		editMenu.addMenuListener(new EditMenuListener());
 	}
 
@@ -273,9 +276,14 @@ public class MenuBase {
 			// redoAllItem.setEnabled(command.canRedo());
 			palybackItem.setEnabled(command.canUndo() || command.canRedo());
 
-			boolean b = getPanelBase().isProblemEditMode();
-			problemEditModeItem.setSelected(b);
-			answerModeItem.setSelected(!b);
+			int m = getPanelBase().getEditMode();
+			if (m == PanelBase.ANSWER_INPUT_MODE) {
+				answerModeItem.setSelected(true);
+			} else if (m == PanelBase.PROBLEM_INPUT_MODE) {
+				problemEditModeItem.setSelected(true);
+			} else if (m == PanelBase.REGION_EDIT_MODE) {
+				regionEditModeItem.setSelected(true);
+			}
 		}
 
 		/*
@@ -314,7 +322,9 @@ public class MenuBase {
 		answerModeItem.setAccelerator(
 				KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
 		problemEditModeItem.setAccelerator(
-				KeyStroke.getKeyStroke(KeyEvent.VK_F2, InputEvent.SHIFT_MASK));
+				KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0));
+		regionEditModeItem.setAccelerator(
+				KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0));
 		if (renewColorItem != null)
 			renewColorItem.setAccelerator(
 					KeyStroke.getKeyStroke(KeyEvent.VK_F6, 0));
@@ -561,9 +571,11 @@ public class MenuBase {
 		else if (target == cursorItem)
 			command.setCursorMode(target.isSelected());
 		else if (target == answerModeItem)
-			command.setProblemEditMode(false);
+			command.setEditMode(PanelBase.ANSWER_INPUT_MODE);
 		else if (target == problemEditModeItem)
-			command.setProblemEditMode(true);
+			command.setEditMode(PanelBase.PROBLEM_INPUT_MODE);
+		else if (target == regionEditModeItem)
+			command.setEditMode(PanelBase.REGION_EDIT_MODE);
 		else if (target == indexItem)
 			command.setIndexMode(target.isSelected());
 		else if (target == gridStyleItem)
@@ -643,7 +655,6 @@ public class MenuBase {
 				}
 			}
 		}
-		problemEditModeItem.setSelected(getPanelEventHandlerBase().isProblemEditMode());
 	}
 
 	/*
