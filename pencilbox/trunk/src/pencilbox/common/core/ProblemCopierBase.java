@@ -7,19 +7,6 @@ import pencilbox.common.factory.PencilBoxClassException;
 public class ProblemCopierBase {
 	
 	/**
-	 * ñ‚ëËÇï°êªÇ∑ÇÈÅB
-	 * @param src ï°êªå≥ÇÃî’ñ 
-	 * @return ï°êªÇµÇΩî’ñ 
-	 */
-	public Problem duplicateProblem(Problem src) throws PencilBoxClassException {
-		Problem dst = new Problem();
-		dst.setBoard(duplicateBoard(src.getBoard()));
-		dst.setProperty(new Property(src.getProperty()));
-		dst.setFile(src.getFile());
-		return dst;
-	}
-
-	/**
 	 * î’ñ Çï°êªÇ∑ÇÈÅB
 	 * @param src ï°êªå≥ÇÃî’ñ 
 	 * @return ï°êªÇµÇΩî’ñ 
