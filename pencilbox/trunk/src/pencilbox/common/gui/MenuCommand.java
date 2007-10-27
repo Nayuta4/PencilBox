@@ -488,24 +488,26 @@ public class MenuCommand {
 	public boolean canRedo() {
 		return undoManager.canRedo();
 	}
+
 	/**
-	 *  [編集]-[問題入力モード]
-	 *  @param b true で問題入力モードにし，false で解答モードにする
+	 *  [編集]-[解答モード]
+	 *       -[問題入力モード]
+	 *       -[領域編集モード]
+	 *  @param mode
 	 */
-	public void setProblemEditMode(boolean b) {
-		if(panel.isProblemEditMode() == b)
+	public void setEditMode(int mode) {
+		if (panel.getEditMode() == mode)
 			return;
-		if (b==false)
-			board.initBoard();
-		handler.setProblemEditMode(b);
-		panel.repaint();
+		handler.setProblemEditMode(mode == PanelBase.PROBLEM_INPUT_MODE);
+		board.initBoard();
+		panel.setEditMode(mode);
 	}
+	
 	/**
 	 *  [表示]-[カーソル]
 	 */
 	public void setCursorMode(boolean b) {
 		panel.setCursorMode(b);
-		panel.repaint();
 	}
 	/**
 	 *  [表示]-[表示サイズ]

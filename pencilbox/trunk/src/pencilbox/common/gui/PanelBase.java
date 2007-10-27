@@ -27,6 +27,10 @@ import pencilbox.common.core.Size;
 
 public class PanelBase extends JPanel implements Printable {
 
+	public static int ANSWER_INPUT_MODE = 0;
+	public static int PROBLEM_INPUT_MODE = 1;
+	public static int REGION_EDIT_MODE = 3;
+
 	private Size size;
 
 	private int cellSize = 26;
@@ -55,9 +59,9 @@ public class PanelBase extends JPanel implements Printable {
 	private CellCursor cellCursor;
 
 	/**
-	 * true で問題入力モード，false で解答入力モード	 
+	 * 編集モード	 
 	 */
-	private boolean problemEditMode = false;
+	private int editMode = 0;
 
 	/**
 	 * パネル生成コンストラクタ
@@ -154,13 +158,25 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param problemEditMode The problemEditMode to set.
 	 */
 	public void setProblemEditMode(boolean problemEditMode) {
-		this.problemEditMode = problemEditMode;
+		this.editMode = problemEditMode ? PROBLEM_INPUT_MODE : ANSWER_INPUT_MODE;
 	}
 	/**
 	 * @return Returns the problemEditMode.
 	 */
 	public boolean isProblemEditMode() {
-		return problemEditMode;
+		return editMode == PROBLEM_INPUT_MODE;
+	}
+	/**
+	 * @return the editMode
+	 */
+	public int getEditMode() {
+		return editMode;
+	}
+	/**
+	 * @param editMode the editMode to set
+	 */
+	public void setEditMode(int editMode) {
+		this.editMode = editMode;
 	}
 	/**
 	 * 現在の回転状態に応じた行数を取得する
