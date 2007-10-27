@@ -10,7 +10,7 @@ public class ClassUtil {
 	public static final String MENU_CLASS = "Menu";
 	public static final String PANEL_CLASS = "Panel";
 	public static final String PANEL_EVENT_HANDLER_CLASS = "PanelEventHandler";
-	public static final String PROBLEM_COPIER_CLASS = "ProblemCopier";
+	public static final String BOARD_COPIER_CLASS = "BoardCopier";
 	public static final String PREFERENCES_COPIER_CLASS = "PreferencesCopier";
 	public static final String TXTREADER_CLASS = "TxtReader";
 	public static final String TXTWRITER_CLASS = "TxtWriter";

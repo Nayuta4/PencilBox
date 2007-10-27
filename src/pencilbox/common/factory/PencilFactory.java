@@ -5,7 +5,7 @@ import java.io.File;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.PencilBoxException;
 import pencilbox.common.core.Problem;
-import pencilbox.common.core.ProblemCopierBase;
+import pencilbox.common.core.BoardCopierBase;
 import pencilbox.common.core.Size;
 import pencilbox.common.gui.EventHandlerManager;
 import pencilbox.common.gui.Frame;
@@ -139,7 +139,7 @@ public class PencilFactory {
 	 * @throws PencilBoxClassException
 	 */
 	public void duplicateFrame() throws PencilBoxClassException {
-		ProblemCopierBase copier = (ProblemCopierBase) ClassUtil.createInstance(pencilType, ClassUtil.PROBLEM_COPIER_CLASS);
+		BoardCopierBase copier = (BoardCopierBase) ClassUtil.createInstance(pencilType, ClassUtil.BOARD_COPIER_CLASS);
 		Problem src = caller.getProblem();
 		Problem problem = new Problem(src, copier.duplicateBoard(src.getBoard()));
 		createNewFrame(problem);
@@ -151,7 +151,7 @@ public class PencilFactory {
 	 * @throws PencilBoxClassException
 	 */
 	public void rotateBoard(int n) throws PencilBoxClassException {
-		ProblemCopierBase copier = (ProblemCopierBase) ClassUtil.createInstance(pencilType, ClassUtil.PROBLEM_COPIER_CLASS);
+		BoardCopierBase copier = (BoardCopierBase) ClassUtil.createInstance(pencilType, ClassUtil.BOARD_COPIER_CLASS);
 		Problem problem = caller.getProblem();
 		problem.setBoard(copier.duplicateBoard(problem.getBoard(), n));
 		createNewBoard(problem);
@@ -162,7 +162,7 @@ public class PencilFactory {
 	 * @throws PencilBoxClassException
 	 */
 	public void changeBoardSize(Size size) throws PencilBoxClassException {
-		ProblemCopierBase copier = (ProblemCopierBase) ClassUtil.createInstance(pencilType, ClassUtil.PROBLEM_COPIER_CLASS);
+		BoardCopierBase copier = (BoardCopierBase) ClassUtil.createInstance(pencilType, ClassUtil.BOARD_COPIER_CLASS);
 		Problem problem = caller.getProblem();
 		problem.setBoard(copier.duplicateBoard(problem.getBoard(), size));
 		createNewBoard(problem);
