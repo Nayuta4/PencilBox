@@ -4,7 +4,7 @@ import java.io.File;
 
 /**
  * 問題クラス
- *　Bord, Size, Propety, File を集めたもの
+ *　Bord, Propety, File を集めたもの
  */
 public class Problem {
 	
@@ -26,6 +26,20 @@ public class Problem {
 		this.board = board;
 		this.property = new Property();
 	}
+
+	/**
+	 * コピーコンストラクタもどき。
+	 * Board以外はもとのProblemを複製する。
+	 * Boardは複製が複雑なのであらかじめ複製するなどして別個の引数として与える。
+	 * @param problem 複製元問題
+	 * @param board 設定する盤面
+	 */
+	public Problem (Problem problem, BoardBase board) {
+		this.board = board;
+		this.property = new Property(problem.getProperty());
+		this.file = problem.getFile();
+	}
+
 	/**
 	 * @return Returns the board.
 	 */

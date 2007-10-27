@@ -140,8 +140,9 @@ public class PencilFactory {
 	 */
 	public void duplicateFrame() throws PencilBoxClassException {
 		ProblemCopierBase copier = (ProblemCopierBase) ClassUtil.createInstance(pencilType, ClassUtil.PROBLEM_COPIER_CLASS);
-		Problem copiedProblem = copier.duplicateProblem(caller.getProblem());
-		createNewFrame(copiedProblem);
+		Problem src = caller.getProblem();
+		Problem problem = new Problem(src, copier.duplicateBoard(src.getBoard()));
+		createNewFrame(problem);
 	}
 	
 	/**
