@@ -7,11 +7,11 @@ import pencilbox.common.core.PencilBoxException;
 import pencilbox.common.core.Problem;
 import pencilbox.common.core.ProblemCopierBase;
 import pencilbox.common.core.Size;
+import pencilbox.common.gui.EventHandlerManager;
 import pencilbox.common.gui.Frame;
 import pencilbox.common.gui.MenuBase;
 import pencilbox.common.gui.MenuCommand;
 import pencilbox.common.gui.PanelBase;
-import pencilbox.common.gui.PanelEventHandlerBase;
 import pencilbox.common.gui.PreferencesCopierBase;
 import pencilbox.common.io.IOController;
 
@@ -92,7 +92,7 @@ public class PencilFactory {
 		Frame frame = new Frame();
 		MenuBase menu = (MenuBase) ClassUtil.createInstance(pencilType, ClassUtil.MENU_CLASS);
 		PanelBase panel = (PanelBase) ClassUtil.createInstance(pencilType, ClassUtil.PANEL_CLASS);
-		PanelEventHandlerBase handler = (PanelEventHandlerBase) ClassUtil.createInstance(pencilType, ClassUtil.PANEL_EVENT_HANDLER_CLASS);
+		EventHandlerManager handler = new EventHandlerManager(pencilType);
 		frame.setup(panel);
 		command.setup(pencilType, frame, panel, handler, problem);
 		panel.setup(problem.getBoard());
@@ -125,7 +125,7 @@ public class PencilFactory {
 	 */
 	public void createNewBoard(Problem problem) throws PencilBoxClassException {
 		PanelBase panel = caller.getPanelBase();
-		PanelEventHandlerBase handler = caller.getPanelEventHandlerBase();
+		EventHandlerManager handler = caller.getEventHandlerManager();
 		Frame frame = caller.getFrame();
 		caller.setup(pencilType, problem);
 		panel.setup(problem.getBoard());
