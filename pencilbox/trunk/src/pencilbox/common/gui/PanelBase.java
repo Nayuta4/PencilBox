@@ -13,6 +13,8 @@ import java.awt.print.PrinterException;
 
 import javax.swing.JPanel;
 
+import pencilbox.common.core.Address;
+import pencilbox.common.core.Area;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
 import pencilbox.common.core.Size;
@@ -58,6 +60,13 @@ public class PanelBase extends JPanel implements Printable {
 	private boolean cursorMode = false;
 	private CellCursor cellCursor;
 
+	private Area copyRegion = new Area();
+	private Area pasteRegion = new Area();
+	private Address copyRegionOrigin = new Address(-1, -1);
+	private Address pasteRegionOrigin = new Address(-1, -1);
+	private Color copyRegionColor = new Color(0xFF0000);
+	private Color pasteRegionColor = new Color(0xFFAAAA);
+	
 	/**
 	 * 編集モード	 
 	 */
@@ -211,6 +220,8 @@ public class PanelBase extends JPanel implements Printable {
 		paintBackground(g);
 		drawBoard(g);
 		drawCursor(g);
+		if (editMode == REGION_EDIT_MODE)
+			drawCopyPasteRegion(g);
 		drawIndex(g);
 	}
 	
@@ -549,6 +560,23 @@ public class PanelBase extends JPanel implements Printable {
 			drawLineSegment(g, toX(c), toY(r + 1), d, 3);
 	}
 	/**
+	 * 辺上に線を配置する。マスとそのマスから見た辺の向きで指定する。
+	 * @param g
+	 * @param pos マス
+	 * @param dir マスのどの向きの辺か
+	 */
+	public void placeSideLineJ(Graphics2D g, Address pos, int dir) {
+		if (dir == Direction.UP)
+			placeSideLine(g, Direction.HORIZ, pos.r()-1, pos.c());		
+		else if (dir == Direction.LT)
+			placeSideLine(g, Direction.VERT, pos.r(), pos.c()-1);		
+		else if (dir == Direction.DN)
+			placeSideLine(g, Direction.HORIZ, pos.r(), pos.c());		
+		else if (dir == Direction.RT)
+			placeSideLine(g, Direction.VERT, pos.r(), pos.c());		
+	}
+	
+	/**
 	 * 辺と交差する線を配置する
 	 * @param g
 	 * @param d 辺座標
@@ -610,6 +638,39 @@ public class PanelBase extends JPanel implements Printable {
 	 */
 	public void edgeCell(Graphics2D g, int r0, int c0) {
 		g.drawRect(toX(c0), toY(r0), getCellSize(), getCellSize());
+	}
+
+	/**
+	 * マスの縁取り 
+	 * @param g
+	 * @param r0 盤面行座標
+	 * @param c0 盤面列座標
+	 * @param w　線幅
+	 */
+	public void edgeCell(Graphics2D g, int r0, int c0, int w) {
+		for (int i = 0; i < w; i++) {
+			g.drawRect(toX(c0)+i, toY(r0)+i, getCellSize()-i-i, getCellSize()-i-i);
+		}
+	}
+
+	/**
+	 * 領域の縁取り 
+	 * @param g
+	 * @param area 領域
+	 */
+	public void edgeArea(Graphics2D g, Area area) {
+		Address neighbor = new Address();
+		for (Address pos : area) {
+			for (int dir = 0; dir < 4; dir++) {
+				neighbor.set(pos);
+				neighbor.move(dir);
+				if (area.contains(neighbor)) {
+					;
+				} else {
+					placeSideLineJ(g, pos, dir);
+				}
+			}
+		}
 	}
 
 	/**
@@ -848,6 +909,53 @@ public class PanelBase extends JPanel implements Printable {
 			setOffsety(10);
 		}
 		updatePreferredSize();
+	}
+	
+	/**
+	 * @return the copyRegion
+	 */
+	Area getCopyRegion() {
+		return copyRegion;
+	}
+	/**
+	 * @return the pasteRegion
+	 */
+	Area getPasteRegion() {
+		return pasteRegion;
+	}
+	/**
+	 * @return the copyRegionOrigin
+	 */
+	Address getCopyRegionOrigin() {
+		return copyRegionOrigin;
+	}
+	/**
+	 * @return the pasteRegionOrigin
+	 */
+	Address getPasteRegionOrigin() {
+		return pasteRegionOrigin;
+	}
+	
+	/**
+	 * 「領域編集モード」での編集領域を表示する。
+	 * @param g
+	 */
+	protected void drawCopyPasteRegion(Graphics2D g) {
+		g.setColor(copyRegionColor);
+		for (Address pos : copyRegion) {
+			edgeCell(g, pos.r(), pos.c(), 1);
+		}
+		edgeArea(g, copyRegion);
+		if (! copyRegionOrigin.isNowhere())
+			edgeCell(g, copyRegionOrigin.r(), copyRegionOrigin.c(), 2);
+		
+		g.setColor(pasteRegionColor);
+		for (Address pos : pasteRegion) {
+			edgeCell(g, pos.r(), pos.c(), 1);
+		}
+		edgeArea(g, pasteRegion);
+		if (! pasteRegionOrigin.isNowhere())
+			edgeCell(g, pasteRegionOrigin.r(), pasteRegionOrigin.c(), 2);
 	}
 }
 
