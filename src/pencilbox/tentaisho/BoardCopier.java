@@ -1,6 +1,3 @@
-/**
- * 
- */
 package pencilbox.tentaisho;
 
 import pencilbox.common.core.BoardBase;
@@ -15,10 +12,10 @@ public class BoardCopier extends BoardCopierBase {
 	public void copyBoardStates(BoardBase src, BoardBase dst, int n) {
 		Board s = (Board) src;
 		Board d = (Board) dst;
-		Rotator rotator =  new Rotator(src.rows(), src.cols(), n);
-		for (int i=0; i<s.getAreaList().size(); i++) {
+		Rotator rotator =  new Rotator(src.getSize(), n);
+		for (Area srcArea : s.getAreaList()) {
 			Area a = new Area();
-			rotator.rotateArea((Area)(s.getAreaList().get(i)), a);
+			rotator.rotateArea(srcArea, a);
 			if (d.isAreaOn(a)) {
 				d.addArea(a);
 			}

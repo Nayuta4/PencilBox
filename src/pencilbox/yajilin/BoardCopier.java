@@ -1,6 +1,3 @@
-/**
- * 
- */
 package pencilbox.yajilin;
 
 import pencilbox.common.core.Address;
@@ -16,7 +13,7 @@ public class BoardCopier extends BoardCopierBase {
 	public void copyBoardStates(BoardBase src, BoardBase dst, int n) {
 		Board s = (Board) src;
 		Board d = (Board) dst;
-		Rotator rotator =  new Rotator(src.rows(), src.cols(), n);
+		Rotator rotator =  new Rotator(src.getSize(), n);
 		rotator.rotateArrayInt3(s.getState(), d.getState());
 		Address pos0 = new Address();
 		Address pos;
