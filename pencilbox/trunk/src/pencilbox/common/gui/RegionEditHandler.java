@@ -223,6 +223,7 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	 */
 	protected void spaceKeyEntered() {
 		boardCopier.eraseRegion(board, copyRegion);
+		board.initBoard();
 	}
 
 //	/**
@@ -370,6 +371,7 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 			} else {
 				boardCopier.moveRegion(board, copyRegion, copyRegionOrigin, pasteRegionOrigin, pasteRotation);
 			}
+			board.initBoard();
 			copyArea(pasteRegion, copyRegion);
 			pasteRegion.clear();
 			copyRegionOrigin.setNowhere();
@@ -432,7 +434,7 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	 * óÃàÊÇâÒì]Ç∑ÇÈÅB
 	 */
 	private void rotateArea(Area area, Address center, int rotation) {
-		Rotator2 rotator = new Rotator2(center.r(), center.c(), rotation);
+		Rotator2 rotator = new Rotator2(center, rotation);
 		Area dst = new Area();
 		for (Address p : area) {
 			dst.add(rotator.rotateAddress(p));
