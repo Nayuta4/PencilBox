@@ -129,7 +129,7 @@ public class PencilFactory {
 		Frame frame = caller.getFrame();
 		caller.setup(pencilType, problem);
 		panel.setup(problem.getBoard());
-		handler.setup(problem.getBoard());
+		handler.setup(panel, problem.getBoard());
 		frame.resize();
 		frame.locateAtSamePosition();
 	}

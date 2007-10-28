@@ -31,8 +31,6 @@ public class BoardCopierBase {
 	}
 	
 	/**
-	 */
-	/**
 	 * 盤面をサイズ変更して複製する。
 	 * @param src 複製元の盤面
 	 * @param size 変更後のサイズ
@@ -56,4 +54,13 @@ public class BoardCopierBase {
 	protected void copyBoardStates(BoardBase src, BoardBase dst, int n) {
 	}
 
+	public void copyRegion(BoardBase board, Area region, Address from, Address to, int rotation) {
+	}
+	
+	public void moveRegion(BoardBase board, Area region, Address from, Address to, int rotation) {
+	}
+
+	public void eraseRegion(BoardBase board, Area region) {
+	}
+	
 }

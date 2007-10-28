@@ -39,13 +39,6 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 
 	public void setup(PanelBase panel, BoardBase board) {
 		this.panel = panel;
-		panel.addKeyListener(this);
-		panel.addMouseListener(this);
-		panel.addMouseMotionListener(this);
-		setup(board);
-	}
-
-	public void setup(BoardBase board) {
 		this.board = board;
 		setBoard(board);
 		resetPreviousInput();

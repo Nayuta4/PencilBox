@@ -1,5 +1,10 @@
 package pencilbox.common.gui;
 
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.util.EventListener;
+
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.factory.ClassUtil;
 import pencilbox.common.factory.PencilBoxClassException;
@@ -10,21 +15,25 @@ import pencilbox.common.factory.PencilType;
  */
 public class EventHandlerManager {
 
-	private PanelEventHandlerBase handler;
+	private PanelBase panel;
+//	private BoardBase board;
 
+	private PanelEventHandlerBase handler;
+	private RegionEditHandler regionEditHandler;
+	
 	/**
 	 * PanelEventHandlerを生成する
 	 */
 	public EventHandlerManager(PencilType pencilType) throws PencilBoxClassException {
 		this.handler = (PanelEventHandlerBase) ClassUtil.createInstance(pencilType, ClassUtil.PANEL_EVENT_HANDLER_CLASS);
+		this.regionEditHandler = new RegionEditHandler();
 	}
 
 	public void setup(PanelBase panel, BoardBase board) {
+		this.panel = panel;
+//		this.board = board;
 		handler.setup(panel, board);
-	}
-
-	public void setup(BoardBase board) {
-		handler.setup(board);
+		regionEditHandler.setup(panel, board, this);
 	}
 
 	/**
@@ -66,8 +75,47 @@ public class EventHandlerManager {
 		handler.checkAnswer();
 	}
 
-	public void setEditMode(int m) {
-		handler.setProblemEditMode(m == PanelBase.PROBLEM_INPUT_MODE);
+	public void setEditMode(int mode) {
+		int currentMode = panel.getEditMode();
+		if (currentMode == PanelBase.PROBLEM_INPUT_MODE || currentMode == PanelBase.ANSWER_INPUT_MODE) {
+			removeListenerFromPanel(handler);
+		} else if (currentMode == PanelBase.REGION_EDIT_MODE) {
+			removeListenerFromPanel(regionEditHandler);
+		}
+		if (mode == PanelBase.PROBLEM_INPUT_MODE || mode == PanelBase.ANSWER_INPUT_MODE) {
+			addListenerToPanel(handler);
+			handler.resetPreviousInput();
+		} else if (mode == PanelBase.REGION_EDIT_MODE) {
+			addListenerToPanel(regionEditHandler);
+			regionEditHandler.init();
+		}
+		panel.setEditMode(mode);
+	}
+
+	/**
+	 * マウスリスナー，キーリスナーをパネルに登録する。
+	 * @param l
+	 */
+	private void addListenerToPanel(EventListener l) {
+		if (l instanceof MouseListener)
+			panel.addMouseListener((MouseListener) l);
+		if (l instanceof MouseMotionListener)
+			panel.addMouseMotionListener((MouseMotionListener) l);
+		if (l instanceof KeyListener);
+			panel.addKeyListener((KeyListener) l);
+	}
+
+	/**
+	 * マウスリスナー，キーリスナーをパネルから外す。
+	 * @param l
+	 */
+	private void removeListenerFromPanel(EventListener l) {
+		if (l instanceof MouseListener)
+			panel.removeMouseListener((MouseListener) l);
+		if (l instanceof MouseMotionListener)
+			panel.removeMouseMotionListener((MouseMotionListener) l);
+		if (l instanceof KeyListener);
+			panel.removeKeyListener((KeyListener) l);
 	}
 
 }
