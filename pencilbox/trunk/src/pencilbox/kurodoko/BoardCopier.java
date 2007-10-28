@@ -1,6 +1,3 @@
-/**
- * 
- */
 package pencilbox.kurodoko;
 
 import pencilbox.common.core.BoardBase;
@@ -14,7 +11,7 @@ public class BoardCopier extends pencilbox.common.core.BoardCopierBase {
 	public void copyBoardStates(BoardBase src, BoardBase dst, int n) {
 		Board s = (Board) src;
 		Board d = (Board) dst;
-		Rotator rotator =  new Rotator(src.rows(), src.cols(), n);
+		Rotator rotator =  new Rotator(src.getSize(), n);
 		rotator.rotateArrayInt2(s.getState(), d.getState());
 	}
 

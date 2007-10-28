@@ -1,6 +1,3 @@
-/**
- * 
- */
 package pencilbox.heyawake;
 
 import pencilbox.common.core.Address;
@@ -16,10 +13,9 @@ public class BoardCopier extends BoardCopierBase {
 	public void copyBoardStates(BoardBase src, BoardBase dst, int n) {
 		Board s = (Board) src;
 		Board d = (Board) dst;
-		Rotator rotator =  new Rotator(src.rows(), src.cols(), n);
+		Rotator rotator =  new Rotator(src.getSize(), n);
 		rotator.rotateArrayInt2(s.getState(), d.getState());
-		for (int i=0; i<s.getSquareList().size(); i++ ) {
-			Square srcSquare = (Square) s.getSquareList().get(i);
+		for (Square srcSquare : s.getSquareList()) {
 			Address pos0 = rotator.rotateAddress(new Address(srcSquare.r0(), srcSquare.c0()));
 			Address pos1 = rotator.rotateAddress(new Address(srcSquare.r1(), srcSquare.c1()));
 			if (d.isOn(pos0) && d.isOn(pos1)) {

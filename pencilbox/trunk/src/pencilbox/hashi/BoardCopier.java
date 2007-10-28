@@ -1,6 +1,3 @@
-/**
- * 
- */
 package pencilbox.hashi;
 
 import pencilbox.common.core.Address;
@@ -18,7 +15,7 @@ public class BoardCopier extends BoardCopierBase {
 		Board d = (Board) dst;
 		Address pos0 = new Address();
 		Address pos;
-		Rotator rotator =  new Rotator(src.rows(), src.cols(), n);
+		Rotator rotator =  new Rotator(src.getSize(), n);
 		for (int r=0; r<s.rows(); r++) {
 			for (int c=0; c<s.cols(); c++) {
 				pos0.set(r,c);

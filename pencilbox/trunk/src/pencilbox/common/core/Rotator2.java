@@ -72,7 +72,7 @@ public class Rotator2 {
 	}
 	
 	/**
-	 * 状態を設定する
+	 * コンストラクタ
 	 * @param rows 行数
 	 * @param cols 列数
 	 * @param rotation 回転・反転番号
@@ -83,6 +83,15 @@ public class Rotator2 {
 		this.rows2 = rows * 2;
 		this.cols2 = cols * 2;
 		this.rotation = rotation;
+	}
+	
+	/**
+	 * コンストラクタ
+	 * @param center 中心座標
+	 * @param rotation 回転・反転番号
+	 */
+	public Rotator2(Address center, int rotation) {
+		this(center.r(), center.c(), rotation);
 	}
 	
 	/**

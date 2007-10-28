@@ -1,6 +1,3 @@
-/**
- * 
- */
 package pencilbox.kakuro;
 
 import pencilbox.common.core.Address;
