@@ -162,13 +162,7 @@ public class PanelBase extends JPanel implements Printable {
 				offsetx * 2 + cellSize * cols() + 1,
 				offsety * 2 + cellSize * rows() + 1);
 	}
-	/**
-	 * 問題編集可能モードの設定を行う
-	 * @param problemEditMode The problemEditMode to set.
-	 */
-	public void setProblemEditMode(boolean problemEditMode) {
-		this.editMode = problemEditMode ? PROBLEM_INPUT_MODE : ANSWER_INPUT_MODE;
-	}
+
 	/**
 	 * @return Returns the problemEditMode.
 	 */
@@ -219,9 +213,10 @@ public class PanelBase extends JPanel implements Printable {
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		paintBackground(g);
 		drawBoard(g);
-		drawCursor(g);
 		if (editMode == REGION_EDIT_MODE)
 			drawCopyPasteRegion(g);
+		else 
+			drawCursor(g);
 		drawIndex(g);
 	}
 	

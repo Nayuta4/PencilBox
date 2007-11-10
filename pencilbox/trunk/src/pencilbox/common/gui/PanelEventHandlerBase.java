@@ -126,14 +126,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	}
 
 	public boolean isProblemEditMode() {
-		return panel.isProblemEditMode();
-	}
-
-	public void setProblemEditMode(boolean b) {
-		panel.setProblemEditMode(b);
-		resetPreviousInput();
-		if (b == false)
-			resetImmediateAnswerCheckMode();
+		return panel.getEditMode() == PanelBase.PROBLEM_INPUT_MODE;
 	}
 
 	public CellCursor getCellCursor() {
@@ -151,10 +144,6 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	public boolean isOn(Address position) {
 		return board.isOn(position);
 	}
-
-//	public boolean isOn(int r, int c, int adjustRow, int adjustCol) {
-//		return board.isOn(r, c, adjustRow, adjustCol);
-//	}
 
 	public boolean isSideOn(SideAddress position) {
 		return board.isSideOn(position);
@@ -353,9 +342,14 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	 * 「問題入力モード」と「解答モード」を切り替える
 	 */
 	protected void slashKeyEntered() {
-		if (isProblemEditMode())
+		if (isProblemEditMode()) {
 			board.initBoard();
-		setProblemEditMode(!isProblemEditMode());
+			panel.setEditMode(PanelBase.ANSWER_INPUT_MODE);
+		} else {
+			panel.setEditMode(PanelBase.PROBLEM_INPUT_MODE);
+		}
+		resetPreviousInput();
+		resetImmediateAnswerCheckMode();
 	}
 
 	/*
