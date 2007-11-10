@@ -59,6 +59,10 @@ public class Board extends BoardBase {
 	public boolean isNumberOn(int r, int c) {
 		return (r >= 0 && r < rows()-1 && c >= 0 && c < cols()-1);
 	}
+
+	public boolean isNumberOn(Address pos) {
+		return isNumberOn(pos.r(), pos.c());
+	}
 	/**
 	 * 指定した座標の数字を取得する
 	 * @param r 数字位置座標での行座標
@@ -68,6 +72,11 @@ public class Board extends BoardBase {
 	public int getNumber(int r, int c) {
 		return number[r][c];
 	}
+
+	public int getNumber(Address pos) {
+		return getNumber(pos.r(), pos.c());
+	}
+
 	/**
 	 * 指定した座標に数字ないし未定数字はあるか
 	 * @param r 数字位置座標での行座標
@@ -85,6 +94,10 @@ public class Board extends BoardBase {
 	 */
 	public void setNumber(int r, int c, int n) {
 		number[r][c] = n;
+	}
+
+	public void setNumber(Address pos, int n) {
+		setNumber(pos.r(), pos.c(), n);
 	}
 	/**
 	 * @return Returns the state.
@@ -121,15 +134,63 @@ public class Board extends BoardBase {
 	public void setState(int d, int r, int c, int st) {
 		state[d][r][c] = st;
 	}
+
+	/**
+	 * 辺状態の取得。マス（スリリンでは点の位置）と向きで座標指定する。
+	 * @param pos
+	 * @param d
+	 * @return
+	 */
+	public int getStateJ(Address pos, int d) {
+		switch (d) {
+			case Direction.UP :
+				return getState(HORIZ, pos.r()-1, pos.c());
+			case Direction.LT :
+				return getState(VERT, pos.r(), pos.c()-1);
+			case Direction.DN :
+				return getState(HORIZ, pos.r(), pos.c());
+			case Direction.RT :
+				return getState(VERT, pos.r(), pos.c());
+			default: 
+				return OUTER;
+		}
+	}
+	/**
+	 * 辺状態の設定。マス（スリリンでは点の位置）と向きで座標指定する。
+	 * @param pos
+	 * @param d
+	 * @param st
+	 */
+	public void setStateJ(Address pos, int d, int st) {
+		switch (d) {
+			case Direction.UP :
+				 setState(HORIZ, pos.r()-1, pos.c(), st);
+				 break;
+			case Direction.LT :
+				 setState(VERT, pos.r(), pos.c()-1, st);
+				 break;
+			case Direction.DN :
+				 setState(HORIZ, pos.r(), pos.c(), st);
+				 break;
+			case Direction.RT :
+				 setState(VERT, pos.r(), pos.c(), st);
+				 break;
+			default: 
+		}
+	}
+
 	public boolean isLine(int d, int r, int c) {
-		if (!isSideOn(d,r,c))
+		if (isSideOn(d, r, c))
+			return state[d][r][c] == LINE;
+		else 
 			return false;
-		return state[d][r][c] == LINE;
 	}
 
 	public Link getLink(int d, int r, int c) {
-		if (isSideOn(d,r,c) ) return link[d][r][c];
-		else return null;
+		if (isSideOn(d, r, c))
+			return link[d][r][c];
+		else
+			return null;
 	}
 	public Link getLink(SideAddress pos) {
 		return link[pos.d()][pos.r()][pos.c()];
@@ -356,16 +417,16 @@ public class Board extends BoardBase {
 		}
 		linkList.remove(oldLink);
 		if (d==VERT) {
-			initLink(r  , c  );
+			initLink(r, c);
 			longerLink = initializingLink;
 			initLink(r  , c+1);
 			if (initializingLink.size() > longerLink.size())
 				longerLink = initializingLink;
 		}
 		else if (d==HORIZ) {
-			initLink(r  , c  );
+			initLink(r, c);
 			longerLink = initializingLink;
-			initLink(r+1, c  );
+			initLink(r+1, c);
 			if (initializingLink.size() > longerLink.size())
 				longerLink = initializingLink;
 		}

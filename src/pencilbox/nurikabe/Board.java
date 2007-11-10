@@ -71,6 +71,10 @@ public class Board extends BoardBase {
 	public int getState(int r, int c) {
 		return state[r][c];
 	}
+	
+	public int getState(Address pos) {
+		return getState(pos.r(), pos.c());
+	}
 	/**
 	 * @param r row coordinate of the cell
 	 * @param c column coordinate of the cell
@@ -79,6 +83,11 @@ public class Board extends BoardBase {
 	public void setState(int r, int c, int st) {
 		state[r][c] = st;
 	}
+
+	public void setState(Address pos, int st) {
+		setState(pos.r(), pos.c(), st);
+	}
+
 	public boolean isNumber(int r, int c) {
 		return isOn(r,c) && (state[r][c] > 0 || state[r][c] == UNDECIDED_NUMBER);
 	}

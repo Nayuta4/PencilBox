@@ -72,6 +72,14 @@ public class Area implements Set<Address> {
 		return cellList.containsAll(c);
 	}
 
+	public boolean containsAll(Address... c) {
+		for (Address p : c) {
+			if (! cellList.contains(p))
+				return false;
+		}
+		return true;
+	}
+
 	public boolean removeAll(Collection<?> c) {
 		return cellList.removeAll(c);
 	}

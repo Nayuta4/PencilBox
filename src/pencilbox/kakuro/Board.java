@@ -6,6 +6,7 @@ import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoableEdit;
 
+import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
 import pencilbox.util.ArrayUtil;
@@ -108,6 +109,10 @@ public class Board extends BoardBase {
 	public int getNumber(int r, int c) {
 		return number[r][c];
 	}
+	
+	public int getNumber(Address pos) {
+		return getNumber(pos.r(), pos.c());
+	}
 	/**
 	 * Set number to  a cell.
 	 * @param r Row coordinate of the cell.
@@ -117,10 +122,19 @@ public class Board extends BoardBase {
 	public void setNumber(int r, int c, int n) {
 		number[r][c] = n;
 	}
+	
+	public void setNumber(Address pos, int n) {
+		setNumber(pos.r(), pos.c(), n);
+	}
+	
 	public boolean isWall(int r, int c) {
 		if (!isOn(r,c))
 			return true;
 		return number[r][c] == WALL;
+	}
+	
+	public boolean isWall(Address pos) {
+		return isWall(pos.r(), pos.c());
 	}
 	/**
 	 * ƒ}ƒX‚É”š‚ª“ü‚Á‚Ä‚¢‚È‚¢‚©‚Ç‚¤‚©

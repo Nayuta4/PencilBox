@@ -92,6 +92,10 @@ public class Board extends BoardBase  {
 	public void setNumber(int r, int c, int st) {
 		number[r][c] = st;
 	}
+	
+	public void setNumber(Address pos, int st) {
+		setNumber(pos.r(), pos.c(), st);
+	}
 	/**
 	 * 丸の取得
 	 * @param r
@@ -100,6 +104,10 @@ public class Board extends BoardBase  {
 	 */
 	public int getNumber(int r, int c) {
 		return number[r][c];
+	}
+	
+	public int getNumber(Address pos) {
+		return getNumber(pos.r(), pos.c());
 	}
 
 	public boolean isNumber(int r, int c) {
@@ -129,6 +137,50 @@ public class Board extends BoardBase  {
 //		if (isSideOn(d,r,c))
 			state[d][r][c] = st;
 	}
+	/**
+	 * 辺状態の取得。マスと向きで座標指定する。
+	 * @param pos
+	 * @param d
+	 * @return
+	 */
+	public int getStateJ(Address pos, int d) {
+		switch (d) {
+			case Direction.UP :
+				return getState(HORIZ, pos.r()-1, pos.c());
+			case Direction.LT :
+				return getState(VERT, pos.r(), pos.c()-1);
+			case Direction.DN :
+				return getState(HORIZ, pos.r(), pos.c());
+			case Direction.RT :
+				return getState(VERT, pos.r(), pos.c());
+			default: 
+				return OUTER;
+		}
+	}
+	/**
+	 * 辺状態の設定。マスと向きで座標指定する。
+	 * @param pos
+	 * @param d
+	 * @param st
+	 */
+	public void setStateJ(Address pos, int d, int st) {
+		switch (d) {
+			case Direction.UP :
+				 setState(HORIZ, pos.r()-1, pos.c(), st);
+				 break;
+			case Direction.LT :
+				 setState(VERT, pos.r(), pos.c()-1, st);
+				 break;
+			case Direction.DN :
+				 setState(HORIZ, pos.r(), pos.c(), st);
+				 break;
+			case Direction.RT :
+				 setState(VERT, pos.r(), pos.c(), st);
+				 break;
+			default: 
+		}
+	}
+
 	public boolean isLine(int d, int r, int c) {
 		if (!isSideOn(d,r,c))
 			return false;
@@ -177,8 +229,9 @@ public class Board extends BoardBase  {
 			default: return false;
 		}
 	}
+
 	public Link getLink(int d, int r, int c) {
-		if (isSideOn(d,r,c) )
+		if (isSideOn(d, r, c) )
 			return link[d][r][c];
 		else return null;
 	}
@@ -231,7 +284,6 @@ public class Board extends BoardBase  {
 			connectLink(d,r,c);
 		}
 	}
-	
 	/**
 	 * 辺の状態を指定した状態に変更する
 	 * アンドゥリスナーに変更を通知する
@@ -312,7 +364,6 @@ public class Board extends BoardBase  {
 		initLink1(HORIZ, r  , c  );
 		if (!initializingLink.isEmpty())
 			linkList.add(initializingLink);
-//		printLink(d,r,c);
 	}
 	private void initLink1(int d, int r, int c) {
 		if (!isSideOn(d,r,c)) return;
@@ -380,9 +431,7 @@ public class Board extends BoardBase  {
 		}
 		newLink.add(d,r,c);
 		setLink(d,r,c, newLink);
-//		printLink(d,r,c);
 	}
-
 
 	/**
 	 * Link 切断
@@ -596,7 +645,7 @@ public class Board extends BoardBase  {
 		return message.toString();
 	}
 
- /**
+  /**
    * １手の操作を表すクラス
    * UNDO, REDO での編集の単位となる
    */

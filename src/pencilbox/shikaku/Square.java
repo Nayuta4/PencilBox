@@ -1,5 +1,7 @@
 package pencilbox.shikaku;
 
+import pencilbox.common.core.Address;
+
 /**
  * 「四角に切れ」四角クラス
  */
@@ -79,6 +81,14 @@ public class Square {
 		this.c1 = ca<cb?cb:ca;
 	}
 	
+	/**
+	 * 四角の４隅のマス座標を左上，右上，左下，右下の順の長さ4の配列に入れて返す。
+	 * @return
+	 */
+	public Address[] getCorners() {
+		return new Address[] {new Address(r0, c0), new Address(r0, c1), new Address(r1, c0), new Address(r1, c1)};
+	}
+
 	/**
 	 * 四角の1つの頂点を固定したまま，対角位置の頂点の座標を変更する。
 	 * @param rOld 変更前の頂点の行座標

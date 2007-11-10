@@ -123,6 +123,10 @@ public class Board extends BoardBase {
 	public Area getArea(int r, int c) {
 		return area[r][c];
 	}
+
+	public Area getArea(Address pos) {
+		return getArea(pos.r(), pos.c());
+	}
 	/**
 	 * 盤上のマスに，そのマスの所属する領域を設定する
 	 * @param r Row coordinate of the cell.
@@ -131,6 +135,10 @@ public class Board extends BoardBase {
 	 */
 	public void setArea(int r, int c, Area a) {
 		area[r][c] = a;
+	}
+
+	public void setArea(Address pos, Area a) {
+		setArea(pos.r(), pos.c(), a);
 	}
 	/**
 	 * 盤面に新しい領域を追加する
@@ -141,6 +149,18 @@ public class Board extends BoardBase {
 			setArea(pos.r(), pos.c(), newArea);
 		}
 		areaList.add(newArea);
+	}
+
+	/**
+	 * 領域を削除する
+	 * @param oldArea
+	 */
+	public void removeArea(Area oldArea) {
+		for (Address pos : oldArea) {
+			if (getArea(pos.r(), pos.c()) == oldArea)
+				setArea(pos.r(), pos.c(), null);
+		}
+		areaList.remove(oldArea);
 	}
 
 	void addCellToAreaA(int r, int c, Area area) {
@@ -168,6 +188,10 @@ public class Board extends BoardBase {
 		area.add(r, c);
 		initArea(area);
 	}
+
+	public void addCellToArea(Address pos, Area area) {
+		addCellToArea(pos.r(), pos.c(), area);
+	}
 	/**
 	 * マスを領域から取り除く
 	 * @param r 取り除くマスの行座標
@@ -182,6 +206,10 @@ public class Board extends BoardBase {
 		} else {
 			initArea(area);
 		}
+	}
+
+	public void removeCellFromArea(Address pos, Area area) {
+		removeCellFromArea(pos.r(), pos.c(), area);
 	}
 	/**
 	 * 新規作成した領域に含まれる星を設定する

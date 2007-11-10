@@ -72,6 +72,10 @@ public class Board extends BoardBase {
 	public int getState(int r, int c) {
 		return state[r][c];
 	}
+	
+	public int getState(Address pos) {
+		return getState(pos.r(), pos.c());
+	}
 	/**
 	 * Set state to a cell.
 	 * @param r Row coordinate of the cell.
@@ -80,6 +84,10 @@ public class Board extends BoardBase {
 	 */
 	public void setState(int r, int c, int st) {
 		state[r][c] = st;
+	}
+	
+	public void setState(Address pos, int st) {
+		setState(pos.r(), pos.c(), st);
 	}
 	/**
 	 * Get number of a cell.
@@ -90,6 +98,9 @@ public class Board extends BoardBase {
 	public int getNumber(int r, int c ) {
 		return number[r][c];
 	}
+	public int getNumber(Address pos) {
+		return getNumber(pos.r(), pos.c());
+	}
 	/**
 	 * Set number to  a cell.
 	 * @param r Row coordinate of the cell.
@@ -98,6 +109,10 @@ public class Board extends BoardBase {
 	 */
 	public void setNumber(int r, int c, int n) {
 		number[r][c] = n;
+	}
+	
+	public void setNumber(Address pos, int n) {
+		setNumber(pos.r(), pos.c(), n);
 	}
 	/**
 	 * マスに数字が入っていないかどうか
@@ -117,6 +132,10 @@ public class Board extends BoardBase {
 	 */
 	public Area getArea(int r, int c ) {
 		return area[r][c];
+	}
+	
+	public Area getArea(Address pos) {
+		return getArea(pos.r(), pos.c());
 	}
 	/**
 	 * 盤上のマスに，そのマスの所属する領域を設定する
@@ -277,6 +296,10 @@ public class Board extends BoardBase {
 		area.add(r, c);
 //		initArea(area);
 	}
+
+	public void addCellToArea(Address pos, Area area) {
+		addCellToArea(pos.r(), pos.c(), area);
+	}
 	/**
 	 * マスを領域から取り除く
 	 * @param r 取り除くマスの行座標
@@ -291,6 +314,10 @@ public class Board extends BoardBase {
 		} else {
 //			initArea(area);
 		}
+	}
+
+	public void removeCellFromArea(Address pos, Area area) {
+		removeCellFromArea(pos.r(), pos.c(), area);
 	}
 	/**
 	 * @return Returns the areaList.
@@ -528,5 +555,5 @@ public class Board extends BoardBase {
 			}
 		}
 	}
-	
+
 }
