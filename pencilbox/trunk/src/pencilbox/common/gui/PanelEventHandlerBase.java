@@ -591,7 +591,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 			return;
 		if (immediateAnswerCheckMode == 0) {
 			if (board.checkAnswerCode() == 0) {
-				JOptionPane.showMessageDialog(panel, board.checkAnswerString(),
+				JOptionPane.showMessageDialog(panel, BoardBase.COMPLETE_MESSAGE,
 						"ê≥âîªíË", JOptionPane.INFORMATION_MESSAGE);
 				immediateAnswerCheckMode = 1;
 			}
