@@ -100,6 +100,10 @@ public class Board extends BoardBase {
 	public int getNumber(int r, int c) {
 		return number[r][c];
 	}
+
+	public int getNumber(Address pos) {
+		return getNumber(pos.r(), pos.c());
+	}
 	/**
 	 * マスに数字を設定する
 	 * @param r 行座標
@@ -108,6 +112,10 @@ public class Board extends BoardBase {
 	 */
 	public void setNumber(int r, int c, int n) {
 		number[r][c] = n;
+	}
+
+	public void setNumber(Address pos, int n) {
+		setNumber(pos.r(), pos.c(), n);
 	}
 	/**
 	 * そのマスに数字があるか

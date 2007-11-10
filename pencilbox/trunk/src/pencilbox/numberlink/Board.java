@@ -70,7 +70,6 @@ public class Board extends BoardBase {
 	int[][] getNumber() {
 		return number;
 	}
-
 	/**
 	 * @return the state
 	 */
@@ -78,14 +77,24 @@ public class Board extends BoardBase {
 		return state;
 	}
 
-	public boolean isNumber(int r, int c){
+	public boolean isNumber(int r, int c) {
 		return (number[r][c] > 0 || number[r][c] == UNDECIDED_NUMBER);
 	}
-	public int getNumber(int r, int c){
+	public int getNumber(int r, int c) {
 		return number[r][c];
 	}
-	public void setNumber(int r, int c, int n){
-		number[r][c] = n;
+	
+	public int getNumber(Address pos) {
+		return getNumber(pos.r(), pos.c());
+	}
+
+	public void setNumber(int r, int c, int n) {
+		if (isOn(r, c))
+			number[r][c] = n;
+	}
+	
+	public void setNumber(Address pos, int n) {
+		setNumber(pos.r(), pos.c(), n);
 	}
 	/**
 	 * 辺状態の取得
@@ -101,6 +110,26 @@ public class Board extends BoardBase {
 			return OUTER;
 	}
 	/**
+	 * 辺状態の取得。マスと向きで座標指定する。
+	 * @param pos
+	 * @param d
+	 * @return
+	 */
+	public int getStateJ(Address pos, int d) {
+		switch (d) {
+			case Direction.UP :
+				return getState(HORIZ, pos.r()-1, pos.c());
+			case Direction.LT :
+				return getState(VERT, pos.r(), pos.c()-1);
+			case Direction.DN :
+				return getState(HORIZ, pos.r(), pos.c());
+			case Direction.RT :
+				return getState(VERT, pos.r(), pos.c());
+			default: 
+				return OUTER;
+		}
+	}
+	/**
 	 * 辺状態の設定
 	 * @param d
 	 * @param r
@@ -108,8 +137,33 @@ public class Board extends BoardBase {
 	 * @param st
 	 */
 	public void setState(int d, int r, int c, int st) {
-		state[d][r][c] = st;
+			state[d][r][c] = st;
 	}
+
+	/**
+	 * 辺状態の設定。マスと向きで座標指定する。
+	 * @param pos
+	 * @param d
+	 * @param st
+	 */
+	public void setStateJ(Address pos, int d, int st) {
+		switch (d) {
+			case Direction.UP :
+				 setState(HORIZ, pos.r()-1, pos.c(), st);
+				 break;
+			case Direction.LT :
+				 setState(VERT, pos.r(), pos.c()-1, st);
+				 break;
+			case Direction.DN :
+				 setState(HORIZ, pos.r(), pos.c(), st);
+				 break;
+			case Direction.RT :
+				 setState(VERT, pos.r(), pos.c(), st);
+				 break;
+			default: 
+		}
+	}
+
 	public boolean isLine(int d, int r, int c) {
 		if (!isSideOn(d,r,c))
 			return false;

@@ -105,8 +105,12 @@ public class Board extends BoardBase {
 	 * @param c
 	 * @return マスの状態
 	 */
-	public int getState(int r, int c){
+	public int getState(int r, int c) {
 		return state[r][c];
+	}
+	
+	public int getState(Address pos) {
+		return getState(pos.r(), pos.c());
 	}
 	/**
 	 * マスの状態を設定
@@ -116,6 +120,10 @@ public class Board extends BoardBase {
 	 */
 	public void setState(int r, int c, int st) {
 		state[r][c] = st;
+	}
+	
+	public void setState(Address pos, int st) {
+		setState(pos.r(), pos.c(), st);
 	}
 	/**
 	 * そのマスの状態が黒マスかどうかを調べる

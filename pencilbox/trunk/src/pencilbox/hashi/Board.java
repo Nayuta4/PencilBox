@@ -65,6 +65,10 @@ public class Board extends BoardBase {
 				addPier(r, c, n);
 		}
 	}
+	
+	public void setNumber(Address pos, int n) {
+		setNumber(pos.r(), pos.c(), n);
+	}
 	/**
 	 * マスの数字を取得する
 	 * @param r 設定するマスの行座標
@@ -76,6 +80,10 @@ public class Board extends BoardBase {
 			return 0;
 		else
 			return pier[r][c].getNumber();
+	}
+	
+	public int getNumber(Address pos) {
+		return getNumber(pos.r(), pos.c());
 	}
 	/**
 	 * そのマスが数字マス（橋脚）かどうか
@@ -109,6 +117,10 @@ public class Board extends BoardBase {
 			ret += (bridgeH[r][c].getBridge() << 2);
 		return ret;
 	}
+	
+	public int getState(Address pos) {
+		return getState(pos.r(), pos.c());
+	}
 	/**
 	 * マスの状態を設定する
 	 * @param r 行座標
@@ -120,6 +132,10 @@ public class Board extends BoardBase {
 			bridgeV[r][c].setBridge(n & 0x3);
 		if (bridgeH[r][c] != null)
 			bridgeH[r][c].setBridge((n>>2) & 0x3);
+	}
+	
+	public void setState(Address pos, int n) {
+		setState(pos.r(), pos.c(), n);
 	}
 	/**
 	 * そのマスを通過する縦方向の橋の数を返す

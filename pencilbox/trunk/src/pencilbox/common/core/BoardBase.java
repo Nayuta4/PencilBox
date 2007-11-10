@@ -87,6 +87,17 @@ public class BoardBase {
 		return isOn(position.r(), position.c());
 	}
 	/**
+	 * 引数で座標を与えられたマスが盤上にあるかどうか
+	 * @param position 調べる座標
+	 * @return 盤上にあれば true
+	 */
+	public boolean isOnAll(Address... positions) {
+		for (Address p : positions)
+			if (! isOn(p))
+				return false;
+		return true;
+	}
+	/**
 	 * 引数で座標を与えられた辺が盤上にあるかどうか
 	 * @param d 縦か横か
 	 * @param r 行座標
@@ -110,6 +121,25 @@ public class BoardBase {
 		return isSideOn(position.d(), position.r(), position.c());
 	}
 
+	/**
+	 * 引数で座標を与えられた辺が盤上にあるかどうか
+	 * @param position
+	 * @return 盤上にあれば true
+	 */
+	public boolean isSideOn(Address pos, int dir) {
+		switch (dir) {
+		case Direction.UP :
+			return isSideOn(Direction.HORIZ, pos.r()-1, pos.c());
+		case Direction.LT :
+			return isSideOn(Direction.VERT, pos.r(), pos.c()-1);
+		case Direction.DN :
+			return isSideOn(Direction.HORIZ, pos.r(), pos.c());
+		case Direction.RT :
+			return isSideOn(Direction.VERT, pos.r(), pos.c());
+		default :
+			return false;
+		}
+	}
 	/**
 	 * 引数で与えられた領域全体が盤内にあるか
 	 * @param area 領域

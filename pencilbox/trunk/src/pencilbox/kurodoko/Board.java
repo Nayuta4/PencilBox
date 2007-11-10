@@ -63,11 +63,21 @@ public class Board extends BoardBase {
 	int[][] getState() {
 		return state;
 	}
+
 	public int getState(int r, int c) {
 		return state[r][c];
 	}
+
+	public int getState(Address pos) {
+		return getState(pos.r(), pos.c());
+	}
+
 	public void setState(int r, int c, int st ) {
 		state[r][c] = st;
+	}
+
+	public void setState(Address pos, int st) {
+		setState(pos.r(), pos.c(), st);
 	}
 	/**
 	 * ˆø”‚Ìƒ}ƒX‚ª”š‚©‚Ç‚¤‚©

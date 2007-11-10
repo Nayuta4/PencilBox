@@ -69,6 +69,10 @@ public class Board extends BoardBase {
 	public void setNumber(int r, int c, int n) {
 		number[r][c] = n;
 	}
+
+	public void setNumber(Address pos, int n) {
+		setNumber(pos.r(), pos.c(), n);
+	}
 	/**
 	 * 指定したマスの状態を取得する
 	 * @param r 行座標
@@ -76,6 +80,10 @@ public class Board extends BoardBase {
 	 */
 	public int getNumber(int r, int c) {
 		return number[r][c]; 
+	}
+
+	public int getNumber(Address pos) {
+		return getNumber(pos.r(), pos.c());
 	}
 	/**
 	 * 指定したマスの数字部分のみを返す。数字マスに対して使用する。
@@ -191,6 +199,26 @@ public class Board extends BoardBase {
 			return OUTER;
 	}
 	/**
+	 * 辺状態の取得。マスと向きで座標指定する。
+	 * @param pos
+	 * @param d
+	 * @return
+	 */
+	public int getStateJ(Address pos, int d) {
+		switch (d) {
+			case Direction.UP :
+				return getState(HORIZ, pos.r()-1, pos.c());
+			case Direction.LT :
+				return getState(VERT, pos.r(), pos.c()-1);
+			case Direction.DN :
+				return getState(HORIZ, pos.r(), pos.c());
+			case Direction.RT :
+				return getState(VERT, pos.r(), pos.c());
+			default: 
+				return OUTER;
+		}
+	}
+	/**
 	 * 辺状態の設定
 	 * @param d
 	 * @param r
@@ -198,8 +226,34 @@ public class Board extends BoardBase {
 	 * @param st
 	 */
 	public void setState(int d, int r, int c, int st) {
-		state[d][r][c] = st;
+		if (isSideOn(d, r, c))
+			state[d][r][c] = st;
 	}
+
+	/**
+	 * 辺状態の設定。マスと向きで座標指定する。
+	 * @param pos
+	 * @param d
+	 * @param st
+	 */
+	public void setStateJ(Address pos, int d, int st) {
+		switch (d) {
+			case Direction.UP :
+				 setState(HORIZ, pos.r()-1, pos.c(), st);
+				 break;
+			case Direction.LT :
+				 setState(VERT, pos.r(), pos.c()-1, st);
+				 break;
+			case Direction.DN :
+				 setState(HORIZ, pos.r(), pos.c(), st);
+				 break;
+			case Direction.RT :
+				 setState(VERT, pos.r(), pos.c(), st);
+				 break;
+			default: 
+		}
+	}
+
 	public boolean isLine(int d, int r, int c) {
 		if (!isSideOn(d,r,c))
 			return false;
@@ -249,7 +303,7 @@ public class Board extends BoardBase {
 	 * @param r マスの行座標
 	 * @param c マスの列座標
 	 */
-	private void eraseLinesAround(int r, int c) {
+	void eraseLinesAround(int r, int c) {
 		if (getState(VERT, r, c-1) == LINE)
 			changeStateA(VERT, r, c-1, UNKNOWN);
 		if (getState(VERT, r, c) == LINE)

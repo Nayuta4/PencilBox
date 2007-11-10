@@ -1,5 +1,7 @@
 package pencilbox.heyawake;
 
+import pencilbox.common.core.Address;
+
 /**
  * 「へやわけ」部屋クラス
  */
@@ -92,6 +94,13 @@ public class Square {
 		this.c0 = ca<cb?ca:cb;
 		this.r1 = ra<rb?rb:ra;
 		this.c1 = ca<cb?cb:ca;
+	}
+	/**
+	 * 四角の４隅のマス座標を左上，右上，左下，右下の順の長さ4の配列に入れて返す。
+	 * @return
+	 */
+	public Address[] getCorners() {
+		return new Address[] {new Address(r0, c0), new Address(r0, c1), new Address(r1, c0), new Address(r1, c1)};
 	}
 	/**
 	 * 数字を設定する

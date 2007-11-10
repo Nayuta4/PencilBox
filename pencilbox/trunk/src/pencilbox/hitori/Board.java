@@ -5,6 +5,7 @@ import javax.swing.undo.AbstractUndoableEdit;
 import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
 
+import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.util.ArrayUtil;
 
@@ -71,6 +72,10 @@ public class Board extends BoardBase {
 	public int getState(int r, int c) {
 		return state[r][c];
 	}
+	
+	public int getState(Address pos) {
+		return getState(pos.r(), pos.c());
+	}
 	/**
 	 * マスの状態を設定する
 	 * @param r マスの行座標
@@ -79,6 +84,10 @@ public class Board extends BoardBase {
 	 */
 	public void setState(int r, int c, int st) {
 		state[r][c] = st;
+	}
+	
+	public void setState(Address pos, int st) {
+		setState(pos.r(), pos.c(), st);
 	}
 	/**
 	 * マスの数字を取得する
@@ -89,6 +98,10 @@ public class Board extends BoardBase {
 	public int getNumber(int r, int c) {
 		return number[r][c];
 	}
+	
+	public int getNumber(Address pos) {
+		return getNumber(pos.r(), pos.c());
+	}
 	/**
 	 * マスに数字を設定する
 	 * @param r row coordinate of the cell.
@@ -97,6 +110,10 @@ public class Board extends BoardBase {
 	 */
 	public void setNumber(int r, int c, int n) {
 		number[r][c] = n;
+	}
+	
+	public void setNumber(Address pos, int n) {
+		setNumber(pos.r(), pos.c(), n);
 	}
 	/**
 	 * 引数の座標が黒マスかどうか。

@@ -5,6 +5,7 @@ import javax.swing.undo.AbstractUndoableEdit;
 import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
 
+import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.util.ArrayUtil;
 
@@ -86,6 +87,10 @@ public class Board extends BoardBase {
 		if (isOn(r,c)) return state[r][c];
 		else return OUTER;
 	}
+	
+	public int getState(Address pos) {
+		return getState(pos.r(), pos.c());
+	}
 	/**
 	 * マスの状態のみを設定する
 	 * @param r 行座標
@@ -94,6 +99,10 @@ public class Board extends BoardBase {
 	 */
 	public void setState(int r, int c, int st) {
 		state[r][c] = st;
+	}
+	
+	public void setState(Address pos, int st) {
+		setState(pos.r(), pos.c(), st);
 	}
 	/**
 	 * そのマスが壁かどうか
