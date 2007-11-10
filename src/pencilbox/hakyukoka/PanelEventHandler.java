@@ -23,6 +23,19 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		setMaxInputNumber(9);   // Žb’è“I
 	}
 	
+	protected int getMaxInputNumber() {
+		Address pos = getCellCursor().getPosition();
+		Area area = board.getArea(pos);
+		if (area != null) {
+			int n = area.size();
+			if (n > 9)
+				return n;
+			else
+				return 9;
+		}
+		return 9;
+	}
+
 	private void setSelectedNumber(int n) {
 		((Panel) getPanel()).setSelectedNumber(n);
 	}
@@ -53,10 +66,15 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			setDraggingArea(area);
 		} else {
 			if (!isCursorOn() || getCellCursor().isAt(pos)) {
-				if (!board.isStable(pos.r(), pos.c()))
-					board.increaseNumber(pos.r(), pos.c());
+				if (!board.isStable(pos.r(), pos.c())) {
+					int n = board.getNumber(pos);
+					if (n >= getMaxInputNumber()) 
+						board.enterNumberA(pos.r(), pos.c(), 0);
+					else if (n >= 0)
+						board.enterNumberA(pos.r(), pos.c(), n + 1);
+				}
 			}
-			setSelectedNumber(board.getNumber(pos.r(), pos.c()));
+			setSelectedNumber(board.getNumber(pos));
 		}
 	}
 
@@ -74,12 +92,6 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			} else if (oldArea == null) {
 				board.addCellToArea(pos.r(), pos.c(), draggingArea);
 			}
-		} else {
-			if (!isCursorOn() || getCellCursor().isAt(pos)) {
-				if (!board.isStable(pos.r(), pos.c()))
-					board.increaseNumber(pos.r(), pos.c());
-			}
-			setSelectedNumber(board.getNumber(pos.r(), pos.c()));
 		}
 	}
 
@@ -91,16 +103,20 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			}
 		} else {
 			if (!isCursorOn() || getCellCursor().isAt(pos)) {
-				if (!board.isStable(pos.r(), pos.c()))
-					board.decreaseNumber(pos.r(), pos.c());
+				if (!board.isStable(pos.r(), pos.c())) {
+					int n = board.getNumber(pos);
+					if (n > 0) 
+						board.enterNumberA(pos.r(), pos.c(), n - 1);
+				}
 			}
-			setSelectedNumber(board.getNumber(pos.r(), pos.c()));
+			setSelectedNumber(board.getNumber(pos));
 		}
 	}
 	
 	protected void rightDragged(Address pos) {
-		if (isProblemEditMode())
+		if (isProblemEditMode()) {
 			rightPressed(pos);
+		}
 	}
 	
 	protected void leftDragFixed(Address dragEnd) {
@@ -116,15 +132,13 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 */
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {
-			if (num > 0) {
-				board.changeNumber(pos.r(), pos.c(), num);
-				board.setState(pos.r(), pos.c(), Board.STABLE);
-				if (isSymmetricPlacementMode()) {
-					Address posS = getSymmetricPosition(pos);
-					if (!board.isStable(posS.r(), posS.c())) {
-						board.setState(posS.r(), posS.c(), Board.STABLE);
-						board.changeNumber(posS.r(), posS.c(), Board.UNKNOWN);
-					}
+			board.changeNumber(pos.r(), pos.c(), num);
+			board.setState(pos.r(), pos.c(), Board.STABLE);
+			if (isSymmetricPlacementMode()) {
+				Address posS = getSymmetricPosition(pos);
+				if (!board.isStable(posS.r(), posS.c())) {
+					board.setState(posS.r(), posS.c(), Board.STABLE);
+					board.changeNumber(posS.r(), posS.c(), Board.UNKNOWN);
 				}
 			}
 		} else if (isCursorOn()){

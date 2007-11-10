@@ -36,13 +36,18 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	protected void leftClicked(Address pos) {
-		if (!board.isStable(pos.r(), pos.c()))
-			board.increaseNumber(pos.r(), pos.c());
+		if (!board.isStable(pos.r(), pos.c())) {
+			int n = board.getNumber(pos);
+			board.enterNumberA(pos.r(), pos.c(), n + 1);
+		}
 	}
 
 	protected void rightClicked(Address pos) {
-		if (!board.isStable(pos.r(), pos.c()))
-			board.decreaseNumber(pos.r(), pos.c());
+		if (!board.isStable(pos.r(), pos.c())) {
+			int n = board.getNumber(pos);
+			if (n > 0) 
+				board.enterNumberA(pos.r(), pos.c(), n - 1);
+		}
 	}
 
 	protected void leftDragged(Address oldPos, Address pos) {

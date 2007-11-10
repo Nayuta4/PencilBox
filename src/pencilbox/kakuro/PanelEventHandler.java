@@ -39,16 +39,24 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 */
 	protected void leftPressed(Address pos) {
 		if (!isCursorOn() || getCellCursor().isAt(pos)) {
-			if (!board.isWall(pos.r(), pos.c())) {
-				board.increaseNumber(pos.r(), pos.c());
+			if (!board.isWall(pos)) {
+				int n = board.getNumber(pos);
+				if (n >= board.getMaxNumber())
+					board.enterNumberA(pos.r(), pos.c(), 0); 
+				else if (n >= 0)
+					board.enterNumberA(pos.r(), pos.c(), n + 1);
 			}
 		}
 	}
 	
 	protected void rightPressed(Address pos) {
 		if (!isCursorOn() || getCellCursor().isAt(pos)) {
-			if (!board.isWall(pos.r(), pos.c())) {
-				board.decreaseNumber(pos.r(), pos.c());
+			if (!board.isWall(pos)) {
+				int n = board.getNumber(pos);
+				if (n == 0) 
+					board.enterNumberA(pos.r(), pos.c(), board.getMaxNumber()); 
+				else if (n > 0)
+					board.enterNumberA(pos.r(), pos.c(), n - 1);
 			}
 		}
 	}
