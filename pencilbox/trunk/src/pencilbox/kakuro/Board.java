@@ -126,7 +126,7 @@ public class Board extends BoardBase {
 	public void setNumber(Address pos, int n) {
 		setNumber(pos.r(), pos.c(), n);
 	}
-	
+
 	public boolean isWall(int r, int c) {
 		if (!isOn(r,c))
 			return true;
@@ -258,29 +258,6 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * マスの数字を1増加させる
-	 * @param r 行座標
-	 * @param c 列座標
-	 */
-	public void increaseNumber(int r, int c) {
-		if (number[r][c] == maxNumber)
-			enterNumberA(r, c, 0); 
-		else
-			enterNumberA(r, c, number[r][c]+1);
-	}
-	/**
-	 * マスの数字を１減少させる
-	 * @param r 行座標
-	 * @param c 列座標
-	 */
-	public void decreaseNumber(int r, int c) {
-		if (number[r][c] == 0) 
-			enterNumberA(r, c, maxNumber); 
-		else 
-			enterNumberA(r, c, number[r][c]-1);
-	}
-
-/**
 	 *  重複数の初期化
 	 */
 	void initMulti() {

@@ -32,18 +32,28 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 */
 	protected void leftPressed(Address pos) {
 		if (!isCursorOn() || getCellCursor().isAt(pos)) {
-			if (!board.isStable(pos.r(), pos.c()))
-				board.increaseNumber(pos.r(), pos.c());
+			if (!board.isStable(pos.r(), pos.c())) {
+				int n = board.getNumber(pos);
+				if (n >= getMaxInputNumber())
+					board.enterNumberA(pos.r(), pos.c(), 0);
+				else if (n >= 0)
+					board.enterNumberA(pos.r(), pos.c(), n + 1);
+			}
 		}
-		setSelectedNumber(board.getNumber(pos.r(), pos.c()));
+		setSelectedNumber(board.getNumber(pos));
 	}
 	
 	protected void rightPressed(Address pos) {
 		if (!isCursorOn() || getCellCursor().isAt(pos)) {
-			if (!board.isStable(pos.r(), pos.c()))
-				board.decreaseNumber(pos.r(), pos.c());
+			if (!board.isStable(pos.r(), pos.c())) {
+				int n = board.getNumber(pos);
+				if (n == 0)
+					board.enterNumberA(pos.r(), pos.c(), getMaxInputNumber());
+				else if (n > 0)
+					board.enterNumberA(pos.r(), pos.c(), n - 1);
+			}
 		}
-		setSelectedNumber(board.getNumber(pos.r(), pos.c()));
+		setSelectedNumber(board.getNumber(pos));
 	}
 	/*
 	 * 「数独」キー操作

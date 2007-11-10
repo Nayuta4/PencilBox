@@ -199,28 +199,6 @@ public class Board extends BoardBase {
 		setNumber(r, c, n);
 	}
 	/**
-	 * マスの数字を1増加させる
-	 * @param r 行座標
-	 * @param c 列座標
-	 */
-	public void increaseNumber(int r, int c) {
-		if (number[r][c] >= 0 && number[r][c] < maxNumber)
-			enterNumberA(r, c, number[r][c] + 1);
-		else if (number[r][c] == maxNumber)
-			enterNumberA(r, c, 0);
-	}
-	/**
-	 * マスの数字を1減少させる
-	 * @param r 行座標
-	 * @param c 列座標
-	 */
-	public void decreaseNumber(int r, int c) {
-		if (number[r][c] > 0 && number[r][c] <= maxNumber)
-			enterNumberA(r, c, number[r][c] - 1);
-		else if (number[r][c] == 0)
-			enterNumberA(r, c, maxNumber);
-	}
-	/**
 	 * マスと同じ行，列，ボックスに，そのマスの数字と重複する数字があるかどうかを調べる
 	 * @param r 行座標
 	 * @param c 列座標

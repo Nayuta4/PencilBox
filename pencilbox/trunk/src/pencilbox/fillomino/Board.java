@@ -231,24 +231,6 @@ public class Board extends BoardBase {
 			new UndoableEditEvent(this, new Step(r, c, number[r][c], n)));
 		changeNumber(r, c, n);
 	}
-	/**
-	 * マスの数字を1増加させる
-	 * @param r 行座標
-	 * @param c 列座標
-	 */
-	public void increaseNumber(int r, int c) {
-		enterNumberA(r, c, number[r][c]+1);
-	}
-	/**
-	 * マスの数字を１減少させる
-	 * @param r 行座標
-	 * @param c 列座標
-	 */
-	public void decreaseNumber(int r, int c) {
-		if (number[r][c] <= 0) 
-			return ;
-		enterNumberA(r, c, number[r][c]-1);
-	}
 
 	/**
 	 * 数字を設定，変更したときの Area 併合処理を行う

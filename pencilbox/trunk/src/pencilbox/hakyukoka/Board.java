@@ -24,7 +24,7 @@ public class Board extends BoardBase {
 	static final int UNKNOWN = 0;
 	
 	private List<Area> areaList;
-	private int maxNumber = 9; // 最大数字9とする
+//	private int maxNumber = 9; // 最大数字9とする
 	private int[][] state; // 問題の数字:1, 解答すべき数字:0,
 	private int[][] number;
 	private Area[][] area;
@@ -239,26 +239,6 @@ public class Board extends BoardBase {
 			new UndoableEditEvent(this, new Step(r, c, number[r][c], n)));
 		changeNumber(r, c, n);
 	}
-	/**
-	 * マスの数字を1増加させる
-	 * @param r 行座標
-	 * @param c 列座標
-	 */
-	public void increaseNumber(int r, int c) {
-		if (number[r][c] == maxNumber) 
-			return ;
-		enterNumberA(r, c, number[r][c]+1);
-	}
-	/**
-	 * マスの数字を１減少させる
-	 * @param r 行座標
-	 * @param c 列座標
-	 */
-	public void decreaseNumber(int r, int c) {
-		if (number[r][c] <= 0) 
-			return ;
-		enterNumberA(r, c, number[r][c]-1);
-	}
 
 	/**
 	 * 新しい領域を追加する
@@ -325,12 +305,7 @@ public class Board extends BoardBase {
 	List<Area> getAreaList() {
 		return areaList;
 	}
-	/**
-	 * @return Returns the maxNumber.
-	 */
-	int getMaxNumber() {
-		return maxNumber;
-	}
+
 	/**
 	 * @return Returns the number.
 	 */
