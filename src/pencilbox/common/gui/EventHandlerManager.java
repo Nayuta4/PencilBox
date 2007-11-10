@@ -85,6 +85,7 @@ public class EventHandlerManager {
 		if (mode == PanelBase.PROBLEM_INPUT_MODE || mode == PanelBase.ANSWER_INPUT_MODE) {
 			addListenerToPanel(handler);
 			handler.resetPreviousInput();
+			resetImmediateAnswerCheckMode();
 		} else if (mode == PanelBase.REGION_EDIT_MODE) {
 			addListenerToPanel(regionEditHandler);
 			regionEditHandler.init();

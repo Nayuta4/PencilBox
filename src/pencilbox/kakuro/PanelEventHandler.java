@@ -24,18 +24,14 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		setMaxInputNumber(9);
 	}
 
-	/**
-	 * 問題入力モードのきりかえ
-	 * @param editable
+	/*
+	 * モードにより入力可能数字異なる。
 	 */
-	public void setProblemEditMode(boolean editable) {
-		// 問題入力モードに入ったとき
-		if (editable) {
-			setMaxInputNumber(45);
-		}else{
-			setMaxInputNumber(9);
-		}
-		super.setProblemEditMode(editable);
+	protected int getMaxInputNumber() {
+		if (isProblemEditMode())
+			return 45;
+		else
+			return 9;
 	}
 
 	/*
