@@ -22,10 +22,10 @@ public class Menu extends MenuBase {
 		return (Panel)getPanelBase();
 	}
 	
-	protected void buildFileMenu() {
-		super.buildFileMenu();
-		removeChangeBoardSizeMenuItem();
-	}
+//	protected void buildFileMenu() {
+//		super.buildFileMenu();
+//		removeChangeBoardSizeMenuItem();
+//	}
 
 	protected void buildEditMenu() {
 		addSymmetricPlacementMenuItem();
