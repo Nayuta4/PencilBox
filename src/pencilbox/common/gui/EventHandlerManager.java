@@ -34,6 +34,7 @@ public class EventHandlerManager {
 //		this.board = board;
 		handler.setup(panel, board);
 		regionEditHandler.setup(panel, board, this);
+		setEditMode(panel.getEditMode());
 	}
 
 	/**
