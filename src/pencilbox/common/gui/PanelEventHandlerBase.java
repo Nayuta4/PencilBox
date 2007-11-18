@@ -361,12 +361,15 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 			return;
 		int modifier = e.getModifiers();
 		if ((modifier & InputEvent.BUTTON1_MASK) != 0) {
-			if ((e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK) != 0)
-				leftPressedShift(newPos);
+			if (e.isShiftDown())
+				rightPressed(newPos);
 			else
 				leftPressed(newPos);
 		} else if ((modifier & InputEvent.BUTTON3_MASK) != 0) {
-			rightPressed(newPos);
+			if (e.isShiftDown())
+				leftPressed(newPos);
+			else
+				rightPressed(newPos);
 		}
 		moveCursor(newPos);
 		oldPos.set(newPos); // 現在位置を更新
@@ -384,9 +387,15 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 		// if (!newPos.isNextTo(oldPos)) return; // 隣接マス以外のイベントは無視
 		// if (dragIneffective(oldPos, newPos)) return; // 隣接マス以外のイベントは無視
 		if ((e.getModifiers() & InputEvent.BUTTON1_MASK) != 0) {
-			leftDragged(oldPos, newPos);
+			if (e.isShiftDown())
+				rightDragged(oldPos, newPos);
+			else
+				leftDragged(oldPos, newPos);
 		} else if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
-			rightDragged(oldPos, newPos);
+			if (e.isShiftDown())
+				leftDragged(oldPos, newPos);
+			else
+				rightDragged(oldPos, newPos);
 		}
 		moveCursor(newPos);
 		oldPos.set(newPos); // 現在位置を更新
@@ -426,12 +435,17 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 			return;
 		int modifier = e.getModifiers();
 		if ((modifier & InputEvent.BUTTON1_MASK) != 0) {
-			if ((e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK) != 0)
-				leftClickedShift(newPos);
+			if (e.isShiftDown())
+				rightClicked(newPos);
 			else
 				leftClicked(newPos);
 		} else if ((modifier & InputEvent.BUTTON3_MASK) != 0) {
-			rightClicked(newPos);
+			if (e.isShiftDown())
+				leftClicked(newPos);
+			else
+				rightClicked(newPos);
+//		} else if ((modifier & InputEvent.BUTTON2_MASK) != 0) {
+//			slashKeyEntered();
 		}
 	}
 	/**
@@ -444,12 +458,15 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 			return;
 		int modifier = e.getModifiers();
 		if ((modifier & InputEvent.BUTTON1_MASK) != 0) {
-			if ((e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK) != 0)
-				leftClickedShiftEdge(sidePos);
+			if (e.isShiftDown())
+				rightClickedEdge(sidePos);
 			else
 				leftClickedEdge(sidePos);
 		} else if ((modifier & InputEvent.BUTTON3_MASK) != 0) {
-			rightClickedEdge(sidePos);
+			if (e.isShiftDown())
+				leftClickedEdge(sidePos);
+			else
+				rightClickedEdge(sidePos);
 		}
 	}
 
@@ -491,14 +508,9 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	protected void leftPressed(Address position) {
 	}
 
-	protected void leftPressedShift(Address position) {
-	}
-
 	protected void leftClicked(Address position) {
 	}
 
-	protected void leftClickedShift(Address position) {
-	}
 	/**
 	 * 左ドラッグしたままた新しいマスに移動したときに呼ばれる．
 	 * 必要に応じてサブクラスで操作をオーバーライドする．
@@ -570,12 +582,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	 */
 	protected void leftClickedEdge(SideAddress position) {
 	}
-	/**
-	 * 辺の位置を左シフトクリックしたときの動作を定める。不使用。
-	 * @param position
-	 */
-	protected void leftClickedShiftEdge(SideAddress position) {
-	}
+
 	/**
 	 * 辺の位置を右クリックしたときの動作を定める。
 	 * @param position
