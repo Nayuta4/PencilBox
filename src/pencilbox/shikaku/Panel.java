@@ -18,6 +18,7 @@ public class Panel extends PanelBase {
 	private Color areaBorderColor = Color.BLUE;
 	private Color smallSizeColor = new Color(0xFFFF80); // 面積小さい
 	private Color areaPaintColor   = new Color(0x80FFFF); // 標準色
+	private Color draggingAreaColor = new Color(0xCCFFFF);
 
 	private Square draggingSquare; // ドラッグして今まさに描こうとしている四角
 
@@ -126,6 +127,15 @@ public class Panel extends PanelBase {
 					g.setColor(Colors.getBrightColor(board.getSquare(r,c).getId()));
 				}
 				paintCell(g, r, c);
+			}
+		}
+		square = getDraggingSquare();
+		if (square != null) {
+			for (int r = square.r0(); r <= square.r1(); r++) {
+				for (int c = square.c0(); c <= square.c1(); c++) {
+					g.setColor(draggingAreaColor);
+					paintCell(g, r, c);
+				}
 			}
 		}
 	}
