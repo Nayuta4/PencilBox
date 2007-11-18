@@ -25,15 +25,19 @@ public class Board extends BoardBase {
 	
 	private int[][] state;
 
-	private Area[][] area;
-	private List<Area> areaList;
+	private Area[][] area; // 黒マスまたは確定白マス領域用
+	private Area[][] whiteArea; // 空白マス含む白マス領域正解判定用
+	private List<Area> wallAreaList;
+	private List<Area> spaceAreaList;
 	private Area initializingArea;
 
 	protected void setup(){
 		super.setup();
 		state = new int[rows()][cols()];
 		area = new Area[rows()][cols()];
-		areaList = new LinkedList<Area>();
+		whiteArea = new Area[rows()][cols()];
+		wallAreaList = new LinkedList<Area>();
+		spaceAreaList = new LinkedList<Area>();
 	}
 
 	public void clearBoard() {
@@ -71,7 +75,7 @@ public class Board extends BoardBase {
 	public int getState(int r, int c) {
 		return state[r][c];
 	}
-	
+
 	public int getState(Address pos) {
 		return getState(pos.r(), pos.c());
 	}
@@ -117,7 +121,8 @@ public class Board extends BoardBase {
 	 */
 	public void initAreas() {
 		ArrayUtil.initArrayObject2(area, null);
-		areaList.clear();
+		wallAreaList.clear();
+		spaceAreaList.clear();
 		for (int r=0; r<rows(); r++) {
 			for (int c=0; c<cols(); c++) {
 				if (getState(r, c) != UNKNOWN && area[r][c] == null) {
@@ -134,7 +139,6 @@ public class Board extends BoardBase {
 	void initArea(int r, int c) {
 		initializingArea = makeNewArea(r, c);
 		initArea1(r, c);
-		areaList.add(initializingArea);
 	}
 
 	private void initArea1(int r, int c) {
@@ -160,9 +164,9 @@ public class Board extends BoardBase {
 	 * @param c Colmun coordinate of the cell.
 	 * @return Returns the area.
 	 */
-	public Area getArea(int r, int c ) {
+	public Area getArea(int r, int c) {
 		// mergeArea などから使用する場合のために，引数チェックを行う
-		if (!isOn(r,c))
+		if (!isOn(r, c))
 			return null;
 		return area[r][c];
 	}
@@ -231,7 +235,6 @@ public class Board extends BoardBase {
 		mergedArea = mergeArea1(getArea(r, c+1), mergedArea, type);
 		if (mergedArea == null) {
 			mergedArea = makeNewArea(r,c);
-			areaList.add(mergedArea);
 		}
 		mergedArea.add(r,c);
 		if (isNumber(r,c))
@@ -239,18 +242,18 @@ public class Board extends BoardBase {
 		setArea(r, c, mergedArea);
 	}
 
-	private Area mergeArea1(Area area, Area mergedArea, int type) {
-		if (area != null && area.getAreaType() == type) {
+	private Area mergeArea1(Area a, Area mergedArea, int type) {
+		if (a != null && a.getAreaType() == type) {
 			if (mergedArea == null){
-				mergedArea = area;
-			} else if (mergedArea != area) {
-				mergedArea.addAll(area);
-				for (Address pos : area) {
+				mergedArea = a;
+			} else if (mergedArea != a) {
+				mergedArea.addAll(a);
+				for (Address pos : a) {
 					setArea(pos.r(), pos.c(), mergedArea);
 					if (isNumber(pos.r(),pos.c()))
 						mergedArea.addNumber(getState(pos.r(),pos.c()));
 				}
-				areaList.remove(area);
+				removeAreaFromList(a);
 			}
 		}
 		return mergedArea;
@@ -264,7 +267,7 @@ public class Board extends BoardBase {
 	void splitArea(int r, int c, int type) {
 		Area oldArea = getArea(r, c);
 		Area largerArea = null;
-		areaList.remove(oldArea);
+		removeAreaFromList(oldArea);
 		for (Address pos : oldArea) {
 			setArea(pos.r(), pos.c(), null);
 		}
@@ -298,15 +301,29 @@ public class Board extends BoardBase {
 	 * @param c マスの列座標
 	 * @return 作成した領域
 	 */
-	Area makeNewArea(int r, int c) {
+	private Area makeNewArea(int r, int c) {
 		if (isWall(r,c)) {
-			return new Area(WALL);
+			Area a = new Area(WALL);
+			wallAreaList.add(a);
+			return a;
 		} else if (isSpaceOrNumber(r,c)) {
-			return new Area(SPACE);
+			Area a = new Area(SPACE);
+			spaceAreaList.add(a);
+			return a;
 		} else {
 			return null;
 		}
 	}
+
+	private void removeAreaFromList(Area a) {
+		int type = a.getAreaType();
+		if (type == WALL)
+			wallAreaList.remove(a);
+		else if (type == SPACE) {
+			spaceAreaList.remove(a);
+		}
+	}
+
 	/**
 	 * そのマスが2ｘ2の黒マスブロックの一角かどうかを調べる
 	 * @param r
@@ -347,46 +364,85 @@ public class Board extends BoardBase {
 		int result = 0;
 		for (int r=rows()-1; r>=0; r--) {
 			for (int c=cols()-1; c>=0; c--) {
-				if (isUnknown(r,c)) {
-					result |= 1;
-				}
+//				if (isUnknown(r,c)) {
+//					result |= 1;
+//				}
 				if (is2x2Block(r,c)) {
 					result |= 64;
 				}
 			}
 		}
-		result |= checkAreas();
+		if (wallAreaList.size() > 1) {
+			result |= 32;
+		}
+//		result |= checkSpaceAreas();
+		result |= checkWhiteAreas();
 		return result;
 	}
 
-	private int checkAreas() {
+//	/**
+//	 * 確定白マスのみを白マスとみなして，白マス領域に関して正解判定する。
+//	 */
+//	private int checkSpaceAreas() {
+//		int ret = 0;
+//		for (Area a : spaceAreaList) {
+//			ret |= checkSpaceArea(a);
+//		}
+//		return ret;
+//	}
+
+	/**
+	 * 空白マスと確定白マスをともとを区別せず白マスとみなして，白マス領域に関して正解判定する。
+	 */
+	private int checkWhiteAreas() {
+		ArrayUtil.initArrayObject2(whiteArea, null);
 		int ret = 0;
-		int blackAreaCount = 0;
-		int number;
-		for (Area area : areaList) {
-			number = area.getNumber();
-			if (area.getAreaType() == SPACE) {
-				if (number == 0) {
-					ret |= 16;
-				} else if (number == Area.MULTIPLE_NUMBER) {
-					ret |= 8;
-				} else if (number == UNDECIDED_NUMBER) {
-					;
-				} else if (number > 0) {
-					if (area.size() < number) {
-						ret |= 4;
-					} else if (area.size() > number) {
-						ret |= 2;
-					}
+		for (int r = 0; r < rows(); r++) {
+			for (int c = 0; c < cols(); c++) {
+				if (getState(r, c) != WALL && whiteArea[r][c] == null) {
+					initializingArea = new Area(SPACE);
+					initWhiteArea1(r, c);
+					ret |= checkSpaceArea(initializingArea);
 				}
-			} else if (area.getAreaType() == WALL) {
-				blackAreaCount ++;
 			}
 		}
-		if (blackAreaCount > 1) {
-			ret |= 32;
+		return ret;
+	}
+
+	private int checkSpaceArea(Area a) {
+		int ret = 0;
+		int number = a.getNumber();
+		if (number == 0) {
+			ret |= 16;
+		} else if (number == Area.MULTIPLE_NUMBER) {
+			ret |= 8;
+		} else if (number == UNDECIDED_NUMBER) {
+			;
+		} else if (number > 0) {
+			if (a.size() < number) {
+				ret |= 4;
+			} else if (a.size() > number) {
+				ret |= 2;
+			}
 		}
 		return ret;
+	}
+
+	private void initWhiteArea1(int r, int c) {
+		if (!isOn(r, c))
+			return;
+		if (whiteArea[r][c] == initializingArea)
+			return;
+		if (getState(r, c) == WALL)
+			return;
+		initializingArea.add(r, c);
+		if (isNumber(r, c))
+			initializingArea.addNumber(getState(r, c));
+		whiteArea[r][c] = initializingArea;
+		initWhiteArea1(r - 1, c);
+		initWhiteArea1(r, c - 1);
+		initWhiteArea1(r + 1, c);
+		initWhiteArea1(r, c + 1);
 	}
 
 	public String checkAnswerString() {
@@ -396,10 +452,12 @@ public class Board extends BoardBase {
 		if (result==1)
 			return "空白マスがある\n";
 		StringBuffer message = new StringBuffer();
-		if ((result & 2) == 2)
-			message.append("数字より面積の大きいシマがある\n"); 
-		if ((result & 4) == 4)
-			message.append("数字より面積の小さいシマがある\n"); 
+//		if ((result & 2) == 2)
+//			message.append("数字より面積の大きいシマがある\n"); 
+//		if ((result & 4) == 4)
+//			message.append("数字より面積の小さいシマがある\n"); 
+		if ((result & 2) == 2 || (result & 4) == 4)
+			message.append("数字と面積が一致していないシマがある\n"); 
 		if ((result & 8) == 8)
 			message.append("数字を複数含むシマがある\n"); 
 		if ((result & 16) == 16)
