@@ -1,12 +1,14 @@
 package pencilbox.common.gui;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ButtonGroup;
+import javax.swing.Icon;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JColorChooser;
 import javax.swing.JMenu;
@@ -111,6 +113,8 @@ public class MenuBase {
 		buildViewMenu();
 		buildHelpMenu();
 
+		buildColorMenuIcon();
+
 		JMenuBar jMenuBar = frame.getJMenuBar();
 		jMenuBar.add(fileMenu);
 		jMenuBar.add(editMenu);
@@ -197,6 +201,41 @@ public class MenuBase {
 			viewMenu.add(cursorItem);  // ("カーソル(C)", 'C')
 		viewMenu.addSeparator();
 		viewMenu.addMenuListener(new ViewMenuListener());
+	}
+
+	/**
+	 * カラーメニューのアイコンを設定します
+	 */
+	protected void buildColorMenuIcon() {
+		int count = colorMenu.getMenuComponentCount();
+		for (int i = 0; i < count; ++i) {
+			Component component = colorMenu.getMenuComponent(i);
+			
+			if (component instanceof JMenuItem) {
+				JMenuItem item = (JMenuItem)component;
+				Color color = getColor(item);
+				if (color != null) {
+					setColorIcon(item, color);
+				}
+			}
+		}
+	}
+	
+	/**
+	 * メニューにカラーアイコンを設定します
+	 * 
+	 * @param item メニュー
+	 * @param color カラー
+	 */
+	protected void setColorIcon(JMenuItem item, Color color) {
+
+		Icon icon = item.getIcon();
+		
+		if (icon != null && icon instanceof ColorIcon && ((ColorIcon)icon).getColor().equals(color)) {
+			return;
+		}
+		
+		item.setIcon(new ColorIcon(color, Color.BLACK, item.getFont().getSize(), item.getFont().getSize()));
 	}
 
 	/**
@@ -462,11 +501,13 @@ public class MenuBase {
 	 */
 	private ActionListener changeColorAction = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
+			JMenuItem item = (JMenuItem) e.getSource();
 			// どのメニュー項目が選択されたかによって，どの色を変更するかをその場で決定する。
-			Color color = JColorChooser.showDialog(panel, e.getActionCommand(),
-					getColor((JMenuItem) e.getSource()));
-			if (color != null)
-				setColor((JMenuItem) e.getSource(), color);
+			Color color = JColorChooser.showDialog(panel, e.getActionCommand(), getColor(item));
+			if (color != null) {
+				setColor(item, color);
+				setColorIcon(item, color);
+			}
 			panel.repaint();
 		}
 	};
@@ -655,6 +696,7 @@ public class MenuBase {
 				}
 			}
 		}
+		buildColorMenuIcon();
 	}
 
 	/*
