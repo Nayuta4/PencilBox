@@ -23,6 +23,7 @@ public class Panel extends PanelBase {
 	private Color noAreaColor = new Color(0xC0C0C0);
 	private Color areaBorderColor = Color.BLACK;
 	private Color continuousRoomColor = new Color(0x800000);
+	private Color draggingAreaColor = new Color(0xCCFFFF);
 
 	private Square draggingSquare;
 
@@ -121,6 +122,15 @@ public class Panel extends PanelBase {
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
 				if (board.getSquare(r,c)  == null) {
+					paintCell(g, r, c);
+				}
+			}
+		}
+		Square square = getDraggingSquare();
+		if (square != null) {
+			g.setColor(draggingAreaColor);
+			for (int r = square.r0(); r <= square.r1(); r++) {
+				for (int c = square.c0(); c <= square.c1(); c++) {
 					paintCell(g, r, c);
 				}
 			}

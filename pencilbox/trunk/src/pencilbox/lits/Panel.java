@@ -24,6 +24,7 @@ public class Panel extends PanelBase {
 	private Color tetrominoIColor = new Color(0xCC00CC);
 	private Color tetrominoTColor = new Color(0x00CCCC);
 	private Color tetrominoSColor = new Color(0x00CC00);
+	private Color draggingAreaColor = new Color(0xCCFFFF);
 	
 	private boolean separateTetrominoColorMode = false;
 	
@@ -119,8 +120,11 @@ public class Panel extends PanelBase {
 	private void paintAreas(Graphics2D g) {
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
-				if (board.getArea(r, c) == null || board.getArea(r, c) == draggingArea) {
+				if (board.getArea(r, c) == null) {
 					g.setColor(noAreaColor);
+					paintCell(g, r, c);
+				} else if (board.getArea(r, c) == draggingArea) {
+					g.setColor(draggingAreaColor);
 					paintCell(g, r, c);
 				}
 			}

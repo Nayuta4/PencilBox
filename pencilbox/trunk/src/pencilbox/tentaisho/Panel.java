@@ -24,6 +24,7 @@ public class Panel extends PanelBase {
 	private Color noStarAreaColor = new Color(0xFFFF80);
 	private Color whiteAreaColor = new Color(0x80FFFF);
 	private Color blackAreaColor = new Color(0xFF80FF);
+	private Color draggingAreaColor = new Color(0xCCFFFF);
 	private Color starColor = Color.BLACK;
 
 	private int halfStarSize = 3;
@@ -187,28 +188,30 @@ public class Panel extends PanelBase {
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
 				if (board.isCovered(r, c)) {
-					if (board.getArea(r,c) == draggingArea)
-						continue; // ƒhƒ‰ƒbƒO’†—Ìˆæ‚Í”’”²‚«
-					int starType = board.getArea(r, c).getStarType();
-					g.setColor(whiteAreaColor);
-					if (isSeparateAreaColorMode()) {
-						if (starType == -1) {
-							g.setColor(getErrorColor());
-						} else if (starType == Board.WHITESTAR) {
-							g.setColor(whiteAreaColor);
-						} else if (starType == Board.BLACKSTAR) {
-							g.setColor(blackAreaColor);
-						} else {
-							g.setColor(noStarAreaColor);
-						} 
-					}
-					if (isIndicateErrorMode()) {
-						if (starType == -1) {
-							g.setColor(getErrorColor());
-						} else if (starType == 0) {
-							g.setColor(noStarAreaColor);
-						} else if (!board.getArea(r, c).isPointSymmetry()) {
-							g.setColor(getErrorColor());
+					if (board.getArea(r,c) == draggingArea) {
+						g.setColor(draggingAreaColor);
+					} else {
+						int starType = board.getArea(r, c).getStarType();
+						g.setColor(whiteAreaColor);
+						if (isSeparateAreaColorMode()) {
+							if (starType == -1) {
+								g.setColor(getErrorColor());
+							} else if (starType == Board.WHITESTAR) {
+								g.setColor(whiteAreaColor);
+							} else if (starType == Board.BLACKSTAR) {
+								g.setColor(blackAreaColor);
+							} else {
+								g.setColor(noStarAreaColor);
+							} 
+						}
+						if (isIndicateErrorMode()) {
+							if (starType == -1) {
+								g.setColor(getErrorColor());
+							} else if (starType == 0) {
+								g.setColor(noStarAreaColor);
+							} else if (!board.getArea(r, c).isPointSymmetry()) {
+								g.setColor(getErrorColor());
+							}
 						}
 					}
 					paintCell(g, r, c);
