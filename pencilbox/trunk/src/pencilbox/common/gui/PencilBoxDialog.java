@@ -6,6 +6,7 @@ import javax.swing.*;
 
 /**
  * カスタムダイアログ用の共通スーパークラス。
+ * JDialogではなくJPanelのサブクラスである。
  * 下部に「了解」「取消」ボタンを配置し，「了解」ボタンをデフォルトボタンとする。
  * JDialogを作成してその中に入れて表示し，閉じられたときに選択された結果を返す。
  */
@@ -49,6 +50,7 @@ public class PencilBoxDialog extends JPanel {
 	
 	private void makeButtonPanel() {
 		buttonPanel = new JPanel();
+		buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 		buttonOk = new JButton("了解");
 		buttonCancel = new JButton("取消");
 		ActionListener buttonAction = new ActionListener() {
@@ -63,16 +65,6 @@ public class PencilBoxDialog extends JPanel {
 		};
 		buttonOk.addActionListener(buttonAction);
 		buttonCancel.addActionListener(buttonAction);
-//		buttonOk.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				accept();
-//			}
-//		});
-//		buttonCancel.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				cancel();
-//			}
-//		});
 		buttonPanel.setLayout(new FlowLayout());
 		buttonPanel.add(buttonOk);
 		if (dialogType == OK_CANCEL) {
@@ -80,9 +72,9 @@ public class PencilBoxDialog extends JPanel {
 		}
 		this.add(buttonPanel, BorderLayout.SOUTH);
 	}
-	
+
 	/**
-	 * ダイアログタイプを設定する。今のところ不使用
+	 * ダイアログタイプを設定する。
 	 * @param dialogType The dialogType to set.
 	 */
 	public void setDialogType(int dialogType) {
@@ -118,7 +110,7 @@ public class PencilBoxDialog extends JPanel {
 	
 	/**
 	 * ダイアログを表示する。
-	 * 毎回JDialogを作り直して，PencilBoxPaneをJDialogの中に入れて表示する。
+	 * 毎回JDialogを作り直して，このクラスのPanelをJDialogの中に入れて表示する。
 	 * @param parent 親フレーム
 	 * @param title タイトル文字列
 	 * @return ユーザーの選択した結果
