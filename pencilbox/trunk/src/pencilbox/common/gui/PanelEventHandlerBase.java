@@ -109,22 +109,6 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 		previousInput = 0;
 	}
 
-	public int getCellSize() {
-		return panel.getCellSize();
-	}
-
-	public int getHalfCellSize() {
-		return panel.getHalfCellSize();
-	}
-
-	public int getOffsetx() {
-		return panel.getOffsetx();
-	}
-
-	public int getOffsety() {
-		return panel.getOffsety();
-	}
-
 	public boolean isProblemEditMode() {
 		return panel.getEditMode() == PanelBase.PROBLEM_INPUT_MODE;
 	}
@@ -158,23 +142,6 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	 */
 	public boolean isCursorOnBoard(Address position) {
 		return board.isOn(position);
-	}
-
-	/**
-	 * Panel上のx方向ピクセル座標をPanel上の列方向マス座標に変換する
-	 * @param x Panel上のピクセル座標のx
-	 * @return xをPanel方向列座標に変換した数値
-	 */
-	public final int toC(int x) {
-		return (x + getCellSize() - getOffsetx()) / getCellSize() - 1;
-	}
-	/**
-	 * Panel上のｙ向ピクセル座標をPanel上の行方向マス座標に変換する
-	 * @param y Panel上のピクセル座標のy
-	 * @return yをPanel方向列座標に変換した数値
-	 */
-	public final int toR(int y) {
-		return (y + getCellSize() - getOffsety()) / getCellSize() - 1;
 	}
 
 	/**
@@ -356,7 +323,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	 * マウスリスナー
 	 */
 	public void mousePressed(MouseEvent e) {
-		newPos.set(toR(e.getY()), toC(e.getX()));
+		newPos.set(panel.pointToAddress(e.getX(), e.getY()));
 		if (!isOn(newPos))
 			return;
 		int modifier = e.getModifiers();
@@ -377,7 +344,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	}
 
 	public void mouseDragged(MouseEvent e) {
-		newPos.set(toR(e.getY()), toC(e.getX()));
+		newPos.set(panel.pointToAddress(e.getX(), e.getY()));
 		if (!isOn(newPos)) {
 			oldPos.setNowhere();
 			return;
@@ -453,7 +420,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	 * @param e
 	 */
 	public void mouseClicked2(MouseEvent e) {
-		setSidePosition(e);
+		panel.pointToSideAddress(e.getX(), e.getY());
 		if (!isSideOn(sidePos))
 			return;
 		int modifier = e.getModifiers();
@@ -470,30 +437,8 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 		}
 	}
 
-	/**
-	 * マウス位置に最も近い辺座標を設定する。
-	 * @param e
-	 */
-	public void setSidePosition(MouseEvent e) {
-		int r = toR(e.getY());
-		int c = toC(e.getX());
-		int resx = e.getX() - getOffsetx() - getCellSize() * c;
-		int resy = e.getY() - getOffsety() - getCellSize() * r;
-		if (resx + resy < getCellSize()) {
-			if (resx < resy)
-				sidePos.set(Direction.VERT, r, c-1);
-			else
-				sidePos.set(Direction.HORIZ, r-1, c);
-		} else {
-			if (resy < resx)
-				sidePos.set(Direction.VERT, r, c);
-			else
-				sidePos.set(Direction.HORIZ, r, c);
-		}
-	}
-
 	public void mouseMoved(MouseEvent e) {
-		// movePos.set(toR(e.getY()), toC(e.getX()));
+		// movePos.set(panel.pointToAddress(e));
 		// if (!isOn(movePos))
 		// return;
 		// mouseMovedTo(movePos);

@@ -74,42 +74,12 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 		return ! pasteRegion.isEmpty();
 	}
 
-	public int getCellSize() {
-		return panel.getCellSize();
-	}
-
-	public int getOffsetx() {
-		return panel.getOffsetx();
-	}
-
-	public int getOffsety() {
-		return panel.getOffsety();
-	}
-
 	public void repaint() {
 		panel.repaint();
 	}
 
 	public boolean isOn(Address position) {
 		return board.isOn(position);
-	}
-
-	/**
-	 * Panel上のx方向ピクセル座標をPanel上の列方向マス座標に変換する
-	 * @param x Panel上のピクセル座標のx
-	 * @return xをPanel方向列座標に変換した数値
-	 */
-	public final int toC(int x) {
-		return (x + getCellSize() - getOffsetx()) / getCellSize() - 1;
-	}
-
-	/**
-	 * Panel上のｙ向ピクセル座標をPanel上の行方向マス座標に変換する
-	 * @param y Panel上のピクセル座標のy
-	 * @return yをPanel方向列座標に変換した数値
-	 */
-	public final int toR(int y) {
-		return (y + getCellSize() - getOffsety()) / getCellSize() - 1;
 	}
 
 	/*
@@ -244,7 +214,7 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	 * マウスリスナー
 	 */
 	public void mousePressed(MouseEvent e) {
-		newPos.set(toR(e.getY()), toC(e.getX()));
+		newPos.set(panel.pointToAddress(e.getX(), e.getY()));
 		if (!isOn(newPos))
 			return;
 		boolean shift = (e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK) != 0;
@@ -259,7 +229,7 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	}
 
 	public void mouseDragged(MouseEvent e) {
-		newPos.set(toR(e.getY()), toC(e.getX()));
+		newPos.set(panel.pointToAddress(e.getX(), e.getY()));
 		if (!isOn(newPos)) {
 			return;
 		}

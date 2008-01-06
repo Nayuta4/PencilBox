@@ -17,6 +17,7 @@ import pencilbox.common.core.Address;
 import pencilbox.common.core.Area;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
+import pencilbox.common.core.SideAddress;
 import pencilbox.common.core.Size;
 
 
@@ -243,6 +244,66 @@ public class PanelBase extends JPanel implements Printable {
 	 */
 	public final int toY(int r) {
 		return getOffsety() + getCellSize() * r;
+	}
+
+	/**
+	 * Panel上のx方向ピクセル座標をマス座標に変換する
+	 * @param x Panel上のピクセル座標のx
+	 * @return 列座標に変換した数値
+	 */
+	private final int toC(int x) {
+		return (x + getCellSize() - getOffsetx()) / getCellSize() - 1;
+	}
+	/**
+	 * Panel上のｙ向ピクセル座標を行方向マス座標に変換する
+	 * @param y Panel上のピクセル座標のy
+	 * @return マス座標に変換した数値
+	 */
+	private final int toR(int y) {
+		return (y + getCellSize() - getOffsety()) / getCellSize() - 1;
+	}
+
+	/**
+	 * 引数のピクセル座標の位置のマス座標を取得する。
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public Address pointToAddress(int x, int y) {
+		int r = toR(y);
+		int c = toC(x);
+		return new Address(r, c);
+	}
+
+	/**
+	 * 引数のピクセル座標に最も近い辺座標を取得する。
+	 *                [H, r-1, c]
+	 *              ┌　─　┐
+	 *                ＼　／　
+	 * [V, r, c-1]  ｜　・　｜ [V, r, c] 
+	 *                ／　＼　
+	 *              └　─　┘
+	 *                [H, r, c]
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public SideAddress pointToSideAddress(int x, int y) {
+		int r = toR(y);
+		int c = toC(x);
+		int resx = x - getOffsetx() - getCellSize() * c;
+		int resy = y - getOffsety() - getCellSize() * r;
+		if (resx + resy < getCellSize()) {
+			if (resx < resy)
+				return new SideAddress(Direction.VERT, r, c-1);
+			else
+				return new SideAddress(Direction.HORIZ, r-1, c);
+		} else {
+			if (resy < resx)
+				return new SideAddress(Direction.VERT, r, c);
+			else
+				return new SideAddress(Direction.HORIZ, r, c);
+		}
 	}
 
 	/*
