@@ -68,6 +68,12 @@ public class SideAddress implements Comparable<SideAddress> {
 		this.r = r;
 		this.c = c;
 	}
+	
+	public void set(SideAddress pos) {
+		this.d = pos.d();
+		this.r = pos.r();
+		this.c = pos.c();
+	}
 
 	public boolean equals(Object o) {
 		if (!(o instanceof SideAddress))

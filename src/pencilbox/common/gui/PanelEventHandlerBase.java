@@ -420,7 +420,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	 * @param e
 	 */
 	public void mouseClicked2(MouseEvent e) {
-		panel.pointToSideAddress(e.getX(), e.getY());
+		sidePos.set(panel.pointToSideAddress(e.getX(), e.getY()));
 		if (!isSideOn(sidePos))
 			return;
 		int modifier = e.getModifiers();
