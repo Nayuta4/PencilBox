@@ -94,6 +94,10 @@ public class Board extends BoardBase {
 	public int getArrowNumber(int r, int c) {
 		return number[r][c] >=0 ? number[r][c] & 15 : -1; 
 	}
+	
+	public int getArrowNumber(Address pos) {
+		return getArrowNumber(pos.r(), pos.c());
+	}
 	/**
 	 * 指定したマスに上向き矢印の数字を設定する。
 	 * @param r 行座標
@@ -101,6 +105,10 @@ public class Board extends BoardBase {
 	 */
 	public void setArrowNumber(int r, int c, int n) {
 		number[r][c] = n; 
+	}
+	
+	public void setArrowNumber(Address pos, int n) {
+		setArrowNumber(pos.r(), pos.c(), n);
 	}
 	/**
 	 * 指定したマスの矢印の方角を返す。数字マスに対して使用する。
@@ -110,6 +118,10 @@ public class Board extends BoardBase {
 	 */
 	public int getArrowDirection(int r, int c) {
 		return number[r][c] >= 0 ? (number[r][c]>>4) & 3 : -1; 
+	}
+	
+	public int getArrowDirection(Address pos) {
+		return getArrowDirection(pos.r(), pos.c());
 	}
 	/**
 	 * 指定したマスの矢印の方角を設定する。数字マスに対して使用する。
@@ -121,16 +133,19 @@ public class Board extends BoardBase {
 		number[r][c] &= ~(3 << 4);
 		number[r][c] |= (dir << 4); 
 	}
+	
+	public void setArrowDirection(Address pos, int dir) {
+		setArrowDirection(pos.r(), pos.c(), dir);
+	}
 	/**
 	 * 指定したマスの矢印の向きを　上→左→下→右→上 の順に変更する。数字マスに対して使用する。
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param pos マス座標
 	 */
-	public void toggleArrowDirection(int r, int c) {
-		int t = getArrowDirection(r,c);
+	public void toggleArrowDirection(Address pos) {
+		int t = getArrowDirection(pos);
 		if (t<0) return;
 		t = (t+1)%4;
-		setArrowDirection(r, c, t);
+		setArrowDirection(pos, t);
 	}
 	/**
 	 * 数字マスか
@@ -140,6 +155,10 @@ public class Board extends BoardBase {
 	 */
 	public boolean isNumber(int r, int c) {
 		return number[r][c] >= 0 || number[r][c] == UNDECIDED_NUMBER;
+	}
+	
+	public boolean isNumber(Address pos) {
+		return isNumber(pos.r(), pos.c());
 	}
 	/**
 	 * 線座標の両側の2マスいずれかが数字マスないし黒マスかどうか
@@ -163,22 +182,26 @@ public class Board extends BoardBase {
 	public void eraseNumber(int r, int c) {
 		number[r][c] = BLANK;
 	}
+	
+	public void eraseNumber(Address pos) {
+		eraseNumber(pos.r(), pos.c());
+	}
 	/**
 	 * 数字の入力を受け付ける
 	 * 今の数字と同じ数字であれば矢印の向きを変える。
 	 * そうでなければ新しく上向き矢印付きの数字を設定する。
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param pos マス座標
 	 * @param n 入力された数字
 	 */
-	public void enterNumber(int r, int c, int n) {
-		if (getArrowNumber(r,c) == n)
-			toggleArrowDirection(r,c);
+	public void enterNumber(Address pos, int n) {
+		if (getArrowNumber(pos) == n)
+			toggleArrowDirection(pos);
 		else {
-			eraseLinesAround(r,c);
-			setArrowNumber(r, c, n);
+			eraseLinesAround(pos);
+			setArrowNumber(pos, n);
 		}
 	}
+
 	/**
 	 * @return Returns the state.
 	 */
@@ -313,16 +336,19 @@ public class Board extends BoardBase {
 		if (getState(HORIZ, r-1, c) == LINE)
 			changeStateA(HORIZ, r-1, c, UNKNOWN);
 	}
+	
+	void eraseLinesAround(Address pos) {
+		eraseLinesAround(pos.r(), pos.c());
+	}
 	/**
 	 * 盤面状態を変更し，アンドゥリスナーに変更を通知する．
-	 * @param r
-	 * @param c
+	 * @param pos
 	 * @param st
 	 */
-	public void changeStateA(int r, int c, int st) {
+	public void changeStateA(Address pos, int st) {
 		fireUndoableEditUpdate(
-			new UndoableEditEvent(this, new PaintStep(r, c, number[r][c], st)));
-		setNumber(r, c, st);	
+			new UndoableEditEvent(this, new PaintStep(pos.r(), pos.c(), getNumber(pos), st)));
+		setNumber(pos, st);	
 	}
 	/**
 	 * 辺の状態を指定した状態に変更する
@@ -369,20 +395,19 @@ public class Board extends BoardBase {
 	}
 	/**
 	 * マスの状態を 未定⇔st で切り替える
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param pos マス座標
 	 * @param st 切り替える状態
 	 */
-	public void toggleState(int r, int c, int st) {
-		if (isNumber(r, c))
+	public void toggleState(Address pos, int st) {
+		if (isNumber(pos))
 			return;
 		if (st == BLACK) {
-			eraseLinesAround(r,c);
+			eraseLinesAround(pos);
 		}
-		if (number[r][c] == st)
-			changeStateA(r, c, BLANK);
+		if (getNumber(pos) == st)
+			changeStateA(pos, BLANK);
 		else
-			changeStateA(r, c, st);
+			changeStateA(pos, st);
 	}
 	/**
 	 * 始点マスと終点マスを結んだ線上の状態を指定の状態に変更する

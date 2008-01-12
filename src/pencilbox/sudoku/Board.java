@@ -87,6 +87,9 @@ public class Board extends BoardBase {
 	public boolean isStable(int r, int c) {
 		return state[r][c] == STABLE;
 	}
+	public boolean isStable(Address pos) {
+		return isStable(pos.r(), pos.c());
+	}
 	/**
 	 * Get state of a cell.
 	 * @param r Row coordinate of the cell.
@@ -174,16 +177,15 @@ public class Board extends BoardBase {
 	}
 	/**
 	 * マスに数字を入力し，アドゥリスナーに通知する
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param pos マス座標
 	 * @param n 入力する数字
 	 */
-	public void enterNumberA(int r, int c, int n) {
+	public void enterNumberA(Address pos, int n) {
 		if (n < 0 || n > maxNumber) return;
-		if (n == number[r][c]) return;
+		if (n == getNumber(pos)) return;
 		fireUndoableEditUpdate(
-			new UndoableEditEvent(this, new Step(r, c, number[r][c], n)));
-		changeNumber(r, c, n);
+			new UndoableEditEvent(this, new Step(pos.r(), pos.c(), getNumber(pos), n)));
+		changeNumber(pos, n);
 	}
 	/**
 	 * Set number to  a cell.
@@ -197,6 +199,10 @@ public class Board extends BoardBase {
 		updateMulti(r, c, n);
 		hint.updateHint(r, c, n);
 		setNumber(r, c, n);
+	}
+	
+	public void changeNumber(Address pos, int n) {
+		changeNumber(pos.r(), pos.c(), n);
 	}
 	/**
 	 * マスと同じ行，列，ボックスに，そのマスの数字と重複する数字があるかどうかを調べる

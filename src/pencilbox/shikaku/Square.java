@@ -36,6 +36,14 @@ public class Square {
 	}
 	/**
 	 * コンストラクタ
+	 * @param posA 一方の角の座標
+	 * @param posB 他方の角の座標
+	 */
+	public Square(Address posA, Address posB) {
+		this(posA.r(), posA.c(), posB.r(), posB.c());
+	}
+	/**
+	 * コンストラクタ
 	 * 引数の四角と同じ座標の四角を作成する。
 	 * @param s 四角
 	 */

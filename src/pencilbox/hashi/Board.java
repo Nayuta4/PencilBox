@@ -387,25 +387,23 @@ public class Board extends BoardBase {
 
 	/**
 	 * 橋をかける，アンドゥリスナーに通知する
-	 * @param r 起点の行座標
-	 * @param c 起点の列座標
+	 * @param pos 起点の座標
 	 * @param direction 方向（上下左右）
 	 */
-	public void addBridgeA(int r, int c, int direction) {
-		addBridge(r, c, direction);
+	public void addBridgeA(Address pos, int direction) {
+		addBridge(pos.r(), pos.c(), direction);
 		fireUndoableEditUpdate(new UndoableEditEvent(this,
-				new Step(r, c, direction, Step.ADDED)));
+				new Step(pos.r(), pos.c(), direction, Step.ADDED)));
 	}
 	/**
 	 * 橋を除く，アンドゥリスナーに通知する
-	 * @param r 起点の行座標
-	 * @param c 起点の列座標
+	 * @param pos 起点の座標
 	 * @param direction 方向（上下左右）
 	 */
-	public void removeBridgeA(int r, int c, int direction) {
-		removeBridge(r, c, direction);
+	public void removeBridgeA(Address pos, int direction) {
+		removeBridge(pos.r(), pos.c(), direction);
 		fireUndoableEditUpdate(new UndoableEditEvent(this, 
-				new Step(r, c, direction, Step.REMOVED)));
+				new Step(pos.r(), pos.c(), direction, Step.REMOVED)));
 	}
 	/**
 	 * 橋の連結番号を初期化する

@@ -126,6 +126,10 @@ public class Board extends BoardBase {
 	public boolean isNumber(int r, int c) {
 		return number[r][c] > 0 || number[r][c] == UNDECIDED_NUMBER;
 	}
+	
+	public boolean isNumber(Address pos) {
+		return isNumber(pos.r(), pos.c());
+	}
 	/**
 	 * そのマスの属する Square を返す
 	 * @param r 行座標

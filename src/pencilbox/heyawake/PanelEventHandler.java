@@ -28,7 +28,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 
 	protected int getMaxInputNumber() {
 		Address pos = getCellCursor().getPosition();
-		Square square = board.getSquare(pos.r(), pos.c());
+		Square square = board.getSquare(pos);
 		if (square != null)
 			return square.mx();
 		return 0;
@@ -43,15 +43,15 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			Square draggingSquare;
 			Square sq = board.getSquare(pos);
 			if (sq == null) {
-				draggingSquare = new Square(pos.r(), pos.c(), pos.r(), pos.c());
+				draggingSquare = new Square(pos, pos);
 			} else {
 				draggingSquare = new Square(sq);
 			}
-			fixPivot(draggingSquare, pos.r(), pos.c());
+			fixPivot(draggingSquare, pos);
 			setDraggingSquare(draggingSquare);
 		} else {
-			board.toggleState(pos.r(), pos.c(), Board.BLACK);
-			currentState = board.getState(pos.r(), pos.c());
+			board.toggleState(pos, Board.BLACK);
+			currentState = board.getState(pos);
 		}
 	}
 	
@@ -70,18 +70,20 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			} else if (pivotR == -1 && pivotC == -1) {
 //				draggingSquare.set(draggingSquare.r0, draggingSquare.c0, draggingSquare.r1, drggingSquare.c1());
 			}
-			fixPivot(draggingSquare, pos.r(), pos.c());
+			fixPivot(draggingSquare, pos);
 		} else {
-			int st = board.getState(pos.r(), pos.c());
+			int st = board.getState(pos);
 			if (st == currentState)
 				return;
-			if (currentState == Board.BLACK && board.isBlock(pos.r(), pos.c()))
+			if (currentState == Board.BLACK && board.isBlock(pos))
 				return;
-			board.changeStateA(pos.r(), pos.c(), currentState);
+			board.changeStateA(pos, currentState);
 		}
 	}
 	
-	private void fixPivot(Square s, int r, int c) {
+	private void fixPivot(Square s, Address pos) {
+		int r = pos.r();
+		int c = pos.c();
 		if (pivotR == -1) {
 			if (r == s.r0()) {
 				pivotR = s.r1();
@@ -133,8 +135,8 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			if (sq != null)
 				board.removeSquare(sq);
 		} else {
-			board.toggleState(pos.r(), pos.c(), Board.WHITE);
-			currentState = board.getState(pos.r(), pos.c());
+			board.toggleState(pos, Board.WHITE);
+			currentState = board.getState(pos);
 		}
 	}
 
@@ -144,12 +146,12 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			if (sq != null)
 				board.removeSquare(sq);
 		} else {
-			int st = board.getState(pos.r(), pos.c());
+			int st = board.getState(pos);
 			if (st == currentState)
 				return;
 			if (currentState == Board.WHITE && st == Board.BLACK)
 				return;
-			board.changeStateA(pos.r(), pos.c(), currentState);
+			board.changeStateA(pos, currentState);
 		}
 	}
 	
@@ -163,7 +165,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 */
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {
-			Square square = board.getSquare(pos.r(), pos.c());
+			Square square = board.getSquare(pos);
 			if (square != null)
 				square.setNumber(num);
 		}
@@ -171,7 +173,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode()) {
-			Square square = board.getSquare(pos.r(), pos.c());
+			Square square = board.getSquare(pos);
 			if (square != null)
 				square.setNumber(Square.ANY);
 		}

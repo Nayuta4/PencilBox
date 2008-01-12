@@ -29,15 +29,15 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	private int currentState = Board.UNKNOWN;
 
 	protected void leftPressed(Address pos) {
-		board.toggleState(pos.r(), pos.c(), Board.BULB);
+		board.toggleState(pos, Board.BULB);
 	}
 
 	protected void rightPressed(Address pos) {
-		board.toggleState(pos.r(), pos.c(), Board.NOBULB);
-		if (board.isWall(pos.r(), pos.c()))
+		board.toggleState(pos, Board.NOBULB);
+		if (board.isWall(pos))
 			currentState = Board.UNKNOWN;
 		else
-			currentState = board.getState(pos.r(), pos.c());
+			currentState = board.getState(pos);
 	}
 
 	protected void leftDragged(Address pos) {
@@ -45,11 +45,11 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	protected void rightDragged(Address pos) {
-		if (board.isWall(pos.r(), pos.c()))
+		if (board.isWall(pos))
 			return;
-		if (board.getState(pos.r(), pos.c()) == currentState)
+		if (board.getState(pos) == currentState)
 			return;
-		board.changeStateA(pos.r(), pos.c(), currentState);
+		board.changeStateA(pos, currentState);
 	}
 
 	/*
@@ -57,34 +57,34 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 */
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {
-			board.changeState(pos.r(), pos.c(), num);
+			board.changeState(pos, num);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
-				if (!board.isWall(posS.r(), posS.c()))
-					board.changeState(posS.r(), posS.c(), Board.NONUMBER_WALL);
+				if (!board.isWall(posS))
+					board.changeState(posS, Board.NONUMBER_WALL);
 			}
 		}
 	}
 
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.changeState(pos.r(), pos.c(), Board.UNKNOWN);
+			board.changeState(pos, Board.UNKNOWN);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
-				if (board.isWall(posS.r(), posS.c()))
-					board.changeState(posS.r(), posS.c(), Board.UNKNOWN);
+				if (board.isWall(posS))
+					board.changeState(posS, Board.UNKNOWN);
 			}
 		}
 	}
 
 	protected void minusEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.changeState(pos.r(), pos.c(), Board.NONUMBER_WALL);
+			board.changeState(pos, Board.NONUMBER_WALL);
 		}
 		if (isSymmetricPlacementMode()) {
 			Address posS = getSymmetricPosition(pos);
-			if (!board.isWall(posS.r(), posS.c()))
-				board.changeState(posS.r(), posS.c(), Board.NONUMBER_WALL);
+			if (!board.isWall(posS))
+				board.changeState(posS, Board.NONUMBER_WALL);
 		}
 	}
 

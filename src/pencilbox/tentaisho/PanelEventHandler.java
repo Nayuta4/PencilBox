@@ -24,7 +24,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	public boolean isCursorOnBoard(Address pos) {
-		return board.isOnStar(pos.r(), pos.c());
+		return board.isOnStar(pos);
 	}
 
 	/**
@@ -45,10 +45,10 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 * 「天体ショー」マウス操作
 	 */
 	protected void leftPressed(Address pos) {
-		Area area = board.getArea(pos.r(), pos.c());
+		Area area = board.getArea(pos);
 		if (area == null) {
 			area = new Area();
-			board.addCellToAreaA(pos.r(), pos.c(), area);
+			board.addCellToAreaA(pos, area);
 		}
 		setDraggingArea(area);
 	}
@@ -57,20 +57,20 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		Area draggingArea = getDraggingArea();
 		if (draggingArea == null)
 			return;
-		Area oldArea = board.getArea(pos.r(), pos.c());
+		Area oldArea = board.getArea(pos);
 		if (oldArea != null && oldArea != draggingArea) {
-			board.removeCellFromAreaA(pos.r(), pos.c(), oldArea);
-			board.addCellToAreaA(pos.r(), pos.c(), draggingArea);
+			board.removeCellFromAreaA(pos, oldArea);
+			board.addCellToAreaA(pos, draggingArea);
 		} else if (oldArea != null && oldArea == draggingArea) {
 		} else if (oldArea == null) {
-			board.addCellToAreaA(pos.r(), pos.c(), draggingArea);
+			board.addCellToAreaA(pos, draggingArea);
 		}
 	}
 
 	protected void rightPressed(Address pos) {
-		Area oldArea = board.getArea(pos.r(), pos.c());
+		Area oldArea = board.getArea(pos);
 		if (oldArea != null) {
-			board.removeCellFromAreaA(pos.r(), pos.c(), oldArea);
+			board.removeCellFromAreaA(pos, oldArea);
 		}
 	}
 	
@@ -94,14 +94,14 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	/*
 	 * 「天体ショー」キー操作
 	 */
-	protected void numberEntered(Address p, int n) {
+	protected void numberEntered(Address pos, int n) {
 		if (isProblemEditMode())
 			if (n == Board.BLACKSTAR || n == Board.WHITESTAR)
-				board.setStar(p.r(), p.c(), n);
+				board.setStar(pos, n);
 	}
 
-	protected void spaceEntered(Address p) {
+	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode())
-			board.setStar(p.r(), p.c(), Board.NOSTAR);
+			board.setStar(pos, Board.NOSTAR);
 	}
 }

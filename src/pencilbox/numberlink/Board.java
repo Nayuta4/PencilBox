@@ -80,6 +80,10 @@ public class Board extends BoardBase {
 	public boolean isNumber(int r, int c) {
 		return (number[r][c] > 0 || number[r][c] == UNDECIDED_NUMBER);
 	}
+	
+	public boolean isNumber(Address pos) {
+		return isNumber(pos.r(), pos.c());
+	}
 	public int getNumber(int r, int c) {
 		return number[r][c];
 	}
@@ -179,6 +183,7 @@ public class Board extends BoardBase {
 	public Link getLink(SideAddress pos) {
 		return link[pos.d()][pos.r()][pos.c()];
 	}
+	
 	/**
 	 * ‚»‚Ìƒ}ƒX‚ğŠÜ‚Ş Link ‚ğ•Ô‚·
 	 */
@@ -194,6 +199,11 @@ public class Board extends BoardBase {
 		if (link != null) return link;
 		return null;
 	}
+	
+	public Link getLink(Address pos) {
+		return getLink(pos.r(), pos.c());
+	}
+	
 	public void setLink(int d, int r, int c, Link l) {
 		link[d][r][c] =  l;
 	}
