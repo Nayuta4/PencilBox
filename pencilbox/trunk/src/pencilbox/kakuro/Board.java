@@ -155,9 +155,15 @@ public class Board extends BoardBase {
 		number[r][c] = WALL;
 		sumV[r][c] = n;
 	}
+	public void setSumV(Address pos, int n) {
+		setSumV(pos.r(), pos.c(), n);
+	}
 	public void setSumH(int r, int c, int n) {
 		number[r][c] = WALL;
 		sumH[r][c] = n;
+	}
+	public void setSumH(Address pos, int n) {
+		setSumH(pos.r(), pos.c(), n);
 	}
 
 	public void setWall(int r, int c, int a, int b) {
@@ -165,10 +171,16 @@ public class Board extends BoardBase {
 		sumH[r][c] = a;
 		sumV[r][c] = b;
 	}
+	public void setWall(Address pos, int a, int b) {
+		setWall(pos.r(), pos.c(), a, b);
+	}
 	public void removeWall(int r, int c) {
 		number[r][c] = 0;
 		sumH[r][c] = 0;
 		sumV[r][c] = 0;
+	}
+	public void removeWall(Address pos) {
+		removeWall(pos.r(), pos.c());
 	}
 
 	public void initBoard() {
@@ -241,20 +253,23 @@ public class Board extends BoardBase {
 		setNumber(r, c, n);
 		updateHint(r, c);
 	}
+	
+	public void changeNumber(Address pos, int n) {
+		changeNumber(pos.r(), pos.c(), n);
+	}
 	/**
 	 * マスに数字を入力し，アンドゥリスナーに通知する
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param pos マス座標
 	 * @param n 入力した数字
 	 */
-	public void enterNumberA(int r, int c, int n) {
+	public void enterNumberA(Address pos, int n) {
 		if (n < 0 || n > maxNumber) 
 			return;
-		if (n == number[r][c]) 
+		if (n == getNumber(pos)) 
 			return;
 		fireUndoableEditUpdate(
-			new UndoableEditEvent(this, new Step(r, c, number[r][c], n)));
-		changeNumber(r, c, n);
+			new UndoableEditEvent(this, new Step(pos.r(), pos.c(), getNumber(pos), n)));
+		changeNumber(pos, n);
 	}
 
 	/**

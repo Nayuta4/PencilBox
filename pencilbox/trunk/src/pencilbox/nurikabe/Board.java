@@ -95,6 +95,11 @@ public class Board extends BoardBase {
 	public boolean isNumber(int r, int c) {
 		return isOn(r,c) && (state[r][c] > 0 || state[r][c] == UNDECIDED_NUMBER);
 	}
+	
+	public boolean isNumber(Address pos) {
+		return isNumber(pos.r(), pos.c());
+	}
+	
 	public boolean isWall(int r, int c) {
 		return isOn(r,c) && (state[r][c] == WALL);
 	}
@@ -195,30 +200,32 @@ public class Board extends BoardBase {
 			mergeArea(r, c, type);
 		}
 	}
+	
+	public void changeState(Address pos, int st) {
+		changeState(pos.r(), pos.c(), st);
+	}
 	/**
 	 * マスの状態を指定した状態に変更し，変更をアンドゥリスナーに通知する
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param pos マス座標
 	 * @param st 変更後の状態
 	 */
-	public void changeStateA(int r, int c, int st) {
-		fireUndoableEditUpdate(new UndoableEditEvent(this, new Step(r, c, state[r][c], st)));
-		changeState(r, c, st);
+	public void changeStateA(Address pos, int st) {
+		fireUndoableEditUpdate(new UndoableEditEvent(this, new Step(pos.r(), pos.c(), getState(pos), st)));
+		changeState(pos, st);
 	}
 
 	/**
 	 * マスの状態を 未定 ⇔ st と変更する
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param pos マス座標
 	 * @param st 切り替える状態
 	 */
-	public void toggleState(int r, int c, int st) {
-		if(isNumber(r,c))
+	public void toggleState(Address pos, int st) {
+		if (isNumber(pos))
 			return;
-		if (state[r][c] == st)
-			changeStateA(r, c, UNKNOWN);
+		if (getState(pos) == st)
+			changeStateA(pos, UNKNOWN);
 		else
-			changeStateA(r, c, st);
+			changeStateA(pos, st);
 	}
 
 	/**

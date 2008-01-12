@@ -24,17 +24,6 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	
 	/*
 	 * 「ナンバーリンク」マウス操作
-	 * 辺に対して操作をする
-	 */
-//	protected void leftClicked(int dir, Address pos) {
-//		board.toggleState(dir, pos.r, pos.c, Board.LINE);
-//	}
-//	protected void rightClickedEdge(int dir, Address pos) {
-//		board.toggleState(dir, pos.r, pos.c, Board.NOLINE);
-//	}
-
-	/*
-	 * 「ナンバーリンク」マウス操作
 	 */
 	protected void leftDragged(Address dragStart, Address dragEnd) {
 		if (dragStart.r() == dragEnd.r() || dragStart.c() == dragEnd.c()) {
@@ -52,11 +41,11 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 */
 	protected void leftClicked(Address pos) {
 
-		Link link = board.getLink(pos.r(), pos.c());
+		Link link = board.getLink(pos);
 		int newNumber = 0;
 
-		if (board.isNumber(pos.r(), pos.c()))
-			newNumber = board.getNumber(pos.r(), pos.c());
+		if (board.isNumber(pos))
+			newNumber = board.getNumber(pos);
 		else {
 			if(link!=null)
 				newNumber = link.getNumber();
@@ -77,11 +66,11 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {
 			if (num > 0) {
-				board.setNumber(pos.r(), pos.c(), num);
+				board.setNumber(pos, num);
 				if (isSymmetricPlacementMode()) {
 					Address posS = getSymmetricPosition(pos);
-					if (!board.isNumber(posS.r(), posS.c()))
-						board.setNumber(posS.r(), posS.c(), Board.UNDECIDED_NUMBER);
+					if (!board.isNumber(posS))
+						board.setNumber(posS, Board.UNDECIDED_NUMBER);
 				}
 			}
 		}
@@ -89,22 +78,22 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.setNumber(pos.r(), pos.c(), 0);
+			board.setNumber(pos, 0);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
-				if (board.isNumber(posS.r(), posS.c()))
-					board.setNumber(posS.r(), posS.c(), Board.BLANK);
+				if (board.isNumber(posS))
+					board.setNumber(posS, Board.BLANK);
 			}
 		}
 	}
 
 	protected void minusEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.setNumber(pos.r(), pos.c(), Board.UNDECIDED_NUMBER);
+			board.setNumber(pos, Board.UNDECIDED_NUMBER);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
-				if (!board.isNumber(posS.r(), posS.c()))
-					board.setNumber(posS.r(), posS.c(), Board.UNDECIDED_NUMBER);
+				if (!board.isNumber(posS))
+					board.setNumber(posS, Board.UNDECIDED_NUMBER);
 			}
 		}
 	}

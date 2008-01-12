@@ -33,7 +33,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		Square draggingSquare;
 		Square sq = board.getSquare(pos);
 		if (sq == null) {
-			draggingSquare = new Square(pos.r(), pos.c(), pos.r(), pos.c());
+			draggingSquare = new Square(pos, pos);
 		} else {
 			draggingSquare = new Square(sq);
 		}
@@ -127,11 +127,11 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {
 			if (num > 0) {
-				board.setNumber(pos.r(), pos.c(), num);
+				board.setNumber(pos, num);
 				if (isSymmetricPlacementMode()) {
 					Address posS = getSymmetricPosition(pos);
-					if (!board.isNumber(posS.r(), posS.c()))
-						board.setNumber(posS.r(), posS.c(), Board.UNDECIDED_NUMBER);
+					if (!board.isNumber(posS))
+						board.setNumber(posS, Board.UNDECIDED_NUMBER);
 				}
 			}
 		}
@@ -139,22 +139,22 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.setNumber(pos.r(), pos.c(), 0);
+			board.setNumber(pos, 0);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
-				if (board.isNumber(posS.r(), posS.c()))
-					board.setNumber(posS.r(), posS.c(), 0);
+				if (board.isNumber(posS))
+					board.setNumber(posS, 0);
 			}
 		}
 	}
 	
 	protected void minusEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.setNumber(pos.r(), pos.c(), Board.UNDECIDED_NUMBER);
+			board.setNumber(pos, Board.UNDECIDED_NUMBER);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
-				if (!board.isNumber(posS.r(), posS.c()))
-					board.setNumber(posS.r(), posS.c(), Board.UNDECIDED_NUMBER);
+				if (!board.isNumber(posS))
+					board.setNumber(posS, Board.UNDECIDED_NUMBER);
 			}
 		}
 	}

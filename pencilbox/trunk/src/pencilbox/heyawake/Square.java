@@ -40,13 +40,21 @@ public class Square {
 	 * @param rb 他方の角の行座標
 	 * @param cb 他方の角の列座標
 	 */
-
 	public Square(int ra, int ca, int rb, int cb){
 		this.r0 = ra<rb?ra:rb;
 		this.c0 = ca<cb?ca:cb;
 		this.r1 = ra<rb?rb:ra;
 		this.c1 = ca<cb?cb:ca;
 		this.setNumber(ANY);
+	}
+	/**
+	 * コンストラクタ
+	 * 両対角点の座標から 数字なしの部屋を作成
+	 * @param posA 一方の角の座標
+	 * @param posB 他方の角の座標
+	 */
+	public Square(Address posA, Address posB) {
+		this(posA.r(), posA.c(), posB.r(), posB.c());
 	}
 	/**
 	 * コンストラクタ

@@ -39,11 +39,11 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	protected void leftClicked(Address pos) {
-		board.toggleState(pos.r(), pos.c(), Board.BLACK);
+		board.toggleState(pos, Board.BLACK);
 	}
 
-	protected void rightClicked(Address position) {
-		board.toggleState(position.r(), position.c(), Board.WHITE);
+	protected void rightClicked(Address pos) {
+		board.toggleState(pos, Board.WHITE);
 	}
 	
 	/*
@@ -51,33 +51,33 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 */
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {
-			board.enterNumber(pos.r(), pos.c(), num);
+			board.enterNumber(pos, num);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
-				if (!board.isNumber(posS.r(), posS.c()))
-					board.enterNumber(posS.r(), posS.c(), Board.UNDECIDED_NUMBER);
+				if (!board.isNumber(posS))
+					board.enterNumber(posS, Board.UNDECIDED_NUMBER);
 			}
 		}
 	}
 
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.eraseNumber(pos.r(), pos.c());
+			board.eraseNumber(pos);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
-				if (board.isNumber(posS.r(), posS.c()))
-					board.eraseNumber(posS.r(), posS.c());
+				if (board.isNumber(posS))
+					board.eraseNumber(posS);
 			}
 		}
 	}
 
 	protected void minusEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.enterNumber(pos.r(), pos.c(), Board.UNDECIDED_NUMBER);
+			board.enterNumber(pos, Board.UNDECIDED_NUMBER);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
-				if (!board.isNumber(posS.r(), posS.c()))
-					board.enterNumber(posS.r(), posS.c(), Board.UNDECIDED_NUMBER);
+				if (!board.isNumber(posS))
+					board.enterNumber(posS, Board.UNDECIDED_NUMBER);
 			}
 		}
 	}

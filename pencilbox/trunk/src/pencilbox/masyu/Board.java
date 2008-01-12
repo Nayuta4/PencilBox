@@ -113,6 +113,10 @@ public class Board extends BoardBase  {
 	public boolean isNumber(int r, int c) {
 		return (number[r][c] >= 1 && number[r][c] <= 3);
 	}
+	
+	public boolean isNumber(Address pos) {
+		return isNumber(pos.r(), pos.c());
+	}
 	/**
 	 * 辺状態の取得
 	 * @param d
@@ -126,6 +130,10 @@ public class Board extends BoardBase  {
 		else
 			return OUTER;
 	}
+	
+	public int getState(SideAddress pos) {
+		return getState(pos.d(), pos.r(), pos.c());
+	}
 	/**
 	 * 辺状態の設定
 	 * @param d
@@ -136,6 +144,10 @@ public class Board extends BoardBase  {
 	public void setState(int d, int r, int c, int st) {
 //		if (isSideOn(d,r,c))
 			state[d][r][c] = st;
+	}
+	
+	public void setState(SideAddress pos, int st) {
+		setState(pos.d(), pos.r(), pos.c(), st);
 	}
 	/**
 	 * 辺状態の取得。マスと向きで座標指定する。
@@ -297,18 +309,21 @@ public class Board extends BoardBase  {
 			new UndoableEditEvent(this, new Step(d, r, c, getState(d,r,c), st)));
 		changeState(d, r, c, st);
 	}
+
+	public void changeStateA(SideAddress pos, int st) {
+		changeStateA(pos.d(), pos.r(), pos.c(), st);
+	}
+
 	/**
 	 * 辺の状態を 未定⇔st で切り替える
-	 * @param d 縦か横か
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param pos 辺座標
 	 * @param st 切り替える状態
 	 */
-	public void toggleState(int d, int r, int c, int st) {
-		if (getState(d, r, c) == st)
-			changeStateA(d, r, c, UNKNOWN);
+	public void toggleState(SideAddress pos, int st) {
+		if (getState(pos) == st)
+			changeStateA(pos, UNKNOWN);
 		else
-			changeStateA(d, r, c, st);
+			changeStateA(pos, st);
 	}
 	/**
 	 * 始点マスと終点マスを結んだ線上の状態を指定の状態に変更する

@@ -28,10 +28,10 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 * ましゅ 辺に対するマウス操作
 	 */
 	protected void leftClickedEdge(SideAddress pos) {
-		board.toggleState(pos.d(), pos.r(), pos.c(), Board.LINE);
+		board.toggleState(pos, Board.LINE);
 	}
 	protected void rightClickedEdge(SideAddress pos) {
-		board.toggleState(pos.d(), pos.r(), pos.c(), Board.NOLINE);
+		board.toggleState(pos, Board.NOLINE);
 	}
 	/*
 	 * ましゅ マスに対するマウス操作
@@ -53,33 +53,33 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	protected void numberEntered(Address pos, int n) {
 		if (isProblemEditMode()) {
 			if(n == 1 || n == 2) {
-				board.setNumber(pos.r(), pos.c(), n);
+				board.setNumber(pos, n);
 				if (isSymmetricPlacementMode()) {
 					Address posS = getSymmetricPosition(pos);
-					if (!board.isNumber(posS.r(), posS.c()))
-						board.setNumber(posS.r(), posS.c(), Board.GRAY_PEARL);
+					if (!board.isNumber(posS))
+						board.setNumber(posS, Board.GRAY_PEARL);
 				}
 			}
 		}
 	}
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.setNumber(pos.r(), pos.c(), Board.NO_PEARL);
+			board.setNumber(pos, Board.NO_PEARL);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
-				if (board.isNumber(posS.r(), posS.c()))
-					board.setNumber(posS.r(), posS.c(), Board.NO_PEARL);
+				if (board.isNumber(posS))
+					board.setNumber(posS, Board.NO_PEARL);
 			}
 		}
 	}
 
 	protected void minusEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.setNumber(pos.r(), pos.c(), Board.GRAY_PEARL);
+			board.setNumber(pos, Board.GRAY_PEARL);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
-				if (!board.isNumber(posS.r(), posS.c()))
-					board.setNumber(posS.r(), posS.c(), Board.GRAY_PEARL);
+				if (!board.isNumber(posS))
+					board.setNumber(posS, Board.GRAY_PEARL);
 			}
 		}
 	}

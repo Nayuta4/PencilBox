@@ -215,28 +215,30 @@ public class Board extends BoardBase {
 		}
 	}
 	
+	public void changeState(Address pos, int st) {
+		changeState(pos.r(), pos.c(), st);
+	}
+	
 	/**
 	 * マスの状態を指定した状態に変更し，変更をアンドゥリスナーに通知する
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param pos マス座標
 	 * @param st 変更後の状態
 	 */
-	public void changeStateA(int r, int c, int st) {
-		fireUndoableEditUpdate(new UndoableEditEvent(this, new Step(r, c, state[r][c], st)));
-		changeState(r, c, st);
+	public void changeStateA(Address pos, int st) {
+		fireUndoableEditUpdate(new UndoableEditEvent(this, new Step(pos.r(), pos.c(), getState(pos), st)));
+		changeState(pos, st);
 	}
 
 	/**
 	 * マスの状態を 未定 ⇔ st と変更する
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param pos マス座標
 	 * @param st 切り替える状態
 	 */
-	public void toggleState(int r, int c, int st) {
-		if (state[r][c] == st)
-			changeStateA(r, c, UNKNOWN);
+	public void toggleState(Address pos, int st) {
+		if (getState(pos) == st)
+			changeStateA(pos, UNKNOWN);
 		else
-			changeStateA(r, c, st);
+			changeStateA(pos, st);
 	}
 	
 	/**

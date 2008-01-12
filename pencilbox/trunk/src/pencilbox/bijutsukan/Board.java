@@ -113,6 +113,10 @@ public class Board extends BoardBase {
 	public boolean isWall(int r, int c){
 		return state[r][c]>=0 && state[r][c]<=4 || state[r][c]==NONUMBER_WALL;
 	}
+	
+	public boolean isWall(Address pos) {
+		return isWall(pos.r(), pos.c());
+	}
 	/**
 	 * そのマスが数字つきの壁かどうか
 	 * @param r 行座標
@@ -221,35 +225,37 @@ public class Board extends BoardBase {
 	 * @param st 状態
 	 */
 	public void changeState(int r, int c, int st) {
-		if (st == BULB && state[r][c] != BULB)
+		if (st == BULB && getState(r, c) != BULB)
 			illuminate(r, c, true);
-		else if (state[r][c] == BULB && st != BULB)
+		else if (getState(r, c) == BULB && st != BULB)
 			illuminate(r, c, false);
 		setState(r, c, st);
 	}
+	
+	public void changeState(Address pos, int st) {
+		changeState(pos.r(), pos.c(), st);
+	}
 	/**
 	 * マスの状態を指定した状態に変更し，変更をアンドゥリスナーに通知する
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param pos マス座標
 	 * @param st 変更後の状態
 	 */
-	public void changeStateA(int r, int c, int st) {
-		fireUndoableEditUpdate(new UndoableEditEvent(this, new Step(r,c,getState(r,c),st)));
-		changeState(r, c, st);
+	public void changeStateA(Address pos, int st) {
+		fireUndoableEditUpdate(new UndoableEditEvent(this, new Step(pos.r(), pos.c(), getState(pos), st)));
+		changeState(pos, st);
 	}
 	/**
 	 * マスの状態を 未定 ⇔ st と切り替える
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param pos マス座標
 	 * @param st 切り替える状態
 	 */
-	public void toggleState(int r, int c, int st) {
-		if (isWall(r,c))
+	public void toggleState(Address pos, int st) {
+		if (isWall(pos))
 			return;
-		if (getState(r,c) == st) {
-			changeStateA(r, c, UNKNOWN);
+		if (getState(pos) == st) {
+			changeStateA(pos, UNKNOWN);
 		} else {
-			changeStateA(r, c, st);
+			changeStateA(pos, st);
 		}
 	}
 

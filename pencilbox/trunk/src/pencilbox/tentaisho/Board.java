@@ -86,6 +86,10 @@ public class Board extends BoardBase {
 	public void setStar(int r, int c, int st) {
 		star[r][c] = st;
 	}
+	
+	public void setStar(Address pos, int st) {
+		setStar(pos.r(), pos.c(), st);
+	}
 	/**
 	 * 引数に与えられた座標に星はあるか
 	 * @param r
@@ -104,6 +108,10 @@ public class Board extends BoardBase {
 	 */
 	public boolean isOnStar(int r, int c) {
 		return (r>=0 && r<rows()*2-1 && c>=0 && c<cols()*2-1);
+	}
+	
+	public boolean isOnStar(Address pos) {
+		return isOnStar(pos.r(), pos.c());
 	}
 	/**
 	 * 引数のマスがいずれかの領域に含まれているかどうか
@@ -163,16 +171,16 @@ public class Board extends BoardBase {
 		areaList.remove(oldArea);
 	}
 
-	void addCellToAreaA(int r, int c, Area area) {
+	void addCellToAreaA(Address pos, Area area) {
 		fireUndoableEditUpdate(
-			new UndoableEditEvent(this, new Step(r, c, area, Step.ADDED)));
-		addCellToArea(r, c, area);
+			new UndoableEditEvent(this, new Step(pos.r(), pos.c(), area, Step.ADDED)));
+		addCellToArea(pos, area);
 	}
 
-	void removeCellFromAreaA(int r, int c, Area area) {
+	void removeCellFromAreaA(Address pos, Area area) {
 		fireUndoableEditUpdate(
-			new UndoableEditEvent(this, new Step(r, c, area, Step.REMOVED)));
-		removeCellFromArea(r, c, area);
+			new UndoableEditEvent(this, new Step(pos.r(), pos.c(), area, Step.REMOVED)));
+		removeCellFromArea(pos, area);
 	}
 	/**
 	 * マスを領域に追加する

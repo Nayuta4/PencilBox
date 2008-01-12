@@ -42,9 +42,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			if (!board.isWall(pos)) {
 				int n = board.getNumber(pos);
 				if (n >= board.getMaxNumber())
-					board.enterNumberA(pos.r(), pos.c(), 0); 
+					board.enterNumberA(pos, 0); 
 				else if (n >= 0)
-					board.enterNumberA(pos.r(), pos.c(), n + 1);
+					board.enterNumberA(pos, n + 1);
 			}
 		}
 	}
@@ -54,9 +54,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			if (!board.isWall(pos)) {
 				int n = board.getNumber(pos);
 				if (n == 0) 
-					board.enterNumberA(pos.r(), pos.c(), board.getMaxNumber()); 
+					board.enterNumberA(pos, board.getMaxNumber()); 
 				else if (n > 0)
-					board.enterNumberA(pos.r(), pos.c(), n - 1);
+					board.enterNumberA(pos, n - 1);
 			}
 		}
 	}
@@ -74,18 +74,18 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {
 			if (getKKCursor().getStair() == KakuroCursor.LOWER)
-				board.setSumV(pos.r(), pos.c(), num);
+				board.setSumV(pos, num);
 			else if (getKKCursor().getStair() == KakuroCursor.UPPER)
-				board.setSumH(pos.r(), pos.c(), num);
+				board.setSumH(pos, num);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
 				if (isOn(posS))
-					if (!board.isWall(posS.r(), posS.c()))
-						board.setWall(posS.r(), posS.c(), 0, 0);
+					if (!board.isWall(posS))
+						board.setWall(posS, 0, 0);
 			}
 		} else if (isCursorOn()){
-			if (!board.isWall(pos.r(), pos.c()))
-				board.enterNumberA(pos.r(), pos.c(), num);
+			if (!board.isWall(pos))
+				board.enterNumberA(pos, num);
 		}
 	}
 	
@@ -93,30 +93,30 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		if (isProblemEditMode()) {
 			if (pos.r() ==0 || pos.c() == 0)
 				return;
-			board.removeWall(pos.r(), pos.c());
+			board.removeWall(pos);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
 				if (isOn(posS))
-					if (board.isWall(posS.r(), posS.c()))
-						board.removeWall(posS.r(), posS.c());
+					if (board.isWall(posS))
+						board.removeWall(posS);
 			}
 		} else if (isCursorOn()){
-			if (!board.isWall(pos.r(), pos.c()))
-				board.enterNumberA(pos.r(), pos.c(), 0);
+			if (!board.isWall(pos))
+				board.enterNumberA(pos, 0);
 		}
 	}
 	
 	protected void minusEntered(Address pos) {
 		if (isProblemEditMode()) {
 			if (getKKCursor().getStair() == KakuroCursor.LOWER)
-				board.setSumV(pos.r(), pos.c(), 0);
+				board.setSumV(pos, 0);
 			else if (getKKCursor().getStair() == KakuroCursor.UPPER)
-				board.setSumH(pos.r(), pos.c(), 0);
+				board.setSumH(pos, 0);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
 				if (isOn(posS) && !posS.equals(pos))
-					if (!board.isWall(posS.r(), posS.c()))
-						board.setWall(posS.r(), posS.c(), 0, 0);
+					if (!board.isWall(posS))
+						board.setWall(posS, 0, 0);
 			}
 		}
 	}

@@ -32,12 +32,12 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 */
 	protected void leftPressed(Address pos) {
 		if (!isCursorOn() || getCellCursor().isAt(pos)) {
-			if (!board.isStable(pos.r(), pos.c())) {
+			if (!board.isStable(pos)) {
 				int n = board.getNumber(pos);
 				if (n >= getMaxInputNumber())
-					board.enterNumberA(pos.r(), pos.c(), 0);
+					board.enterNumberA(pos, 0);
 				else if (n >= 0)
-					board.enterNumberA(pos.r(), pos.c(), n + 1);
+					board.enterNumberA(pos, n + 1);
 			}
 		}
 		setSelectedNumber(board.getNumber(pos));
@@ -45,12 +45,12 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	
 	protected void rightPressed(Address pos) {
 		if (!isCursorOn() || getCellCursor().isAt(pos)) {
-			if (!board.isStable(pos.r(), pos.c())) {
+			if (!board.isStable(pos)) {
 				int n = board.getNumber(pos);
 				if (n == 0)
-					board.enterNumberA(pos.r(), pos.c(), getMaxInputNumber());
+					board.enterNumberA(pos, getMaxInputNumber());
 				else if (n > 0)
-					board.enterNumberA(pos.r(), pos.c(), n - 1);
+					board.enterNumberA(pos, n - 1);
 			}
 		}
 		setSelectedNumber(board.getNumber(pos));
@@ -61,21 +61,21 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {
 			if (num > 0) {
-				board.changeNumber(pos.r(), pos.c(), num);
-				board.setState(pos.r(), pos.c(), Board.STABLE);
+				board.changeNumber(pos, num);
+				board.setState(pos, Board.STABLE);
 				if (isSymmetricPlacementMode()) {
 					Address posS = getSymmetricPosition(pos);
 					if (!posS.equals(pos))
-						if (!board.isStable(posS.r(), posS.c())) {
-							board.setState(posS.r(), posS.c(), Board.STABLE);
-							board.changeNumber(posS.r(), posS.c(), Board.UNKNOWN);
+						if (!board.isStable(posS)) {
+							board.setState(posS, Board.STABLE);
+							board.changeNumber(posS, Board.UNKNOWN);
 						}
 				}
 			}
 		} else if (isCursorOn()){
 			if (num >= 0) {
-				if (!board.isStable(pos.r(), pos.c())) {
-					board.enterNumberA(pos.r(), pos.c(), num);
+				if (!board.isStable(pos)) {
+					board.enterNumberA(pos, num);
 				}
 			}
 		}
@@ -83,33 +83,33 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.changeNumber(pos.r(), pos.c(), 0);
-			board.setState(pos.r(), pos.c(), Board.UNSTABLE);
+			board.changeNumber(pos, 0);
+			board.setState(pos, Board.UNSTABLE);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
 				if (!posS.equals(pos))
-					if (board.isStable(posS.r(), posS.c())) {
-						board.setState(posS.r(), posS.c(), Board.UNSTABLE);
-						board.changeNumber(posS.r(), posS.c(), Board.UNKNOWN);
+					if (board.isStable(posS)) {
+						board.setState(posS, Board.UNSTABLE);
+						board.changeNumber(posS, Board.UNKNOWN);
 					}
 			}
 		} else if (isCursorOn()){
-			if (!board.isStable(pos.r(), pos.c())) {
-				board.enterNumberA(pos.r(), pos.c(), Board.UNKNOWN);
+			if (!board.isStable(pos)) {
+				board.enterNumberA(pos, Board.UNKNOWN);
 			}
 		}
 	}
 	
 	protected void minusEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.changeNumber(pos.r(), pos.c(), Board.UNKNOWN);
-			board.setState(pos.r(), pos.c(), Board.STABLE);
+			board.changeNumber(pos, Board.UNKNOWN);
+			board.setState(pos, Board.STABLE);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
 				if (!posS.equals(pos))
-					if (!board.isStable(posS.r(), posS.c())) {
-						board.setState(posS.r(), posS.c(), Board.STABLE);
-						board.changeNumber(posS.r(), posS.c(), Board.UNKNOWN);
+					if (!board.isStable(posS)) {
+						board.setState(posS, Board.STABLE);
+						board.changeNumber(posS, Board.UNKNOWN);
 					}
 			}
 		} 

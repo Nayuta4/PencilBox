@@ -26,17 +26,17 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 	
 	public boolean isCursorOnBoard(Address pos) {
-		return board.isNumberOn(pos.r(), pos.c());
+		return board.isNumberOn(pos);
 	}
 
 	/*
 	 * 「スリザーリンク」マウス操作2
 	 */
 	protected void leftClickedEdge(SideAddress pos) {
-		board.toggleState(pos.d(), pos.r(), pos.c(), Board.LINE);
+		board.toggleState(pos, Board.LINE);
 	}
 	protected void rightClickedEdge(SideAddress pos) {
-		board.toggleState(pos.d(), pos.r(), pos.c(), Board.NOLINE);
+		board.toggleState(pos, Board.NOLINE);
 	}
 
 	/*
@@ -62,33 +62,33 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 */
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {
-			board.setNumber(pos.r(), pos.c(), num);
+			board.setNumber(pos, num);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
-				if (!board.isNumber(posS.r(), posS.c()))
-					board.setNumber(posS.r(), posS.c(), Board.UNDECIDED_NUMBER);
+				if (!board.isNumber(posS))
+					board.setNumber(posS, Board.UNDECIDED_NUMBER);
 			}
 		}
 	}
 
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.setNumber(pos.r(), pos.c(), Board.NONUMBER);
+			board.setNumber(pos, Board.NONUMBER);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
-				if (board.isNumber(posS.r(), posS.c()))
-					board.setNumber(posS.r(), posS.c(), Board.NONUMBER);
+				if (board.isNumber(posS))
+					board.setNumber(posS, Board.NONUMBER);
 			}
 		}
 	}
 
 	protected void minusEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.setNumber(pos.r(), pos.c(), Board.UNDECIDED_NUMBER);
+			board.setNumber(pos, Board.UNDECIDED_NUMBER);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
-				if (!board.isNumber(posS.r(), posS.c()))
-					board.setNumber(posS.r(), posS.c(), Board.UNDECIDED_NUMBER);
+				if (!board.isNumber(posS))
+					board.setNumber(posS, Board.UNDECIDED_NUMBER);
 			}
 		}
 	}

@@ -72,6 +72,10 @@ public class Board extends BoardBase {
 	public boolean isStable(int r, int c) {
 		return state[r][c] == STABLE;
 	}
+	
+	public boolean isStable(Address pos) {
+		return isStable(pos.r(), pos.c());
+	}
 	/**
 	 * Get state of a cell.
 	 * @param r Row coordinate of the cell.
@@ -216,20 +220,23 @@ public class Board extends BoardBase {
 			mergeArea(r, c, n);
 		}
 	}
+	
+	public void changeNumber(Address pos, int n) {
+		changeNumber(pos.r(), pos.c(), n);
+	}
 	/**
 	 * マスに数字を入力し，アドゥリスナーに通知する
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param pos マス座標
 	 * @param n 入力する数字
 	 */
-	public void enterNumberA(int r, int c, int n) {
+	public void enterNumberA(Address pos, int n) {
 		if (n < 0)
 			return;
-		if (n == number[r][c]) 
+		if (n == getNumber(pos)) 
 			return;
 		fireUndoableEditUpdate(
-			new UndoableEditEvent(this, new Step(r, c, number[r][c], n)));
-		changeNumber(r, c, n);
+			new UndoableEditEvent(this, new Step(pos.r(), pos.c(), getNumber(pos), n)));
+		changeNumber(pos, n);
 	}
 
 	/**

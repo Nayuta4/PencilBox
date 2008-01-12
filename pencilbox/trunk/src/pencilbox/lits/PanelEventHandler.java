@@ -41,15 +41,15 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 */
 	protected void leftPressed(Address pos) {
 		if (isProblemEditMode()) {
-			Area area = board.getArea(pos.r(), pos.c());
+			Area area = board.getArea(pos);
 			if (area == null) {
 				area = new Area();
-				board.addCellToArea(pos.r(), pos.c(), area);
+				board.addCellToArea(pos, area);
 			}
 			setDraggingArea(area);
 		} else {
-			board.toggleState(pos.r(), pos.c(), Board.BLACK);
-			currentState = board.getState(pos.r(), pos.c());
+			board.toggleState(pos, Board.BLACK);
+			currentState = board.getState(pos);
 		}
 	}
 
@@ -59,31 +59,31 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			Area draggingArea = getDraggingArea();
 			if (draggingArea == null)
 				return;
-			Area oldArea = board.getArea(pos.r(), pos.c());
+			Area oldArea = board.getArea(pos);
 			if (oldArea != null && oldArea != draggingArea) {
-				board.removeCellFromArea(pos.r(), pos.c(), oldArea);
-				board.addCellToArea(pos.r(), pos.c(), draggingArea);
+				board.removeCellFromArea(pos, oldArea);
+				board.addCellToArea(pos, draggingArea);
 			} else if (oldArea != null && oldArea == draggingArea) {
 			} else if (oldArea == null) {
-				board.addCellToArea(pos.r(), pos.c(), draggingArea);
+				board.addCellToArea(pos, draggingArea);
 			}
 		} else {
-			int st = board.getState(pos.r(), pos.c());
+			int st = board.getState(pos);
 			if (st == currentState)
 				return;
-			board.changeStateA(pos.r(), pos.c(), currentState);
+			board.changeStateA(pos, currentState);
 		}
 	}
 
 	protected void rightPressed(Address pos) {
 		if (isProblemEditMode()) {
-			Area oldArea = board.getArea(pos.r(), pos.c());
+			Area oldArea = board.getArea(pos);
 			if (oldArea != null) {
-				board.removeCellFromArea(pos.r(), pos.c(), oldArea);
+				board.removeCellFromArea(pos, oldArea);
 			}
 		} else {
-			board.toggleState(pos.r(), pos.c(), Board.WHITE);
-			currentState = board.getState(pos.r(), pos.c());
+			board.toggleState(pos, Board.WHITE);
+			currentState = board.getState(pos);
 		}
 	}
 	
@@ -91,10 +91,10 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		if (isProblemEditMode()) {
 			rightPressed(pos);
 		} else {
-			int st = board.getState(pos.r(), pos.c());
+			int st = board.getState(pos);
 			if (st == currentState)
 				return;
-			board.changeStateA(pos.r(), pos.c(), currentState);
+			board.changeStateA(pos, currentState);
 		}
 	}
 	
