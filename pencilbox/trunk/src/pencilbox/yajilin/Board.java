@@ -221,6 +221,10 @@ public class Board extends BoardBase {
 		else
 			return OUTER;
 	}
+
+	public int getState(SideAddress pos) {
+		return getState(pos.d(), pos.r(), pos.c());
+	}
 	/**
 	 * 辺状態の取得。マスと向きで座標指定する。
 	 * @param pos
@@ -228,18 +232,7 @@ public class Board extends BoardBase {
 	 * @return
 	 */
 	public int getStateJ(Address pos, int d) {
-		switch (d) {
-			case Direction.UP :
-				return getState(HORIZ, pos.r()-1, pos.c());
-			case Direction.LT :
-				return getState(VERT, pos.r(), pos.c()-1);
-			case Direction.DN :
-				return getState(HORIZ, pos.r(), pos.c());
-			case Direction.RT :
-				return getState(VERT, pos.r(), pos.c());
-			default: 
-				return OUTER;
-		}
+		return getState(SideAddress.get(pos, d));
 	}
 	/**
 	 * 辺状態の設定
@@ -253,6 +246,10 @@ public class Board extends BoardBase {
 			state[d][r][c] = st;
 	}
 
+	public void setState(SideAddress pos, int st) {
+		setState(pos.d(), pos.r(), pos.c(), st);
+	}
+
 	/**
 	 * 辺状態の設定。マスと向きで座標指定する。
 	 * @param pos
@@ -260,21 +257,7 @@ public class Board extends BoardBase {
 	 * @param st
 	 */
 	public void setStateJ(Address pos, int d, int st) {
-		switch (d) {
-			case Direction.UP :
-				 setState(HORIZ, pos.r()-1, pos.c(), st);
-				 break;
-			case Direction.LT :
-				 setState(VERT, pos.r(), pos.c()-1, st);
-				 break;
-			case Direction.DN :
-				 setState(HORIZ, pos.r(), pos.c(), st);
-				 break;
-			case Direction.RT :
-				 setState(VERT, pos.r(), pos.c(), st);
-				 break;
-			default: 
-		}
+		setState(SideAddress.get(pos, d), st);
 	}
 
 	public boolean isLine(int d, int r, int c) {
