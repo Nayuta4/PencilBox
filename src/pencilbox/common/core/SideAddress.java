@@ -6,12 +6,32 @@ package pencilbox.common.core;
  */
 public class SideAddress implements Comparable<SideAddress> {
 	
-	public static final SideAddress NOWEHER = new SideAddress(0, -1,-1);
+	public static final SideAddress NOWHERE = new SideAddress(-1, -1,-1);
 	
 	private int d;
 	private int r;
 	private int c;
 	
+	/**
+	 * マス座標と向きから辺座標を取得する。
+	 * @param pos マス座標
+	 * @param dir 向き
+	 * @return 辺座標
+	 */
+	public static SideAddress get(Address pos, int dir) {
+		switch (dir) {
+		case Direction.UP :
+			return new SideAddress(Direction.HORIZ, pos.r()-1, pos.c());
+		case Direction.LT :
+			return new SideAddress(Direction.VERT, pos.r(), pos.c()-1);
+		case Direction.DN :
+			return new SideAddress(Direction.HORIZ, pos.r(), pos.c());
+		case Direction.RT :
+			return new SideAddress(Direction.VERT, pos.r(), pos.c());
+		default :
+			return SideAddress.NOWHERE;
+		}
+	}
 	/**
 	 * 
 	 */
