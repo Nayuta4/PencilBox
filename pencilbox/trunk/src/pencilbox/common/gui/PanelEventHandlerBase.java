@@ -370,15 +370,10 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	}
 
 	public void mouseReleased(MouseEvent e) {
-		if (!isOn(oldPos)) {
-			dragFailed();
-			repaint();
-			return;
-		}
 		if ((e.getModifiers() & InputEvent.BUTTON1_MASK) != 0) {
-			leftDragFixed(oldPos);
+			leftReleased(oldPos);
 		} else if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
-			rightDragFixed(oldPos);
+			rightReleased(oldPos);
 		}
 		repaint();
 		checkAnswer();
@@ -470,11 +465,11 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	}
 
 	/**
-	 * 左マウスボタンを離して左ドラッグが確定したときに呼ばれる。
+	 * 左マウスボタンを離したときに呼ばれる。
 	 * サブクラスでオーバーライドする。
-	 * @param dragEnd
+	 * @param position
 	 */
-	protected void leftDragFixed(Address dragEnd) {
+	protected void leftReleased(Address position) {
 	}
 	/**
 	 * 右ボタンが押されたとき，右ドラッグしたままた新しいマスに移動したときに呼ばれる。
@@ -499,17 +494,11 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 		rightDragged(position);
 	}
 	/**
-	 * 右マウスボタンを離して右ドラッグが確定したときに呼ばれる。
+	 * 右マウスボタンを離したときに呼ばれる。
 	 * サブクラスでオーバーライドする。
-	 * @param dragEnd
+	 * @param position
 	 */
-	protected void rightDragFixed(Address dragEnd) {
-	}
-	/**
-	 * 盤内でドラッグを開始したが盤外でドラッグを終了したときに呼ばれる。
-	 * 必要に応じサブクラスでドラッグの後始末をする。
-	 */
-	protected void dragFailed() {
+	protected void rightReleased(Address position) {
 	}
 
 	/**

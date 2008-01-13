@@ -54,7 +54,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			currentState = board.getState(pos);
 		}
 	}
-	
+
 	protected void leftDragged(Address pos) {
 		if (isProblemEditMode()) {
 			Square draggingSquare = getDraggingSquare();
@@ -80,7 +80,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			board.changeStateA(pos, currentState);
 		}
 	}
-	
+
 	private void fixPivot(Square s, Address pos) {
 		int r = pos.r();
 		int c = pos.c();
@@ -99,8 +99,8 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			}
 		}
 	}
-	
-	protected void leftDragFixed(Address pos) {
+
+	protected void leftReleased(Address pos) {
 		if (isProblemEditMode()) {
 			Square draggingSquare = getDraggingSquare();
 			if (draggingSquare == null)
@@ -122,11 +122,6 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			setDraggingSquare(null);
 			resetPivot();
 		}
-	}
-	
-	protected void dragFailed() {
-		setDraggingSquare(null);
-		resetPivot();
 	}
 
 	protected void rightPressed(Address pos) {

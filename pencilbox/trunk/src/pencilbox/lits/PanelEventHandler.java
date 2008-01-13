@@ -86,7 +86,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			currentState = board.getState(pos);
 		}
 	}
-	
+
 	protected void rightDragged(Address pos) {
 		if (isProblemEditMode()) {
 			rightPressed(pos);
@@ -98,11 +98,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		}
 	}
 	
-	protected void leftDragFixed(Address dragEnd) {
-		setDraggingArea(null);
-	}
-	
-	protected void dragFailed() {
+	protected void leftReleased(Address dragEnd) {
 		setDraggingArea(null);
 	}
 
