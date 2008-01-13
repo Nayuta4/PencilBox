@@ -112,18 +112,14 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			setSelectedNumber(board.getNumber(pos));
 		}
 	}
-	
+
 	protected void rightDragged(Address pos) {
 		if (isProblemEditMode()) {
 			rightPressed(pos);
 		}
 	}
-	
-	protected void leftDragFixed(Address dragEnd) {
-		setDraggingArea(null);
-	}
-	
-	protected void dragFailed() {
+
+	protected void leftReleased(Address dragEnd) {
 		setDraggingArea(null);
 	}
 

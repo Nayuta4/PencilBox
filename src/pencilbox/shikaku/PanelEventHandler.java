@@ -57,7 +57,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		}
 		fixPivot(draggingSquare, pos.r(), pos.c());
 	}
-	
+
 	private void fixPivot(Square s, int r, int c) {
 		if (pivotR == -1) {
 			if (r == s.r0()) {
@@ -74,8 +74,8 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			}
 		}
 	}
-	
-	protected void leftDragFixed(Address pos) {
+
+	protected void leftReleased(Address pos) {
 		Square draggingSquare = getDraggingSquare();
 		if (draggingSquare == null)
 			return;
@@ -96,11 +96,6 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		setDraggingSquare(null);
 		resetPivot();
 	}
-	
-	protected void dragFailed() {
-		setDraggingSquare(null);
-		resetPivot();
-	}
 
 	protected void rightPressed(Address pos) {
 		Square s = board.getSquare(pos);
@@ -115,7 +110,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			board.removeSquareA(s);
 		}
 	}
-	
+
 	private void resetPivot() {
 		pivotR = -1;
 		pivotC = -1;

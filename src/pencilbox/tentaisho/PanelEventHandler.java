@@ -73,18 +73,15 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			board.removeCellFromAreaA(pos, oldArea);
 		}
 	}
-	
+
 	protected void rightDragged(Address pos) {
 		rightPressed(pos);			
 	}
-	
-	protected void leftDragFixed(Address dragEnd) {
+
+	protected void leftReleased(Address dragEnd) {
 		setDraggingArea(null);
 	}
-	
-	protected void dragFailed() {
-		setDraggingArea(null);
-	}
+
 	/*
 	 * マウスではカーソル移動しない
 	 */
