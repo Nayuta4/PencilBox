@@ -80,11 +80,11 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	protected void minusEntered(Address pos) {
 		if (isProblemEditMode()) {
 			board.changeState(pos, Board.NONUMBER_WALL);
-		}
-		if (isSymmetricPlacementMode()) {
-			Address posS = getSymmetricPosition(pos);
-			if (!board.isWall(posS))
-				board.changeState(posS, Board.NONUMBER_WALL);
+			if (isSymmetricPlacementMode()) {
+				Address posS = getSymmetricPosition(pos);
+				if (!board.isWall(posS))
+					board.changeState(posS, Board.NONUMBER_WALL);
+			}
 		}
 	}
 
