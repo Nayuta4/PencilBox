@@ -257,17 +257,6 @@ public class Board extends BoardBase {
 	public void changeState(Address pos, int st) {
 		changeState(pos.r(), pos.c(), st);
 	}
-	/**
-	 * マスの状態を 未定⇔st と変更する
-	 * @param pos マスの座標
-	 * @param st 切り替える状態
-	 */
-	public void toggleState(Address pos, int st){
-		if (getState(pos) == st)
-			changeStateA(pos, UNKNOWN);
-		else
-			changeStateA(pos, st);
-	}
 
 	/**
 	 * 四角を追加，変更したときにすでにある他の四角と重なる場合，その四角を除去する。

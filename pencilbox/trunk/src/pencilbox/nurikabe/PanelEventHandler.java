@@ -22,28 +22,31 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 * 「ぬりかべ」マウス操作
 	 */
 	protected void leftPressed(Address pos) {
-		if (isProblemEditMode())
-			return;
-		board.toggleState(pos, Board.WALL);
-		if (board.isNumber(pos))
-			currentState = Board.UNKNOWN;
-		else
-			currentState = board.getState(pos);
+		if (isProblemEditMode()) {
+		} else {
+			toggleState(pos, Board.WALL);
+			if (board.isNumber(pos)) {
+				currentState = Board.WALL;
+			} else {
+				currentState = board.getState(pos);
+			}
+		}
 	}
 
 	protected void rightPressed(Address pos) {
-		if (isProblemEditMode())
-			return;
-		board.toggleState(pos, Board.SPACE);
-		if (board.isNumber(pos))
-			currentState = Board.SPACE;
-		else
-			currentState = board.getState(pos);
+		if (isProblemEditMode()) {
+		} else {
+			toggleState(pos, Board.SPACE);
+			if (board.isNumber(pos)) {
+				currentState = Board.SPACE;
+			} else {
+				currentState = board.getState(pos);
+			}
+		}
 	}
 
 	protected void leftDragged(Address dragStart, Address pos) {
 		if (isProblemEditMode()) {
-//			moveCursor(pos);
 			if (isOn(dragStart)) {
 				int number = board.getState(dragStart);
 				if (number > 0 || number == Board.UNDECIDED_NUMBER){
@@ -51,27 +54,37 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 					board.changeState(pos, number);
 				}
 			}
-		}
-		else {
-			int st = board.getState(pos);
-			if (st > 0 || st == Board.UNDECIDED_NUMBER)
-				return;
-			if (st == currentState)
-				return;
-			board.changeStateA(pos, currentState);
+		} else {
+			sweepState(pos);
 		}
 	}
 	protected void rightDragged(Address dragStart, Address pos) {
 		if (isProblemEditMode()) {
-			return;
 		} else {
-			int st = board.getState(pos);
-			if (st > 0 || st == Board.UNDECIDED_NUMBER)
-				return;
-			if (st == currentState)
-				return;
-			board.changeStateA(pos, currentState);
+			sweepState(pos);
 		}
+	}
+
+	/**
+	 * マスの状態を 未定 ⇔ st と変更する
+	 * @param pos マス座標
+	 * @param st 切り替える状態
+	 */
+	private void toggleState(Address pos, int st) {
+		if (board.isNumber(pos))
+			return;
+		if (st == board.getState(pos)) {
+			st = Board.UNKNOWN;
+		}
+		board.changeStateA(pos, st);
+	}
+
+	private void sweepState(Address pos) {
+		if (board.isNumber(pos))
+			return;
+		if (currentState == board.getState(pos))
+			return;
+		board.changeStateA(pos, currentState);
 	}
 
 	/*
@@ -89,6 +102,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			}
 		}
 	}
+
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode()) {
 			board.changeState(pos, Board.UNKNOWN);

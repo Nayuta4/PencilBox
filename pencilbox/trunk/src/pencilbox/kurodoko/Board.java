@@ -169,20 +169,6 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * マスの状態を 未定 ⇔ st と変更する
-	 * @param pos マス座標
-	 * @param st 切り替える状態
-	 */
-	public void toggleState(Address pos, int st) {
-		if (isNumber(pos) || getState(pos) == UNDECIDED_NUMBER)
-			return;
-		if (getState(pos) == st)
-			changeStateA(pos, UNKNOWN);
-		else
-			changeStateA(pos, st);
-	}
-
-	/**
 	 * そのマスの上下左右の隣接４マスに黒マスがあるかどうかを調べる
 	 * @param r
 	 * @param c

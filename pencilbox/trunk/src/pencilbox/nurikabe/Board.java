@@ -215,20 +215,6 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * マスの状態を 未定 ⇔ st と変更する
-	 * @param pos マス座標
-	 * @param st 切り替える状態
-	 */
-	public void toggleState(Address pos, int st) {
-		if (isNumber(pos))
-			return;
-		if (getState(pos) == st)
-			changeStateA(pos, UNKNOWN);
-		else
-			changeStateA(pos, st);
-	}
-
-	/**
 	 * マスの状態を変更したときの Area 併合処理を行う
 	 * @param r 変更したマスの行座標
 	 * @param c 変更したマスの列座標

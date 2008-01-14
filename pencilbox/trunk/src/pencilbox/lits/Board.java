@@ -230,18 +230,6 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * マスの状態を 未定 ⇔ st と変更する
-	 * @param pos マス座標
-	 * @param st 切り替える状態
-	 */
-	public void toggleState(Address pos, int st) {
-		if (getState(pos) == st)
-			changeStateA(pos, UNKNOWN);
-		else
-			changeStateA(pos, st);
-	}
-	
-	/**
 	 * @return Returns the areaList.
 	 */
 	List<Area> getAreaList() {
