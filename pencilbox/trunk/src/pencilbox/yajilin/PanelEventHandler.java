@@ -57,7 +57,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		if (st == board.getNumber(pos))
 			st = Board.BLANK;
 		if (st == Board.BLACK) {
-			board.eraseLinesAround(pos);
+			board.eraseLinesAroundA(pos);
 		}
 		board.changeStateA(pos, st);
 	}
