@@ -26,11 +26,11 @@ public class BoardCopier extends BoardCopierBase {
 				pos = rotator.rotateAddress(pos0);
 				if (!d.isOn(pos))
 					continue;
-				if (s.getNumber(r, c) >= 0) {
-					d.setArrowNumber(pos.r(), pos.c(), s.getArrowNumber(r, c));
-					d.setArrowDirection(pos.r(), pos.c(), rotator.rotateDirection(s.getArrowDirection(r, c)));
+				if (s.getNumber(pos0) >= 0) {
+					d.setArrowNumber(pos, s.getArrowNumber(pos0));
+					d.setArrowDirection(pos, rotator.rotateDirection(s.getArrowDirection(pos0)));
 				} else {
-					d.setNumber(pos.r(), pos.c(), s.getNumber(r, c));
+					d.setNumber(pos, s.getNumber(pos0));
 				}
 			}
 		}
@@ -64,11 +64,11 @@ public class BoardCopier extends BoardCopierBase {
 			if (board.isOn(d)) {
 				number = srcBoard.getNumber(s);
 				if (number >= 0 || number == Board.BLACK) {
-					board.eraseLinesAround(d.r(), d.c());
+					board.eraseLinesAround(d);
 				}
 				board.setNumber(d, number);
-				if (board.isNumber(d.r(), d.c()))
-					board.setArrowDirection(d.r(), d.c(), rotator.rotateDirection(srcBoard.getArrowDirection(s.r(), s.c())));
+				if (board.isNumber(d))
+					board.setArrowDirection(d, rotator.rotateDirection(srcBoard.getArrowDirection(s)));
 			}
 		}
 	}

@@ -306,22 +306,24 @@ public class Board extends BoardBase {
 	/**
 	 * マスから上下左右4方向に引かれている線を消去する
 	 * マスが黒マスや数字マスに変更された場合に線を消去するために使用する
-	 * @param r マスの行座標
-	 * @param c マスの列座標
+	 * @param pos マスの座標
 	 */
-	void eraseLinesAround(int r, int c) {
-		if (getState(VERT, r, c-1) == LINE)
-			changeStateA(VERT, r, c-1, UNKNOWN);
-		if (getState(VERT, r, c) == LINE)
-			changeStateA(VERT, r, c, UNKNOWN);
-		if (getState(HORIZ, r, c) == LINE)
-			changeStateA(HORIZ, r, c, UNKNOWN);
-		if (getState(HORIZ, r-1, c) == LINE)
-			changeStateA(HORIZ, r-1, c, UNKNOWN);
-	}
-	
 	void eraseLinesAround(Address pos) {
-		eraseLinesAround(pos.r(), pos.c());
+		for (int d = 0; d <= 3; d++) {
+			SideAddress side = SideAddress.get(pos, d);
+			if (getState(side) == LINE) {
+				changeState(side.d(), side.r(), side.c(), UNKNOWN);
+			}
+		}
+	}
+
+	void eraseLinesAroundA(Address pos) {
+		for (int d = 0; d <= 3; d++) {
+			SideAddress side = SideAddress.get(pos, d);
+			if (getState(side) == LINE) {
+				changeStateA(side, UNKNOWN);
+			}
+		}
 	}
 	/**
 	 * 盤面状態を変更し，アンドゥリスナーに変更を通知する．
@@ -350,6 +352,7 @@ public class Board extends BoardBase {
 			connectLink(d,r,c);
 		}
 	}
+
 	/**
 	 * 辺の状態を指定した状態に変更する
 	 * アンドゥリスナーに変更を通知する
@@ -362,6 +365,10 @@ public class Board extends BoardBase {
 		fireUndoableEditUpdate(
 			new UndoableEditEvent(this, new LineStep(d, r, c, state[d][r][c], st)));
 		changeState(d, r, c, st);
+	}
+
+	public void changeStateA(SideAddress pos, int st) {
+		changeStateA(pos.d(), pos.r(), pos.c(), st);
 	}
 	/**
 	 * 辺の状態を 未定⇔st で切り替える
