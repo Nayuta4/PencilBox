@@ -50,7 +50,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			fixPivot(draggingSquare, pos);
 			setDraggingSquare(draggingSquare);
 		} else {
-			board.toggleState(pos, Board.BLACK);
+			toggleState(pos, Board.BLACK);
 			currentState = board.getState(pos);
 		}
 	}
@@ -72,12 +72,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			}
 			fixPivot(draggingSquare, pos);
 		} else {
-			int st = board.getState(pos);
-			if (st == currentState)
-				return;
-			if (currentState == Board.BLACK && board.isBlock(pos))
-				return;
-			board.changeStateA(pos, currentState);
+			sweepState(pos);
 		}
 	}
 
@@ -130,7 +125,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			if (sq != null)
 				board.removeSquare(sq);
 		} else {
-			board.toggleState(pos, Board.WHITE);
+			toggleState(pos, Board.WHITE);
 			currentState = board.getState(pos);
 		}
 	}
@@ -141,18 +136,35 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			if (sq != null)
 				board.removeSquare(sq);
 		} else {
-			int st = board.getState(pos);
-			if (st == currentState)
-				return;
-			if (currentState == Board.WHITE && st == Board.BLACK)
-				return;
-			board.changeStateA(pos, currentState);
+			sweepState(pos);
 		}
 	}
 	
 	private void resetPivot() {
 		pivotR = -1;
 		pivotC = -1;
+	}
+
+	/**
+	 * マスの状態を 未定⇔st と変更する
+	 * @param pos マスの座標
+	 * @param st 切り替える状態
+	 */
+	private void toggleState(Address pos, int st){
+		if (st == board.getState(pos))
+			st = Board.UNKNOWN;
+		board.changeStateA(pos, st);
+	}
+
+	private void sweepState(Address pos) {
+		int st = board.getState(pos);
+		if (currentState == st)
+			return;
+		if (currentState == Board.BLACK && board.isBlock(pos))
+			return;
+		if (currentState == Board.WHITE && st == Board.BLACK)
+			return;
+		board.changeStateA(pos, currentState);
 	}
 
 	/*

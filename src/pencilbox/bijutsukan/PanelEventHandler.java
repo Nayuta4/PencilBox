@@ -7,8 +7,7 @@ import pencilbox.common.gui.PanelEventHandlerBase;
 
 /**
  * 「美術館」マウス／キー操作処理クラス
- */
-public class PanelEventHandler extends PanelEventHandlerBase {
+ */public class PanelEventHandler extends PanelEventHandlerBase {
 
 	private Board board;
 	
@@ -29,11 +28,11 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	private int currentState = Board.UNKNOWN;
 
 	protected void leftPressed(Address pos) {
-		board.toggleState(pos, Board.BULB);
+		toggleState(pos, Board.BULB);
 	}
 
 	protected void rightPressed(Address pos) {
-		board.toggleState(pos, Board.NOBULB);
+		toggleState(pos, Board.NOBULB);
 		if (board.isWall(pos))
 			currentState = Board.UNKNOWN;
 		else
@@ -41,13 +40,30 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	protected void leftDragged(Address pos) {
-		// 何もしない
 	}
 
 	protected void rightDragged(Address pos) {
+		sweepState(pos);
+	}
+
+	/**
+	 * マスの状態を 未定 ⇔ st と切り替える
+	 * @param pos マス座標
+	 * @param st 切り替える状態
+	 */
+	private void toggleState(Address pos, int st) {
 		if (board.isWall(pos))
 			return;
-		if (board.getState(pos) == currentState)
+		if (st == board.getState(pos)) {
+			st = Board.UNKNOWN;
+		}
+		board.changeStateA(pos, st);
+	}
+
+	private void sweepState(Address pos) {
+		if (board.isWall(pos))
+			return;
+		if (currentState == board.getState(pos))
 			return;
 		board.changeStateA(pos, currentState);
 	}

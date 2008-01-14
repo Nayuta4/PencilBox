@@ -48,14 +48,13 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			}
 			setDraggingArea(area);
 		} else {
-			board.toggleState(pos, Board.BLACK);
+			toggleState(pos, Board.BLACK);
 			currentState = board.getState(pos);
 		}
 	}
 
 	protected void leftDragged(Address pos) {
 		if (isProblemEditMode()) {
-//			moveCursor(pos);
 			Area draggingArea = getDraggingArea();
 			if (draggingArea == null)
 				return;
@@ -68,10 +67,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 				board.addCellToArea(pos, draggingArea);
 			}
 		} else {
-			int st = board.getState(pos);
-			if (st == currentState)
-				return;
-			board.changeStateA(pos, currentState);
+			sweepState(pos);
 		}
 	}
 
@@ -82,7 +78,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 				board.removeCellFromArea(pos, oldArea);
 			}
 		} else {
-			board.toggleState(pos, Board.WHITE);
+			toggleState(pos, Board.WHITE);
 			currentState = board.getState(pos);
 		}
 	}
@@ -91,15 +87,30 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		if (isProblemEditMode()) {
 			rightPressed(pos);
 		} else {
-			int st = board.getState(pos);
-			if (st == currentState)
-				return;
-			board.changeStateA(pos, currentState);
+			sweepState(pos);
 		}
 	}
 	
 	protected void leftReleased(Address dragEnd) {
 		setDraggingArea(null);
+	}
+
+	/**
+	 * マスの状態を 未定 ⇔ st と変更する
+	 * @param pos マス座標
+	 * @param st 切り替える状態
+	 */
+	private void toggleState(Address pos, int st) {
+		if (st == board.getState(pos))
+			st = Board.UNKNOWN;
+		board.changeStateA(pos, st);
+	}
+	
+	private void sweepState(Address pos) {
+		int st = board.getState(pos);
+		if (st == currentState)
+			return;
+		board.changeStateA(pos, currentState);
 	}
 
 	/*

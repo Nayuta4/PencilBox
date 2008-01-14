@@ -376,22 +376,7 @@ public class Board extends BoardBase {
 		else
 			changeStateA(d, r, c, st);
 	}
-	/**
-	 * マスの状態を 未定⇔st で切り替える
-	 * @param pos マス座標
-	 * @param st 切り替える状態
-	 */
-	public void toggleState(Address pos, int st) {
-		if (isNumber(pos))
-			return;
-		if (st == BLACK) {
-			eraseLinesAround(pos);
-		}
-		if (getNumber(pos) == st)
-			changeStateA(pos, BLANK);
-		else
-			changeStateA(pos, st);
-	}
+
 	/**
 	 * 始点マスと終点マスを結んだ線上の状態を指定の状態に変更する
 	 * 始点マスと終点マスは同じ行または同じ列になければならない

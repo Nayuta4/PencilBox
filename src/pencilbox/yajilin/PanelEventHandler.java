@@ -18,7 +18,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	public PanelEventHandler() {
 		setMaxInputNumber(9);
 	}
-	
+
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard; 
 	}
@@ -39,13 +39,29 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	protected void leftClicked(Address pos) {
-		board.toggleState(pos, Board.BLACK);
+		toggleState(pos, Board.BLACK);
 	}
 
 	protected void rightClicked(Address pos) {
-		board.toggleState(pos, Board.WHITE);
+		toggleState(pos, Board.WHITE);
 	}
 	
+	/**
+	 * マスの状態を 未定⇔st で切り替える
+	 * @param pos マス座標
+	 * @param st 切り替える状態
+	 */
+	private void toggleState(Address pos, int st) {
+		if (board.isNumber(pos))
+			return;
+		if (st == board.getNumber(pos))
+			st = Board.BLANK;
+		if (st == Board.BLACK) {
+			board.eraseLinesAround(pos);
+		}
+		board.changeStateA(pos, st);
+	}
+
 	/*
 	 * 「ヤジリン」キー操作
 	 */

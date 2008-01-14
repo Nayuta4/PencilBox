@@ -244,20 +244,6 @@ public class Board extends BoardBase {
 		fireUndoableEditUpdate(new UndoableEditEvent(this, new Step(pos.r(), pos.c(), getState(pos), st)));
 		changeState(pos, st);
 	}
-	/**
-	 * マスの状態を 未定 ⇔ st と切り替える
-	 * @param pos マス座標
-	 * @param st 切り替える状態
-	 */
-	public void toggleState(Address pos, int st) {
-		if (isWall(pos))
-			return;
-		if (getState(pos) == st) {
-			changeStateA(pos, UNKNOWN);
-		} else {
-			changeStateA(pos, st);
-		}
-	}
 
 	/**
 	 * 隣接する４マスの照明個数を調べる

@@ -17,39 +17,52 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 */
 	public PanelEventHandler() {
 	}
-	
+
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard;
 		setMaxInputNumber(board.getMaxNumber()); 
 	}
-	
+
 	/*
 	 * 「ひとりにしてくれ」マウス操作
 	 */
 	private int currentState = Board.UNKNOWN;
 
 	protected void leftPressed(Address pos) {
-		board.toggleState(pos, Board.BLACK);
+		toggleState(pos, Board.BLACK);
 		currentState = board.getState(pos);
 	}
 
 	protected void rightPressed(Address pos) {
-		board.toggleState(pos, Board.WHITE);
+		toggleState(pos, Board.WHITE);
 		currentState = board.getState(pos);
 	}
 
 	protected void leftDragged(Address pos) {
-		int st = board.getState(pos);
-		if (st == currentState)
-			return;
-		if (currentState == Board.BLACK && board.isBlock(pos))
-			return;
-		board.changeStateA(pos, currentState);
+		sweepState(pos);
 	}
 
 	protected void rightDragged(Address pos) {
+		sweepState(pos);
+	}
+
+	/**
+	 * マスの状態を 未定 ⇔ st と変更する
+	 * @param pos マス座標
+	 * @param st 切り替える状態
+	 */
+	private void toggleState(Address pos, int st) {
+		if (st == board.getState(pos)) {
+			st = Board.UNKNOWN;
+		}
+		board.changeStateA(pos, st);
+	}
+
+	private void sweepState(Address pos) {
 		int st = board.getState(pos);
-		if (st == currentState)
+		if (currentState == st)
+			return;
+		if (currentState == Board.BLACK && board.isBlock(pos))
 			return;
 		if (currentState == Board.WHITE && st == Board.BLACK)
 			return;
