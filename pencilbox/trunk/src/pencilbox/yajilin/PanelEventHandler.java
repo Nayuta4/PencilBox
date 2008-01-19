@@ -2,8 +2,8 @@ package pencilbox.yajilin;
 
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
+import pencilbox.common.core.SideAddress;
 import pencilbox.common.gui.PanelEventHandlerBase;
-
 
 /**
  * 「ヤジリン」マウス／キー操作処理クラス
@@ -27,15 +27,11 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 * 「ヤジリン」マウス操作
 	 */
 	protected void leftDragged(Address dragStart, Address dragEnd) {
-		if (dragStart.r() == dragEnd.r() || dragStart.c() == dragEnd.c()) {
-			board.determineInlineState(dragStart, dragEnd, Board.LINE);
-		}
+		changeLineState(dragStart, dragEnd, Board.LINE);
 	}
 
 	protected void rightDragged(Address dragStart, Address dragEnd) {
-		if (dragStart.r() == dragEnd.r() || dragStart.c() == dragEnd.c()) {
-			board.determineInlineState(dragStart, dragEnd, Board.UNKNOWN);
-		}
+		changeLineState(dragStart, dragEnd, Board.UNKNOWN);
 	}
 
 	protected void leftClicked(Address pos) {
@@ -60,6 +56,25 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			board.eraseLinesAroundA(pos);
 		}
 		board.changeStateA(pos, st);
+	}
+
+	/**
+	 * 始点マスと終点マスを結んだ線上の状態を指定の状態に変更する
+	 * 始点マスと終点マスは同じ行または同じ列になければならない
+	 * @param pos0 始点マスの座標
+	 * @param pos1 終点マスの座標
+	 * @param st 変更後の状態
+	 */
+	private void changeLineState(Address pos0, Address pos1, int st) {
+		int direction = pos0.getDirectionTo(pos1);
+		if (direction < 0)
+			return;
+		for (Address p = pos0; !p.equals(pos1); p.move(direction)) {
+			SideAddress side = SideAddress.get(p, direction);
+			if (board.getState(side) != st)
+				if (!board.hasNumberOrBlack(side) || st == Board.UNKNOWN)
+					board.changeStateA(side, st);
+		}
 	}
 
 	/*

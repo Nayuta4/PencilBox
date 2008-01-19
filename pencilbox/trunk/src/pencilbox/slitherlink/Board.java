@@ -228,56 +228,17 @@ public class Board extends BoardBase {
 			connectLink(d,r,c);
 		}
 	}
+
 	/**
 	 * 辺の状態を指定した状態に変更する
 	 * アンドゥリスナーに変更を通知する
-	 * @param d 縦か横か
-	 * @param r 行座標
-	 * @param c 列座標
-	 * @param st 変更後の状態
-	 */
-	public void changeStateA(int d, int r, int c, int st) {
-		fireUndoableEditUpdate(
-			new UndoableEditEvent(this, new Step(d, r, c, getState(d,r,c), st)));
-		changeState(d, r, c, st);
-	}
-	
-	public void changeStateA(SideAddress pos, int st) {
-		changeStateA(pos.d(), pos.r(), pos.c(), st);
-	}
-	/**
-	 * 辺の状態を 未定⇔st で切り替える
 	 * @param pos 辺座標
-	 * @param st 切り替える状態
-	 */
-	public void toggleState(SideAddress pos, int st) {
-		if (getState(pos) == st)
-			changeStateA(pos, UNKNOWN);
-		else
-			changeStateA(pos, st);
-	}
-	/**
-	 * 始点マスと終点マスを結んだ線上の状態を指定の状態に変更する
-	 * 始点マスと終点マスは同じ行または同じ列になければならない
-	 * @param pos0 始点マスの座標
-	 * @param pos1 終点マスの座標
 	 * @param st 変更後の状態
 	 */
-	public void determineInlineState(Address pos0, Address pos1, int st) {
-		int ra = pos0.r()<pos1.r() ? pos0.r() : pos1.r();
-		int rb = pos0.r()<pos1.r() ? pos1.r() : pos0.r();
-		int ca = pos0.c()<pos1.c() ? pos0.c() : pos1.c();
-		int cb = pos0.c()<pos1.c() ? pos1.c() : pos0.c();
-		if (ra == rb) 
-			for (int c = ca; c < cb; c++) {
-				if (getState(VERT, ra, c) != st)
-					changeStateA(VERT, ra, c, st);
-			}
-		if (ca == cb) 
-			for (int r = ra; r < rb; r++) {
-				if (getState(HORIZ, r, ca) != st)
-					changeStateA(HORIZ, r, ca, st);
-			}
+	public void changeStateA(SideAddress pos, int st) {
+		fireUndoableEditUpdate(
+			new UndoableEditEvent(this, new Step(pos.d(), pos.r(), pos.c(), getState(pos), st)));
+		changeState(pos.d(), pos.r(), pos.c(), st);
 	}
 
 	public void clearBoard() {
