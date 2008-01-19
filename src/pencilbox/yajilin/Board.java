@@ -174,6 +174,11 @@ public class Board extends BoardBase {
 			return isNumber(r, c) || isNumber(r+1, c) || isBlack(r, c) || isBlack(r+1, c);
 		return false;
 	}
+
+	public boolean hasNumberOrBlack(SideAddress side) {
+		return hasNumberOrBlack(side.d(), side.r(), side.c());
+	}
+
 	/**
 	 * 空白マスにする
 	 * @param r 行座標
@@ -312,7 +317,7 @@ public class Board extends BoardBase {
 		for (int d = 0; d <= 3; d++) {
 			SideAddress side = SideAddress.get(pos, d);
 			if (getState(side) == LINE) {
-				changeState(side.d(), side.r(), side.c(), UNKNOWN);
+				changeState(side, UNKNOWN);
 			}
 		}
 	}
@@ -353,61 +358,20 @@ public class Board extends BoardBase {
 		}
 	}
 
+	public void changeState(SideAddress pos, int st) {
+		changeState(pos.d(), pos.r(), pos.c(), st);
+	}
+
 	/**
 	 * 辺の状態を指定した状態に変更する
 	 * アンドゥリスナーに変更を通知する
-	 * @param d 縦か横か
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param pos 辺座標
 	 * @param st 変更後の状態
 	 */
-	public void changeStateA(int d, int r, int c, int st) {
-		fireUndoableEditUpdate(
-			new UndoableEditEvent(this, new LineStep(d, r, c, state[d][r][c], st)));
-		changeState(d, r, c, st);
-	}
-
 	public void changeStateA(SideAddress pos, int st) {
-		changeStateA(pos.d(), pos.r(), pos.c(), st);
-	}
-	/**
-	 * 辺の状態を 未定⇔st で切り替える
-	 * @param d 縦か横か
-	 * @param r 行座標
-	 * @param c 列座標
-	 * @param st 切り替える状態
-	 */
-	public void toggleState(int d, int r, int c, int st) {
-		if (getState(d, r, c) == st)
-			changeStateA(d, r, c, UNKNOWN);
-		else
-			changeStateA(d, r, c, st);
-	}
-
-	/**
-	 * 始点マスと終点マスを結んだ線上の状態を指定の状態に変更する
-	 * 始点マスと終点マスは同じ行または同じ列になければならない
-	 * @param pos0 始点マスの座標
-	 * @param pos1 終点マスの座標
-	 * @param st 変更後の状態
-	 */
-	public void determineInlineState(Address pos0, Address pos1, int st) {
-		int ra = pos0.r()<pos1.r() ? pos0.r() : pos1.r();
-		int rb = pos0.r()<pos1.r() ? pos1.r() : pos0.r();
-		int ca = pos0.c()<pos1.c() ? pos0.c() : pos1.c();
-		int cb = pos0.c()<pos1.c() ? pos1.c() : pos0.c();
-		if (ra == rb) 
-			for (int c = ca; c < cb; c++) {
-				if (getState(VERT, ra, c) != st)
-					if (!hasNumberOrBlack(VERT, ra, c) || st == UNKNOWN)
-						changeStateA(VERT, ra, c, st);
-			}
-		if (ca == cb) 
-			for (int r = ra; r < rb; r++) {
-				if (getState(HORIZ, r, ca) != st)
-					if (!hasNumberOrBlack(HORIZ, r, ca) || st == UNKNOWN)
-						changeStateA(HORIZ, r, ca, st);
-			}
+		fireUndoableEditUpdate(
+			new UndoableEditEvent(this, new LineStep(pos.d(), pos.r(), pos.c(), getState(pos), st)));
+		changeState(pos, st);
 	}
 
 	public void clearBoard() {

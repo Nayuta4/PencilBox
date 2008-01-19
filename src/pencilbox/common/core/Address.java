@@ -176,6 +176,41 @@ public class Address implements Comparable<Address> {
 		}
 	}
 	
+	/**
+	 * マスからマスへの向きを取得する
+	 * @param pos0 始点マス座標
+	 * @param pos1 終点マス座標
+	 * @return 始点から終点への向きを表す定数を返す。同一列上にない場合は-1を返す。
+	 */
+	public static int getDirectionTo(Address pos0, Address pos1) {
+		int r0 = pos0.r();
+		int r1 = pos1.r();
+		int c0 = pos0.c();
+		int c1 = pos1.c();
+		int ret = -1;
+		if (r0 == r1) {
+			if (c0 < c1)
+				ret = Direction.RT;
+			else if (c0 > c1)
+				ret = Direction.LT;
+		} else if (c0 == c1) {
+			if (r0 < r1)
+				ret = Direction.DN;
+			else if (r0 > r1)
+				ret = Direction.UP;
+		}
+		return ret;
+	}
+
+	/**
+	 * マスへのを取得する
+	 * @param pos 終点マス座標
+	 * @return 終点マスへの向きを表す定数を返す。同一列上にない場合は-1を返す。
+	 */
+	public int getDirectionTo(Address pos) {
+		return Address.getDirectionTo(this, pos);
+	}
+
 	/*
 	 * @see java.lang.Object#toString()
 	 */
