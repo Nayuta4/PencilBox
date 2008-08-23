@@ -52,7 +52,7 @@ public class MenuBase {
 	private JMenuItem redoItem;
 //	private JMenuItem undoAllItem;
 //	private JMenuItem redoAllItem;
-	private JMenuItem palybackItem;
+	private JMenuItem playbackItem;
 	private JMenuItem checkAnswerItem;
 	private JMenuItem immediateAnswerCheckItem;
 	private JMenuItem cellSizeItem;
@@ -172,7 +172,7 @@ public class MenuBase {
 		editMenu.add(redoItem = makeCommandMenuItem(Messages.getString("MenuBase.redoItem"), 'R')); //$NON-NLS-1$
 		// editMenu.add(undoAllItem = makeCommandMenuItem("ç≈èâÇ‹Ç≈ñﬂÇ∑(F)", 'F'));
 		// editMenu.add(redoAllItem = makeCommandMenuItem("ç≈å„Ç‹Ç≈êiÇﬂÇÈ(L)", 'L'));
-		editMenu.add(palybackItem = makeCommandMenuItem(Messages.getString("MenuBase.playbackItem"), 'P')); //$NON-NLS-1$
+		editMenu.add(playbackItem = makeCommandMenuItem(Messages.getString("MenuBase.playbackItem"), 'P')); //$NON-NLS-1$
 		editMenu.addSeparator();
 		editMenu.add(checkAnswerItem = makeCommandMenuItem(Messages.getString("MenuBase.checkAnswerItem"), 'H')); //$NON-NLS-1$
 		editMenu.add(immediateAnswerCheckItem = makeCheckBoxCommandMenuItem(Messages.getString("MenuBase.immediateAnswerCheckItem"), 'M', false)); //$NON-NLS-1$
@@ -313,7 +313,7 @@ public class MenuBase {
 			redoItem.setEnabled(command.canRedo());
 			// undoAllItem.setEnabled(command.canUndo());
 			// redoAllItem.setEnabled(command.canRedo());
-			palybackItem.setEnabled(command.canUndo() || command.canRedo());
+			playbackItem.setEnabled(command.canUndo() || command.canRedo());
 
 			int m = getPanelBase().getEditMode();
 			if (m == PanelBase.ANSWER_INPUT_MODE) {
@@ -333,7 +333,7 @@ public class MenuBase {
 			redoItem.setEnabled(true);
 			// undoAllItem.setEnabled(true);
 			// redoAllItem.setEnabled(true);
-			palybackItem.setEnabled(true);
+			playbackItem.setEnabled(true);
 		}
 
 		public void menuCanceled(MenuEvent evt) {
@@ -601,7 +601,7 @@ public class MenuBase {
 //			command.undoAll();
 //		else if (target == redoAllItem)
 //			command.redoAll();
-		else if (target == palybackItem)
+		else if (target == playbackItem)
 			command.playback();
 		else if (target == checkAnswerItem)
 			command.checkAnswer();
