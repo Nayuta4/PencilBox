@@ -275,22 +275,22 @@ public class MenuBase {
 		for (int i = 1; i <= styles.length; i++) {
 			switch (styles[i-1]) {
 			case 0:
-				makeMarkStyleItem(i + Messages.getString("MenuBase.markStyle0"), (char)('0'+i), "0"); //$NON-NLS-1$ //$NON-NLS-2$
+				makeMarkStyleItem(i + " " + Messages.getString("MenuBase.markStyle0"), (char)('0'+i), "0"); //$NON-NLS-1$ //$NON-NLS-2$
 				break;
 			case 1:
-				makeMarkStyleItem(i + Messages.getString("MenuBase.markStyle1"), (char)('0'+i), "1"); //$NON-NLS-1$ //$NON-NLS-2$
+				makeMarkStyleItem(i + " " + Messages.getString("MenuBase.markStyle1"), (char)('0'+i), "1"); //$NON-NLS-1$ //$NON-NLS-2$
 				break;
 			case 2:
-				makeMarkStyleItem(i+ Messages.getString("MenuBase.markStyle2"), (char)('0'+i), "2"); //$NON-NLS-1$ //$NON-NLS-2$
+				makeMarkStyleItem(i + " " + Messages.getString("MenuBase.markStyle2"), (char)('0'+i), "2"); //$NON-NLS-1$ //$NON-NLS-2$
 				break;
 			case 3:
-				makeMarkStyleItem(i+ Messages.getString("MenuBase.markStyle3"), (char)('0'+i), "3"); //$NON-NLS-1$ //$NON-NLS-2$
+				makeMarkStyleItem(i +  " " + Messages.getString("MenuBase.markStyle3"), (char)('0'+i), "3"); //$NON-NLS-1$ //$NON-NLS-2$
 				break;
 			case 4:
-				makeMarkStyleItem(i + Messages.getString("MenuBase.markStyle4"), (char)('0'+i), "4"); //$NON-NLS-1$ //$NON-NLS-2$
+				makeMarkStyleItem(i +  " " + Messages.getString("MenuBase.markStyle4"), (char)('0'+i), "4"); //$NON-NLS-1$ //$NON-NLS-2$
 				break;
 			case 5:
-				makeMarkStyleItem(i + Messages.getString("MenuBase.markStyle5"), (char)('0'+i), "5"); //$NON-NLS-1$ //$NON-NLS-2$
+				makeMarkStyleItem(i +  " " + Messages.getString("MenuBase.markStyle5"), (char)('0'+i), "5"); //$NON-NLS-1$ //$NON-NLS-2$
 				break;
 			}
 		}
