@@ -478,14 +478,14 @@ public class Board extends BoardBase {
 		if (result==0)
 			return COMPLETE_MESSAGE;
 		if (result==1)
-			return "–¢Š®¬\n";
+			return Messages.getString("Board.AnswerCheckMessage1"); //$NON-NLS-1$
 		StringBuffer message = new StringBuffer();
 		if ((result&2) == 2)
-			message.append("“¯‚¶”š‚ğ•¡”ŠÜ‚Ş—Ìˆæ‚ª‚ ‚é\n");
+			message.append(Messages.getString("Board.AnswerCheckMessage2")); //$NON-NLS-1$
 		if ((result&4) == 4)
-			message.append("—Ìˆæ–ÊÏ‚æ‚è‘å‚«‚¢”š‚ğŠÜ‚Ş—Ìˆæ‚ª‚ ‚é\n");
+			message.append(Messages.getString("Board.AnswerCheckMessage3")); //$NON-NLS-1$
 		if ((result&8) == 8)
-			message.append("ŠÔŠu•s‘«‚Ì”š‚ª‚ ‚é\n");
+			message.append(Messages.getString("Board.AnswerCheckMessag4")); //$NON-NLS-1$
 		return message.toString();
 	}
 

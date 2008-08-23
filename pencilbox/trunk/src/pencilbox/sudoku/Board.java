@@ -38,7 +38,7 @@ public class Board extends BoardBase {
 			}
 		}
 		if (unit == 0)
-			throw new RuntimeException("•s³‚È‘å‚«‚³");
+			throw new RuntimeException("•s³‚È‘å‚«‚³"); //$NON-NLS-1$
 		state = new int[maxNumber][maxNumber];
 		number = new int[maxNumber][maxNumber];
 		multi = new int[maxNumber][maxNumber];
@@ -352,11 +352,11 @@ public class Board extends BoardBase {
 		if (result == 0)
 			return COMPLETE_MESSAGE;
 		if (result == 2)
-			return "–¢Š®¬";
+			return Messages.getString("Board.AnswerCheckMessage2"); //$NON-NLS-1$
 		if ((result & 1) == 1)
-			return "ŠÔˆá‚¢‚ª‚ ‚é";
+			return Messages.getString("Board.AnswerCheckMessage1"); //$NON-NLS-1$
 		else
-			return "";
+			return ""; //$NON-NLS-1$
 	}
 
 	/**

@@ -16,23 +16,23 @@ public final class PencilType {
 	 * パズル種類のリスト
 	 */
 	private static final PencilType[] pencilTypeList = new PencilType[] {
-		new PencilType("kakuro",      "カックロ",         12),
-		new PencilType("kurodoko",    "黒マスはどこだ",    9),
-		new PencilType("shikaku",     "四角に切れ",       10),
-		new PencilType("sudoku",      "数独",              9),
-		new PencilType("slitherlink", "スリザーリンク",   11),
-		new PencilType("tentaisho",   "天体ショー",       10),
-		new PencilType("numberlink",  "ナンバーリンク",   10),
-		new PencilType("nurikabe",    "ぬりかべ",         10),
-		new PencilType("hakyukoka",   "波及効果",         10),
-		new PencilType("hashi",       "橋をかけろ",        9),
-		new PencilType("bijutsukan",  "美術館",           10),
-		new PencilType("hitori",      "ひとりにしてくれ",  8),
-		new PencilType("fillomino",   "フィルオミノ",     10),
-		new PencilType("heyawake",    "へやわけ",         10),
-		new PencilType("masyu",       "ましゅ",           10),
-		new PencilType("yajilin",     "ヤジリン",         10),
-		new PencilType("lits",     "ＬＩＴＳ",         10),
+		new PencilType("kakuro",      Messages.getString("PencilType.kakuro"),         12), //$NON-NLS-1$ //$NON-NLS-2$
+		new PencilType("kurodoko",    Messages.getString("PencilType.kurodoko"),    9), //$NON-NLS-1$ //$NON-NLS-2$
+		new PencilType("shikaku",     Messages.getString("PencilType.shikaku"),       10), //$NON-NLS-1$ //$NON-NLS-2$
+		new PencilType("sudoku",      Messages.getString("PencilType.sudoku"),              9), //$NON-NLS-1$ //$NON-NLS-2$
+		new PencilType("slitherlink", Messages.getString("PencilType.slitherlink"),   11), //$NON-NLS-1$ //$NON-NLS-2$
+		new PencilType("tentaisho",   Messages.getString("PencilType.tentaisho"),       10), //$NON-NLS-1$ //$NON-NLS-2$
+		new PencilType("numberlink",  Messages.getString("PencilType.numberlink"),   10), //$NON-NLS-1$ //$NON-NLS-2$
+		new PencilType("nurikabe",    Messages.getString("PencilType.nurikabe"),         10), //$NON-NLS-1$ //$NON-NLS-2$
+		new PencilType("hakyukoka",   Messages.getString("PencilType.hakyukoka"),         10), //$NON-NLS-1$ //$NON-NLS-2$
+		new PencilType("hashi",       Messages.getString("PencilType.hashi"),        9), //$NON-NLS-1$ //$NON-NLS-2$
+		new PencilType("bijutsukan",  Messages.getString("PencilType.bijutsukan"),           10), //$NON-NLS-1$ //$NON-NLS-2$
+		new PencilType("hitori",      Messages.getString("PencilType.hitori"),  8), //$NON-NLS-1$ //$NON-NLS-2$
+		new PencilType("fillomino",   Messages.getString("PencilType.fillomino"),     10), //$NON-NLS-1$ //$NON-NLS-2$
+		new PencilType("heyawake",    Messages.getString("PencilType.heyawake"),         10), //$NON-NLS-1$ //$NON-NLS-2$
+		new PencilType("masyu",       Messages.getString("PencilType.masyu"),           10), //$NON-NLS-1$ //$NON-NLS-2$
+		new PencilType("yajilin",     Messages.getString("PencilType.yajilin"),         10), //$NON-NLS-1$ //$NON-NLS-2$
+		new PencilType("lits",     Messages.getString("PencilType.lits"),         10), //$NON-NLS-1$ //$NON-NLS-2$
 	};
 	/**
 	 * 存在するPencilTypeの個数を取得する

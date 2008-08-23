@@ -381,12 +381,12 @@ public class Board extends BoardBase {
 		if (result == 0)
 			return BoardBase.COMPLETE_MESSAGE;
 		if (result == 1)
-			return "–¢Š®¬\n";
+			return Messages.getString("Board.AnswerCheckMessage1"); //$NON-NLS-1$
 		StringBuffer message = new StringBuffer();
 		if ((result & 2) == 2)
-			message.append("c‰¡‚Éd•¡‚·‚é”š‚ª‚ ‚é\n");
+			message.append(Messages.getString("Board.AnswerCheckMessage2")); //$NON-NLS-1$
 		if ((result & 4) == 4)
-			message.append("³‚µ‚­‚È‚¢Œv‚ª‚ ‚é\n");
+			message.append(Messages.getString("Board.AnswerCheckMessage3")); //$NON-NLS-1$
 		return message.toString();
 	}
 

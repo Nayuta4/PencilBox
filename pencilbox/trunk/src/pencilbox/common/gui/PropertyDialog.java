@@ -43,9 +43,9 @@ public class PropertyDialog extends PencilBoxDialog {
 		mainPanel.setLayout(new GridBagLayout());
 		mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-		JLabel labelAuthor = new JLabel("çÏé“");
-		JLabel labelDifficulty = new JLabel("ìÔà’ìx");
-		JLabel labelSource = new JLabel("èoìT");
+		JLabel labelAuthor = new JLabel(Messages.getString("PropertyDialog.labelAuthor")); //$NON-NLS-1$
+		JLabel labelDifficulty = new JLabel(Messages.getString("PropertyDialog.labelDifficulty")); //$NON-NLS-1$
+		JLabel labelSource = new JLabel(Messages.getString("PropertyDialog.labelSource")); //$NON-NLS-1$
 
 		fieldAuthor = new JTextField(12);
 		fieldDifficulty = new JTextField(12);

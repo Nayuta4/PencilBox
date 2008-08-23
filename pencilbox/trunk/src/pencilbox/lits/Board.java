@@ -422,19 +422,19 @@ public class Board extends BoardBase {
 			return COMPLETE_MESSAGE;
 		StringBuffer message = new StringBuffer();
 		if ((result & 1) == 1)
-			message.append("ブロックが１つもない\n"); 
+			message.append(Messages.getString("Board.AnswerCheckMessage1"));  //$NON-NLS-1$
 		if ((result & 2) == 2)
 			;
 		if ((result & 4) == 4)
 			;
 		if ((result & 8) == 8)
-			message.append("テトロミノを含まないブロックがある\n"); 
+			message.append(Messages.getString("Board.AnswerCheckMessage2"));  //$NON-NLS-1$
 		if ((result & 16) == 16)
-			message.append("同じ形のテトロミノが隣接している\n"); 
+			message.append(Messages.getString("Board.AnswerCheckMessage3"));  //$NON-NLS-1$
 		if ((result & 32) == 32)
-			message.append("黒マスがひとつながりになっていない\n"); 
+			message.append(Messages.getString("Board.AnswerCheckMessage4"));  //$NON-NLS-1$
 		if ((result & 64) == 64)
-			message.append("黒マスが２ｘ２マスのカタマリになっている\n"); 
+			message.append(Messages.getString("Board.AnswerCheckMessage5"));  //$NON-NLS-1$
 		return message.toString();
 	}
 

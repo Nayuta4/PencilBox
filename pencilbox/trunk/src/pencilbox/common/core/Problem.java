@@ -83,7 +83,7 @@ public class Problem {
 	 */
 	public String getFileName() {
 		if (file == null)
-			return "–³‘è";
+			return Messages.getString("Problem.Untitled"); //$NON-NLS-1$
 		else
 			return file.getName();
 	}

@@ -661,19 +661,19 @@ public class Board extends BoardBase {
 			return COMPLETE_MESSAGE; 
 		StringBuffer message = new StringBuffer();
 		if ((result & 1) == 1)
-			message.append("線が分岐または交差している\n");
+			message.append(Messages.getString("Board.AnswerCheckMessage1")); //$NON-NLS-1$
 		if ((result & 2) == 2)
-			message.append("閉じていない線がある\n");
+			message.append(Messages.getString("Board.AnswerCheckMessage2")); //$NON-NLS-1$
 		if ((result & 4) == 4)
-			message.append("複数の線がある\n");
+			message.append(Messages.getString("Board.AnswerCheckMessage3")); //$NON-NLS-1$
 		if ((result & 8) == 8)
-			message.append("線の通っていないマスがある\n");
+			message.append(Messages.getString("Board.AnswerCheckMessage4")); //$NON-NLS-1$
 		if ((result & 64) == 64)
-			message.append("線と黒マスが重なっているマスがある\n");
+			message.append(Messages.getString("Board.AnswerCheckMessage7")); //$NON-NLS-1$
 		if ((result & 32) == 32)
-			message.append("連続する黒マスがある\n");
+			message.append(Messages.getString("Board.AnswerCheckMessage6")); //$NON-NLS-1$
 		if ((result & 16) == 16)
-			message.append("黒マスの数が数字と一致していない矢印がある\n");
+			message.append(Messages.getString("Board.AnswerCheckMessage5")); //$NON-NLS-1$
 		return message.toString();
 	}
 

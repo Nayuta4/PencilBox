@@ -29,13 +29,13 @@ public class Menu extends MenuBase {
 
 	protected void buildViewMenu() {
 		super.buildViewMenu();
-		areaBorderColorItem = addColorMenuItem("領域境界");
-		whiteAreaColorItem = addColorMenuItem("白星領域");
-		blackAreaColorItem = addColorMenuItem("黒星領域");
-		addToViewMenu(hideStarItem = makeCheckBoxCommandMenuItem("星の非表示(H)", 'H', false));
-		addToViewMenu(showAreaBorderItem = makeCheckBoxCommandMenuItem("境界線表示(B)", 'B', true));
-		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("正誤を色で示す(E)", 'E', false));
-		addToViewMenu(separateAreaColorItem = makeCheckBoxCommandMenuItem("領域の色分け(R)", 'R', false));
+		areaBorderColorItem = addColorMenuItem(Messages.getString("Menu.areaBorderColorItem")); //$NON-NLS-1$
+		whiteAreaColorItem = addColorMenuItem(Messages.getString("Menu.whiteAreaColorItem")); //$NON-NLS-1$
+		blackAreaColorItem = addColorMenuItem(Messages.getString("Menu.blackAreaColorItem")); //$NON-NLS-1$
+		addToViewMenu(hideStarItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.hideStarItem"), 'H', false)); //$NON-NLS-1$
+		addToViewMenu(showAreaBorderItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.showAreaBorderItem"), 'B', true)); //$NON-NLS-1$
+		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.indicateErrorItem"), 'E', false)); //$NON-NLS-1$
+		addToViewMenu(separateAreaColorItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.separateAreaColorItem"), 'R', false)); //$NON-NLS-1$
 //		addRenewColorMenuItem();
 	}
 

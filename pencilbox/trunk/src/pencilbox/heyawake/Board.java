@@ -605,13 +605,13 @@ public class Board extends BoardBase {
 			return COMPLETE_MESSAGE;
 		StringBuffer message = new StringBuffer();
 		if ((result&1) == 1)
-			message.append("連続する黒マスがある\n");
+			message.append(Messages.getString("Board.AnswerCheckMessage1")); //$NON-NLS-1$
 		if ((result&2) == 2)
-			message.append("黒マスにより盤面が分断されている\n");
+			message.append(Messages.getString("Board.AnswerCheckMessage2")); //$NON-NLS-1$
 		if ((result&4) == 4)
-			message.append("数字と黒マス数の一致していない部屋がある\n");
+			message.append(Messages.getString("Board.AnswerCheckMessage3")); //$NON-NLS-1$
 		if ((result&8) == 8)
-			message.append("白マスが３部屋以上続いている箇所がある\n");
+			message.append(Messages.getString("Board.AnswerCheckMessage4")); //$NON-NLS-1$
 		return message.toString();
 	}
 

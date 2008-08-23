@@ -577,9 +577,9 @@ public class Board extends BoardBase {
 		return true;
 	}
 	
-	static final String ERR_CROSS_BRIDGE = "‹´‚ªŒğ·‚µ‚Ä‚¢‚é\n";
-	static final String YET_MULTIPLE_LINE = "‘S‘Ì‚ª‚Ğ‚Æ‚Â‚È‚ª‚è‚É‚È‚Á‚Ä‚¢‚È‚¢\n";
-	static final String ERR_WRONG_NUMBER = "‹´‚Ì”‚ª”š‚Æˆê’v‚µ‚Ä‚¢‚È‚¢\n";
+	static final String ERR_CROSS_BRIDGE = Messages.getString("Board.AnswerCheckMessage1"); //$NON-NLS-1$
+	static final String YET_MULTIPLE_LINE = Messages.getString("Board.AnswerCheckMessage2"); //$NON-NLS-1$
+	static final String ERR_WRONG_NUMBER = Messages.getString("Board.AnswerCheckMessage3"); //$NON-NLS-1$
 //	static final String ERR_TOO_MANY_LINE = "‹´‚Ì”‚ª‘½‚·‚¬‚é”š‚ª‚ ‚é\n";
 //	static final String YET_TOO_FEW_LINE= "‹´‚Ì”‚ª‘«‚è‚È‚¢”š‚ª‚ ‚é\n";
 	

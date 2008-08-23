@@ -29,10 +29,10 @@ public class Menu extends MenuBase {
 	protected void buildViewMenu() {
 		addNoPaintMarkStyleMenu();
 		super.buildViewMenu();
-		numberColorItem = addColorMenuItem("数字");
-		paintColorItem = addColorMenuItem("黒マス");
-		circleColorItem = addColorMenuItem("白マス");
-		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("誤りを赤で示す(E)", 'E', false));
+		numberColorItem = addColorMenuItem(Messages.getString("Menu.numberColorItem")); //$NON-NLS-1$
+		paintColorItem = addColorMenuItem(Messages.getString("Menu.paintColorItem")); //$NON-NLS-1$
+		circleColorItem = addColorMenuItem(Messages.getString("Menu.circleColorItem")); //$NON-NLS-1$
+		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.indicateErrorItem"), 'E', false)); //$NON-NLS-1$
 	}
 
 	public void executeCommand2(JMenuItem target) {

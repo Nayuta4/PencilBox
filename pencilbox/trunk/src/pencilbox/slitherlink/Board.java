@@ -477,17 +477,17 @@ public class Board extends BoardBase {
 			return COMPLETE_MESSAGE; 
 		StringBuffer message = new StringBuffer();
 		if ((result & 1) == 1)
-			message.append("ü‚ª•ªŠò‚Ü‚½‚ÍŒğ·‚µ‚Ä‚¢‚é\n");
+			message.append(Messages.getString("Board.AnswerCheckMessage1")); //$NON-NLS-1$
 		if ((result & 2) == 2)
-			message.append("•Â‚¶‚Ä‚¢‚È‚¢ü‚ª‚ ‚é\n");
+			message.append(Messages.getString("Board.AnswerCheckMessage2")); //$NON-NLS-1$
 		if ((result & 16) == 16)
-			message.append("•¡”‚Ìü‚ª‚ ‚é\n");
+			message.append(Messages.getString("Board.AnswerCheckMessage5")); //$NON-NLS-1$
 		if ((result & 128) == 128)
-			message.append("ü‚ª‚È‚¢\n");
+			message.append(Messages.getString("Board.AnswerCheckMessage8")); //$NON-NLS-1$
 		if ((result & 4) == 4)
-			message.append("ü‚Ì”‚ª”š‚æ‚è‘½‚¢‚Æ‚±‚ë‚ª‚ ‚é\n");
+			message.append(Messages.getString("Board.AnswerCheckMessage3")); //$NON-NLS-1$
 		if ((result & 32) == 32)
-			message.append("ü‚Ì”‚ª”š‚æ‚è­‚È‚¢‚Æ‚±‚ë‚ª‚ ‚é\n");
+			message.append(Messages.getString("Board.AnswerCheckMessage6")); //$NON-NLS-1$
 		return message.toString();
 	}
 

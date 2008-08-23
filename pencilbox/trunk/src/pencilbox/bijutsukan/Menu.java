@@ -31,16 +31,16 @@ public class Menu extends MenuBase {
 	}
 
 	protected void buildViewMenu() {
-		buildMarkStyleMenu("照明なしの印(N)", 'N', new int[] {3, 4});
+		buildMarkStyleMenu(Messages.getString("Menu.markStyleMenu"), 'N', new int[] {3, 4}); //$NON-NLS-1$
 		super.buildViewMenu();
-		wallColorItem = addColorMenuItem("黒マス");
-		numberColorItem = addColorMenuItem("数字");
-		bulbColorItem = addColorMenuItem("照明");
-		noBulbColorItem = addColorMenuItem("照明なし");
-		lluminatedCellColorItem = addColorMenuItem("照らされたマス");
-		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("誤りを赤で示す(E)", 'E', false));
-		addToViewMenu(paintIlluminatedCellItem = makeCheckBoxCommandMenuItem("照らされたマスを塗る(P)", 'P', true));
-		addToViewMenu(showBeamItem = makeCheckBoxCommandMenuItem("光線表示(B)", 'B', false));
+		wallColorItem = addColorMenuItem(Messages.getString("Menu.wallColoritem")); //$NON-NLS-1$
+		numberColorItem = addColorMenuItem(Messages.getString("Menu.numberColorItem")); //$NON-NLS-1$
+		bulbColorItem = addColorMenuItem(Messages.getString("Menu.bulbColorItem")); //$NON-NLS-1$
+		noBulbColorItem = addColorMenuItem(Messages.getString("Menu.noBulbColorItem")); //$NON-NLS-1$
+		lluminatedCellColorItem = addColorMenuItem(Messages.getString("Menu.illuminatedCellColorItem")); //$NON-NLS-1$
+		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.indicateErrorItem"), 'E', false)); //$NON-NLS-1$
+		addToViewMenu(paintIlluminatedCellItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.paintIlluminatedCellItem"), 'P', true)); //$NON-NLS-1$
+		addToViewMenu(showBeamItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.showBeamItem"), 'B', false)); //$NON-NLS-1$
 	}
 
 	public void executeCommand2(JMenuItem target) {

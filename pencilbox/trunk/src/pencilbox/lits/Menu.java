@@ -28,10 +28,10 @@ public class Menu extends MenuBase {
 	protected void buildViewMenu() {
 		addNoPaintMarkStyleMenu();
 		super.buildViewMenu();
-		areaBorderColorItem = addColorMenuItem("領域境界");
-		paintColorItem = addColorMenuItem("黒マス");
-		circleColorItem = addColorMenuItem("白マス");
-		addToViewMenu(separateTetrominoColorItem = makeCheckBoxCommandMenuItem("テトロミノの色分け(D)", 'D', false));
+		areaBorderColorItem = addColorMenuItem(Messages.getString("Menu.areaBorderColorItem")); //$NON-NLS-1$
+		paintColorItem = addColorMenuItem(Messages.getString("Menu.paintColorItem")); //$NON-NLS-1$
+		circleColorItem = addColorMenuItem(Messages.getString("Menu.circleColorItem")); //$NON-NLS-1$
+		addToViewMenu(separateTetrominoColorItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.separateTetrominoColorItem"), 'D', false)); //$NON-NLS-1$
 	}
 
 	public void executeCommand2(JMenuItem target) {

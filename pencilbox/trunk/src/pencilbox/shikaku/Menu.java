@@ -28,11 +28,11 @@ public class Menu extends MenuBase {
 
 	protected void buildViewMenu() {
 		super.buildViewMenu();
-		numberColorItem = addColorMenuItem("”š");
-		areaBorderColorItem = addColorMenuItem("—Ìˆæ‹«ŠE");
-		areaPaintColorItem = addColorMenuItem("—Ìˆæ“à•”");
-		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("³Œë‚ğF‚Å¦‚·(E)", 'E', false));
-		addToViewMenu(separateAreaColorItem = makeCheckBoxCommandMenuItem("—Ìˆæ‚ÌF•ª‚¯(R)", 'R', false));
+		numberColorItem = addColorMenuItem(Messages.getString("Menu.numberColorItem")); //$NON-NLS-1$
+		areaBorderColorItem = addColorMenuItem(Messages.getString("Menu.areaBorderColorItem")); //$NON-NLS-1$
+		areaPaintColorItem = addColorMenuItem(Messages.getString("Menu.areaPaintColorItem")); //$NON-NLS-1$
+		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.indicateErrorItem"), 'E', false)); //$NON-NLS-1$
+		addToViewMenu(separateAreaColorItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.separateAreaColorItem"), 'R', false)); //$NON-NLS-1$
 		addRenewColorMenuItem();
 	}
 

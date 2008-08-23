@@ -109,13 +109,13 @@ public class MenuCommand {
 	 * @param e
 	 */
 	public void showErrorMessage(Exception e) {
-		JOptionPane.showMessageDialog(frame,e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(frame,e.getMessage(),Messages.getString("MenuCommand.Message_Error"),JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
 	}
 	/**
 	 * @param s
 	 */
 	public void showErrorMessage(String s) {
-		JOptionPane.showMessageDialog(frame,s,"Error",JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(frame,s,Messages.getString("MenuCommand.Message_Error"),JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
 	}
 	
 	/*
@@ -129,7 +129,7 @@ public class MenuCommand {
 			NewBoardDialog newBoardDialog = NewBoardDialog.getInstance();
 //			newBoardDialog.setPencilType(pencilType);
 			newBoardDialog.setCurrentSize(board.getSize());
-			if (newBoardDialog.showDialog(frame, "新規作成") == PencilBoxDialog.OK_OPTION) {
+			if (newBoardDialog.showDialog(frame, Messages.getString("MenuCommand.newBoardDialog")) == PencilBoxDialog.OK_OPTION) { //$NON-NLS-1$
 				Size newSize = newBoardDialog.getNewSize();
 				if (newSize != null && isValidSize(newSize)) {
 					PencilFactory.getInstance(pencilType, this).createNewFrame(newSize);
@@ -151,10 +151,10 @@ public class MenuCommand {
 		int rows = s.getRows();
 		int cols = s.getCols();
 		if (rows < 0 || cols < 0) {
-			showErrorMessage("不正なサイズです");
+			showErrorMessage(Messages.getString("MenuCommand.Message_InappropriateSize")); //$NON-NLS-1$
 			return false;
 		} else if (rows > 200 || cols > 200) {
-			showErrorMessage("さすがに大きすぎでしょ");
+			showErrorMessage(Messages.getString("MenuCommand.Message_TooLarge")); //$NON-NLS-1$
 			return false;
 		}
 		if (pencilType.getPencilName().equals("sudoku")) {
@@ -164,7 +164,7 @@ public class MenuCommand {
 						return true;
 				}
 			}
-			showErrorMessage("不正なサイズです");
+			showErrorMessage(Messages.getString("MenuCommand.Message_InappropriateSize")); //$NON-NLS-1$
 			return false;
 		}
 		return true;
@@ -251,7 +251,7 @@ public class MenuCommand {
 		try {
 			NewBoardDialog newBoardDialog = NewBoardDialog.getInstance();
 			newBoardDialog.setCurrentSize(board.getSize());
-			if (newBoardDialog.showDialog(frame, "盤面サイズ変更") == PencilBoxDialog.OK_OPTION) {
+			if (newBoardDialog.showDialog(frame, Messages.getString("MenuCommand.changeBoardSizeDialog")) == PencilBoxDialog.OK_OPTION) { //$NON-NLS-1$
 				Size newSize = newBoardDialog.getNewSize();
 				if (newSize != null && isValidSize(newSize)) {
 					PencilFactory.getInstance(pencilType, this).changeBoardSize(newSize);
@@ -287,7 +287,7 @@ public class MenuCommand {
 			String url = "http://www.kanpen.net/" + pencilType.getPencilName()
 					+ ".html?problem=" + problemDataS;
 			dataExportFrame.setText(url);
-			int ret = dataExportFrame.showDialog(frame, "問題データ文字列出力");
+			int ret = dataExportFrame.showDialog(frame, Messages.getString("MenuCommand.dataExportDialog")); //$NON-NLS-1$
 			if (ret == PencilBoxDialog.OK_OPTION) {
 				String s = dataExportFrame.getText();
 				Problem problem = IOController
@@ -317,7 +317,7 @@ public class MenuCommand {
 	public void property() {
 		PropertyDialog propertyDialog = PropertyDialog.getInstance();
 		propertyDialog.setPropertyToDialog(problem.getProperty());
-		if (propertyDialog.showDialog(frame, "プロパティ") == PencilBoxDialog.OK_OPTION)
+		if (propertyDialog.showDialog(frame, Messages.getString("MenuCommand.properyDialog")) == PencilBoxDialog.OK_OPTION) //$NON-NLS-1$
 			propertyDialog.getPropertyFromDialog(problem.getProperty());
 	}
 	/**
@@ -367,11 +367,11 @@ public class MenuCommand {
 		JOptionPane.showMessageDialog(
 				frame,
 				getAboutText(),
-				Constants.TITLE + "について",
+				Messages.getString("MenuCommand.aboutDialog"), //$NON-NLS-1$
 				JOptionPane.INFORMATION_MESSAGE);
 	}
 	private String getAboutText() {
-		return ""
+		return "" //$NON-NLS-1$
 		+ Constants.TITLE + " version " + Constants.VERSION + '\n'
 		+ Constants.COPYRIGHT + '\n'
 		+ Constants.URL +'\n'
@@ -407,7 +407,7 @@ public class MenuCommand {
 		JOptionPane.showMessageDialog(
 			frame,
 			board.checkAnswerString(),
-			"正解判定",
+			Messages.getString("MenuCommand.checkAnswerDialog"), //$NON-NLS-1$
 			JOptionPane.INFORMATION_MESSAGE);
 	}
 	/**
@@ -516,7 +516,7 @@ public class MenuCommand {
 		CellSizeDialog cellSizeDialog = CellSizeDialog.getInstance();
 		cellSizeDialog.setPanel(getPanelBase());
 		cellSizeDialog.setCellSize(currentCellSize);
-		int result = cellSizeDialog.showDialog(frame, "表示サイズ");
+		int result = cellSizeDialog.showDialog(frame, Messages.getString("MenuCommand.cellSizeDialog")); //$NON-NLS-1$
 		int newCellSize = cellSizeDialog.getCellSize();
 		if (result == PencilBoxDialog.OK_OPTION) {
 			getPanelBase().setDisplaySize(newCellSize);
