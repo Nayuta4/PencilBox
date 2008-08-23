@@ -5,9 +5,9 @@ package pencilbox.common.core;
  */
 public class Property {
 	
-	private String author = "";
-	private String source = "";
-	private String difficulty = "";
+	private String author = ""; 
+	private String source = ""; 
+	private String difficulty = ""; 
 	
 	/**
 	 * デフォルトコンストラクタ

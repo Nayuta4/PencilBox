@@ -267,9 +267,9 @@ public class Board extends BoardBase {
 			return COMPLETE_MESSAGE;
 		StringBuffer message = new StringBuffer();
 		if ((result&1) == 1)
-			message.append("³‚µ‚­‚È‚¢—Ìˆæ‚ª‚ ‚é\n");
+			message.append(Messages.getString("Board.AnswerCheckMessage1")); //$NON-NLS-1$
 		else if ((result&2) == 2)
-			message.append("–¢Š®¬\n");
+			message.append(Messages.getString("Board.AnswerCheckMessage2")); //$NON-NLS-1$
 		return message.toString();
 	}
 	/**

@@ -59,12 +59,12 @@ public class NewBoardDialog extends PencilBoxDialog {
 		final SpinnerModel spinnerModelRows = new SpinnerNumberModel(10, 1, 200, 1);
 		spinnerCols.setModel(spinnerModelCols);
 		spinnerRows.setModel(spinnerModelRows);
-		JLabel labelCols = new JLabel("ヨコ： ");
-		JLabel labelRows = new JLabel("タテ： ");
+		JLabel labelCols = new JLabel(Messages.getString("NewBoardDialog.labelCols")); //$NON-NLS-1$
+		JLabel labelRows = new JLabel(Messages.getString("NewBoardDialog.labelRows")); //$NON-NLS-1$
 		labelCols.setHorizontalAlignment(SwingConstants.TRAILING);
 		labelRows.setHorizontalAlignment(SwingConstants.TRAILING);
 
-		checkBox = new JCheckBox("正方形");
+		checkBox = new JCheckBox(Messages.getString("NewBoardDialog.checkBoxSquare")); //$NON-NLS-1$
 		checkBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (checkBox.isSelected()) {

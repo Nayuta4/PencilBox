@@ -33,12 +33,12 @@ public class Menu extends MenuBase {
 		addNoPaintMarkStyleMenu();
 		super.buildViewMenu();
 //		wallColorItem = addColorMenuItem("数字マス");
-		numberColorItem = addColorMenuItem("数字");
-		lineColorItem = addColorMenuItem("線");
-		paintColorItem = addColorMenuItem("黒マス");
-		circleColorItem = addColorMenuItem("白マス");
-		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("誤りを赤で示す(E)", 'E', false));
-		addToViewMenu(separateLinkColorItem = makeCheckBoxCommandMenuItem("線の色分け(R)", 'R', false));
+		numberColorItem = addColorMenuItem(Messages.getString("Menu.numberColorItem")); //$NON-NLS-1$
+		lineColorItem = addColorMenuItem(Messages.getString("Menu.lineColorItem")); //$NON-NLS-1$
+		paintColorItem = addColorMenuItem(Messages.getString("Menu.paintColorItem")); //$NON-NLS-1$
+		circleColorItem = addColorMenuItem(Messages.getString("Menu.circleColorItem")); //$NON-NLS-1$
+		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.inidicateErrorItem"), 'E', false)); //$NON-NLS-1$
+		addToViewMenu(separateLinkColorItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.separateLinkColorItem"), 'R', false)); //$NON-NLS-1$
 		addRenewColorMenuItem();
 	}
 

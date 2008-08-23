@@ -58,7 +58,7 @@ public class PencilBoxLauncher {
 				try {
 					PencilFactory.getInstance(pencilType).createNewFrame();
 				} catch (PencilBoxClassException e) {
-					JOptionPane.showMessageDialog(null,e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null,e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE); 
 				}
 			}
 		});
@@ -66,7 +66,7 @@ public class PencilBoxLauncher {
 	}
 	
 	private JButton makeExitButton() {
-		JButton button = new JButton("èIóπ");
+		JButton button = new JButton(Messages.getString("PencilBoxLauncher.quit")); //$NON-NLS-1$
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				System.exit(0);

@@ -319,9 +319,9 @@ public class Board extends BoardBase {
 		return message.toString();
 	}
 
-	static final String ERR_MULTI_ILLUMINATION = "•¡”‚ÌÆ–¾‚Ì‚ ‚é—ñ‚ª‚ ‚é\n";
-	static final String YET_NOT_ILLUMINATED = "Æ‚ç‚³‚ê‚Ä‚¢‚È‚¢ƒ}ƒX‚ª‚ ‚é\n";
-	static final String ERR_WRONG_NUMBER =  "Æ–¾ŒÂ”‚Ì‡‚Á‚Ä‚¢‚È‚¢”š‚ª‚ ‚é\n";
+	static final String ERR_MULTI_ILLUMINATION = Messages.getString("Board.AnswerCheckMessage1"); //$NON-NLS-1$
+	static final String YET_NOT_ILLUMINATED = Messages.getString("Board.AnswerCheckMessage2"); //$NON-NLS-1$
+	static final String ERR_WRONG_NUMBER =  Messages.getString("Board.AnswerCheckMessage3"); //$NON-NLS-1$
 
 	
   /**

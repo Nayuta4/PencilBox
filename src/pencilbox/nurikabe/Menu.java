@@ -32,12 +32,12 @@ public class Menu extends MenuBase {
 	protected void buildViewMenu() {
 		addNoPaintMarkStyleMenu();
 		super.buildViewMenu();
-		numberColorItem = addColorMenuItem("数字");
-		paintColorItem = addColorMenuItem("黒マス");
-		circleColorItem = addColorMenuItem("白マス");
+		numberColorItem = addColorMenuItem(Messages.getString("Menu.numberColorItem")); //$NON-NLS-1$
+		paintColorItem = addColorMenuItem(Messages.getString("Menu.paintColorItem")); //$NON-NLS-1$
+		circleColorItem = addColorMenuItem(Messages.getString("Menu.circleColorItem")); //$NON-NLS-1$
 //		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("誤りを赤で示す(E)", 'E', false));
-		addToViewMenu(separateAreaColorItem = makeCheckBoxCommandMenuItem("壁の色分け(R)", 'R', false));
-		addToViewMenu(countAreaSizeItem = makeCheckBoxCommandMenuItem("シマのマス数を数える(C)",'C', false));
+		addToViewMenu(separateAreaColorItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.separateAreaColorItem"), 'R', false)); //$NON-NLS-1$
+		addToViewMenu(countAreaSizeItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.countAreaSizeItem"),'C', false)); //$NON-NLS-1$
 		addRenewColorMenuItem();	
 	}
 

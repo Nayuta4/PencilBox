@@ -51,8 +51,8 @@ public class PencilBoxDialog extends JPanel {
 	private void makeButtonPanel() {
 		buttonPanel = new JPanel();
 		buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
-		buttonOk = new JButton("óπâ");
-		buttonCancel = new JButton("éÊè¡");
+		buttonOk = new JButton(Messages.getString("PencilBoxDialog.buttonOK")); //$NON-NLS-1$
+		buttonCancel = new JButton(Messages.getString("PencilBoxDialog.buttonCancel")); //$NON-NLS-1$
 		ActionListener buttonAction = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Object source = e.getSource();

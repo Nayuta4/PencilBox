@@ -33,12 +33,12 @@ public class Menu extends MenuBase {
 	protected void buildViewMenu() {
 		addNoPaintMarkStyleMenu();
 		super.buildViewMenu();
-		numberColorItem = addColorMenuItem("数字");
-		paintColorItem = addColorMenuItem("黒マス");
-		circleColorItem = addColorMenuItem("白マス");
-		addToViewMenu(selectLetterItem = makeCommandMenuItem("文字種類の設定(T)...", 'T'));
-		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("誤りを赤で示す(E)", 'E', false));
-		addToViewMenu(hideSoleNumberItem = makeCheckBoxCommandMenuItem("初めからひとりの数字を隠す(H)", 'H', false));
+		numberColorItem = addColorMenuItem(Messages.getString("Menu.numberColorItem")); //$NON-NLS-1$
+		paintColorItem = addColorMenuItem(Messages.getString("Menu.paintColorItem")); //$NON-NLS-1$
+		circleColorItem = addColorMenuItem(Messages.getString("Menu.circleColorItem")); //$NON-NLS-1$
+		addToViewMenu(selectLetterItem = makeCommandMenuItem(Messages.getString("Menu.selectLetterItem"), 'T')); //$NON-NLS-1$
+		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.indicateErrorItem"), 'E', false)); //$NON-NLS-1$
+		addToViewMenu(hideSoleNumberItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.hideSoleNumberItem"), 'H', false)); //$NON-NLS-1$
 //		addToViewMenu(indicateRedundantNumberItem = makeCheckBoxCommandMenuItem("重複する数字を赤で示す(R)", 'R', false));
 	}
 
@@ -82,7 +82,7 @@ public class Menu extends MenuBase {
 		String[] options =
 		{ "1", "A", "Α", "А", "ア", "い", "☆", "鱸" };
 		String message = "";
-		String title = "文字種類の設定";
+		String title = Messages.getString("Menu.SelectLetterDialog"); //$NON-NLS-1$
 		int selection = JOptionPane.showOptionDialog(
 					null,
 					message,

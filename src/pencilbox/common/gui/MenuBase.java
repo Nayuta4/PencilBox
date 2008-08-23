@@ -126,41 +126,41 @@ public class MenuBase {
 	 * [ファイル]メニュー作成
 	 */
 	protected void buildFileMenu() {
-		fileMenu = makeJMenu("ファイル(F)", 'F');
-		fileMenu.add(newBoardItem = makeCommandMenuItem("新規作成(N)...", 'N'));
-		fileMenu.add(openItem = makeCommandMenuItem("開く(O)...", 'O'));
-		fileMenu.add(closeAndOpenItem = makeCommandMenuItem("閉じて開く(L)...", 'L'));
-		fileMenu.add(saveItem = makeCommandMenuItem("保存(S)...", 'S'));
+		fileMenu = makeJMenu(Messages.getString("MenuBase.fileMenu"), 'F'); //$NON-NLS-1$
+		fileMenu.add(newBoardItem = makeCommandMenuItem(Messages.getString("MenuBase.newBoardItem"), 'N')); //$NON-NLS-1$
+		fileMenu.add(openItem = makeCommandMenuItem(Messages.getString("MenuBase.openItem"), 'O')); //$NON-NLS-1$
+		fileMenu.add(closeAndOpenItem = makeCommandMenuItem(Messages.getString("MenuBase.closeAndOpenItem"), 'L')); //$NON-NLS-1$
+		fileMenu.add(saveItem = makeCommandMenuItem(Messages.getString("MenuBase.saveItem"), 'S')); //$NON-NLS-1$
 		fileMenu.addSeparator();
-		fileMenu.add(duplicateItem = makeCommandMenuItem("複製(D)", 'D'));
-		fileMenu.add(rotationMenu = makeJMenu("回転・反転(R)", 'R'));
-		fileMenu.add(changeBoardSizeItem = makeCommandMenuItem("盤面サイズ変更(Z)", 'Z'));
+		fileMenu.add(duplicateItem = makeCommandMenuItem(Messages.getString("MenuBase.duplicateItem"), 'D')); //$NON-NLS-1$
+		fileMenu.add(rotationMenu = makeJMenu(Messages.getString("MenuBase.rotationMenu"), 'R')); //$NON-NLS-1$
+		fileMenu.add(changeBoardSizeItem = makeCommandMenuItem(Messages.getString("MenuBase.changeBoardSizeItem"), 'Z')); //$NON-NLS-1$
 		buildRotationMenu();
 		fileMenu.addSeparator();
-		fileMenu.add(exportProblemDataStringItem = makeCommandMenuItem("問題データ文字列出力(E)...", 'E'));
-		fileMenu.add(saveImageItem = makeCommandMenuItem("画像保存(G)...", 'G'));
-		fileMenu.add(copyImageItem = makeCommandMenuItem("画像コピー(M)", 'M'));
-		fileMenu.add(printItem = makeCommandMenuItem("印刷(P)...", 'P'));
+		fileMenu.add(exportProblemDataStringItem = makeCommandMenuItem(Messages.getString("MenuBase.exportProblemDataStringItem"), 'E')); //$NON-NLS-1$
+		fileMenu.add(saveImageItem = makeCommandMenuItem(Messages.getString("MenuBase.saveImageItem"), 'G')); //$NON-NLS-1$
+		fileMenu.add(copyImageItem = makeCommandMenuItem(Messages.getString("MenuBase.copyImageItem"), 'M')); //$NON-NLS-1$
+		fileMenu.add(printItem = makeCommandMenuItem(Messages.getString("MenuBase.printItem"), 'P')); //$NON-NLS-1$
 		fileMenu.addSeparator();
-		fileMenu.add(loadPreferencesItem = makeCommandMenuItem("設定読込(F)...", 'F'));
-		fileMenu.add(storePreferencesItem = makeCommandMenuItem("設定保存(T)...",'T'));
+		fileMenu.add(loadPreferencesItem = makeCommandMenuItem(Messages.getString("MenuBase.loadPreferencesItem"), 'F')); //$NON-NLS-1$
+		fileMenu.add(storePreferencesItem = makeCommandMenuItem(Messages.getString("MenuBase.storePreferencesItem"),'T')); //$NON-NLS-1$
 		fileMenu.addSeparator();
-		fileMenu.add(propertyItem = makeCommandMenuItem("プロパティ(I)", 'I'));
+		fileMenu.add(propertyItem = makeCommandMenuItem(Messages.getString("MenuBase.propertyItem"), 'I')); //$NON-NLS-1$
 		fileMenu.addSeparator();
-		fileMenu.add(closeItem = makeCommandMenuItem("閉じる(C)", 'C'));
-		fileMenu.add(quitItem = makeCommandMenuItem("終了(Q)", 'Q'));
+		fileMenu.add(closeItem = makeCommandMenuItem(Messages.getString("MenuBase.closeItem"), 'C')); //$NON-NLS-1$
+		fileMenu.add(quitItem = makeCommandMenuItem(Messages.getString("MenuBase.quitItem"), 'Q')); //$NON-NLS-1$
 	}
 
 	/**
 	 * [編集]メニュー作成
 	 */
 	protected void buildEditMenu() {
-		editMenu = makeJMenu("編集(E)", 'E');
-		editMenu.add(answerModeItem = makeCommandRadioButtonMenuItem("解答モード(A)", 'A'));
-		editMenu.add(problemEditModeItem = makeCommandRadioButtonMenuItem("問題入力モード(E)", 'E'));
-		editMenu.add(regionEditModeItem = makeCommandRadioButtonMenuItem("領域編集モード(G)", 'G'));
+		editMenu = makeJMenu(Messages.getString("MenuBase.editMenu"), 'E'); //$NON-NLS-1$
+		editMenu.add(answerModeItem = makeCommandRadioButtonMenuItem(Messages.getString("MenuBase.answerModeItem"), 'A')); //$NON-NLS-1$
+		editMenu.add(problemEditModeItem = makeCommandRadioButtonMenuItem(Messages.getString("MenuBase.problemEditModeItem"), 'E')); //$NON-NLS-1$
+		editMenu.add(regionEditModeItem = makeCommandRadioButtonMenuItem(Messages.getString("MenuBase.regionEditModeItem"), 'G')); //$NON-NLS-1$
 		editMenu.addSeparator();
-		editMenu.add(clearItem = makeCommandMenuItem("解答消去(C)", 'C'));
+		editMenu.add(clearItem = makeCommandMenuItem(Messages.getString("MenuBase.clearItem"), 'C')); //$NON-NLS-1$
 		if (trimAnswerItem != null) 
 			editMenu.add(trimAnswerItem);  // ("補助記号消去(T)", 'T')
 		if (symmetricPlacementItem != null) {
@@ -168,14 +168,14 @@ public class MenuBase {
 			editMenu.add(symmetricPlacementItem); // ("対称配置(S)", 'S')
 		}
 		editMenu.addSeparator();
-		editMenu.add(undoItem = makeCommandMenuItem("元に戻す(U)", 'U'));
-		editMenu.add(redoItem = makeCommandMenuItem("やり直し(R)", 'R'));
+		editMenu.add(undoItem = makeCommandMenuItem(Messages.getString("MenuBase.undoItem"), 'U')); //$NON-NLS-1$
+		editMenu.add(redoItem = makeCommandMenuItem(Messages.getString("MenuBase.redoItem"), 'R')); //$NON-NLS-1$
 		// editMenu.add(undoAllItem = makeCommandMenuItem("最初まで戻す(F)", 'F'));
 		// editMenu.add(redoAllItem = makeCommandMenuItem("最後まで進める(L)", 'L'));
-		editMenu.add(palybackItem = makeCommandMenuItem("履歴再生(P)", 'P'));
+		editMenu.add(palybackItem = makeCommandMenuItem(Messages.getString("MenuBase.playbackItem"), 'P')); //$NON-NLS-1$
 		editMenu.addSeparator();
-		editMenu.add(checkAnswerItem = makeCommandMenuItem("正解判定(H)", 'H'));
-		editMenu.add(immediateAnswerCheckItem = makeCheckBoxCommandMenuItem("即時正解判定(M)", 'M', false));
+		editMenu.add(checkAnswerItem = makeCommandMenuItem(Messages.getString("MenuBase.checkAnswerItem"), 'H')); //$NON-NLS-1$
+		editMenu.add(immediateAnswerCheckItem = makeCheckBoxCommandMenuItem(Messages.getString("MenuBase.immediateAnswerCheckItem"), 'M', false)); //$NON-NLS-1$
 
 		modeGroup = new ButtonGroup();
 		modeGroup.add(answerModeItem);
@@ -188,13 +188,13 @@ public class MenuBase {
 	 * [表示]メニュー作成
 	 */
 	protected void buildViewMenu() {
-		viewMenu = makeJMenu("表示(V)", 'V');
-		viewMenu.add(colorMenu = makeJMenu("色の設定(L)", 'L'));
-		backgroundColorItem = addColorMenuItem("背景");
-		gridColorItem = addColorMenuItem("罫線");
-		viewMenu.add(cellSizeItem = makeCommandMenuItem("表示サイズ(S)...", 'S'));
-		viewMenu.add(indexItem = makeCheckBoxCommandMenuItem("行列番号表示(I)", 'I', false));
-		viewMenu.add(gridStyleItem = makeCheckBoxCommandMenuItem("罫線表示(G)", 'G', true));
+		viewMenu = makeJMenu(Messages.getString("MenuBase.viewMenu"), 'V'); //$NON-NLS-1$
+		viewMenu.add(colorMenu = makeJMenu(Messages.getString("MenuBase.colorMenu"), 'L')); //$NON-NLS-1$
+		backgroundColorItem = addColorMenuItem(Messages.getString("MenuBase.backgroundColorItem")); //$NON-NLS-1$
+		gridColorItem = addColorMenuItem(Messages.getString("MenuBase.gridColorItem")); //$NON-NLS-1$
+		viewMenu.add(cellSizeItem = makeCommandMenuItem(Messages.getString("MenuBase.cellSizeItem"), 'S')); //$NON-NLS-1$
+		viewMenu.add(indexItem = makeCheckBoxCommandMenuItem(Messages.getString("MenuBase.indexItem"), 'I', false)); //$NON-NLS-1$
+		viewMenu.add(gridStyleItem = makeCheckBoxCommandMenuItem(Messages.getString("MenuBase.gridStyleItem"), 'G', true)); //$NON-NLS-1$
 		if (markStyleMenu != null)
 			viewMenu.add(markStyleMenu);
 		if (cursorItem != null)
@@ -242,28 +242,28 @@ public class MenuBase {
 	 * [ヘルプ]メニュー作成
 	 */
 	protected void buildHelpMenu() {
-		helpMenu = makeJMenu("ヘルプ(H)", 'H');
-		helpMenu.add(aboutItem = makeCommandMenuItem(Constants.TITLE + "について(A)", 'A'));
+		helpMenu = makeJMenu(Messages.getString("MenuBase.helpMenu"), 'H'); //$NON-NLS-1$
+		helpMenu.add(aboutItem = makeCommandMenuItem(Messages.getString("MenuBase.aboutDialog"), 'A')); //$NON-NLS-1$
 	}
 
 	/**
 	 * [回転・反転]メニュー作成
 	 */
 	protected void buildRotationMenu() {
-		makeRotationItem("左90°回転(1)", '1', "1");
-		makeRotationItem("180°回転(2)", '2', "2");
-		makeRotationItem("右90°回転(3)", '3', "3");
-		makeRotationItem("縦横交換(4)", '4', "4");
-		makeRotationItem("左右反転(5)", '5', "5");
-		makeRotationItem("180°回転+縦横交換(6)", '6', "6");
-		makeRotationItem("上下反転(7)", '7', "7");
+		makeRotationItem(Messages.getString("MenuBase.rotationItem1"), '1', "1"); //$NON-NLS-1$ //$NON-NLS-2$
+		makeRotationItem(Messages.getString("MenuBase.rotationItem2"), '2', "2"); //$NON-NLS-1$ //$NON-NLS-2$
+		makeRotationItem(Messages.getString("MenuBase.rotationItem3"), '3', "3"); //$NON-NLS-1$ //$NON-NLS-2$
+		makeRotationItem(Messages.getString("MenuBase.rotationItem4"), '4', "4"); //$NON-NLS-1$ //$NON-NLS-2$
+		makeRotationItem(Messages.getString("MenuBase.rotationItem5"), '5', "5"); //$NON-NLS-1$ //$NON-NLS-2$
+		makeRotationItem(Messages.getString("MenuBase.rotationItem6"), '6', "6"); //$NON-NLS-1$ //$NON-NLS-2$
+		makeRotationItem(Messages.getString("MenuBase.rotationItem7"), '7', "7"); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 	/**
 	 * [回転・反転]メニュー作成
 	 * （カックロ用）
 	 */
 	protected void buildRotationMenu2() {
-		makeRotationItem("縦横交換(4)", '4', "4");
+		makeRotationItem(Messages.getString("MenuBase.rotationItem4"), '4', "4"); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**
@@ -275,29 +275,29 @@ public class MenuBase {
 		for (int i = 1; i <= styles.length; i++) {
 			switch (styles[i-1]) {
 			case 0:
-				makeMarkStyleItem(i + " 非表示", (char)('0'+i), "0");
+				makeMarkStyleItem(i + Messages.getString("MenuBase.markStyle0"), (char)('0'+i), "0"); //$NON-NLS-1$ //$NON-NLS-2$
 				break;
 			case 1:
-				makeMarkStyleItem(i + " ○", (char)('0'+i), "1");
+				makeMarkStyleItem(i + Messages.getString("MenuBase.markStyle1"), (char)('0'+i), "1"); //$NON-NLS-1$ //$NON-NLS-2$
 				break;
 			case 2:
-				makeMarkStyleItem(i+ " ●", (char)('0'+i), "2");
+				makeMarkStyleItem(i+ Messages.getString("MenuBase.markStyle2"), (char)('0'+i), "2"); //$NON-NLS-1$ //$NON-NLS-2$
 				break;
 			case 3:
-				makeMarkStyleItem(i+ " ■", (char)('0'+i), "3");
+				makeMarkStyleItem(i+ Messages.getString("MenuBase.markStyle3"), (char)('0'+i), "3"); //$NON-NLS-1$ //$NON-NLS-2$
 				break;
 			case 4:
-				makeMarkStyleItem(i + " ×", (char)('0'+i), "4");
+				makeMarkStyleItem(i + Messages.getString("MenuBase.markStyle4"), (char)('0'+i), "4"); //$NON-NLS-1$ //$NON-NLS-2$
 				break;
 			case 5:
-				makeMarkStyleItem(i + " 塗りつぶし", (char)('0'+i), "5");
+				makeMarkStyleItem(i + Messages.getString("MenuBase.markStyle5"), (char)('0'+i), "5"); //$NON-NLS-1$ //$NON-NLS-2$
 				break;
 			}
 		}
 	}
 
 	protected void addNoPaintMarkStyleMenu() {
-		buildMarkStyleMenu("塗らない印(N)", 'N', new int[] {1, 2, 3, 4, 5});
+		buildMarkStyleMenu(Messages.getString("MenuBase.markStyleMenu"), 'N', new int[] {1, 2, 3, 4, 5}); //$NON-NLS-1$
 	}
 
 	/**
@@ -401,25 +401,25 @@ public class MenuBase {
 	 * [補助記号消去]メニュー項目を作成する。
 	 */
 	protected void addTrimAnswerMenuItem() {
-		trimAnswerItem = makeCommandMenuItem("補助記号消去(T)", 'T');
+		trimAnswerItem = makeCommandMenuItem(Messages.getString("MenuBase.trimAnswerItem"), 'T'); //$NON-NLS-1$
 	}
 	/**
 	 * [対称配置]メニュー項目を作成する。
 	 */
 	protected void addSymmetricPlacementMenuItem() {
-		symmetricPlacementItem = makeCheckBoxCommandMenuItem("対称配置(S)", 'S', false);
+		symmetricPlacementItem = makeCheckBoxCommandMenuItem(Messages.getString("MenuBase.symmetricPlacementItem"), 'S', false); //$NON-NLS-1$
 	}
 	/**
 	 * [カーソル]メニュー項目を作成する。
 	 */
 	protected void addCursorMenuItem() {
-		cursorItem = makeCheckBoxCommandMenuItem("カーソル(C)", 'C', panel.isCursorMode());
+		cursorItem = makeCheckBoxCommandMenuItem(Messages.getString("MenuBase.cursorItem"), 'C', panel.isCursorMode()); //$NON-NLS-1$
 	}
 	/**
 	 * [色の更新]メニュー項目を作成し，[色の設定]メニューに追加する。
 	 */
 	protected void addRenewColorMenuItem() {
-		renewColorItem = makeCommandMenuItem("色の更新(U)", 'U');
+		renewColorItem = makeCommandMenuItem(Messages.getString("MenuBase.renewColorItem"), 'U'); //$NON-NLS-1$
 		colorMenu.add(renewColorItem);
 	}
 

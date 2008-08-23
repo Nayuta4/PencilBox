@@ -419,10 +419,10 @@ public class Board extends BoardBase {
 		return message.toString();
 	}
 
-	static final String ERR_CONTINUOUS_BLACK = "連続する黒マスがある\n";
-	static final String ERR_DIVIDED_BOARD = "黒マスにより盤面が分断されている\n";
-	static final String ERR_SMALL_SIZE = "白マス数の足りない数字がある\n";
-	static final String YET_LARGE_SIZE = "白マス数の多すぎる数字がある\n";
+	static final String ERR_CONTINUOUS_BLACK = Messages.getString("Board.AnswerCheckMessage1"); //$NON-NLS-1$
+	static final String ERR_DIVIDED_BOARD = Messages.getString("Board.AnswerCheckMessage2"); //$NON-NLS-1$
+	static final String ERR_SMALL_SIZE = Messages.getString("Board.AnswerCheckMessage3"); //$NON-NLS-1$
+	static final String YET_LARGE_SIZE = Messages.getString("Board.AnswerCheckMessage4"); //$NON-NLS-1$
 	
 	/**
 	 * １手の操作を表すクラス

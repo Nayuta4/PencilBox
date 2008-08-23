@@ -30,12 +30,12 @@ public class Menu extends MenuBase {
 	protected void buildViewMenu() {
 		addCursorMenuItem();
 		super.buildViewMenu();
-		numberColorItem = addColorMenuItem("–â‘è”š");
-		inputColorItem = addColorMenuItem("‰ğ“š”š");
-		areaBorderColorItem = addColorMenuItem("—Ìˆæ‹«ŠE");
-		addToViewMenu(showAreaBorderItem = makeCheckBoxCommandMenuItem("‹«ŠEü•\¦(B)", 'B', true));
-		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("³Œë‚ğF‚Å¦‚·(E)", 'E', false));
-		addToViewMenu(separateAreaColorItem = makeCheckBoxCommandMenuItem("—Ìˆæ‚ÌF•ª‚¯(R)", 'R', false));
+		numberColorItem = addColorMenuItem(Messages.getString("Menu.numberColorItem")); //$NON-NLS-1$
+		inputColorItem = addColorMenuItem(Messages.getString("Menu.inputColorItem")); //$NON-NLS-1$
+		areaBorderColorItem = addColorMenuItem(Messages.getString("Menu.areaBorderColorItem")); //$NON-NLS-1$
+		addToViewMenu(showAreaBorderItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.showAreaBorderItem"), 'B', true)); //$NON-NLS-1$
+		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.indicateErrorItem"), 'E', false)); //$NON-NLS-1$
+		addToViewMenu(separateAreaColorItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.separateAreaColorItem"), 'R', false)); //$NON-NLS-1$
 		addRenewColorMenuItem();
 	}
 

@@ -190,14 +190,14 @@ public class BoardBase {
 	/**
 	 * 正解チェックで完成の場合のコメント文字列
 	 */
-	public static final String COMPLETE_MESSAGE = "正解です";
+	public static final String COMPLETE_MESSAGE = Messages.getString("BoardBase.MessageComplete"); //$NON-NLS-1$
 	
 	/**
 	 * 正解をチェックし，結果を文字列で返す
 	 * @return 結果を表す文字列
 	 */
 	public String checkAnswerString() {
-		return "判定機能がありません";
+		return Messages.getString("BoardBase.MessageUnavailable"); //$NON-NLS-1$
 	}
 	/**
 	 * 正解チェックし，結果を数値で返す

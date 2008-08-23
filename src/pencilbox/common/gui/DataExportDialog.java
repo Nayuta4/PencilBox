@@ -52,7 +52,7 @@ public class DataExportDialog extends JPanel {
 		JPanel mainPanel = new JPanel();
 		textArea = new JTextArea(20,40);
 		textArea.setLineWrap(true);
-		textArea.setFont(new Font("Monospaced", Font.PLAIN, 10));
+		textArea.setFont(new Font("Monospaced", Font.PLAIN, 10)); //$NON-NLS-1$
 		textArea.selectAll();
 		mainPanel.add(textArea);
 		JScrollPane jScrollPane = new JScrollPane(textArea);
@@ -78,9 +78,9 @@ public class DataExportDialog extends JPanel {
 
 	private void makeButtonPanel() {
 		buttonPanel = new JPanel();
-		buttonOpen = new JButton("問題を別フレームに開く");
-		buttonCopy = new JButton("クリップボードにコピーする");
-		buttonCancel = new JButton("閉じる");
+		buttonOpen = new JButton(Messages.getString("DataExportDialog.buttonOpen")); //$NON-NLS-1$
+		buttonCopy = new JButton(Messages.getString("DataExportDialog.buttonCopy")); //$NON-NLS-1$
+		buttonCancel = new JButton(Messages.getString("DataExportDialog.buttonCancel")); //$NON-NLS-1$
 		ActionListener buttonAction = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Object source = e.getSource();
@@ -108,9 +108,9 @@ public class DataExportDialog extends JPanel {
 	 */
 	private void assignKeys() {
 		InputMap imap = this.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-		imap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "close");
+		imap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "close"); //$NON-NLS-1$
 		ActionMap amap = this.getActionMap();
-		amap.put("close", new AbstractAction() {	
+		amap.put("close", new AbstractAction() {	 //$NON-NLS-1$
 			public void actionPerformed(ActionEvent e) {
 				if (dialog != null) { // 念のため
 					ret = PencilBoxDialog.CLOSED_OPTION;

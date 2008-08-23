@@ -335,18 +335,18 @@ public class Board extends BoardBase {
 		if (result == 0)
 			return COMPLETE_MESSAGE;
 		if (result == 32)
-			return "”Õã‚É”š‚ª‚Ğ‚Æ‚Â‚à‚È‚¢\n";
+			return Messages.getString("Board.AnswerCheckMessage6"); //$NON-NLS-1$
 		StringBuffer message = new StringBuffer();
 		if ((result & 1) == 1)
-			message.append("•¡”‚Ì”š‚ğŠÜ‚ŞlŠp‚ª‚ ‚é\n");
+			message.append(Messages.getString("Board.AnswerCheckMessage1")); //$NON-NLS-1$
 		if ((result & 2) == 2)
-			message.append("”š‚ğŠÜ‚Ü‚È‚¢lŠp‚ª‚ ‚é\n");
+			message.append(Messages.getString("Board.AnswerCheckMessage2")); //$NON-NLS-1$
 		if ((result & 4) == 4)
-			message.append("–ÊÏ‚ª”š‚ğ’´‚¦‚élŠp‚ª‚ ‚é\n");
+			message.append(Messages.getString("Board.AnswerCheckMessage3")); //$NON-NLS-1$
 		if ((result & 8) == 8)
-			message.append("–ÊÏ‚ª”š‚É–‚½‚È‚¢lŠp‚ª‚ ‚é\n");
+			message.append(Messages.getString("Board.AnswerCheckMessage4")); //$NON-NLS-1$
 		if ((result & 16) == 16)
-			message.append("lŠp‚ÉŠÜ‚Ü‚ê‚È‚¢ƒ}ƒX‚ª‚ ‚é\n");
+			message.append(Messages.getString("Board.AnswerCheckMessage5")); //$NON-NLS-1$
 		return message.toString();
 	}
 	
