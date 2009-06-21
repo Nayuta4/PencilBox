@@ -160,7 +160,7 @@ public class Panel extends PanelBase {
 	void paintWall(Graphics2D g, int r, int c) {
 		g.setColor(getPaintColor());
 		if (isSeparateAreaColorMode()) {
-			g.setColor(Colors.get(board.getArea(r,c).getID()));
+			g.setColor(Colors.get(board.getArea(r,c).getId()));
 		}
 //		if (isIndicateError()) {
 //			if (board.is2x2Block(r, c) ) {

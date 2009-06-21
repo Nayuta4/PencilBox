@@ -134,7 +134,7 @@ public class Panel extends PanelBase {
 					if (state == Board.LINE) {
 						g.setColor(getLineColor());
 						if (isSeparateLinkColorMode())
-							g.setColor(Colors.getColor(board.getLink(d,r,c).getID()));
+							g.setColor(Colors.getColor(board.getLink(d,r,c).getId()));
 //						if (isIndicateErrorMode()) {
 //							if (board.isBranchedLink(d,r,c))
 //								g.setColor(getErrorColor());

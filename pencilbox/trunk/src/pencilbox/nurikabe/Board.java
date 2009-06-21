@@ -285,7 +285,7 @@ public class Board extends BoardBase {
 				largerArea = initializingArea;
 		}
 		if (largerArea != null) {
-			largerArea.setID(oldArea.getID());
+			largerArea.setId(oldArea.getId());
 		}
 	}
 	/**

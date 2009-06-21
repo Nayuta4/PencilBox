@@ -401,7 +401,7 @@ public class Board extends BoardBase {
 	}
 	
 	void initLinks() {
-		Link.resetID();
+		Link.resetId();
 		linkList.clear();
 		ArrayUtil.initArrayObject2(link[0],null);
 		ArrayUtil.initArrayObject2(link[1],null);
@@ -532,7 +532,7 @@ public class Board extends BoardBase {
 			initLink(r+1, c  );
 			if (initializingLink.size() > longerLink.size()) longerLink = initializingLink;
 		}
-		longerLink.setID(oldLink.getID());
+		longerLink.setId(oldLink.getId());
 	}
 
 	/**

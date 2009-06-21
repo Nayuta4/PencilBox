@@ -57,7 +57,7 @@ public class Area extends pencilbox.common.core.Area {
 	 *  —Ìˆæ”Ô†‚ğæ“¾‚·‚é
 	 * @return —Ìˆæ”Ô† 
 	 */
-	public int getID() {
+	public int getId() {
 		return id;
 	}
 
@@ -65,13 +65,13 @@ public class Area extends pencilbox.common.core.Area {
 	 * —Ìˆæ”Ô†‚ğİ’è‚·‚é
 	 * @param i İ’è‚·‚é”Ô†
 	 */
-	public void setID(int i) {
+	public void setId(int i) {
 		id = i;
 	}
 	/**
 	 * 
 	 */
-	public static void resetID() {
+	public static void resetId() {
 		NEXT_ID = 1;
 	}
 
