@@ -17,7 +17,7 @@ public class Link implements Set<SideAddress> {
 	private Set<SideAddress> jointSet;
 	private int id;
 
-	public static void resetID() {
+	public static void resetId() {
 		NEXT_ID = 1;
 	}
 	/**
@@ -32,14 +32,14 @@ public class Link implements Set<SideAddress> {
 	/**
 	 *  Link”Ô†æ“¾
 	 */
-	public int getID() {
+	public int getId() {
 		return id;
 	}
 
 	/**
 	 * Link”Ô†İ’è
 	 */
-	public void setID(int i) {
+	public void setId(int i) {
 		id = i;
 	}
 
