@@ -319,6 +319,30 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 		resetImmediateAnswerCheckMode();
 	}
 
+	/**
+	 * マウスイベントから押されたボタンの番号を取得する補助メソッド
+	 * シフトキーで左右のボタンを入れ替える
+	 * @param e
+	 * @return 左ボタンなら 1 右ボタンなら 3 中ボタンなら 2 それ以外は -1
+	 */
+	public int getMouseButton(MouseEvent e) {
+		int modifier = e.getModifiers();
+		if ((modifier & InputEvent.BUTTON1_MASK) == InputEvent.BUTTON1_MASK) {
+			if (e.isShiftDown())
+				return 3;
+			else
+				return 1;
+		} else if ((modifier & InputEvent.BUTTON3_MASK) == InputEvent.BUTTON3_MASK) {
+			if (e.isShiftDown())
+				return 1;
+			else
+				return 3;
+		} else if ((modifier & InputEvent.BUTTON2_MASK) == InputEvent.BUTTON2_MASK) {
+			return 2;
+		} else {
+			return -1;
+		}
+	}
 	/*
 	 * マウスリスナー
 	 */
@@ -327,17 +351,11 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 		newPos.set(panel.pointToAddress(e.getX(), e.getY()));
 		if (!isOn(newPos))
 			return;
-		int modifier = e.getModifiers();
-		if ((modifier & InputEvent.BUTTON1_MASK) != 0) {
-			if (e.isShiftDown())
-				rightPressed(newPos);
-			else
-				leftPressed(newPos);
-		} else if ((modifier & InputEvent.BUTTON3_MASK) != 0) {
-			if (e.isShiftDown())
-				leftPressed(newPos);
-			else
-				rightPressed(newPos);
+		int button = getMouseButton(e);
+		if (button == 1) {
+			leftPressed(newPos);
+		} else if (button == 3) {
+			rightPressed(newPos);
 		}
 		moveCursor(newPos);
 		oldPos.set(newPos); // 現在位置を更新
@@ -351,17 +369,11 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 		sidePos.set(panel.pointToSideAddress(e.getX(), e.getY()));
 		if (!isSideOn(sidePos))
 			return;
-		int modifier = e.getModifiers();
-		if ((modifier & InputEvent.BUTTON1_MASK) != 0) {
-			if (e.isShiftDown())
-				rightPressedEdge(sidePos);
-			else
-				leftPressedEdge(sidePos);
-		} else if ((modifier & InputEvent.BUTTON3_MASK) != 0) {
-			if (e.isShiftDown())
-				leftPressedEdge(sidePos);
-			else
-				rightPressedEdge(sidePos);
+		int button = getMouseButton(e);
+		if (button == 1) {
+			leftPressedEdge(sidePos);
+		} else if (button == 3) {
+			rightPressedEdge(sidePos);
 		}
 	}
 
@@ -375,16 +387,11 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 			return; // 同じマス内に止まるイベントは無視
 		// if (!newPos.isNextTo(oldPos)) return; // 隣接マス以外のイベントは無視
 		// if (dragIneffective(oldPos, newPos)) return; // 隣接マス以外のイベントは無視
-		if ((e.getModifiers() & InputEvent.BUTTON1_MASK) != 0) {
-			if (e.isShiftDown())
-				rightDragged(oldPos, newPos);
-			else
-				leftDragged(oldPos, newPos);
-		} else if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
-			if (e.isShiftDown())
-				leftDragged(oldPos, newPos);
-			else
-				rightDragged(oldPos, newPos);
+		int button = getMouseButton(e);
+		if (button == 1) {
+			leftDragged(oldPos, newPos);
+		} else if (button == 3) {
+			rightDragged(oldPos, newPos);
 		}
 		moveCursor(newPos);
 		oldPos.set(newPos); // 現在位置を更新
@@ -392,9 +399,10 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	}
 
 	public void mouseReleased(MouseEvent e) {
-		if ((e.getModifiers() & InputEvent.BUTTON1_MASK) != 0) {
+		int button = getMouseButton(e);
+		if (button == 1) {
 			leftReleased(oldPos);
-		} else if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
+		} else if (button == 3) {
 			rightReleased(oldPos);
 		}
 		repaint();
@@ -417,18 +425,12 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	public void mouseClicked1(MouseEvent e) {
 		if (!isOn(newPos))
 			return;
-		int modifier = e.getModifiers();
-		if ((modifier & InputEvent.BUTTON1_MASK) != 0) {
-			if (e.isShiftDown())
-				rightClicked(newPos);
-			else
-				leftClicked(newPos);
-		} else if ((modifier & InputEvent.BUTTON3_MASK) != 0) {
-			if (e.isShiftDown())
-				leftClicked(newPos);
-			else
-				rightClicked(newPos);
-//		} else if ((modifier & InputEvent.BUTTON2_MASK) != 0) {
+		int button = getMouseButton(e);
+		if (button == 1) {
+			leftClicked(newPos);
+		} else if (button == 3) {
+			rightClicked(newPos);
+//		} else if (button == 2) {
 //			slashKeyEntered();
 		}
 	}
