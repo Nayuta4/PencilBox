@@ -12,6 +12,8 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 
 	private Board board;
 
+	private int currentState = Board.OUTER; // ドラッグ中の辺の状態を表す
+
 	/**
 	 * 
 	 */
@@ -30,8 +32,8 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		changeLineState(dragStart, dragEnd, Board.LINE);
 	}
 
-	protected void rightDragged(Address dragStart, Address dragEnd) {
-		changeLineState(dragStart, dragEnd, Board.UNKNOWN);
+	protected void leftReleased(Address pos) {
+		currentState = Board.OUTER;
 	}
 
 	protected void leftClicked(Address pos) {
@@ -60,7 +62,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 
 	/**
 	 * 始点マスと終点マスを結んだ線上の状態を指定の状態に変更する
-	 * 始点マスと終点マスは同じ行または同じ列になければならない
+	 * 始点の辺の現在の状態が指定の状態であれば，未定に変更する
 	 * @param pos0 始点マスの座標
 	 * @param pos1 終点マスの座標
 	 * @param st 変更後の状態
@@ -69,14 +71,21 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		int direction = pos0.getDirectionTo(pos1);
 		if (direction < 0)
 			return;
+		SideAddress side = SideAddress.get(pos0, direction);
+		if (currentState == Board.OUTER) {
+			if (board.getState(side) == st) {
+				currentState = Board.UNKNOWN;
+			} else {
+				currentState = st;
+			}
+		}
 		for (Address p = pos0; !p.equals(pos1); p.move(direction)) {
-			SideAddress side = SideAddress.get(p, direction);
-			if (board.getState(side) != st)
+			side = SideAddress.get(p, direction);
+			if (board.getState(side) != currentState)
 				if (!board.hasNumberOrBlack(side) || st == Board.UNKNOWN)
-					board.changeStateA(side, st);
+					board.changeStateA(side, currentState);
 		}
 	}
-
 	/*
 	 * 「ヤジリン」キー操作
 	 */

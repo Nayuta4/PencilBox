@@ -323,6 +323,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	 * マウスリスナー
 	 */
 	public void mousePressed(MouseEvent e) {
+		mousePressed2(e); // 辺の操作
 		newPos.set(panel.pointToAddress(e.getX(), e.getY()));
 		if (!isOn(newPos))
 			return;
@@ -341,6 +342,27 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 		moveCursor(newPos);
 		oldPos.set(newPos); // 現在位置を更新
 		repaint();
+	}
+
+	/*
+	 * 辺の操作用。 SL, MS で使用
+	 */
+	private void mousePressed2(MouseEvent e) {
+		sidePos.set(panel.pointToSideAddress(e.getX(), e.getY()));
+		if (!isSideOn(sidePos))
+			return;
+		int modifier = e.getModifiers();
+		if ((modifier & InputEvent.BUTTON1_MASK) != 0) {
+			if (e.isShiftDown())
+				rightPressedEdge(sidePos);
+			else
+				leftPressedEdge(sidePos);
+		} else if ((modifier & InputEvent.BUTTON3_MASK) != 0) {
+			if (e.isShiftDown())
+				leftPressedEdge(sidePos);
+			else
+				rightPressedEdge(sidePos);
+		}
 	}
 
 	public void mouseDragged(MouseEvent e) {
@@ -387,7 +409,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 
 	public void mouseClicked(MouseEvent e) {
 		mouseClicked1(e);
-		mouseClicked2(e);
+//		mouseClicked2(e);
 		repaint();
 		checkAnswer();
 	}
@@ -414,23 +436,23 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	 * 辺の位置のクリック操作を処理する。
 	 * @param e
 	 */
-	public void mouseClicked2(MouseEvent e) {
-		sidePos.set(panel.pointToSideAddress(e.getX(), e.getY()));
-		if (!isSideOn(sidePos))
-			return;
-		int modifier = e.getModifiers();
-		if ((modifier & InputEvent.BUTTON1_MASK) != 0) {
-			if (e.isShiftDown())
-				rightClickedEdge(sidePos);
-			else
-				leftClickedEdge(sidePos);
-		} else if ((modifier & InputEvent.BUTTON3_MASK) != 0) {
-			if (e.isShiftDown())
-				leftClickedEdge(sidePos);
-			else
-				rightClickedEdge(sidePos);
-		}
-	}
+//	public void mouseClicked2(MouseEvent e) {
+//		sidePos.set(panel.pointToSideAddress(e.getX(), e.getY()));
+//		if (!isSideOn(sidePos))
+//			return;
+//		int modifier = e.getModifiers();
+//		if ((modifier & InputEvent.BUTTON1_MASK) != 0) {
+//			if (e.isShiftDown())
+//				rightClickedEdge(sidePos);
+//			else
+//				leftClickedEdge(sidePos);
+//		} else if ((modifier & InputEvent.BUTTON3_MASK) != 0) {
+//			if (e.isShiftDown())
+//				leftClickedEdge(sidePos);
+//			else
+//				rightClickedEdge(sidePos);
+//		}
+//	}
 
 	public void mouseMoved(MouseEvent e) {
 		// movePos.set(panel.pointToAddress(e));
@@ -509,19 +531,33 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 		getCellCursor().setPosition(position);
 		resetPreviousInput();
 	}
+//
+//	/**
+//	 * 辺の位置を左クリックしたときの動作を定める。
+//	 * @param position
+//	 */
+//	protected void leftClickedEdge(SideAddress position) {
+//	}
+//
+//	/**
+//	 * 辺の位置を右クリックしたときの動作を定める。
+//	 * @param position
+//	 */
+//	protected void rightClickedEdge(SideAddress position) {
+//	}
 
 	/**
 	 * 辺の位置を左クリックしたときの動作を定める。
 	 * @param position
 	 */
-	protected void leftClickedEdge(SideAddress position) {
+	protected void leftPressedEdge(SideAddress position) {
 	}
 
 	/**
 	 * 辺の位置を右クリックしたときの動作を定める。
 	 * @param position
 	 */
-	protected void rightClickedEdge(SideAddress position) {
+	protected void rightPressedEdge(SideAddress position) {
 	}
 
 	/**
