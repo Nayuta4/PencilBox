@@ -26,7 +26,7 @@ public class Panel extends PanelBase {
 	private Color wallColor = Color.BLACK;
 
 	private int gateLineWidth = 3;
-	private Font smallFont = new Font("SansSerif", Font.BOLD, 14);
+//	private Font smallFont = new Font("SansSerif", Font.BOLD, 14);
 
 	/**
 	 * 
@@ -141,9 +141,40 @@ public class Panel extends PanelBase {
 
 	public void drawBoard(Graphics2D g) {
 		drawGrid(g);
-		drawNumbers(g);
+		drawGates(g);
 		drawLinks(g);
+		drawNumbers(g);
 		drawBoardBorder(g);
+	}
+
+	private void drawGates(Graphics2D g) {
+		int state;
+		g.setFont(getNumberFont());
+		for (int r = 0; r < board.rows(); r++) {
+			for (int c = 0; c < board.cols(); c++) {
+				state = board.getNumber(r, c);
+				if (state >= 0) {
+					placeNumber(g, r, c, board.getNGate());
+				} else if (state == Board.GATE_HORIZ) {
+					g.setColor(getGateColor());
+					placeGateLine(g, r, c, Direction.HORIZ);
+				} else if (state == Board.GATE_VERT) {
+					g.setColor(getGateColor());
+					placeGateLine(g, r, c, Direction.VERT);
+				}
+//				if (state == Board.GATE_HORIZ || state == Board.GATE_VERT) {
+//					g.setColor(getCircleColor());
+//					if (board.isGate(r, c)) {
+//						int n = board.getGateNumber(r, c);
+//						if (n >= -1) {
+//							placeSmallNumber(g, r, c, board.getGateNumber(r, c));
+//						} else {
+//							placeSmallNumber(g, r, c, n);
+//						}
+//					}
+//				}
+			}
+		}
 	}
 
 	private void drawNumbers(Graphics2D g) {
@@ -170,34 +201,17 @@ public class Panel extends PanelBase {
 //					placeBoldCircle(g, r, c, getCellSize()-2);
 					placeCircle(g, r, c, getCellSize()-2);
 					placeNumber(g, r, c, board.getNGate());
-				} else if (state == Board.GATE_HORIZ) {
-					g.setColor(getGateColor());
-					placeGateLine(g, r, c, Direction.HORIZ);
-				} else if (state == Board.GATE_VERT) {
-					g.setColor(getGateColor());
-					placeGateLine(g, r, c, Direction.VERT);
 				}
-//				if (state == Board.GATE_HORIZ || state == Board.GATE_VERT) {
-//					g.setColor(getCircleColor());
-//					if (board.isGate(r, c)) {
-//						int n = board.getGateNumber(r, c);
-//						if (n >= -1) {
-//							placeSmallNumber(g, r, c, board.getGateNumber(r, c));
-//						} else {
-//							placeSmallNumber(g, r, c, n);
-//						}
-//					}
-//				}
 			}
 		}
 	}
 
-	private void placeSmallNumber(Graphics2D g, int r, int c, int n) {
-		g.setFont(smallFont);
-		g.setColor(Color.RED);
-		placeString(g, r, c, Integer.toString(n));
-		g.setFont(getNumberFont());
-	}
+//	private void placeSmallNumber(Graphics2D g, int r, int c, int n) {
+//		g.setFont(smallFont);
+//		g.setColor(Color.RED);
+//		placeString(g, r, c, Integer.toString(n));
+//		g.setFont(getNumberFont());
+//	}
 
 	private void placeGateLine(Graphics2D g, int r, int c, int dir) {
 //		Stroke s = g.getStroke();
