@@ -141,8 +141,8 @@ public class Panel extends PanelBase {
 
 	public void drawBoard(Graphics2D g) {
 		drawGrid(g);
-		drawLinks(g);
 		drawNumbers(g);
+		drawLinks(g);
 		drawBoardBorder(g);
 	}
 
