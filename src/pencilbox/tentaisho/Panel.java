@@ -20,10 +20,10 @@ public class Panel extends PanelBase {
 	private boolean indicateErrorMode = false;
 	private boolean separateAreaColorMode = false;
 
-	private Color areaBorderColor = Color.BLUE;
-	private Color noStarAreaColor = new Color(0xFFFF80);
-	private Color whiteAreaColor = new Color(0x80FFFF);
-	private Color blackAreaColor = new Color(0xFF80FF);
+	private Color areaBorderColor = new Color(0x000099);
+	private Color noStarAreaColor = new Color(0xFFFF99);
+	private Color whiteAreaColor = new Color(0xAAFFFF);
+	private Color blackAreaColor = new Color(0xFFAAFF);
 	private Color draggingAreaColor = new Color(0xCCFFFF);
 	private Color starColor = Color.BLACK;
 

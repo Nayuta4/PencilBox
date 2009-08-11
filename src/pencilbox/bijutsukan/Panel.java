@@ -20,9 +20,9 @@ public class Panel extends PanelBase {
 	private boolean paintIlluminatedCellMode = true;
 
 	private Color wallColor = Color.BLACK;
-	private Color bulbColor = Color.BLUE;
+	private Color bulbColor = new Color(0x000099);
 	private Color illuminatedCellColor = new Color(0xAAFFFF);
-	private Color noBulbColor = Color.MAGENTA;
+	private Color noBulbColor = new Color(0xFF9999);
 
 	/**
 	 * Panel Çê∂ê¨Ç∑ÇÈ

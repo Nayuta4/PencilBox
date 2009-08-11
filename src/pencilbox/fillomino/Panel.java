@@ -20,8 +20,8 @@ public class Panel extends PanelBase {
 	private boolean indicateErrorMode = false;
 	private boolean separateAreaColorMode = false;
 
-	private Color inputColor = Color.BLUE;
-	private Color areaBorderColor = Color.BLUE;
+	private Color inputColor = new Color(0x000099);
+	private Color areaBorderColor = new Color(0x000099);
 	private Color successColor = new Color(0x80FFFF);
 
 	/**

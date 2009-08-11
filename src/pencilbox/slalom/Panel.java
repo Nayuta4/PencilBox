@@ -21,8 +21,8 @@ public class Panel extends PanelBase {
 
 	private Color gateColor = new Color(0x808080);
 	private Color circleColor = Color.BLACK;
-	private Color lineColor = Color.BLUE;
-	private Color crossColor = Color.MAGENTA;
+	private Color lineColor = new Color(0x000099);
+	private Color crossColor = new Color(0xFF0099);
 	private Color wallColor = Color.BLACK;
 
 	private int gateLineWidth = 3;

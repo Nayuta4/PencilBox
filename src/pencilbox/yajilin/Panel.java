@@ -19,10 +19,10 @@ public class Panel extends PanelBase {
 	private boolean indicateErrorMode = false;
 	private boolean separateLinkColorMode = false;
 
-	private Color circleColor = Color.MAGENTA;
-	private Color lineColor = Color.BLUE;
-	private Color paintColor = Color.BLUE;
-	private Color crossColor = Color.MAGENTA;
+	private Color circleColor = new Color(0xFF9999);
+	private Color lineColor = new Color(0x000099);
+	private Color paintColor = new Color(0x0099FF);
+	private Color crossColor = new Color(0xFF0099);
 //	private Color wallColor = new Color(0xC0C0C0);
 	
 	/**

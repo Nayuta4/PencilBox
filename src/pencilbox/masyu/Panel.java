@@ -18,8 +18,8 @@ public class Panel extends PanelBase {
 	private boolean separateLinkColorMode = false;
 	private boolean indicateErrorMode = false;
 
-	private Color lineColor = Color.BLUE;
-	private Color crossColor = Color.MAGENTA;
+	private Color lineColor = new Color(0x000099);
+	private Color crossColor = new Color(0xFF0099);
 	private Color grayPearlColor = Color.GRAY;
 
 	/**
