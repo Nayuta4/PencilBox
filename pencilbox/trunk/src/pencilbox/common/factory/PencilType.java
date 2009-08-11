@@ -20,6 +20,7 @@ public final class PencilType {
 		new PencilType("kurodoko",    Messages.getString("PencilType.kurodoko"),    9), //$NON-NLS-1$ //$NON-NLS-2$
 		new PencilType("shikaku",     Messages.getString("PencilType.shikaku"),       10), //$NON-NLS-1$ //$NON-NLS-2$
 		new PencilType("sudoku",      Messages.getString("PencilType.sudoku"),              9), //$NON-NLS-1$ //$NON-NLS-2$
+		new PencilType("slalom",      Messages.getString("PencilType.slalom"),   10), //$NON-NLS-1$ //$NON-NLS-2$
 		new PencilType("slitherlink", Messages.getString("PencilType.slitherlink"),   11), //$NON-NLS-1$ //$NON-NLS-2$
 		new PencilType("tentaisho",   Messages.getString("PencilType.tentaisho"),       10), //$NON-NLS-1$ //$NON-NLS-2$
 		new PencilType("numberlink",  Messages.getString("PencilType.numberlink"),   10), //$NON-NLS-1$ //$NON-NLS-2$

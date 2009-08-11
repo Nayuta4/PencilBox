@@ -35,6 +35,7 @@ public class PreferencesKeys {
 	public static final String NO_BULB_COLOR = "NoBulbColor";
 	public static final String PAINT_COLOR = "PaintColor";
 	public static final String NO_PAINT_COLOR = "NoPaintColor";
+	public static final String GATE_COLOR = "GateColor";
 
 	public static final String LETTERS = "Letters";
 
