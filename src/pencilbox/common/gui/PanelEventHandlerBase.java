@@ -186,9 +186,11 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 			break;
 		case KeyEvent.VK_SEMICOLON:
 		case KeyEvent.VK_ADD:
+			plusKeyEntered();
 			break;
 		case KeyEvent.VK_COLON:
 		case KeyEvent.VK_MULTIPLY:
+			starKeyEntered();
 			break;
 		case KeyEvent.VK_0:
 		case KeyEvent.VK_NUMPAD0:
@@ -302,6 +304,32 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	protected void minusKeyEntered() {
 		Address pos = getCellCursor().getPosition();
 		minusEntered(pos);
+	}
+
+	/**
+	 * プラスキーの入力を処理する。
+	 * 各サブクラスで実装する。
+	 * @param pos 入力マスの座標
+	 */
+	protected void plusEntered(Address pos) {
+	}
+
+	protected void plusKeyEntered() {
+		Address pos = getCellCursor().getPosition();
+		plusEntered(pos);
+	}
+
+	/**
+	 * アスタリスクキーの入力を処理する。
+	 * 各サブクラスで実装する。
+	 * @param pos 入力マスの座標
+	 */
+	protected void starEntered(Address pos) {
+	}
+
+	protected void starKeyEntered() {
+		Address pos = getCellCursor().getPosition();
+		starEntered(pos);
 	}
 
 	/**
