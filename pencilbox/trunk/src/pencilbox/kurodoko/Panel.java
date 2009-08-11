@@ -16,8 +16,8 @@ public class Panel extends PanelBase {
 
 	private boolean indicateErrorMode = false;
 
-	private Color paintColor = Color.BLUE;
-	private Color circleColor = Color.MAGENTA;
+	private Color paintColor = new Color(0x0099FF);
+	private Color circleColor = new Color(0xFF9999);
 //	private Color successColor = new Color(0x00FF00);
 
 	public Panel() {

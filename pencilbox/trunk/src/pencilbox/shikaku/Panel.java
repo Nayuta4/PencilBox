@@ -15,9 +15,9 @@ public class Panel extends PanelBase {
 
 	private Board board;
 
-	private Color areaBorderColor = Color.BLUE;
-	private Color smallSizeColor = new Color(0xFFFF80); // 面積小さい
-	private Color areaPaintColor   = new Color(0x80FFFF); // 標準色
+	private Color areaBorderColor = new Color(0x000099);
+	private Color smallSizeColor = new Color(0xFFFF99); // 面積小さい
+	private Color areaPaintColor   = new Color(0xAAFFFF); // 標準色
 	private Color draggingAreaColor = new Color(0xCCFFFF);
 
 	private Square draggingSquare; // ドラッグして今まさに描こうとしている四角

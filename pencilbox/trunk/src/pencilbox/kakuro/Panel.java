@@ -21,7 +21,7 @@ public class Panel extends PanelBase {
 	private boolean indicateErrorMode = false;
 	private boolean dotHintMode = false;
 
-	private Color inputColor = Color.BLUE;
+	private Color inputColor = new Color(0x000099);
 	private Color wallColor = new Color(0xC0C0C0);
 
 	private Font smallFont = new Font("SansSerif", Font.PLAIN, 13);

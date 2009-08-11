@@ -18,8 +18,8 @@ public class Panel extends PanelBase {
 	private boolean indicateErrorMode = false;
 //	private boolean indicateContinuousRoomMode = false;
 
-	private Color paintColor = Color.BLUE;
-	private Color circleColor = Color.MAGENTA;
+	private Color paintColor = new Color(0x0099FF);
+	private Color circleColor = new Color(0xFF9999);
 	private Color noAreaColor = new Color(0xC0C0C0);
 	private Color areaBorderColor = Color.BLACK;
 	private Color continuousRoomColor = new Color(0x800000);

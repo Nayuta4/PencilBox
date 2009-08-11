@@ -16,8 +16,8 @@ public class Panel extends PanelBase {
 
 	private Board board;
 
-	private Color paintColor = Color.BLUE;
-	private Color circleColor = Color.MAGENTA;
+	private Color paintColor = new Color(0x0099FF);
+	private Color circleColor = new Color(0xFF9999);
 
 	private Font countFont = new Font("SansSerif", Font.ITALIC, 13);
 

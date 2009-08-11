@@ -19,7 +19,7 @@ public class Panel extends PanelBase {
 	private boolean indicateErrorMode = false;
 	private boolean dotHintMode = false;
 
-	private Color inputColor = Color.BLUE;
+	private Color inputColor = new Color(0x000099);
 	private Color areaBorderColor = Color.BLACK;
 
 	private int selectedNumber = 0;
