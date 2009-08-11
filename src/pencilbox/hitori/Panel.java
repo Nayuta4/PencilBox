@@ -29,7 +29,7 @@ public class Panel extends PanelBase {
 	 * 
 	 */
 	public Panel() {
-		setMarkStyle(1);
+		setMarkStyle(2);
 	}
 	
 	protected void setBoard(BoardBase aBoard) {

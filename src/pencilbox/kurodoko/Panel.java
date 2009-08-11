@@ -22,7 +22,7 @@ public class Panel extends PanelBase {
 
 	public Panel() {
 		setGridColor(Color.BLACK);
-		setMarkStyle(1);
+		setMarkStyle(3);
 	}
 
 	protected void setBoard(BoardBase aBoard) {
