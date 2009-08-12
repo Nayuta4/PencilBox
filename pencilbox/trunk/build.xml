@@ -1,0 +1,180 @@
+<?xml version="1.0" ?>
+<project default="jar">
+
+	<property name="src" value="src"/>
+	<property name="bin" value="bin"/>
+	<property name="jar" value="jar"/>
+	<property name="doc" value="doc"/>
+	<property name="api" value="api"/>
+	<property name="sample" value="sample"/>
+	<property name="zip" value="."/>
+
+	<property name="project" value="pencilbox" />
+	<property name="version" value="1.4.0" />
+
+	<target name="compile">
+		<mkdir dir="${bin}" />
+		<javac srcdir="${src}" destdir="${bin}"/>
+	</target>
+
+	<target name="jar" depends="compile">
+		<mkdir dir="${jar}" />
+		<jar jarfile="${jar}/pencilbox.jar" basedir="${bin}" includes="pencilbox/common/**/*, pencilbox/util/*">
+			<manifest>
+				<attribute name="Main-Class" value="pencilbox.common.factory.PencilBoxLauncher"/>
+				<attribute name="Class-Path" value="bijutsukan.jar fillomino.jar hakyukoka.jar hashi.jar heyawake.jar hitori.jar kakuro.jar kurodoko.jar masyu.jar numberlink.jar nurikabe.jar shikaku.jar slitherlink.jar sudoku.jar tentaisho.jar yajilin.jar lits.jar slalom.jar"/>
+			</manifest>
+		</jar>
+		<jar jarfile="${jar}/bijutsukan.jar" basedir="${bin}" includes="pencilbox/bijutsukan/*">
+			<manifest>
+				<attribute name="Main-Class" value="pencilbox.bijutsukan.Main"/>
+				<attribute name="Class-Path" value="pencilbox.jar"/>
+			</manifest>
+		</jar>
+		<jar jarfile="${jar}/fillomino.jar" basedir="${bin}" includes="pencilbox/fillomino/*">
+			<manifest>
+				<attribute name="Main-Class" value="pencilbox.fillomino.Main"/>
+				<attribute name="Class-Path" value="pencilbox.jar"/>
+			</manifest>
+		</jar>
+		<jar jarfile="${jar}/hakyukoka.jar" basedir="${bin}" includes="pencilbox/hakyukoka/*">
+			<manifest>
+				<attribute name="Main-Class" value="pencilbox.hakyukoka.Main"/>
+				<attribute name="Class-Path" value="pencilbox.jar"/>
+			</manifest>
+		</jar>
+		<jar jarfile="${jar}/hashi.jar" basedir="${bin}" includes="pencilbox/hashi/*">
+			<manifest>
+				<attribute name="Main-Class" value="pencilbox.hashi.Main"/>
+				<attribute name="Class-Path" value="pencilbox.jar"/>
+			</manifest>
+		</jar>
+		<jar jarfile="${jar}/heyawake.jar" basedir="${bin}" includes="pencilbox/heyawake/*">
+			<manifest>
+				<attribute name="Main-Class" value="pencilbox.heyawake.Main"/>
+				<attribute name="Class-Path" value="pencilbox.jar"/>
+			</manifest>
+		</jar>
+		<jar jarfile="${jar}/hitori.jar" basedir="${bin}" includes="pencilbox/hitori/*">
+			<manifest>
+				<attribute name="Main-Class" value="pencilbox.hitori.Main"/>
+				<attribute name="Class-Path" value="pencilbox.jar"/>
+			</manifest>
+		</jar>
+		<jar jarfile="${jar}/kakuro.jar" basedir="${bin}" includes="pencilbox/kakuro/*">
+			<manifest>
+				<attribute name="Main-Class" value="pencilbox.kakuro.Main"/>
+				<attribute name="Class-Path" value="pencilbox.jar"/>
+			</manifest>
+		</jar>
+		<jar jarfile="${jar}/kurodoko.jar" basedir="${bin}" includes="pencilbox/kurodoko/*">
+			<manifest>
+				<attribute name="Main-Class" value="pencilbox.kurodoko.Main"/>
+				<attribute name="Class-Path" value="pencilbox.jar"/>
+			</manifest>
+		</jar>
+		<jar jarfile="${jar}/lits.jar" basedir="${bin}" includes="pencilbox/lits/*">
+			<manifest>
+				<attribute name="Main-Class" value="pencilbox.lits.Main"/>
+				<attribute name="Class-Path" value="pencilbox.jar"/>
+			</manifest>
+		</jar>
+		<jar jarfile="${jar}/masyu.jar" basedir="${bin}" includes="pencilbox/masyu/*">
+			<manifest>
+				<attribute name="Main-Class" value="pencilbox.masyu.Main"/>
+				<attribute name="Class-Path" value="pencilbox.jar"/>
+			</manifest>
+		</jar>
+		<jar jarfile="${jar}/numberlink.jar" basedir="${bin}" includes="pencilbox/numberlink/*">
+			<manifest>
+				<attribute name="Main-Class" value="pencilbox.numberlink.Main"/>
+				<attribute name="Class-Path" value="pencilbox.jar"/>
+			</manifest>
+		</jar>
+		<jar jarfile="${jar}/nurikabe.jar" basedir="${bin}" includes="pencilbox/nurikabe/*">
+			<manifest>
+				<attribute name="Main-Class" value="pencilbox.nurikabe.Main"/>
+				<attribute name="Class-Path" value="pencilbox.jar"/>
+			</manifest>
+		</jar>
+		<jar jarfile="${jar}/shikaku.jar" basedir="${bin}" includes="pencilbox/shikaku/*">
+			<manifest>
+				<attribute name="Main-Class" value="pencilbox.shikaku.Main"/>
+				<attribute name="Class-Path" value="pencilbox.jar"/>
+			</manifest>
+		</jar>
+		<jar jarfile="${jar}/slalom.jar" basedir="${bin}" includes="pencilbox/slalom/*">
+			<manifest>
+				<attribute name="Main-Class" value="pencilbox.slalom.Main"/>
+				<attribute name="Class-Path" value="pencilbox.jar"/>
+			</manifest>
+		</jar>
+		<jar jarfile="${jar}/slitherlink.jar" basedir="${bin}" includes="pencilbox/slitherlink/*">
+			<manifest>
+				<attribute name="Main-Class" value="pencilbox.slitherlink.Main"/>
+				<attribute name="Class-Path" value="pencilbox.jar"/>
+			</manifest>
+		</jar>
+		<jar jarfile="${jar}/sudoku.jar" basedir="${bin}" includes="pencilbox/sudoku/*">
+			<manifest>
+				<attribute name="Main-Class" value="pencilbox.sudoku.Main"/>
+				<attribute name="Class-Path" value="pencilbox.jar"/>
+			</manifest>
+		</jar>
+		<jar jarfile="${jar}/tentaisho.jar" basedir="${bin}" includes="pencilbox/tentaisho/*">
+			<manifest>
+				<attribute name="Main-Class" value="pencilbox.tentaisho.Main"/>
+				<attribute name="Class-Path" value="pencilbox.jar"/>
+			</manifest>
+		</jar>
+		<jar jarfile="${jar}/yajilin.jar" basedir="${bin}" includes="pencilbox/yajilin/*">
+			<manifest>
+				<attribute name="Main-Class" value="pencilbox.yajilin.Main"/>
+				<attribute name="Class-Path" value="pencilbox.jar"/>
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="zip_src">
+		<mkdir dir="${zip}" />
+		<zip destfile="${zip}/${project}-${version}-src.zip">
+			<fileset dir="." includes="${src}/**/*"/>
+			<fileset dir="." includes="build.xml"/>
+			<fileset dir="." includes="${doc}/*"/>
+			<fileset dir="." includes="${sample}/**/*"/>
+		</zip>
+	</target>
+
+	<target name="zip_bin" depends="jar">
+		<mkdir dir="${zip}" />
+		<zip destfile="${zip}/${project}-${version}.zip">
+			<fileset dir="${jar}" includes="*.jar"/>
+			<fileset dir="${doc}" includes="readme.txt, LICENSE.txt, history.txt, pencilbox.html, style.css"/>
+			<fileset dir="." includes="${sample}/**/*"/>
+		</zip>
+	</target>
+
+	<target name="zip_bin_src" depends="jar">
+		<mkdir dir="${zip}" />
+		<zip destfile="${zip}/${project}-${version}-bin-src.zip">
+			<fileset dir="." includes="${src}/**/*"/>
+			<fileset dir="." includes="build.xml"/>
+			<fileset dir="${jar}" includes="*.jar"/>
+			<fileset dir="${doc}" includes="readme.txt, LICENSE.txt, history.txt, pencilbox.html, style.css"/>
+			<fileset dir="." includes="${sample}/**/*"/>
+		</zip>
+	</target>
+
+	<target name="javadoc">
+		<mkdir dir="${api}" />
+		<javadoc packagenames="*" sourcepath="${src}" destdir="${api}">
+		</javadoc>
+	</target>
+
+	<target name="delete_jar" depends="jar">
+		<delete>
+			<fileset dir="${jar}" includes="*.jar"/>
+		</delete>
+	</target>
+
+</project>
