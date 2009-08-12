@@ -85,12 +85,13 @@ Heyawake Applet Developer 様作成の HeyawakeBox version 1.2.1
 
 ■内容物
 配布アーカイブには以下のファイルが含まれます。（順不同）
- readme.txt      このファイル
+ readme.txt       このファイル
  LICENSE.txt      GNU GPL 条文 
- history.txt      改訂履歴
+ index.html       webのトップページ
  pencilbox.html   マニュアル
+ history.html     改訂履歴
  pencilbox.ini    設定ファイル（初期状態の内容は空です）
- style.css        pencilbox.html用スタイルシート
+ style.css        html用スタイルシート
  pencilbox.jar    全体で共通に使用するクラスファイル
  bijutsukan.jar   美術館用クラスファイル
  fillomino.jar    フィルオミノ用クラスファイル
@@ -110,7 +111,7 @@ Heyawake Applet Developer 様作成の HeyawakeBox version 1.2.1
  tentaisho.jar    天体ショー用クラスファイル
  yajilin.jar      ヤジリン用クラスファイル
  lits.jar         ＬＩＴＳ用クラスファイル
- problem/         サンプル問題を含むディレクトリ
+ sample/          サンプル問題を含むディレクトリ
 
 
 /*
