@@ -141,7 +141,7 @@
 			<fileset dir="." includes="${src}/**/*"/>
 			<fileset dir="." includes="build.xml"/>
 			<fileset dir="." includes="${doc}/*"/>
-			<fileset dir="." includes="${sample}/**/*"/>
+			<fileset dir="." includes="${sample}/*/*"/>
 		</zip>
 	</target>
 
@@ -149,8 +149,9 @@
 		<mkdir dir="${zip}" />
 		<zip destfile="${zip}/${project}-${version}.zip">
 			<fileset dir="${jar}" includes="*.jar"/>
-			<fileset dir="${doc}" includes="readme.txt, LICENSE.txt, history.txt, pencilbox.html, style.css"/>
-			<fileset dir="." includes="${sample}/**/*"/>
+			<fileset dir="${doc}" includes="readme.txt, LICENSE.txt, index.html, history.html, pencilbox.html, style.css"/>
+			<fileset dir="." includes="${sample}/*/*.txt"/>
+			<fileset dir="${sample}" includes="pencilbox.ini"/>
 		</zip>
 	</target>
 
@@ -160,8 +161,9 @@
 			<fileset dir="." includes="${src}/**/*"/>
 			<fileset dir="." includes="build.xml"/>
 			<fileset dir="${jar}" includes="*.jar"/>
-			<fileset dir="${doc}" includes="readme.txt, LICENSE.txt, history.txt, pencilbox.html, style.css"/>
-			<fileset dir="." includes="${sample}/**/*"/>
+			<fileset dir="${doc}" includes="readme.txt, LICENSE.txt, index.html, history.html, pencilbox.html, style.css"/>
+			<fileset dir="." includes="${sample}/*/*.txt"/>
+			<fileset dir="${sample}" includes="pencilbox.ini"/>
 		</zip>
 	</target>
 
