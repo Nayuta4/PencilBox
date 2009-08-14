@@ -358,6 +358,8 @@ public class MenuBase {
 				KeyStroke.getKeyStroke('Z', InputEvent.CTRL_MASK));
 		redoItem.setAccelerator(
 				KeyStroke.getKeyStroke('Y', InputEvent.CTRL_MASK));
+		checkAnswerItem.setAccelerator(
+				KeyStroke.getKeyStroke('H', InputEvent.CTRL_MASK));
 		answerModeItem.setAccelerator(
 				KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
 		problemEditModeItem.setAccelerator(
