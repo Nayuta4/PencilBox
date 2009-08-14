@@ -21,8 +21,16 @@ public class FileChooser extends JFileChooser {
 	public static FileChooser getProblemFileChooser() {
 		if (problemFileChooser == null) {
 			problemFileChooser = new FileChooser();
-			problemFileChooser.setFileFilter(new ProblemFileFilter());
 			problemFileChooser.setCurrentDirectory(new File("."));
+			problemFileChooser.setFileFilter(new FileFilter() {
+				public boolean accept(File f) {
+					String name = f.getName().toLowerCase();
+					return name.endsWith(".txt") || name.endsWith(".xml") || name.endsWith(".pcl") || f.isDirectory();
+				}
+				public String getDescription() {
+					return "txt or xml files";
+				}
+			});
 		}
 		return problemFileChooser;
 	}
@@ -30,8 +38,16 @@ public class FileChooser extends JFileChooser {
 	public static FileChooser getImageFileChooser() {
 		if (imageFileChooser == null) {
 			imageFileChooser = new FileChooser();
-			imageFileChooser.setFileFilter(new ImageFileFilter());
 			imageFileChooser.setCurrentDirectory(new File("."));
+			imageFileChooser.setFileFilter(new FileFilter() {
+				public boolean accept(File f) {
+					String name = f.getName().toLowerCase();
+					return name.endsWith(".png") || name.endsWith(".jpg") || f.isDirectory();
+				}
+				public String getDescription() {
+					return "png files";
+				}
+			});
 		}
 		return imageFileChooser;
 	}
@@ -40,33 +56,17 @@ public class FileChooser extends JFileChooser {
 		if (preferenceFileChooser == null) {
 			preferenceFileChooser = new FileChooser();
 			preferenceFileChooser.setCurrentDirectory(new File("."));
+			preferenceFileChooser.setFileFilter(new FileFilter() {
+				public boolean accept(File f) {
+					String name = f.getName().toLowerCase();
+					return name.endsWith(".ini");
+				}
+				public String getDescription() {
+					return "ini files";
+				}
+			});
 		}
 		return preferenceFileChooser;
 	}
-	
+
 }
-
-class ProblemFileFilter extends FileFilter {
-
-	public boolean accept(File f) {
-		String name = f.getName().toLowerCase();
-		return name.endsWith(".txt") || name.endsWith(".xml") || name.endsWith(".pcl") || f.isDirectory();
-	}
-	
-	public String getDescription() {
-		return "txt or xml files";
-	}
-}
-
-class ImageFileFilter extends FileFilter {
-
-	public boolean accept(File f) {
-		String name = f.getName().toLowerCase();
-		return name.endsWith(".png") || f.isDirectory();
-	}
-
-	public String getDescription() {
-		return "png files";
-	}
-}
-
