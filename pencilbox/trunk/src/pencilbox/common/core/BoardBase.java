@@ -152,6 +152,21 @@ public class BoardBase {
 		}
 		return true;
 	}
+
+	/**
+	 * 盤面全体を含む領域を作成して返す。
+	 * @return 盤面全体を含む領域。
+	 */
+	public Area getWholeBoardArea() {
+		Area area = new Area();
+		for (int r = 0; r < rows(); r++) {
+			for (int c = 0; c < cols(); c++) {
+				area.add(new Address(r, c));
+			}
+		}
+		return area;
+	}
+
 	/**
 	 * 解答を消去し，問題の初期盤面に戻す
 	 * 各サブクラスで実装する
