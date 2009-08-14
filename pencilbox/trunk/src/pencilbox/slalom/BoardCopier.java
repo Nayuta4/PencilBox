@@ -5,26 +5,12 @@ import pencilbox.common.core.Area;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.BoardCopierBase;
 import pencilbox.common.core.Direction;
-import pencilbox.common.core.Rotator;
 import pencilbox.common.core.Rotator2;
 
 /**
  * 
  */
 public class BoardCopier extends BoardCopierBase {
-
-	public void copyBoardStates(BoardBase src, BoardBase dst, int n) {
-		Rotator rotator = new Rotator(src.rows(), src.cols(), n);
-		Address from = new Address(0, 0);
-		Address to = rotator.rotateAddress(new Address(0, 0));
-		Area region = new Area();
-		for (int r = 0; r < src.rows(); r++) {
-			for (int c = 0; c < src.cols(); c++) {
-				region.add(new Address(r, c));
-			}
-		}
-		copyRegion(src, dst, region, from, to, n);
-	}
 
 	public void copyRegion(BoardBase srcBoardBase, BoardBase dstBoardBase, Area region, Address from, Address to, int rotation) {
 		Board srcBoard = (Board) srcBoardBase;

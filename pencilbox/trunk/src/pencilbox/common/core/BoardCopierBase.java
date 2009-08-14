@@ -49,12 +49,23 @@ public class BoardCopierBase {
 	
 	/**
 	 * 盤面状態を回転して複製する。
-	 * 各サブクラスで実装する。
+	 * 盤面前領域を対象とした複写を行う。
+	 * そのように扱えない特殊な場合（カックロなど）については，各サブクラスで実装する。
 	 * @param src 複製元の盤面
 	 * @param dst 複製先の盤面
 	 * @param n 回転番号
 	 */
-	protected void copyBoardStates(BoardBase src, BoardBase dst, int n) {
+	public void copyBoardStates(BoardBase src, BoardBase dst, int n) {
+		Rotator rotator = new Rotator(src.rows(), src.cols(), n);
+		Address from = new Address(0, 0);
+		Address to = rotator.rotateAddress(new Address(0, 0));
+		Area region = new Area();
+		for (int r = 0; r < src.rows(); r++) {
+			for (int c = 0; c < src.cols(); c++) {
+				region.add(new Address(r, c));
+			}
+		}
+		copyRegion(src, dst, region, from, to, n);
 	}
 
 	/**
