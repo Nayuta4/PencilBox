@@ -9,7 +9,7 @@ public class Address implements Comparable<Address> {
 	/**
 	 *  盤外座標
 	 */
-	public static final Address NOWEHER = new Address(-1,-1);
+	public static final Address NOWHERE = new Address(-1,-1);
 	
 	/**
 	 *  行座標
