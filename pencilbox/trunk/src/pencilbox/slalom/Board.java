@@ -873,7 +873,7 @@ public class Board extends BoardBase {
 				}
 			}
 		}
-		return Address.NOWEHER;
+		return Address.NOWHERE;
 	}
 
 	/**
