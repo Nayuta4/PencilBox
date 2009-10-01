@@ -57,7 +57,7 @@ public class TxtReader extends TxtReaderBase {
 			t = new StringTokenizer(line);
 			while (t.hasMoreTokens()) {
 				str = t.nextToken();
-				board.changeState(Board.VERT, i, j, Integer.parseInt(str));
+				board.setState(Board.VERT, i, j, Integer.parseInt(str));
 				j++;
 			}
 		}
@@ -69,7 +69,7 @@ public class TxtReader extends TxtReaderBase {
 			t = new StringTokenizer(line);
 			while (t.hasMoreTokens()) {
 				str = t.nextToken();
-				board.changeState(Board.HORIZ, i, j, Integer.parseInt(str));
+				board.setState(Board.HORIZ, i, j, Integer.parseInt(str));
 				j++;
 			}
 		}
