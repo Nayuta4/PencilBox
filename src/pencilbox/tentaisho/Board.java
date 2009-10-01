@@ -53,16 +53,6 @@ public class Board extends BoardBase {
 	}
 	
 	/**
-	 * @return ”Õ–Ê‚Ì¯‚Ì”
-	 */
-	public int nStar() {
-		int nStar = 0;
-		for (int r = 0; r < rows()*2-1; r++)
-			for (int c = 0; c < cols()*2-1; c++)
-				if (hasStar(r,c)) nStar ++;
-		return nStar;
-	}
-	/**
 	 * @return the star
 	 */
 	int[][] getStar() {
