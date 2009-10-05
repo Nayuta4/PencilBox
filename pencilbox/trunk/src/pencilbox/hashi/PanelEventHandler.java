@@ -2,7 +2,6 @@ package pencilbox.hashi;
 
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
-import pencilbox.common.core.Direction;
 import pencilbox.common.gui.PanelEventHandlerBase;
 
 
@@ -10,13 +9,6 @@ import pencilbox.common.gui.PanelEventHandlerBase;
  * 「橋をかけろ」マウス／キー操作処理クラス
  */
 public class PanelEventHandler extends PanelEventHandlerBase {
-
-	static final int HORIZ = Direction.HORIZ;
-	static final int VERT = Direction.VERT;
-	static final int UP = Direction.UP;
-	static final int DN = Direction.DN;
-	static final int LT = Direction.LT;
-	static final int RT = Direction.RT;
 
 	private Board board;
 
@@ -39,18 +31,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			return;
 		if (!board.isPier(dragStart))
 			return;
-		if (dragStart.r() == dragEnd.r()) {
-			if (dragStart.c() < dragEnd.c()) {
-				board.addBridgeA(dragStart, RT);
-			} else if (dragStart.c() > dragEnd.c()) {
-				board.addBridgeA(dragStart, LT);
-			}
-		} else if (dragStart.c() == dragEnd.c()) {
-			if (dragStart.r() < dragEnd.r()) {
-				board.addBridgeA(dragStart, DN);
-			} else if (dragStart.r() > dragEnd.r()) {
-				board.addBridgeA(dragStart, UP);
-			}
+		int dir = Address.getDirectionTo(dragStart, dragEnd);
+		if (dir >= 0) {
+			board.addBridgeA(dragStart, dir);
 		}
 	}
 
@@ -59,18 +42,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			return;
 		if (!board.isPier(dragStart))
 			return;
-		if (dragStart.r() == dragEnd.r()) {
-			if (dragStart.c() < dragEnd.c()) {
-				board.removeBridgeA(dragStart, RT);
-			} else if (dragStart.c() > dragEnd.c()) {
-				board.removeBridgeA(dragStart, LT);
-			}
-		} else if (dragStart.c() == dragEnd.c()) {
-			if (dragStart.r() < dragEnd.r()) {
-				board.removeBridgeA(dragStart, DN);
-			} else if (dragStart.r() > dragEnd.r()) {
-				board.removeBridgeA(dragStart, UP);
-			}
+		int dir = Address.getDirectionTo(dragStart, dragEnd);
+		if (dir >= 0) {
+			board.removeBridgeA(dragStart, dir);
 		}
 	}
 
