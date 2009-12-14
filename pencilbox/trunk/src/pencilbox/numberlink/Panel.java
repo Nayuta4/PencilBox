@@ -199,11 +199,6 @@ public class Panel extends PanelBase {
 				g.setColor(highlightColor);
 			}
 		}
-//		if (isIndicateErrorMode()) {
-//			if (board.isBranchedLink(d,r,c)) {
-//				g.setColor(getErrorColor());
-//			}
-//		}
 		super.placeLink(g, d, r, c);
 	}
 

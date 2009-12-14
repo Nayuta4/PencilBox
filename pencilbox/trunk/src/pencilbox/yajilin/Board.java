@@ -553,44 +553,7 @@ public class Board extends BoardBase {
 			no++;
 		return no;
 	}
-	/**
-	 * 線分の両端のいずれかの位置で線が分岐しているかどうかを調べる
-	 * @param d 辺位置は縦か横か
-	 * @param r 辺の行座標
-	 * @param c 辺の列座標
-	 * @return 両端のいずれかで線が分岐していれば true 分岐していなければ false を返す
-	 */
-	boolean isBranchedLink(int d, int r, int c) {
-		if (countLine(r,c) > 2)
-			return true;
-		if (d==VERT) {
-			if (countLine(r,c+1) > 2)
-				return true;
-		} else if (d==HORIZ) {
-			if (countLine(r+1,c) > 2)
-				return true;
-		}
-		return false;
-	}
 	
-	/**
-	 * 線が黒マスと重なっているかを調べる
-	 * @param d 辺位置は縦か横か
-	 * @param r 辺の行座標
-	 * @param c 辺の列座標
-	 * @return 線が黒マスと重なっていればtrueを返す
-	 */
-	boolean isBuriedLink(int d, int r, int c) {
-		if (d==VERT) {
-			if (isBlack(r, c) || isBlack(r, c+1))
-				return true;
-		} else if (d==HORIZ) {
-			if (isBlack(r, c) || isBlack(r+1, c))
-				return true;
-		}
-		return false;
-	}
-
 	private int checkLinks() {
 		int result = 0;
 		for (int r=0; r<rows(); r++) {
