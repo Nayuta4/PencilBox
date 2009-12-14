@@ -119,15 +119,6 @@ public class Board extends BoardBase {
 		setNumber(pos.r(), pos.c(), n);
 	}
 	/**
-	 * マスに数字が入っていないかどうか
-	 * @param r Row coordinate of the cell.
-	 * @param c Colmun coordinate of the cell.
-	 * @return Returns true if the cell is empty.
-	 */
-	public boolean isUnknown(int r, int c) {
-		return number[r][c] == 0;
-	}
-	/**
 	 * そのマスの所属する領域を取得する
 	 * そのマスが領域に属していない場合は null を返す
 	 * @param r Row coordinate of the cell.
@@ -466,7 +457,7 @@ public class Board extends BoardBase {
 					result |= 4;
 				if (isTooClose(r,c))
 					result |= 8;
-				if (isUnknown(r,c))
+				if (getNumber(r,c) == 0)
 					result |= 1;
 			}
 		}
