@@ -81,15 +81,6 @@ public class Board extends BoardBase {
 		setStar(pos.r(), pos.c(), st);
 	}
 	/**
-	 * ˆø”‚É—^‚¦‚ç‚ê‚½À•W‚É¯‚Í‚ ‚é‚©
-	 * @param r
-	 * @param c
-	 * @return ¯‚ª‚ ‚ê‚Î true
-	 */
-	public boolean hasStar(int r, int c) {
-		return star[r][c] > 0;
-	}
-	/**
 	 * ˆø”‚Ì¯À•W‚ª”Õã‚É‚ ‚é‚©
 	 * 0<=r<rows*2-1, 0<=c<cols*2-1 ‚Å‚ ‚ê‚Î”Õã‚Å‚ ‚é
 	 * @param r
@@ -219,7 +210,7 @@ public class Board extends BoardBase {
 		for (Address pos : newArea) {
 			for (int i=2*pos.r()-1; i<=2*pos.r()+1; i++) {
 				for (int j=2*pos.c()-1; j<=2*pos.c()+1; j++) {
-					if (isOnStar(i, j) && hasStar(i, j)) {
+					if (isOnStar(i, j) && getStar(i, j) > 0) {
 						if (nStar == 0) {
 							nStar = getStar(i, j);
 							starPos.set(i,j);

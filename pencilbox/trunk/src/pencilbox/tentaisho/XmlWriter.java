@@ -13,7 +13,7 @@ public class XmlWriter extends XmlWriterBase {
 		int cols = board.cols();
 		for (int r = 0; r < rows*2-1; r++) {
 			for (int c = 0; c < cols*2-1; c++) {
-				if (board.hasStar(r, c))
+				if (board.getStar(r,c) > 0)
 					outNumber(r,c,board.getStar(r,c));
 			}
 		}
