@@ -245,7 +245,7 @@ public class Board extends BoardBase {
 				if (isOnPeriphery(r, c)) {
 					if (isBlack(r, c) && chain[r][c] == 0) {
 						if (initChain1(r, c, 0, 0, 1) == -1) {
-							setChain(r, c, -1);
+							updateChain(r, c, -1);
 						}
 					}
 					
@@ -256,7 +256,7 @@ public class Board extends BoardBase {
 			for (int c = 1; c < cols() - 1; c++) {
 				if (isBlack(r, c) && chain[r][c] == 0) {
 					if (initChain1(r, c, 0, 0, ++maxChain) == -1) {
-						setChain(r, c, -1);
+						updateChain(r, c, -1);
 					}
 				}
 			}
@@ -330,7 +330,7 @@ public class Board extends BoardBase {
 		if (newChain == Integer.MAX_VALUE)
 			chain[r][c] = ++maxChain; // 周囲に黒マスがないとき，新しい番号をつける
 		else
-			setChain(r, c, newChain); // 周囲に黒マスがあるとき，その最小番号をつける
+			updateChain(r, c, newChain); // 周囲に黒マスがあるとき，その最小番号をつける
 	}
 	/**
 	 * 黒マスを取り消したときに，斜め隣のchainを更新する．
@@ -347,7 +347,7 @@ public class Board extends BoardBase {
 	 * @param c
 	 * @param n
 	 */
-	 void setChain(int r, int c, int n) {
+	 void updateChain(int r, int c, int n) {
 		chain[r][c] = n;
 		for (int u = -1; u < 2; u += 2) {
 			for (int v = -1; v < 2; v += 2) {
@@ -355,7 +355,7 @@ public class Board extends BoardBase {
 					continue; // 黒マス以外はとばす
 				if (chain[r + u][c + v] == n)
 					continue; // 同じ番号があったらそのまま
-				setChain(r + u, c + v, n);
+				updateChain(r + u, c + v, n);
 			}
 		}
 	}
