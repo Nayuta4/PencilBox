@@ -135,10 +135,6 @@ public class Panel extends PanelBase {
 						g.setColor(getLineColor());
 						if (isSeparateLinkColorMode())
 							g.setColor(Colors.getColor(board.getLink(d,r,c).getId()));
-//						if (isIndicateErrorMode()) {
-//							if (board.isBranchedLink(d,r,c))
-//								g.setColor(getErrorColor());
-//						}
 						placeLink(g, d, r, c);
 					} else if (state == Board.NOLINE) {
 						g.setColor(getCrossColor());
