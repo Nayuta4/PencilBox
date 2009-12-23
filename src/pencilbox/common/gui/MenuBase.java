@@ -19,8 +19,6 @@ import javax.swing.KeyStroke;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
-import pencilbox.common.factory.Constants;
-
 /**
  * 共通メニュークラス
  */
@@ -250,20 +248,20 @@ public class MenuBase {
 	 * [回転・反転]メニュー作成
 	 */
 	protected void buildRotationMenu() {
-		makeRotationItem(Messages.getString("MenuBase.rotationItem1"), '1', "1"); //$NON-NLS-1$ //$NON-NLS-2$
-		makeRotationItem(Messages.getString("MenuBase.rotationItem2"), '2', "2"); //$NON-NLS-1$ //$NON-NLS-2$
-		makeRotationItem(Messages.getString("MenuBase.rotationItem3"), '3', "3"); //$NON-NLS-1$ //$NON-NLS-2$
-		makeRotationItem(Messages.getString("MenuBase.rotationItem4"), '4', "4"); //$NON-NLS-1$ //$NON-NLS-2$
-		makeRotationItem(Messages.getString("MenuBase.rotationItem5"), '5', "5"); //$NON-NLS-1$ //$NON-NLS-2$
-		makeRotationItem(Messages.getString("MenuBase.rotationItem6"), '6', "6"); //$NON-NLS-1$ //$NON-NLS-2$
-		makeRotationItem(Messages.getString("MenuBase.rotationItem7"), '7', "7"); //$NON-NLS-1$ //$NON-NLS-2$
+		makeRotationItem(Messages.getString("MenuBase.rotationItem1"), '1', 1); //$NON-NLS-1$
+		makeRotationItem(Messages.getString("MenuBase.rotationItem2"), '2', 2); //$NON-NLS-1$
+		makeRotationItem(Messages.getString("MenuBase.rotationItem3"), '3', 3); //$NON-NLS-1$
+		makeRotationItem(Messages.getString("MenuBase.rotationItem4"), '4', 4); //$NON-NLS-1$
+		makeRotationItem(Messages.getString("MenuBase.rotationItem5"), '5', 5); //$NON-NLS-1$
+		makeRotationItem(Messages.getString("MenuBase.rotationItem6"), '6', 6); //$NON-NLS-1$
+		makeRotationItem(Messages.getString("MenuBase.rotationItem7"), '7', 7); //$NON-NLS-1$
 	}
 	/**
 	 * [回転・反転]メニュー作成
 	 * （カックロ用）
 	 */
 	protected void buildRotationMenu2() {
-		makeRotationItem(Messages.getString("MenuBase.rotationItem4"), '4', "4"); //$NON-NLS-1$ //$NON-NLS-2$
+		makeRotationItem(Messages.getString("MenuBase.rotationItem4"), '4', 4); //$NON-NLS-1$
 	}
 
 	/**
@@ -275,22 +273,22 @@ public class MenuBase {
 		for (int i = 1; i <= styles.length; i++) {
 			switch (styles[i-1]) {
 			case 0:
-				makeMarkStyleItem(i + " " + Messages.getString("MenuBase.markStyle0"), (char)('0'+i), "0"); //$NON-NLS-1$ //$NON-NLS-2$
+				makeMarkStyleItem(i + " " + Messages.getString("MenuBase.markStyle0"), (char)('0'+i), 0); //$NON-NLS-1$
 				break;
 			case 1:
-				makeMarkStyleItem(i + " " + Messages.getString("MenuBase.markStyle1"), (char)('0'+i), "1"); //$NON-NLS-1$ //$NON-NLS-2$
+				makeMarkStyleItem(i + " " + Messages.getString("MenuBase.markStyle1"), (char)('0'+i), 1); //$NON-NLS-1$
 				break;
 			case 2:
-				makeMarkStyleItem(i + " " + Messages.getString("MenuBase.markStyle2"), (char)('0'+i), "2"); //$NON-NLS-1$ //$NON-NLS-2$
+				makeMarkStyleItem(i + " " + Messages.getString("MenuBase.markStyle2"), (char)('0'+i), 2); //$NON-NLS-1$
 				break;
 			case 3:
-				makeMarkStyleItem(i +  " " + Messages.getString("MenuBase.markStyle3"), (char)('0'+i), "3"); //$NON-NLS-1$ //$NON-NLS-2$
+				makeMarkStyleItem(i +  " " + Messages.getString("MenuBase.markStyle3"), (char)('0'+i), 3); //$NON-NLS-1$
 				break;
 			case 4:
-				makeMarkStyleItem(i +  " " + Messages.getString("MenuBase.markStyle4"), (char)('0'+i), "4"); //$NON-NLS-1$ //$NON-NLS-2$
+				makeMarkStyleItem(i +  " " + Messages.getString("MenuBase.markStyle4"), (char)('0'+i), 4); //$NON-NLS-1$
 				break;
 			case 5:
-				makeMarkStyleItem(i +  " " + Messages.getString("MenuBase.markStyle5"), (char)('0'+i), "5"); //$NON-NLS-1$ //$NON-NLS-2$
+				makeMarkStyleItem(i +  " " + Messages.getString("MenuBase.markStyle5"), (char)('0'+i), 5); //$NON-NLS-1$
 				break;
 			}
 		}
@@ -441,10 +439,10 @@ public class MenuBase {
 	 * @param n 設定する回転番号
 	 * @return 作成したメニュー項目
 	 */
-	protected JMenuItem makeRotationItem(String text, char mnemonic, String n) {
+	protected JMenuItem makeRotationItem(String text, char mnemonic, int n) {
 		JMenuItem rotationItem = new JMenuItem(text, mnemonic);
 		rotationItem.addActionListener(rotationCommandAction);
-		rotationItem.setActionCommand(n);
+		rotationItem.setActionCommand(Integer.toString(n));
 		rotationMenu.add(rotationItem);
 		return rotationItem;
 	}
@@ -467,11 +465,11 @@ public class MenuBase {
 	 * @param n スタイル番号
 	 * @return 作成したメニュー項目
 	 */
-	protected JRadioButtonMenuItem makeMarkStyleItem(String text, char mnemonic, String n) {
+	protected JRadioButtonMenuItem makeMarkStyleItem(String text, char mnemonic, int n) {
 		JRadioButtonMenuItem markStyleItem = new JRadioButtonMenuItem(text);
 		markStyleItem.setMnemonic(mnemonic);
 		markStyleItem.addActionListener(markStyleAction);
-		markStyleItem.setActionCommand(n);
+		markStyleItem.setActionCommand(Integer.toString(n));
 		markStyleGroup.add(markStyleItem);
 		markStyleMenu.add(markStyleItem);
 		return markStyleItem;
