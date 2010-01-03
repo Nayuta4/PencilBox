@@ -102,14 +102,19 @@ public class IOController {
 	 * @return ì«Ç›çûÇÒÇæñ‚ëË
 	 * @throws PencilBoxException
 	 */
-	public Problem readProblemData(String problemData) throws PencilBoxException {
+	public Problem importProblemData(String string) throws PencilBoxException {
 		Problem problem = null;
 		BoardBase board = null;
 		Reader in = null;
 		try {
-			in = new StringReader(problemData.replace('/','\n').replace('_',' '));
-			TxtReaderBase txtReader = createTxtReader();
-			board = txtReader.readProblem(in);
+			int index = string.indexOf("?problem=");
+			if (index > 0) {
+				string = string.substring(index+9);
+			} else if (index == -1) {
+				throw new PencilBoxException("input data does not contain \"?\".");
+			}
+			in = new StringReader(string.replace('/','\n').replace('_',' '));
+			board = createTxtReader().readProblem(in);
 			problem = new Problem(board);
 		} catch (IOException e) {
 			throw new PencilBoxException(e);
@@ -171,15 +176,15 @@ public class IOController {
 	 * @return ñ‚ëËÉfÅ[É^ï∂éöóÒ
 	 * @throws PencilBoxClassException
 	 */
-	public String getProblemDataString(BoardBase board) throws PencilBoxClassException {
+	public String exportProblemData(BoardBase board) throws PencilBoxClassException {
 		TxtWriterBase txtWriter = createTxtWriter();
 		StringWriter sw = new StringWriter();
 		PrintWriter out = new PrintWriter(sw);
 		txtWriter.writeQuestion(out, board);
-		String separator = System.getProperty("line.separator");
-		String problemDataS = sw.toString().replace(separator, "/").replace(' ', '_');
 		out.close();
-		return problemDataS;
+		String dataS = sw.toString().replace(System.getProperty("line.separator"), "/").replace(' ', '_');
+		String baseUrl = "http://www.kanpen.net/" + pencilType.getPencilName() + ".html?problem=";
+		return baseUrl + dataS;
 	}
 
 	private DataFormat checkFileExt(File file) {

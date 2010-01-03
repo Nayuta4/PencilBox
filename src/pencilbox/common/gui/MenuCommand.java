@@ -280,19 +280,19 @@ public class MenuCommand {
 	}
 	/**
 	 *  [ファイル]-[エクスポート／インポート]
+	 *  現在の問題のデータをダイアログに表示する。
+	 *  ダイアログからの戻り値がOKのときは，別フレームにダイアログに入力された文字列の問題を開く。
 	 */
 	public void exportProblemData(DataFormat f) {
 		DataExportDialog dataExportFrame = new DataExportDialog();
 		try {
 			IOController io = IOController.getInstance(pencilType);
-			String problemDataS = io.getProblemDataString(board);
-			String url = "http://www.kanpen.net/" + pencilType.getPencilName()
-					+ ".html?problem=" + problemDataS;
+			String url = io.exportProblemData(board);
 			dataExportFrame.setText(url);
 			int ret = dataExportFrame.showDialog(frame, Messages.getString("MenuCommand.dataExportDialog")); //$NON-NLS-1$
 			if (ret == PencilBoxDialog.OK_OPTION) {
 				String s = dataExportFrame.getText();
-				Problem problem = io.readProblemData(s.substring(s.indexOf("problem=") + 8));
+				Problem problem = io.importProblemData(s);
 				PencilFactory.getInstance(pencilType, this).createNewFrame(problem);
 			}
 		} catch (PencilBoxException e) {
