@@ -1,7 +1,14 @@
 package pencilbox.common.io;
+import java.io.File;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -20,6 +27,21 @@ public abstract class PclWriterBase {
 	private DocumentBuilder builder;
 	private BoardBase board;
 	
+	/**
+	 * 問題データを.pcl形式でファイルに書き出す
+	 * @param file ファイル 
+	 * @param problem 問題
+	 * @throws TransformerFactoryConfigurationError 
+	 * @throws TransformerException 
+	 * @throws FileNotFoundException 
+	 * @throws FileNotFoundException 
+	 */
+	public void writeProblem(File file, Problem problem) throws TransformerException {
+		Document doc = buildDocument(problem);
+		Transformer t = TransformerFactory.newInstance().newTransformer();
+		t.setOutputProperty("indent", "yes");
+		t.transform(new DOMSource(doc), new StreamResult(file));
+	}
 	/**
 	 * 問題をDOMドキュメントに変換する
 	 * @param problem 入力する問題
