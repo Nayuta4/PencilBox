@@ -1,12 +1,20 @@
 package pencilbox.common.io;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.StringTokenizer;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
+import org.xml.sax.SAXException;
 
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Problem;
@@ -28,6 +36,22 @@ public abstract class PclReaderBase {
 	private Size size;
 	private Problem problem;
 	
+	/**
+	 * ファイルからPCL形式の問題データを読んで問題を作成する。
+	 * @param file 問題データファイル
+	 * @return 作成した問題
+	 * @throws ParserConfigurationException
+	 * @throws SAXException
+	 * @throws IOException
+	 * @throws PencilBoxClassException
+	 */
+	public Problem readProblem(File file) throws ParserConfigurationException, SAXException, IOException, PencilBoxClassException {
+		DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+		Document doc = builder.parse(file);
+		makeProblem(doc);
+		return problem;
+	}
+
 	/**
 	 * DOMドキュメントを問題に変換する
 	 * @param doc 入力Document
@@ -77,10 +101,10 @@ public abstract class PclReaderBase {
 		board.setSize(size);
 	}
 	protected void readQuestion (String text) {
-		System.out.println("readQuestion(text)が定義されていません");
+		System.out.println("readQuestion() method is not defined.");
 	}
 	protected void readAnswer (String text) {
-		System.out.println("readAnswer(text)が定義されていません");
+		System.out.println("readAnswer() method is not defined.");
 	}
 	/**
 	 * Board を取得する

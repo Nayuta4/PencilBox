@@ -71,23 +71,20 @@ public class IOController {
 		BoardBase board = null;
 		Reader in = null;
 		InputStream is = null;
-		DataFormat format = checkFileExt(file); 
+		DataFormat format = checkFileExt(file);
 		try {
-			if (format == DataFormat.PCL) {
-				is = new FileInputStream(file);
-				DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-				Document doc = builder.parse(is);
-				PclReaderBase pclReader = createPclReader();
-				problem = pclReader.makeProblem(doc);
-			} else if (format == DataFormat.XML) {
-				is = new FileInputStream(file);
-				XmlReaderBase xmlReader = createXmlReader();
-				problem = xmlReader.readProblem(is);
-			} else {
+			 if (format == DataFormat.TXT) {
 				in = new FileReader(file);
 				TxtReaderBase txtReader = createTxtReader();
 				board = txtReader.readProblem(in);
 				problem = new Problem(board);
+			} else if (format == DataFormat.PCL) {
+				PclReaderBase pclReader = createPclReader();
+				problem = pclReader.readProblem(file);
+			} else if (format == DataFormat.XML) {
+				is = new FileInputStream(file);
+				XmlReaderBase xmlReader = createXmlReader();
+				problem = xmlReader.readProblem(is);
 			}
 		} catch (ParserConfigurationException e) {
 			throw new PencilBoxException(e);
@@ -158,25 +155,21 @@ public class IOController {
 		PrintWriter out = null;
 		DataFormat format = checkFileExt(file);
 		try {
-			if (format == DataFormat.PCL) {
-				PclWriterBase pclWriter = createPclWriter();
-				Document doc = pclWriter.buildDocument(problem);
-				Transformer t = TransformerFactory.newInstance()
-						.newTransformer();
-				t.setOutputProperty("indent", "yes");
-				t.transform(new DOMSource(doc), new StreamResult(
-						new FileOutputStream(file)));
-			} else if (format == DataFormat.XML) {
-				XmlWriterBase xmlWriter = createXmlWriter();
-				out = xmlWriter.open(file);
-				xmlWriter.writeProblem(problem);
-				xmlWriter.close();
-			} else {
+			if (format == DataFormat.TXT) {
 				TxtWriterBase txtWriter = createTxtWriter();
 //				txtWriter.setBoard(problem.getBoard());
 				out = new PrintWriter(new FileWriter(file));
 				txtWriter.writeProblem(out, problem.getBoard());
 				out.close();
+			}
+			if (format == DataFormat.PCL) {
+				PclWriterBase pclWriter = createPclWriter();
+				pclWriter.writeProblem(file, problem);
+			} else if (format == DataFormat.XML) {
+				XmlWriterBase xmlWriter = createXmlWriter();
+				out = xmlWriter.open(file);
+				xmlWriter.writeProblem(problem);
+				xmlWriter.close();
 			}
 		} catch (IOException e) {
 			throw new PencilBoxException(e);
