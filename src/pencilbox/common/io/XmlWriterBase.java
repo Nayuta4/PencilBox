@@ -24,6 +24,15 @@ public abstract class XmlWriterBase implements XmlConstants {
 	protected XmlPrintWriter writer;
 	private int indent;
 
+	public void writeProblem(File file, Problem problem) throws IOException {
+		try {
+			open(file);
+			writeProblem(problem);
+		} finally {
+			close();
+		}
+	}
+
 	protected void writeProblem(Problem problem) {
 		board = problem.getBoard();
 		property = problem.getProperty();
