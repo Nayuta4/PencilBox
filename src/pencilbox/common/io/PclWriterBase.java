@@ -1,5 +1,6 @@
 package pencilbox.common.io;
 import java.io.File;
+import java.io.FileNotFoundException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -7,6 +8,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
@@ -16,6 +18,7 @@ import org.w3c.dom.Element;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Problem;
 import pencilbox.common.core.Property;
+import pencilbox.common.factory.PencilType;
 
 
 /**
@@ -26,7 +29,14 @@ public abstract class PclWriterBase {
 	private Document doc;
 	private DocumentBuilder builder;
 	private BoardBase board;
+	private PencilType pencilType;
 	
+	/**
+	 * @param puzzleType The puzzleType to set.
+	 */
+	public void setPuzzleType(PencilType pt) {
+		this.pencilType = pt;
+	}
 	/**
 	 * 問題データを.pcl形式でファイルに書き出す
 	 * @param file ファイル 
@@ -62,7 +72,7 @@ public abstract class PclWriterBase {
 		doc.appendChild(puzzleElement);
 
 		Element typeElement = doc.createElement("type");
-		typeElement.setTextContent(getClass().getPackage().getName());
+		typeElement.setTextContent(this.pencilType.getPencilName());
 		puzzleElement.appendChild(typeElement);
 
 		Element sizeElement = doc.createElement("size");
