@@ -37,8 +37,14 @@ import pencilbox.common.factory.PencilType;
  */
 public class IOController {
 	
-	private static final int EXT_PCL = 3;
-	private static final int EXT_XML = 1;
+	public enum DataFormat {
+		TXT,
+		XML,
+		PCL,
+		KANPEN,
+		PZPRV3,
+		;
+	}
 
 	private PencilType pencilType;
 
@@ -65,26 +71,23 @@ public class IOController {
 		BoardBase board = null;
 		Reader in = null;
 		InputStream is = null;
+		DataFormat format = checkFileExt(file); 
 		try {
-			switch (checkFileExt(file)) {
-			case EXT_PCL:
+			if (format == DataFormat.PCL) {
 				is = new FileInputStream(file);
 				DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 				Document doc = builder.parse(is);
 				PclReaderBase pclReader = createPclReader();
 				problem = pclReader.makeProblem(doc);
-				break;
-			case EXT_XML:
+			} else if (format == DataFormat.XML) {
 				is = new FileInputStream(file);
 				XmlReaderBase xmlReader = createXmlReader();
 				problem = xmlReader.readProblem(is);
-				break;
-			default:
+			} else {
 				in = new FileReader(file);
 				TxtReaderBase txtReader = createTxtReader();
 				board = txtReader.readProblem(in);
 				problem = new Problem(board);
-				break;
 			}
 		} catch (ParserConfigurationException e) {
 			throw new PencilBoxException(e);
@@ -153,9 +156,9 @@ public class IOController {
 			throws PencilBoxException{
 		problem.setFile(file);
 		PrintWriter out = null;
+		DataFormat format = checkFileExt(file);
 		try {
-			switch (checkFileExt(file)) {
-			case EXT_PCL:
+			if (format == DataFormat.PCL) {
 				PclWriterBase pclWriter = createPclWriter();
 				Document doc = pclWriter.buildDocument(problem);
 				Transformer t = TransformerFactory.newInstance()
@@ -163,14 +166,12 @@ public class IOController {
 				t.setOutputProperty("indent", "yes");
 				t.transform(new DOMSource(doc), new StreamResult(
 						new FileOutputStream(file)));
-				break;
-			case EXT_XML:
+			} else if (format == DataFormat.XML) {
 				XmlWriterBase xmlWriter = createXmlWriter();
 				out = xmlWriter.open(file);
 				xmlWriter.writeProblem(problem);
 				xmlWriter.close();
-				break;
-			default:
+			} else {
 				TxtWriterBase txtWriter = createTxtWriter();
 //				txtWriter.setBoard(problem.getBoard());
 				out = new PrintWriter(new FileWriter(file));
@@ -204,23 +205,23 @@ public class IOController {
 		return problemDataS;
 	}
 
-	private int checkFileExt(File file) {
+	private DataFormat checkFileExt(File file) {
 		String filename = file.getName();
 		int len = filename.length();
 		if (len >= 4) {
 			if (filename.substring(len - 4).equals(".pcl"))
-				return EXT_PCL;
+				return DataFormat.PCL;
 			if (filename.substring(len - 4).equals(".xml"))
-				return EXT_XML;
+				return DataFormat.XML;
 		}
-		return 0;
+		return DataFormat.TXT;
 	}
 
 	/**
 	 * @return
 	 * @throws PencilBoxClassException
 	 */
-	private XmlReaderBase createXmlReader() throws PencilBoxClassException {
+	public XmlReaderBase createXmlReader() throws PencilBoxClassException {
 		XmlReaderBase xmlReader = (XmlReaderBase) ClassUtil.createInstance(
 				pencilType, ClassUtil.XMLREADER_CLASS);
 		xmlReader.setPuzzleType(this.pencilType.getPencilName()); // どのパズルか通知しなければならない
@@ -231,7 +232,7 @@ public class IOController {
 	 * @return
 	 * @throws PencilBoxClassException
 	 */
-	private XmlWriterBase createXmlWriter() throws PencilBoxClassException {
+	public XmlWriterBase createXmlWriter() throws PencilBoxClassException {
 		XmlWriterBase xmlWriter = (XmlWriterBase) ClassUtil.createInstance(
 				pencilType, ClassUtil.XMLWRITER_CLASS);
 		xmlWriter.setPuzzleType(this.pencilType.getPencilName()); // どのパズルか通知しなければならない
@@ -242,7 +243,7 @@ public class IOController {
 	 * @return
 	 * @throws PencilBoxClassException
 	 */
-	private PclReaderBase createPclReader() throws PencilBoxClassException {
+	public PclReaderBase createPclReader() throws PencilBoxClassException {
 		PclReaderBase pclReader = (PclReaderBase) ClassUtil.createInstance(
 				pencilType, ClassUtil.PCLREADER_CLASS);
 		return pclReader;
@@ -252,7 +253,7 @@ public class IOController {
 	 * @return
 	 * @throws PencilBoxClassException
 	 */
-	private PclWriterBase createPclWriter() throws PencilBoxClassException {
+	public PclWriterBase createPclWriter() throws PencilBoxClassException {
 		PclWriterBase pclWriter = (PclWriterBase) ClassUtil.createInstance(
 				pencilType, ClassUtil.PCLWRITER_CLASS);
 		return pclWriter;
@@ -262,7 +263,7 @@ public class IOController {
 	 * @return
 	 * @throws PencilBoxClassException
 	 */
-	private TxtReaderBase createTxtReader() throws  PencilBoxClassException {
+	public TxtReaderBase createTxtReader() throws PencilBoxClassException {
 		TxtReaderBase txtReader = (TxtReaderBase) ClassUtil.createInstance(
 				pencilType, ClassUtil.TXTREADER_CLASS);
 		return txtReader;
@@ -272,10 +273,10 @@ public class IOController {
 	 * @return
 	 * @throws PencilBoxClassException
 	 */
-	private TxtWriterBase createTxtWriter() throws  PencilBoxClassException {
+	public TxtWriterBase createTxtWriter() throws PencilBoxClassException {
 		TxtWriterBase txtWriter = (TxtWriterBase) ClassUtil.createInstance(
 				pencilType, ClassUtil.TXTWRITER_CLASS);
 		return txtWriter;
 	}
-	
+
 }
