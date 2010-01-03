@@ -20,6 +20,7 @@ import pencilbox.common.factory.PencilBoxClassException;
 import pencilbox.common.factory.PencilFactory;
 import pencilbox.common.factory.PencilType;
 import pencilbox.common.io.IOController;
+import pencilbox.common.io.IOController.DataFormat;
 import pencilbox.util.Colors;
 
 
@@ -278,21 +279,20 @@ public class MenuCommand {
 		}
 	}
 	/**
-	 *  [ファイル]-[問題データ文字列出力]
+	 *  [ファイル]-[エクスポート／インポート]
 	 */
-	public void exportProblemDataString() {
+	public void exportProblemData(DataFormat f) {
 		DataExportDialog dataExportFrame = new DataExportDialog();
 		try {
-			String problemDataS = IOController.getInstance(pencilType).getProblemDataString(board);
+			IOController io = IOController.getInstance(pencilType);
+			String problemDataS = io.getProblemDataString(board);
 			String url = "http://www.kanpen.net/" + pencilType.getPencilName()
 					+ ".html?problem=" + problemDataS;
 			dataExportFrame.setText(url);
 			int ret = dataExportFrame.showDialog(frame, Messages.getString("MenuCommand.dataExportDialog")); //$NON-NLS-1$
 			if (ret == PencilBoxDialog.OK_OPTION) {
 				String s = dataExportFrame.getText();
-				Problem problem = IOController
-						.getInstance(pencilType)
-						.readProblemData(s.substring(s.indexOf("problem=") + 8));
+				Problem problem = io.readProblemData(s.substring(s.indexOf("problem=") + 8));
 				PencilFactory.getInstance(pencilType, this).createNewFrame(problem);
 			}
 		} catch (PencilBoxException e) {
