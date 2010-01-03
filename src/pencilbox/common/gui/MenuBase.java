@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.text.Format;
 
 import javax.swing.ButtonGroup;
 import javax.swing.Icon;
@@ -38,7 +37,6 @@ public class MenuBase {
 	private JMenuItem saveItem;
 	private JMenuItem duplicateItem;
 	private JMenuItem changeBoardSizeItem;
-	private JMenuItem exportProblemDataStringItem;
 	private JMenuItem saveImageItem;
 	private JMenuItem copyImageItem;
 	private JMenuItem printItem;
@@ -141,7 +139,6 @@ public class MenuBase {
 		fileMenu.addSeparator();
 		fileMenu.add(exportDataMenu = makeJMenu(Messages.getString("MenuBase.exportMenu"), 'X')); //$NON-NLS-1$
 		buildExportDataMenu();
-		fileMenu.add(exportProblemDataStringItem = makeCommandMenuItem(Messages.getString("MenuBase.exportProblemDataStringItem"), 'E')); //$NON-NLS-1$
 		fileMenu.add(saveImageItem = makeCommandMenuItem(Messages.getString("MenuBase.saveImageItem"), 'G')); //$NON-NLS-1$
 		fileMenu.add(copyImageItem = makeCommandMenuItem(Messages.getString("MenuBase.copyImageItem"), 'M')); //$NON-NLS-1$
 		fileMenu.add(printItem = makeCommandMenuItem(Messages.getString("MenuBase.printItem"), 'P')); //$NON-NLS-1$
@@ -509,7 +506,7 @@ public class MenuBase {
 		public void actionPerformed(ActionEvent e) {
 			JMenuItem target = (JMenuItem) e.getSource();
 			DataFormat f = DataFormat.valueOf(target.getActionCommand());
-			command.exportProblemDataString();
+			command.exportProblemData(f);
 		}
 	};
 
@@ -619,8 +616,6 @@ public class MenuBase {
 			command.duplicate();
 		else if (target == changeBoardSizeItem)
 			command.changeBoardSize();
-		else if (target == exportProblemDataStringItem)
-			command.exportProblemDataString();
 		else if (target == saveImageItem)
 			command.saveImage();
 		else if (target == copyImageItem)
