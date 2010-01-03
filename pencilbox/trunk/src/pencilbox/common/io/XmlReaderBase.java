@@ -1,6 +1,6 @@
 package pencilbox.common.io;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -43,20 +43,20 @@ public abstract class XmlReaderBase extends DefaultHandler implements
 	}
 
 	/**
-	 * @param in
+	 * @param file
 	 * @return
 	 * @throws ParserConfigurationException
 	 * @throws SAXException
 	 * @throws IOException
 	 * @throws DataFormatException
 	 */
-	protected Problem readProblem(InputStream in)
+	protected Problem readProblem(File file)
 		throws ParserConfigurationException, SAXException, IOException, DataFormatException {
 		exception = null;
 		SAXParser sax = SAXParserFactory.newInstance().newSAXParser();
 		problem = new Problem();
 		property = problem.getProperty();
-		sax.parse(in, this);
+		sax.parse(file, this);
 		if (exception != null)
 			throw exception;
 		return problem;

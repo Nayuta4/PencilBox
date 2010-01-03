@@ -70,7 +70,6 @@ public class IOController {
 		Problem problem = null;
 		BoardBase board = null;
 		Reader in = null;
-		InputStream is = null;
 		DataFormat format = checkFileExt(file);
 		try {
 			 if (format == DataFormat.TXT) {
@@ -82,9 +81,8 @@ public class IOController {
 				PclReaderBase pclReader = createPclReader();
 				problem = pclReader.readProblem(file);
 			} else if (format == DataFormat.XML) {
-				is = new FileInputStream(file);
 				XmlReaderBase xmlReader = createXmlReader();
-				problem = xmlReader.readProblem(is);
+				problem = xmlReader.readProblem(file);
 			}
 		} catch (ParserConfigurationException e) {
 			throw new PencilBoxException(e);
@@ -100,8 +98,6 @@ public class IOController {
 			try {
 				if (in != null)
 					in.close();
-				if (is != null)
-					is.close();
 			} catch (IOException ec) {
 				// close()による例外を受ける
 			}
@@ -149,27 +145,20 @@ public class IOController {
 	 * @param file 保存先のファイル
 	 * @throws PencilBoxException
 	 */
-	public void saveFile(Problem problem, File file)
-			throws PencilBoxException{
-		problem.setFile(file);
+	public void saveFile(Problem problem, File file) throws PencilBoxException{
 		PrintWriter out = null;
 		DataFormat format = checkFileExt(file);
 		try {
 			if (format == DataFormat.TXT) {
 				TxtWriterBase txtWriter = createTxtWriter();
-//				txtWriter.setBoard(problem.getBoard());
 				out = new PrintWriter(new FileWriter(file));
 				txtWriter.writeProblem(out, problem.getBoard());
-				out.close();
-			}
-			if (format == DataFormat.PCL) {
+			} else if (format == DataFormat.PCL) {
 				PclWriterBase pclWriter = createPclWriter();
 				pclWriter.writeProblem(file, problem);
 			} else if (format == DataFormat.XML) {
 				XmlWriterBase xmlWriter = createXmlWriter();
-				out = xmlWriter.open(file);
-				xmlWriter.writeProblem(problem);
-				xmlWriter.close();
+				xmlWriter.writeProblem(file, problem);
 			}
 		} catch (IOException e) {
 			throw new PencilBoxException(e);
@@ -179,6 +168,7 @@ public class IOController {
 			if (out != null)
 				out.close();
 		}
+		problem.setFile(file);
 	}
 	
 	/**
