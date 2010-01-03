@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.text.Format;
 
 import javax.swing.ButtonGroup;
 import javax.swing.Icon;
@@ -18,6 +19,8 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.KeyStroke;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
+
+import pencilbox.common.io.IOController.DataFormat;
 
 /**
  * 共通メニュークラス
@@ -68,6 +71,7 @@ public class MenuBase {
 	private JMenu colorMenu;
 	private JMenu rotationMenu;
 	private JMenu markStyleMenu;
+	private JMenu exportDataMenu;
 	private ButtonGroup markStyleGroup;
 	
 	private JMenuItem backgroundColorItem;
@@ -135,6 +139,8 @@ public class MenuBase {
 		fileMenu.add(changeBoardSizeItem = makeCommandMenuItem(Messages.getString("MenuBase.changeBoardSizeItem"), 'Z')); //$NON-NLS-1$
 		buildRotationMenu();
 		fileMenu.addSeparator();
+		fileMenu.add(exportDataMenu = makeJMenu(Messages.getString("MenuBase.exportMenu"), 'X')); //$NON-NLS-1$
+		buildExportDataMenu();
 		fileMenu.add(exportProblemDataStringItem = makeCommandMenuItem(Messages.getString("MenuBase.exportProblemDataStringItem"), 'E')); //$NON-NLS-1$
 		fileMenu.add(saveImageItem = makeCommandMenuItem(Messages.getString("MenuBase.saveImageItem"), 'G')); //$NON-NLS-1$
 		fileMenu.add(copyImageItem = makeCommandMenuItem(Messages.getString("MenuBase.copyImageItem"), 'M')); //$NON-NLS-1$
@@ -262,6 +268,26 @@ public class MenuBase {
 	 */
 	protected void buildRotationMenu2() {
 		makeRotationItem(Messages.getString("MenuBase.rotationItem4"), '4', 4); //$NON-NLS-1$
+	}
+
+	/**
+	 * 「エクスポート／インポート」サブメニューを作成する。
+	 * @param formats 選択可能なフォーマット
+	 */
+	protected void buildExportDataMenu(DataFormat[] formats) {
+		for (DataFormat f : formats) {
+			if (f == DataFormat.KANPEN) {
+				makeDataExportItem(Messages.getString("MenuBase.exportItem1"), 'K', DataFormat.KANPEN); //$NON-NLS-1$
+			}
+		}
+	}
+
+	/**
+	 * 「エクスポート／インポート」サブメニューを作成する。
+	 * 選択可能なフォーマットが標準と異なる場合などは必要に応じてサブクラスで上書きすること。
+	 */
+	protected void buildExportDataMenu() {
+		buildExportDataMenu(new DataFormat[] {DataFormat.KANPEN});
 	}
 
 	/**
@@ -456,6 +482,34 @@ public class MenuBase {
 			JMenuItem target = (JMenuItem) e.getSource();
 			command.rotateBoard(Integer.parseInt(target.getActionCommand()));
 			panel.repaint();
+		}
+	};
+
+	/**
+	 * 「回転・反転」メニューのサブメニュー項目を作成し，グループに追加する。
+	 * 回転番号をパラメータとしてメニュー項目の action command に設定する。
+	 * @param text メニュー表示文字列
+	 * @param mnemonic
+	 * @param n 設定する回転番号
+	 * @return 作成したメニュー項目
+	 */
+	protected JMenuItem makeDataExportItem(String text, char mnemonic, DataFormat f) {
+		JMenuItem item = new JMenuItem(text, mnemonic);
+		item.addActionListener(exportCommandAction);
+		item.setActionCommand(f.toString());
+		exportDataMenu.add(item);
+		return item;
+	}
+
+	/**
+	 * 回転コマンド。 
+	 * メニュー項目の action command から回転番号を読み取って実行する。
+	 */
+	private ActionListener exportCommandAction = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			JMenuItem target = (JMenuItem) e.getSource();
+			DataFormat f = DataFormat.valueOf(target.getActionCommand());
+			command.exportProblemDataString();
 		}
 	};
 
