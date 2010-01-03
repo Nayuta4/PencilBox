@@ -1,27 +1,17 @@
 package pencilbox.common.io;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 
-import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import pencilbox.common.core.BoardBase;
@@ -72,17 +62,17 @@ public class IOController {
 		Reader in = null;
 		DataFormat format = checkFileExt(file);
 		try {
-			 if (format == DataFormat.TXT) {
+			if (format == DataFormat.TXT) {
 				in = new FileReader(file);
 				TxtReaderBase txtReader = createTxtReader();
 				board = txtReader.readProblem(in);
 				problem = new Problem(board);
-			} else if (format == DataFormat.PCL) {
-				PclReaderBase pclReader = createPclReader();
-				problem = pclReader.readProblem(file);
 			} else if (format == DataFormat.XML) {
 				XmlReaderBase xmlReader = createXmlReader();
 				problem = xmlReader.readProblem(file);
+			} else if (format == DataFormat.PCL) {
+				PclReaderBase pclReader = createPclReader();
+				problem = pclReader.readProblem(file);
 			}
 		} catch (ParserConfigurationException e) {
 			throw new PencilBoxException(e);
@@ -153,22 +143,26 @@ public class IOController {
 				TxtWriterBase txtWriter = createTxtWriter();
 				out = new PrintWriter(new FileWriter(file));
 				txtWriter.writeProblem(out, problem.getBoard());
-			} else if (format == DataFormat.PCL) {
-				PclWriterBase pclWriter = createPclWriter();
-				pclWriter.writeProblem(file, problem);
 			} else if (format == DataFormat.XML) {
 				XmlWriterBase xmlWriter = createXmlWriter();
 				xmlWriter.writeProblem(file, problem);
+			} else if (format == DataFormat.PCL) {
+				PclWriterBase pclWriter = createPclWriter();
+				pclWriter.writeProblem(file, problem);
 			}
 		} catch (IOException e) {
 			throw new PencilBoxException(e);
 		} catch (TransformerException e) {
 			throw new PencilBoxException(e);
 		} finally {
-			if (out != null)
-				out.close();
+			if (out != null) {
+//				try {
+					out.close();
+//				} catch (IOException e) {
+//				}
+			}
 		}
-		problem.setFile(file);
+		problem.setFile(file); // セーブできたら，問題にそのファイル名を関連付ける。
 	}
 	
 	/**
@@ -239,6 +233,7 @@ public class IOController {
 	public PclWriterBase createPclWriter() throws PencilBoxClassException {
 		PclWriterBase pclWriter = (PclWriterBase) ClassUtil.createInstance(
 				pencilType, ClassUtil.PCLWRITER_CLASS);
+		pclWriter.setPuzzleType(this.pencilType);
 		return pclWriter;
 	}
 
