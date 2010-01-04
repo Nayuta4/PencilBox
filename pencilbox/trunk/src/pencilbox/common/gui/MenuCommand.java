@@ -287,12 +287,12 @@ public class MenuCommand {
 		DataExportDialog dataExportFrame = new DataExportDialog();
 		try {
 			IOController io = IOController.getInstance(pencilType);
-			String url = io.exportProblemData(board);
+			String url = io.exportProblemData(board, f);
 			dataExportFrame.setText(url);
 			int ret = dataExportFrame.showDialog(frame, Messages.getString("MenuCommand.dataExportDialog")); //$NON-NLS-1$
 			if (ret == PencilBoxDialog.OK_OPTION) {
 				String s = dataExportFrame.getText();
-				Problem problem = io.importProblemData(s);
+				Problem problem = io.importProblemData(s, f);
 				PencilFactory.getInstance(pencilType, this).createNewFrame(problem);
 			}
 		} catch (PencilBoxException e) {
