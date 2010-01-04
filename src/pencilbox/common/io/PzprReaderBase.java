@@ -248,6 +248,23 @@ public abstract class PzprReaderBase {
 		}
 	}
 
+	//---------------------------------------------------------------------------
+	// enc.decodeCircle41_42() 白丸・黒丸をデコードする
+	//---------------------------------------------------------------------------
+	protected String decodeCircle41_42(String bstr){
+		int pos = bstr.length()>0?Math.min(mf((bd.cols()*bd.rows()+2)/3), bstr.length()):0;
+		for(int i=0;i<pos;i++){
+			int ca = parseInt(bstr.charAt(i),27);
+			for(int w=0;w<3;w++){
+				if(i*3+w<bd.cols()*bd.rows()){
+					if     (Math.floor(ca/Math.pow(3,2-w))%3==1){ sQuC(i*3+w,41);}
+					else if(Math.floor(ca/Math.pow(3,2-w))%3==2){ sQuC(i*3+w,42);}
+				}
+			}
+		}
+		return bstr.substring(pos);
+	}
+
 	/**
 	 * Boardクラスの行、列とこのクラスの行、列が異なる場合があるため、Board.isOn()は使えない。
 	 * @param a
@@ -275,6 +292,9 @@ public abstract class PzprReaderBase {
 		else
 			return -1;
     }
+
+	public void sQuC(int id, int num) {
+	}
 
 	public void sQnC(int id, int num) {
 	}
