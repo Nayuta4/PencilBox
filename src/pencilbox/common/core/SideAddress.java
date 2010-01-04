@@ -144,6 +144,24 @@ public class SideAddress implements Comparable<SideAddress> {
 		}
 	}
 	
+	public static Address nextCellFromBorder(SideAddress border, int direction) {
+		int d = border.d();
+		int r = border.r();
+		int c = border.c();
+		if (d==0) {
+			if (direction == 0)
+				return new Address(r, c);
+			else if (direction == 1)
+				return new Address(r, c+1);
+		} else if (d==1) {
+			if (direction == 0)
+				return new Address(r, c);
+			else if (direction == 1)
+				return new Address(r+1, c);
+		}
+		return null;
+	}
+
 	public String toString(){
 		return "["+d+","+r+","+c+"]";
 	}

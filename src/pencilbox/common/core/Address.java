@@ -211,6 +211,26 @@ public class Address implements Comparable<Address> {
 		return Address.getDirectionTo(this, pos);
 	}
 
+	/**
+	 * ƒZƒ‹‚©‚çdirection •ûŒü‚ÌƒZƒ‹
+	 */
+	public static Address nextCell(Address p, int direction) {
+		int r = p.r();
+		int c = p.c();
+		switch (direction) {
+		case Direction.UP:
+			return new Address(r-1,c);
+		case Direction.LT:
+			return new Address(r,c-1);
+		case Direction.DN:
+			return new Address(r+1,c);
+		case Direction.RT:
+			return new Address(r,c+1);
+		default:
+			return Address.NOWHERE;
+		}
+	}
+
 	/*
 	 * @see java.lang.Object#toString()
 	 */
