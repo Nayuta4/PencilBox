@@ -197,6 +197,23 @@ public abstract class PzprWriterBase {
 		return 0;
 	}
 
+	//---------------------------------------------------------------------------
+	// enc.encodeCircle41_42() 白丸・黒丸をエンコードする
+	//---------------------------------------------------------------------------
+	protected String encodeCircle41_42(){
+		String cm="";
+		int num=0;
+		int pass=0;
+		for(int i=0;i<bd.rows()*bd.cols();i++){
+			if     (QuC(i)==(41)){ pass+=(  Math.pow(3,2-num));}
+			else if(QuC(i)==(42)){ pass+=(2*Math.pow(3,2-num));}
+			num++; if(num==3){ cm += toString(pass, 27); num=0; pass=0;}
+		}
+		if(num>0){ cm += toString(pass, 27);}
+
+		return cm;
+	}
+
 	public Address i2a(int i) {
 		return new Address(i/cols, i%cols);
 	}
@@ -216,6 +233,10 @@ public abstract class PzprWriterBase {
     public int a2i(Address a) {
     	return a.r() * cols + a.c();
     }
+
+	public int QuC(int i) {
+		return 0;
+	}
 
 	public int QnC(int i) {
 		return 0;
