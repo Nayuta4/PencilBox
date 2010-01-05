@@ -151,6 +151,13 @@ public class Board extends BoardBase {
 	public int getSumH(int r, int c) {
 		return sumH[r][c];
 	}
+	public int getSum(Address p, int dir) {
+		if (dir == Direction.VERT)
+			return sumV[p.r()][p.c()];
+		if (dir == Direction.HORIZ)
+			return sumH[p.r()][p.c()];
+		return 0;
+	}
 	public void setSumV(int r, int c, int n) {
 		number[r][c] = WALL;
 		sumV[r][c] = n;
@@ -164,6 +171,12 @@ public class Board extends BoardBase {
 	}
 	public void setSumH(Address pos, int n) {
 		setSumH(pos.r(), pos.c(), n);
+	}
+	public void setSum(Address pos, int dir, int n) {
+		if (dir == Direction.VERT)
+			setSumV(pos.r(), pos.c(), n);
+		if (dir == Direction.HORIZ)
+			setSumH(pos.r(), pos.c(), n);
 	}
 
 	public void setWall(int r, int c, int a, int b) {
