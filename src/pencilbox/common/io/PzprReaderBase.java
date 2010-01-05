@@ -277,7 +277,7 @@ public abstract class PzprReaderBase {
 	}
 
     public Address i2a(int i) {
-    	return new Address(i/cols, i%cols);
+    	return Address.address(i/cols, i%cols);
     }
 
     public int a2i(Address a) {

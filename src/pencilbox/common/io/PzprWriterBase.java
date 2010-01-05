@@ -215,7 +215,7 @@ public abstract class PzprWriterBase {
 	}
 
 	public Address i2a(int i) {
-		return new Address(i/cols, i%cols);
+		return Address.address(i/cols, i%cols);
 	}
 
 	public SideAddress i2b(int i) {
