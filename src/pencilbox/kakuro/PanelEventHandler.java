@@ -74,9 +74,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {
 			if (getKKCursor().getStair() == KakuroCursor.LOWER)
-				board.setSumV(pos, num);
+				board.setSum(pos, Direction.VERT, num);
 			else if (getKKCursor().getStair() == KakuroCursor.UPPER)
-				board.setSumH(pos, num);
+				board.setSum(pos, Direction.HORIZ, num);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
 				if (isOn(posS))
@@ -109,9 +109,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	protected void minusEntered(Address pos) {
 		if (isProblemEditMode()) {
 			if (getKKCursor().getStair() == KakuroCursor.LOWER)
-				board.setSumV(pos, 0);
+				board.setSum(pos, Direction.VERT, 0);
 			else if (getKKCursor().getStair() == KakuroCursor.UPPER)
-				board.setSumH(pos, 0);
+				board.setSum(pos, Direction.HORIZ, 0);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
 				if (isOn(posS) && !posS.equals(pos))
