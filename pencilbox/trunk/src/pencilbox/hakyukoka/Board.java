@@ -141,6 +141,10 @@ public class Board extends BoardBase {
 	public void setArea(int r, int c,  Area a) {
 		area[r][c] = a;
 	}
+
+	public void setArea(Address pos,  Area a) {
+		setArea(pos.r(), pos.c(), a);
+	}
 	/**
 	 * ”z’u”š‚ªŒë‚è‚Ìê‡ true ‚ğ•Ô‚·
 	 * ‚»‚Ì”š‚Ì‹——£ˆÈ“à‚É“¯‚¶”š‚ª‚ ‚é‚©C
