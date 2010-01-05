@@ -67,6 +67,10 @@ public class Board extends BoardBase {
 	public int getStar(int r, int c) {
 		return star[r][c];
 	}
+
+	public int getStar(Address pos) {
+		return getStar(pos.r(), pos.c());
+	}
 	/**
 	 * ˆø”‚ÌÀ•W‚É¯‚ğİ’è‚·‚é
 	 * @param r
