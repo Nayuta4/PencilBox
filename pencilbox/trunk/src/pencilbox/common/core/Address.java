@@ -44,6 +44,13 @@ public class Address implements Comparable<Address> {
 		this.c = c;
 	}
 	/**
+	 * 
+	 */
+	public static Address address(int r, int c){
+		return new Address(r, c);
+	}
+
+	/**
 	 * @return Returns the r.
 	 */
 	public int r() {
