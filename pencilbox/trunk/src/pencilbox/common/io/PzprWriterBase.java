@@ -13,7 +13,7 @@ import pencilbox.common.core.SideAddress;
  */
 public abstract class PzprWriterBase {
 
-	private BoardBase bd;
+//	private BoardBase bd;
 	protected int rows;
 	protected int cols;
 
@@ -24,10 +24,10 @@ public abstract class PzprWriterBase {
 	 * @return
 	 */
 	public String writeQuestion(BoardBase board) {
-		this.bd = board;
+//		this.bd = board;
 		this.rows = board.rows(); // 異なるサイズの場合は pzlexport の中で上書きする
 		this.cols = board.cols(); // 異なるサイズの場合は pzlexport の中で上書き する
-		String bstr = this.pzlexport(bd);
+		String bstr = this.pzlexport(board);
 		return getPzprName() + '/' + cols + '/' + rows + '/' + bstr;
 	}
 
@@ -204,7 +204,7 @@ public abstract class PzprWriterBase {
 		String cm="";
 		int num=0;
 		int pass=0;
-		for(int i=0;i<bd.rows()*bd.cols();i++){
+		for(int i=0;i<rows*cols;i++){
 			if     (QuC(i)==(41)){ pass+=(  Math.pow(3,2-num));}
 			else if(QuC(i)==(42)){ pass+=(2*Math.pow(3,2-num));}
 			num++; if(num==3){ cm += toString(pass, 27); num=0; pass=0;}
