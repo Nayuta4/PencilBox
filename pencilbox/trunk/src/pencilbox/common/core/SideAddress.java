@@ -12,6 +12,10 @@ public class SideAddress implements Comparable<SideAddress> {
 	private int r;
 	private int c;
 	
+	public static SideAddress sideAddress(int d, int r, int c) {
+		return new SideAddress(d, r, c);
+	}
+
 	/**
 	 * マス座標と向きから辺座標を取得する。
 	 * @param pos マス座標
