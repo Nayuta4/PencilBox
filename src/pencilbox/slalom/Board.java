@@ -170,6 +170,13 @@ public class Board extends BoardBase {
 	}
 
 	/**
+	 * @return the Goal
+	 */
+	public Address getGoal() {
+		return goal;
+	}
+
+	/**
 	 * 辺状態の取得
 	 * @param d
 	 * @param r
@@ -380,7 +387,7 @@ public class Board extends BoardBase {
 	 * @param d 見る方向
 	 * @return　門の反対側に黒マスまたは外周ならばその座標，それ以外はnull
 	 */
-	private Address getAnotherPole(Address p0, int d) {
+	Address getAnotherPole(Address p0, int d) {
 		Address p = new Address(p0);
 		int gateType = 0;
 		if (d == Direction.UP || d == Direction.DN) {
