@@ -196,16 +196,23 @@ public class IOController {
 				txtWriter.writeQuestion(out, board);
 				out.close();
 				String dataS = sw.toString().replace(System.getProperty("line.separator"), "/").replace(' ', '_');
-				String baseUrl = "http://www.kanpen.net/" + pencilType.getPencilName() + ".html?problem=";
-				string = baseUrl + dataS;
+				string = kanpenUrl() + pencilType.getPencilName() + ".html?problem=" + dataS;
 			} else if (format == DataFormat.PZPRV3) {
-				String baseUrl = "http://indi.s58.xrea.com/pzpr/v3/p.html?";
+				string = pzprv3Url() + createPzprWriter().writeQuestion(board);
 			}
 		} finally {
 		}
 		return string;
 	}
 
+	public String pzprv3Url() {
+		return "http://indi.s58.xrea.com/pzpr/v3/p.html?";
+	}
+	
+	public String kanpenUrl() {
+		return "http://www.kanpen.net/";
+	}
+	
 	private DataFormat checkFileExt(File file) {
 		String filename = file.getName();
 		int len = filename.length();
