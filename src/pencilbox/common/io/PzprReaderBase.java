@@ -8,7 +8,6 @@ import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.PencilBoxException;
 import pencilbox.common.core.SideAddress;
-import pencilbox.common.core.Size;
 
 
 /**
@@ -21,11 +20,10 @@ public abstract class PzprReaderBase {
 	
 	private BoardBase bd;
 //	String pid;
-//	private String qdata;
-	private String pflag;	// 入力されたURLのフラグ部分、現在対応している範囲では不使用
-	protected int cols;
-	protected int rows;
-	private String bstr;
+	private String pflag = "";	// 入力されたURLのフラグ部分
+	protected int cols; // pzprv3データでの列数
+	protected int rows; // pzprv3データでの行数
+	protected String outbstr = "";  // 盤面データ部分
 	/**
 	 * テキスト形式の盤面を読み込む
 	 * @param in 入力
@@ -35,56 +33,77 @@ public abstract class PzprReaderBase {
 	public BoardBase readProblem(String url) throws IOException, PencilBoxException {
 		// pid はとばしてその次から渡す。パズルの種類は今開いてるものと同じものに限る。
 		parseURI_pzpr(url.substring(url.indexOf('/', url.indexOf('?'))+1));
+		if (rows <= 0 || cols <= 0)
+			throw new PencilBoxException("Size data is wrong");
 		bd = makeBoard();
-		bd.setSize(new Size(rows, cols)); // pzprとPencilBoxでサイズが違う場合は、pzlimportの中でサイズ設定しなおす。
-		pzlimport(bstr);
+		pzlimport();
 		return bd;
 	}
 
-	protected BoardBase makeBoard() {
-		return null;
-	}
-	
 	/**
 	 * 	// enc.parseURI_pzpr()   pzlURI部をpflag,bstr等の部分に分割する
 	 * 	// qstr = (pflag /) cols / rows / bstr(bstrの中に'/'を含みうる)
 	 * @param qstr
 	 */
-	public void parseURI_pzpr(String qstr){
-//		type = 0; // 0はぱずぷれv3
-//		qdata = qstr;
+	protected void parseURI_pzpr(String qstr) throws PencilBoxException {
 		String[] inpa = qstr.split("/");
 		LinkedList<String> inp	= new LinkedList<String>(Arrays.asList(inpa));
-		try {
-			parseInt(inp.getFirst());
-			pflag = "";
-		} catch (NumberFormatException e) {
+		// 1つめの項が数字でなければフラグに設定
+		if (inp.getFirst().length()>0 && !include(inp.getFirst().charAt(0),'0','9'))
 			pflag = inp.removeFirst();
-		}
+		if (inpa.length<2)
+			throw new PencilBoxException("Size data is required.");
 		this.cols = parseInt(inp.removeFirst());
 		this.rows = parseInt(inp.removeFirst());
-		StringBuffer sb = new StringBuffer();
 		// joinの代わり
+		StringBuffer sb = new StringBuffer();
 		for (String s : inp) {
 			if (sb.length()>0) { sb.append('/'); }
 			sb.append(s);
 		}
-		this.bstr = sb.toString();
-		System.out.println("bstr = " + bstr);
+		this.outbstr = sb.toString();
 	}
 
+	/**
+	 * Board を作成する。各サブクラスでオーバーライド必要
+	 * @param r pzprでの行数
+	 * @param c pzprでの列数
+	 * @return
+	 */
+	protected BoardBase makeBoard() {
+		return null;
+	}
+	
 	/**
 	 * 各パズルのURL入力用(オーバーライド用)
 	 * @return
 	 */
-	protected void pzlimport(String s) {
+	protected void pzlimport() {
 	}
+
+	/**
+	 * 一部の文字列を読み取ったときの残りの文字列を outbstr に再格納する。
+	 * @param bstr
+	 * @param i
+	 */
+	protected void outbstr(String bstr, int i) {
+		if (i >= bstr.length())
+			this.outbstr = "";
+		else
+			this.outbstr = bstr.substring(i);
+		System.out.println(bstr + " : " + " i " + outbstr);
+	}
+	//---------------------------------------------------------------------------
+	// enc.checkpflag()   pflagに指定した文字列が含まれているか調べる
+	//---------------------------------------------------------------------------
+	protected boolean checkpflag(String ca){ return (this.pflag.indexOf(ca)>=0);}
 
 	//---------------------------------------------------------------------------
 	// enc.decode4Cell()  quesが0～4までの場合、デコードする
 	//---------------------------------------------------------------------------
-	protected String decode4Cell(String bstr){
+	protected void decode4Cell(){
 		int c=0, i=0;
+		String bstr = outbstr;
 		for(i=0;i<bstr.length();i++){
 			char ca = bstr.charAt(i);
 			if     (include(ca,'0','4')){ sQnC(c, parseInt(ca,16));    c++; }
@@ -95,17 +114,15 @@ public abstract class PzprReaderBase {
 
 			if(c >= rows*cols){ break;}
 		}
-		if (i+1 < bstr.length())
-			return bstr.substring(i+1);
-		else
-			return "";
+		this.outbstr(bstr, i+1);
 	}
 
 	//---------------------------------------------------------------------------
 	// enc.decodeNumber16()  quesが0～8192?までの場合、デコードする
 	//---------------------------------------------------------------------------
-	protected String decodeNumber16(String bstr){
+	protected void decodeNumber16(){
 		int c=0, i=0;
+		String bstr = outbstr;
 		for(i=0;i<bstr.length();i++){
 			char ca = bstr.charAt(i);
 
@@ -121,18 +138,16 @@ public abstract class PzprReaderBase {
 
 			if(c > rows*cols){ break;}
 		}
-		if (i < bstr.length())
-			return bstr.substring(i);
-		else
-			return "";
+		this.outbstr(bstr, i);
 	}
 
 	protected int[] roomNumbers;
 	//---------------------------------------------------------------------------
 	// enc.decodeRoomNumber16()  部屋＋部屋の一つのquesが0～8192?までの場合、デコードする
 	//---------------------------------------------------------------------------
-	protected String decodeRoomNumber16(String bstr){
+	protected void decodeRoomNumber16(){
 		int r = 0, i=0;
+		String bstr = outbstr;
 		for(i=0;i<bstr.length();i++){
 			char ca = bstr.charAt(i);
 
@@ -149,19 +164,20 @@ public abstract class PzprReaderBase {
 
 			if(r >= roomNumbers.length){ break;}
 		}
-		if (i < bstr.length())
-			return bstr.substring(i);
-		else
-			return "";
+		this.outbstr(bstr, i);
 	}
 
-	protected String decodeArrowNumber16(String bstr){
+	protected void decodeArrowNumber16(){
 		int c=0, i=0;
+		String bstr = outbstr;
 		for(i=0;i<bstr.length();i++){
 			char ca = bstr.charAt(i);
 
-			if     (ca=='0'){ sQnC(c, parseInt(bstr.substring(i+1,i+2),16)); c++; i++; }
-			else if(ca=='5'){ sQnC(c, parseInt(bstr.substring(i+1,i+3),16)); c++; i+=2;}
+			if(ca=='0'){
+				if(bstr.charAt(i+1)=='.'){ sQnC(c,-2); c++; i++;}
+				else{ sQnC(c, parseInt(bstr.substring(i+1,i+2),16)); c++; i++;}
+			}
+			else if(ca=='5'){sQnC(c, parseInt(bstr.substring(i+1,i+3),16)); c++; i+=2;}
 			else if(include(ca,'1','4')){
 				sDiC(c, parseInt(ca,16));
 				if(bstr.charAt(i+1)!='.'){ sQnC(c, parseInt(bstr.substring(i+1,i+2),16));}
@@ -178,20 +194,18 @@ public abstract class PzprReaderBase {
 
 			if(c > rows*cols){ break;}
 		}
-		if (i < bstr.length())
-			return bstr.substring(i);
-		else
-			return "";
+		this.outbstr(bstr, i);
 	}
 
 	//---------------------------------------------------------------------------
 	// enc.decodeBorder() 問題の境界線をデコードする
 	//---------------------------------------------------------------------------
-	protected String decodeBorder(String bstr){
+	protected void decodeBorder(){
 		int bdinside = (cols-1)*rows+cols*(rows-1);
 		borders = new int[bdinside];
 
 		int  pos1, pos2;
+		String bstr = outbstr;
 
 		if(bstr.length()>0){
 			pos1 = Math.min(mf(((cols-1)*rows+4)/5)     , bstr.length());
@@ -213,10 +227,7 @@ public abstract class PzprReaderBase {
 				if(i*5+w<cols*(rows-1)){ sQuB(i*5+w+oft,(((ca&(1<<(4-w)))>0)?1:0));}
 			}
 		}
-		if (pos2 < bstr.length())
-			return bstr.substring(pos2);
-		else
-			return "";
+		this.outbstr(bstr, pos2);
 	}
 
 	protected int[] borders; 
@@ -251,18 +262,19 @@ public abstract class PzprReaderBase {
 	//---------------------------------------------------------------------------
 	// enc.decodeCircle41_42() 白丸・黒丸をデコードする
 	//---------------------------------------------------------------------------
-	protected String decodeCircle41_42(String bstr){
-		int pos = bstr.length()>0?Math.min(mf((bd.cols()*bd.rows()+2)/3), bstr.length()):0;
+	protected void decodeCircle41_42(){
+		String bstr = outbstr;
+		int pos = bstr.length()>0?Math.min(mf((cols*rows+2)/3), bstr.length()):0;
 		for(int i=0;i<pos;i++){
 			int ca = parseInt(bstr.charAt(i),27);
 			for(int w=0;w<3;w++){
-				if(i*3+w<bd.cols()*bd.rows()){
+				if(i*3+w<cols*rows){
 					if     (Math.floor(ca/Math.pow(3,2-w))%3==1){ sQuC(i*3+w,41);}
 					else if(Math.floor(ca/Math.pow(3,2-w))%3==2){ sQuC(i*3+w,42);}
 				}
 			}
 		}
-		return bstr.substring(pos);
+		this.outbstr(bstr, pos);
 	}
 
 	/**
@@ -293,20 +305,20 @@ public abstract class PzprReaderBase {
 			return -1;
     }
 
-	public void sQuC(int id, int num) {
+	protected void sQuC(int id, int num) {
 	}
 
-	public void sQnC(int id, int num) {
+	protected void sQnC(int id, int num) {
 	}
 
-	public void sDiC(int id, int num) {
+	protected void sDiC(int id, int num) {
 	}
 
-	public void sQuB(int id, int num) {
+	protected void sQuB(int id, int num) {
 		borders[id] = num;
 	}
 
-    public int mf(int i) {
+    public static final int mf(int i) {
     	return i;
     }
 

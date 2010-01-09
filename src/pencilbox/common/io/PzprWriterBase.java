@@ -13,10 +13,12 @@ import pencilbox.common.core.SideAddress;
  */
 public abstract class PzprWriterBase {
 
-//	private BoardBase bd;
+	protected BoardBase boardBase;
 	protected int rows;
 	protected int cols;
 
+	private String outpflag = "";
+	private String outbstr = "";
 	/**
 	 * 盤面データの文字列を生成する。
 	 * 回答状態は無視して，問題データのみ書き出す
@@ -24,11 +26,10 @@ public abstract class PzprWriterBase {
 	 * @return
 	 */
 	public String writeQuestion(BoardBase board) {
-//		this.bd = board;
-		this.rows = board.rows(); // 異なるサイズの場合は pzlexport の中で上書きする
-		this.cols = board.cols(); // 異なるサイズの場合は pzlexport の中で上書き する
-		String bstr = this.pzlexport(board);
-		return getPzprName() + '/' + cols + '/' + rows + '/' + bstr;
+		this.boardBase = board;
+		this.pzlexport();
+		String pflag = (outpflag.length()>0) ? "/"+outpflag : "";
+		return getPzprName() + pflag + '/' + cols + '/' + rows + '/' + outbstr;
 	}
 
 	/**
@@ -43,14 +44,39 @@ public abstract class PzprWriterBase {
 	 * 各パズルのURL出力用(オーバーライド用)
 	 * @return
 	 */
-	protected String pzlexport(BoardBase bd) {
-		return "";
+	protected void pzlexport() {
+	}
+
+	/**
+	 * サイズを出力する。
+	 * @param r
+	 * @param c
+	 */
+	protected void outSize(int r, int c) {
+		this.rows = r;
+		this.cols = c;
+	}
+
+	/**
+	 * 文字列データに追加する。
+	 * @param s 文字列
+	 */
+	protected void outbstr(String s) {
+		this.outbstr += s;
+	}
+
+	/**
+	 * フラグを出力する。
+	 * @param s
+	 */
+	protected void outpflag(String s) {
+		this.outpflag = s;
 	}
 
 	//---------------------------------------------------------------------------
 	// enc.encode4Cell()  quesが0～4までの場合、問題部をエンコードする
 	//---------------------------------------------------------------------------
-	protected String encode4Cell(){
+	protected void encode4Cell(){
 		int count = 0;
 		String cm = "";
 		for(int i=0;i<rows*cols;i++){
@@ -69,13 +95,13 @@ public abstract class PzprWriterBase {
 		}
 		if(count>0){ cm += (toString((count+15),36));}
 
-		return cm;
+		outbstr(cm);
 	}
 
 	//---------------------------------------------------------------------------
 	// enc.encodeNumber16()  quesが0～8192?までの場合、問題部をエンコードする
 	//---------------------------------------------------------------------------
-	protected String encodeNumber16(){
+	protected void encodeNumber16(){
 		int count=0;
 		String cm="";
 		for(int i=0;i<rows*cols;i++){
@@ -95,14 +121,14 @@ public abstract class PzprWriterBase {
 		}
 		if(count>0){ cm+=toString((15+count),36);}
 
-		return cm;
+		outbstr(cm);
 	}
 
 	protected int[] roomNumbers;
 	//---------------------------------------------------------------------------
 	// enc.encodeRoomNumber16()  部屋＋部屋の一つのquesが0～8192?までの場合、問題部をエンコードする
 	//---------------------------------------------------------------------------
-	protected String encodeRoomNumber16(){
+	protected void encodeRoomNumber16(){
 		int count=0;
 		String cm="";
 		for(int i = 0; i < roomNumbers.length; i++){
@@ -123,13 +149,13 @@ public abstract class PzprWriterBase {
 		}
 		if(count>0){ cm+=toString((15+count),36);}
 
-		return cm;
+		outbstr(cm);
 	}
 
 	//---------------------------------------------------------------------------
 	// enc.encodeArrowNumber16()  矢印付きquesが0～8192?までの場合、問題部をエンコードする
 	//---------------------------------------------------------------------------
-	protected String encodeArrowNumber16(){
+	protected void encodeArrowNumber16(){
 		String cm = "";
 		int count = 0;
 		for(int c=0;c<rows*cols;c++){
@@ -147,13 +173,13 @@ public abstract class PzprWriterBase {
 		}
 		if(count>0){ cm += toString((count+9),36);}
 
-		return cm;
+		outbstr(cm);
 	}
 
 	//---------------------------------------------------------------------------
 	// enc.encodeBorder() 問題の境界線をエンコードする
 	//---------------------------------------------------------------------------
-	protected String encodeBorder(){
+	protected void encodeBorder(){
 		int num, pass;
 		String cm = "";
 
@@ -171,7 +197,7 @@ public abstract class PzprWriterBase {
 		}
 		if(num>0){ cm += toString(pass, 32);}
 
-		return cm;
+		outbstr(cm);
 	}
 
 	protected int[] borders; 
@@ -200,7 +226,7 @@ public abstract class PzprWriterBase {
 	//---------------------------------------------------------------------------
 	// enc.encodeCircle41_42() 白丸・黒丸をエンコードする
 	//---------------------------------------------------------------------------
-	protected String encodeCircle41_42(){
+	protected void encodeCircle41_42(){
 		String cm="";
 		int num=0;
 		int pass=0;
@@ -211,7 +237,7 @@ public abstract class PzprWriterBase {
 		}
 		if(num>0){ cm += toString(pass, 27);}
 
-		return cm;
+		outbstr(cm);
 	}
 
 	public Address i2a(int i) {
@@ -222,10 +248,10 @@ public abstract class PzprWriterBase {
 		if (i < 0) {
 			return SideAddress.NOWHERE;
 		} else if (i < (cols-1)*rows) {
-			return new SideAddress(Direction.VERT, i/(cols-1), i%(cols-1));
+			return SideAddress.sideAddress(Direction.VERT, i/(cols-1), i%(cols-1));
 		} else if (i < (cols-1)*rows+cols*(rows-1)) {
 			i = i - (cols-1)*rows;
-			return new SideAddress(Direction.HORIZ, i/(cols), i%(cols));
+			return SideAddress.sideAddress(Direction.HORIZ, i/(cols), i%(cols));
 		}
 		return SideAddress.NOWHERE;
 	}
@@ -234,19 +260,19 @@ public abstract class PzprWriterBase {
     	return a.r() * cols + a.c();
     }
 
-	public int QuC(int i) {
+	protected int QuC(int i) {
 		return 0;
 	}
 
-	public int QnC(int i) {
+	protected int QnC(int i) {
 		return 0;
 	}
 
-	public int DiC(int i) {
+	protected int DiC(int i) {
 		return 0;
 	}
 
-	public int QuB(int i) {
+	protected int QuB(int i) {
 		return borders[i];
 	}
 
