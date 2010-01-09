@@ -21,6 +21,11 @@ public class BoardBase {
 		this.size = size;
 		setup();
 	}
+
+	public void setSize(int r, int c){
+		this.size = new Size(r, c);;
+		setup();
+	}
 	/**
 	 * Board ¶¬Œã‚Ì‰Šú‰»ˆ—
 	 * ”z—ñ¶¬‚È‚Ç‚Ì‰Šú‰»ˆ—‚ğs‚¤
