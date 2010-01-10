@@ -158,7 +158,7 @@ public class MenuCommand {
 			showErrorMessage(Messages.getString("MenuCommand.Message_TooLarge")); //$NON-NLS-1$
 			return false;
 		}
-		if (pencilType.getPencilName().equals("sudoku")) {
+		if (pencilType == PencilType.SUDOKU) {
 			if (rows == cols) {
 				for (int n = 1; n < 10; n++) {
 					if (rows == n*n)
