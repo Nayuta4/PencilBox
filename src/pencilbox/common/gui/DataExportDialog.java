@@ -52,7 +52,7 @@ public class DataExportDialog extends JPanel {
 		JPanel mainPanel = new JPanel();
 		textArea = new JTextArea(20,40);
 		textArea.setLineWrap(true);
-		textArea.setFont(new Font("Monospaced", Font.PLAIN, 10)); //$NON-NLS-1$
+		textArea.setFont(new Font("Monospaced", Font.PLAIN, 12)); //$NON-NLS-1$
 		textArea.selectAll();
 		mainPanel.add(textArea);
 		JScrollPane jScrollPane = new JScrollPane(textArea);

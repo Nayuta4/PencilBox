@@ -274,9 +274,9 @@ public class MenuBase {
 	protected void buildExportDataMenu(DataFormat[] formats) {
 		for (DataFormat f : formats) {
 			if (f == DataFormat.KANPEN) {
-				makeDataExportItem(Messages.getString("MenuBase.exportItem1"), 'K', DataFormat.KANPEN); //$NON-NLS-1$
+				makeDataExportItem(Messages.getString("MenuBase.exportItemKanpen"), 'K', DataFormat.KANPEN); //$NON-NLS-1$
 			} else if (f == DataFormat.PZPRV3) {
-				makeDataExportItem(Messages.getString("MenuBase.exportItem1"), 'Z', DataFormat.PZPRV3); //$NON-NLS-1$
+				makeDataExportItem(Messages.getString("MenuBase.exportItemPzprv3"), 'Z', DataFormat.PZPRV3); //$NON-NLS-1$
 			}
 		}
 	}
