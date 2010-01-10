@@ -20,6 +20,8 @@ import pencilbox.common.core.Problem;
 import pencilbox.common.factory.ClassUtil;
 import pencilbox.common.factory.PencilBoxClassException;
 import pencilbox.common.factory.PencilType;
+import pencilbox.heyawake.HeyawakeReader;
+import pencilbox.heyawake.HeyawakeWriter;
 
 /**
  * 問題データのファイル入出力処理を行うクラス。
@@ -33,6 +35,7 @@ public class IOController {
 		PCL,
 		KANPEN,
 		PZPRV3,
+		HEYAWAKE,
 		;
 	}
 
@@ -124,6 +127,14 @@ public class IOController {
 					throw new PencilBoxException("input data does not contain \"?\".");
 				}
 				board = createPzprReader().readProblem(string.trim());
+			} else if (format == DataFormat.HEYAWAKE) {
+				int index = string.indexOf("?problem=");
+				if (index > 0) {
+					string = string.substring(index+9);
+				} else if (index == -1) {
+					throw new PencilBoxException("input data does not contain \"?problem=\".");
+				}
+				board = new HeyawakeReader().readProblem(string.trim());
 			}
 		} catch (IOException e) {
 			throw new PencilBoxException(e);
@@ -199,6 +210,8 @@ public class IOController {
 				string = kanpenUrl() + pencilType.getPencilName() + ".html?problem=" + dataS;
 			} else if (format == DataFormat.PZPRV3) {
 				string = pzprv3Url() + createPzprWriter().writeQuestion(board);
+			} else if (format == DataFormat.HEYAWAKE) {
+				string = new HeyawakeWriter().writeQuestion(board);
 			}
 		} finally {
 		}

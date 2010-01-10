@@ -269,24 +269,11 @@ public class MenuBase {
 
 	/**
 	 * 「エクスポート／インポート」サブメニューを作成する。
-	 * @param formats 選択可能なフォーマット
-	 */
-	protected void buildExportDataMenu(DataFormat[] formats) {
-		for (DataFormat f : formats) {
-			if (f == DataFormat.KANPEN) {
-				makeDataExportItem(Messages.getString("MenuBase.exportItemKanpen"), 'K', DataFormat.KANPEN); //$NON-NLS-1$
-			} else if (f == DataFormat.PZPRV3) {
-				makeDataExportItem(Messages.getString("MenuBase.exportItemPzprv3"), 'Z', DataFormat.PZPRV3); //$NON-NLS-1$
-			}
-		}
-	}
-
-	/**
-	 * 「エクスポート／インポート」サブメニューを作成する。
 	 * 選択可能なフォーマットが標準と異なる場合などは必要に応じてサブクラスで上書きすること。
 	 */
 	protected void buildExportDataMenu() {
-		buildExportDataMenu(new DataFormat[] {DataFormat.KANPEN, DataFormat.PZPRV3});
+		makeDataExportItem(Messages.getString("MenuBase.exportItemKanpen"), 'K', DataFormat.KANPEN); //$NON-NLS-1$
+		makeDataExportItem(Messages.getString("MenuBase.exportItemPzprv3"), 'Z', DataFormat.PZPRV3); //$NON-NLS-1$
 	}
 
 	/**
