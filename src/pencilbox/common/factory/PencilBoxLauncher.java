@@ -2,6 +2,7 @@ package pencilbox.common.factory;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -40,10 +41,11 @@ public class PencilBoxLauncher {
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setTitle(Constants.TITLE);
 		JPanel panel = new JPanel();
-		int n = PencilType.getNPencilType();
+		List<PencilType> pencilTypeList = PencilType.getPencilTypeList();
+		int n = pencilTypeList.size();
 		panel.setLayout(new GridLayout(n+1,1));
-		for (int i=0; i<n; i++) {
-			panel.add(makeButton(PencilType.getPencilType(i)));
+		for (PencilType p : pencilTypeList) {
+			panel.add(makeButton(p));
 		}
 		panel.add(makeExitButton());
 		frame.getContentPane().add(panel);
