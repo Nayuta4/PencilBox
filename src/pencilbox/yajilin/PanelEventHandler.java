@@ -28,22 +28,34 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	/*
 	 * 「ヤジリン」マウス操作
 	 */
+	protected void leftPressed(Address pos) {
+	}
+
 	protected void leftDragged(Address dragStart, Address dragEnd) {
 		changeLineState(dragStart, dragEnd, Board.LINE);
 	}
 
 	protected void leftReleased(Address pos) {
+		if (isOn(pos)) {
+			if (currentState == Board.OUTER) {
+				toggleState(pos, Board.BLACK);
+			}
+		}
 		currentState = Board.OUTER;
 	}
 
-	protected void leftClicked(Address pos) {
-		toggleState(pos, Board.BLACK);
-	}
-
-	protected void rightClicked(Address pos) {
+	protected void rightPressed(Address pos) {
 		toggleState(pos, Board.WHITE);
 	}
-	
+
+	protected void rightDragged(Address pos) {
+		sweepState(pos);
+	}
+
+	protected void rightReleased(Address pos) {
+		currentState = Board.OUTER;
+	}
+
 	/**
 	 * マスの状態を 未定⇔st で切り替える
 	 * @param pos マス座標
@@ -52,14 +64,32 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	private void toggleState(Address pos, int st) {
 		if (board.isNumber(pos))
 			return;
-		if (st == board.getNumber(pos))
+		if (st == board.getNumber(pos)) {
 			st = Board.BLANK;
+		}
 		if (st == Board.BLACK) {
 			board.eraseLinesAroundA(pos);
 		}
 		board.changeStateA(pos, st);
+		currentState = st;
 	}
 
+	/**
+	 * マスの状態を currentState に設定する。ただし、
+	 * ・数字マスは変更しない
+	 * ・確定白マスは黒マスを上書きしない
+	 * @param pos
+	 */
+	private void sweepState(Address pos) {
+		int st = board.getNumber(pos);
+		if (st >=0 || st == Board.UNDECIDED_NUMBER)
+			return;
+		if (st == currentState)
+			return;
+		if (currentState == Board.WHITE && st == Board.BLACK)
+			return;
+		board.changeStateA(pos, currentState);
+	}
 	/**
 	 * 始点マスと終点マスを結んだ線上の状態を指定の状態に変更する
 	 * 始点の辺の現在の状態が指定の状態であれば，未定に変更する
@@ -69,8 +99,10 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 */
 	private void changeLineState(Address pos0, Address pos1, int st) {
 		int direction = pos0.getDirectionTo(pos1);
-		if (direction < 0)
+		if (direction < 0) {
+			currentState = st;
 			return;
+		}
 		SideAddress side = SideAddress.get(pos0, direction);
 		if (currentState == Board.OUTER) {
 			if (board.getState(side) == st) {
