@@ -5,6 +5,7 @@ import java.awt.Color;
 import javax.swing.JMenuItem;
 
 import pencilbox.common.gui.MenuBase;
+import pencilbox.common.io.IOController.DataFormat;
 
 /**
  * 「へやわけ」メニュークラス
@@ -25,6 +26,11 @@ public class Menu extends MenuBase {
 	protected void buildEditMenu() {
 		addTrimAnswerMenuItem();
 		super.buildEditMenu();
+	}
+
+	protected void buildExportDataMenu() {
+		super.buildExportDataMenu();
+		makeDataExportItem(pencilbox.common.gui.Messages.getString("MenuBase.exportItemHeyawake"), 'H', DataFormat.HEYAWAKE); //$NON-NLS-1$
 	}
 
 	protected void buildViewMenu() {
