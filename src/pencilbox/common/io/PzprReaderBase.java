@@ -91,7 +91,6 @@ public abstract class PzprReaderBase {
 			this.outbstr = "";
 		else
 			this.outbstr = bstr.substring(i);
-		System.out.println(bstr + " : " + " i " + outbstr);
 	}
 	//---------------------------------------------------------------------------
 	// enc.checkpflag()   pflag‚ÉŽw’è‚µ‚½•¶Žš—ñ‚ªŠÜ‚Ü‚ê‚Ä‚¢‚é‚©’²‚×‚é
