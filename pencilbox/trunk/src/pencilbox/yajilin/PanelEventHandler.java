@@ -12,7 +12,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 
 	private Board board;
 
-	private int currentState = Board.OUTER; // ドラッグ中の辺の状態を表す
+	private int currentState = NULLSTATE; // ドラッグ中の辺の状態を表す
+	private static final int NULLSTATE  = -9;
+	private static final int PRE_BLACK = -19;
 
 	/**
 	 * 
@@ -29,19 +31,30 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 * 「ヤジリン」マウス操作
 	 */
 	protected void leftPressed(Address pos) {
+		if (board.getNumber(pos) == Board.BLACK)
+			currentState = PRE_BLACK;
 	}
 
 	protected void leftDragged(Address dragStart, Address dragEnd) {
-		changeLineState(dragStart, dragEnd, Board.LINE);
+		if (currentState == PRE_BLACK) {
+			currentState = Board.BLACK;
+		}
+		if (currentState == Board.BLACK) {
+			sweepState(dragEnd);
+		} else {
+			changeLineState(dragStart, dragEnd, Board.LINE);
+		}
 	}
 
 	protected void leftReleased(Address pos) {
 		if (isOn(pos)) {
-			if (currentState == Board.OUTER) {
+			if (currentState == NULLSTATE) {
+				toggleState(pos, Board.BLACK);
+			} else if (currentState == PRE_BLACK) {
 				toggleState(pos, Board.BLACK);
 			}
 		}
-		currentState = Board.OUTER;
+		currentState = NULLSTATE;
 	}
 
 	protected void rightPressed(Address pos) {
@@ -53,7 +66,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	protected void rightReleased(Address pos) {
-		currentState = Board.OUTER;
+		currentState = NULLSTATE;
 	}
 
 	/**
@@ -76,8 +89,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 
 	/**
 	 * マスの状態を currentState に設定する。ただし、
-	 * ・数字マスは変更しない
-	 * ・確定白マスは黒マスを上書きしない
+	 * ・数字マスは変更しない。
+	 * ・確定白マスは黒マスを上書きしない。
+	 * ・黒マスは確定白マスおよび線を上書きせず、タテヨコに連続しない。
 	 * @param pos
 	 */
 	private void sweepState(Address pos) {
@@ -86,8 +100,17 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			return;
 		if (st == currentState)
 			return;
-		if (currentState == Board.WHITE && st == Board.BLACK)
-			return;
+		if (currentState == Board.BLACK) {
+			if (st == Board.WHITE)
+				return;
+			if (board.countLine(pos) > 0)
+				return;
+			if (board.isBlock(pos))
+				return;
+		} else if (currentState == Board.WHITE) {
+			if (st == Board.BLACK)
+				return;
+		}
 		board.changeStateA(pos, currentState);
 	}
 	/**
@@ -104,7 +127,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			return;
 		}
 		SideAddress side = SideAddress.get(pos0, direction);
-		if (currentState == Board.OUTER) {
+		if (currentState == NULLSTATE) {
 			if (board.getState(side) == st) {
 				currentState = Board.UNKNOWN;
 			} else {

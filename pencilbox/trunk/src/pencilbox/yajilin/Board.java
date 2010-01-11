@@ -424,6 +424,10 @@ public class Board extends BoardBase {
 		return false;
 	}
 
+	boolean isBlock(Address pos) {
+		return isBlock(pos.r(), pos.c());
+	}
+
 	/**
 	 * ‚ ‚éƒ}ƒX‚ğŠÜ‚Ş Link ‚Ì‰Šú‰»
 	 * link[][][] ‚ÍÁ‹‚³‚ê‚Ä‚¢‚é‚à‚Ì‚Æ‚·‚é
@@ -554,6 +558,10 @@ public class Board extends BoardBase {
 		return no;
 	}
 	
+	public int countLine(Address pos) {
+		return countLine(pos.r(), pos.c());
+	}
+
 	private int checkLinks() {
 		int result = 0;
 		for (int r=0; r<rows(); r++) {
