@@ -217,21 +217,51 @@ public class Board extends BoardBase {
 			c++;
 		}
 	}
+
+	/**
+	 * マスの上下４方向の明かりからの照明状態をすべて更新する
+	 * @param r0 中心マスの行座標
+	 * @param c0 中心マスの列座標
+	 * @param on 明かりをつけるときは true, 消すときは false 
+	 */
+	private void illuminate4(int r0, int c0, boolean on) {
+		Address p = new Address(r0, c0);
+		for (int d = 0; d < 4; d++) {
+			p.set(r0, c0);
+			p.move(d);
+			while (isFloor(p.r(), p.c())) {
+				if (isBulb(p.r(), p.c()))
+					illuminate(p.r(), p.c(), on);
+				p.move(d);
+			}
+		}
+	}
+
 	/**
 	 * マスの状態を設定する
 	 * マスからの光線を更新する
+	 * 黒マスを操作したときは、上下４方向の明かりからの照明状態をすべて更新する
 	 * @param r 行座標
 	 * @param c 列座標
 	 * @param st 状態
 	 */
 	public void changeState(int r, int c, int st) {
-		if (st == BULB && getState(r, c) != BULB)
+		int prev = getState(r, c);
+		if ((st >= 0 && st <= 4 || st == NONUMBER_WALL)
+				|| (prev >= 0 && prev <= 4 || prev == NONUMBER_WALL)) {
+			illuminate4(r, c, false);
+		}
+		if (st == BULB && prev != BULB)
 			illuminate(r, c, true);
-		else if (getState(r, c) == BULB && st != BULB)
+		else if (prev == BULB && st != BULB)
 			illuminate(r, c, false);
 		setState(r, c, st);
+		if ((st>=0 && st<=4 || st == NONUMBER_WALL)
+				|| (prev>=0 && prev<=4 || prev == NONUMBER_WALL)) {
+			illuminate4(r, c, true);
+		}
 	}
-	
+
 	public void changeState(Address pos, int st) {
 		changeState(pos.r(), pos.c(), st);
 	}
