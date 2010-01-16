@@ -18,6 +18,7 @@ public final class PencilType {
 
 	public static final PencilType KAKURO      = new PencilType("kakuro",      Messages.getString("PencilType.kakuro"),      12); //$NON-NLS-1$ //$NON-NLS-2$
 	public static final PencilType KURODOKO    = new PencilType("kurodoko",    Messages.getString("PencilType.kurodoko"),     9); //$NON-NLS-1$ //$NON-NLS-2$
+	public static final PencilType GOISHI      = new PencilType("goishi",      Messages.getString("PencilType.goishi"),       8); //$NON-NLS-1$ //$NON-NLS-2$
 	public static final PencilType SHIKAKU     = new PencilType("shikaku",     Messages.getString("PencilType.shikaku"),     10); //$NON-NLS-1$ //$NON-NLS-2$
 	public static final PencilType SUDOKU      = new PencilType("sudoku",      Messages.getString("PencilType.sudoku"),       9); //$NON-NLS-1$ //$NON-NLS-2$
 	public static final PencilType SLALOM      = new PencilType("slalom",      Messages.getString("PencilType.slalom"),      10); //$NON-NLS-1$ //$NON-NLS-2$
@@ -41,6 +42,7 @@ public final class PencilType {
 	private static final PencilType[] pencilTypeList = new PencilType[] {
 		KAKURO,
 		KURODOKO,
+		GOISHI,
 		SHIKAKU,
 		SUDOKU,
 		SLALOM,
