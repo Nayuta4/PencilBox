@@ -18,9 +18,15 @@ public class PzprReader extends PzprReaderBase {
 	}
 
 	protected void pzlimport(){
-		this.decodeBorder();
-		makeAreaIDsFromBorders();
-		makeAreas();
+		if (checkpflag("d")) { // ぱずぷれ旧形式
+			decodeLITS_old();
+			makeAreaIDsFromBorders();
+			makeAreas();
+		} else {
+			this.decodeBorder();
+			makeAreaIDsFromBorders();
+			makeAreas();
+		}
 	}
 	
 	/**
@@ -37,6 +43,39 @@ public class PzprReader extends PzprReaderBase {
 			areaArray[k].add(i2a(i));
 			bd.setArea(i2a(i),areaArray[k]);
 		}
+	}
+
+	/**
+	 * ぱずぷれ旧形式
+	 */
+	protected void decodeLITS_old(){
+		String bstr = this.outbstr;
+		int bdinside = (cols-1)*rows+cols*(rows-1);
+		borders = new int[bdinside];
+		if (bstr.length() < rows*cols)
+			return; // 短いデータは無視
+		char[] bstrA = bstr.toCharArray();
+		for(int i=0; i<rows*cols; i++){
+			int x = i%cols;
+			int y = i/cols;
+			if (x < cols-1) {
+				char c0 = bstrA[i];
+				char c1 = bstrA[i+1];
+				if (c0 != c1)
+					borders[y*(cols-1)+x] = 1;
+			}
+		}
+		for(int i=0; i<rows*cols; i++){
+			int x = i%cols;
+			int y = i/cols;
+			if (y < rows-1) {
+				char c0 = bstrA[i];
+				char c1 = bstrA[i+cols];
+				if (c0 != c1)
+					borders[((cols-1)*rows) + y*cols+x] = 1;
+			}
+		}
+		outbstr(bstr, rows*cols);
 	}
 
 }
