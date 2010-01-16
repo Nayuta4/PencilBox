@@ -43,11 +43,11 @@ public class PencilBoxLauncher {
 		JPanel panel = new JPanel();
 		List<PencilType> pencilTypeList = PencilType.getPencilTypeList();
 		int n = pencilTypeList.size();
-		panel.setLayout(new GridLayout(n+1,1));
+		panel.setLayout(new GridLayout(n,1));
 		for (PencilType p : pencilTypeList) {
 			panel.add(makeButton(p));
 		}
-		panel.add(makeExitButton());
+//		panel.add(makeExitButton());
 		frame.getContentPane().add(panel);
 		frame.pack();
 		frame.setVisible(true);
