@@ -10,7 +10,7 @@
 	<property name="zip" value="."/>
 
 	<property name="project" value="pencilbox" />
-	<property name="version" value="1.4.0" />
+	<property name="version" value="1.4.1" />
 
 	<target name="compile">
 		<mkdir dir="${bin}" />
@@ -22,7 +22,7 @@
 		<jar jarfile="${jar}/pencilbox.jar" basedir="${bin}" includes="pencilbox/common/**/*, pencilbox/util/*">
 			<manifest>
 				<attribute name="Main-Class" value="pencilbox.common.factory.PencilBoxLauncher"/>
-				<attribute name="Class-Path" value="bijutsukan.jar fillomino.jar hakyukoka.jar hashi.jar heyawake.jar hitori.jar kakuro.jar kurodoko.jar masyu.jar numberlink.jar nurikabe.jar shikaku.jar slitherlink.jar sudoku.jar tentaisho.jar yajilin.jar lits.jar slalom.jar"/>
+				<attribute name="Class-Path" value="bijutsukan.jar fillomino.jar goishi.jar hakyukoka.jar hashi.jar heyawake.jar hitori.jar kakuro.jar kurodoko.jar masyu.jar numberlink.jar nurikabe.jar shikaku.jar slalom.jar slitherlink.jar sudoku.jar tentaisho.jar yajilin.jar lits.jar"/>
 			</manifest>
 		</jar>
 		<jar jarfile="${jar}/bijutsukan.jar" basedir="${bin}" includes="pencilbox/bijutsukan/*">
@@ -34,6 +34,12 @@
 		<jar jarfile="${jar}/fillomino.jar" basedir="${bin}" includes="pencilbox/fillomino/*">
 			<manifest>
 				<attribute name="Main-Class" value="pencilbox.fillomino.Main"/>
+				<attribute name="Class-Path" value="pencilbox.jar"/>
+			</manifest>
+		</jar>
+		<jar jarfile="${jar}/goishi.jar" basedir="${bin}" includes="pencilbox/goishi/*">
+			<manifest>
+				<attribute name="Main-Class" value="pencilbox.goishi.Main"/>
 				<attribute name="Class-Path" value="pencilbox.jar"/>
 			</manifest>
 		</jar>
