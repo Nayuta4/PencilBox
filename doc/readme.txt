@@ -1,6 +1,6 @@
 ------------------------------------------------------------------------
-  PencilBox version 1.4.0
-                                                      2009-08-11 Nayuta
+  PencilBox version 1.4.1
+                                                      2010-01-17 Nayuta
 ------------------------------------------------------------------------
 
 ■概要
@@ -9,38 +9,39 @@ PencilBoxは，(株)ニコリ発行の雑誌「パズル通信ニコリ」に掲載されている
 するためのプログラムです。
 
 主な特長として，以下の機能があります。
-  ・TXT形式またはXML形式による問題ファイルの読み書き
+  ・TXT形式での問題ファイルの読み書き
   ・マウスまたはキーボードを用いた解答入力
   ・マウスとキーボードを用いた問題入力
   ・解答操作の UNDO, REDO
   ・正解判定
   ・パズルの種類に応じた各種ヒント表示
 
-以下の18種類のペンシルパズルに対応しています。
+以下の19種類のペンシルパズルに対応しています。
    1. カックロ
-   2. 黒マスはどこだ
-   3. 四角に切れ
-   4. 数独
-   5. スラローム
-   6. スリザーリンク
-   7. 天体ショー
-   8. ナンバーリンク
-   9. ぬりかべ
-  10. 波及効果
-  11. 橋をかけろ
-  12. 美術館
-  13. ひとりにしてくれ
-  14. フィルオミノ
-  15. へやわけ
-  16. ましゅ
-  17. ヤジリン
-  18. ＬＩＴＳ
+   2. 黒どこ
+   3. 碁石ひろい
+   4. 四角に切れ
+   5. 数独
+   6. スラローム
+   7. スリザーリンク
+   8. 天体ショー
+   9. ナンバーリンク
+  10. ぬりかべ
+  11. 波及効果
+  12. 橋をかけろ
+  13. 美術館
+  14. ひとりにしてくれ
+  15. フィルオミノ
+  16. へやわけ
+  17. ましゅ
+  18. ヤジリン
+  19. ＬＩＴＳ
 
 ■動作環境
 PencilBox の実行には Java Runtime Environment のversion1.5以上が必要です。
 Java Runtime Environment は http://java.com/ より入手できます。
 
-作者は Windows XP 上で使用しています。他の環境でも同様に動作することを
+作者は Windows で使用しています。他の環境でも同様に動作することを
 期待していますが，特に動作確認は行っていません。
 
 ■使用条件
@@ -79,9 +80,14 @@ PencilBoxに関する情報やダウンロード先については以下のURLを参照ください。
   e-mail: nayuta@kanpen.net
 
 ■謝辞
-Heyawake Applet Developer 様作成の HeyawakeBox version 1.2.1
+Heyawake Applet Developer 様作成の HeyawakeBox 
  (http://www.geocities.jp/heyawake/box/)のソースコードを一部取り入れています。
 感謝いたします。
+
+はっぱ 様作成の ぱずぷれv3 
+ (http://indi.s58.xrea.com/pzpr/v3/)のソースコードを参考にしています。
+感謝いたします。
+
 
 ■内容物
 配布アーカイブには以下のファイルが含まれます。（順不同）
@@ -95,12 +101,13 @@ Heyawake Applet Developer 様作成の HeyawakeBox version 1.2.1
  pencilbox.jar    全体で共通に使用するクラスファイル
  bijutsukan.jar   美術館用クラスファイル
  fillomino.jar    フィルオミノ用クラスファイル
+ goishi.jar       碁石ひろい用クラスファイル
  hakyukoka.jar    波及効果用クラスファイル
  hashi.jar        橋をかけろ用クラスファイル
  heyawake.jar     へやわけ用クラスファイル
  hitori.jar       ひとりにしてくれ用クラスファイル
  kakuro.jar       カックロ用クラスファイル
- kurodoko.jar     黒マスはどこだ用クラスファイル
+ kurodoko.jar     黒どこ用クラスファイル
  masyu.jar        ましゅ用クラスファイル
  numberlink.jar   ナンバーリンク用クラスファイル
  nurikabe.jar     ぬりかべ用クラスファイル
@@ -116,7 +123,7 @@ Heyawake Applet Developer 様作成の HeyawakeBox version 1.2.1
 
 /*
  PencilBox : a pencil puzzle editor
- Copyright (C) 2006-2009 Nayuta
+ Copyright (C) 2006-2010 Nayuta
  
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
