@@ -10,7 +10,7 @@ public class PzprWriter extends PzprWriterBase {
 	
 	private Board bd;
 	
-	private boolean fitsize = true; // 盤面サイズをデータに合わせるか
+	private boolean fitsize = false; // 盤面サイズをデータに合わせるか
 	private int bdpadding = 1; // 盤面サイズをデータに合わせるときの余白数
 
 	protected String getPzprName() {
