@@ -39,6 +39,7 @@ public class MenuBase {
 	private JMenuItem changeBoardSizeItem;
 	private JMenuItem saveImageItem;
 	private JMenuItem copyImageItem;
+	private JMenuItem printPreviewItem;
 	private JMenuItem printItem;
 	private JMenuItem propertyItem;
 	private JMenuItem closeItem;
@@ -141,6 +142,7 @@ public class MenuBase {
 		buildExportDataMenu();
 		fileMenu.add(saveImageItem = makeCommandMenuItem(Messages.getString("MenuBase.saveImageItem"), 'G')); //$NON-NLS-1$
 		fileMenu.add(copyImageItem = makeCommandMenuItem(Messages.getString("MenuBase.copyImageItem"), 'M')); //$NON-NLS-1$
+		fileMenu.add(printPreviewItem = makeCommandMenuItem(Messages.getString("MenuBase.printPreviewItem"), 'V')); //$NON-NLS-1$
 		fileMenu.add(printItem = makeCommandMenuItem(Messages.getString("MenuBase.printItem"), 'P')); //$NON-NLS-1$
 		fileMenu.addSeparator();
 		fileMenu.add(loadPreferencesItem = makeCommandMenuItem(Messages.getString("MenuBase.loadPreferencesItem"), 'F')); //$NON-NLS-1$
@@ -609,6 +611,8 @@ public class MenuBase {
 			command.saveImage();
 		else if (target == copyImageItem)
 			command.copyImage();
+		else if (target == printPreviewItem)
+			command.printPreview();
 		else if (target == printItem)
 			command.print();
 		else if (target == loadPreferencesItem) {

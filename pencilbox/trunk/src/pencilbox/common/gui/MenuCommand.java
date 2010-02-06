@@ -2,8 +2,6 @@ package pencilbox.common.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
 import java.io.File;
 
 import javax.swing.JFileChooser;
@@ -262,21 +260,21 @@ public class MenuCommand {
 			showErrorMessage(e);
 		}
 	}
-
+	/**
+	 *  [ファイル]-[印刷プレビュー]
+	 */
+	public void printPreview() {
+		PrintPreviewDialog d = PrintPreviewDialog.getInstance();
+		d.setPrintObject(panel);
+		d.showDialog(frame);
+	}
 	/**
 	 *  [ファイル]-[印刷]
-	 * いい加減なつくり
 	 */
 	public void print() {
-		try {
-			PrinterJob job = PrinterJob.getPrinterJob();
-			job.setPrintable(panel);
-			if (job.printDialog()) {
-				job.print();
-			}
-		} catch (PrinterException e) {
-			showErrorMessage(e);
-		}
+		PrintPreviewDialog d = PrintPreviewDialog.getInstance();
+		d.setPrintObject(panel);
+		d.print();
 	}
 	/**
 	 *  [ファイル]-[エクスポート／インポート]

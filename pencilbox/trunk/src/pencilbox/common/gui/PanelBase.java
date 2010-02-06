@@ -757,6 +757,7 @@ public class PanelBase extends JPanel implements Printable {
 
 	/* 
 	 * 盤面印刷用メソッド
+	 * 今は使用しない
 	 * @see java.awt.print.Printable#print(java.awt.Graphics, java.awt.print.PageFormat, int)
 	 */
 	public int print(Graphics g, PageFormat pf, int page)
@@ -764,10 +765,6 @@ public class PanelBase extends JPanel implements Printable {
 		if (page >= 1)
 			return Printable.NO_SUCH_PAGE;
 		Graphics2D g2 = (Graphics2D) g;
-		g2.translate(pf.getImageableX(), pf.getImageableY());
-		// 表示可能領域の左上角を座標原点とする．coreJAVA v.2 p.652
-		g2.scale(0.7, 0.7); // 印刷時は縮小 1pixel -> 0.7point
-		//		  g2.draw(new Rectangle2D.Double(0, 0, pf.getImageableWidth(), pf.getImageableHeight()));
 		drawPanel(g2);
 		return Printable.PAGE_EXISTS;
 	}
