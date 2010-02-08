@@ -119,6 +119,6 @@ public class CellSizeDialog extends PencilBoxDialog implements MouseWheelListene
 	 */
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		
-		setCellSize(getCellSize() + e.getWheelRotation());
+		setCellSize(getCellSize() - e.getWheelRotation());
 	}
 }
