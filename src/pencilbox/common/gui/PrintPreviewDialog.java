@@ -113,7 +113,7 @@ public class PrintPreviewDialog extends JDialog {
 
 		closeButton.addActionListener(closeAction);
 
-		final JSpinner scalingSpinner = new JSpinner(new SpinnerNumberModel(pcanvas.scaling, 0.01, 4.00, 0.10));
+		final JSpinner scalingSpinner = new JSpinner(new SpinnerNumberModel(pcanvas.scaling, 0.099, 4.00, 0.05));
 		scalingSpinner.setEditor(new JSpinner.NumberEditor(scalingSpinner, "#%"));
 		scalingSpinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
