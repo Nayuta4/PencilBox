@@ -1,6 +1,6 @@
 ------------------------------------------------------------------------
-  PencilBox version 1.4.1
-                                                      2010-01-17 Nayuta
+  PencilBox version 1.4.2
+                                                      2010-02-13 Nayuta
 ------------------------------------------------------------------------
 
 ■概要
@@ -69,15 +69,10 @@ kakuro.jar など各パズルの名前のついたjarファイルは，個々の種類でのみ使用する
 
 ■連絡先
 PencilBoxに関する情報やダウンロード先については以下のURLを参照ください。
-  URL: http://pencilbox.sourceforge.jp/
+  http://pencilbox.sourceforge.jp/
 
-ユーザー用メーリングリストを運用開始しました。
-不具合情報や改善提案などございましたら，ご連絡いただければ幸いです。
-利用される方は以下から登録して下さい。
-  http://lists.sourceforge.jp/mailman/listinfo/pencilbox-users
-
-または作者に直接e-mailで連絡を下っても構いません。
-  e-mail: nayuta@kanpen.net
+作者e-mail
+  nayuta@kanpen.net
 
 ■謝辞
 Heyawake Applet Developer 様作成の HeyawakeBox 
