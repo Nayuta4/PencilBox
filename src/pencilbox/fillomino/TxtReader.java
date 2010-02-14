@@ -40,11 +40,11 @@ public class TxtReader extends TxtReaderBase {
 				str = t.nextToken();
 				if (str.equals(".")) {
 					 board.setState(i, j, Board.UNSTABLE);
-					 board.changeNumber(i, j, 0);
+					 board.setNumber(i, j, 0);
 				} 
 				else {
 					board.setState(i, j, Board.STABLE);
-					board.changeNumber(i, j, Integer.parseInt(str));
+					board.setNumber(i, j, Integer.parseInt(str));
 				}
 				j++;
 			}
@@ -60,7 +60,7 @@ public class TxtReader extends TxtReaderBase {
 				if (str.equals(".")) {
 				} 
 				else {
-					board.changeNumber(i, j, Integer.parseInt(str));
+					board.setNumber(i, j, Integer.parseInt(str));
 				}
 				j++;
 			}
