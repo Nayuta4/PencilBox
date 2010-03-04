@@ -10,6 +10,7 @@ import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
 import pencilbox.util.ArrayUtil;
+import pencilbox.resource.Messages;
 
 /**
  * 「カックロ」 ヒント付き盤面クラス
@@ -388,12 +389,12 @@ public class Board extends BoardBase {
 		if (result == 0)
 			return BoardBase.COMPLETE_MESSAGE;
 		if (result == 1)
-			return Messages.getString("Board.AnswerCheckMessage1"); //$NON-NLS-1$
+			return Messages.getString("kakuro.AnswerCheckMessage1"); //$NON-NLS-1$
 		StringBuffer message = new StringBuffer();
 		if ((result & 2) == 2)
-			message.append(Messages.getString("Board.AnswerCheckMessage2")); //$NON-NLS-1$
+			message.append(Messages.getString("kakuro.AnswerCheckMessage2")); //$NON-NLS-1$
 		if ((result & 4) == 4)
-			message.append(Messages.getString("Board.AnswerCheckMessage3")); //$NON-NLS-1$
+			message.append(Messages.getString("kakuro.AnswerCheckMessage3")); //$NON-NLS-1$
 		return message.toString();
 	}
 

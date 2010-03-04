@@ -13,6 +13,7 @@ import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
 import pencilbox.common.core.SideAddress;
 import pencilbox.util.ArrayUtil;
+import pencilbox.resource.Messages;
 
 /**
  * 「スラローム」盤面クラス
@@ -898,23 +899,23 @@ public class Board extends BoardBase {
 			return COMPLETE_MESSAGE;
 		StringBuffer message = new StringBuffer();
 		if ((result & 1) == 1) // 線が分岐または交差している
-			message.append(Messages.getString("Board.AnswerCheckMessage1")); //$NON-NLS-1$
+			message.append(Messages.getString("slalom.AnswerCheckMessage1")); //$NON-NLS-1$
 		if ((result & 2) == 2) // 閉じていない線がある\n
-			message.append(Messages.getString("Board.AnswerCheckMessage2")); //$NON-NLS-1$
+			message.append(Messages.getString("slalom.AnswerCheckMessage2")); //$NON-NLS-1$
 		if ((result & 4) == 4) // 複数の線がある\n
-			message.append(Messages.getString("Board.AnswerCheckMessage3")); //$NON-NLS-1$
+			message.append(Messages.getString("slalom.AnswerCheckMessage3")); //$NON-NLS-1$
 		if ((result & 8) == 8) // 線がない\n
-			message.append(Messages.getString("Board.AnswerCheckMessage4")); //$NON-NLS-1$
+			message.append(Messages.getString("slalom.AnswerCheckMessage4")); //$NON-NLS-1$
 		if ((result & 16) == 16) // 門の通り方の間違いがある\n
-			message.append(Messages.getString("Board.AnswerCheckMessage5")); //$NON-NLS-1$
+			message.append(Messages.getString("slalom.AnswerCheckMessage5")); //$NON-NLS-1$
 		if ((result & 32) == 32) // 通っていない門がある\n
-			message.append(Messages.getString("Board.AnswerCheckMessage6")); //$NON-NLS-1$
+			message.append(Messages.getString("slalom.AnswerCheckMessage6")); //$NON-NLS-1$
 		if ((result & 64) == 64) // 複数回通った門がある\n
-			message.append(Messages.getString("Board.AnswerCheckMessage7")); //$NON-NLS-1$
+			message.append(Messages.getString("slalom.AnswerCheckMessage7")); //$NON-NLS-1$
 		if ((result & 256) == 256) // 門を通る順番が誤っている\n
-			message.append(Messages.getString("Board.AnswerCheckMessage8")); //$NON-NLS-1$
+			message.append(Messages.getString("slalom.AnswerCheckMessage8")); //$NON-NLS-1$
 		if ((result & 512) == 512) // ○を通っていない\n
-			message.append(Messages.getString("Board.AnswerCheckMessage9")); //$NON-NLS-1$
+			message.append(Messages.getString("slalom.AnswerCheckMessage9")); //$NON-NLS-1$
 		return message.toString();
 	}
 

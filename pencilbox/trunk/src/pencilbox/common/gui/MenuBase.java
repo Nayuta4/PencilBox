@@ -20,6 +20,7 @@ import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
 import pencilbox.common.io.IOController.DataFormat;
+import pencilbox.resource.Messages;
 
 /**
  * 共通メニュークラス

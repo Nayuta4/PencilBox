@@ -13,6 +13,7 @@ import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
 import pencilbox.common.core.SideAddress;
 import pencilbox.util.ArrayUtil;
+import pencilbox.resource.Messages;
 
 
 /**
@@ -561,21 +562,21 @@ public class Board extends BoardBase  {
 			return BoardBase.COMPLETE_MESSAGE; 
 		StringBuffer message = new StringBuffer();
 		if ((result & 1) == 1)
-			message.append(Messages.getString("Board.AnswerCheckMessage1")); //$NON-NLS-1$
+			message.append(Messages.getString("masyu.AnswerCheckMessage1")); //$NON-NLS-1$
 		if ((result & 2) == 2)
-			message.append(Messages.getString("Board.AnswerCheckMessage2")); //$NON-NLS-1$
+			message.append(Messages.getString("masyu.AnswerCheckMessage2")); //$NON-NLS-1$
 		if ((result & 16) == 16)
-			message.append(Messages.getString("Board.AnswerCheckMessage5")); //$NON-NLS-1$
+			message.append(Messages.getString("masyu.AnswerCheckMessage5")); //$NON-NLS-1$
 		if ((result & 128) == 128)
-			message.append(Messages.getString("Board.AnswerCheckMessage8")); //$NON-NLS-1$
+			message.append(Messages.getString("masyu.AnswerCheckMessage8")); //$NON-NLS-1$
 		if ((result & 4) == 4)
-			message.append(Messages.getString("Board.AnswerCheckMessage3")); //$NON-NLS-1$
+			message.append(Messages.getString("masyu.AnswerCheckMessage3")); //$NON-NLS-1$
 		else if ((result & 32) == 32)
-			message.append(Messages.getString("Board.AnswerCheckMessage6")); //$NON-NLS-1$
+			message.append(Messages.getString("masyu.AnswerCheckMessage6")); //$NON-NLS-1$
 		if ((result & 8) == 8)
-			message.append(Messages.getString("Board.AnswerCheckMessage4")); //$NON-NLS-1$
+			message.append(Messages.getString("masyu.AnswerCheckMessage4")); //$NON-NLS-1$
 		else if ((result & 64) == 64)
-			message.append(Messages.getString("Board.AnswerCheckMessage7")); //$NON-NLS-1$
+			message.append(Messages.getString("masyu.AnswerCheckMessage7")); //$NON-NLS-1$
 		return message.toString();
 	}
 

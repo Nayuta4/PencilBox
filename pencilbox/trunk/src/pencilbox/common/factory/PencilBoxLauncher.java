@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 import pencilbox.common.gui.FileChooser;
+import pencilbox.resource.Messages;
 
 /**
  * PencilBox 各アプリケーション起動パネルル

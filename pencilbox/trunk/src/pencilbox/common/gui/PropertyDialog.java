@@ -5,6 +5,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import pencilbox.common.core.Property;
+import pencilbox.resource.Messages;
 
 
 /**

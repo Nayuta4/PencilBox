@@ -2,6 +2,7 @@ package pencilbox.common.core;
 
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.undo.UndoManager;
+import pencilbox.resource.Messages;
 
 
 

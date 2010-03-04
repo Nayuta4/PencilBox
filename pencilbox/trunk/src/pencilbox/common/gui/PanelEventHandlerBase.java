@@ -13,6 +13,7 @@ import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
 import pencilbox.common.core.SideAddress;
+import pencilbox.resource.Messages;
 
 /**
  * パネルに対するマウス，キーボードのイベント処理を行うクラス

@@ -20,6 +20,7 @@ import pencilbox.common.factory.PencilType;
 import pencilbox.common.io.IOController;
 import pencilbox.common.io.IOController.DataFormat;
 import pencilbox.util.Colors;
+import pencilbox.resource.Messages;
 
 
 /**

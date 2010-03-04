@@ -5,6 +5,7 @@ import java.awt.Color;
 import javax.swing.JMenuItem;
 
 import pencilbox.common.gui.MenuBase;
+import pencilbox.resource.Messages;
 
 /**
  * 「天体ショー」メニュークラス
@@ -34,7 +35,7 @@ public class Menu extends MenuBase {
 		blackAreaColorItem = addColorMenuItem(Messages.getString("Menu.blackAreaColorItem")); //$NON-NLS-1$
 		addToViewMenu(hideStarItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.hideStarItem"), 'H', false)); //$NON-NLS-1$
 		addToViewMenu(showAreaBorderItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.showAreaBorderItem"), 'B', true)); //$NON-NLS-1$
-		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.indicateErrorItem"), 'E', false)); //$NON-NLS-1$
+		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.indicateCompletionItem"), 'E', false)); //$NON-NLS-1$
 		addToViewMenu(separateAreaColorItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.separateAreaColorItem"), 'R', false)); //$NON-NLS-1$
 //		addRenewColorMenuItem();
 	}

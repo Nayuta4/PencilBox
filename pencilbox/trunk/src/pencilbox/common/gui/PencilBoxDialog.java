@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
+import pencilbox.resource.Messages;
 
 /**
  * カスタムダイアログ用の共通スーパークラス。

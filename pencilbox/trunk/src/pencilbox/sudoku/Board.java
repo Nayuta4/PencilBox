@@ -8,6 +8,7 @@ import javax.swing.undo.UndoableEdit;
 
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
+import pencilbox.resource.Messages;
 
 
 /**
@@ -352,9 +353,9 @@ public class Board extends BoardBase {
 		if (result == 0)
 			return COMPLETE_MESSAGE;
 		if (result == 2)
-			return Messages.getString("Board.AnswerCheckMessage2"); //$NON-NLS-1$
+			return Messages.getString("sudoku.AnswerCheckMessage2"); //$NON-NLS-1$
 		if ((result & 1) == 1)
-			return Messages.getString("Board.AnswerCheckMessage1"); //$NON-NLS-1$
+			return Messages.getString("sudoku.AnswerCheckMessage1"); //$NON-NLS-1$
 		else
 			return ""; //$NON-NLS-1$
 	}

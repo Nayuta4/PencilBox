@@ -8,6 +8,7 @@ import javax.swing.undo.CannotUndoException;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
+import pencilbox.resource.Messages;
 
 
 /**
@@ -577,9 +578,9 @@ public class Board extends BoardBase {
 		return true;
 	}
 	
-	static final String ERR_CROSS_BRIDGE = Messages.getString("Board.AnswerCheckMessage1"); //$NON-NLS-1$
-	static final String YET_MULTIPLE_LINE = Messages.getString("Board.AnswerCheckMessage2"); //$NON-NLS-1$
-	static final String ERR_WRONG_NUMBER = Messages.getString("Board.AnswerCheckMessage3"); //$NON-NLS-1$
+	static final String ERR_CROSS_BRIDGE = Messages.getString("hashi.AnswerCheckMessage1"); //$NON-NLS-1$
+	static final String YET_MULTIPLE_LINE = Messages.getString("hashi.AnswerCheckMessage2"); //$NON-NLS-1$
+	static final String ERR_WRONG_NUMBER = Messages.getString("hashi.AnswerCheckMessage3"); //$NON-NLS-1$
 //	static final String ERR_TOO_MANY_LINE = "‹´‚Ì”‚ª‘½‚·‚¬‚é”š‚ª‚ ‚é\n";
 //	static final String YET_TOO_FEW_LINE= "‹´‚Ì”‚ª‘«‚è‚È‚¢”š‚ª‚ ‚é\n";
 	

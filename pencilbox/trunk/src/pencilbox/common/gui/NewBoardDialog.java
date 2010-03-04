@@ -16,6 +16,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
 import pencilbox.common.core.Size;
+import pencilbox.resource.Messages;
 
 /**
  * 「新規作成」ダイアログ

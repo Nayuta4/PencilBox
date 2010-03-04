@@ -5,6 +5,7 @@ import java.awt.Color;
 import javax.swing.JMenuItem;
 
 import pencilbox.common.gui.MenuBase;
+import pencilbox.resource.Messages;
 
 /**
  * 「美術館」メニュークラス
@@ -31,9 +32,9 @@ public class Menu extends MenuBase {
 	}
 
 	protected void buildViewMenu() {
-		buildMarkStyleMenu(Messages.getString("Menu.markStyleMenu"), 'N', new int[] {3, 4}); //$NON-NLS-1$
+		buildMarkStyleMenu(Messages.getString("Menu.noBulbStyleMenu"), 'N', new int[] {3, 4}); //$NON-NLS-1$
 		super.buildViewMenu();
-		wallColorItem = addColorMenuItem(Messages.getString("Menu.wallColoritem")); //$NON-NLS-1$
+		wallColorItem = addColorMenuItem(Messages.getString("Menu.wallColorItem")); //$NON-NLS-1$
 		numberColorItem = addColorMenuItem(Messages.getString("Menu.numberColorItem")); //$NON-NLS-1$
 		bulbColorItem = addColorMenuItem(Messages.getString("Menu.bulbColorItem")); //$NON-NLS-1$
 		noBulbColorItem = addColorMenuItem(Messages.getString("Menu.noBulbColorItem")); //$NON-NLS-1$
