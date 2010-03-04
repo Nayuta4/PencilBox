@@ -13,6 +13,7 @@ import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
 import pencilbox.common.core.SideAddress;
 import pencilbox.util.ArrayUtil;
+import pencilbox.resource.Messages;
 
 
 /**
@@ -461,17 +462,17 @@ public class Board extends BoardBase {
 			return COMPLETE_MESSAGE; 
 		StringBuffer message = new StringBuffer();
 		if ((result & 1) == 1)
-			message.append(Messages.getString("Board.AnswerCheckMessage1")); //$NON-NLS-1$
+			message.append(Messages.getString("slitherlink.AnswerCheckMessage1")); //$NON-NLS-1$
 		if ((result & 2) == 2)
-			message.append(Messages.getString("Board.AnswerCheckMessage2")); //$NON-NLS-1$
+			message.append(Messages.getString("slitherlink.AnswerCheckMessage2")); //$NON-NLS-1$
 		if ((result & 16) == 16)
-			message.append(Messages.getString("Board.AnswerCheckMessage5")); //$NON-NLS-1$
+			message.append(Messages.getString("slitherlink.AnswerCheckMessage5")); //$NON-NLS-1$
 		if ((result & 128) == 128)
-			message.append(Messages.getString("Board.AnswerCheckMessage8")); //$NON-NLS-1$
+			message.append(Messages.getString("slitherlink.AnswerCheckMessage8")); //$NON-NLS-1$
 		if ((result & 4) == 4)
-			message.append(Messages.getString("Board.AnswerCheckMessage3")); //$NON-NLS-1$
+			message.append(Messages.getString("slitherlink.AnswerCheckMessage3")); //$NON-NLS-1$
 		if ((result & 32) == 32)
-			message.append(Messages.getString("Board.AnswerCheckMessage6")); //$NON-NLS-1$
+			message.append(Messages.getString("slitherlink.AnswerCheckMessage6")); //$NON-NLS-1$
 		return message.toString();
 	}
 

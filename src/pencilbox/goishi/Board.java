@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
+import pencilbox.resource.Messages;
 
 
 /**
@@ -207,9 +208,9 @@ public class Board extends BoardBase {
 		if (result == 0)
 			return COMPLETE_MESSAGE;
 		else if (result == 2)
-			return Messages.getString("Board.AnswerCheckMessage0"); //$NON-NLS-1$
+			return Messages.getString("goishi.AnswerCheckMessage2"); //$NON-NLS-1$
 		else if (result == 1)
-			return Messages.getString("Board.AnswerCheckMessage1"); //$NON-NLS-1$
+			return Messages.getString("goishi.AnswerCheckMessage1"); //$NON-NLS-1$
 		return ""; //$NON-NLS-1$
 	}
 

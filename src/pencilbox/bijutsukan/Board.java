@@ -8,6 +8,7 @@ import javax.swing.undo.CannotUndoException;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.util.ArrayUtil;
+import pencilbox.resource.Messages;
 
 
 /**
@@ -349,9 +350,9 @@ public class Board extends BoardBase {
 		return message.toString();
 	}
 
-	static final String ERR_MULTI_ILLUMINATION = Messages.getString("Board.AnswerCheckMessage1"); //$NON-NLS-1$
-	static final String YET_NOT_ILLUMINATED = Messages.getString("Board.AnswerCheckMessage2"); //$NON-NLS-1$
-	static final String ERR_WRONG_NUMBER =  Messages.getString("Board.AnswerCheckMessage3"); //$NON-NLS-1$
+	static final String ERR_MULTI_ILLUMINATION = Messages.getString("bijutsukan.AnswerCheckMessage1"); //$NON-NLS-1$
+	static final String YET_NOT_ILLUMINATED = Messages.getString("bijutsukan.AnswerCheckMessage2"); //$NON-NLS-1$
+	static final String ERR_WRONG_NUMBER =  Messages.getString("bijutsukan.AnswerCheckMessage3"); //$NON-NLS-1$
 
 	
   /**

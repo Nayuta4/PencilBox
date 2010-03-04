@@ -11,6 +11,7 @@ import javax.swing.undo.CannotUndoException;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.util.ArrayUtil;
+import pencilbox.resource.Messages;
 
 
 /**
@@ -422,19 +423,19 @@ public class Board extends BoardBase {
 			return COMPLETE_MESSAGE;
 		StringBuffer message = new StringBuffer();
 		if ((result & 1) == 1)
-			message.append(Messages.getString("Board.AnswerCheckMessage1"));  //$NON-NLS-1$
+			message.append(Messages.getString("lits.AnswerCheckMessage1"));  //$NON-NLS-1$
 		if ((result & 2) == 2)
 			;
 		if ((result & 4) == 4)
 			;
 		if ((result & 8) == 8)
-			message.append(Messages.getString("Board.AnswerCheckMessage2"));  //$NON-NLS-1$
+			message.append(Messages.getString("lits.AnswerCheckMessage2"));  //$NON-NLS-1$
 		if ((result & 16) == 16)
-			message.append(Messages.getString("Board.AnswerCheckMessage3"));  //$NON-NLS-1$
+			message.append(Messages.getString("lits.AnswerCheckMessage3"));  //$NON-NLS-1$
 		if ((result & 32) == 32)
-			message.append(Messages.getString("Board.AnswerCheckMessage4"));  //$NON-NLS-1$
+			message.append(Messages.getString("lits.AnswerCheckMessage4"));  //$NON-NLS-1$
 		if ((result & 64) == 64)
-			message.append(Messages.getString("Board.AnswerCheckMessage5"));  //$NON-NLS-1$
+			message.append(Messages.getString("lits.AnswerCheckMessage5"));  //$NON-NLS-1$
 		return message.toString();
 	}
 

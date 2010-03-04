@@ -5,6 +5,7 @@ import java.awt.Color;
 import javax.swing.JMenuItem;
 
 import pencilbox.common.gui.MenuBase;
+import pencilbox.resource.Messages;
 
 /**
  * u‚k‚h‚s‚rvƒƒjƒ…[ƒNƒ‰ƒX
@@ -30,7 +31,7 @@ public class Menu extends MenuBase {
 		super.buildViewMenu();
 		areaBorderColorItem = addColorMenuItem(Messages.getString("Menu.areaBorderColorItem")); //$NON-NLS-1$
 		paintColorItem = addColorMenuItem(Messages.getString("Menu.paintColorItem")); //$NON-NLS-1$
-		circleColorItem = addColorMenuItem(Messages.getString("Menu.circleColorItem")); //$NON-NLS-1$
+		circleColorItem = addColorMenuItem(Messages.getString("Menu.noPaintColorItem")); //$NON-NLS-1$
 		addToViewMenu(separateTetrominoColorItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.separateTetrominoColorItem"), 'D', false)); //$NON-NLS-1$
 	}
 

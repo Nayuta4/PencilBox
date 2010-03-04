@@ -9,6 +9,7 @@ import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
 import pencilbox.util.ArrayUtil;
+import pencilbox.resource.Messages;
 
 /**
  * 「黒マスはどこだ」盤面クラス
@@ -419,10 +420,10 @@ public class Board extends BoardBase {
 		return message.toString();
 	}
 
-	static final String ERR_CONTINUOUS_BLACK = Messages.getString("Board.AnswerCheckMessage1"); //$NON-NLS-1$
-	static final String ERR_DIVIDED_BOARD = Messages.getString("Board.AnswerCheckMessage2"); //$NON-NLS-1$
-	static final String ERR_SMALL_SIZE = Messages.getString("Board.AnswerCheckMessage3"); //$NON-NLS-1$
-	static final String YET_LARGE_SIZE = Messages.getString("Board.AnswerCheckMessage4"); //$NON-NLS-1$
+	static final String ERR_CONTINUOUS_BLACK = Messages.getString("kurodoko.AnswerCheckMessage1"); //$NON-NLS-1$
+	static final String ERR_DIVIDED_BOARD = Messages.getString("kurodoko.AnswerCheckMessage2"); //$NON-NLS-1$
+	static final String ERR_SMALL_SIZE = Messages.getString("kurodoko.AnswerCheckMessage3"); //$NON-NLS-1$
+	static final String YET_LARGE_SIZE = Messages.getString("kurodoko.AnswerCheckMessage4"); //$NON-NLS-1$
 	
 	/**
 	 * １手の操作を表すクラス

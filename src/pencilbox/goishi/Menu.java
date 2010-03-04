@@ -5,6 +5,7 @@ import java.awt.Color;
 import javax.swing.JMenuItem;
 
 import pencilbox.common.gui.MenuBase;
+import pencilbox.resource.Messages;
 
 /**
  * 「碁石ひろい」メニュークラス
@@ -25,8 +26,8 @@ public class Menu extends MenuBase {
 
 	protected void buildViewMenu() {
 		super.buildViewMenu();
-		numberColorItem = addColorMenuItem(Messages.getString("Menu.numberColorItem")); //$NON-NLS-1$
-		paintColorItem = addColorMenuItem(Messages.getString("Menu.paintColorItem")); //$NON-NLS-1$
+		numberColorItem = addColorMenuItem(Messages.getString("Menu.stoneOutlineColorItem")); //$NON-NLS-1$
+		paintColorItem = addColorMenuItem(Messages.getString("Menu.stoneColorItem")); //$NON-NLS-1$
 		inputColorItem = addColorMenuItem(Messages.getString("Menu.inputColorItem")); //$NON-NLS-1$
 	}
 

@@ -5,6 +5,7 @@ import java.awt.Color;
 import javax.swing.JMenuItem;
 
 import pencilbox.common.gui.MenuBase;
+import pencilbox.resource.Messages;
 
 /**
  * 「スリザーリンク」メニュークラス

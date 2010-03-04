@@ -1,6 +1,7 @@
 package pencilbox.common.core;
 
 import java.io.File;
+import pencilbox.resource.Messages;
 
 /**
  * –â‘èƒNƒ‰ƒX
