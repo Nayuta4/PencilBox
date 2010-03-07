@@ -61,7 +61,7 @@ public class PzprReader extends PzprReaderBase {
 		nSquare = 0;
 		for(int k = 0; k < nArea; k++) {
 			Square sq = makeCircumscribedSquare(areaArray[k]);
-			if (sq.size() == areaArray[k].size()) {
+			if (sq.getSquareSize() == areaArray[k].size()) {
 				squareArray[nSquare] = sq;
 				nSquare++;
 				bd.addSquare(sq);
