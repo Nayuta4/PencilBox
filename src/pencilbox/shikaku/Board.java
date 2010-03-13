@@ -181,7 +181,7 @@ public class Board extends BoardBase {
 	 * @param sq
 	 */
 	public void addSquareA(Square sq) {
-		fireUndoableEditUpdate(new UndoableEditEvent(this, new Step(sq.r0(), sq.c0(), sq.r1(), sq.c1(), Step.ADDED)));
+		fireUndoableEditUpdate(new Step(sq.r0(), sq.c0(), sq.r1(), sq.c1(), Step.ADDED));
 		addSquare(sq);
 	}
 
@@ -222,7 +222,7 @@ public class Board extends BoardBase {
 			cOld = sq.c0();
 			cNew = newSq.c0();
 		}
-		fireUndoableEditUpdate(new UndoableEditEvent(this, new Step(rOld, cOld, rNew, cNew, Step.CHANGED)));
+		fireUndoableEditUpdate(new Step(rOld, cOld, rNew, cNew, Step.CHANGED));
 		changeSquare(sq, newSq);
 	}
 
@@ -232,7 +232,7 @@ public class Board extends BoardBase {
 	 * @param sq èúãéÇ∑ÇÈéläp
 	 */
 	public void removeSquareA(Square sq) {
-		fireUndoableEditUpdate(new UndoableEditEvent(this, new Step(sq.r0(), sq.c0(), sq.r1(), sq.c1(), Step.REMOVED)));
+		fireUndoableEditUpdate(new Step(sq.r0(), sq.c0(), sq.r1(), sq.c1(), Step.REMOVED));
 		removeSquare(sq);
 	}
 	

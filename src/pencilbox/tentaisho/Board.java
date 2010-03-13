@@ -159,13 +159,13 @@ public class Board extends BoardBase {
 
 	void addCellToAreaA(Address pos, Area area) {
 		fireUndoableEditUpdate(
-			new UndoableEditEvent(this, new Step(pos.r(), pos.c(), area, Step.ADDED)));
+			new Step(pos.r(), pos.c(), area, Step.ADDED));
 		addCellToArea(pos, area);
 	}
 
 	void removeCellFromAreaA(Address pos, Area area) {
 		fireUndoableEditUpdate(
-			new UndoableEditEvent(this, new Step(pos.r(), pos.c(), area, Step.REMOVED)));
+			new Step(pos.r(), pos.c(), area, Step.REMOVED));
 		removeCellFromArea(pos, area);
 	}
 	/**

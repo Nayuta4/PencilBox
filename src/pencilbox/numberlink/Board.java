@@ -221,7 +221,7 @@ public class Board extends BoardBase {
 	 */
 	public void changeStateA(SideAddress pos, int st) {
 		fireUndoableEditUpdate(
-			new UndoableEditEvent(this, new Step(pos.d(), pos.r(), pos.c(), getState(pos), st)));
+			new Step(pos.d(), pos.r(), pos.c(), getState(pos), st));
 		changeState(pos.d(), pos.r(), pos.c(), st);
 	}
 

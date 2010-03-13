@@ -393,8 +393,7 @@ public class Board extends BoardBase {
 	 */
 	public void addBridgeA(Address pos, int direction) {
 		addBridge(pos.r(), pos.c(), direction);
-		fireUndoableEditUpdate(new UndoableEditEvent(this,
-				new Step(pos.r(), pos.c(), direction, Step.ADDED)));
+		fireUndoableEditUpdate(new Step(pos.r(), pos.c(), direction, Step.ADDED));
 	}
 	/**
 	 * 橋を除く，アンドゥリスナーに通知する
@@ -403,8 +402,7 @@ public class Board extends BoardBase {
 	 */
 	public void removeBridgeA(Address pos, int direction) {
 		removeBridge(pos.r(), pos.c(), direction);
-		fireUndoableEditUpdate(new UndoableEditEvent(this, 
-				new Step(pos.r(), pos.c(), direction, Step.REMOVED)));
+		fireUndoableEditUpdate(new Step(pos.r(), pos.c(), direction, Step.REMOVED));
 	}
 	/**
 	 * 橋の連結番号を初期化する

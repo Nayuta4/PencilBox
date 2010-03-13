@@ -338,7 +338,7 @@ public class Board extends BoardBase {
 	 */
 	public void changeStateA(Address pos, int st) {
 		fireUndoableEditUpdate(
-			new UndoableEditEvent(this, new PaintStep(pos.r(), pos.c(), getNumber(pos), st)));
+			new PaintStep(pos.r(), pos.c(), getNumber(pos), st));
 		setNumber(pos, st);	
 	}
 	/**
@@ -371,7 +371,7 @@ public class Board extends BoardBase {
 	 */
 	public void changeStateA(SideAddress pos, int st) {
 		fireUndoableEditUpdate(
-			new UndoableEditEvent(this, new LineStep(pos.d(), pos.r(), pos.c(), getState(pos), st)));
+			new LineStep(pos.d(), pos.r(), pos.c(), getState(pos), st));
 		changeState(pos, st);
 	}
 
