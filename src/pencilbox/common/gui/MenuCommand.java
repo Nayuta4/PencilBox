@@ -7,20 +7,20 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
-import javax.swing.undo.UndoManager;
 
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.PencilBoxException;
 import pencilbox.common.core.Problem;
 import pencilbox.common.core.Size;
+import pencilbox.common.core.UndoManager;
 import pencilbox.common.factory.Constants;
 import pencilbox.common.factory.PencilBoxClassException;
 import pencilbox.common.factory.PencilFactory;
 import pencilbox.common.factory.PencilType;
 import pencilbox.common.io.IOController;
 import pencilbox.common.io.IOController.DataFormat;
-import pencilbox.util.Colors;
 import pencilbox.resource.Messages;
+import pencilbox.util.Colors;
 
 
 /**
@@ -56,7 +56,6 @@ public class MenuCommand {
 		this.board = problem.getBoard();
 		setFrameTitle();
 		undoManager = new UndoManager();
-		undoManager.setLimit(1000);
 		board.setUndoManager(undoManager);
 		board.initBoard();
 	}
@@ -68,7 +67,6 @@ public class MenuCommand {
 		this.board = problem.getBoard();
 		setFrameTitle();
 		undoManager = new UndoManager();
-		undoManager.setLimit(1000);
 		board.setUndoManager(undoManager);
 		board.initBoard();
 	}
