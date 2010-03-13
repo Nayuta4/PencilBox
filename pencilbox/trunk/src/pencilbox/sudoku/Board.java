@@ -185,7 +185,7 @@ public class Board extends BoardBase {
 		if (n < 0 || n > maxNumber) return;
 		if (n == getNumber(pos)) return;
 		fireUndoableEditUpdate(
-			new UndoableEditEvent(this, new Step(pos.r(), pos.c(), getNumber(pos), n)));
+			new Step(pos.r(), pos.c(), getNumber(pos), n));
 		changeNumber(pos, n);
 	}
 	/**

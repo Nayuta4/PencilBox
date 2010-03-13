@@ -239,7 +239,7 @@ public class Board extends BoardBase {
 		if (n == getNumber(pos)) 
 			return;
 		fireUndoableEditUpdate(
-			new UndoableEditEvent(this, new Step(pos.r(), pos.c(), getNumber(pos), n)));
+			new Step(pos.r(), pos.c(), getNumber(pos), n));
 		changeNumber(pos, n);
 	}
 
