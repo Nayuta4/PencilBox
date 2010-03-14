@@ -472,6 +472,20 @@ public class MenuCommand {
 		});
 	}
 	/**
+	 *  [•ÒW]-[—š—ğ‘€ì]
+	 */
+	public void history() {
+		HistoryDialog historyDialog = HistoryDialog.getInstance();
+		historyDialog.init(getPanelBase(), undoManager);
+		int k = undoManager.getIndexOfNextAdd();
+		int ret = historyDialog.showDialog(frame, Messages.getString("MenuCommand.historyDialog")); //$NON-NLS-1$
+		if (ret == PencilBoxDialog.OK_OPTION) {
+		} else if (ret == PencilBoxDialog.CANCEL_OPTION || ret == PencilBoxDialog.CLOSED_OPTION) {
+			undoManager.jumpTo(k);
+			panel.repaint();
+		}
+	}
+	/**
 	 * UNDO ‰Â”\‚©
 	 * @return UNDO ‰Â”\‚©
 	 */
