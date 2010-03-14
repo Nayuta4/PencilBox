@@ -132,6 +132,33 @@ public class UndoManager {
 		return indexOfNextAdd < edits.size();
 	}
 
+	public int getEditsSize() {
+		return edits.size();
+	}
+
+	public int getIndexOfNextAdd() {
+		return indexOfNextAdd;
+	}
+
+	/**
+	 * ˆø”‚ÉŽw’è‚µ‚½Žè”‚Ü‚ÅƒAƒ“ƒhƒD‚Ü‚½‚ÍƒŠƒhƒD‚ðŒJ‚è•Ô‚µ‚·
+	 * @param n
+	 */
+	public void jumpTo(int n) {
+		if (n >= 0 && n < indexOfNextAdd) {
+			System.out.println("undo from " + indexOfNextAdd + " to " + n);
+			for (int i = indexOfNextAdd-1; i >= n; i--) {
+				undo();
+			}
+		}
+		if (n > indexOfNextAdd && n <= edits.size()) {
+			System.out.println("redo from " + indexOfNextAdd + " to " + n);
+			for (int i = indexOfNextAdd; i < n; i++) {
+				redo();
+			}
+		}
+	}
+
 	public String toString() {
 		return " edits: " + edits + " indexOfNextAdd: " + indexOfNextAdd;
 	}

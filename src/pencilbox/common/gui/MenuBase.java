@@ -54,6 +54,7 @@ public class MenuBase {
 //	private JMenuItem undoAllItem;
 //	private JMenuItem redoAllItem;
 	private JMenuItem playbackItem;
+	private JMenuItem historyItem;
 	private JMenuItem checkAnswerItem;
 	private JMenuItem immediateAnswerCheckItem;
 	private JMenuItem cellSizeItem;
@@ -177,8 +178,9 @@ public class MenuBase {
 		// editMenu.add(undoAllItem = makeCommandMenuItem("ç≈èâÇ‹Ç≈ñﬂÇ∑(F)", 'F'));
 		// editMenu.add(redoAllItem = makeCommandMenuItem("ç≈å„Ç‹Ç≈êiÇﬂÇÈ(L)", 'L'));
 		editMenu.add(playbackItem = makeCommandMenuItem(Messages.getString("MenuBase.playbackItem"), 'P')); //$NON-NLS-1$
+		editMenu.add(historyItem = makeCommandMenuItem(Messages.getString("MenuBase.historyItem"), 'H')); //$NON-NLS-1$
 		editMenu.addSeparator();
-		editMenu.add(checkAnswerItem = makeCommandMenuItem(Messages.getString("MenuBase.checkAnswerItem"), 'H')); //$NON-NLS-1$
+		editMenu.add(checkAnswerItem = makeCommandMenuItem(Messages.getString("MenuBase.checkAnswerItem"), 'K')); //$NON-NLS-1$
 		editMenu.add(immediateAnswerCheckItem = makeCheckBoxCommandMenuItem(Messages.getString("MenuBase.immediateAnswerCheckItem"), 'M', false)); //$NON-NLS-1$
 
 		modeGroup = new ButtonGroup();
@@ -646,6 +648,8 @@ public class MenuBase {
 //			command.redoAll();
 		else if (target == playbackItem)
 			command.playback();
+		else if (target == historyItem)
+			command.history();
 		else if (target == checkAnswerItem)
 			command.checkAnswer();
 		else if (target == immediateAnswerCheckItem)
