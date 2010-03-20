@@ -158,32 +158,52 @@ public class Board extends BoardBase {
 	}
 
 	void addCellToAreaA(Address pos, Area area) {
-		fireUndoableEditUpdate(
-			new Step(pos.r(), pos.c(), area, Step.ADDED));
+		Address p0 = Address.NOWHERE;
+		if (area.size() > 0) {
+			p0 = (Address)area.toArray()[0];
+		}
+		fireUndoableEditUpdate(new Step(pos.r(), pos.c(), p0.r(), p0.c(), Step.ADDED));
 		addCellToArea(pos, area);
 	}
 
 	void removeCellFromAreaA(Address pos, Area area) {
-		fireUndoableEditUpdate(
-			new Step(pos.r(), pos.c(), area, Step.REMOVED));
+		Address p0 = Address.NOWHERE;
+		if (area.size() > 1) {
+			p0 = (Address)area.toArray()[0];
+			if (p0.equals(pos))
+				p0 = (Address)area.toArray()[1];
+		}
+		fireUndoableEditUpdate(new Step(pos.r(), pos.c(), p0.r(), p0.c(), Step.REMOVED));
 		removeCellFromArea(pos, area);
 	}
 
 	public void undo(AbstractStep step) {
 		Step s = (Step)step;
+		Area a;
 		if (s.operation == Step.ADDED) {
-			removeCellFromArea(s.r, s.c, s.area);
+			a = getArea(s.r, s.c);
+			removeCellFromArea(s.r, s.c, a);
 		} else if (s.operation == Step.REMOVED) {
-			addCellToArea(s.r, s.c, s.area);
+			if (Address.NOWHERE.equals(s.r0, s.c0))
+				a = new Area();
+			else
+				a = getArea(s.r0, s.c0);
+			addCellToArea(s.r, s.c, a);
 		}
 	}
 
 	public void redo(AbstractStep step) {
 		Step s = (Step)step;
+		Area a;
 		if (s.operation == Step.ADDED) {
-			addCellToArea(s.r, s.c, s.area);
+			if (Address.NOWHERE.equals(s.r0, s.c0))
+				a = new Area();
+			else
+				a = getArea(s.r0, s.c0);
+			addCellToArea(s.r, s.c, a);
 		} else if (s.operation == Step.REMOVED) {
-			removeCellFromArea(s.r, s.c, s.area);
+			a = getArea(s.r, s.c);
+			removeCellFromArea(s.r, s.c, a);
 		}
 	}
 	/**
@@ -301,21 +321,24 @@ public class Board extends BoardBase {
 		
 		int r;
 		int c;
-		Area area;
+		int r0;
+		int c0;
 		int operation;
 
 		/**
 		 * コンストラクタ
 		 * @param r 変更されたマスの行座標
 		 * @param c 変更されたマスの列座標
-		 * @param area 変更された領域
-		 * @param operation 操作の種類：領域にマスが追加されたのか，領域からマスが除かれたのか。）
+		 * @param r0 変更された領域の代表マスの行座標
+		 * @param c0 変更された領域の代表マスの列座標
 		 */
-		public Step(int r, int c, Area area, int operation) {
+		public Step(int r, int c, int r0, int c0, int operation) {
 			super();
 			this.r = r;
 			this.c = c;
-			this.area = area;
+			this.r0 = r0;
+			this.c0 = c0;
+//			this.area = area;
 			this.operation = operation;
 		}
 		
