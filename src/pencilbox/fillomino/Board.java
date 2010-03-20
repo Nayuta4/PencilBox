@@ -3,16 +3,11 @@ package pencilbox.fillomino;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.swing.event.UndoableEditEvent;
-import javax.swing.undo.AbstractUndoableEdit;
-import javax.swing.undo.CannotRedoException;
-import javax.swing.undo.CannotUndoException;
-import javax.swing.undo.UndoableEdit;
-
+import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
-import pencilbox.util.ArrayUtil;
 import pencilbox.resource.Messages;
+import pencilbox.util.ArrayUtil;
 
 
 /**
@@ -240,6 +235,20 @@ public class Board extends BoardBase {
 		changeNumber(pos, n);
 	}
 
+	public void undo(AbstractStep step) {
+		Step s = (Step) step;
+		if (isStable(s.row, s.col))
+			return;
+		changeNumber(s.row, s.col, s.before);
+	}
+
+	public void redo(AbstractStep step) {
+		Step s = (Step) step;
+		if (isStable(s.row, s.col))
+			return;
+		changeNumber(s.row, s.col, s.after);
+	}
+
 	/**
 	 * 数字を設定，変更したときの Area 併合処理を行う
 	 * @param r 変更したマスの行座標
@@ -323,17 +332,18 @@ public class Board extends BoardBase {
 			message.append(Messages.getString("fillomino.AnswerCheckMessage3")); //$NON-NLS-1$
 		return message.toString();
 	}
+}
 
 	/**
 	 * １手の操作を表すクラス
 	 * UNDO, REDO での編集の単位となる
 	 */
-	class Step extends AbstractUndoableEdit {
+	class Step extends AbstractStep {
 
-		private int row;
-		private int col;
-		private int before;
-		private int after;
+		int row;
+		int col;
+		int before;
+		int after;
 		/**
 		 * コンストラクタ
 		 * @param r 変更されたマスの行座標
@@ -348,19 +358,8 @@ public class Board extends BoardBase {
 			before = b;
 			after = a;
 		}
-		public void undo() throws CannotUndoException {
-			super.undo();
-			if (isStable(row, col))
-				return;
-			changeNumber(row,col,before);
-		}
-		public void redo() throws CannotRedoException {
-			super.redo();
-			if (isStable(row, col))
-				return;
-			changeNumber(row, col, after);
-		}
-		public boolean addEdit(UndoableEdit anEdit) {
+
+		public boolean addEdit(AbstractStep anEdit) {
 			Step edit = (Step) anEdit;
 			if (edit.row == row && edit.col == col) {
 				after = edit.after;
@@ -369,7 +368,5 @@ public class Board extends BoardBase {
 				return false;
 			}
 		}
-	
-	}
 
-}
+	}

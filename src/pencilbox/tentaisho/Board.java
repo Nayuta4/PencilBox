@@ -1,13 +1,13 @@
 package pencilbox.tentaisho;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 
-import javax.swing.event.UndoableEditEvent;
-import javax.swing.undo.*;
-
-import pencilbox.common.core.*;
-import pencilbox.util.*;
+import pencilbox.common.core.AbstractStep;
+import pencilbox.common.core.Address;
+import pencilbox.common.core.BoardBase;
 import pencilbox.resource.Messages;
+import pencilbox.util.ArrayUtil;
 
 
 /**
@@ -168,6 +168,24 @@ public class Board extends BoardBase {
 			new Step(pos.r(), pos.c(), area, Step.REMOVED));
 		removeCellFromArea(pos, area);
 	}
+
+	public void undo(AbstractStep step) {
+		Step s = (Step)step;
+		if (s.operation == Step.ADDED) {
+			removeCellFromArea(s.r, s.c, s.area);
+		} else if (s.operation == Step.REMOVED) {
+			addCellToArea(s.r, s.c, s.area);
+		}
+	}
+
+	public void redo(AbstractStep step) {
+		Step s = (Step)step;
+		if (s.operation == Step.ADDED) {
+			addCellToArea(s.r, s.c, s.area);
+		} else if (s.operation == Step.REMOVED) {
+			removeCellFromArea(s.r, s.c, s.area);
+		}
+	}
 	/**
 	 * マスを領域に追加する
 	 * @param r 追加するマスの行座標
@@ -270,20 +288,21 @@ public class Board extends BoardBase {
 	Area[][] getArea() {
 		return area;
 	}
+}
 	/**
 	 * １手の操作を表すクラス
 	 * UNDO, REDO での編集の単位となる
 	 */
-	class Step extends AbstractUndoableEdit {
+	class Step extends AbstractStep {
 
 		static final int ADDED = 1;
 		static final int REMOVED = 0;
 		static final int CHANGED = 2;
 		
-		private int r;
-		private int c;
-		private Area area;
-		private int operation;
+		int r;
+		int c;
+		Area area;
+		int operation;
 
 		/**
 		 * コンストラクタ
@@ -300,24 +319,4 @@ public class Board extends BoardBase {
 			this.operation = operation;
 		}
 		
-		public void undo() throws CannotUndoException {
-			super.undo();
-			if (operation == ADDED) {
-				removeCellFromArea(r, c, area);
-			} else if (operation == REMOVED) {
-				addCellToArea(r, c, area);
-			}
-		}
-
-		public void redo() throws CannotRedoException {
-			super.redo();
-			if (operation == ADDED) {
-				addCellToArea(r, c, area);
-			} else if (operation == REMOVED) {
-				removeCellFromArea(r, c, area);
-			}
-		}
 	}
-
-}
-

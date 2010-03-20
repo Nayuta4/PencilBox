@@ -3,15 +3,11 @@ package pencilbox.shikaku;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.swing.event.UndoableEditEvent;
-import javax.swing.undo.AbstractUndoableEdit;
-import javax.swing.undo.CannotRedoException;
-import javax.swing.undo.CannotUndoException;
-
+import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
-import pencilbox.util.ArrayUtil;
 import pencilbox.resource.Messages;
+import pencilbox.util.ArrayUtil;
 
 
 /**
@@ -236,6 +232,28 @@ public class Board extends BoardBase {
 		removeSquare(sq);
 	}
 	
+	public void undo(AbstractStep step) {
+		Step s = (Step) step;
+		if (s.operation == Step.ADDED) {
+			removeSquare(s.r0, s.c0);
+		} else if (s.operation == Step.REMOVED) {
+			addSquare(s.r0, s.c0, s.r1, s.c1);
+		} else if (s.operation == Step.CHANGED) {
+			changeSquare(s.r1, s.c1, s.r0, s.c0);
+		}
+	}
+
+	public void redo(AbstractStep step) {
+		Step s = (Step) step;
+		if (s.operation == Step.ADDED) {
+			addSquare(s.r0, s.c0, s.r1, s.c1);
+		} else if (s.operation == Step.REMOVED) {
+			removeSquare(s.r0, s.c0);
+		} else if (s.operation == Step.CHANGED) {
+			changeSquare(s.r0, s.c0, s.r1, s.c1);
+		}
+	}
+
 	/**
 	 * 四角を追加する
 	 * @param sq 追加する四角
@@ -350,22 +368,23 @@ public class Board extends BoardBase {
 			message.append(Messages.getString("shikaku.AnswerCheckMessage5")); //$NON-NLS-1$
 		return message.toString();
 	}
-	
+}	
+
 	/**
 	 * １手の操作を表すクラス
 	 * UNDO, REDO での編集の単位となる
 	 */
-	class Step extends AbstractUndoableEdit {
+	class Step extends AbstractStep {
 		
 		static final int ADDED = 1;
 		static final int REMOVED = 0;
 		static final int CHANGED = 2;
 		
-		private int r0;
-		private int c0;
-		private int r1;
-		private int c1;
-		private int operation;
+		int r0;
+		int c0;
+		int r1;
+		int c1;
+		int operation;
 
 		/**
 		 * コンストラクタ
@@ -381,27 +400,4 @@ public class Board extends BoardBase {
 			this.operation = operation;
 		}
 		
-		public void undo() throws CannotUndoException {
-			super.undo();
-			if (operation==ADDED) {
-				removeSquare(r0, c0);
-			} else if (operation==REMOVED) {
-				addSquare(r0, c0, r1, c1);
-			} else if (operation==CHANGED) {
-				changeSquare(r1, c1, r0, c0);
-			}
-		}
-
-		public void redo() throws CannotRedoException {
-			super.redo();
-			if (operation==ADDED) {
-				addSquare(r0, c0, r1, c1);
-			} else if (operation==REMOVED) {
-				removeSquare(r0, c0);
-			} else if (operation==CHANGED) {
-				changeSquare(r0, c0, r1, c1);
-			}
-		}
 	}
-
-}

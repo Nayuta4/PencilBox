@@ -1,10 +1,6 @@
 package pencilbox.hashi;
 
-import javax.swing.event.UndoableEditEvent;
-import javax.swing.undo.AbstractUndoableEdit;
-import javax.swing.undo.CannotRedoException;
-import javax.swing.undo.CannotUndoException;
-
+import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
@@ -395,6 +391,25 @@ public class Board extends BoardBase {
 		addBridge(pos.r(), pos.c(), direction);
 		fireUndoableEditUpdate(new Step(pos.r(), pos.c(), direction, Step.ADDED));
 	}
+
+	public void undo(AbstractStep step) {
+		Step s = (Step) step;
+		if (s.change == Step.ADDED) {
+			removeBridge(s.row, s.col, s.direction);
+		} else if (s.change == Step.REMOVED) {
+			addBridge(s.row, s.col, s.direction);
+		}
+	}
+
+	public void redo(AbstractStep step) {
+		Step s = (Step) step;
+		if (s.change == Step.ADDED) {
+			addBridge(s.row, s.col, s.direction);
+		} else if (s.change == Step.REMOVED) {
+			removeBridge(s.row, s.col, s.direction);
+		}
+	}
+
 	/**
 	 * 橋を除く，アンドゥリスナーに通知する
 	 * @param pos 起点の座標
@@ -592,12 +607,13 @@ public class Board extends BoardBase {
 		}
 		return ret/2;
 	}
+}
 
 	/**
 	 * １手の操作を表すクラス
 	 * UNDO, REDO での編集の単位となる
 	 */
-	class Step extends AbstractUndoableEdit {
+	class Step extends AbstractStep {
 
 		static final int ADDED = 1;
 		static final int REMOVED = -1;
@@ -622,22 +638,4 @@ public class Board extends BoardBase {
 			change = ch;
 		}
 		
-		public void undo() throws CannotUndoException {
-			super.undo();
-			if (change == ADDED) {
-				removeBridge(row, col, direction);
-			} else if (change == REMOVED) {
-				addBridge(row, col, direction);
-			}
-		}
-		
-		public void redo() throws CannotRedoException {
-			super.redo();
-			if (change == ADDED) {
-				addBridge(row, col, direction);
-			} else if (change == REMOVED) {
-				removeBridge(row, col, direction);
-			}
-		}
 	}
-}

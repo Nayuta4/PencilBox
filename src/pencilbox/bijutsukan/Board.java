@@ -1,14 +1,10 @@
 package pencilbox.bijutsukan;
 
-import javax.swing.event.UndoableEditEvent;
-import javax.swing.undo.AbstractUndoableEdit;
-import javax.swing.undo.CannotRedoException;
-import javax.swing.undo.CannotUndoException;
-
+import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
-import pencilbox.util.ArrayUtil;
 import pencilbox.resource.Messages;
+import pencilbox.util.ArrayUtil;
 
 
 /**
@@ -276,7 +272,17 @@ public class Board extends BoardBase {
 		changeState(pos, st);
 	}
 
-	/**
+	public void undo(AbstractStep step) {
+		Step s = (Step) step;
+		changeState(s.row, s.col, s.before);
+	}
+
+	public void redo(AbstractStep step) {
+		Step s = (Step) step;
+		changeState(s.row, s.col, s.after);
+	}
+
+	 /**
 	 * 隣接する４マスの照明個数を調べる
 	 * @param r 行座標
 	 * @param c 列座標
@@ -353,18 +359,18 @@ public class Board extends BoardBase {
 	static final String ERR_MULTI_ILLUMINATION = Messages.getString("bijutsukan.AnswerCheckMessage1"); //$NON-NLS-1$
 	static final String YET_NOT_ILLUMINATED = Messages.getString("bijutsukan.AnswerCheckMessage2"); //$NON-NLS-1$
 	static final String ERR_WRONG_NUMBER =  Messages.getString("bijutsukan.AnswerCheckMessage3"); //$NON-NLS-1$
-
+}
 	
   /**
    * １手の操作を表すクラス
    * UNDO, REDO での編集の単位となる
    */
-   class Step extends AbstractUndoableEdit {
+   class Step extends AbstractStep {
 
-	  private int row;
-	  private int col;
-	  private int before;
-	  private int after;
+	  int row;
+	  int col;
+	  int before;
+	  int after;
 	  /**
 	   * コンストラクタ
 	   * @param r 変更されたマスの行座標
@@ -379,15 +385,5 @@ public class Board extends BoardBase {
 		  before = b;
 		  after = a;
 	  }
-	  public void undo() throws CannotUndoException {
-		  super.undo();
-		  changeState(row, col, before);
-	  }
-	  public void redo() throws CannotRedoException {
-		  super.redo();
-		  changeState(row, col, after);
-	  }
 	  
    }
-
-}

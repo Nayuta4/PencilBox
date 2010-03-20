@@ -1,16 +1,11 @@
 package pencilbox.kakuro;
 
-import javax.swing.event.UndoableEditEvent;
-import javax.swing.undo.AbstractUndoableEdit;
-import javax.swing.undo.CannotRedoException;
-import javax.swing.undo.CannotUndoException;
-import javax.swing.undo.UndoableEdit;
-
+import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
-import pencilbox.util.ArrayUtil;
 import pencilbox.resource.Messages;
+import pencilbox.util.ArrayUtil;
 
 /**
  * 「カックロ」 ヒント付き盤面クラス
@@ -280,6 +275,16 @@ public class Board extends BoardBase {
 		changeNumber(pos, n);
 	}
 
+	public void undo(AbstractStep step) {
+		Step s = (Step) step;
+		changeNumber(s.row, s.col, s.before);
+	}
+
+	public void redo(AbstractStep step) {
+		Step s = (Step) step;
+		changeNumber(s.row, s.col, s.after);
+	}
+
 	/**
 	 *  重複数の初期化
 	 */
@@ -468,16 +473,18 @@ public class Board extends BoardBase {
 			return wordV[r][c].getStatus();
 		return 0;
 	}
+}
+
 	/**
 	 * １手の操作を表すクラス
 	 * UNDO, REDO での編集の単位となる
 	 */
-	class Step extends AbstractUndoableEdit {
+	class Step extends AbstractStep {
 
-		private int row;
-		private int col;
-		private int before;
-		private int after;
+		int row;
+		int col;
+		int before;
+		int after;
 		/**
 		 * コンストラクタ
 		 * @param r 変更されたマスの行座標
@@ -492,15 +499,8 @@ public class Board extends BoardBase {
 			before = b;
 			after = a;
 		}
-		public void undo() throws CannotUndoException {
-			super.undo();
-			changeNumber(row, col, before);
-		}
-		public void redo() throws CannotRedoException {
-			super.redo();
-			changeNumber(row, col, after);
-		}
-		public boolean addEdit(UndoableEdit anEdit) {
+
+		public boolean addEdit(AbstractStep anEdit) {
 			Step edit = (Step) anEdit;
 			if (edit.row == row && edit.col == col) {
 				after = edit.after;
@@ -510,5 +510,3 @@ public class Board extends BoardBase {
 			}
 		}
 	}
-
-}

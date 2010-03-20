@@ -1,7 +1,5 @@
 package pencilbox.common.core;
 
-import javax.swing.undo.UndoableEdit;
-
 import pencilbox.resource.Messages;
 
 
@@ -205,8 +203,22 @@ public class BoardBase {
 	 * アンドゥ対象の操作が発生したときに呼ぶ
 	 * @param e the event アンドゥ対象の操作となるイベント
 	 */
-	protected void fireUndoableEditUpdate(UndoableEdit e) {
+	protected void fireUndoableEditUpdate(AbstractStep e) {
 		undoManager.addEdit(e);
+	}
+	/**
+	 * アンドゥ
+	 * 具体的な操作は各サブクラスで実装する
+	 * @param step
+	 */
+	public void undo(AbstractStep step) {
+	}
+	/**
+	 * リドゥ
+	 * 具体的な操作は各サブクラスで実装する
+	 * @param step
+	 */
+	public void redo(AbstractStep step) {
 	}
 	/**
 	 * 正解チェックで完成の場合のコメント文字列
