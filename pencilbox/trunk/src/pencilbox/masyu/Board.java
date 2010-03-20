@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.event.UndoableEditEvent;
-import javax.swing.undo.AbstractUndoableEdit;
+import pencilbox.common.core.AbstractStep;
 import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
 
@@ -283,6 +283,16 @@ public class Board extends BoardBase  {
 		fireUndoableEditUpdate(
 			new Step(pos.d(), pos.r(), pos.c(), getState(pos), st));
 		changeState(pos.d(), pos.r(), pos.c(), st);
+	}
+
+	public void undo(AbstractStep step) {
+		Step s = (Step)step;
+		changeState(s.direction, s.row, s.col, s.before);
+	}
+
+	public void redo(AbstractStep step) {
+		Step s = (Step)step;
+		changeState(s.direction, s.row, s.col, s.after);
 	}
 
 	public void initBoard() {
@@ -579,18 +589,19 @@ public class Board extends BoardBase  {
 			message.append(Messages.getString("masyu.AnswerCheckMessage7")); //$NON-NLS-1$
 		return message.toString();
 	}
+}
 
   /**
    * １手の操作を表すクラス
    * UNDO, REDO での編集の単位となる
    */
-	class Step extends AbstractUndoableEdit {
+	class Step extends AbstractStep {
 
-		private int direction;
-		private int row;
-		private int col;
-		private int before;
-		private int after;
+		int direction;
+		int row;
+		int col;
+		int before;
+		int after;
 		/**
 		 * コンストラクタ
 		 * @param d 横か縦か
@@ -607,14 +618,4 @@ public class Board extends BoardBase  {
 			before = b;
 			after = a;
 		}
-		public void undo() throws CannotUndoException {
-			super.undo();
-			changeState(direction, row, col, before);
-		}
-		public void redo() throws CannotRedoException {
-			super.redo();
-			changeState(direction, row, col, after);
-		}
 	}
-
-}

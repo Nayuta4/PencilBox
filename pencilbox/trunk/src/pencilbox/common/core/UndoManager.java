@@ -4,7 +4,6 @@ import java.util.Vector;
 
 import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
-import javax.swing.undo.UndoableEdit;
 
 /**
  * アンドゥ管理クラス
@@ -12,16 +11,18 @@ import javax.swing.undo.UndoableEdit;
  */
 public class UndoManager {
 
-	private Vector<UndoableEdit> edits;
+	private Vector<AbstractStep> edits;
 	private int indexOfNextAdd;
+	private BoardBase board;
 
 	/**
 	 * Creates a new <code>UndoManager</code>.
 	 */
-	public UndoManager() {
-		edits = new Vector<UndoableEdit>();
+	public UndoManager(BoardBase b) {
+		edits = new Vector<AbstractStep>();
 		edits.ensureCapacity(100);
 		indexOfNextAdd = 0;
+		board = b;
 	}
 
 	/**
@@ -51,16 +52,16 @@ public class UndoManager {
 	}
 
 	/**
-	 * Adds an <code>UndoableEdit</code> to this <code>UndoManager</code>, if it's possible. 
+	 * Adds an <code>AbstractStep</code> to this <code>UndoManager</code>, if it's possible. 
 	 * This removes all edits from the index of the next edit to
 	 * the end of the edits list. 
 	 * @param anEdit the edit to be added
 	 * @return true
 	 */
-	public synchronized boolean addEdit(UndoableEdit anEdit) {
+	public synchronized boolean addEdit(AbstractStep anEdit) {
 		// 現在位置より後ろを削除
         trimEdits(indexOfNextAdd, edits.size()-1);
-		UndoableEdit last = lastEdit();
+		AbstractStep last = lastEdit();
 		// 新しい操作が最初の操作なら，追加する
 		// そうでなければ，新しい操作を最後の操作と合成できるかを調べ，
 		// 合成できなければ，新しい操作を追加する。
@@ -75,7 +76,7 @@ public class UndoManager {
         return true;
 	}
 
-	protected UndoableEdit lastEdit() {
+	protected AbstractStep lastEdit() {
 		int count = edits.size();
 		if (count > 0)
 			return edits.elementAt(count - 1);
@@ -87,16 +88,11 @@ public class UndoManager {
 	 * Undoes the appropriate edits. 
 	 * This invokes <code>undo</code> on the last edit, 
 	 * updating the index of the next edit appropriately.
-	 * @throws CannotUndoException
-	 *             if one of the edits throws <code>CannotUndoException</code>
 	 */
-	public synchronized void undo() throws CannotUndoException {
+	public synchronized void undo() {
 		if (indexOfNextAdd > 0) {
-			UndoableEdit edit = edits.elementAt(indexOfNextAdd - 1);
-			if (edit == null) {
-				throw new CannotUndoException();
-			}
-			edit.undo();
+			AbstractStep edit = edits.elementAt(indexOfNextAdd - 1);
+			board.undo(edit);
 			--indexOfNextAdd;
 		}
 	}
@@ -113,13 +109,11 @@ public class UndoManager {
 	 * Redoes the appropriate edits. 
 	 * This invokes <code>redo</code> on the next significant edit, 
 	 * updating the index of the next edit appropriately.
-	 * @throws CannotRedoException
-	 *             if one of the edits throws <code>CannotRedoException</code>
 	 */
-	public synchronized void redo() throws CannotRedoException {
+	public synchronized void redo() {
 		if (indexOfNextAdd < edits.size()) {
-			UndoableEdit edit = edits.elementAt(indexOfNextAdd);
-			edit.redo();
+			AbstractStep edit = edits.elementAt(indexOfNextAdd);
+			board.redo(edit);
 			indexOfNextAdd++;
 		}
 	}
@@ -146,17 +140,27 @@ public class UndoManager {
 	 */
 	public void jumpTo(int n) {
 		if (n >= 0 && n < indexOfNextAdd) {
-			System.out.println("undo from " + indexOfNextAdd + " to " + n);
+//			System.out.println("undo from " + indexOfNextAdd + " to " + n);
 			for (int i = indexOfNextAdd-1; i >= n; i--) {
 				undo();
 			}
 		}
 		if (n > indexOfNextAdd && n <= edits.size()) {
-			System.out.println("redo from " + indexOfNextAdd + " to " + n);
+//			System.out.println("redo from " + indexOfNextAdd + " to " + n);
 			for (int i = indexOfNextAdd; i < n; i++) {
 				redo();
 			}
 		}
+	}
+
+	/**
+	 * アンドゥマネージャーを複製する。
+	 */
+	public UndoManager duplicate(UndoManager um) {
+		um.indexOfNextAdd = this.indexOfNextAdd;
+		for (AbstractStep e : edits)
+			um.edits.add(e);
+		return um;
 	}
 
 	public String toString() {

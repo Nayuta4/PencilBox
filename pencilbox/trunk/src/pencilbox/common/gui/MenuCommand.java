@@ -55,7 +55,7 @@ public class MenuCommand {
 		this.problem = problem;
 		this.board = problem.getBoard();
 		setFrameTitle();
-		undoManager = new UndoManager();
+		undoManager = new UndoManager(board);
 		board.setUndoManager(undoManager);
 		board.initBoard();
 	}
@@ -66,7 +66,7 @@ public class MenuCommand {
 		this.problem = problem;
 		this.board = problem.getBoard();
 		setFrameTitle();
-		undoManager = new UndoManager();
+		undoManager = new UndoManager(board);
 		board.setUndoManager(undoManager);
 		board.initBoard();
 	}
@@ -93,6 +93,12 @@ public class MenuCommand {
 	 */
 	public Problem getProblem() {
 		return problem;
+	}
+	/**
+	 * @return Returns the undoManager.
+	 */
+	private UndoManager getUndoManager() {
+		return undoManager;
 	}
 
 	/**
@@ -379,7 +385,7 @@ public class MenuCommand {
 	 *  [編集]-[解答消去]
 	 */
 	public void clear() {
-		undoManager.discardAllEdits();
+		getUndoManager().discardAllEdits();
 		board.clearBoard();
 		handler.resetImmediateAnswerCheckMode();
 		panel.repaint();
@@ -419,30 +425,30 @@ public class MenuCommand {
 	 * [編集]-[UNDO]
 	 */
 	public void undo() {
-		if (undoManager.canUndo())
-			undoManager.undo();
+		if (getUndoManager().canUndo())
+			getUndoManager().undo();
 	}
 	/**
 	 * [編集]-[REDO]
 	 */
 	public void redo() {
-		if (undoManager.canRedo())
-			undoManager.redo();
+		if (getUndoManager().canRedo())
+			getUndoManager().redo();
 	}
 	/**
 	 * [編集]+[最初までUNDO]
 	 */
 	public void undoAll() {
-		while (undoManager.canUndo()) {
-			undoManager.undo();
+		while (getUndoManager().canUndo()) {
+			getUndoManager().undo();
 		}
 	}
 	/**
 	 * [編集]+[最後までREDO]
 	 */
 	public void redoAll() {
-		while (undoManager.canRedo()) {
-			undoManager.redo();
+		while (getUndoManager().canRedo()) {
+			getUndoManager().redo();
 		}
 	}
 	/**
@@ -462,8 +468,8 @@ public class MenuCommand {
 	private void makePlayBackTimer() {
 		playBackTimer = new Timer(10, new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				if (undoManager.canRedo()) {
-					undoManager.redo();
+				if (getUndoManager().canRedo()) {
+					getUndoManager().redo();
 					panel.repaint();
 				} else {
 					playBackTimer.stop();
@@ -476,12 +482,12 @@ public class MenuCommand {
 	 */
 	public void history() {
 		HistoryDialog historyDialog = HistoryDialog.getInstance();
-		historyDialog.init(getPanelBase(), undoManager);
-		int k = undoManager.getIndexOfNextAdd();
+		historyDialog.init(getPanelBase(), getUndoManager());
+		int k = getUndoManager().getIndexOfNextAdd();
 		int ret = historyDialog.showDialog(frame, Messages.getString("MenuCommand.historyDialog")); //$NON-NLS-1$
 		if (ret == PencilBoxDialog.OK_OPTION) {
 		} else if (ret == PencilBoxDialog.CANCEL_OPTION || ret == PencilBoxDialog.CLOSED_OPTION) {
-			undoManager.jumpTo(k);
+			getUndoManager().jumpTo(k);
 			panel.repaint();
 		}
 	}
@@ -490,14 +496,14 @@ public class MenuCommand {
 	 * @return UNDO 可能か
 	 */
 	public boolean canUndo() {
-		return undoManager.canUndo();
+		return getUndoManager().canUndo();
 	}
 	/**
 	 * REDO 可能か
 	 * @return REDO 可能か 
 	 */
 	public boolean canRedo() {
-		return undoManager.canRedo();
+		return getUndoManager().canRedo();
 	}
 
 	/**

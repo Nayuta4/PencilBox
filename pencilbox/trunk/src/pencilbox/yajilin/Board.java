@@ -3,17 +3,13 @@ package pencilbox.yajilin;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.swing.event.UndoableEditEvent;
-import javax.swing.undo.AbstractUndoableEdit;
-import javax.swing.undo.CannotRedoException;
-import javax.swing.undo.CannotUndoException;
-
+import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
 import pencilbox.common.core.SideAddress;
-import pencilbox.util.ArrayUtil;
 import pencilbox.resource.Messages;
+import pencilbox.util.ArrayUtil;
 
 /**
  * 「ヤジリン」盤面クラス
@@ -341,6 +337,28 @@ public class Board extends BoardBase {
 			new PaintStep(pos.r(), pos.c(), getNumber(pos), st));
 		setNumber(pos, st);	
 	}
+
+	public void undo(AbstractStep step) {
+		if (step instanceof LineStep) {
+			LineStep s = (LineStep) step;
+			changeState(s.direction, s.row, s.col, s.before);
+		} else if (step instanceof PaintStep) {
+			PaintStep s = (PaintStep) step;
+			setNumber(s.row, s.col, s.before);
+		}
+	}
+
+	public void redo(AbstractStep step) {
+		if (step instanceof LineStep) {
+			LineStep s = (LineStep) step;
+			changeState(s.direction, s.row, s.col, s.after);
+		} else if (step instanceof PaintStep) {
+			PaintStep s = (PaintStep) step;
+			setNumber(s.row, s.col, s.after);
+		}
+	}
+
+
 	/**
 	 * 辺の状態を指定した状態に変更する
 	 * @param d 縦か横か
@@ -649,11 +667,12 @@ public class Board extends BoardBase {
 		return message.toString();
 	}
 
+}
 	/**
 	 * １手の操作を表すクラス
 	 * UNDO, REDO での編集の単位となる
 	 */
-	class Step extends AbstractUndoableEdit {
+	class Step extends AbstractStep {
 	}
 
 	/**
@@ -662,11 +681,11 @@ public class Board extends BoardBase {
 	 */
 	  class LineStep extends Step {
 
-		  private int direction;
-		  private int row;
-		  private int col;
-		  private int before;
-		  private int after;
+		  int direction;
+		  int row;
+		  int col;
+		  int before;
+		  int after;
 		  /**
 		   * コンストラクタ
 		   * @param d 横か縦か
@@ -683,14 +702,6 @@ public class Board extends BoardBase {
 			  before = b;
 			  after = a;
 		  }
-		  public void undo() throws CannotUndoException {
-			  super.undo();
-			  changeState(direction, row, col, before);
-		  }
-		  public void redo() throws CannotRedoException {
-			  super.redo();
-			  changeState(direction, row, col, after);
-		  }
 	  }
 	/**
 	 * １手の操作を表すクラス
@@ -698,10 +709,10 @@ public class Board extends BoardBase {
 	 */
 	  class PaintStep extends Step {
 
-		  private int row;
-		  private int col;
-		  private int before;
-		  private int after;
+		  int row;
+		  int col;
+		  int before;
+		  int after;
 		  /**
 		   * コンストラクタ
 		   * @param r 変更されたマスの行座標
@@ -716,14 +727,4 @@ public class Board extends BoardBase {
 			  before = b;
 			  after = a;
 		  }
-		  public void undo() throws CannotUndoException {
-			  super.undo();
-			  setNumber(row, col, before);
-		  }
-		  public void redo() throws CannotRedoException {
-			  super.redo();
-			  setNumber(row, col, after);
-		  }
 	  }
-
-}
