@@ -6,6 +6,7 @@ import java.util.List;
 import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
+import pencilbox.common.core.SquareEditStep;
 import pencilbox.resource.Messages;
 import pencilbox.util.ArrayUtil;
 
@@ -177,7 +178,7 @@ public class Board extends BoardBase {
 	 * @param sq
 	 */
 	public void addSquareA(Square sq) {
-		fireUndoableEditUpdate(new Step(sq.r0(), sq.c0(), sq.r1(), sq.c1(), Step.ADDED));
+		fireUndoableEditUpdate(new SquareEditStep(sq.r0(), sq.c0(), sq.r1(), sq.c1(), SquareEditStep.ADDED));
 		addSquare(sq);
 	}
 
@@ -218,7 +219,7 @@ public class Board extends BoardBase {
 			cOld = sq.c0();
 			cNew = newSq.c0();
 		}
-		fireUndoableEditUpdate(new Step(rOld, cOld, rNew, cNew, Step.CHANGED));
+		fireUndoableEditUpdate(new SquareEditStep(rOld, cOld, rNew, cNew, SquareEditStep.CHANGED));
 		changeSquare(sq, newSq);
 	}
 
@@ -228,29 +229,29 @@ public class Board extends BoardBase {
 	 * @param sq 除去する四角
 	 */
 	public void removeSquareA(Square sq) {
-		fireUndoableEditUpdate(new Step(sq.r0(), sq.c0(), sq.r1(), sq.c1(), Step.REMOVED));
+		fireUndoableEditUpdate(new SquareEditStep(sq.r0(), sq.c0(), sq.r1(), sq.c1(), SquareEditStep.REMOVED));
 		removeSquare(sq);
 	}
 	
 	public void undo(AbstractStep step) {
-		Step s = (Step) step;
-		if (s.operation == Step.ADDED) {
-			removeSquare(s.r0, s.c0);
-		} else if (s.operation == Step.REMOVED) {
-			addSquare(s.r0, s.c0, s.r1, s.c1);
-		} else if (s.operation == Step.CHANGED) {
-			changeSquare(s.r1, s.c1, s.r0, s.c0);
+		SquareEditStep s = (SquareEditStep) step;
+		if (s.getOperation() == SquareEditStep.ADDED) {
+			removeSquare(s.getR0(), s.getC0());
+		} else if (s.getOperation() == SquareEditStep.REMOVED) {
+			addSquare(s.getR0(), s.getC0(), s.getR1(), s.getC1());
+		} else if (s.getOperation() == SquareEditStep.CHANGED) {
+			changeSquare(s.getR1(), s.getC1(), s.getR0(), s.getC0());
 		}
 	}
 
 	public void redo(AbstractStep step) {
-		Step s = (Step) step;
-		if (s.operation == Step.ADDED) {
-			addSquare(s.r0, s.c0, s.r1, s.c1);
-		} else if (s.operation == Step.REMOVED) {
-			removeSquare(s.r0, s.c0);
-		} else if (s.operation == Step.CHANGED) {
-			changeSquare(s.r0, s.c0, s.r1, s.c1);
+		SquareEditStep s = (SquareEditStep) step;
+		if (s.getOperation() == SquareEditStep.ADDED) {
+			addSquare(s.getR0(), s.getC0(), s.getR1(), s.getC1());
+		} else if (s.getOperation() == SquareEditStep.REMOVED) {
+			removeSquare(s.getR0(), s.getC0());
+		} else if (s.getOperation() == SquareEditStep.CHANGED) {
+			changeSquare(s.getR0(), s.getC0(), s.getR1(), s.getC1());
 		}
 	}
 
@@ -369,35 +370,3 @@ public class Board extends BoardBase {
 		return message.toString();
 	}
 }	
-
-	/**
-	 * １手の操作を表すクラス
-	 * UNDO, REDO での編集の単位となる
-	 */
-	class Step extends AbstractStep {
-		
-		static final int ADDED = 1;
-		static final int REMOVED = 0;
-		static final int CHANGED = 2;
-		
-		int r0;
-		int c0;
-		int r1;
-		int c1;
-		int operation;
-
-		/**
-		 * コンストラクタ
-		 * @param sq 操作れた領域
-		 * @param operation 操作の種類：追加されたのか，除去されたのか
-		 */
-		public Step(int r0, int c0, int r1, int c1, int operation) {
-			super();
-			this.r0 = r0;
-			this.c0 = c0;
-			this.r1 = r1;
-			this.c1 = c1;
-			this.operation = operation;
-		}
-		
-	}

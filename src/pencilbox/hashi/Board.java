@@ -389,24 +389,24 @@ public class Board extends BoardBase {
 	 */
 	public void addBridgeA(Address pos, int direction) {
 		addBridge(pos.r(), pos.c(), direction);
-		fireUndoableEditUpdate(new Step(pos.r(), pos.c(), direction, Step.ADDED));
+		fireUndoableEditUpdate(new BridgeEditStep(pos.r(), pos.c(), direction, BridgeEditStep.ADDED));
 	}
 
 	public void undo(AbstractStep step) {
-		Step s = (Step) step;
-		if (s.change == Step.ADDED) {
-			removeBridge(s.row, s.col, s.direction);
-		} else if (s.change == Step.REMOVED) {
-			addBridge(s.row, s.col, s.direction);
+		BridgeEditStep s = (BridgeEditStep) step;
+		if (s.getChange() == BridgeEditStep.ADDED) {
+			removeBridge(s.getRow(), s.getCol(), s.getDirection());
+		} else if (s.getChange() == BridgeEditStep.REMOVED) {
+			addBridge(s.getRow(), s.getCol(), s.getDirection());
 		}
 	}
 
 	public void redo(AbstractStep step) {
-		Step s = (Step) step;
-		if (s.change == Step.ADDED) {
-			addBridge(s.row, s.col, s.direction);
-		} else if (s.change == Step.REMOVED) {
-			removeBridge(s.row, s.col, s.direction);
+		BridgeEditStep s = (BridgeEditStep) step;
+		if (s.getChange() == BridgeEditStep.ADDED) {
+			addBridge(s.getRow(), s.getCol(), s.getDirection());
+		} else if (s.getChange() == BridgeEditStep.REMOVED) {
+			removeBridge(s.getRow(), s.getCol(), s.getDirection());
 		}
 	}
 
@@ -417,7 +417,7 @@ public class Board extends BoardBase {
 	 */
 	public void removeBridgeA(Address pos, int direction) {
 		removeBridge(pos.r(), pos.c(), direction);
-		fireUndoableEditUpdate(new Step(pos.r(), pos.c(), direction, Step.REMOVED));
+		fireUndoableEditUpdate(new BridgeEditStep(pos.r(), pos.c(), direction, BridgeEditStep.REMOVED));
 	}
 	/**
 	 * 橋の連結番号を初期化する
@@ -608,34 +608,3 @@ public class Board extends BoardBase {
 		return ret/2;
 	}
 }
-
-	/**
-	 * １手の操作を表すクラス
-	 * UNDO, REDO での編集の単位となる
-	 */
-	class Step extends AbstractStep {
-
-		static final int ADDED = 1;
-		static final int REMOVED = -1;
-
-		int row;
-		int col;
-		int direction;
-		int change;
-
-		/**
-		 * コンストラクタ
-		 * @param r 変更された橋の起点マスの行座標
-		 * @param c 変更された橋の起点マスの列座標
-		 * @param dir マスからみた変更された橋の方向
-		 * @param ch 追加されたのか，除去されたのか
-		 */
-		public Step(int r, int c, int dir, int ch) {
-			super();
-			row = r;
-			col = c;
-			direction = dir;
-			change = ch;
-		}
-		
-	}

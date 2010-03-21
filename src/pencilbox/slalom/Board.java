@@ -6,6 +6,7 @@ import java.util.List;
 import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
+import pencilbox.common.core.BorderEditStep;
 import pencilbox.common.core.Direction;
 import pencilbox.common.core.SideAddress;
 import pencilbox.resource.Messages;
@@ -314,18 +315,18 @@ public class Board extends BoardBase {
 	 */
 	public void changeStateA(SideAddress pos, int st) {
 		fireUndoableEditUpdate(
-			new Step(pos.d(), pos.r(), pos.c(), getState(pos), st));
+			new BorderEditStep(pos.d(), pos.r(), pos.c(), getState(pos), st));
 		changeState(pos, st);
 	}
 
 	public void undo(AbstractStep step) {
-		Step s = (Step) step;
-		changeState(s.direction, s.row, s.col, s.before);
+		BorderEditStep s = (BorderEditStep) step;
+		changeState(s.getDirection(), s.getRow(), s.getCol(), s.getBefore());
 	}
 
 	public void redo(AbstractStep step) {
-		Step s = (Step) step;
-		changeState(s.direction, s.row, s.col, s.after);
+		BorderEditStep s = (BorderEditStep) step;
+		changeState(s.getDirection(), s.getRow(), s.getCol(), s.getAfter());
 	}
 
 	public void clearBoard() {
@@ -925,33 +926,3 @@ public class Board extends BoardBase {
 		return message.toString();
 	}
 }
-
-	/**
-	 * １手の操作を表すクラス
-	 * UNDO, REDO での編集の単位となる
-	 */
-	class Step extends AbstractStep {
-
-		int direction;
-		int row;
-		int col;
-		int before;
-		int after;
-		/**
-		 * コンストラクタ
-		 * @param d 横か縦か
-		 * @param r 変更されたマスの行座標
-		 * @param c 変更されたマスの列座標
-		 * @param b 変更前の状態
-		 * @param a 変更後の状態
-		 */
-		public Step(int d, int r, int c, int b, int a) {
-			super();
-			direction = d;
-			row = r;
-			col = c;
-			before = b;
-			after = a;
-		}
-
-	}

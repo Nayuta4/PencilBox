@@ -6,6 +6,8 @@ import java.util.List;
 import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
+import pencilbox.common.core.BorderEditStep;
+import pencilbox.common.core.CellEditStep;
 import pencilbox.common.core.Direction;
 import pencilbox.common.core.SideAddress;
 import pencilbox.resource.Messages;
@@ -334,27 +336,27 @@ public class Board extends BoardBase {
 	 */
 	public void changeStateA(Address pos, int st) {
 		fireUndoableEditUpdate(
-			new PaintStep(pos.r(), pos.c(), getNumber(pos), st));
+			new CellEditStep(pos.r(), pos.c(), getNumber(pos), st));
 		setNumber(pos, st);	
 	}
 
 	public void undo(AbstractStep step) {
-		if (step instanceof LineStep) {
-			LineStep s = (LineStep) step;
-			changeState(s.direction, s.row, s.col, s.before);
-		} else if (step instanceof PaintStep) {
-			PaintStep s = (PaintStep) step;
-			setNumber(s.row, s.col, s.before);
+		if (step instanceof BorderEditStep) {
+			BorderEditStep s = (BorderEditStep) step;
+			changeState(s.getDirection(), s.getRow(), s.getCol(), s.getBefore());
+		} else if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep) step;
+			setNumber(s.getRow(), s.getCol(), s.getBefore());
 		}
 	}
 
 	public void redo(AbstractStep step) {
-		if (step instanceof LineStep) {
-			LineStep s = (LineStep) step;
-			changeState(s.direction, s.row, s.col, s.after);
-		} else if (step instanceof PaintStep) {
-			PaintStep s = (PaintStep) step;
-			setNumber(s.row, s.col, s.after);
+		if (step instanceof BorderEditStep) {
+			BorderEditStep s = (BorderEditStep) step;
+			changeState(s.getDirection(), s.getRow(), s.getCol(), s.getAfter());
+		} else if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep) step;
+			setNumber(s.getRow(), s.getCol(), s.getAfter());
 		}
 	}
 
@@ -389,7 +391,7 @@ public class Board extends BoardBase {
 	 */
 	public void changeStateA(SideAddress pos, int st) {
 		fireUndoableEditUpdate(
-			new LineStep(pos.d(), pos.r(), pos.c(), getState(pos), st));
+			new BorderEditStep(pos.d(), pos.r(), pos.c(), getState(pos), st));
 		changeState(pos, st);
 	}
 
@@ -668,63 +670,3 @@ public class Board extends BoardBase {
 	}
 
 }
-	/**
-	 * １手の操作を表すクラス
-	 * UNDO, REDO での編集の単位となる
-	 */
-	class Step extends AbstractStep {
-	}
-
-	/**
-	 * １手の操作を表すクラス
-	 * UNDO, REDO での編集の単位となる
-	 */
-	  class LineStep extends Step {
-
-		  int direction;
-		  int row;
-		  int col;
-		  int before;
-		  int after;
-		  /**
-		   * コンストラクタ
-		   * @param d 横か縦か
-		   * @param r 変更されたマスの行座標
-		   * @param c 変更されたマスの列座標
-		   * @param b 変更前の状態
-		   * @param a 変更後の状態
-		   */
-		  public LineStep(int d, int r, int c, int b, int a) {
-			  super();
-				  direction = d;
-			  row = r;
-			  col = c;
-			  before = b;
-			  after = a;
-		  }
-	  }
-	/**
-	 * １手の操作を表すクラス
-	 * UNDO, REDO での編集の単位となる
-	 */
-	  class PaintStep extends Step {
-
-		  int row;
-		  int col;
-		  int before;
-		  int after;
-		  /**
-		   * コンストラクタ
-		   * @param r 変更されたマスの行座標
-		   * @param c 変更されたマスの列座標
-		   * @param b 変更前の状態
-		   * @param a 変更後の状態
-		   */
-		  public PaintStep(int r, int c, int b, int a) {
-			  super();
-			  row = r;
-			  col = c;
-			  before = b;
-			  after = a;
-		  }
-	  }

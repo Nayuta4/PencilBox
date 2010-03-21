@@ -2,9 +2,6 @@ package pencilbox.common.core;
 
 import java.util.Vector;
 
-import javax.swing.undo.CannotRedoException;
-import javax.swing.undo.CannotUndoException;
-
 /**
  * アンドゥ管理クラス
  * javax.swing.undo.UndoManager を参考に必要な部分のみ取り出して作成 
@@ -151,16 +148,6 @@ public class UndoManager {
 				redo();
 			}
 		}
-	}
-
-	/**
-	 * アンドゥマネージャーを複製する。
-	 */
-	public UndoManager duplicate(UndoManager um) {
-		um.indexOfNextAdd = this.indexOfNextAdd;
-		for (AbstractStep e : edits)
-			um.edits.add(e);
-		return um;
 	}
 
 	public String toString() {
