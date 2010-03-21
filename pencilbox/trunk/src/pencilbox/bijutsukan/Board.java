@@ -223,7 +223,7 @@ public class Board extends BoardBase {
 	 * @param on –¾‚©‚è‚ğ‚Â‚¯‚é‚Æ‚«‚Í true, Á‚·‚Æ‚«‚Í false 
 	 */
 	private void illuminate4(int r0, int c0, boolean on) {
-		Address p = new Address(r0, c0);
+		Address p = Address.address(r0, c0);
 		for (int d = 0; d < 4; d++) {
 			p.set(r0, c0);
 			p.move(d);

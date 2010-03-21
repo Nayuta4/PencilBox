@@ -213,7 +213,7 @@ public class Board extends BoardBase {
 	 * @param b Bridge
 	 */
 	void setBridge(Address pos0, Address pos1, int d, Bridge b) {
-		Address pos = new Address(pos0);
+		Address pos = Address.address(pos0);
 		while(true) {
 			pos.move(d);
 			if (pos.equals(pos1)) break;
@@ -336,7 +336,7 @@ public class Board extends BoardBase {
 	 * @return ‹N“_‚©‚çw’è‚µ‚½•ûŒü‚É‚ ‚éÅ‰‚Ì‹´‹r
 	 */
 	Pier findPier(int r, int c, int direction) {
-		Address pos = new Address(r, c);
+		Address pos = Address.address(r, c);
 		pos.move(direction);
 		while (isOn(pos)) {
 			if (isPier(pos)) {

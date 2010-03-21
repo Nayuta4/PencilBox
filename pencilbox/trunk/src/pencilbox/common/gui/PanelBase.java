@@ -63,8 +63,8 @@ public class PanelBase extends JPanel implements Printable {
 
 	private Area copyRegion = new Area();
 	private Area pasteRegion = new Area();
-	private Address copyRegionOrigin = new Address(-1, -1);
-	private Address pasteRegionOrigin = new Address(-1, -1);
+	private Address copyRegionOrigin = Address.address(-1, -1);
+	private Address pasteRegionOrigin = Address.address(-1, -1);
 	private Color copyRegionColor = new Color(0xFF0000);
 	private Color pasteRegionColor = new Color(0xFFAAAA);
 	
@@ -272,7 +272,7 @@ public class PanelBase extends JPanel implements Printable {
 	public Address pointToAddress(int x, int y) {
 		int r = toR(y);
 		int c = toC(x);
-		return new Address(r, c);
+		return Address.address(r, c);
 	}
 
 	/**
@@ -715,7 +715,7 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param area —Ìˆæ
 	 */
 	public void edgeArea(Graphics2D g, Area area) {
-		Address neighbor = new Address();
+		Address neighbor = Address.address();
 		for (Address pos : area) {
 			for (int dir = 0; dir < 4; dir++) {
 				neighbor.set(pos);

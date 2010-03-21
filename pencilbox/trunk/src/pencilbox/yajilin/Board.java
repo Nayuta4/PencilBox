@@ -626,7 +626,7 @@ public class Board extends BoardBase {
 		int blackCount = 0;
 		int dir = getArrowDirection(r,c);
 		int number = getArrowNumber(r,c);
-		Address pos = new Address(r,c);
+		Address pos = Address.address(r, c);
 		pos.move(dir);
 		while (isOn(pos)) {
 			if (isBlack(pos.r(),pos.c()))

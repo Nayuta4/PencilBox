@@ -57,8 +57,8 @@ public class BoardCopierBase {
 	 */
 	public void copyBoardStates(BoardBase src, BoardBase dst, int n) {
 		Rotator rotator = new Rotator(src.rows(), src.cols(), n);
-		Address from = new Address(0, 0);
-		Address to = rotator.rotateAddress(new Address(0, 0));
+		Address from = Address.address(0, 0);
+		Address to = rotator.rotateAddress(Address.address(0, 0));
 		Area region = src.getWholeBoardArea();
 		copyRegion(src, dst, region, from, to, n);
 	}

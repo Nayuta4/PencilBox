@@ -26,14 +26,14 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	
 	private EventHandlerManager eventHandlerManager;
 
-	private Address oldPos = new Address(-1, -1);
-	private Address newPos = new Address(-1, -1);
+	private Address oldPos = Address.address(-1, -1);
+	private Address newPos = Address.address(-1, -1);
 
 	private Area copyRegion;
 	private Area pasteRegion;
 	private Address copyRegionOrigin;
 	private Address pasteRegionOrigin;
-	private Address pivot = new Address();
+	private Address pivot = Address.address();
 	private int pasteRotation;
 
 	/**
@@ -284,7 +284,7 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 			if (! ctrl) {
 				copyRegion.clear();
 			}
-			copyRegion.add(new Address(position));
+			copyRegion.add(Address.address(position));
 			pivot.set(position);
 		}
 	}
@@ -304,7 +304,7 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 			if (shift) {
 				selectRectangularArea(position);
 			} else {
-				copyRegion.add(new Address(position));
+				copyRegion.add(Address.address(position));
 				pivot.set(position);
 			}
 		}
@@ -321,7 +321,7 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 		int c1 = pivot.c() < position.c() ? position.c() : pivot.c();
 		for (int r = r0; r <= r1; r++) {
 			for (int c = c0; c <= c1; c++) {
-				copyRegion.add(new Address(r, c));
+				copyRegion.add(Address.address(r, c));
 			}
 		}
 	}
@@ -385,7 +385,7 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 		dst.clear();
 		for (Address p : src) {
 			if (isOn(p)) {
-				dst.add(new Address(p));
+				dst.add(Address.address(p));
 			}
 		}
 	}

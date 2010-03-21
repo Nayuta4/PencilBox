@@ -14,7 +14,7 @@ public class CellCursor {
 	 * Panelと関連付ける
 	 */
 	public CellCursor() {
-		pos = new Address();
+		pos = Address.address();
 	}
 	/**
 	 * 現在のカーソル位置の行座標を取得する
@@ -35,7 +35,7 @@ public class CellCursor {
 	 * @return カーソル位置
 	 */
 	public Address getPosition() {
-		return new Address(pos);
+		return Address.address(pos);
 	}
 	/**
 	 * @param r

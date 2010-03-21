@@ -21,8 +21,8 @@ public class AreaEditStep extends AbstractStep {
 	 */
 	public AreaEditStep(Address p, Address p0, int operation) {
 		super();
-		this.pos = new Address(p);
-		this.p0 = new Address(p0);
+		this.pos = Address.address(p);
+		this.p0 = Address.address(p0);
 		this.operation = operation;
 	}
 

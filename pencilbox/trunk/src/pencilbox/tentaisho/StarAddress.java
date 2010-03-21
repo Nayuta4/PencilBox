@@ -15,19 +15,4 @@ public class StarAddress extends Address {
 		super();
 	}
 
-	/**
-	 * @param pos
-	 */
-	public StarAddress(Address pos) {
-		super(pos);
-	}
-
-	/**
-	 * @param r
-	 * @param c
-	 */
-	public StarAddress(int r, int c) {
-		super(r, c);
-	}
-
 }

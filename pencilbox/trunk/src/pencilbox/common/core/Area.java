@@ -37,7 +37,7 @@ public class Area implements Set<Address> {
      *         element.
 	 */
 	public boolean add(int r, int c) {
-		return cellList.add(new Address(r, c));
+		return cellList.add(Address.address(r, c));
 	}
 
 	public int size() {
@@ -61,7 +61,7 @@ public class Area implements Set<Address> {
      * @return true if the set contained the specified element.
 	 */
 	public boolean remove(int r, int c) {
-		return cellList.remove(new Address(r, c));
+		return cellList.remove(Address.address(r, c));
 	}
 
 	public boolean addAll(Collection<? extends Address> c) {

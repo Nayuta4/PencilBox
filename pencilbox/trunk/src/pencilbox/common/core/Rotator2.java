@@ -128,7 +128,7 @@ public class Rotator2 {
 	 * @param pos
 	 */
 	public Address rotateAddress(Address pos) {
-		Address dst = new Address();
+		Address dst = Address.address();
 		switch (rotation) {
 			case 0 :
 				dst.set(pos.r(), pos.c());

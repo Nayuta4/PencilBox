@@ -320,7 +320,7 @@ public class Board extends BoardBase {
 	}
 	
 	int initNumber(int r0, int c0, int direction) {
-		Address pos = new Address();
+		Address pos = Address.address();
 		int n=0;
 		pos.set(r0, c0);
 		while(true) {
@@ -363,7 +363,7 @@ public class Board extends BoardBase {
 	 */
 	int updateSpace(int r0, int c0) {
 		int ret = 0;
-		Address pos = new Address();
+		Address pos = Address.address();
 
 		for (int d=0; d<4; d++) {
 			pos.set(r0, c0);

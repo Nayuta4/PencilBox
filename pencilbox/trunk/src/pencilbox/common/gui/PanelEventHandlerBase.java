@@ -28,8 +28,8 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	private int symmetricPlacementMode = 0;
 	private int immediateAnswerCheckMode = -1; // -1:OFF, 0:ON, 1:ALREADY_CHECKED
 
-	private Address oldPos = new Address(-1, -1);
-	private Address newPos = new Address(-1, -1);
+	private Address oldPos = Address.address(-1, -1);
+	private Address newPos = Address.address(-1, -1);
 	private SideAddress sidePos = new SideAddress();
 
 	/**
@@ -151,7 +151,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	 * @return pos‚Æ“_‘ÎÌ‚ÈˆÊ’u‚ÌÀ•W
 	 */
 	public Address getSymmetricPosition(Address pos) {
-		return new Address(board.rows()-1-pos.r(), board.cols()-1-pos.c());
+		return Address.address(board.rows()-1-pos.r(), board.cols()-1-pos.c());
 	}
 
 	/*

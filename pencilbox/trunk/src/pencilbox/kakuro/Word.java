@@ -39,7 +39,7 @@ public class Word {
 	 */
 	public Word(int r, int c, int count, int number) {
 		
-		this.head = new Address(r,c);
+		this.head = Address.address(r, c);
 		this.size = count;
 		this.sum = number; 
 		

@@ -17,8 +17,8 @@ public class BoardCopier extends BoardCopierBase {
 		Board s = (Board) src;
 		Board d = (Board) dst;
 		Rotator rotator2 = new Rotator(src.rows()-1, src.cols()-1, n);
-		Address p0 = new Address();
-		Address p = new Address();
+		Address p0 = Address.address();
+		Address p = Address.address();
 		int sum = 0;
 		for (int r = 1; r < src.rows(); r++) {
 			for (int c = 1; c < src.cols(); c++) {
@@ -67,7 +67,7 @@ public class BoardCopier extends BoardCopierBase {
 	public void copyRegion(BoardBase srcBoardBase, BoardBase boardBase, Area region, Address from, Address to, int rotation) {
 		Board srcBoard = (Board) srcBoardBase;
 		Board board = (Board) boardBase;
-		Address d = new Address();
+		Address d = Address.address();
 		Rotator2 rotator = new Rotator2(to, rotation);
 		for (Address s : region) {
 			d.set(s.r() + to.r() - from.r(), s.c() + to.c() - from.c());

@@ -45,7 +45,7 @@ public class Board extends BoardBase {
 		number = new int[rows()][cols()];
 		gateNumber = new int[rows()][cols()];
 		ArrayUtil.initArrayInt2(number, BLANK);
-		goal = new Address(-1, -1);
+		goal = Address.address(-1, -1);
 		state = new int[2][][];
 		state[VERT] = new int[rows()][cols()-1];
 		state[HORIZ] = new int[rows()-1][cols()];
@@ -396,7 +396,7 @@ public class Board extends BoardBase {
 	 * @return　門の反対側に黒マスまたは外周ならばその座標，それ以外はnull
 	 */
 	Address getAnotherPole(Address p0, int d) {
-		Address p = new Address(p0);
+		Address p = Address.address(p0);
 		int gateType = 0;
 		if (d == Direction.UP || d == Direction.DN) {
 			gateType = GATE_VERT;
@@ -429,7 +429,7 @@ public class Board extends BoardBase {
 	 * @param n
 	 */
 	private void setGateNumber(int r, int c, int d, int n) {
-		Address p = new Address(r, c);
+		Address p = Address.address(r, c);
 		int t = 0;
 		if (d == 0 || d == 2)
 			t = GATE_VERT;
@@ -457,7 +457,7 @@ public class Board extends BoardBase {
 	 * @param n0 正の数とする
 	 */
 	private void initGateNumber(int r, int c, int n0) {
-		Address p = new Address(r, c);
+		Address p = Address.address(r, c);
 		Address p1 = null;
 //		System.out.println(p.toString() + "の黒マスについて調べる。");
 		int d1 = -1; // 対岸の黒マスの向きを記録する
@@ -711,7 +711,7 @@ public class Board extends BoardBase {
 	private int checkGate1(int r, int c) {
 		int count = 0;
 		int gateType = getNumber(r, c);
-		Address p = new Address(r, c);
+		Address p = Address.address(r, c);
 //		System.out.println(p.toString() + "の門を調べる。");
 		int d = 0;
 		if (gateType == Board.GATE_HORIZ) {
@@ -788,14 +788,14 @@ public class Board extends BoardBase {
 			// ゴールがない場合は，順番を数える起点とするための仮のゴールを設定する。
 			p0 = ｔemporalGoal();
 		} else {
-			p0 = new Address(goal);
+			p0 = Address.address(goal);
 			if (getLink(p0.r(), p0.c()) == null) {
 //				System.out.println("ゴールを通過していない。");
 				return 512;
 			}
 		}
 //		System.out.println("スタート／ゴール地点は " + p0.toString());
-		Address p = new Address(p0);
+		Address p = Address.address(p0);
 		int d = -1;
 		while (true) {
 			d = getLineDirection(p, d);
@@ -865,7 +865,7 @@ public class Board extends BoardBase {
 		for (int r = 0; r < rows(); r++) {
 			for (int c = 0; c < cols(); c++) {
 				if (countLine(r, c) > 1) {
-					return new Address(r, c);
+					return Address.address(r, c);
 				}
 			}
 		}

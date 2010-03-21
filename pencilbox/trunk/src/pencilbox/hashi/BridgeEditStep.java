@@ -20,7 +20,7 @@ class BridgeEditStep extends AbstractStep {
 	 */
 	public BridgeEditStep(Address p, int dir, int ch) {
 		super();
-		pos = new Address(p);
+		pos = Address.address(p);
 		direction = dir;
 		change = ch;
 	}

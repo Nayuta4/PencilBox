@@ -165,7 +165,7 @@ public class BoardBase {
 		Area area = new Area();
 		for (int r = 0; r < rows(); r++) {
 			for (int c = 0; c < cols(); c++) {
-				area.add(new Address(r, c));
+				area.add(Address.address(r, c));
 			}
 		}
 		return area;

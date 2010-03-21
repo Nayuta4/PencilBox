@@ -24,9 +24,9 @@ public class BoardCopier extends BoardCopierBase {
 	public void copyRegion(BoardBase srcBoardBase, BoardBase dstBoardBase, Area region, Address from, Address to, int rotation) {
 		Board srcBoard = (Board) srcBoardBase;
 		Board board = (Board) dstBoardBase;
-		Address d = new Address();
-		Address dn = new Address();
-		Address rt = new Address();
+		Address d = Address.address();
+		Address dn = Address.address();
+		Address rt = Address.address();
 		int joint;
 		int dir;
 		Rotator2 rotator = new Rotator2(to, rotation);
@@ -54,8 +54,8 @@ public class BoardCopier extends BoardCopierBase {
 
 	public void eraseRegion(BoardBase srcBoardBase, Area region) {
 		Board board = (Board) srcBoardBase;
-		Address dn = new Address();
-		Address rt = new Address();
+		Address dn = Address.address();
+		Address rt = Address.address();
 		for (Address s : region) {
 			dn.set(s.r()+1, s.c());
 			rt.set(s.r(), s.c()+1);
