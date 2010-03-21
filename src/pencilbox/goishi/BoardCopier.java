@@ -15,7 +15,7 @@ public class BoardCopier extends BoardCopierBase {
 		Board srcBoard = (Board) src;
 		Board board = (Board) dst;
 		Rotator rotator = new Rotator(src.getSize(), n);
-		Address s = new Address();
+		Address s = Address.address();
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
 				s.set(r, c);
@@ -33,7 +33,7 @@ public class BoardCopier extends BoardCopierBase {
 	public void copyRegion(BoardBase srcBoardBase, BoardBase boardBase, pencilbox.common.core.Area region, Address from, Address to, int rotation) {
 		Board srcBoard = (Board) srcBoardBase;
 		Board board = (Board) boardBase;
-		Address d = new Address();
+		Address d = Address.address();
 		Rotator2 rotator = new Rotator2(to, rotation);
 		for (Address s : region) {
 			d.set(s.r() + to.r() - from.r(), s.c() + to.c() - from.c());

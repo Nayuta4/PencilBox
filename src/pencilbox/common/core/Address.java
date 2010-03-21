@@ -9,7 +9,7 @@ public class Address implements Comparable<Address> {
 	/**
 	 *  盤外座標
 	 */
-	public static final Address NOWHERE = new Address(-1,-1);
+	public static final Address NOWHERE = address(-1, -1);
 	
 	/**
 	 *  行座標
@@ -23,14 +23,14 @@ public class Address implements Comparable<Address> {
 	/**
 	 * コンストラクタ
 	 */
-	public Address(){
+	protected Address(){
 		this(0,0);
 	}
 	/**
 	 * コンストラクタ，引数の座標と等しい座標に設定
 	 * @param pos 設定する座標
 	 */
-	public Address(Address pos){
+	private Address(Address pos){
 		this.r = pos.r;
 		this.c = pos.c;
 	}
@@ -39,12 +39,32 @@ public class Address implements Comparable<Address> {
 	 * @param r 設定する行座標
 	 * @param c 設定する列座標
 	 */
-	public Address(int r, int c){
+	private Address(int r, int c){
 		this.r = r;
 		this.c = c;
 	}
+
 	/**
-	 * 
+	 * ファクトリメソッド
+	 */
+	public static Address address() {
+		return new Address();
+	}
+
+	/**
+	 * ファクトリメソッド
+	 * @param pos 座標
+	 * @return 引数座標と同じ座標
+	 */
+	public static Address address(Address pos) {
+		return new Address(pos);
+	}
+
+	/**
+	 * ファクトリメソッド
+	 * @param r 行座標
+	 * @param c 列座標
+	 * @return 引数座標をもつ座標
 	 */
 	public static Address address(int r, int c){
 		return new Address(r, c);
@@ -226,18 +246,17 @@ public class Address implements Comparable<Address> {
 		int c = p.c();
 		switch (direction) {
 		case Direction.UP:
-			return new Address(r-1,c);
+			return address(r-1, c);
 		case Direction.LT:
-			return new Address(r,c-1);
+			return address(r, c-1);
 		case Direction.DN:
-			return new Address(r+1,c);
+			return address(r+1, c);
 		case Direction.RT:
-			return new Address(r,c+1);
+			return address(r, c+1);
 		default:
 			return Address.NOWHERE;
 		}
 	}
-
 	/*
 	 * @see java.lang.Object#toString()
 	 */

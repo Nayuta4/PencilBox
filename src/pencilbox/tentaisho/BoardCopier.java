@@ -34,7 +34,7 @@ public class BoardCopier extends BoardCopierBase {
 		ArrayList<Area> srcAreaList = new ArrayList<Area>();
 		Area srcArea = null;
 		Area dstArea = null;
-		Address d = new Address();
+		Address d = Address.address();
 		Rotator2 rotator = new Rotator2(to, rotation);
 		for (Address s : region) {
 			d.set(s.r() + to.r() - from.r(), s.c() + to.c() - from.c());
@@ -50,7 +50,7 @@ public class BoardCopier extends BoardCopierBase {
 					dstArea = new Area();
 					for (Address ss : srcArea) {
 						if (region.contains(ss)) {
-							Address dd = new Address(ss.r() + to.r() - from.r(), ss.c() + to.c() - from.c());
+							Address dd = Address.address(ss.r() + to.r() - from.r(), ss.c() + to.c() - from.c());
 							dd.set(rotator.rotateAddress(dd));
 							if (board.isOn(dd))
 								dstArea.add(dd);
@@ -69,7 +69,7 @@ public class BoardCopier extends BoardCopierBase {
 			}
 		}
 		pencilbox.common.core.Area region2 = makeStarRegion(region);
-		Address dd = new Address();
+		Address dd = Address.address();
 		Rotator2 rotator2 = new Rotator2(to.r()*2, to.c()*2, rotation);
 		for (Address ss : region2) {
 			dd.set(ss.r() + to.r()*2 - from.r()*2, ss.c() + to.c()*2 - from.c()*2);
@@ -97,18 +97,18 @@ public class BoardCopier extends BoardCopierBase {
 	
 	private pencilbox.common.core.Area makeStarRegion(pencilbox.common.core.Area region) {
 		pencilbox.common.core.Area region2 = new pencilbox.common.core.Area();
-		Address p = new Address();
+		Address p = Address.address();
 		for (Address s : region) {
-			region2.add(new Address(s.r()*2, s.c()*2));
+			region2.add(Address.address(s.r()*2, s.c()*2));
 			p.set(s.r(), s.c()+1);
 			if (region.contains(p))
-				region2.add(new Address(s.r()*2, s.c()*2+1));
+				region2.add(Address.address(s.r()*2, s.c()*2+1));
 			p.set(s.r()+1, s.c());
 			if (region.contains(p))
-				region2.add(new Address(s.r()*2+1, s.c()*2));
+				region2.add(Address.address(s.r()*2+1, s.c()*2));
 			p.set(s.r()+1, s.c()+1);
 			if (region.contains(p))
-				region2.add(new Address(s.r()*2+1, s.c()*2+1));
+				region2.add(Address.address(s.r()*2+1, s.c()*2+1));
 		}
 		return region2;
 	}

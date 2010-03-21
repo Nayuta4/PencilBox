@@ -17,8 +17,8 @@ public class BoardCopier extends BoardCopierBase {
 		Rotator rotator = new Rotator(src.getSize(), n);
 		rotator.rotateArrayInt2(s.getState(), d.getState());
 		for (Square srcSquare : s.getSquareList()) {
-			Address pos0 = rotator.rotateAddress(new Address(srcSquare.r0(), srcSquare.c0()));
-			Address pos1 = rotator.rotateAddress(new Address(srcSquare.r1(), srcSquare.c1()));
+			Address pos0 = rotator.rotateAddress(Address.address(srcSquare.r0(), srcSquare.c0()));
+			Address pos1 = rotator.rotateAddress(Address.address(srcSquare.r1(), srcSquare.c1()));
 			if (d.isOn(pos0) && d.isOn(pos1)) {
 				Square dstSquare = new Square(pos0.r(), pos0.c(), pos1.r(), pos1.c(), srcSquare.getNumber());
 				d.addSquare(dstSquare);
@@ -31,9 +31,9 @@ public class BoardCopier extends BoardCopierBase {
 		Board board = (Board) dstBoardBase;
 		Square srcSquare = null;
 		Square dstSquare = null;
-		Address d = new Address();
-		Address d0 = new Address();
-		Address d1 = new Address();
+		Address d = Address.address();
+		Address d0 = Address.address();
+		Address d1 = Address.address();
 		Rotator2 rotator = new Rotator2(to, rotation);
 		for (Address s : region) {
 			d.set(s.r() + to.r() - from.r(), s.c() + to.c() - from.c());

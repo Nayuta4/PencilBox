@@ -118,7 +118,7 @@ public class Board extends BoardBase {
 	 * @param pos
 	 */
 	public void pickUp(Address p) {
-		pickedList.add(new Address(p));
+		pickedList.add(Address.address(p));
 		setNumber(p, pickedList.size());
 	}
 
@@ -153,7 +153,7 @@ public class Board extends BoardBase {
 		int direction = Address.getDirectionTo(prev, pos);
 		if (direction < 0)
 			return false;
-		for (Address p = new Address(prev); !p.equals(pos); p.move(direction)) {
+		for (Address p = Address.address(prev); !p.equals(pos); p.move(direction)) {
 			if (isStone(p) && getNumber(p) == 0)
 				return false;
 		}

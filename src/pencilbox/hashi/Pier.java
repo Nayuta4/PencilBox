@@ -20,7 +20,7 @@ class Pier {
 	 * @param n ”š
 	 */
 	Pier(int r, int c, int n) {
-		this.setPos(new Address(r,c));
+		this.setPos(Address.address(r, c));
 		number = n;
 	}
 	int totalBridges() {

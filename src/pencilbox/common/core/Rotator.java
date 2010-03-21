@@ -105,7 +105,7 @@ public class Rotator {
 	 * @param pos
 	 */
 	public Address rotateAddress(Address pos) {
-		Address dst = new Address();
+		Address dst = Address.address();
 		switch (rotation) {
 			case 0 :
 				dst.set(pos.r(), pos.c());
@@ -179,7 +179,7 @@ public class Rotator {
 	 * @param dst •¡»æ‚QŸŒ³intŒ^”z—ñ
 	 */
 	public void rotateArrayInt2(int[][] src, int[][] dst) {
-		Address address = new Address();
+		Address address = Address.address();
 		for (int r = 0; r < rows; r++) {
 			for (int c = 0; c < cols; c++) {
 				address.set(r, c);

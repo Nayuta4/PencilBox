@@ -15,7 +15,7 @@ public class CellEditStep extends AbstractStep {
 	 */
 	public CellEditStep(Address p, int b, int a) {
 		super();
-		pos = new Address(p);
+		pos = Address.address(p);
 		before = b;
 		after = a;
 	}

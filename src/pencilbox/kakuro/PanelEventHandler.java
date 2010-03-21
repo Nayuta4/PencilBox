@@ -134,6 +134,6 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 * @return pos‚Æ“_‘ÎÌ‚ÈˆÊ’u‚ÌÀ•W
 	 */
 	public Address getSymmetricPosition(Address pos) {
-		return new Address(board.rows()-pos.r(), board.cols()-pos.c());
+		return Address.address(board.rows()-pos.r(), board.cols()-pos.c());
 	}
 }

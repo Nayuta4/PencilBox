@@ -85,7 +85,7 @@ public class Square {
 	 * @return
 	 */
 	public Address[] getCorners() {
-		return new Address[] {new Address(r0, c0), new Address(r0, c1), new Address(r1, c0), new Address(r1, c1)};
+		return new Address[] {Address.address(r0, c0), Address.address(r0, c1), Address.address(r1, c0), Address.address(r1, c1)};
 	}
 
 	/**

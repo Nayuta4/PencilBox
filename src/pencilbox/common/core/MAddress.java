@@ -1,0 +1,260 @@
+package pencilbox.common.core;
+
+
+/**
+ * 整数値の座標を表すクラス
+ * 従来可変であったAddressを不変に変更する。
+ * 可変性が必要な場合はAddressの代わりにMAddressクラスを用いる。
+ */
+public class MAddress implements Comparable<MAddress> {
+	
+	/**
+	 *  盤外座標
+	 */
+	public static final MAddress NOWHERE = new MAddress(-1,-1);
+	
+	/**
+	 *  行座標
+	 */
+	private int r;
+	/**
+	 *  列座標
+	 */
+	private int c;
+	
+	/**
+	 * コンストラクタ
+	 */
+	public MAddress(){
+		this(0,0);
+	}
+	/**
+	 * コンストラクタ，引数の座標と等しい座標に設定
+	 * @param pos 設定する座標
+	 */
+	public MAddress(MAddress pos){
+		this.r = pos.r;
+		this.c = pos.c;
+	}
+	/**
+	 * コンストラクタ，引数の座標と等しい座標に設定
+	 * @param pos 設定する座標
+	 */
+	public MAddress(Address pos){
+		this.r = pos.r();
+		this.c = pos.c();
+	}
+	/**
+	 * コンストラクタ，引数の座標に設定
+	 * @param r 設定する行座標
+	 * @param c 設定する列座標
+	 */
+	public MAddress(int r, int c){
+		this.r = r;
+		this.c = c;
+	}
+	/**
+	 * 
+	 */
+	public static MAddress address(int r, int c){
+		return new MAddress(r, c);
+	}
+
+	/**
+	 * @return Returns the r.
+	 */
+	public int r() {
+		return r;
+	}
+	/**
+	 * @return Returns the c.
+	 */
+	public int c() {
+		return c;
+	}
+	/**
+	 * 引数の座標に設定
+	 * @param pos 設定する座標
+	 */
+	public void set(MAddress pos){
+		this.r = pos.r;
+		this.c = pos.c;
+	}
+	/**
+	 * 引数の座標に設定
+	 * @param r 設定する行座標
+	 * @param c 設定する列座標
+	 */
+	public void set(int r, int c){
+		this.r = r;
+		this.c = c;
+	}
+	/**
+	 * 引数の座標と等しいかを比較する
+	 * @param o 比較対象
+	 * @return この座標と引数の座標が等しければ true
+	 */
+	public boolean equals(Object o) {
+		if (!(o instanceof MAddress))
+			return false;
+		MAddress address = (MAddress)o;
+		if (address.r == r && address.c == c)
+			return true;
+		else
+			return false;
+	}
+	/**
+	 * 引数の座標と等しいかを比較する
+	 * @param rr 比較対象の行座標
+	 * @param cc 比較対象の列座標
+	 * @return この座標と引数の座標が等しければ true
+	 */
+	public boolean equals(int rr, int cc) {
+		if (rr == r && cc == c)
+			return true;
+		else
+			return false;
+	}
+	public int hashCode() {
+		return r * 1000 + c;
+	}
+	/**
+	 * 引数の座標と上下左右に隣接しているか
+	 * @param address
+	 * @return 隣接していれば true
+	 */
+	public boolean isNextTo(MAddress address) {
+		if ((address.r == r && (address.c == c-1 || address.c == c+1))
+			|| (address.c == c && (address.r == r-1 || address.r == r+1)))
+		return true;
+		else
+			return false;
+	}
+	/**
+	 * 引数の座標と同じ行または列か
+	 * @param address 比較する Address
+	 * @return 同一直線状なら true
+	 */
+	public boolean isInLine(MAddress address) {
+		if ( address.r == r || address.c == c )
+			return true;
+		else
+			return false;
+	}
+	/**
+	 * 盤外座標かどうか
+	 * @return 座標が盤外点であれば true
+	 */
+	public boolean isNowhere() {
+		return (r==-1 && c==-1);
+	}
+	/**
+	 * 盤外座標に設定する
+	 */
+	public void setNowhere() {
+		r = -1;
+		c = -1;
+	}
+	/**
+	 * 隣のマス座標に移動する
+	 * @param direction 移動する向き
+	 */
+	public void move(int direction) {
+		switch (direction) {
+			case Direction.UP:
+				r--;
+				break;
+			case Direction.LT:
+				c--;
+				break;
+			case Direction.DN:
+				r++;
+				break;
+			case Direction.RT:
+				c++;
+				break;
+			default:
+				break;
+			}
+	}
+	/** 
+	 * 順序の定義
+	 * 行座標 r が小さい方が前，
+	 * 行座標が等しければ，列座標 c が小さい方が前．
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	public int compareTo(MAddress o) {
+		if (this.r < o.r) return -1;
+		else if (this.r > o.r) return 1;
+		else {
+			if (this.c < o.c) return -1;
+			else if (this.c > o.c) return 1;
+			else return 0; 
+		}
+	}
+	
+	/**
+	 * マスからマスへの向きを取得する
+	 * @param pos0 始点マス座標
+	 * @param pos1 終点マス座標
+	 * @return 始点から終点への向きを表す定数を返す。同一列上にない場合は-1を返す。
+	 */
+	public static int getDirectionTo(MAddress pos0, MAddress pos1) {
+		int r0 = pos0.r();
+		int r1 = pos1.r();
+		int c0 = pos0.c();
+		int c1 = pos1.c();
+		int ret = -1;
+		if (r0 == r1) {
+			if (c0 < c1)
+				ret = Direction.RT;
+			else if (c0 > c1)
+				ret = Direction.LT;
+		} else if (c0 == c1) {
+			if (r0 < r1)
+				ret = Direction.DN;
+			else if (r0 > r1)
+				ret = Direction.UP;
+		}
+		return ret;
+	}
+
+	/**
+	 * マスへのを取得する
+	 * @param pos 終点マス座標
+	 * @return 終点マスへの向きを表す定数を返す。同一列上にない場合は-1を返す。
+	 */
+	public int getDirectionTo(MAddress pos) {
+		return MAddress.getDirectionTo(this, pos);
+	}
+
+	/**
+	 * セルからdirection 方向のセル
+	 */
+	public static MAddress nextCell(MAddress p, int direction) {
+		int r = p.r();
+		int c = p.c();
+		switch (direction) {
+		case Direction.UP:
+			return new MAddress(r-1,c);
+		case Direction.LT:
+			return new MAddress(r,c-1);
+		case Direction.DN:
+			return new MAddress(r+1,c);
+		case Direction.RT:
+			return new MAddress(r,c+1);
+		default:
+			return MAddress.NOWHERE;
+		}
+	}
+
+	public Address toAddress() {
+		return Address.address(this.r(), this.c());
+	}
+	/*
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString(){
+		return ""+'['+r+','+c+']';
+	}
+}
