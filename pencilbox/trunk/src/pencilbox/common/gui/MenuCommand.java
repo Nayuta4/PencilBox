@@ -60,15 +60,7 @@ public class MenuCommand {
 		board.initBoard();
 	}
 	public void setup(PencilType puzzleType, Problem problem) {
-		this.pencilType = puzzleType;
-//		this.frame = frame;
-//		this.panel = panel;
-		this.problem = problem;
-		this.board = problem.getBoard();
-		setFrameTitle();
-		undoManager = new UndoManager(board);
-		board.setUndoManager(undoManager);
-		board.initBoard();
+		setup(puzzleType, this.frame, this.panel, this.handler, problem);
 	}
 	/**
 	 * @return Returns the panel.
