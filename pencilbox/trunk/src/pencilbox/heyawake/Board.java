@@ -6,6 +6,7 @@ import java.util.List;
 import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
+import pencilbox.common.core.CellEditStep;
 import pencilbox.resource.Messages;
 import pencilbox.util.ArrayUtil;
 
@@ -247,18 +248,18 @@ public class Board extends BoardBase {
 	 * @param st 変更後の状態
 	 */
 	public void changeStateA(Address pos, int st) {
-		fireUndoableEditUpdate(new Step(pos.r(), pos.c(), getState(pos), st));
+		fireUndoableEditUpdate(new CellEditStep(pos.r(), pos.c(), getState(pos), st));
 		changeState(pos, st);
 	}
 	
 	public void undo(AbstractStep step) {
-		Step s = (Step)step;
-		changeState(s.row, s.col, s.before);
+		CellEditStep s = (CellEditStep)step;
+		changeState(s.getRow(), s.getCol(), s.getBefore());
 	}
 
 	public void redo(AbstractStep step) {
-		Step s = (Step)step;
-		changeState(s.row, s.col, s.after);
+		CellEditStep s = (CellEditStep)step;
+		changeState(s.getRow(), s.getCol(), s.getAfter());
 	}
 
 	public void changeState(Address pos, int st) {
@@ -622,30 +623,3 @@ public class Board extends BoardBase {
 		return message.toString();
 	}
 }
-
-	/**
-	 * １手の操作を表すクラス
-	 * UNDO, REDO での編集の単位となる
-	 */
-	 class Step extends AbstractStep {
-
-		int row;
-		int col;
-		int before;
-		int after;
-		/**
-		 * コンストラクタ
-		 * @param r 変更されたマスの行座標
-		 * @param c 変更されたマスの列座標
-		 * @param b 変更前の状態
-		 * @param a 変更後の状態
-		 */
-		public Step(int r, int c, int b, int a) {
-			super();
-			row = r;
-			col = c;
-			before = b;
-			after = a;
-		}
-		
-	}

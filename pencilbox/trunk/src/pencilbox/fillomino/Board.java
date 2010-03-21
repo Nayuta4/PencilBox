@@ -6,6 +6,7 @@ import java.util.List;
 import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
+import pencilbox.common.core.CellNumberEditStep;
 import pencilbox.resource.Messages;
 import pencilbox.util.ArrayUtil;
 
@@ -231,22 +232,22 @@ public class Board extends BoardBase {
 		if (n == getNumber(pos)) 
 			return;
 		fireUndoableEditUpdate(
-			new Step(pos.r(), pos.c(), getNumber(pos), n));
+			new CellNumberEditStep(pos.r(), pos.c(), getNumber(pos), n));
 		changeNumber(pos, n);
 	}
 
 	public void undo(AbstractStep step) {
-		Step s = (Step) step;
-		if (isStable(s.row, s.col))
+		CellNumberEditStep s = (CellNumberEditStep) step;
+		if (isStable(s.getRow(), s.getCol()))
 			return;
-		changeNumber(s.row, s.col, s.before);
+		changeNumber(s.getRow(), s.getCol(), s.getBefore());
 	}
 
 	public void redo(AbstractStep step) {
-		Step s = (Step) step;
-		if (isStable(s.row, s.col))
+		CellNumberEditStep s = (CellNumberEditStep) step;
+		if (isStable(s.getRow(), s.getCol()))
 			return;
-		changeNumber(s.row, s.col, s.after);
+		changeNumber(s.getRow(), s.getCol(), s.getAfter());
 	}
 
 	/**
@@ -333,40 +334,3 @@ public class Board extends BoardBase {
 		return message.toString();
 	}
 }
-
-	/**
-	 * １手の操作を表すクラス
-	 * UNDO, REDO での編集の単位となる
-	 */
-	class Step extends AbstractStep {
-
-		int row;
-		int col;
-		int before;
-		int after;
-		/**
-		 * コンストラクタ
-		 * @param r 変更されたマスの行座標
-		 * @param c 変更されたマスの列座標
-		 * @param b 変更前の状態
-		 * @param a 変更後の状態
-		 */
-		public Step(int r, int c, int b, int a) {
-			super();
-			row = r;
-			col = c;
-			before = b;
-			after = a;
-		}
-
-		public boolean addEdit(AbstractStep anEdit) {
-			Step edit = (Step) anEdit;
-			if (edit.row == row && edit.col == col) {
-				after = edit.after;
-				return true;
-			} else {
-				return false;
-			}
-		}
-
-	}

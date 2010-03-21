@@ -5,6 +5,7 @@ import java.util.List;
 
 import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
+import pencilbox.common.core.AreaEditStep;
 import pencilbox.common.core.BoardBase;
 import pencilbox.resource.Messages;
 import pencilbox.util.ArrayUtil;
@@ -162,7 +163,7 @@ public class Board extends BoardBase {
 		if (area.size() > 0) {
 			p0 = (Address)area.toArray()[0];
 		}
-		fireUndoableEditUpdate(new Step(pos.r(), pos.c(), p0.r(), p0.c(), Step.ADDED));
+		fireUndoableEditUpdate(new AreaEditStep(pos.r(), pos.c(), p0.r(), p0.c(), AreaEditStep.ADDED));
 		addCellToArea(pos, area);
 	}
 
@@ -173,37 +174,37 @@ public class Board extends BoardBase {
 			if (p0.equals(pos))
 				p0 = (Address)area.toArray()[1];
 		}
-		fireUndoableEditUpdate(new Step(pos.r(), pos.c(), p0.r(), p0.c(), Step.REMOVED));
+		fireUndoableEditUpdate(new AreaEditStep(pos.r(), pos.c(), p0.r(), p0.c(), AreaEditStep.REMOVED));
 		removeCellFromArea(pos, area);
 	}
 
 	public void undo(AbstractStep step) {
-		Step s = (Step)step;
+		AreaEditStep s = (AreaEditStep)step;
 		Area a;
-		if (s.operation == Step.ADDED) {
-			a = getArea(s.r, s.c);
-			removeCellFromArea(s.r, s.c, a);
-		} else if (s.operation == Step.REMOVED) {
-			if (Address.NOWHERE.equals(s.r0, s.c0))
+		if (s.getOperation() == AreaEditStep.ADDED) {
+			a = getArea(s.getR(), s.getC());
+			removeCellFromArea(s.getR(), s.getC(), a);
+		} else if (s.getOperation() == AreaEditStep.REMOVED) {
+			if (Address.NOWHERE.equals(s.getR0(), s.getC0()))
 				a = new Area();
 			else
-				a = getArea(s.r0, s.c0);
-			addCellToArea(s.r, s.c, a);
+				a = getArea(s.getR0(), s.getC0());
+			addCellToArea(s.getR(), s.getC(), a);
 		}
 	}
 
 	public void redo(AbstractStep step) {
-		Step s = (Step)step;
+		AreaEditStep s = (AreaEditStep)step;
 		Area a;
-		if (s.operation == Step.ADDED) {
-			if (Address.NOWHERE.equals(s.r0, s.c0))
+		if (s.getOperation() == AreaEditStep.ADDED) {
+			if (Address.NOWHERE.equals(s.getR0(), s.getC0()))
 				a = new Area();
 			else
-				a = getArea(s.r0, s.c0);
-			addCellToArea(s.r, s.c, a);
-		} else if (s.operation == Step.REMOVED) {
-			a = getArea(s.r, s.c);
-			removeCellFromArea(s.r, s.c, a);
+				a = getArea(s.getR0(), s.getC0());
+			addCellToArea(s.getR(), s.getC(), a);
+		} else if (s.getOperation() == AreaEditStep.REMOVED) {
+			a = getArea(s.getR(), s.getC());
+			removeCellFromArea(s.getR(), s.getC(), a);
 		}
 	}
 	/**
@@ -309,37 +310,3 @@ public class Board extends BoardBase {
 		return area;
 	}
 }
-	/**
-	 * １手の操作を表すクラス
-	 * UNDO, REDO での編集の単位となる
-	 */
-	class Step extends AbstractStep {
-
-		static final int ADDED = 1;
-		static final int REMOVED = 0;
-		static final int CHANGED = 2;
-		
-		int r;
-		int c;
-		int r0;
-		int c0;
-		int operation;
-
-		/**
-		 * コンストラクタ
-		 * @param r 変更されたマスの行座標
-		 * @param c 変更されたマスの列座標
-		 * @param r0 変更された領域の代表マスの行座標
-		 * @param c0 変更された領域の代表マスの列座標
-		 */
-		public Step(int r, int c, int r0, int c0, int operation) {
-			super();
-			this.r = r;
-			this.c = c;
-			this.r0 = r0;
-			this.c0 = c0;
-//			this.area = area;
-			this.operation = operation;
-		}
-		
-	}
