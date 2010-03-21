@@ -315,18 +315,18 @@ public class Board extends BoardBase {
 	 */
 	public void changeStateA(SideAddress pos, int st) {
 		fireUndoableEditUpdate(
-			new BorderEditStep(pos.d(), pos.r(), pos.c(), getState(pos), st));
+			new BorderEditStep(pos, getState(pos), st));
 		changeState(pos, st);
 	}
 
 	public void undo(AbstractStep step) {
 		BorderEditStep s = (BorderEditStep) step;
-		changeState(s.getDirection(), s.getRow(), s.getCol(), s.getBefore());
+		changeState(s.getPos(), s.getBefore());
 	}
 
 	public void redo(AbstractStep step) {
 		BorderEditStep s = (BorderEditStep) step;
-		changeState(s.getDirection(), s.getRow(), s.getCol(), s.getAfter());
+		changeState(s.getPos(), s.getAfter());
 	}
 
 	public void clearBoard() {

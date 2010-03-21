@@ -364,6 +364,9 @@ public class Board extends BoardBase {
 			connectChain(pier[r][c], pier[r][c].getNextPier(direction));
 	}
 
+	public void addBridge(Address p, int d) {
+		addBridge(p.r(), p.c(), d);
+	}
 	/**
 	 * 橋を除く
 	 * @param r 起点の行座標
@@ -382,6 +385,9 @@ public class Board extends BoardBase {
 			cutChain(pier[r][c], pier[r][c].getNextPier(direction));
 	}
 
+	public void removeBridge(Address p, int d) {
+		removeBridge(p.r(), p.c(), d);
+	}
 	/**
 	 * 橋をかける，アンドゥリスナーに通知する
 	 * @param pos 起点の座標
@@ -389,27 +395,8 @@ public class Board extends BoardBase {
 	 */
 	public void addBridgeA(Address pos, int direction) {
 		addBridge(pos.r(), pos.c(), direction);
-		fireUndoableEditUpdate(new BridgeEditStep(pos.r(), pos.c(), direction, BridgeEditStep.ADDED));
+		fireUndoableEditUpdate(new BridgeEditStep(pos, direction, BridgeEditStep.ADDED));
 	}
-
-	public void undo(AbstractStep step) {
-		BridgeEditStep s = (BridgeEditStep) step;
-		if (s.getChange() == BridgeEditStep.ADDED) {
-			removeBridge(s.getRow(), s.getCol(), s.getDirection());
-		} else if (s.getChange() == BridgeEditStep.REMOVED) {
-			addBridge(s.getRow(), s.getCol(), s.getDirection());
-		}
-	}
-
-	public void redo(AbstractStep step) {
-		BridgeEditStep s = (BridgeEditStep) step;
-		if (s.getChange() == BridgeEditStep.ADDED) {
-			addBridge(s.getRow(), s.getCol(), s.getDirection());
-		} else if (s.getChange() == BridgeEditStep.REMOVED) {
-			removeBridge(s.getRow(), s.getCol(), s.getDirection());
-		}
-	}
-
 	/**
 	 * 橋を除く，アンドゥリスナーに通知する
 	 * @param pos 起点の座標
@@ -417,8 +404,27 @@ public class Board extends BoardBase {
 	 */
 	public void removeBridgeA(Address pos, int direction) {
 		removeBridge(pos.r(), pos.c(), direction);
-		fireUndoableEditUpdate(new BridgeEditStep(pos.r(), pos.c(), direction, BridgeEditStep.REMOVED));
+		fireUndoableEditUpdate(new BridgeEditStep(pos, direction, BridgeEditStep.REMOVED));
 	}
+
+	public void undo(AbstractStep step) {
+		BridgeEditStep s = (BridgeEditStep) step;
+		if (s.getChange() == BridgeEditStep.ADDED) {
+			removeBridge(s.getPos(), s.getDirection());
+		} else if (s.getChange() == BridgeEditStep.REMOVED) {
+			addBridge(s.getPos(), s.getDirection());
+		}
+	}
+
+	public void redo(AbstractStep step) {
+		BridgeEditStep s = (BridgeEditStep) step;
+		if (s.getChange() == BridgeEditStep.ADDED) {
+			addBridge(s.getPos(), s.getDirection());
+		} else if (s.getChange() == BridgeEditStep.REMOVED) {
+			removeBridge(s.getPos(), s.getDirection());
+		}
+	}
+
 	/**
 	 * 橋の連結番号を初期化する
 	 */

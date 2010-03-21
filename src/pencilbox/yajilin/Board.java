@@ -336,27 +336,27 @@ public class Board extends BoardBase {
 	 */
 	public void changeStateA(Address pos, int st) {
 		fireUndoableEditUpdate(
-			new CellEditStep(pos.r(), pos.c(), getNumber(pos), st));
+			new CellEditStep(pos, getNumber(pos), st));
 		setNumber(pos, st);	
 	}
 
 	public void undo(AbstractStep step) {
 		if (step instanceof BorderEditStep) {
 			BorderEditStep s = (BorderEditStep) step;
-			changeState(s.getDirection(), s.getRow(), s.getCol(), s.getBefore());
+			changeState(s.getPos(), s.getBefore());
 		} else if (step instanceof CellEditStep) {
 			CellEditStep s = (CellEditStep) step;
-			setNumber(s.getRow(), s.getCol(), s.getBefore());
+			setNumber(s.getPos(), s.getBefore());
 		}
 	}
 
 	public void redo(AbstractStep step) {
 		if (step instanceof BorderEditStep) {
 			BorderEditStep s = (BorderEditStep) step;
-			changeState(s.getDirection(), s.getRow(), s.getCol(), s.getAfter());
+			changeState(s.getPos(), s.getAfter());
 		} else if (step instanceof CellEditStep) {
 			CellEditStep s = (CellEditStep) step;
-			setNumber(s.getRow(), s.getCol(), s.getAfter());
+			setNumber(s.getPos(), s.getAfter());
 		}
 	}
 
@@ -391,7 +391,7 @@ public class Board extends BoardBase {
 	 */
 	public void changeStateA(SideAddress pos, int st) {
 		fireUndoableEditUpdate(
-			new BorderEditStep(pos.d(), pos.r(), pos.c(), getState(pos), st));
+			new BorderEditStep(pos, getState(pos), st));
 		changeState(pos, st);
 	}
 

@@ -223,18 +223,18 @@ public class Board extends BoardBase {
 	 * @param st ïœçXå„ÇÃèÛë‘
 	 */
 	public void changeStateA(Address pos, int st) {
-		fireUndoableEditUpdate(new CellEditStep(pos.r(), pos.c(), getState(pos), st));
+		fireUndoableEditUpdate(new CellEditStep(pos, getState(pos), st));
 		changeState(pos, st);
 	}
 
 	public void undo(AbstractStep step) {
 		CellEditStep s = (CellEditStep) step;
-		changeState(s.getRow(), s.getCol(), s.getBefore());
+		changeState(s.getPos(), s.getBefore());
 	}
 
 	public void redo(AbstractStep step) {
 		CellEditStep s = (CellEditStep) step;
-		changeState(s.getRow(), s.getCol(), s.getAfter());
+		changeState(s.getPos(), s.getAfter());
 	}
 
 	/**
