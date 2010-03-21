@@ -209,7 +209,10 @@ public class Board extends BoardBase {
 			connectLink(d,r,c);
 		}
 	}
-	
+
+	public void changeState(SideAddress p, int st) {
+		changeState(p.d(), p.r(), p.c(), st);
+	}
 	/**
 	 * 辺の状態を指定した状態に変更する
 	 * アンドゥリスナーに変更を通知する
@@ -218,18 +221,18 @@ public class Board extends BoardBase {
 	 */
 	public void changeStateA(SideAddress pos, int st) {
 		fireUndoableEditUpdate(
-			new BorderEditStep(pos.d(), pos.r(), pos.c(), getState(pos), st));
-		changeState(pos.d(), pos.r(), pos.c(), st);
+			new BorderEditStep(pos, getState(pos), st));
+		changeState(pos, st);
 	}
 
 	public void undo(AbstractStep step) {
 		BorderEditStep s = (BorderEditStep)step;
-		changeState(s.getDirection(), s.getRow(), s.getCol(), s.getBefore());
+		changeState(s.getPos(), s.getBefore());
 	}
 
 	public void redo(AbstractStep step) {
 		BorderEditStep s = (BorderEditStep)step;
-		changeState(s.getDirection(), s.getRow(), s.getCol(), s.getAfter());
+		changeState(s.getPos(), s.getAfter());
 	}
 
 	public void initBoard() {

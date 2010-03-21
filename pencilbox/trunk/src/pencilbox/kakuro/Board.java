@@ -272,18 +272,18 @@ public class Board extends BoardBase {
 		if (n == getNumber(pos)) 
 			return;
 		fireUndoableEditUpdate(
-			new CellNumberEditStep(pos.r(), pos.c(), getNumber(pos), n));
+			new CellNumberEditStep(pos, getNumber(pos), n));
 		changeNumber(pos, n);
 	}
 
 	public void undo(AbstractStep step) {
 		CellNumberEditStep s = (CellNumberEditStep) step;
-		changeNumber(s.getRow(), s.getCol(), s.getBefore());
+		changeNumber(s.getPos(), s.getBefore());
 	}
 
 	public void redo(AbstractStep step) {
 		CellNumberEditStep s = (CellNumberEditStep) step;
-		changeNumber(s.getRow(), s.getCol(), s.getAfter());
+		changeNumber(s.getPos(), s.getAfter());
 	}
 
 	/**

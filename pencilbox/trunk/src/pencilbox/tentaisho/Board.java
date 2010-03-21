@@ -163,7 +163,7 @@ public class Board extends BoardBase {
 		if (area.size() > 0) {
 			p0 = (Address)area.toArray()[0];
 		}
-		fireUndoableEditUpdate(new AreaEditStep(pos.r(), pos.c(), p0.r(), p0.c(), AreaEditStep.ADDED));
+		fireUndoableEditUpdate(new AreaEditStep(pos, p0, AreaEditStep.ADDED));
 		addCellToArea(pos, area);
 	}
 
@@ -174,7 +174,7 @@ public class Board extends BoardBase {
 			if (p0.equals(pos))
 				p0 = (Address)area.toArray()[1];
 		}
-		fireUndoableEditUpdate(new AreaEditStep(pos.r(), pos.c(), p0.r(), p0.c(), AreaEditStep.REMOVED));
+		fireUndoableEditUpdate(new AreaEditStep(pos, p0, AreaEditStep.REMOVED));
 		removeCellFromArea(pos, area);
 	}
 
@@ -182,14 +182,14 @@ public class Board extends BoardBase {
 		AreaEditStep s = (AreaEditStep)step;
 		Area a;
 		if (s.getOperation() == AreaEditStep.ADDED) {
-			a = getArea(s.getR(), s.getC());
-			removeCellFromArea(s.getR(), s.getC(), a);
+			a = getArea(s.getPos());
+			removeCellFromArea(s.getPos(), a);
 		} else if (s.getOperation() == AreaEditStep.REMOVED) {
-			if (Address.NOWHERE.equals(s.getR0(), s.getC0()))
+			if (Address.NOWHERE.equals(s.getP0()))
 				a = new Area();
 			else
-				a = getArea(s.getR0(), s.getC0());
-			addCellToArea(s.getR(), s.getC(), a);
+				a = getArea(s.getP0());
+			addCellToArea(s.getPos(), a);
 		}
 	}
 
@@ -197,14 +197,14 @@ public class Board extends BoardBase {
 		AreaEditStep s = (AreaEditStep)step;
 		Area a;
 		if (s.getOperation() == AreaEditStep.ADDED) {
-			if (Address.NOWHERE.equals(s.getR0(), s.getC0()))
+			if (Address.NOWHERE.equals(s.getP0()))
 				a = new Area();
 			else
-				a = getArea(s.getR0(), s.getC0());
-			addCellToArea(s.getR(), s.getC(), a);
+				a = getArea(s.getP0());
+			addCellToArea(s.getPos(), a);
 		} else if (s.getOperation() == AreaEditStep.REMOVED) {
-			a = getArea(s.getR(), s.getC());
-			removeCellFromArea(s.getR(), s.getC(), a);
+			a = getArea(s.getPos());
+			removeCellFromArea(s.getPos(), a);
 		}
 	}
 	/**
