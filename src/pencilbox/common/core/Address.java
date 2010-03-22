@@ -71,6 +71,13 @@ public class Address implements Comparable<Address> {
 	}
 
 	/**
+	 * ”ÕŠOÀ•W‚ğ•Ô‚·
+	 * @return
+	 */
+	public static Address nowhere() {
+		return NOWHERE;
+	}
+	/**
 	 * @return Returns the r.
 	 */
 	public int r() {

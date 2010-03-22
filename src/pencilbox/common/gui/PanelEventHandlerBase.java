@@ -30,7 +30,6 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 
 	private Address oldPos = Address.address(-1, -1);
 	private Address newPos = Address.address(-1, -1);
-	private SideAddress sidePos = SideAddress.sideAddress(0, 0, 0);
 
 	/**
 	 * PanelEventHandlerを生成する
@@ -377,7 +376,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	 */
 	public void mousePressed(MouseEvent e) {
 		mousePressed2(e); // 辺の操作
-		newPos.set(panel.pointToAddress(e.getX(), e.getY()));
+		newPos = panel.pointToAddress(e.getX(), e.getY());
 		if (!isOn(newPos))
 			return;
 		int button = getMouseButton(e);
@@ -387,7 +386,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 			rightPressed(newPos);
 		}
 		moveCursor(newPos);
-		oldPos.set(newPos); // 現在位置を更新
+		oldPos = newPos; // 現在位置を更新
 		repaint();
 	}
 
@@ -395,7 +394,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	 * 辺の操作用。 SL, MS で使用
 	 */
 	private void mousePressed2(MouseEvent e) {
-		sidePos.set(panel.pointToSideAddress(e.getX(), e.getY()));
+		SideAddress sidePos = panel.pointToSideAddress(e.getX(), e.getY());
 		if (!isSideOn(sidePos))
 			return;
 		int button = getMouseButton(e);
@@ -407,15 +406,13 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	}
 
 	public void mouseDragged(MouseEvent e) {
-		newPos.set(panel.pointToAddress(e.getX(), e.getY()));
+		newPos = panel.pointToAddress(e.getX(), e.getY());
 		if (!isOn(newPos)) {
-			oldPos.setNowhere();
+			oldPos = Address.nowhere();
 			return;
 		}
 		if (newPos.equals(oldPos))
 			return; // 同じマス内に止まるイベントは無視
-		// if (!newPos.isNextTo(oldPos)) return; // 隣接マス以外のイベントは無視
-		// if (dragIneffective(oldPos, newPos)) return; // 隣接マス以外のイベントは無視
 		int button = getMouseButton(e);
 		if (button == 1) {
 			leftDragged(oldPos, newPos);
@@ -423,7 +420,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 			rightDragged(oldPos, newPos);
 		}
 		moveCursor(newPos);
-		oldPos.set(newPos); // 現在位置を更新
+		oldPos = newPos; // 現在位置を更新
 		repaint();
 	}
 
