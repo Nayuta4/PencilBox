@@ -30,7 +30,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 
 	private Address oldPos = Address.address(-1, -1);
 	private Address newPos = Address.address(-1, -1);
-	private SideAddress sidePos = new SideAddress();
+	private SideAddress sidePos = SideAddress.sideAddress(0, 0, 0);
 
 	/**
 	 * PanelEventHandler‚ğ¶¬‚·‚é

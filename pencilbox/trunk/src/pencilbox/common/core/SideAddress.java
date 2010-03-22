@@ -6,12 +6,28 @@ package pencilbox.common.core;
  */
 public class SideAddress implements Comparable<SideAddress> {
 	
-	public static final SideAddress NOWHERE = new SideAddress(-1, -1,-1);
+	public static final SideAddress NOWHERE = sideAddress(-1, -1, -1);
 	
 	private int d;
 	private int r;
 	private int c;
 	
+	/**
+	 * ファクトリメソッド。引数と同じ辺座標を取得する。
+	 * @param pos
+	 * @return
+	 */
+	public static SideAddress sideAddress(SideAddress pos) {
+		return new SideAddress(pos);
+	}
+
+	/**
+	 * ファクトリメソッド。引数と同じ辺座標を取得する。
+	 * @param d
+	 * @param r
+	 * @param c
+	 * @return
+	 */
 	public static SideAddress sideAddress(int d, int r, int c) {
 		return new SideAddress(d, r, c);
 	}
@@ -25,28 +41,22 @@ public class SideAddress implements Comparable<SideAddress> {
 	public static SideAddress get(Address pos, int dir) {
 		switch (dir) {
 		case Direction.UP :
-			return new SideAddress(Direction.HORIZ, pos.r()-1, pos.c());
+			return sideAddress(Direction.HORIZ, pos.r()-1, pos.c());
 		case Direction.LT :
-			return new SideAddress(Direction.VERT, pos.r(), pos.c()-1);
+			return sideAddress(Direction.VERT, pos.r(), pos.c()-1);
 		case Direction.DN :
-			return new SideAddress(Direction.HORIZ, pos.r(), pos.c());
+			return sideAddress(Direction.HORIZ, pos.r(), pos.c());
 		case Direction.RT :
-			return new SideAddress(Direction.VERT, pos.r(), pos.c());
+			return sideAddress(Direction.VERT, pos.r(), pos.c());
 		default :
 			return SideAddress.NOWHERE;
 		}
-	}
-	/**
-	 * 
-	 */
-	public SideAddress() {
-		this(0, 0, 0);
 	}
 
 	/**
 	 * @param pos
 	 */
-	public SideAddress(SideAddress pos) {
+	private SideAddress(SideAddress pos) {
 		this(pos.d, pos.r, pos.c);
 	}
 
@@ -55,7 +65,7 @@ public class SideAddress implements Comparable<SideAddress> {
 	 * @param r
 	 * @param c
 	 */
-	public SideAddress(int d, int r, int c) {
+	private SideAddress(int d, int r, int c) {
 		this.d = d;
 		this.r = r;
 		this.c = c;

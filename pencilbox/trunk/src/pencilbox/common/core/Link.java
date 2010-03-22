@@ -73,7 +73,7 @@ public class Link implements Set<SideAddress> {
      *         element.
 	 */
 	public boolean add(int d, int r, int c) {
-		return jointSet.add(new SideAddress(d,r,c));
+		return jointSet.add(SideAddress.sideAddress(d, r, c));
 	}
 
 	public boolean contains(Object o) {
