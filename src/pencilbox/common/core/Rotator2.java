@@ -128,34 +128,26 @@ public class Rotator2 {
 	 * @param pos
 	 */
 	public Address rotateAddress(Address pos) {
-		Address dst = Address.address();
 		switch (rotation) {
 			case 0 :
-				dst.set(pos.r(), pos.c());
-				break;
+				return Address.address(pos.r(), pos.c());
 			case 1 :
-				dst.set((rows2 + cols2)/2 - pos.c(), (cols2 - rows2)/2 + pos.r());
-				break;
+				return Address.address((rows2 + cols2)/2 - pos.c(), (cols2 - rows2)/2 + pos.r());
 			case 2 :
-				dst.set(rows2 - pos.r(), cols2 - pos.c());
-				break;
+				return Address.address(rows2 - pos.r(), cols2 - pos.c());
 			case 3 :
-				dst.set((rows2 - cols2)/2 + pos.c(), (cols2 + rows2)/2 - pos.r());
-				break;
+				return Address.address((rows2 - cols2)/2 + pos.c(), (cols2 + rows2)/2 - pos.r());
 			case 4 :
-				dst.set((rows2 - cols2)/2 + pos.c(), (cols2 - rows2)/2 + pos.r());
-				break;
+				return Address.address((rows2 - cols2)/2 + pos.c(), (cols2 - rows2)/2 + pos.r());
 			case 5 :
-				dst.set(pos.r(), cols2 - pos.c());
-				break;
+				return Address.address(pos.r(), cols2 - pos.c());
 			case 6 :
-				dst.set((rows2 + cols2)/2 - pos.c(), (cols2 + rows2)/2 - pos.r());
-				break;
+				return Address.address((rows2 + cols2)/2 - pos.c(), (cols2 + rows2)/2 - pos.r());
 			case 7 :
-				dst.set(rows2 - pos.r(), pos.c());
-				break;
+				return Address.address(rows2 - pos.r(), pos.c());
+			default :
+				return Address.address(pos.r(), pos.c());
 		}
-		return dst;
 	}
 
 	/**

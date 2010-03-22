@@ -105,34 +105,26 @@ public class Rotator {
 	 * @param pos
 	 */
 	public Address rotateAddress(Address pos) {
-		Address dst = Address.address();
 		switch (rotation) {
 			case 0 :
-				dst.set(pos.r(), pos.c());
-				break;
+				return Address.address(pos.r(), pos.c());
 			case 1 :
-				dst.set(cols - 1 - pos.c(), pos.r());
-				break;
+				return Address.address(cols - 1 - pos.c(), pos.r());
 			case 2 :
-				dst.set(rows - 1 - pos.r(), cols - 1 - pos.c());
-				break;
+				return Address.address(rows - 1 - pos.r(), cols - 1 - pos.c());
 			case 3 :
-				dst.set(pos.c(), rows - 1 - pos.r());
-				break;
+				return Address.address(pos.c(), rows - 1 - pos.r());
 			case 4 :
-				dst.set(pos.c(), pos.r());
-				break;
+				return Address.address(pos.c(), pos.r());
 			case 5 :
-				dst.set(pos.r(), cols - 1 - pos.c());
-				break;
+				return Address.address(pos.r(), cols - 1 - pos.c());
 			case 6 :
-				dst.set(cols - 1 - pos.c(), rows - 1 - pos.r());
-				break;
+				return Address.address(cols - 1 - pos.c(), rows - 1 - pos.r());
 			case 7 :
-				dst.set(rows - 1 - pos.r(), pos.c());
-				break;
+				return Address.address(rows - 1 - pos.r(), pos.c());
+			default :
+				return Address.address(pos.r(), pos.c());
 		}
-		return dst;
 	}
 
 	/**
@@ -179,11 +171,9 @@ public class Rotator {
 	 * @param dst ï°êªêÊÇQéüå≥intå^îzóÒ
 	 */
 	public void rotateArrayInt2(int[][] src, int[][] dst) {
-		Address address = Address.address();
 		for (int r = 0; r < rows; r++) {
 			for (int c = 0; c < cols; c++) {
-				address.set(r, c);
-				address = rotateAddress(address);
+				Address address = rotateAddress(Address.address(r, c));
 				if (address.r() < dst.length && address.c() < dst[address.r()].length)
 					dst[address.r()][address.c()] = src[r][c];
 			}
