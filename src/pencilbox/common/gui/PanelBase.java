@@ -295,14 +295,14 @@ public class PanelBase extends JPanel implements Printable {
 		int resy = y - getOffsety() - getCellSize() * r;
 		if (resx + resy < getCellSize()) {
 			if (resx < resy)
-				return new SideAddress(Direction.VERT, r, c-1);
+				return SideAddress.sideAddress(Direction.VERT, r, c-1);
 			else
-				return new SideAddress(Direction.HORIZ, r-1, c);
+				return SideAddress.sideAddress(Direction.HORIZ, r-1, c);
 		} else {
 			if (resy < resx)
-				return new SideAddress(Direction.VERT, r, c);
+				return SideAddress.sideAddress(Direction.VERT, r, c);
 			else
-				return new SideAddress(Direction.HORIZ, r, c);
+				return SideAddress.sideAddress(Direction.HORIZ, r, c);
 		}
 	}
 
