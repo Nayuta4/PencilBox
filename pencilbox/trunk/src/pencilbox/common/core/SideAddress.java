@@ -8,19 +8,10 @@ public class SideAddress implements Comparable<SideAddress> {
 	
 	public static final SideAddress NOWHERE = sideAddress(-1, -1, -1);
 	
-	private int d;
-	private int r;
-	private int c;
+	private final int d;
+	private final int r;
+	private final int c;
 	
-	/**
-	 * ファクトリメソッド。引数と同じ辺座標を取得する。
-	 * @param pos
-	 * @return
-	 */
-	public static SideAddress sideAddress(SideAddress pos) {
-		return new SideAddress(pos);
-	}
-
 	/**
 	 * ファクトリメソッド。引数と同じ辺座標を取得する。
 	 * @param d
@@ -51,13 +42,6 @@ public class SideAddress implements Comparable<SideAddress> {
 		default :
 			return SideAddress.NOWHERE;
 		}
-	}
-
-	/**
-	 * @param pos
-	 */
-	private SideAddress(SideAddress pos) {
-		this(pos.d, pos.r, pos.c);
 	}
 
 	/**
@@ -92,23 +76,6 @@ public class SideAddress implements Comparable<SideAddress> {
 		return c;
 	}
 
-	/**
-	 * @param d
-	 * @param r
-	 * @param c
-	 */
-	public void set(int d, int r, int c){
-		this.d = d;
-		this.r = r;
-		this.c = c;
-	}
-	
-	public void set(SideAddress pos) {
-		this.d = pos.d();
-		this.r = pos.r();
-		this.c = pos.c();
-	}
-
 	public boolean equals(Object o) {
 		if (!(o instanceof SideAddress))
 			return false;
@@ -121,20 +88,6 @@ public class SideAddress implements Comparable<SideAddress> {
 	
 	public int hashCode() {
 		return ((d * 1000) + r) * 1000 + c;
-	}
-	/**
-	 * @return
-	 */
-	public boolean isNowhere() {
-		return (r==-1 && c==-1);
-	}
-	/**
-	 * 
-	 */
-	public void setNowhere() {
-		d = 0;
-		r = -1;
-		c = -1;
 	}
 	/** 
 	 * 順序の定義
