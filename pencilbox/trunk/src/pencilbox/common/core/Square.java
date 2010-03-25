@@ -88,6 +88,18 @@ public class Square {
 		return new Address[] {Address.address(r0, c0), Address.address(r0, c1), Address.address(r1, c0), Address.address(r1, c1)};
 	}
 
+	public Address p0() {
+		return Address.address(r0, c0);
+	}
+
+	public Address p1() {
+		return Address.address(r1, c1);
+	}
+
+	public void set(Address p0, Address p1) {
+		set(p0.r(), p0.c(), p1.r(), p1.c());
+	}
+
 	/**
 	 * 四角の1つの頂点を固定したまま，対角位置の頂点の座標を変更する。
 	 * @param rOld 変更前の頂点の行座標
