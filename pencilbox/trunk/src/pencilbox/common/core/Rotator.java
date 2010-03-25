@@ -48,12 +48,6 @@ public class Rotator {
 	
 	/**
 	 * コンストラクタ
-	 */
-	public Rotator() {
-	}
-	
-	/**
-	 * コンストラクタ
 	 * @param rows 行数
 	 * @param cols 列数
 	 * @param rotation 回転・反転番号
@@ -71,25 +65,6 @@ public class Rotator {
 	 */
 	public Rotator(Size size, int rotation) {
 		this(size.getRows(), size.getCols(), rotation);
-	}
-	
-	/**
-	 * 状態を設定する
-	 * @param rows 行数
-	 * @param cols 列数
-	 * @param rotation 回転・反転番号
-	 */
-	public void setup(int rows, int cols, int rotation) {
-		this.rows = rows;
-		this.cols = cols;
-		this.rotation = rotation;
-	}
-
-	/**
-	 * @return Returns the rotation.
-	 */
-	public int getRotation() {
-		return rotation;
 	}
 	
 	/**
