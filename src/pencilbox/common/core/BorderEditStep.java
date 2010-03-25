@@ -13,7 +13,7 @@ public class BorderEditStep extends AbstractStep {
 	 */
 	public BorderEditStep(SideAddress p, int b, int a) {
 		super();
-		pos = SideAddress.sideAddress(p);
+		pos = p;
 		before = b;
 		after = a;
 	}
