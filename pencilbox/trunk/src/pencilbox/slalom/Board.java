@@ -65,14 +65,14 @@ public class Board extends BoardBase {
 	public void setNumber(int r, int c, int n) {
 		int n0 = number[r][c];
 		if (n0 == Board.GOAL) {
-			goal.setNowhere();
+			goal = Address.nowhere();
 		}
 		if (n == Board.GOAL) {
 			if (goal.isNowhere()) {
 			} else {
 				number[goal.r()][goal.c()] = Board.BLANK;
 			}
-			goal.set(r, c);
+			goal = Address.address(r, c);
 		}
 		number[r][c] = n;
 	}
@@ -365,7 +365,7 @@ public class Board extends BoardBase {
 			for (int c = 0; c < cols(); c++) {
 				int n = getNumber(r, c);
 				if (n == GOAL) {
-					goal.set(r, c);
+					goal = Address.address(r, c);
 				} else if (n == GATE_HORIZ) {
 					if (isOn(r, c-1) && getNumber(r, c-1) == GATE_HORIZ) {
 					} else {
