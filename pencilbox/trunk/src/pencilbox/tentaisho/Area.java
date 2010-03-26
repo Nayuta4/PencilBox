@@ -31,7 +31,7 @@ public class Area extends pencilbox.common.core.Area {
 	/**
 	 * @return Returns the starPos.
 	 */
-	StarAddress getStarPos() {
+	Address getStarPos() {
 		return starPos;
 	}
 

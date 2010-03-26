@@ -250,18 +250,18 @@ public class Board extends BoardBase {
 	 */
 	void initArea(Area newArea) {
 		int nStar = 0;
-		StarAddress starPos = new StarAddress();
+		StarAddress starPos = StarAddress.NOWHERE;
 		for (Address pos : newArea) {
 			for (int i=2*pos.r()-1; i<=2*pos.r()+1; i++) {
 				for (int j=2*pos.c()-1; j<=2*pos.c()+1; j++) {
 					if (isOnStar(i, j) && getStar(i, j) > 0) {
 						if (nStar == 0) {
 							nStar = getStar(i, j);
-							starPos.set(i,j);
+							starPos = StarAddress.address(i,j);
 						} else if (nStar == 1 || nStar == 2) {
 							if (!starPos.equals(i, j)) {
 								nStar = -1;
-								starPos.setNowhere();
+								starPos = StarAddress.NOWHERE;
 							}
 						} 
 					}
