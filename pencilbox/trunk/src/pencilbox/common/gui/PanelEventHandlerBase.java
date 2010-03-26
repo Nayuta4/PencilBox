@@ -250,7 +250,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 		if (!isProblemEditMode() && !isCursorOn())
 			return;
 		Address pos = getCellCursor().getPosition();
-		pos.move(direction);
+		pos = pos.nextCell(direction);
 		if (isCursorOnBoard(pos)) {
 			getCellCursor().setPosition(pos);
 			resetPreviousInput();

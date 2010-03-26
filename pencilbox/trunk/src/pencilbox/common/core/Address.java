@@ -30,7 +30,7 @@ public class Address implements Comparable<Address> {
 	 * コンストラクタ，引数の座標と等しい座標に設定
 	 * @param pos 設定する座標
 	 */
-	private Address(Address pos){
+	protected Address(Address pos){
 		this.r = pos.r;
 		this.c = pos.c;
 	}
@@ -39,7 +39,7 @@ public class Address implements Comparable<Address> {
 	 * @param r 設定する行座標
 	 * @param c 設定する列座標
 	 */
-	private Address(int r, int c){
+	protected Address(int r, int c){
 		this.r = r;
 		this.c = c;
 	}
@@ -165,13 +165,14 @@ public class Address implements Comparable<Address> {
 	public boolean isNowhere() {
 		return (r==-1 && c==-1);
 	}
-	/**
-	 * 盤外座標に設定する
-	 */
-	public void setNowhere() {
-		r = -1;
-		c = -1;
-	}
+
+//	/**
+//	 * 盤外座標に設定する
+//	 */
+//	public void setNowhere() {
+//		r = -1;
+//		c = -1;
+//	}
 	/**
 	 * 隣のマス座標に移動する
 	 * @param direction 移動する向き
@@ -263,6 +264,10 @@ public class Address implements Comparable<Address> {
 		default:
 			return Address.NOWHERE;
 		}
+	}
+
+	public Address nextCell(int direction) {
+		return Address.nextCell(this, direction);
 	}
 	/*
 	 * @see java.lang.Object#toString()

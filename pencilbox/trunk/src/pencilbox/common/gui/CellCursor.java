@@ -7,14 +7,14 @@ import pencilbox.common.core.Address;
  */
 public class CellCursor {
 	
-	protected Address pos;
+	private Address pos;
 
 	/**
 	 * カーソルを作成する
 	 * Panelと関連付ける
 	 */
 	public CellCursor() {
-		pos = Address.address();
+		pos = Address.address(0, 0);
 	}
 	/**
 	 * 現在のカーソル位置の行座標を取得する
@@ -35,24 +35,14 @@ public class CellCursor {
 	 * @return カーソル位置
 	 */
 	public Address getPosition() {
-		return Address.address(pos);
+		return pos;
 	}
-	/**
-	 * @param r
-	 * @param c
-	 */
-	public void setPosition(int r, int c) {
-		pos.set(r, c);
-	}
-	
-	public void resetPosition() {
-		setPosition(0, 0);
-	}
+
 	/**
 	 * @param address
 	 */
 	public void setPosition(Address address) {
-		pos.set(address);
+		pos = address;
 	}
 	/**
 	 * カーソルが引数に盤面座標を与えられたマスにいるか
