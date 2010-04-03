@@ -45,7 +45,7 @@ public class BoardCopier extends BoardCopierBase {
 		int number;
 		int dir;
 		for (Address s : region) {
-			Address d = rotateAddress(s, from, to, rotation);
+			Address d = translateAndRotateAddress(s, from, to, rotation);
 			dn.set(s.r()+1, s.c());
 			rt.set(s.r(), s.c()+1);
 			if (region.contains(dn)) {

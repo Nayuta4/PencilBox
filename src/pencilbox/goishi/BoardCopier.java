@@ -34,7 +34,7 @@ public class BoardCopier extends BoardCopierBase {
 		Board srcBoard = (Board) srcBoardBase;
 		Board board = (Board) boardBase;
 		for (Address s : region) {
-			Address d = rotateAddress(s, from, to, rotation);
+			Address d = translateAndRotateAddress(s, from, to, rotation);
 			if (board.isOn(d)) {
 				board.setState(d, srcBoard.getState(s));
 			}
@@ -53,7 +53,7 @@ public class BoardCopier extends BoardCopierBase {
 		for (int i = 0; i < srcBoard.pickedList.size(); i++) {
 			Address s = srcBoard.pickedList.get(i);
 			if (region.contains(s)) {
-				Address d = rotateAddress(s, from, to, rotation);
+				Address d = translateAndRotateAddress(s, from, to, rotation);
 //				System.out.print(s.toString() + " moves to " + d.toString() + ", ");
 				if (board.isOn(d)) {
 					board.pickUp(d);
