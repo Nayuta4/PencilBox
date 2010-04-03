@@ -104,6 +104,115 @@ public class Rotator2 {
 	}
 
 	/**
+	 * 与えられた辺座標posに，
+	 * 座標fromから座標toへの移動と同じ平行移動したのちに，
+	 * toを中心とした回転番号rotationの回転を施した辺座標を返す
+	 * @param pos 変換元の辺座標
+	 * @param from 平行移動の起点
+	 * @param to 平行移動の終点
+	 * @param rotation 回転番号
+	 * @return 変換後の辺座標
+	 */
+	public static SideAddress translateAndRotateSideAddress(SideAddress pos, Address from, Address to, int rotation) {
+		int a = to.r();
+		int b = to.c();
+		int r = pos.r() - from.r() + to.r();
+		int c = pos.c() - from.c() + to.c();
+		int d = pos.d();
+		int R = r;
+		int C = c;
+		int D = d;
+		if (d == Direction.VERT){
+			switch (rotation) {
+				case 0 :
+					D = d;
+					R = +r;
+					C = +c;
+					break;
+				case 1 :
+					D = d^1;
+					R = -c +b +a -1;
+					C = +r -a +b;
+					break;
+				case 2 :
+					D = d;
+					R = -r +a +a;
+					C = -c +b +b -1;
+					break;
+				case 3 :
+					D = d^1;
+					R = +c -b +a;
+					C = -r +a +b;
+					break;
+				case 4 :
+					D = d^1;
+					R = +c -b +a;
+					C = +r -a +b;
+					break;
+				case 5 :
+					D = d;
+					R = +r      ;
+					C = -c +b +b -1;
+					break;
+				case 6 :
+					D = d^1;
+					R = -c +b +a -1;
+					C = -r +a +b;
+					break;
+				case 7 :
+					D = d;
+					R = -r +a +a;
+					C = +c      ;
+					break;
+			}
+		} else {
+			switch (rotation) {
+				case 0 :
+					D = d;
+					R = +r;
+					C = +c;
+					break;
+				case 1 :
+					D = d^1;
+					R = -c +b +a;
+					C = +r -a +b;
+					break;
+				case 2 :
+					D = d;
+					R = -r +a +a -1;
+					C = -c +b +b;
+					break;
+				case 3 :
+					D = d^1;
+					R = +c -b +a;
+					C = -r +a +b -1;
+					break;
+				case 4 :
+					D = d^1;
+					R = +c -b +a;
+					C = +r -a +b;
+					break;
+				case 5 :
+					D = d;
+					R = +r      ;
+					C = -c +b +b;
+					break;
+				case 6 :
+					D = d^1;
+					R = -c +b +a;
+					C = -r +a +b -1;
+					break;
+				case 7 :
+					D = d;
+					R = -r +a +a -1;
+					C = +c      ;
+					break;
+			}
+		}
+		return SideAddress.sideAddress(D, R, C);
+	}
+
+	/**
 	 * 盤上の方向をパネル上の方向に変換する
 	 * @param direction 変換元の方向を表す数値
 	 * @return 変換後の方向を表す数値
