@@ -80,26 +80,45 @@ public class Rotator {
 	 * @param pos
 	 */
 	public Address rotateAddress(Address pos) {
+		int r = pos.r();
+		int c = pos.c();
+		int R = r;
+		int C = c;
 		switch (rotation) {
 			case 0 :
-				return Address.address(pos.r(), pos.c());
+				R = r;
+				C = c;
+				break;
 			case 1 :
-				return Address.address(cols - 1 - pos.c(), pos.r());
+				R = cols - 1 - c;
+				C = r;
+				break;
 			case 2 :
-				return Address.address(rows - 1 - pos.r(), cols - 1 - pos.c());
+				R = rows - 1 - r;
+				C = cols - 1 - c;
+				break;
 			case 3 :
-				return Address.address(pos.c(), rows - 1 - pos.r());
+				R = c;
+				C = rows - 1 - r;
+				break;
 			case 4 :
-				return Address.address(pos.c(), pos.r());
+				R = c;
+				C = r;
+				break;
 			case 5 :
-				return Address.address(pos.r(), cols - 1 - pos.c());
+				R = r;
+				C = cols - 1 - c;
+				break;
 			case 6 :
-				return Address.address(cols - 1 - pos.c(), rows - 1 - pos.r());
+				R = cols - 1 - c;
+				C = rows - 1 - r;
+				break;
 			case 7 :
-				return Address.address(rows - 1 - pos.r(), pos.c());
-			default :
-				return Address.address(pos.r(), pos.c());
+				R = rows - 1 - r;
+				C = c;
+				break;
 		}
+		return Address.address(R, C);
 	}
 
 	/**
