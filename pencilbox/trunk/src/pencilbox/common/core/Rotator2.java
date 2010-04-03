@@ -50,33 +50,57 @@ public class Rotator2 {
 	}
 	
 	/**
-	 * 変換した座標を返す
-	 * @param pos
+	 * 与えられた座標posに，
+	 * 座標fromから座標toへの移動と同じ平行移動したのちに，
+	 * toを中心とした回転番号rotationの回転を施した座標を返す
+	 * @param pos 変換元座標
+	 * @param from 平行移動の起点
+	 * @param to 平行移動の終点
+	 * @param rotation 回転番号
+	 * @return 変換後の座標
 	 */
-	public static Address translateAndRotateAddress(Address pos0, Address from, Address to, int rotation) {
-		Address pos = Address.address(pos0.r() - from.r() + to.r(), pos0.c() - from.c() + to.c());
-		int rows2 = to.r()*2;
-		int cols2 = to.c()*2;
+	public static Address translateAndRotateAddress(Address pos, Address from, Address to, int rotation) {
+		int a = to.r();
+		int b = to.c();
+		int r = pos.r() - from.r() + to.r();
+		int c = pos.c() - from.c() + to.c();
+		int R = r;
+		int C = c;
 		switch (rotation) {
 			case 0 :
-				return Address.address(pos.r(), pos.c());
+				R = +r;
+				C = +c;
+				break;
 			case 1 :
-				return Address.address((rows2 + cols2)/2 - pos.c(), (cols2 - rows2)/2 + pos.r());
+				R = -c +b +a;
+				C = +r -a +b;
+				break;
 			case 2 :
-				return Address.address(rows2 - pos.r(), cols2 - pos.c());
+				R = -r +a +a;
+				C = -c +b +b;
+				break;
 			case 3 :
-				return Address.address((rows2 - cols2)/2 + pos.c(), (cols2 + rows2)/2 - pos.r());
+				R = +c -b +a;
+				C = -r +a +b;
+				break;
 			case 4 :
-				return Address.address((rows2 - cols2)/2 + pos.c(), (cols2 - rows2)/2 + pos.r());
+				R = +c -b +a;
+				C = +r -a +b;
+				break;
 			case 5 :
-				return Address.address(pos.r(), cols2 - pos.c());
+				R = +r      ;
+				C = -c +b +b;
+				break;
 			case 6 :
-				return Address.address((rows2 + cols2)/2 - pos.c(), (cols2 + rows2)/2 - pos.r());
+				R = -c +b +a;
+				C = -r +a +b;
+				break;
 			case 7 :
-				return Address.address(rows2 - pos.r(), pos.c());
-			default :
-				return Address.address(pos.r(), pos.c());
+				R = -r +a +a;
+				C = +c      ;
+				break;
 		}
+		return Address.address(R, C);
 	}
 
 	/**
