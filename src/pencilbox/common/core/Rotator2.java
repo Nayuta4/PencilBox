@@ -6,10 +6,11 @@ package pencilbox.common.core;
 
 /**
  * 座標回転計算用補助クラス
- * マス中心を設定して回転する
  */
 public class Rotator2 {
 	
+    private Rotator2() {}
+
 	/**
 	 * 引数で与えた回転番号は，盤面サイズの縦横交換に該当するか否かを答える
 	 * @param n　回転番号
@@ -49,58 +50,13 @@ public class Rotator2 {
 	}
 	
 	/**
-	 * 回転・反転番号
-	 * 0　回転なし
-	 * 1 左90°回転
-	 * 2　左180°回転
-	 * 3 左270°回転
-	 * 4 縦と横を交換
-	 * 5 左90°回転し，その後縦と横を交換し
-	 * 6 左180°回転し，その後縦と横を交換
-	 * 7 左270°回転し，その後縦と横を交換
-	 */
-	private int rotation = 0;
-//	private int rows; // 回転中心
-//	private int cols; // 回転中心
-	private int rows2; // 回転中心の2倍
-	private int cols2; // 回転中心の2倍
-	
-	/**
-	 * コンストラクタ
-	 * @param rows 行数
-	 * @param cols 列数
-	 * @param rotation 回転・反転番号
-	 */
-	public Rotator2(int rows, int cols, int rotation) {
-//		this.rows = rows;
-//		this.cols = cols;
-		this.rows2 = rows * 2;
-		this.cols2 = cols * 2;
-		this.rotation = rotation;
-	}
-	
-	/**
-	 * コンストラクタ
-	 * @param center 中心座標
-	 * @param rotation 回転・反転番号
-	 */
-	public Rotator2(Address center, int rotation) {
-		this(center.r(), center.c(), rotation);
-	}
-	
-	/**
-	 * 盤面サイズの縦横が交換されるかどうか
-	 * @return 縦横交換されるならば true
-	 */
-	public boolean isTransposed() {
-		return isTransposed(rotation);
-	}
-
-	/**
 	 * 変換した座標を返す
 	 * @param pos
 	 */
-	public Address rotateAddress(Address pos) {
+	public static Address translateAndRotateAddress(Address pos0, Address from, Address to, int rotation) {
+		Address pos = Address.address(pos0.r() - from.r() + to.r(), pos0.c() - from.c() + to.c());
+		int rows2 = to.r()*2;
+		int cols2 = to.c()*2;
 		switch (rotation) {
 			case 0 :
 				return Address.address(pos.r(), pos.c());
@@ -128,7 +84,7 @@ public class Rotator2 {
 	 * @param direction 変換元の方向を表す数値
 	 * @return 変換後の方向を表す数値
 	 */
-	public int rotateDirection(int direction) {
+	public static int rotateDirection(int direction, int rotation) {
 		switch (rotation) {
 			case 0 :
 			case 1 :

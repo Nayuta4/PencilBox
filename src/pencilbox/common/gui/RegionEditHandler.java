@@ -404,10 +404,10 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	 * —Ìˆæ‚ğ‰ñ“]‚·‚éB
 	 */
 	private void rotateArea(Area area, Address center, int rotation) {
-		Rotator2 rotator = new Rotator2(center, rotation);
 		Area dst = new Area();
 		for (Address p : area) {
-			dst.add(rotator.rotateAddress(p));
+			Address d = Rotator2.translateAndRotateAddress(p, center, center, rotation);
+			dst.add(d);
 		}
 		area.clear();
 		area.addAll(dst);

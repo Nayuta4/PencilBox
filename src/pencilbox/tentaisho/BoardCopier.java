@@ -34,11 +34,8 @@ public class BoardCopier extends BoardCopierBase {
 		ArrayList<Area> srcAreaList = new ArrayList<Area>();
 		Area srcArea = null;
 		Area dstArea = null;
-		Address d = Address.address();
-		Rotator2 rotator = new Rotator2(to, rotation);
 		for (Address s : region) {
-			d.set(s.r() + to.r() - from.r(), s.c() + to.c() - from.c());
-			d.set(rotator.rotateAddress(d));
+			Address d = rotateAddress(s, from, to, rotation);
 			if (board.isOn(d)) {
 				srcArea = srcBoard.getArea(s);
 				if (srcArea != null) {
@@ -50,8 +47,7 @@ public class BoardCopier extends BoardCopierBase {
 					dstArea = new Area();
 					for (Address ss : srcArea) {
 						if (region.contains(ss)) {
-							Address dd = Address.address(ss.r() + to.r() - from.r(), ss.c() + to.c() - from.c());
-							dd.set(rotator.rotateAddress(dd));
+							Address dd = rotateAddress(ss, from, to, rotation);
 							if (board.isOn(dd))
 								dstArea.add(dd);
 						}
@@ -69,11 +65,8 @@ public class BoardCopier extends BoardCopierBase {
 			}
 		}
 		pencilbox.common.core.Area region2 = makeStarRegion(region);
-		Address dd = Address.address();
-		Rotator2 rotator2 = new Rotator2(to.r()*2, to.c()*2, rotation);
 		for (Address ss : region2) {
-			dd.set(ss.r() + to.r()*2 - from.r()*2, ss.c() + to.c()*2 - from.c()*2);
-			dd.set(rotator2.rotateAddress(dd));
+			Address dd = rotateAddress(ss, from, to, rotation);
 			if (board.isOnStar(dd.r(), dd.c()))
 				board.setStar(dd.r(), dd.c(), srcBoard.getStar(ss.r(), ss.c()));
 		}
