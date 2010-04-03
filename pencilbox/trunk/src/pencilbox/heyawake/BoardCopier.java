@@ -31,13 +31,8 @@ public class BoardCopier extends BoardCopierBase {
 		Board board = (Board) dstBoardBase;
 		Square srcSquare = null;
 		Square dstSquare = null;
-		Address d = Address.address();
-		Address d0 = Address.address();
-		Address d1 = Address.address();
-		Rotator2 rotator = new Rotator2(to, rotation);
 		for (Address s : region) {
-			d.set(s.r() + to.r() - from.r(), s.c() + to.c() - from.c());
-			d.set(rotator.rotateAddress(d));
+			Address d = rotateAddress(s, from, to, rotation);
 			if (board.isOn(d)) {
 				board.setState(d, srcBoard.getState(s));
 			}
@@ -45,14 +40,10 @@ public class BoardCopier extends BoardCopierBase {
 			if (srcSquare != null) {
 				if (s.equals(srcSquare.r0(), srcSquare.c0())) {
 					if (region.containsAll(srcSquare.getCorners())) {
-						d0.set(srcSquare.r0(), srcSquare.c0());
-						d0.set(d0.r() + to.r() - from.r(), d0.c() + to.c() - from.c());
-						d0.set(rotator.rotateAddress(d0));
-						d1.set(srcSquare.r1(), srcSquare.c1());
-						d1.set(d1.r() + to.r() - from.r(), d1.c() + to.c() - from.c());
-						d1.set(rotator.rotateAddress(d1));
+						Address d0 = rotateAddress(srcSquare.p0(), from, to, rotation);
+						Address d1 = rotateAddress(srcSquare.p1(), from, to, rotation);
 						dstSquare = new Square(srcSquare);
-						dstSquare.set(d0.r(), d0.c(), d1.r(), d1.c());
+						dstSquare.set(d0, d1);
 						dstSquare.setNumber(srcSquare.getNumber());
 						if (board.isOnAll(dstSquare.getCorners())) {
 							board.removeOverlappedSquares(dstSquare, null);

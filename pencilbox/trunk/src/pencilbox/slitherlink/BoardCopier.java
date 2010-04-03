@@ -25,29 +25,26 @@ public class BoardCopier extends BoardCopierBase {
 	public void copyRegion(BoardBase srcBoardBase, BoardBase dstBoardBase, Area region, Address from, Address to, int rotation) {
 		Board srcBoard = (Board) srcBoardBase;
 		Board board = (Board) dstBoardBase;
-		Address d = Address.address();
 		Address dn = Address.address();
 		Address rt = Address.address();
 		Address dnrt = Address.address();
 		int joint;
 		int grid;
 		int dir;
-		Rotator2 rotator = new Rotator2(to, rotation);
 		for (Address s : region) {
-			d.set(s.r() + to.r() - from.r(), s.c() + to.c() - from.c());
-			d.set(rotator.rotateAddress(d));
+			Address d = rotateAddress(s, from, to, rotation);
 			dn.set(s.r()+1, s.c());
 			rt.set(s.r(), s.c()+1);
 			dnrt.set(s.r()+1, s.c()+1);
 			if (region.contains(dn)) {
 				joint = srcBoard.getStateJ(s, Direction.DN);
-				dir = rotator.rotateDirection(Direction.DN);
+				dir = Rotator2.rotateDirection(Direction.DN, rotation);
 				if (board.isSideOn(d, dir))
 					board.setStateJ(d, dir, joint);
 			}
 			if (region.contains(rt)) {
 				joint = srcBoard.getStateJ(s, Direction.RT);
-				dir = rotator.rotateDirection(Direction.RT);
+				dir = Rotator2.rotateDirection(Direction.RT, rotation);
 				if (board.isSideOn(d, dir))
 					board.setStateJ(d, dir, joint);
 			}

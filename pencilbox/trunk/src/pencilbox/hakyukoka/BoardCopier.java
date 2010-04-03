@@ -34,11 +34,8 @@ public class BoardCopier extends BoardCopierBase {
 		ArrayList<Area> srcAreaList = new ArrayList<Area>();
 		Area srcArea = null;
 		Area dstArea = null;
-		Address d = Address.address();
-		Rotator2 rotator = new Rotator2(to, rotation);
 		for (Address s : region) {
-			d.set(s.r() + to.r() - from.r(), s.c() + to.c() - from.c());
-			d.set(rotator.rotateAddress(d));
+			Address d = rotateAddress(s, from, to, rotation);
 			if (board.isOn(d)) {
 				board.setState(d, srcBoard.getState(s));
 				board.setNumber(d, srcBoard.getNumber(s));
@@ -52,8 +49,7 @@ public class BoardCopier extends BoardCopierBase {
 					dstArea = new Area();
 					for (Address ss : srcArea) {
 						if (region.contains(ss)) {
-							Address dd = Address.address(ss.r() + to.r() - from.r(), ss.c() + to.c() - from.c());
-							dd.set(rotator.rotateAddress(dd));
+							Address dd = rotateAddress(ss, from, to, rotation);
 							if (board.isOn(dd))
 								dstArea.add(dd);
 						}

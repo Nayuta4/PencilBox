@@ -21,11 +21,8 @@ public class BoardCopier extends BoardCopierBase {
 	public void copyRegion(BoardBase srcBoardBase, BoardBase ‚‚oardBase, pencilbox.common.core.Area region, Address from, Address to, int rotation) {
 		Board srcBoard = (Board) srcBoardBase;
 		Board board = (Board) ‚‚oardBase;
-		Address d = Address.address();
-		Rotator2 rotator = new Rotator2(to, rotation);
 		for (Address s : region) {
-			d.set(s.r() + to.r() - from.r(), s.c() + to.c() - from.c());
-			d.set(rotator.rotateAddress(d));
+			Address d = rotateAddress(s, from, to, rotation);
 			if (board.isOn(d)) {
 				board.setState(d, srcBoard.getState(s));
 			}
