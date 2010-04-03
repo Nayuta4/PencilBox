@@ -18,6 +18,9 @@ public class Direction {
 	public static final int DN = 2;
 	public static final int RT = 3;
 
+	public static final int[] UP_LT_DN_RT = {UP, LT, DN, RT};
+	public static final int[] DN_RT = {DN, RT};
+
 }
 
 /*

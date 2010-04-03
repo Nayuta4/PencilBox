@@ -7,6 +7,7 @@ import pencilbox.common.core.BoardCopierBase;
 import pencilbox.common.core.Direction;
 import pencilbox.common.core.Rotator;
 import pencilbox.common.core.Rotator2;
+import pencilbox.common.core.SideAddress;
 
 /**
  * 
@@ -24,25 +25,15 @@ public class BoardCopier extends BoardCopierBase {
 	public void copyRegion(BoardBase srcBoardBase, BoardBase dstBoardBase, Area region, Address from, Address to, int rotation) {
 		Board srcBoard = (Board) srcBoardBase;
 		Board board = (Board) dstBoardBase;
-		Address dn = Address.address();
-		Address rt = Address.address();
-		int joint;
-		int dir;
 		for (Address s : region) {
 			Address d = translateAndRotateAddress(s, from, to, rotation);
-			dn.set(s.r()+1, s.c());
-			rt.set(s.r(), s.c()+1);
-			if (region.contains(dn)) {
-				joint = srcBoard.getStateJ(s, Direction.DN);
-				dir = Rotator2.rotateDirection(Direction.DN, rotation);
-				if (board.isSideOn(d, dir))
-					board.setStateJ(d, dir, joint);
-			}
-			if (region.contains(rt)) {
-				joint = srcBoard.getStateJ(s, Direction.RT);
-				dir = Rotator2.rotateDirection(Direction.RT, rotation);
-				if (board.isSideOn(d, dir))
-					board.setStateJ(d, dir, joint);
+			for (int n : Direction.DN_RT) {
+				if (region.contains(s.nextCell(n))) {
+					int joint = srcBoard.getStateJ(s, n);
+					int dir = Rotator2.rotateDirection(n, rotation);
+					if (board.isSideOn(d, dir))
+						board.setStateJ(d, dir, joint);
+				}
 			}
 			if (board.isOn(d))
 				board.setNumber(d, srcBoard.getNumber(s));
@@ -51,16 +42,11 @@ public class BoardCopier extends BoardCopierBase {
 
 	public void eraseRegion(BoardBase srcBoardBase, Area region) {
 		Board board = (Board) srcBoardBase;
-		Address dn = Address.address();
-		Address rt = Address.address();
 		for (Address s : region) {
-			dn.set(s.r()+1, s.c());
-			rt.set(s.r(), s.c()+1);
-			if (region.contains(dn)) {
-				board.setStateJ(s, Direction.DN, Board.UNKNOWN);
-			}
-			if (region.contains(rt)) {
-				board.setStateJ(s, Direction.RT, Board.UNKNOWN);
+			for (int n : Direction.DN_RT){
+				Address dn = Address.nextCell(s, n);
+				if (region.contains(dn))
+					board.setStateJ(s, n, Board.UNKNOWN);
 			}
 			board.setNumber(s, Board.NO_PEARL);
 		}
