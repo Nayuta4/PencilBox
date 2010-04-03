@@ -35,7 +35,7 @@ public class BoardCopier extends BoardCopierBase {
 		Area srcArea = null;
 		Area dstArea = null;
 		for (Address s : region) {
-			Address d = rotateAddress(s, from, to, rotation);
+			Address d = translateAndRotateAddress(s, from, to, rotation);
 			if (board.isOn(d)) {
 				board.setState(d, srcBoard.getState(s));
 				board.setNumber(d, srcBoard.getNumber(s));
@@ -49,7 +49,7 @@ public class BoardCopier extends BoardCopierBase {
 					dstArea = new Area();
 					for (Address ss : srcArea) {
 						if (region.contains(ss)) {
-							Address dd = rotateAddress(ss, from, to, rotation);
+							Address dd = translateAndRotateAddress(ss, from, to, rotation);
 							if (board.isOn(dd))
 								dstArea.add(dd);
 						}

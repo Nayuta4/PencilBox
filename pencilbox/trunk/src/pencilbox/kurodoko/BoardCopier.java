@@ -21,7 +21,7 @@ public class BoardCopier extends pencilbox.common.core.BoardCopierBase {
 		Board srcBoard = (Board) srcBoardBase;
 		Board board = (Board) boardBase;
 		for (Address s : region) {
-			Address d = rotateAddress(s, from, to, rotation);
+			Address d = translateAndRotateAddress(s, from, to, rotation);
 			if (board.isOn(d)) {
 				board.setState(d, srcBoard.getState(s));
 			}

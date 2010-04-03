@@ -123,7 +123,7 @@ public class BoardCopierBase {
 	}
 
 
-	protected Address rotateAddress(Address pos, Address from, Address to, int rotation) {
+	protected Address translateAndRotateAddress(Address pos, Address from, Address to, int rotation) {
 		return Rotator2.translateAndRotateAddress(pos, from, to, rotation);
 	}
 

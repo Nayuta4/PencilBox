@@ -32,7 +32,7 @@ public class BoardCopier extends BoardCopierBase {
 		Square srcSquare = null;
 		Square dstSquare = null;
 		for (Address s : region) {
-			Address d = rotateAddress(s, from, to, rotation);
+			Address d = translateAndRotateAddress(s, from, to, rotation);
 			if (dstBoardBase.isOn(d)) {
 				board.setNumber(d, srcBoard.getNumber(s));
 			}
@@ -40,8 +40,8 @@ public class BoardCopier extends BoardCopierBase {
 			if (srcSquare != null) {
 				if (s.equals(srcSquare.r0(), srcSquare.c0())) {
 					if (region.containsAll(srcSquare.getCorners())) {
-						Address d0 = rotateAddress(srcSquare.p0(), from, to, rotation);
-						Address d1 = rotateAddress(srcSquare.p1(), from, to, rotation);
+						Address d0 = translateAndRotateAddress(srcSquare.p0(), from, to, rotation);
+						Address d1 = translateAndRotateAddress(srcSquare.p1(), from, to, rotation);
 						dstSquare = new Square(srcSquare);
 						dstSquare.set(d0, d1);
 						dstSquare.setNumber(srcSquare.getNumber());

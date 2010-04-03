@@ -46,13 +46,13 @@ public class BoardCopier extends BoardCopierBase {
 		Board srcBoard = (Board) srcBoardBase;
 		Board board = (Board) boardBase;
 		for (Address s : region) {
-			Address d = rotateAddress(s, from, to, rotation);
+			Address d = translateAndRotateAddress(s, from, to, rotation);
 			if (board.isOn(d)) {
 				board.setNumber(d, srcBoard.getNumber(s));
 			}
 		}
 		for (Address s : region) {
-			Address d = rotateAddress(s, from, to, rotation);
+			Address d = translateAndRotateAddress(s, from, to, rotation);
 			if (board.isOn(d)) {
 				int st = srcBoard.getState(s);
 				if (Rotator2.isTransposed(rotation)) {
