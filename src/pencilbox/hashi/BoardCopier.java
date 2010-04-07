@@ -67,8 +67,8 @@ public class BoardCopier extends BoardCopierBase {
 	public void eraseRegion(BoardBase boardBase, pencilbox.common.core.Area region) {
 		Board board = (Board) boardBase;
 		for (Address s : region) {
-			board.setNumber(s.r(), s.c(), 0);
-			board.setState(s.r(), s.c(), 0);
+			board.setNumber(s, 0);
+			board.setState(s, 0);
 		}
 	}
 }
