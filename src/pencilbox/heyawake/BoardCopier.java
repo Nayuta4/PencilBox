@@ -61,7 +61,7 @@ public class BoardCopier extends BoardCopierBase {
 			board.setState(s, Board.UNKNOWN);
 			Square square = board.getSquare(s);
 			if (square != null) {
-				if (s.equals(square.r0(), square.c0())) {
+				if (s.equals(square.p0())) {
 					if (region.containsAll(square.getCorners())) {
 						board.removeSquare(square);
 					}
