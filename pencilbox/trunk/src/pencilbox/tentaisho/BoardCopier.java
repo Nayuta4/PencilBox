@@ -96,17 +96,13 @@ public class BoardCopier extends BoardCopierBase {
 	
 	private pencilbox.common.core.Area makeStarRegion(pencilbox.common.core.Area region) {
 		pencilbox.common.core.Area region2 = new pencilbox.common.core.Area();
-		Address p = Address.address();
 		for (Address s : region) {
 			region2.add(Address.address(s.r()*2, s.c()*2));
-			p.set(s.r(), s.c()+1);
-			if (region.contains(p))
+			if (region.contains(Address.address(s.r(), s.c()+1)))
 				region2.add(Address.address(s.r()*2, s.c()*2+1));
-			p.set(s.r()+1, s.c());
-			if (region.contains(p))
+			if (region.contains(Address.address(s.r()+1, s.c())))
 				region2.add(Address.address(s.r()*2+1, s.c()*2));
-			p.set(s.r()+1, s.c()+1);
-			if (region.contains(p))
+			if (region.contains(Address.address(s.r()+1, s.c()+1)))
 				region2.add(Address.address(s.r()*2+1, s.c()*2+1));
 		}
 		return region2;
