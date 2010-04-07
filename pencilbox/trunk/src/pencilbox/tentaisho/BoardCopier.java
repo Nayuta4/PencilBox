@@ -66,10 +66,16 @@ public class BoardCopier extends BoardCopierBase {
 		}
 		pencilbox.common.core.Area region2 = makeStarRegion(region);
 		for (Address ss : region2) {
-			Address dd = translateAndRotateAddress(ss, from, to, rotation);
+			Address dd = translateAndRotateStarAddress(ss, from, to, rotation);
 			if (board.isOnStar(dd.r(), dd.c()))
 				board.setStar(dd.r(), dd.c(), srcBoard.getStar(ss.r(), ss.c()));
 		}
+	}
+
+	private Address translateAndRotateStarAddress(Address ss, Address from, Address to, int rotation) {
+		Address from2 = Address.address(from.r()*2, from.c()*2);
+		Address to2 = Address.address(to.r()*2, to.c()*2);
+		return Rotator2.translateAndRotateAddress(ss, from2, to2, rotation);
 	}
 
 	public void eraseRegion(BoardBase boardBase, pencilbox.common.core.Area region) {
