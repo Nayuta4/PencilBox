@@ -67,8 +67,8 @@ public class BoardCopier extends BoardCopierBase {
 		pencilbox.common.core.Area region2 = makeStarRegion(region);
 		for (Address ss : region2) {
 			Address dd = translateAndRotateStarAddress(ss, from, to, rotation);
-			if (board.isOnStar(dd.r(), dd.c()))
-				board.setStar(dd.r(), dd.c(), srcBoard.getStar(ss.r(), ss.c()));
+			if (board.isOnStar(dd))
+				board.setStar(dd, srcBoard.getStar(ss));
 		}
 	}
 
@@ -90,7 +90,7 @@ public class BoardCopier extends BoardCopierBase {
 		}
 		pencilbox.common.core.Area region2 = makeStarRegion(region);
 		for (Address ss : region2) {
-			board.setStar(ss.r(), ss.c(), Board.NOSTAR);
+			board.setStar(ss, Board.NOSTAR);
 		}
 	}
 	
