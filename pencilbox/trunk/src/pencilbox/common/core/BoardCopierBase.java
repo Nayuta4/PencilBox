@@ -24,7 +24,7 @@ public class BoardCopierBase {
 	 */
 	public BoardBase duplicateBoard(BoardBase src, int n) throws PencilBoxClassException {
 		BoardBase dst = (BoardBase) ClassUtil.createInstance(this.getClass(), ClassUtil.BOARD_CLASS);
-		if (Rotator.isTransposed(n)){
+		if (Rotator2.isTransposed(n)){
 			dst.setSize(new Size(src.cols(), src.rows()));
 		} else {
 			dst.setSize(new Size(src.rows(), src.cols()));
@@ -56,11 +56,57 @@ public class BoardCopierBase {
 	 * @param n ‰ñ“]”Ô†
 	 */
 	public void copyBoardStates(BoardBase src, BoardBase dst, int n) {
-		Rotator rotator = new Rotator(src.rows(), src.cols(), n);
 		Address from = Address.address(0, 0);
-		Address to = rotator.rotateAddress(Address.address(0, 0));
+		Address to = this.rotateCornerAddress(src.rows(), src.cols(), n);
 		Area region = src.getWholeBoardArea();
 		copyRegion(src, dst, region, from, to, n);
+	}
+
+	/**
+	 * ”Õ–Ê‰ñ“]‚Ì¶ãŠpÀ•W‚Ìs‚«æ‚ÌÀ•W‚ğ‹‚ß‚é
+	 * @param rows Œ³”Õ–Ê‚Ìs”
+	 * @param cols Œ³”Õ–Ê‚Ì—ñ”
+	 * @param rotation ‰ñ“]”Ô†
+	 * @return
+	 */
+	private Address rotateCornerAddress(int rows, int cols, int rotation) {
+		int R = 0;
+		int C = 0;
+		switch (rotation) {
+			case 0 :
+				R = 0;
+				C = 0;
+				break;
+			case 1 :
+				R = cols - 1;
+				C = 0;
+				break;
+			case 2 :
+				R = rows - 1;
+				C = cols - 1;
+				break;
+			case 3 :
+				R = 0;
+				C = rows - 1;
+				break;
+			case 4 :
+				R = 0;
+				C = 0;
+				break;
+			case 5 :
+				R = 0;
+				C = cols - 1;
+				break;
+			case 6 :
+				R = cols - 1;
+				C = rows - 1;
+				break;
+			case 7 :
+				R = rows - 1;
+				C = 0;
+				break;
+		}
+		return Address.address(R, C);
 	}
 
 	/**
