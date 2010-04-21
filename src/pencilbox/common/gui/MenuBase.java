@@ -37,6 +37,7 @@ public class MenuBase {
 	private JMenuItem closeAndOpenItem;
 	private JMenuItem saveItem;
 	private JMenuItem duplicateItem;
+	private JMenuItem rotationItem;
 	private JMenuItem changeBoardSizeItem;
 	private JMenuItem saveImageItem;
 	private JMenuItem copyImageItem;
@@ -70,7 +71,7 @@ public class MenuBase {
 	private JMenuItem storePreferencesItem;
 
 	private JMenu colorMenu;
-	private JMenu rotationMenu;
+//	private JMenu rotationMenu;
 	private JMenu markStyleMenu;
 	private JMenu exportDataMenu;
 	private ButtonGroup markStyleGroup;
@@ -136,9 +137,10 @@ public class MenuBase {
 		fileMenu.add(saveItem = makeCommandMenuItem(Messages.getString("MenuBase.saveItem"), 'S')); //$NON-NLS-1$
 		fileMenu.addSeparator();
 		fileMenu.add(duplicateItem = makeCommandMenuItem(Messages.getString("MenuBase.duplicateItem"), 'D')); //$NON-NLS-1$
-		fileMenu.add(rotationMenu = makeJMenu(Messages.getString("MenuBase.rotationMenu"), 'R')); //$NON-NLS-1$
+		fileMenu.add(rotationItem = makeCommandMenuItem(Messages.getString("MenuBase.rotationItem"), 'R')); //$NON-NLS-1$
+//		fileMenu.add(rotationMenu = makeJMenu(Messages.getString("MenuBase.rotationItem"), 'R')); //$NON-NLS-1$
 		fileMenu.add(changeBoardSizeItem = makeCommandMenuItem(Messages.getString("MenuBase.changeBoardSizeItem"), 'Z')); //$NON-NLS-1$
-		buildRotationMenu();
+//		buildRotationMenu();
 		fileMenu.addSeparator();
 		fileMenu.add(exportDataMenu = makeJMenu(Messages.getString("MenuBase.exportMenu"), 'X')); //$NON-NLS-1$
 		buildExportDataMenu();
@@ -252,25 +254,25 @@ public class MenuBase {
 		helpMenu.add(aboutItem = makeCommandMenuItem(Messages.getString("MenuBase.aboutDialog"), 'A')); //$NON-NLS-1$
 	}
 
-	/**
-	 * [回転・反転]メニュー作成
-	 */
-	protected void buildRotationMenu() {
-		makeRotationItem(Messages.getString("MenuBase.rotationItem1"), '1', 1); //$NON-NLS-1$
-		makeRotationItem(Messages.getString("MenuBase.rotationItem2"), '2', 2); //$NON-NLS-1$
-		makeRotationItem(Messages.getString("MenuBase.rotationItem3"), '3', 3); //$NON-NLS-1$
-		makeRotationItem(Messages.getString("MenuBase.rotationItem4"), '4', 4); //$NON-NLS-1$
-		makeRotationItem(Messages.getString("MenuBase.rotationItem5"), '5', 5); //$NON-NLS-1$
-		makeRotationItem(Messages.getString("MenuBase.rotationItem6"), '6', 6); //$NON-NLS-1$
-		makeRotationItem(Messages.getString("MenuBase.rotationItem7"), '7', 7); //$NON-NLS-1$
-	}
-	/**
-	 * [回転・反転]メニュー作成
-	 * （カックロ用）
-	 */
-	protected void buildRotationMenu2() {
-		makeRotationItem(Messages.getString("MenuBase.rotationItem4"), '4', 4); //$NON-NLS-1$
-	}
+//	/**
+//	 * [回転・反転]メニュー作成
+//	 */
+//	protected void buildRotationMenu() {
+//		makeRotationItem(Messages.getString("MenuBase.rotationItem1"), '1', 1); //$NON-NLS-1$
+//		makeRotationItem(Messages.getString("MenuBase.rotationItem2"), '2', 2); //$NON-NLS-1$
+//		makeRotationItem(Messages.getString("MenuBase.rotationItem3"), '3', 3); //$NON-NLS-1$
+//		makeRotationItem(Messages.getString("MenuBase.rotationItem4"), '4', 4); //$NON-NLS-1$
+//		makeRotationItem(Messages.getString("MenuBase.rotationItem5"), '5', 5); //$NON-NLS-1$
+//		makeRotationItem(Messages.getString("MenuBase.rotationItem6"), '6', 6); //$NON-NLS-1$
+//		makeRotationItem(Messages.getString("MenuBase.rotationItem7"), '7', 7); //$NON-NLS-1$
+//	}
+//	/**
+//	 * [回転・反転]メニュー作成
+//	 * （カックロ用）
+//	 */
+//	protected void buildRotationMenu2() {
+//		makeRotationItem(Messages.getString("MenuBase.rotationItem4"), '4', 4); //$NON-NLS-1$
+//	}
 
 	/**
 	 * 「エクスポート／インポート」サブメニューを作成する。
@@ -450,33 +452,33 @@ public class MenuBase {
 		viewMenu.add(item);
 	}
 
-	/**
-	 * 「回転・反転」メニューのサブメニュー項目を作成し，グループに追加する。
-	 * 回転番号をパラメータとしてメニュー項目の action command に設定する。
-	 * @param text メニュー表示文字列
-	 * @param mnemonic
-	 * @param n 設定する回転番号
-	 * @return 作成したメニュー項目
-	 */
-	protected JMenuItem makeRotationItem(String text, char mnemonic, int n) {
-		JMenuItem rotationItem = new JMenuItem(text, mnemonic);
-		rotationItem.addActionListener(rotationCommandAction);
-		rotationItem.setActionCommand(Integer.toString(n));
-		rotationMenu.add(rotationItem);
-		return rotationItem;
-	}
+//	/**
+//	 * 「回転・反転」メニューのサブメニュー項目を作成し，グループに追加する。
+//	 * 回転番号をパラメータとしてメニュー項目の action command に設定する。
+//	 * @param text メニュー表示文字列
+//	 * @param mnemonic
+//	 * @param n 設定する回転番号
+//	 * @return 作成したメニュー項目
+//	 */
+//	protected JMenuItem makeRotationItem(String text, char mnemonic, int n) {
+//		JMenuItem rotationItem = new JMenuItem(text, mnemonic);
+//		rotationItem.addActionListener(rotationCommandAction);
+//		rotationItem.setActionCommand(Integer.toString(n));
+//		rotationMenu.add(rotationItem);
+//		return rotationItem;
+//	}
 
-	/**
-	 * 回転コマンド。 
-	 * メニュー項目の action command から回転番号を読み取って実行する。
-	 */
-	private ActionListener rotationCommandAction = new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			JMenuItem target = (JMenuItem) e.getSource();
-			command.rotateBoard(Integer.parseInt(target.getActionCommand()));
-			panel.repaint();
-		}
-	};
+//	/**
+//	 * 回転コマンド。 
+//	 * メニュー項目の action command から回転番号を読み取って実行する。
+//	 */
+//	private ActionListener rotationCommandAction = new ActionListener() {
+//		public void actionPerformed(ActionEvent e) {
+//			JMenuItem target = (JMenuItem) e.getSource();
+//			command.rotateBoard(Integer.parseInt(target.getActionCommand()));
+//			panel.repaint();
+//		}
+//	};
 
 	/**
 	 * 「回転・反転」メニューのサブメニュー項目を作成し，グループに追加する。
@@ -610,6 +612,8 @@ public class MenuBase {
 			command.save();
 		else if (target == duplicateItem)
 			command.duplicate();
+		else if (target == rotationItem)
+			command.rotateBoard();
 		else if (target == changeBoardSizeItem)
 			command.changeBoardSize();
 		else if (target == saveImageItem)
