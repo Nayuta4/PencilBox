@@ -233,6 +233,20 @@ public class MenuCommand {
 	/**
 	 *  [ƒtƒ@ƒCƒ‹]-[‰ñ“]E”½“]]
 	 */
+	public void rotateBoard() {
+		try {
+			RotateBoardDialog dialog = RotateBoardDialog.getInstance();
+			if (dialog.showDialog(frame, Messages.getString("MenuCommand.rotateBoardDialog")) == PencilBoxDialog.OK_OPTION) { //$NON-NLS-1$
+				int n = dialog.getSelection();
+				if (n >= 1 && n <= 7) {
+					PencilFactory.getInstance(pencilType, this).rotateBoard(n);
+				}
+			}
+		} catch (PencilBoxClassException e) {
+			showErrorMessage(e);
+		}
+	}
+
 	public void rotateBoard(int n) {
 		try {
 			PencilFactory.getInstance(pencilType, this).rotateBoard(n);

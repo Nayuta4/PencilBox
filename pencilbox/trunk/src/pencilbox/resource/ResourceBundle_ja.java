@@ -39,7 +39,7 @@ public class ResourceBundle_ja extends ListResourceBundle {
     { "MenuBase.closeAndOpenItem"                   , "閉じて開く(L)..."                                           } ,
     { "MenuBase.saveItem"                           , "保存(S)..."                                                 } ,
     { "MenuBase.duplicateItem"                      , "複製(D)"                                                    } ,
-    { "MenuBase.rotationMenu"                       , "回転・反転(R)"                                              } ,
+    { "MenuBase.rotationItem"                       , "回転・反転(R)"                                          } ,
     { "MenuBase.changeBoardSizeItem"                , "盤面サイズ変更(Z)"                                          } ,
     { "MenuBase.exportMenu"                         , "問題データ出力(X)"                                          } ,
     { "MenuBase.saveImageItem"                      , "画像保存(G)..."                                             } ,
@@ -95,6 +95,7 @@ public class ResourceBundle_ja extends ListResourceBundle {
     { "MenuBase.markStyle5"                         , "塗りつぶし"                                                 } ,
 
     { "MenuCommand.newBoardDialog"                  , "新規作成"                                                   } ,
+    { "MenuCommand.rotateBoardDialog"               , "回転・反転"                                             } ,
     { "MenuCommand.changeBoardSizeDialog"           , "盤面サイズ変更"                                             } ,
     { "MenuCommand.properyDialog"                   , "プロパティ"                                                 } ,
     { "MenuCommand.dataExportDialog"                , "問題データ出力"                                             } ,
