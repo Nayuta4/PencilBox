@@ -63,8 +63,6 @@ public class PanelBase extends JPanel implements Printable {
 
 	private Area copyRegion = new Area();
 	private Area pasteRegion = new Area();
-	private Address copyRegionOrigin = Address.address(-1, -1);
-	private Address pasteRegionOrigin = Address.address(-1, -1);
 	private Color copyRegionColor = new Color(0xFF0000);
 	private Color pasteRegionColor = new Color(0xFFAAAA);
 	
@@ -608,12 +606,17 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param d 辺座標
 	 * @param r 辺座標
 	 * @param c 辺座標
+	 * @param w 線幅
 	 */
-	public void placeSideLine(Graphics2D g, int d, int r, int c) {
+	public void placeSideLine(Graphics2D g, int d, int r, int c, int w) {
 		if (d == Direction.VERT)
-			drawLineSegment(g, toX(c + 1), toY(r), d, 3);
+			drawLineSegment(g, toX(c + 1), toY(r), d, w);
 		else if (d == Direction.HORIZ)
-			drawLineSegment(g, toX(c), toY(r + 1), d, 3);
+			drawLineSegment(g, toX(c), toY(r + 1), d, w);
+	}
+
+	public void placeSideLine(Graphics2D g, int d, int r, int c) {
+		placeSideLine(g, d, r, c, 3);
 	}
 	/**
 	 * 辺上に線を配置する。マスとそのマスから見た辺の向きで指定する。
@@ -621,15 +624,15 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param pos マス
 	 * @param dir マスのどの向きの辺か
 	 */
-	public void placeSideLineJ(Graphics2D g, Address pos, int dir) {
+	public void placeSideLineJ(Graphics2D g, Address pos, int dir, int w) {
 		if (dir == Direction.UP)
-			placeSideLine(g, Direction.HORIZ, pos.r()-1, pos.c());		
+			placeSideLine(g, Direction.HORIZ, pos.r()-1, pos.c(), w);		
 		else if (dir == Direction.LT)
-			placeSideLine(g, Direction.VERT, pos.r(), pos.c()-1);		
+			placeSideLine(g, Direction.VERT, pos.r(), pos.c()-1, w);		
 		else if (dir == Direction.DN)
-			placeSideLine(g, Direction.HORIZ, pos.r(), pos.c());		
+			placeSideLine(g, Direction.HORIZ, pos.r(), pos.c(), w);		
 		else if (dir == Direction.RT)
-			placeSideLine(g, Direction.VERT, pos.r(), pos.c());		
+			placeSideLine(g, Direction.VERT, pos.r(), pos.c(), w);		
 	}
 	
 	/**
@@ -706,26 +709,6 @@ public class PanelBase extends JPanel implements Printable {
 	public void edgeCell(Graphics2D g, int r0, int c0, int w) {
 		for (int i = 0; i < w; i++) {
 			g.drawRect(toX(c0)+i, toY(r0)+i, getCellSize()-i-i, getCellSize()-i-i);
-		}
-	}
-
-	/**
-	 * 領域の縁取り 
-	 * @param g
-	 * @param area 領域
-	 */
-	public void edgeArea(Graphics2D g, Area area) {
-		Address neighbor = Address.address();
-		for (Address pos : area) {
-			for (int dir = 0; dir < 4; dir++) {
-				neighbor.set(pos);
-				neighbor.move(dir);
-				if (area.contains(neighbor)) {
-					;
-				} else {
-					placeSideLineJ(g, pos, dir);
-				}
-			}
 		}
 	}
 
@@ -976,18 +959,6 @@ public class PanelBase extends JPanel implements Printable {
 	Area getPasteRegion() {
 		return pasteRegion;
 	}
-	/**
-	 * @return the copyRegionOrigin
-	 */
-	Address getCopyRegionOrigin() {
-		return copyRegionOrigin;
-	}
-	/**
-	 * @return the pasteRegionOrigin
-	 */
-	Address getPasteRegionOrigin() {
-		return pasteRegionOrigin;
-	}
 	
 	/**
 	 * 「領域編集モード」での編集領域を表示する。
@@ -995,20 +966,29 @@ public class PanelBase extends JPanel implements Printable {
 	 */
 	protected void drawCopyPasteRegion(Graphics2D g) {
 		g.setColor(copyRegionColor);
-		for (Address pos : copyRegion) {
-			edgeCell(g, pos.r(), pos.c(), 1);
-		}
 		edgeArea(g, copyRegion);
-		if (! copyRegionOrigin.isNowhere())
-			edgeCell(g, copyRegionOrigin.r(), copyRegionOrigin.c(), 2);
-		
 		g.setColor(pasteRegionColor);
-		for (Address pos : pasteRegion) {
-			edgeCell(g, pos.r(), pos.c(), 1);
-		}
 		edgeArea(g, pasteRegion);
-		if (! pasteRegionOrigin.isNowhere())
-			edgeCell(g, pasteRegionOrigin.r(), pasteRegionOrigin.c(), 2);
+	}
+
+	/**
+	 * 領域の縁取り 
+	 * 領域の外周を太線で，領域内部のマス教会を細線で描画する
+	 * @param g
+	 * @param area 領域
+	 */
+	public void edgeArea(Graphics2D g, Area area) {
+		for (Address pos : area) {
+			for (int dir = 0; dir < 4; dir++) {
+				Address neighbor = Address.nextCell(pos, dir);
+				if (area.contains(neighbor)) {
+					if (dir >=2)
+						placeSideLineJ(g, pos, dir, 1);
+				} else {
+					placeSideLineJ(g, pos, dir, 3);
+				}
+			}
+		}
 	}
 }
 

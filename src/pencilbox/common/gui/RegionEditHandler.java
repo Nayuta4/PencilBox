@@ -27,7 +27,6 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	private EventHandlerManager eventHandlerManager;
 
 	private Address oldPos = Address.address(-1, -1);
-	private Address newPos = Address.address(-1, -1);
 
 	private Area copyRegion;
 	private Area pasteRegion;
@@ -53,10 +52,10 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 		}
 		this.copyRegion = panel.getCopyRegion();
 		this.pasteRegion = panel.getPasteRegion();
-		this.copyRegionOrigin = panel.getCopyRegionOrigin();
-		this.pasteRegionOrigin = panel.getPasteRegionOrigin();
+//		this.copyRegionOrigin = panel.getCopyRegionOrigin();
+//		this.pasteRegionOrigin = panel.getPasteRegionOrigin();
 		this.pasteRotation = 0;
-		init();
+//		init();
 	}
 
 	public void init() {
@@ -71,7 +70,7 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	 * @return
 	 */
 	private boolean isMovingRegion() {
-		return ! pasteRegion.isEmpty();
+		return ! pasteRegionOrigin.isNowhere();
 	}
 
 	public void repaint() {
@@ -183,8 +182,8 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 		if (number >= 8)
 			return;
 		if (isMovingRegion()) {
-			rotateArea(pasteRegion, pasteRegionOrigin, number);
 			pasteRotation = Rotator2.combine(pasteRotation, number);
+			updatePasteRegion();
 		}
 	}
 
@@ -214,7 +213,7 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	 * マウスリスナー
 	 */
 	public void mousePressed(MouseEvent e) {
-		newPos = panel.pointToAddress(e.getX(), e.getY());
+		Address newPos = panel.pointToAddress(e.getX(), e.getY());
 		if (!isOn(newPos))
 			return;
 		boolean shift = (e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK) != 0;
@@ -229,14 +228,14 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	}
 
 	public void mouseDragged(MouseEvent e) {
-		newPos = panel.pointToAddress(e.getX(), e.getY());
+		Address newPos = panel.pointToAddress(e.getX(), e.getY());
 		if (!isOn(newPos)) {
 			return;
 		}
 		if (newPos.equals(oldPos))
 			return; // 同じマス内に止まるイベントは無視
-		boolean shift = (e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK) != 0;
-//		boolean ctrl = (e.getModifiersEx() & InputEvent.CTRL_DOWN_MASK) != 0;
+		boolean shift = e.isShiftDown();
+//		boolean ctrl = e.isControlDown();
 		if ((e.getModifiers() & InputEvent.BUTTON1_MASK) != 0) {
 			leftDragged(newPos, shift);
 		} else if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
@@ -247,10 +246,10 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	}
 
 	public void mouseReleased(MouseEvent e) {
-		boolean shift = (e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK) != 0;
-		boolean ctrl = (e.getModifiersEx() & InputEvent.CTRL_DOWN_MASK) != 0;
+		boolean shift = e.isShiftDown();
+		boolean ctrl = e.isControlDown();
 		if ((e.getButton() == MouseEvent.BUTTON1)) {
-			leftDragFixed(oldPos, shift, ctrl);
+			leftReleased(shift, ctrl);
 		}
 		repaint();
 	}
@@ -298,8 +297,8 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	 */
 	protected void leftDragged(Address position, boolean shift) {
 		if (isMovingRegion()) {
-			translateArea(pasteRegion, oldPos, newPos);
-			pasteRegionOrigin = newPos;
+			pasteRegionOrigin = position;
+			updatePasteRegion();
 		} else {
 			if (shift) {
 				selectRectangularArea(position);
@@ -315,10 +314,10 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	 * @param position
 	 */
 	private void selectRectangularArea(Address position) {
-		int r0 = pivot.r() < position.r() ? pivot.r() : position.r();
-		int c0 = pivot.c() < position.c() ? pivot.c() : position.c();
-		int r1 = pivot.r() < position.r() ? position.r() : pivot.r();
-		int c1 = pivot.c() < position.c() ? position.c() : pivot.c();
+		int r0 = (pivot.r() < position.r()) ? pivot.r() : position.r();
+		int r1 = (pivot.r() < position.r()) ? position.r() : pivot.r();
+		int c0 = (pivot.c() < position.c()) ? pivot.c() : position.c();
+		int c1 = (pivot.c() < position.c()) ? position.c() : pivot.c();
 		for (int r = r0; r <= r1; r++) {
 			for (int c = c0; c <= c1; c++) {
 				copyRegion.add(Address.address(r, c));
@@ -330,11 +329,10 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	 * 左マウスボタンを離して左ドラッグが確定したときに呼ばれる。 
 	 * 領域移動中は，移動を確定する。
 	 * CTRLキーを押しながらボタンを離すとコピーに，それ以外は移動になる。
-	 * @param dragEnd
 	 * @param shift
 	 * @param ctrl
 	 */
-	protected void leftDragFixed(Address dragEnd, boolean shift, boolean ctrl) {
+	protected void leftReleased(boolean shift, boolean ctrl) {
 		if (isMovingRegion()) {
 			if (ctrl) {
 				boardCopier.copyRegion(board, copyRegion, copyRegionOrigin, pasteRegionOrigin, pasteRotation);
@@ -385,32 +383,19 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 		dst.clear();
 		for (Address p : src) {
 			if (isOn(p)) {
-				dst.add(Address.address(p));
+				dst.add(p);
 			}
 		}
 	}
 	
 	/**
-	 * 領域を平行移動する。
-	 * Address自体を動かしているので注意して使用すること。
+	 * 現時点の複写先領域を作成する
 	 */
-	private void translateArea(Area area, Address from, Address to) {
-		for (Address pos : area) {
-			pos.set(pos.r() + to.r() - from.r(), pos.c() + to.c() - from.c());
+	private void updatePasteRegion() {
+		pasteRegion.clear();
+		for (Address p : copyRegion) {
+			pasteRegion.add(Rotator2.translateAndRotateAddress(p, copyRegionOrigin, pasteRegionOrigin, pasteRotation));
 		}
-	}
-
-	/**
-	 * 領域を回転する。
-	 */
-	private void rotateArea(Area area, Address center, int rotation) {
-		Area dst = new Area();
-		for (Address p : area) {
-			Address d = Rotator2.translateAndRotateAddress(p, center, center, rotation);
-			dst.add(d);
-		}
-		area.clear();
-		area.addAll(dst);
 	}
 
 }
