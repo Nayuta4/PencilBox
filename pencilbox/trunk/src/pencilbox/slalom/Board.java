@@ -396,7 +396,7 @@ public class Board extends BoardBase {
 	 * @return　門の反対側に黒マスまたは外周ならばその座標，それ以外はnull
 	 */
 	Address getAnotherPole(Address p0, int d) {
-		Address p = Address.address(p0);
+		Address p = p0;
 		int gateType = 0;
 		if (d == Direction.UP || d == Direction.DN) {
 			gateType = GATE_VERT;
@@ -404,7 +404,7 @@ public class Board extends BoardBase {
 			gateType = GATE_HORIZ;
 		}
 		while (true) {
-			p.move(d);
+			p = p.nextCell(d);
 			if (isOn(p)) {
 				if (isWall(p)) {
 //					System.out.println(p.toString() + "他端は黒マスだ");
@@ -435,9 +435,9 @@ public class Board extends BoardBase {
 			t = GATE_VERT;
 		else
 			t = GATE_HORIZ;
-		p.set(r, c);
+		p = Address.address(r, c);
 		while (true) {
-			p.move(d);
+			p = p.nextCell(d);
 			if (isOn(p) && getNumber(p) == t) {
 				setGateNumber(p, n);
 			} else {
@@ -469,8 +469,8 @@ public class Board extends BoardBase {
 				t = GATE_VERT;
 			else
 				t = GATE_HORIZ;
-			p.set(r, c);
-			p.move(d);
+			p = Address.address(r, c);
+			p = p.nextCell(d);
 			if (isOn(p) && getNumber(p) == t) {
 //				System.out.println(d + "の向きに門があった");
 				d1 = d;
@@ -716,15 +716,15 @@ public class Board extends BoardBase {
 		int d = 0;
 		if (gateType == Board.GATE_HORIZ) {
 			d = Direction.RT;
-			p.set(r, c-1);
+			p = Address.address(r, c-1);
 		} else if (gateType == Board.GATE_VERT) {
 			d = Direction.DN;
-			p.set(r-1, c);
+			p = Address.address(r-1, c);
 		}
 		if (isOn(p) && getNumber(p) == gateType) {
 			return -2; // 調査済みのはず
 		}
-		p.set(r, c);
+		p = Address.address(r, c);
 		while (true) {
 			int ret = checkGate2(p);
 			if (ret == -1) {
@@ -733,7 +733,7 @@ public class Board extends BoardBase {
 			} else if (ret == 1) {
 				count ++;
 			}
-			p.move(d);
+			p = p.nextCell(d);
 			if (isOn(p) && getNumber(p) == gateType) {
 			} else {
 				break;
@@ -799,7 +799,7 @@ public class Board extends BoardBase {
 		int d = -1;
 		while (true) {
 			d = getLineDirection(p, d);
-			p.move(d);
+			p = p.nextCell(d);
 			if (isGate(p)) {
 //				System.out.println("ゲート " + getGate(p).getNumber() + " 通過");
 				gateNumber[k] = getGateNumber(p);

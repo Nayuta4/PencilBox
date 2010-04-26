@@ -320,11 +320,10 @@ public class Board extends BoardBase {
 	}
 	
 	int initNumber(int r0, int c0, int direction) {
-		Address pos = Address.address();
 		int n=0;
-		pos.set(r0, c0);
+		Address pos = Address.address(r0, c0);
 		while(true) {
-			pos.move(direction);
+			pos = pos.nextCell(direction);
 			if (!isOn(pos.r(),pos.c()))
 				break;
 			if (isBlack(pos.r(), pos.c()))
@@ -333,10 +332,10 @@ public class Board extends BoardBase {
 		};
 		number[r0][c0].setNSpace(direction, n);
 
-		pos.set(r0, c0);
+		pos = Address.address(r0, c0);
 		n = 0;
 		while(true) {
-			pos.move(direction);
+			pos = pos.nextCell(direction);
 			if (!isOn(pos.r(),pos.c()))
 				break;
 			if (!isWhiteOrNumber(pos.r(), pos.c()))
@@ -363,12 +362,10 @@ public class Board extends BoardBase {
 	 */
 	int updateSpace(int r0, int c0) {
 		int ret = 0;
-		Address pos = Address.address();
-
 		for (int d=0; d<4; d++) {
-			pos.set(r0, c0);
+			Address pos = Address.address(r0, c0);
 			while(true) {
-				pos.move(d);
+				pos = pos.nextCell(d);
 				if (!isOn(pos.r(), pos.c()))
 					break;
 				if (isBlack(pos.r(), pos.c()))

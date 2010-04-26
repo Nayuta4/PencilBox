@@ -15,10 +15,9 @@ public class BoardCopier extends BoardCopierBase {
 		Board srcBoard = (Board) src;
 		Board board = (Board) dst;
 		Rotator rotator = new Rotator(src.getSize(), n);
-		Address s = Address.address();
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
-				s.set(r, c);
+				Address s = Address.address(r, c);
 				Address d = rotator.rotateAddress(s);
 				if (board.isOn(d)) {
 					board.setState(d, srcBoard.getState(s));

@@ -215,7 +215,7 @@ public class Board extends BoardBase {
 	void setBridge(Address pos0, Address pos1, int d, Bridge b) {
 		Address pos = Address.address(pos0);
 		while(true) {
-			pos.move(d);
+			pos = pos.nextCell(d);
 			if (pos.equals(pos1)) break;
 			setBridge(pos.r(), pos.c(), d&1, b);
 		}
@@ -337,12 +337,12 @@ public class Board extends BoardBase {
 	 */
 	Pier findPier(int r, int c, int direction) {
 		Address pos = Address.address(r, c);
-		pos.move(direction);
+		pos = pos.nextCell(direction);
 		while (isOn(pos)) {
 			if (isPier(pos)) {
 				return pier[pos.r()][pos.c()];
 			}
-			pos.move(direction);
+			pos = pos.nextCell(direction);
 		}
 		return null;
 	}
