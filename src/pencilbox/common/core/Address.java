@@ -14,11 +14,11 @@ public class Address implements Comparable<Address> {
 	/**
 	 *  行座標
 	 */
-	private int r;
+	private final int r;
 	/**
 	 *  列座標
 	 */
-	private int c;
+	private final int c;
 	
 	/**
 	 * コンストラクタ
@@ -90,23 +90,6 @@ public class Address implements Comparable<Address> {
 		return c;
 	}
 	/**
-	 * 引数の座標に設定
-	 * @param pos 設定する座標
-	 */
-	public void set(Address pos){
-		this.r = pos.r;
-		this.c = pos.c;
-	}
-	/**
-	 * 引数の座標に設定
-	 * @param r 設定する行座標
-	 * @param c 設定する列座標
-	 */
-	public void set(int r, int c){
-		this.r = r;
-		this.c = c;
-	}
-	/**
 	 * 引数の座標と等しいかを比較する
 	 * @param o 比較対象
 	 * @return この座標と引数の座標が等しければ true
@@ -166,35 +149,6 @@ public class Address implements Comparable<Address> {
 		return (r==-1 && c==-1);
 	}
 
-//	/**
-//	 * 盤外座標に設定する
-//	 */
-//	public void setNowhere() {
-//		r = -1;
-//		c = -1;
-//	}
-	/**
-	 * 隣のマス座標に移動する
-	 * @param direction 移動する向き
-	 */
-	public void move(int direction) {
-		switch (direction) {
-			case Direction.UP:
-				r--;
-				break;
-			case Direction.LT:
-				c--;
-				break;
-			case Direction.DN:
-				r++;
-				break;
-			case Direction.RT:
-				c++;
-				break;
-			default:
-				break;
-			}
-	}
 	/** 
 	 * 順序の定義
 	 * 行座標 r が小さい方が前，
