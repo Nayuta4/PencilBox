@@ -223,14 +223,13 @@ public class Board extends BoardBase {
 	 * @param on –¾‚©‚è‚ğ‚Â‚¯‚é‚Æ‚«‚Í true, Á‚·‚Æ‚«‚Í false 
 	 */
 	private void illuminate4(int r0, int c0, boolean on) {
-		Address p = Address.address(r0, c0);
 		for (int d = 0; d < 4; d++) {
-			p.set(r0, c0);
-			p.move(d);
+			Address p = Address.address(r0, c0);
+			p = p.nextCell(d);
 			while (isFloor(p.r(), p.c())) {
 				if (isBulb(p.r(), p.c()))
 					illuminate(p.r(), p.c(), on);
-				p.move(d);
+				p = p.nextCell(d);
 			}
 		}
 	}

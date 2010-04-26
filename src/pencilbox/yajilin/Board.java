@@ -627,11 +627,11 @@ public class Board extends BoardBase {
 		int dir = getArrowDirection(r,c);
 		int number = getArrowNumber(r,c);
 		Address pos = Address.address(r, c);
-		pos.move(dir);
+		pos = pos.nextCell(dir);
 		while (isOn(pos)) {
 			if (isBlack(pos.r(),pos.c()))
 				blackCount++;
-			pos.move(dir);
+			pos = pos.nextCell(dir);
 		}
 		if (number == blackCount)
 			result = 0;

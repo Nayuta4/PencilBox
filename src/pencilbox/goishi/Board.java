@@ -153,7 +153,7 @@ public class Board extends BoardBase {
 		int direction = Address.getDirectionTo(prev, pos);
 		if (direction < 0)
 			return false;
-		for (Address p = Address.address(prev); !p.equals(pos); p.move(direction)) {
+		for (Address p = Address.address(prev); !p.equals(pos); p = p.nextCell(direction)) {
 			if (isStone(p) && getNumber(p) == 0)
 				return false;
 		}

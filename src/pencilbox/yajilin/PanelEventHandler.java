@@ -134,7 +134,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 				currentState = st;
 			}
 		}
-		for (Address p = pos0; !p.equals(pos1); p.move(direction)) {
+		for (Address p = pos0; !p.equals(pos1); p = p.nextCell(direction)) {
 			side = SideAddress.get(p, direction);
 			if (board.getState(side) != currentState)
 				if (!board.hasNumberOrBlack(side) || st == Board.UNKNOWN)

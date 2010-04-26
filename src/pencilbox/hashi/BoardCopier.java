@@ -14,13 +14,11 @@ public class BoardCopier extends BoardCopierBase {
 	public void copyBoardStates(BoardBase src, BoardBase dst, int n) {
 		Board s = (Board) src;
 		Board d = (Board) dst;
-		Address pos0 = Address.address();
-		Address pos;
 		Rotator rotator = new Rotator(src.getSize(), n);
 		for (int r=0; r<s.rows(); r++) {
 			for (int c=0; c<s.cols(); c++) {
-				pos0.set(r, c);
-				pos = rotator.rotateAddress(pos0);
+				Address pos = Address.address(r, c);
+				pos = rotator.rotateAddress(pos);
 				if (d.isOn(pos)) {
 					d.setNumber(pos.r(), pos.c(), s.getNumber(r,c));
 				}
@@ -28,8 +26,8 @@ public class BoardCopier extends BoardCopierBase {
 		}
 		for (int r=0; r<s.rows(); r++) {
 			for (int c=0; c<s.cols(); c++) {
-				pos0.set(r,c);
-				pos = rotator.rotateAddress(pos0);
+				Address pos = Address.address(r,c);
+				pos = rotator.rotateAddress(pos);
 				if (d.isOn(pos)) {
 					int st = s.getState(r, c);
 					if (rotator.isTransposed()) {
