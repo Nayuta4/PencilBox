@@ -35,7 +35,7 @@ public class MenuCommand {
 	private EventHandlerManager handler;
 	private Problem problem;
 	private BoardBase board;
-	private UndoManager undoManager;
+//	private UndoManager undoManager;
 
 	private Timer playBackTimer;
 
@@ -55,8 +55,9 @@ public class MenuCommand {
 		this.problem = problem;
 		this.board = problem.getBoard();
 		setFrameTitle();
-		undoManager = new UndoManager(board);
-		board.setUndoManager(undoManager);
+		if (board.getUndoManager() == null) {
+			board.setUndoManager(new UndoManager(board));
+		}
 		board.initBoard();
 	}
 	public void setup(PencilType puzzleType, Problem problem) {
@@ -90,7 +91,7 @@ public class MenuCommand {
 	 * @return Returns the undoManager.
 	 */
 	private UndoManager getUndoManager() {
-		return undoManager;
+		return board.getUndoManager();
 	}
 
 	/**

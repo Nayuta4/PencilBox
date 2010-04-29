@@ -39,6 +39,10 @@ public class BoardBase {
 	public void setUndoManager(UndoManager u) {
 		undoManager = u;
 	}
+
+	public UndoManager getUndoManager() {
+		return undoManager;
+	}
 	/**
 	 * ”Õ–Ê Size ‚ðŽæ“¾‚·‚é
 	 * @return ”Õ–Ê‚ÌSize

@@ -150,6 +150,18 @@ public class UndoManager {
 		}
 	}
 
+	/**
+	 * 引数の履歴をコピーする。盤面複製時に使用する。
+	 * @param um 複製もとUndoManager
+	 */
+	public void copyEdits(UndoManager um) {
+		UndoManager src = um;
+		UndoManager dst = this;
+		dst.edits.clear();
+		dst.edits.addAll(src.edits);
+		dst.indexOfNextAdd = src.indexOfNextAdd;
+	}
+
 	public String toString() {
 		return " edits: " + edits + " indexOfNextAdd: " + indexOfNextAdd;
 	}

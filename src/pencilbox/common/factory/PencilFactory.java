@@ -7,6 +7,7 @@ import pencilbox.common.core.PencilBoxException;
 import pencilbox.common.core.Problem;
 import pencilbox.common.core.BoardCopierBase;
 import pencilbox.common.core.Size;
+import pencilbox.common.core.UndoManager;
 import pencilbox.common.gui.EventHandlerManager;
 import pencilbox.common.gui.Frame;
 import pencilbox.common.gui.MenuBase;
@@ -142,6 +143,9 @@ public class PencilFactory {
 		BoardCopierBase copier = (BoardCopierBase) ClassUtil.createInstance(pencilType, ClassUtil.BOARD_COPIER_CLASS);
 		Problem src = caller.getProblem();
 		Problem problem = new Problem(src, copier.duplicateBoard(src.getBoard()));
+		UndoManager um = new UndoManager(problem.getBoard());
+		um.copyEdits(src.getBoard().getUndoManager());
+		problem.getBoard().setUndoManager(um);
 		createNewFrame(problem);
 	}
 	
