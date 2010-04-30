@@ -442,45 +442,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	}
 
 	public void mouseClicked(MouseEvent e) {
-		mouseClicked1(e);
-//		mouseClicked2(e);
-		repaint();
-		checkAnswer();
 	}
-
-	public void mouseClicked1(MouseEvent e) {
-		if (!isOn(newPos))
-			return;
-		int button = getMouseButton(e);
-		if (button == 1) {
-			leftClicked(newPos);
-		} else if (button == 3) {
-			rightClicked(newPos);
-//		} else if (button == 2) {
-//			slashKeyEntered();
-		}
-	}
-	/**
-	 * 辺の位置のクリック操作を処理する。
-	 * @param e
-	 */
-//	public void mouseClicked2(MouseEvent e) {
-//		sidePos.set(panel.pointToSideAddress(e.getX(), e.getY()));
-//		if (!isSideOn(sidePos))
-//			return;
-//		int modifier = e.getModifiers();
-//		if ((modifier & InputEvent.BUTTON1_MASK) != 0) {
-//			if (e.isShiftDown())
-//				rightClickedEdge(sidePos);
-//			else
-//				leftClickedEdge(sidePos);
-//		} else if ((modifier & InputEvent.BUTTON3_MASK) != 0) {
-//			if (e.isShiftDown())
-//				leftClickedEdge(sidePos);
-//			else
-//				rightClickedEdge(sidePos);
-//		}
-//	}
 
 	public void mouseMoved(MouseEvent e) {
 		// movePos.set(panel.pointToAddress(e));
@@ -496,9 +458,6 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	 * @param position
 	 */
 	protected void leftPressed(Address position) {
-	}
-
-	protected void leftClicked(Address position) {
 	}
 
 	/**
@@ -529,8 +488,6 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	protected void rightPressed(Address position) {
 	}
 
-	protected void rightClicked(Address position) {
-	}
 	/**
 	 * 右ドラッグしたままた新しいマスに移動したときに呼ばれる。 
 	 * サブクラスで操作をオーバーライドする．
@@ -559,20 +516,6 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 		getCellCursor().setPosition(position);
 		resetPreviousInput();
 	}
-//
-//	/**
-//	 * 辺の位置を左クリックしたときの動作を定める。
-//	 * @param position
-//	 */
-//	protected void leftClickedEdge(SideAddress position) {
-//	}
-//
-//	/**
-//	 * 辺の位置を右クリックしたときの動作を定める。
-//	 * @param position
-//	 */
-//	protected void rightClickedEdge(SideAddress position) {
-//	}
 
 	/**
 	 * 辺の位置を左クリックしたときの動作を定める。
