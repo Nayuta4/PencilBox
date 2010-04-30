@@ -13,7 +13,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 
 	private Board board;
 
-	private int currentState = Board.OUTER; // ドラッグ中の辺の状態を表す
+	private int currentState = INITAL; // ドラッグ中の辺の状態を表す
+	private static final int INITAL  = -9;
+	private static final int PRESSED = -19;
 
 	/**
 	 * 
@@ -28,12 +30,36 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	/*
 	 * 「ナンバーリンク」マウス操作
 	 */
+	protected void leftPressed(Address pos) {
+		currentState = PRESSED;
+	}
+
 	protected void leftDragged(Address dragStart, Address dragEnd) {
 		changeLineState(dragStart, dragEnd, Board.LINE);
 	}
 
+	/*
+	 * クリックしたマスの線がハイライトされる もう１度クリックするとハイライト取り消し
+	 */
 	protected void leftReleased(Address pos) {
-		currentState = Board.OUTER;
+		if (currentState == PRESSED && isOn(pos)) {
+			Link link = board.getLink(pos);
+			int newNumber = 0;
+			if (board.isNumber(pos))
+				newNumber = board.getNumber(pos);
+			else {
+				if(link!=null)
+					newNumber = link.getNumber();
+			}
+			if (newNumber == getSelectedNumber() && getSelectedLink() == link) {
+				setSelectedLink(null);
+				setSelectedNumber(0);
+			} else {
+				setSelectedLink(link);
+				setSelectedNumber(newNumber);
+			}
+		}
+		currentState = INITAL;
 	}
 
 	/**
@@ -48,7 +74,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		if (direction < 0)
 			return;
 		SideAddress side = SideAddress.get(pos0, direction);
-		if (currentState == Board.OUTER) {
+		if (currentState == PRESSED) {
 			if (board.getState(side) == st) {
 				currentState = Board.UNKNOWN;
 			} else {
@@ -59,30 +85,6 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			side = SideAddress.get(p, direction);
 			if (board.getState(side) != currentState)
 				board.changeStateA(side, currentState);
-		}
-	}
-
-	/*
-	 * クリックしたマスの線がハイライトされる もう１度クリックするとハイライト取り消し
-	 */
-	protected void leftClicked(Address pos) {
-
-		Link link = board.getLink(pos);
-		int newNumber = 0;
-
-		if (board.isNumber(pos))
-			newNumber = board.getNumber(pos);
-		else {
-			if(link!=null)
-				newNumber = link.getNumber();
-		}
-
-		if (newNumber == getSelectedNumber() && getSelectedLink() == link) {
-			setSelectedLink(null);
-			setSelectedNumber(0);
-		} else {
-			setSelectedLink(link);
-			setSelectedNumber(newNumber);
 		}
 	}
 
