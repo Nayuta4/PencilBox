@@ -11,6 +11,8 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 
 	private Board board;
 
+	private int currentState = 0; // ドラッグ中の辺の状態を表す
+
 	/**
 	 * 
 	 */
@@ -27,6 +29,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	private int state;
 
 	protected void leftPressed(Address pos) {
+		currentState = 1;
 		state = board.getNumber(pos);
 	}
 
@@ -35,22 +38,8 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			board.enterNumberA(pos, 0);
 	}
 
-	protected void leftClicked(Address pos) {
-		if (!board.isStable(pos)) {
-			int n = board.getNumber(pos);
-			board.enterNumberA(pos, n + 1);
-		}
-	}
-
-	protected void rightClicked(Address pos) {
-		if (!board.isStable(pos)) {
-			int n = board.getNumber(pos);
-			if (n > 0) 
-				board.enterNumberA(pos, n - 1);
-		}
-	}
-
 	protected void leftDragged(Address oldPos, Address pos) {
+		currentState = 2;
 		if (!board.isStable(pos))
 			board.enterNumberA(pos, state);
 	}
@@ -58,6 +47,15 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	protected void rightDragged(Address oldPos, Address pos) {
 		if (!board.isStable(pos))
 			board.enterNumberA(pos, 0);
+	}
+
+	protected void leftReleased(Address pos) {
+		if (currentState == 1 && isOn(pos))
+			if (!board.isStable(pos)) {
+				int n = board.getNumber(pos);
+				board.enterNumberA(pos, n + 1);
+			}
+		currentState = 0;
 	}
 
 	/*
