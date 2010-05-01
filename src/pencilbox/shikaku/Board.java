@@ -306,6 +306,8 @@ public class Board extends BoardBase {
 	 * @param sq Á‹‚·‚élŠp
 	 */
 	public void removeSquare(Square sq) {
+		if (sq == null)
+			return;
 		clearSquare1(sq);
 		squareList.remove(sq);
 	}
