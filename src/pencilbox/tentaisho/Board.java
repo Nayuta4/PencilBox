@@ -183,13 +183,17 @@ public class Board extends BoardBase {
 		Area a;
 		if (s.getOperation() == AreaEditStep.ADDED) {
 			a = getArea(s.getPos());
-			removeCellFromArea(s.getPos(), a);
+			if (a != null) {
+				removeCellFromArea(s.getPos(), a);
+			}
 		} else if (s.getOperation() == AreaEditStep.REMOVED) {
 			if (Address.NOWHERE.equals(s.getP0()))
 				a = new Area();
 			else
 				a = getArea(s.getP0());
-			addCellToArea(s.getPos(), a);
+			if (a != null) {
+				addCellToArea(s.getPos(), a);
+			}
 		}
 	}
 
@@ -201,10 +205,14 @@ public class Board extends BoardBase {
 				a = new Area();
 			else
 				a = getArea(s.getP0());
-			addCellToArea(s.getPos(), a);
+			if (a != null) {
+				addCellToArea(s.getPos(), a);
+			}
 		} else if (s.getOperation() == AreaEditStep.REMOVED) {
 			a = getArea(s.getPos());
-			removeCellFromArea(s.getPos(), a);
+			if (a != null) {
+				removeCellFromArea(s.getPos(), a);
+			}
 		}
 	}
 	/**
