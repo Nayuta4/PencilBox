@@ -29,7 +29,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	private int immediateAnswerCheckMode = -1; // -1:OFF, 0:ON, 1:ALREADY_CHECKED
 
 	private Address oldPos = Address.address(-1, -1);
-	private Address newPos = Address.address(-1, -1);
+//	private Address newPos = Address.address(-1, -1);
 
 	/**
 	 * PanelEventHandler‚ğ¶¬‚·‚é
@@ -376,7 +376,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	 */
 	public void mousePressed(MouseEvent e) {
 		mousePressed2(e); // •Ó‚Ì‘€ì
-		newPos = panel.pointToAddress(e.getX(), e.getY());
+		Address newPos = panel.pointToAddress(e.getX(), e.getY());
 		if (!isOn(newPos))
 			return;
 		int button = getMouseButton(e);
@@ -406,7 +406,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	}
 
 	public void mouseDragged(MouseEvent e) {
-		newPos = panel.pointToAddress(e.getX(), e.getY());
+		Address newPos = panel.pointToAddress(e.getX(), e.getY());
 		if (!isOn(newPos)) {
 			oldPos = Address.nowhere();
 			return;
