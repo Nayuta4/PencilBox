@@ -8,6 +8,10 @@ public class SideAddress implements Comparable<SideAddress> {
 	
 	public static final SideAddress NOWHERE = sideAddress(-1, -1, -1);
 	
+	/**
+	 *  0 は VERT つまり マスの左右の境界線（リンクのときは横線）
+	 *  1 は HORIZ つまり マスの上下の境界線（リンクのときは縦線）
+	 */
 	private final int d;
 	private final int r;
 	private final int c;
