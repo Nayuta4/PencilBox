@@ -15,8 +15,10 @@ public class CellNumberEditStep extends CellEditStep {
 	}
 
 	public boolean addEdit(AbstractStep anEdit) {
+		if (! (anEdit instanceof CellNumberEditStep))
+			return false;
 		CellNumberEditStep edit = (CellNumberEditStep) anEdit;
-		if (edit.getPos() == getPos()) {
+		if (edit.getPos().equals(getPos())) {
 			this.setAfter(edit.getAfter());
 			return true;
 		} else {
