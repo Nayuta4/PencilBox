@@ -123,15 +123,14 @@ public class PencilBoxDialog extends JPanel {
 			owner = (Frame)parent;
 		else
 			owner = (Frame)SwingUtilities.getAncestorOfClass(Frame.class, parent);
-//      必要に応じて作り直す方式でフォーカスを毎回設定し直すやり方が分からないので，毎回作り直す
-//		if (dialog == null || dialog.getOwner() != owner) {
+		if (dialog == null || dialog.getOwner() != owner) {
 			dialog = new JDialog(owner, true);
 			dialog.getContentPane().add(this);
 			dialog.pack();
 			dialog.getRootPane().setDefaultButton(buttonOk);
-//		}
-		dialog.setTitle(title);
-		dialog.setLocationRelativeTo(owner);
+			dialog.setTitle(title);
+			dialog.setLocationRelativeTo(owner);
+		}
 		setInitialFocus();
 		dialog.setVisible(true);
 		return ret;
