@@ -32,6 +32,7 @@ public class Menu extends MenuBase {
 
 	protected void buildViewMenu() {
 		addNoPaintMarkStyleMenu();
+		addLinkWidthMenuItem();
 		super.buildViewMenu();
 //		wallColorItem = addColorMenuItem("”šƒ}ƒX");
 		numberColorItem = addColorMenuItem(Messages.getString("Menu.numberColorItem")); //$NON-NLS-1$

@@ -74,6 +74,7 @@ public class ResourceBundle_ja extends ListResourceBundle {
     { "MenuBase.gridStyleItem"                      , "罫線表示(G)"                                                } ,
     { "MenuBase.cursorItem"                         , "カーソル(C)"                                                } ,
     { "MenuBase.markStyleMenu"                      , "塗らない印(N)"                                              } ,
+    { "MenuBase.linkWidthItem"                      , "線の太さ(W)"                                                } ,
     { "MenuBase.helpMenu"                           , "ヘルプ(H)"                                                  } ,
     { "MenuBase.aboutDialog"                        , "PencilBox について(A)"                                      } ,
 
@@ -102,6 +103,7 @@ public class ResourceBundle_ja extends ListResourceBundle {
     { "MenuCommand.checkAnswerDialog"               , "正解判定"                                                   } ,
     { "MenuCommand.historyDialog"                   , "履歴"                                                       } ,
     { "MenuCommand.cellSizeDialog"                  , "表示サイズ"                                                 } ,
+    { "MenuCommand.linkWidthDialog"                 , "線の太さ"                                                   } ,
     { "MenuCommand.aboutDialog"                     , "PencilBox について"                                         } ,
     { "MenuCommand.Message_Error"                   , "Error"                                                      } ,
     { "MenuCommand.Message_InappropriateSize"       , "不正なサイズです"                                           } ,

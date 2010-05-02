@@ -18,6 +18,7 @@ public class PreferencesKeys {
 	public static final String GRID_STYLE = "GridStyle";
 	public static final String CURSOR_MODE = "CursorMode";
 	public static final String MARK_STYLE = "MarkStyle";
+	public static final String LINK_WIDTH = "LinkWidth";
 
 	public static final String BACKGROUND_COLOR = "BackgroundColor";
 	public static final String GRID_COLOR = "GridColor";

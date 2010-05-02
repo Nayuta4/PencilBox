@@ -576,4 +576,24 @@ public class MenuCommand {
 		Colors.randomize();
 		panel.repaint();
 	}
+	/**
+	 *  [ï\é¶]-[ê¸ÇÃëæÇ≥]
+	 */
+	public void changeLinkWidth() {
+		int currentValue = getPanelBase().getLinkWidth();
+		LinkWidthDialog dialog = LinkWidthDialog.getInstance();
+		dialog.setPanel(getPanelBase());
+		dialog.init();
+		dialog.setValue(getPanelBase().getLinkWidth());
+		int result = dialog.showDialog(frame, Messages.getString("MenuCommand.linkWidthDialog"));
+		int value = dialog.getValue();
+		if (result == PencilBoxDialog.OK_OPTION) {
+			getPanelBase().setLinkWidth(value);
+		} else if (result == PencilBoxDialog.CANCEL_OPTION || result == PencilBoxDialog.CLOSED_OPTION) {
+			if (currentValue != value) {
+				getPanelBase().setLinkWidth(currentValue);
+				getFrame().resize();
+			}
+		}
+	}
 }
