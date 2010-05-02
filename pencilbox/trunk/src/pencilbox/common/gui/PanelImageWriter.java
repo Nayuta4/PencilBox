@@ -8,7 +8,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 
 /**
  * パネルの表示内容を png形式の画像としてファイルに書き込む処理を行うクラス
@@ -20,21 +19,26 @@ public class PanelImageWriter {
 
 	private static final String formatName = "png";
 	
-	/**
-	 * パネルの表示内容を png形式の画像としてファイルに書き込む一連の処理を実行する
-	 * @param panel 画像として保存するパネル
-	 */
 	public void saveImage(PanelBase panel) {
-		BufferedImage image = makePanelImage(panel);
 		JFileChooser chooser = FileChooser.getImageFileChooser();
 		int r = chooser.showSaveDialog(null);
 		if (r != JFileChooser.APPROVE_OPTION)
 			return;
 		File file = chooser.getSelectedFile();
+		saveImageToFile(panel, file);
+	}
+
+	/**
+	 * パネルの表示内容を png形式の画像としてファイルに書き込む一連の処理を実行する
+	 * @param panel 画像として保存するパネル
+	 * @param file 保存先ファイル
+	 */
+	public void saveImageToFile(PanelBase panel, File file) {
+		BufferedImage image = makePanelImage(panel);
 		try {
 			ImageIO.write(image, formatName, file);
 		} catch (IOException exception) {
-			JOptionPane.showMessageDialog(null, exception);
+			exception.printStackTrace();
 		}
 	}
 
