@@ -19,15 +19,6 @@ public class PanelImageWriter {
 
 	private static final String formatName = "png";
 	
-	public void saveImage(PanelBase panel) {
-		JFileChooser chooser = FileChooser.getImageFileChooser();
-		int r = chooser.showSaveDialog(null);
-		if (r != JFileChooser.APPROVE_OPTION)
-			return;
-		File file = chooser.getSelectedFile();
-		saveImageToFile(panel, file);
-	}
-
 	/**
 	 * パネルの表示内容を png形式の画像としてファイルに書き込む一連の処理を実行する
 	 * @param panel 画像として保存するパネル
