@@ -1,12 +1,6 @@
 package pencilbox.tool;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 import pencilbox.common.core.PencilBoxException;
 import pencilbox.common.core.Problem;
@@ -16,6 +10,7 @@ import pencilbox.common.gui.EventHandlerManager;
 import pencilbox.common.gui.Frame;
 import pencilbox.common.gui.MenuCommand;
 import pencilbox.common.gui.PanelBase;
+import pencilbox.common.gui.PanelImageWriter;
 import pencilbox.common.gui.PreferencesCopierBase;
 import pencilbox.common.io.IOController;
 
@@ -121,29 +116,4 @@ public class PngExport {
 //	private MenuBase menu;
 	Frame frame;
 
-}
-
-
-class PanelImageWriter {
-
-	private static final String formatName = "png";
-	
-	public void saveImageToFile(PanelBase panel, File file) {
-		BufferedImage image = makePanelImage(panel);
-		try {
-			ImageIO.write(image, formatName, file);
-		} catch (IOException exception) {
-			exception.printStackTrace();
-		}
-	}
-
-	public BufferedImage makePanelImage(PanelBase panel) {
-		BufferedImage image = new BufferedImage(panel.getBoardRegionSize().width, panel.getBoardRegionSize().height, BufferedImage.TYPE_INT_ARGB);
-		Graphics2D g2 = image.createGraphics();
-	 	// îwåiÇîíÇ≈ìhÇÈÅB
-		g2.setColor(Color.WHITE);
-		g2.fillRect(0, 0, image.getWidth(), image.getHeight());
-		panel.drawPanel(g2);
-		return image;
-	}
 }

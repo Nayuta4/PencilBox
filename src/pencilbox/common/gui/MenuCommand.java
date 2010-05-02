@@ -313,7 +313,11 @@ public class MenuCommand {
 	 *  [ファイル]-[画像保存]
 	 */
 	public void saveImage() {
-		new PanelImageWriter().saveImage(panel);
+		JFileChooser chooser = FileChooser.getImageFileChooser();
+		if (chooser.showSaveDialog(frame) == JFileChooser.APPROVE_OPTION) {
+			File file = chooser.getSelectedFile();
+			new PanelImageWriter().saveImageToFile(panel, file);
+		}
 	}
 	/**
 	 *  [ファイル]-[画像コピー]
