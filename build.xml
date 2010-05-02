@@ -19,7 +19,7 @@
 
 	<target name="jar" depends="compile">
 		<mkdir dir="${jar}" />
-		<jar jarfile="${jar}/pencilbox.jar" basedir="${bin}" includes="pencilbox/common/**/*, pencilbox/util/*">
+		<jar jarfile="${jar}/pencilbox.jar" basedir="${bin}" includes="pencilbox/common/**/*, pencilbox/util/*, pencilbox/resource/*">
 			<manifest>
 				<attribute name="Main-Class" value="pencilbox.common.factory.PencilBoxLauncher"/>
 				<attribute name="Class-Path" value="bijutsukan.jar fillomino.jar goishi.jar hakyukoka.jar hashi.jar heyawake.jar hitori.jar kakuro.jar kurodoko.jar masyu.jar numberlink.jar nurikabe.jar shikaku.jar slalom.jar slitherlink.jar sudoku.jar tentaisho.jar yajilin.jar lits.jar"/>
