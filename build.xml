@@ -25,6 +25,12 @@
 				<attribute name="Class-Path" value="bijutsukan.jar fillomino.jar goishi.jar hakyukoka.jar hashi.jar heyawake.jar hitori.jar kakuro.jar kurodoko.jar masyu.jar numberlink.jar nurikabe.jar shikaku.jar slalom.jar slitherlink.jar sudoku.jar tentaisho.jar yajilin.jar lits.jar"/>
 			</manifest>
 		</jar>
+		<jar jarfile="${jar}/pngexport.jar" basedir="${bin}" includes="pencilbox/tool/PngExport.class">
+			<manifest>
+				<attribute name="Main-Class" value="pencilbox.tool.PngExport"/>
+				<attribute name="Class-Path" value="pencilbox.jar"/>
+			</manifest>
+		</jar>
 		<jar jarfile="${jar}/bijutsukan.jar" basedir="${bin}" includes="pencilbox/bijutsukan/*">
 			<manifest>
 				<attribute name="Main-Class" value="pencilbox.bijutsukan.Main"/>
