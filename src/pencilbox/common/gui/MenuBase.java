@@ -59,6 +59,7 @@ public class MenuBase {
 	private JMenuItem checkAnswerItem;
 	private JMenuItem immediateAnswerCheckItem;
 	private JMenuItem cellSizeItem;
+	private JMenuItem linkWidthItem;
 	private JMenuItem indexItem;
 	private JMenuItem gridStyleItem;
 	private JMenuItem renewColorItem;
@@ -203,6 +204,8 @@ public class MenuBase {
 		viewMenu.add(cellSizeItem = makeCommandMenuItem(Messages.getString("MenuBase.cellSizeItem"), 'S')); //$NON-NLS-1$
 		viewMenu.add(indexItem = makeCheckBoxCommandMenuItem(Messages.getString("MenuBase.indexItem"), 'I', false)); //$NON-NLS-1$
 		viewMenu.add(gridStyleItem = makeCheckBoxCommandMenuItem(Messages.getString("MenuBase.gridStyleItem"), 'G', true)); //$NON-NLS-1$
+		if (linkWidthItem != null)
+			viewMenu.add(linkWidthItem);
 		if (markStyleMenu != null)
 			viewMenu.add(markStyleMenu);
 		if (cursorItem != null)
@@ -435,6 +438,12 @@ public class MenuBase {
 	 */
 	protected void addCursorMenuItem() {
 		cursorItem = makeCheckBoxCommandMenuItem(Messages.getString("MenuBase.cursorItem"), 'C', panel.isCursorMode()); //$NON-NLS-1$
+	}
+	/**
+	 * [線の幅]メニュー項目を作成する。
+	 */
+	protected void addLinkWidthMenuItem() {
+		linkWidthItem = makeCommandMenuItem(Messages.getString("MenuBase.linkWidthItem"), 'W'); // "色の更新(U)"
 	}
 	/**
 	 * [色の更新]メニュー項目を作成し，[色の設定]メニューに追加する。
@@ -676,6 +685,8 @@ public class MenuBase {
 			command.setGridStyle(target.isSelected());
 		else if (target == cellSizeItem)
 			command.cellSize();
+		else if (target == linkWidthItem)
+			command.changeLinkWidth();
 		else
 			executeCommand2(target);
 		panel.repaint();

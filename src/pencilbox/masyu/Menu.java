@@ -29,6 +29,7 @@ public class Menu extends MenuBase {
 	}
 
 	protected void buildViewMenu() {
+		addLinkWidthMenuItem();
 		super.buildViewMenu();
 		numberColorItem = addColorMenuItem(Messages.getString("Menu.circleColorItem")); //$NON-NLS-1$
 		lineColorItem = addColorMenuItem(Messages.getString("Menu.lineColorItem")); //$NON-NLS-1$

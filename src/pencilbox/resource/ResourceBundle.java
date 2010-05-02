@@ -74,6 +74,7 @@ public class ResourceBundle extends ListResourceBundle {
     { "MenuBase.gridStyleItem"                      , "Show Grid"                                                  } ,
     { "MenuBase.cursorItem"                         , "Cursor"                                                     } ,
     { "MenuBase.markStyleMenu"                      , "No Paint Mark"                                              } ,
+    { "MenuBase.linkWidthItem"                      , "Link Width"                                                 } ,
     { "MenuBase.helpMenu"                           , "Help"                                                       } ,
     { "MenuBase.aboutDialog"                        , "About PencilBox"                                            } ,
 
@@ -102,6 +103,7 @@ public class ResourceBundle extends ListResourceBundle {
     { "MenuCommand.checkAnswerDialog"               , "Check Answer"                                               } ,
     { "MenuCommand.historyDialog"                   , "History"                                                    } ,
     { "MenuCommand.cellSizeDialog"                  , "Cell Size"                                                  } ,
+    { "MenuCommand.linkWidthDialog"                 , "Link Width"                                                 } ,
     { "MenuCommand.aboutDialog"                     , "About PencilBox"                                            } ,
     { "MenuCommand.Message_Error"                   , "Error"                                                      } ,
     { "MenuCommand.Message_InappropriateSize"       , "It is inappropriate size."                                  } ,

@@ -31,6 +31,7 @@ public class Menu extends MenuBase {
 	}
 
 	protected void buildViewMenu() {
+		addLinkWidthMenuItem();
 		super.buildViewMenu();
 		wallColorItem = addColorMenuItem(Messages.getString("Menu.wallColorItem")); //$NON-NLS-1$
 		numberColorItem = addColorMenuItem(Messages.getString("Menu.numberColorItem")); //$NON-NLS-1$
