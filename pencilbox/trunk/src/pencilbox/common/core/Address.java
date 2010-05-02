@@ -6,6 +6,34 @@ package pencilbox.common.core;
  */
 public class Address implements Comparable<Address> {
 	
+	private static int MAX = -2;
+	private static Address[][] ADDRESS; // = new Address[MAX+2][MAX+2];
+
+	static {
+		createAddressInstances(11);
+	}
+
+	public static void createAddressInstances(int m) {
+		if (m <= MAX)
+			return;
+		Address[][] newAddress = new Address[m+2][m+2];
+		for (int r = -1; r <= m; r++)
+			for (int c = -1; c <= m; c++)
+				if (r+1 <= MAX && c+1 <= MAX) {
+					newAddress[r+1][c+1] = ADDRESS[r+1][c+1];
+				} else {
+					newAddress[r+1][c+1] = new Address(r, c);
+//					System.out.println(newAddress[r+1][c+1].toString() + " を作成した");
+				}
+		MAX = m;
+		ADDRESS = newAddress;
+	}
+
+	public static void createAddressInstances(Size size) {
+		int m = size.getCols() > size.getCols() ? size.getRows() : size.getCols();
+		createAddressInstances(m);
+	}
+
 	/**
 	 *  盤外座標
 	 */
@@ -61,12 +89,15 @@ public class Address implements Comparable<Address> {
 	}
 
 	/**
-	 * ファクトリメソッド
+	 * 与えられた座標のAddressを取得する
 	 * @param r 行座標
 	 * @param c 列座標
 	 * @return 引数座標をもつ座標
 	 */
 	public static Address address(int r, int c){
+		if (r >= -1 && r <= MAX)
+			if (c >= -1 && c <= MAX)
+				return ADDRESS[r+1][c+1];
 		return new Address(r, c);
 	}
 
@@ -98,6 +129,8 @@ public class Address implements Comparable<Address> {
 		if (!(o instanceof Address))
 			return false;
 		Address address = (Address)o;
+		if (address == this)
+			return true;
 		if (address.r == r && address.c == c)
 			return true;
 		else

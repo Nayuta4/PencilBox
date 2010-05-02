@@ -6,8 +6,40 @@ package pencilbox.common.core;
  */
 public class SideAddress implements Comparable<SideAddress> {
 	
-	public static final SideAddress NOWHERE = sideAddress(-1, -1, -1);
+	private static int MAX = -2;
+	private static SideAddress[][][] ADDRESS; // = new SideAddress[2][MAX][MAX];
+
+	static {
+		createSideAddressInstances(11);
+	}
+
+	public static void createSideAddressInstances(int m) {
+		if (m <= MAX)
+			return;
+		SideAddress[][][] newAddress = new SideAddress[2][m+2][m+2];
+		for (int d = 0; d <= 1; d++)
+			for (int r = -1; r <= m; r++)
+				for (int c = -1; c <= m; c++)
+					if (r+1 <= MAX && c+1 <= MAX) {
+						newAddress[d][r+1][c+1] = ADDRESS[d][r+1][c+1];
+					} else {
+						newAddress[d][r+1][c+1] = new SideAddress(d, r, c);
+//						System.out.println(newAddress[d][r+1][c+1].toString() + " を作成した");
+					}
+		MAX = m;
+		ADDRESS = newAddress;
+	}
+
+	public static void createSideAddressInstances(Size size) {
+		int m = size.getCols() > size.getCols() ? size.getRows() : size.getCols();
+		createSideAddressInstances(m);
+	}
 	
+	/**
+	 *  盤外座標
+	 */
+	public static final SideAddress NOWHERE = sideAddress(-1, -1, -1);
+
 	/**
 	 *  0 は VERT つまり マスの左右の境界線（リンクのときは横線）
 	 *  1 は HORIZ つまり マスの上下の境界線（リンクのときは縦線）
@@ -24,6 +56,10 @@ public class SideAddress implements Comparable<SideAddress> {
 	 * @return
 	 */
 	public static SideAddress sideAddress(int d, int r, int c) {
+		if (d >= 0 && d <= 1)
+			if (r >= -1 && r <= MAX)
+				if (c >= -1 && c <= MAX) 
+					return SideAddress.ADDRESS[d][r+1][c+1];
 		return new SideAddress(d, r, c);
 	}
 
@@ -84,6 +120,8 @@ public class SideAddress implements Comparable<SideAddress> {
 		if (!(o instanceof SideAddress))
 			return false;
 		SideAddress address = (SideAddress) o;
+		if (address == this)
+			return true;
 		if (address.r == r && address.c == c && address.d == d)
 			return true;
 		else

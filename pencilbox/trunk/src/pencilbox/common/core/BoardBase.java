@@ -17,13 +17,14 @@ public class BoardBase {
 	 * @param size 盤面の行列サイズ
 	 */
 	public void setSize(Size size){
+		Address.createAddressInstances(size);
+		SideAddress.createSideAddressInstances(size);
 		this.size = size;
 		setup();
 	}
 
 	public void setSize(int r, int c){
-		this.size = new Size(r, c);;
-		setup();
+		this.setSize(new Size(r, c));
 	}
 	/**
 	 * Board 生成後の初期化処理
