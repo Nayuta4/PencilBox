@@ -39,6 +39,8 @@ public class PanelBase extends JPanel implements Printable {
 	private int cellSize = 26;
 	private int circleSize = 18;
 	private int smallCrossSize = 3; // 片側サイズ
+	private int linkWidth = 3;
+
 	private int offsetx = 10;
 	private int offsety = 10;
 
@@ -380,13 +382,20 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param x 端点のx座標
 	 * @param y 端点のy座標
 	 * @param direction 縦辺 なら 縦の線， 横辺 なら 横の線 を引く
-	 * @param width 線幅
+	 * @param w 線幅
 	 */
-	public void drawLineSegment(Graphics g, int x, int y, int direction, int width) {
-		if (direction == Direction.HORIZ)
-			g.fillRect(x, y - width/2, cellSize + 1, width);
-		else if (direction == Direction.VERT)
-			g.fillRect(x - width/2, y, width, cellSize + 1);
+	public void drawLineSegment(Graphics g, int x, int y, int direction, int w) {
+		if (w == 1) {
+			if (direction == Direction.HORIZ)
+				g.fillRect(x - w/2, y - w/2, cellSize + w, w);
+			else if (direction == Direction.VERT)
+				g.fillRect(x - w/2, y - w/2, w, cellSize + w);
+		} else if (w > 1) { // 角１ピクセルだけ落とす
+			if (direction == Direction.HORIZ)
+				g.fillRect(x - (w-2)/2, y - w/2, cellSize + w-2, w);
+			else if (direction == Direction.VERT)
+				g.fillRect(x - w/2, y - (w-2)/2, w, cellSize + w-2);
+		}
 	}
 	/**
 	 * 引数の座標を左または上の端点として，セルの１辺の長さの横または縦の線を描く
@@ -643,8 +652,7 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param c 辺座標
 	 */
 	public void placeLink(Graphics2D g, int d, int r, int c) {
-		drawLineSegment(g, toX(c) + getHalfCellSize(), toY(r)
-				+ getHalfCellSize(), d ^ 1, 3);
+		drawLineSegment(g, toX(c) + getHalfCellSize(), toY(r) + getHalfCellSize(), d ^ 1, getLinkWidth());
 	}
 	/**
 	 * 辺上に×印を配置する
@@ -792,6 +800,14 @@ public class PanelBase extends JPanel implements Printable {
 	 */
 	public int getSmallCrossSize() {
 		return smallCrossSize;
+	}
+
+	public void setLinkWidth(int linkWidth) {
+		this.linkWidth = linkWidth;
+	}
+
+	public int getLinkWidth() {
+		return linkWidth;
 	}
 	/**
 	 * @param offsetx The offsetx to set.
