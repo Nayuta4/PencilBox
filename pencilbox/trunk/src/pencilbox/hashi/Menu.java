@@ -7,7 +7,6 @@ import javax.swing.JMenuItem;
 import pencilbox.common.gui.MenuBase;
 import pencilbox.resource.Messages;
 
-
 /**
  * 「橋をかけろ」メニュークラス
  */
@@ -28,6 +27,7 @@ public class Menu extends MenuBase {
 	}
 
 	protected void buildViewMenu() {
+		addLinkWidthMenuItem();
 		super.buildViewMenu();
 		numberColorItem = addColorMenuItem(Messages.getString("Menu.numberColorItem")); //$NON-NLS-1$
 		lineColorItem = addColorMenuItem(Messages.getString("Menu.lineColorItem")); //$NON-NLS-1$
@@ -35,14 +35,14 @@ public class Menu extends MenuBase {
 		addToViewMenu(separateLinkColorItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.separateLinkColorItem"), 'R', false)); //$NON-NLS-1$
 		addRenewColorMenuItem();
 	}
-	
+
 	public void executeCommand2(JMenuItem target) {
 		if (target == indicateErrorItem)
 			getPanel().setIndicateErrorMode(target.isSelected());
 		else if (target == separateLinkColorItem)
 			getPanel().setSeparateLinkColorMode(target.isSelected());
 	}
-	
+
 	public Color getColor(JMenuItem target) {
 		if (target == lineColorItem)
 			return getPanel().getLineColor();
