@@ -59,7 +59,7 @@ public class FileChooser extends JFileChooser {
 			preferenceFileChooser.setFileFilter(new FileFilter() {
 				public boolean accept(File f) {
 					String name = f.getName().toLowerCase();
-					return name.endsWith(".ini");
+					return name.endsWith(".ini") || f.isDirectory();
 				}
 				public String getDescription() {
 					return "ini files";
