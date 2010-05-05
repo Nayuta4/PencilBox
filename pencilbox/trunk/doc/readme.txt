@@ -92,7 +92,27 @@ Heyawake Applet Developer 様作成の HeyawakeBox
  pencilbox.html   マニュアル
  history.html     改訂履歴
  style.css        html用スタイルシート
- pencilbox.jar    実行プログラム
+ pencilbox.bat    PencilBoxを起動するwindows用バッチファイルの例
+ pencilbox.jar    全体で共通に使用するクラスファイル
+ bijutsukan.jar   美術館用クラスファイル
+ fillomino.jar    フィルオミノ用クラスファイル
+ goishi.jar       碁石ひろい用クラスファイル
+ hakyukoka.jar    波及効果用クラスファイル
+ hashi.jar        橋をかけろ用クラスファイル
+ heyawake.jar     へやわけ用クラスファイル
+ hitori.jar       ひとりにしてくれ用クラスファイル
+ kakuro.jar       カックロ用クラスファイル
+ kurodoko.jar     黒どこ用クラスファイル
+ masyu.jar        ましゅ用クラスファイル
+ numberlink.jar   ナンバーリンク用クラスファイル
+ nurikabe.jar     ぬりかべ用クラスファイル
+ shikaku.jar      四角に切れ用クラスファイル
+ slalomjar        スラローム用クラスファイル
+ slitherlink.jar  スリザーリンク用クラスファイル
+ sudoku.jar       数独用クラスファイル
+ tentaisho.jar    天体ショー用クラスファイル
+ yajilin.jar      ヤジリン用クラスファイル
+ lits.jar         ＬＩＴＳ用クラスファイル
  sample/          サンプル問題を含むディレクトリ
 
 
