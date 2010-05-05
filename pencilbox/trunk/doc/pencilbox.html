@@ -67,7 +67,7 @@ pencilbox.jar が全種類で共通に使用するクラスファイルをまとめたもので，kakuro.jar
 コマンドラインからの処理で問題データファイルから直接png画像ファイルを出力するには，コマンドラインから以下のコマンドを実行します。
 </p>
 <p>
-<kbd>java  -jar pngexport.jar  puzzletype datafiles</kbd>
+<kbd>javaw -cp pencilbox.jar  pencilbox.tool.PngExport puzzletype datafiles</kbd>
 </p>
 <p>
 ここで，puzzletypeは PencilBoxでのパズルの種類，たとえば bijutsukan や kakuro などです。datafiles はPencilBoxの問題データのファイル名で，複数指定可能です。
