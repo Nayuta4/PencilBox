@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <project default="jar">
 
 	<property name="src" value="src"/>
@@ -7,28 +7,34 @@
 	<property name="doc" value="doc"/>
 	<property name="api" value="api"/>
 	<property name="sample" value="sample"/>
-	<property name="zip" value="."/>
 
 	<property name="project" value="pencilbox" />
-	<property name="version" value="1.4.2" />
+	<property name="version" value="1.4.3" />
 
+	<!-- コンパイル -->
 	<target name="compile">
 		<mkdir dir="${bin}" />
 		<javac srcdir="${src}" destdir="${bin}"/>
 	</target>
 
+	<!-- 単一jarファイル作成 -->
+	<!--
+	<target name="jar1" depends="compile">
+		<jar destfile="pencilbox.jar" basedir="${bin}" includes="**/*">
+			<manifest>
+				<attribute name="Main-Class" value="pencilbox.common.factory.PencilBoxLauncher"/>
+			</manifest>
+		</jar>
+	</target>
+	-->
+
+	<!-- 個別jarファイル作成 -->
 	<target name="jar" depends="compile">
 		<mkdir dir="${jar}" />
-		<jar jarfile="${jar}/pencilbox.jar" basedir="${bin}" includes="pencilbox/common/**/*, pencilbox/util/*, pencilbox/resource/*">
+		<jar jarfile="${jar}/pencilbox.jar" basedir="${bin}" includes="pencilbox/common/**/*, pencilbox/util/**/*, pencilbox/resource/**/*, pencilbox/tool/**/*">
 			<manifest>
 				<attribute name="Main-Class" value="pencilbox.common.factory.PencilBoxLauncher"/>
 				<attribute name="Class-Path" value="bijutsukan.jar fillomino.jar goishi.jar hakyukoka.jar hashi.jar heyawake.jar hitori.jar kakuro.jar kurodoko.jar masyu.jar numberlink.jar nurikabe.jar shikaku.jar slalom.jar slitherlink.jar sudoku.jar tentaisho.jar yajilin.jar lits.jar"/>
-			</manifest>
-		</jar>
-		<jar jarfile="${jar}/pngexport.jar" basedir="${bin}" includes="pencilbox/tool/PngExport.class">
-			<manifest>
-				<attribute name="Main-Class" value="pencilbox.tool.PngExport"/>
-				<attribute name="Class-Path" value="pencilbox.jar"/>
 			</manifest>
 		</jar>
 		<jar jarfile="${jar}/bijutsukan.jar" basedir="${bin}" includes="pencilbox/bijutsukan/*">
@@ -147,47 +153,40 @@
 		</jar>
 	</target>
 
+	<!-- ソースコードアーカイブ作成 -->
 	<target name="zip_src">
-		<mkdir dir="${zip}" />
-		<zip destfile="${zip}/${project}-${version}-src.zip">
+		<zip destfile="${project}-${version}-src.zip">
 			<fileset dir="." includes="${src}/**/*"/>
 			<fileset dir="." includes="build.xml"/>
 			<fileset dir="." includes="${doc}/*"/>
-			<fileset dir="." includes="${sample}/*/*"/>
+			<fileset dir="." includes="${sample}/**/*"/>
 		</zip>
 	</target>
 
+	<!-- 配布アーカイブ作成 -->
 	<target name="zip_bin" depends="jar">
-		<mkdir dir="${zip}" />
-		<zip destfile="${zip}/${project}-${version}.zip">
+		<zip destfile="${project}-${version}.zip">
+			<fileset dir="." includes="*.jar"/>
 			<fileset dir="${jar}" includes="*.jar"/>
-			<fileset dir="${doc}" includes="readme.txt, LICENSE.txt, index.html, history.html, pencilbox.html, style.css"/>
-			<fileset dir="." includes="${sample}/*/*.txt"/>
-			<fileset dir="${sample}" includes="pencilbox.ini"/>
+			<fileset dir="${doc}" includes="readme.txt, LICENSE.txt, index.html, history.html, pencilbox.html, style.css, pencilbox.bat"/>
+			<fileset dir="." includes="${sample}/**/*"/>
 		</zip>
 	</target>
 
-	<target name="zip_bin_src" depends="jar">
-		<mkdir dir="${zip}" />
-		<zip destfile="${zip}/${project}-${version}-bin-src.zip">
-			<fileset dir="." includes="${src}/**/*"/>
-			<fileset dir="." includes="build.xml"/>
-			<fileset dir="${jar}" includes="*.jar"/>
-			<fileset dir="${doc}" includes="readme.txt, LICENSE.txt, index.html, history.html, pencilbox.html, style.css"/>
-			<fileset dir="." includes="${sample}/*/*.txt"/>
-			<fileset dir="${sample}" includes="pencilbox.ini"/>
-		</zip>
-	</target>
-
+	<!-- javadoc作成 -->
 	<target name="javadoc">
 		<mkdir dir="${api}" />
 		<javadoc packagenames="*" sourcepath="${src}" destdir="${api}">
 		</javadoc>
 	</target>
 
-	<target name="delete_jar" depends="jar">
+	<!-- 生成ファイル削除 -->
+	<target name="clean">
+		<delete dir="${jar}"/>
+		<delete dir="${api}"/>
 		<delete>
-			<fileset dir="${jar}" includes="*.jar"/>
+			<fileset dir="." includes="*.zip"/>
+			<fileset dir="." includes="*.jar"/>
 		</delete>
 	</target>
 
