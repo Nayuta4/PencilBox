@@ -32,7 +32,7 @@ public class BoardCopier extends BoardCopierBase {
 				board.setNumber(d, srcBoard.getNumber(s));
 			}
 		}
-		ArrayList<SideAddress> list = region.inngerBorders();
+		ArrayList<SideAddress> list = region.innerBorders();
 		for (SideAddress s : list) {
 			SideAddress d = Rotator2.translateAndRotateSideAddress(s, from, to, rotation);
 			if (board.isSideOn(d))
@@ -45,7 +45,7 @@ public class BoardCopier extends BoardCopierBase {
 		for (Address s : region) {
 			board.setNumber(s, Board.BLANK);
 		}
-		ArrayList<SideAddress> list = region.inngerBorders();
+		ArrayList<SideAddress> list = region.innerBorders();
 		for (SideAddress s : list) {
 			board.setState(s, Board.UNKNOWN);
 		}

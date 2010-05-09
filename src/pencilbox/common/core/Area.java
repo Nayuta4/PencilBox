@@ -110,7 +110,7 @@ public class Area implements Set<Address> {
 	 * —Ìˆæ“à•”‚ÉŠÜ‚Ü‚ê‚é•ÓÀ•W‚ÌW‡‚ğ•Ô‚·
 	 * @return
 	 */
-	public ArrayList<SideAddress> inngerBorders() {
+	public ArrayList<SideAddress> innerBorders() {
 		ArrayList<SideAddress> list = new ArrayList<SideAddress>();
 		for (Address p : this) {
 			for (int d : Direction.DN_RT) {

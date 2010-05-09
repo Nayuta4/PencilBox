@@ -60,7 +60,7 @@ public class BoardCopier extends BoardCopierBase {
 					board.setArrowDirection(d, Rotator2.rotateDirection(srcBoard.getArrowDirection(s), rotation));
 			}
 		}
-		ArrayList<SideAddress> list = region.inngerBorders(); {
+		ArrayList<SideAddress> list = region.innerBorders(); {
 			for (SideAddress s : list) {
 				SideAddress d = Rotator2.translateAndRotateSideAddress(s, from, to, rotation);
 				if (board.isSideOn(d))
