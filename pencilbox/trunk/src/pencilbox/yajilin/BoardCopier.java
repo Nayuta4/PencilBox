@@ -1,5 +1,7 @@
 package pencilbox.yajilin;
 
+import java.util.ArrayList;
+
 import pencilbox.common.core.Address;
 import pencilbox.common.core.Area;
 import pencilbox.common.core.BoardBase;
@@ -7,6 +9,7 @@ import pencilbox.common.core.BoardCopierBase;
 import pencilbox.common.core.Direction;
 import pencilbox.common.core.Rotator;
 import pencilbox.common.core.Rotator2;
+import pencilbox.common.core.SideAddress;
 
 /**
  * 
@@ -55,6 +58,13 @@ public class BoardCopier extends BoardCopierBase {
 				board.setNumber(d, number);
 				if (board.isNumber(d))
 					board.setArrowDirection(d, Rotator2.rotateDirection(srcBoard.getArrowDirection(s), rotation));
+			}
+		}
+		ArrayList<SideAddress> list = region.inngerBorders(); {
+			for (SideAddress s : list) {
+				SideAddress d = Rotator2.translateAndRotateSideAddress(s, from, to, rotation);
+				if (board.isSideOn(d))
+					board.setState(d, srcBoard.getState(s));
 			}
 		}
 	}
