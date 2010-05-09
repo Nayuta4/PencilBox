@@ -1,6 +1,10 @@
 package pencilbox.common.core;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.TreeSet;
 
 
 
@@ -101,6 +105,39 @@ public class Area implements Set<Address> {
 	}
 	public Object[] toArray() {
 		return cellList.toArray();
+	}
+	/**
+	 * 領域内部に含まれる辺座標の集合を返す
+	 * @return
+	 */
+	public ArrayList<SideAddress> inngerBorders() {
+		ArrayList<SideAddress> list = new ArrayList<SideAddress>();
+		for (Address p : this) {
+			for (int d : Direction.DN_RT) {
+				Address next = Address.nextCell(p, d);
+				if (this.contains(next)) {
+					list.add(SideAddress.get(p, d));
+				}
+			}
+		}
+		return list;
+	}
+
+	/**
+	 * 領域外周の辺座標の集合を返す
+	 * @return
+	 */
+	public ArrayList<SideAddress> outerBorders() {
+		ArrayList<SideAddress> list = new ArrayList<SideAddress>();
+		for (Address p : this) {
+			for (int d : Direction.UP_LT_DN_RT) {
+				Address next = Address.nextCell(p, d);
+				if (! this.contains(next)) {
+					list.add(SideAddress.get(p, d));
+				}
+			}
+		}
+		return list;
 	}
 
 }

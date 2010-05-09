@@ -10,6 +10,7 @@ import java.awt.RenderingHints;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
@@ -626,6 +627,9 @@ public class PanelBase extends JPanel implements Printable {
 
 	public void placeSideLine(Graphics2D g, int d, int r, int c) {
 		placeSideLine(g, d, r, c, 3);
+	}
+	public void placeSideLine(Graphics2D g, SideAddress p, int w) {
+		placeSideLine(g, p.d(), p.r(), p.c(), w);
 	}
 	/**
 	 * 辺上に線を配置する。マスとそのマスから見た辺の向きで指定する。
