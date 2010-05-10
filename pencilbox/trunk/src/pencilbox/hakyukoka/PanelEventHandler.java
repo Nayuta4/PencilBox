@@ -148,7 +148,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.setNumber(pos, 0);
+			board.changeNumber(pos, 0);
 			board.setState(pos, Board.UNSTABLE);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
@@ -166,7 +166,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 
 	protected void minusEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.setNumber(pos, Board.UNKNOWN);
+			board.changeNumber(pos, Board.UNKNOWN);
 			board.setState(pos, Board.STABLE);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
