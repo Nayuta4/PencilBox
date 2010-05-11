@@ -48,7 +48,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		Area area = board.getArea(pos);
 		if (area == null) {
 			area = new Area();
-			board.addCellToAreaA(pos, area);
+			board.addCellToArea(pos, area);
 		}
 		setDraggingArea(area);
 	}
@@ -59,18 +59,18 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			return;
 		Area oldArea = board.getArea(pos);
 		if (oldArea != null && oldArea != draggingArea) {
-			board.removeCellFromAreaA(pos, oldArea);
-			board.addCellToAreaA(pos, draggingArea);
+			board.removeCellFromArea(pos, oldArea);
+			board.addCellToArea(pos, draggingArea);
 		} else if (oldArea != null && oldArea == draggingArea) {
 		} else if (oldArea == null) {
-			board.addCellToAreaA(pos, draggingArea);
+			board.addCellToArea(pos, draggingArea);
 		}
 	}
 
 	protected void rightPressed(Address pos) {
 		Area oldArea = board.getArea(pos);
 		if (oldArea != null) {
-			board.removeCellFromAreaA(pos, oldArea);
+			board.removeCellFromArea(pos, oldArea);
 		}
 	}
 

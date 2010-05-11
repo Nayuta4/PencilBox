@@ -23,6 +23,10 @@ public class Board extends BoardBase {
 	private int[][] illuminatedH;
 	private int[][] illuminatedV;
 
+	public static boolean isWall(int st) {
+		return (st >= 0 && st <= 4) || st == NONUMBER_WALL;
+	}
+
 	protected void setup() {
 		super.setup();
 		state = new int[rows()][cols()]; 
@@ -235,41 +239,29 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * マスの状態を設定する
+	 * マスの状態を指定した状態に変更する
 	 * マスからの光線を更新する
 	 * 黒マスを操作したときは、上下４方向の明かりからの照明状態をすべて更新する
-	 * @param r 行座標
-	 * @param c 列座標
-	 * @param st 状態
-	 */
-	public void changeState(int r, int c, int st) {
-		int prev = getState(r, c);
-		if ((st >= 0 && st <= 4 || st == NONUMBER_WALL)
-				|| (prev >= 0 && prev <= 4 || prev == NONUMBER_WALL)) {
-			illuminate4(r, c, false);
-		}
-		if (st == BULB && prev != BULB)
-			illuminate(r, c, true);
-		else if (prev == BULB && st != BULB)
-			illuminate(r, c, false);
-		setState(r, c, st);
-		if ((st>=0 && st<=4 || st == NONUMBER_WALL)
-				|| (prev>=0 && prev<=4 || prev == NONUMBER_WALL)) {
-			illuminate4(r, c, true);
-		}
-	}
-
-	public void changeState(Address pos, int st) {
-		changeState(pos.r(), pos.c(), st);
-	}
-	/**
-	 * マスの状態を指定した状態に変更し，変更をアンドゥリスナーに通知する
 	 * @param pos マス座標
 	 * @param st 変更後の状態
 	 */
-	public void changeStateA(Address pos, int st) {
-		fireUndoableEditUpdate(new CellEditStep(pos, getState(pos), st));
-		changeState(pos, st);
+	public void changeState(Address p, int st) {
+		if (isRecordUndo())
+			fireUndoableEditUpdate(new CellEditStep(p, getState(p), st));
+		int r = p.r();
+		int c = p.c();
+		int prev = getState(r, c);
+		if (isWall(st) || isWall(prev)) {
+			illuminate4(r, c, false);
+		}
+		if (prev == BULB && st != BULB)
+			illuminate(r, c, false);
+		setState(r, c, st);
+		if (st == BULB && prev != BULB)
+			illuminate(r, c, true);
+		if (isWall(st) || isWall(prev)) {
+			illuminate4(r, c, true);
+		}
 	}
 
 	public void undo(AbstractStep step) {

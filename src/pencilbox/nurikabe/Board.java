@@ -183,7 +183,15 @@ public class Board extends BoardBase {
 		area[r][c] = a;
 	}
 
-	public void changeState(int r, int c, int st) {
+	/**
+	 * マスの状態を指定した状態に変更し，変更をアンドゥリスナーに通知する
+	 * @param p マス座標
+	 * @param st 変更後の状態
+	 */
+	public void changeState(Address p, int st) {
+		if (isRecordUndo())
+			fireUndoableEditUpdate(new CellEditStep(p, getState(p), st));
+		int r=p.r(), c=p.c();
 		int prevSt = getSpaceOrWall(r, c);
 		setState(r, c, st);
 		int type;
@@ -197,19 +205,6 @@ public class Board extends BoardBase {
 		if (st != UNKNOWN) {
 			mergeArea(r, c, type);
 		}
-	}
-	
-	public void changeState(Address pos, int st) {
-		changeState(pos.r(), pos.c(), st);
-	}
-	/**
-	 * マスの状態を指定した状態に変更し，変更をアンドゥリスナーに通知する
-	 * @param pos マス座標
-	 * @param st 変更後の状態
-	 */
-	public void changeStateA(Address pos, int st) {
-		fireUndoableEditUpdate(new CellEditStep(pos, getState(pos), st));
-		changeState(pos, st);
 	}
 
 	public void undo(AbstractStep step) {

@@ -158,26 +158,6 @@ public class Board extends BoardBase {
 		areaList.remove(oldArea);
 	}
 
-	void addCellToAreaA(Address pos, Area area) {
-		Address p0 = Address.NOWHERE;
-		if (area.size() > 0) {
-			p0 = (Address)area.toArray()[0];
-		}
-		fireUndoableEditUpdate(new AreaEditStep(pos, p0, AreaEditStep.ADDED));
-		addCellToArea(pos, area);
-	}
-
-	void removeCellFromAreaA(Address pos, Area area) {
-		Address p0 = Address.NOWHERE;
-		if (area.size() > 1) {
-			p0 = (Address)area.toArray()[0];
-			if (p0.equals(pos))
-				p0 = (Address)area.toArray()[1];
-		}
-		fireUndoableEditUpdate(new AreaEditStep(pos, p0, AreaEditStep.REMOVED));
-		removeCellFromArea(pos, area);
-	}
-
 	public void undo(AbstractStep step) {
 		AreaEditStep s = (AreaEditStep)step;
 		Area a;
@@ -221,27 +201,38 @@ public class Board extends BoardBase {
 	 * @param c 追加するマスの列座標
 	 * @param area 追加される領域
 	 */
-	public void addCellToArea(int r, int c, Area area) {
+	public void addCellToArea(Address pos, Area area) {
+		Address p0 = Address.NOWHERE;
+		if (area.size() > 0) {
+			p0 = (Address)area.toArray()[0];
+		}
+		if (isRecordUndo())
+			fireUndoableEditUpdate(new AreaEditStep(pos, p0, AreaEditStep.ADDED));
 		if (area.isEmpty()) {
 			areaList.add(area);
 		}
-		setArea(r, c, area);
-		area.add(r, c);
+		setArea(pos, area);
+		area.add(pos);
 		initArea(area);
 	}
 
-	public void addCellToArea(Address pos, Area area) {
-		addCellToArea(pos.r(), pos.c(), area);
-	}
 	/**
 	 * マスを領域から取り除く
 	 * @param r 取り除くマスの行座標
 	 * @param c 取り除くマスの列座標
 	 * @param area 取り除かれる領域
 	 */
-	public void removeCellFromArea(int r, int c, Area area) {
-		setArea(r, c, null);
-		area.remove(r, c);
+	public void removeCellFromArea(Address pos, Area area) {
+		Address p0 = Address.NOWHERE;
+		if (area.size() > 1) {
+			p0 = (Address)area.toArray()[0];
+			if (p0.equals(pos))
+				p0 = (Address)area.toArray()[1];
+		}
+		if (isRecordUndo())
+			fireUndoableEditUpdate(new AreaEditStep(pos, p0, AreaEditStep.REMOVED));
+		setArea(pos, null);
+		area.remove(pos);
 		if (area.isEmpty()) {
 			areaList.remove(area);
 		} else {
@@ -249,9 +240,6 @@ public class Board extends BoardBase {
 		}
 	}
 
-	public void removeCellFromArea(Address pos, Area area) {
-		removeCellFromArea(pos.r(), pos.c(), area);
-	}
 	/**
 	 * 新規作成した領域に含まれる星を設定する
 	 * @param newArea

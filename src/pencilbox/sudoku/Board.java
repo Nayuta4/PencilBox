@@ -15,6 +15,7 @@ public class Board extends BoardBase {
 	static final int UNSTABLE = 0;
 	static final int STABLE = 1;
 	static final int UNKNOWN = 0;
+	static final int UNDETERMINED = -2; // 仮設定。入力操作の目印に仮にこうしておくが，実際のデータ上は0とする
 
 	private int maxNumber; // 問題の最大数字
 	private int[][] state; // 問題の数字:1, 解答すべき数字:0,
@@ -177,12 +178,12 @@ public class Board extends BoardBase {
 	 * @param pos マス座標
 	 * @param n 入力する数字
 	 */
-	public void enterNumberA(Address pos, int n) {
+	public void changeNumber(Address pos, int n) {
 		if (n < 0 || n > maxNumber) return;
 		if (n == getNumber(pos)) return;
-		fireUndoableEditUpdate(
-			new CellNumberEditStep(pos, getNumber(pos), n));
-		changeNumber(pos, n);
+		if (isRecordUndo())
+			fireUndoableEditUpdate(new CellNumberEditStep(pos, getNumber(pos), n));
+		changeNumber1(pos, n);
 	}
 
 	public void undo(AbstractStep step) {
@@ -205,7 +206,8 @@ public class Board extends BoardBase {
 	 * @param c Colmun coordinate of the cell.
 	 * @param n The number to set.
 	 */
-	public void changeNumber(int r, int c, int n) {
+	private void changeNumber1(Address p, int n) {
+		int r=p.r(), c=p.c();
 		if (getNumber(r,c) == n)
 			return;
 		updateMulti(r, c, n);
@@ -213,9 +215,16 @@ public class Board extends BoardBase {
 		setNumber(r, c, n);
 	}
 	
-	public void changeNumber(Address pos, int n) {
-		changeNumber(pos.r(), pos.c(), n);
+	public void changeFixedNumber(Address p, int n) {
+		if (n == Board.UNKNOWN)
+			setState(p, Board.UNSTABLE);
+		else
+			setState(p, Board.STABLE);
+		if (n == Board.UNDETERMINED)
+			n = 0;
+		changeNumber1(p, n);
 	}
+
 	/**
 	 * マスと同じ行，列，ボックスに，そのマスの数字と重複する数字があるかどうかを調べる
 	 * @param r 行座標

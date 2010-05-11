@@ -250,7 +250,8 @@ public class Board extends BoardBase {
 	 * @param c Colmun coordinate of the cell.
 	 * @param n The number to set.
 	 */
-	public void changeNumber(int r, int c, int n) {
+	public void changeNumber(Address p, int n) {
+		int r=p.r(), c=p.c();
 		wordH[r][c].changeNumber(getNumber(r,c), n);
 		wordV[r][c].changeNumber(getNumber(r,c), n);
 		updateMulti(r, c, n);
@@ -258,9 +259,6 @@ public class Board extends BoardBase {
 		updateHint(r, c);
 	}
 	
-	public void changeNumber(Address pos, int n) {
-		changeNumber(pos.r(), pos.c(), n);
-	}
 	/**
 	 * マスに数字を入力し，アンドゥリスナーに通知する
 	 * @param pos マス座標
@@ -271,8 +269,8 @@ public class Board extends BoardBase {
 			return;
 		if (n == getNumber(pos)) 
 			return;
-		fireUndoableEditUpdate(
-			new CellNumberEditStep(pos, getNumber(pos), n));
+		if (isRecordUndo())
+			fireUndoableEditUpdate(new CellNumberEditStep(pos, getNumber(pos), n));
 		changeNumber(pos, n);
 	}
 

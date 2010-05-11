@@ -19,6 +19,7 @@ public class Board extends BoardBase {
 	static final int UNSTABLE = 0;
 	static final int STABLE = 1;
 	static final int UNKNOWN = 0;
+	static final int UNDETERMINED = -2;
 	
 	private List<Area> areaList;
 //	private int maxNumber = 9; // 最大数字9とする
@@ -202,14 +203,22 @@ public class Board extends BoardBase {
 	}
 	
 	/**
-	 * Set number to  a cell.
-	 * @param r Row coordinate of the cell.
-	 * @param c Colmun coordinate of the cell.
-	 * @param n The number to set.
+	 * マスに数字を入力し，アドゥリスナーに通知する
+	 * @param pos マス座標
+	 * @param n 入力する数字
 	 */
-	public void changeNumber(int r, int c, int n) {
-		if (getNumber(r,c) == n)
+	public void changeNumber(Address pos, int n) {
+		if (n < 0) 
 			return;
+		if (n == getNumber(pos)) 
+			return;
+		fireUndoableEditUpdate(
+			new CellNumberEditStep(pos, getNumber(pos), n));
+		changeNumber1(pos, n);
+	}
+
+	private void changeNumber1(Address p, int n) {
+		int r=p.r(), c=p.c();
 		int prevNum = getNumber(r,c);
 		updateMulti(r, c, n);
 		if (getArea(r,c) != null)
@@ -221,22 +230,14 @@ public class Board extends BoardBase {
 			hint.initHint();
 	}
 	
-	public void changeNumber(Address pos, int n) {
-		changeNumber(pos.r(), pos.c(), n);
-	}
-	/**
-	 * マスに数字を入力し，アドゥリスナーに通知する
-	 * @param pos マス座標
-	 * @param n 入力する数字
-	 */
-	public void enterNumberA(Address pos, int n) {
-		if (n < 0) 
-			return;
-		if (n == getNumber(pos)) 
-			return;
-		fireUndoableEditUpdate(
-			new CellNumberEditStep(pos, getNumber(pos), n));
-		changeNumber(pos, n);
+	public void changeFixedNumber(Address p, int n) {
+		if (n == Board.UNKNOWN)
+			setState(p, Board.UNSTABLE);
+		else
+			setState(p, Board.STABLE);
+		if (n == Board.UNDETERMINED)
+			n = 0;
+		changeNumber1(p, n);
 	}
 
 	public void undo(AbstractStep step) {
