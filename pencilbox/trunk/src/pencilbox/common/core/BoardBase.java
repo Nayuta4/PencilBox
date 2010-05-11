@@ -58,6 +58,18 @@ public class BoardBase {
 	public final int rows() {
 		return size.getRows();
 	}
+
+	public boolean isRecordUndo() {
+		if (getUndoManager() != null)
+			return getUndoManager().isRecordUndo();
+		return false;
+	}
+
+	public void setRecordUndo(boolean b) {
+		if (getUndoManager() != null)
+			getUndoManager().setRecordUndo(b);
+	}
+
 	/**
 	 * 盤面の列数を取得する
 	 * @return 列数
@@ -209,6 +221,7 @@ public class BoardBase {
 	 * @param e the event アンドゥ対象の操作となるイベント
 	 */
 	protected void fireUndoableEditUpdate(AbstractStep e) {
+//		if (isRecordUndo())
 		undoManager.addEdit(e);
 	}
 	/**
@@ -244,4 +257,5 @@ public class BoardBase {
 	public int checkAnswerCode() {
 		return 0;
 	}
+
 }

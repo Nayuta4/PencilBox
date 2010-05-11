@@ -56,7 +56,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	private void toggleState(SideAddress pos, int st) {
 		if (st == board.getState(pos))
 			st = Board.UNKNOWN;
-		board.changeStateA(pos, st);
+		board.changeState(pos, st);
 	}
 
 	/**
@@ -81,7 +81,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		for (Address p = pos0; !p.equals(pos1); p = p.nextCell(direction)) {
 			side = SideAddress.get(p, direction);
 			if (board.getState(side) != currentState)
-				board.changeStateA(side, currentState);
+				board.changeState(side, currentState);
 		}
 	}
 

@@ -84,13 +84,13 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		Square sq = board.getSquare(rp, cp);
 		if (sq == null) {
 			board.removeOverlappedSquares(draggingSquare, null);
-			board.addSquareA(new Square(draggingSquare));
+			board.addSquare(new Square(draggingSquare));
 		} else {
 			if (sq.r0() == draggingSquare.r0() && sq.c0() == draggingSquare.c0() && sq.r1() == draggingSquare.r1() && sq.c1() == draggingSquare.c1()) {
 				;
 			} else {
 				board.removeOverlappedSquares(draggingSquare, sq);
-				board.changeSquareA(sq, draggingSquare);
+				board.changeSquare(sq, draggingSquare);
 			}
 		}
 		setDraggingSquare(null);
@@ -100,14 +100,14 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	protected void rightPressed(Address pos) {
 		Square s = board.getSquare(pos);
 		if(s != null) {
-			board.removeSquareA(s);
+			board.removeSquare(s);
 		}
 	}
 	
 	protected void rightDragged(Address pos) {
 		Square s = board.getSquare(pos);
 		if(s != null) {
-			board.removeSquareA(s);
+			board.removeSquare(s);
 		}
 	}
 

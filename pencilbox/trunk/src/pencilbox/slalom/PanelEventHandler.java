@@ -55,7 +55,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			st = Board.UNKNOWN;
 		}
 		if (!board.hasWall(pos) || st == Board.UNKNOWN) {
-			board.changeStateA(pos, st);
+			board.changeState(pos, st);
 		}
 	}
 
@@ -82,7 +82,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			side = SideAddress.get(p, direction);
 			if (board.getState(side) != currentState)
 				if (!board.hasWall(side) || currentState == Board.UNKNOWN)
-					board.changeStateA(side, currentState);
+					board.changeState(side, currentState);
 		}
 	}
 

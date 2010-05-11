@@ -346,65 +346,45 @@ public class Board extends BoardBase {
 		}
 		return null;
 	}
-	/**
-	 * 橋をかける
-	 * @param r 起点の行座標
-	 * @param c 起点の列座標
-	 * @param direction 方向（上下左右）
-	 */
-	public void addBridge(int r, int c, int direction) {
-		if (!isPier(r, c))
-			return;
-		if (pier[r][c].getNextPier(direction) == null)
-			return;
-		if (pier[r][c].getNBridge(direction) == 2)
-			return;
-		pier[r][c].increaseBridge(direction);
-		if (pier[r][c].getNBridge(direction) == 1)
-			connectChain(pier[r][c], pier[r][c].getNextPier(direction));
-	}
 
-	public void addBridge(Address p, int d) {
-		addBridge(p.r(), p.c(), d);
-	}
-	/**
-	 * 橋を除く
-	 * @param r 起点の行座標
-	 * @param c 起点の列座標
-	 * @param direction 方向（上下左右）
-	 */
-	public void removeBridge(int r, int c, int direction) {
-		if (!isPier(r, c))
-			return;
-		if (pier[r][c].getNextPier(direction) == null)
-			return;
-		if (pier[r][c].getNBridge(direction) == 0)
-			return;
-		pier[r][c].decreaseBridge(direction);
-		if (pier[r][c].getNBridge(direction) == 0)
-			cutChain(pier[r][c], pier[r][c].getNextPier(direction));
-	}
-
-	public void removeBridge(Address p, int d) {
-		removeBridge(p.r(), p.c(), d);
-	}
 	/**
 	 * 橋をかける，アンドゥリスナーに通知する
 	 * @param pos 起点の座標
-	 * @param direction 方向（上下左右）
+	 * @param d 方向（上下左右）
 	 */
-	public void addBridgeA(Address pos, int direction) {
-		addBridge(pos.r(), pos.c(), direction);
-		fireUndoableEditUpdate(new BridgeEditStep(pos, direction, BridgeEditStep.ADDED));
+	public void addBridge(Address p, int d) {
+		if (isRecordUndo())
+			fireUndoableEditUpdate(new BridgeEditStep(p, d, BridgeEditStep.ADDED));
+		int r=p.r(), c=p.c();
+		if (!isPier(r, c))
+			return;
+		if (pier[r][c].getNextPier(d) == null)
+			return;
+		if (pier[r][c].getNBridge(d) == 2)
+			return;
+		pier[r][c].increaseBridge(d);
+		if (pier[r][c].getNBridge(d) == 1)
+			connectChain(pier[r][c], pier[r][c].getNextPier(d));
 	}
+
 	/**
 	 * 橋を除く，アンドゥリスナーに通知する
 	 * @param pos 起点の座標
 	 * @param direction 方向（上下左右）
 	 */
-	public void removeBridgeA(Address pos, int direction) {
-		removeBridge(pos.r(), pos.c(), direction);
-		fireUndoableEditUpdate(new BridgeEditStep(pos, direction, BridgeEditStep.REMOVED));
+	public void removeBridge(Address p, int d) {
+		if (isRecordUndo())
+			fireUndoableEditUpdate(new BridgeEditStep(p, d, BridgeEditStep.REMOVED));
+		int r=p.r(), c=p.c();
+		if (!isPier(r, c))
+			return;
+		if (pier[r][c].getNextPier(d) == null)
+			return;
+		if (pier[r][c].getNBridge(d) == 0)
+			return;
+		pier[r][c].decreaseBridge(d);
+		if (pier[r][c].getNBridge(d) == 0)
+			cutChain(pier[r][c], pier[r][c].getNextPier(d));
 	}
 
 	public void undo(AbstractStep step) {

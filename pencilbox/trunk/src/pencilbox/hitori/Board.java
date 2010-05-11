@@ -189,31 +189,20 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * マスの状態を設定する
-	 * @param r マスの行座標
-	 * @param c マスの列座標
-	 * @param st state[r][c] に設定する値
+	 * マスの状態を指定した状態に変更し，変更をアンドゥリスナーに通知する
+	 * @param pos マス座標
+	 * @param st 変更後の状態
 	 */
-	public void changeState(int r, int c, int st) {
-//		state[row][col] = st;
+	public void changeState(Address p, int st) {
+		if (isRecordUndo())
+			fireUndoableEditUpdate(new CellEditStep(p, getState(p), st));
+		int r = p.r();
+		int c = p.c();
 		if (st == BLACK) setBlack(r,c);
 		else if (st == WHITE) setWhite(r,c);
 		else if (st == UNKNOWN) erase(r,c);
 //		initChain();
 //		checkContinuousBlack();
-	}
-	
-	public void changeState(Address pos, int st) {
-		changeState(pos.r(), pos.c(), st);
-	}
-	/**
-	 * マスの状態を指定した状態に変更し，変更をアンドゥリスナーに通知する
-	 * @param pos マス座標
-	 * @param st 変更後の状態
-	 */
-	public void changeStateA(Address pos, int st) {
-		fireUndoableEditUpdate(new CellEditStep(pos, getState(pos), st));
-		changeState(pos, st);
 	}
 	
 	public void undo(AbstractStep step) {

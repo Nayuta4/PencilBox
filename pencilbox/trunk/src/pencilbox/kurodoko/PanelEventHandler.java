@@ -58,7 +58,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			return;
 		if (st == state)
 			st = Board.UNKNOWN;
-		board.changeStateA(pos, st);
+		board.changeState(pos, st);
 	}
 
 	private void sweepState(Address pos) {
@@ -71,7 +71,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			return;
 		if (currentState == Board.WHITE && st == Board.BLACK)
 			return;
-		board.changeStateA(pos, currentState);
+		board.changeState(pos, currentState);
 	}
 
 	/*

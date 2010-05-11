@@ -11,6 +11,15 @@ public class UndoManager {
 	private Vector<AbstractStep> edits;
 	private int indexOfNextAdd;
 	private BoardBase board;
+	private boolean recordUndo = true;
+	
+	public void setRecordUndo(boolean b) {
+		this.recordUndo = b;
+	}
+
+	public boolean isRecordUndo() {
+		return recordUndo;
+	}
 
 	/**
 	 * Creates a new <code>UndoManager</code>.
@@ -56,6 +65,7 @@ public class UndoManager {
 	 * @return true
 	 */
 	public synchronized boolean addEdit(AbstractStep anEdit) {
+		System.out.println("add edit " + anEdit);
 		// Œ»ÝˆÊ’u‚æ‚èŒã‚ë‚ðíœ
         trimEdits(indexOfNextAdd, edits.size()-1);
 		AbstractStep last = lastEdit();
@@ -87,11 +97,14 @@ public class UndoManager {
 	 * updating the index of the next edit appropriately.
 	 */
 	public synchronized void undo() {
+		setRecordUndo(false);
 		if (indexOfNextAdd > 0) {
 			AbstractStep edit = edits.elementAt(indexOfNextAdd - 1);
+//			System.out.println("undo " + edit);
 			board.undo(edit);
 			--indexOfNextAdd;
 		}
+		setRecordUndo(true);
 	}
 
     /**
@@ -108,11 +121,14 @@ public class UndoManager {
 	 * updating the index of the next edit appropriately.
 	 */
 	public synchronized void redo() {
+		setRecordUndo(false);
 		if (indexOfNextAdd < edits.size()) {
 			AbstractStep edit = edits.elementAt(indexOfNextAdd);
+//			System.out.println("redo " + edit);
 			board.redo(edit);
 			indexOfNextAdd++;
 		}
+		setRecordUndo(true);
 	}
 
     /**

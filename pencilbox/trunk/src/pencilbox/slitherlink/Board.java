@@ -211,36 +211,28 @@ public class Board extends BoardBase {
 	
 	/**
 	 * 辺の状態を指定した状態に変更する
-	 * @param d 縦か横か
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param p 辺座標
 	 * @param st 変更後の状態
 	 */
-	public void changeState(int d, int r, int c, int st) {
-		int previousState = getState(d,r,c);
-		setState(d,r,c,st);
+	public void changeState(SideAddress p, int st) {
+		if (isRecordUndo())
+			fireUndoableEditUpdate(new BorderEditStep(p, getState(p), st));
+		int previousState = getState(p);
+		setState(p,st);
 		if (previousState == LINE) {
-			cutLink(d,r,c);
+			cutLink(p);
 		}
 		if (st == LINE) {
-			connectLink(d,r,c);
+			connectLink(p);
 		}
 	}
 
-	public void changeState(SideAddress p, int st) {
-		changeState(p.d(), p.r(), p.c(), st);
-	}
 	/**
 	 * 辺の状態を指定した状態に変更する
 	 * アンドゥリスナーに変更を通知する
 	 * @param pos 辺座標
 	 * @param st 変更後の状態
 	 */
-	public void changeStateA(SideAddress pos, int st) {
-		fireUndoableEditUpdate(
-			new BorderEditStep(pos, getState(pos), st));
-		changeState(pos.d(), pos.r(), pos.c(), st);
-	}
 
 	public void undo(AbstractStep step) {
 		BorderEditStep s = (BorderEditStep) step;
@@ -325,7 +317,8 @@ public class Board extends BoardBase {
 	/**
 	 * Link 併合
 	 */	
-	void connectLink(int d, int r, int c) {
+	void connectLink(SideAddress p) {
+		int d = p.d(), r = p.r(), c = p.c();
 		Link newLink = null;
 		Link link1 = null;
 		Link link2 = null;
@@ -370,8 +363,9 @@ public class Board extends BoardBase {
 	/**
 	 * Link 切断
 	 */	
-	void cutLink(int d, int r, int c) {
-		Link oldLink = getLink(d,r,c);
+	void cutLink(SideAddress p) {
+		Link oldLink = getLink(p);
+		int d = p.d(), r = p.r(), c = p.c();
 		Link longerLink = null;
 		for (SideAddress joint : oldLink) {
 			setLink(joint, null);

@@ -81,9 +81,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			st = Board.BLANK;
 		}
 		if (st == Board.BLACK) {
-			board.eraseLinesAroundA(pos);
+			board.eraseLinesAround(pos);
 		}
-		board.changeStateA(pos, st);
+		board.changeState(pos, st);
 		currentState = st;
 	}
 
@@ -111,7 +111,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			if (st == Board.BLACK)
 				return;
 		}
-		board.changeStateA(pos, currentState);
+		board.changeState(pos, currentState);
 	}
 	/**
 	 * 始点マスと終点マスを結んだ線上の状態を指定の状態に変更する
@@ -138,7 +138,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			side = SideAddress.get(p, direction);
 			if (board.getState(side) != currentState)
 				if (!board.hasNumberOrBlack(side) || st == Board.UNKNOWN)
-					board.changeStateA(side, currentState);
+					board.changeState(side, currentState);
 		}
 	}
 	/*

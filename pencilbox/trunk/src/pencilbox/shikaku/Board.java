@@ -166,71 +166,10 @@ public class Board extends BoardBase {
 			for (int c = sq.c0(); c <= sq.c1(); c++) {
 				Square s = getSquare(r, c);
 				if (s != null && s != org) {
-					removeSquareA(s);
+					removeSquare(s);
 				}
 			}
 		}
-	}
-	
-	/**
-	 * 四角を追加する
-	 * アンドゥリスナーに通知する
-	 * @param sq
-	 */
-	public void addSquareA(Square sq) {
-		fireUndoableEditUpdate(new SquareEditStep(sq.r0(), sq.c0(), sq.r1(), sq.c1(), SquareEditStep.ADDED));
-		addSquare(sq);
-	}
-
-	/**
-	 * 四角を変更する
-	 * アンドゥリスナーに通知する
-	 * @param sq
-	 * @param newSq
-	 */
-	public void changeSquareA(Square sq, Square newSq) {
-		int rOld = -1;
-		int cOld= -1;
-		int rNew = -1;
-		int cNew= -1;
-		if (sq.r0() == newSq.r0()) {
-			rOld = sq.r1();
-			rNew = newSq.r1();
-		} else if (sq.r1() == newSq.r0()) {
-			rOld = sq.r0();
-			rNew = newSq.r1();
-		} else if (sq.r0() == newSq.r1()) {
-			rOld = sq.r1();
-			rNew = newSq.r0();
-		} else if (sq.r1() == newSq.r1()) {
-			rOld = sq.r0();
-			rNew = newSq.r0();
-		}
-		if (sq.c0() == newSq.c0()) {
-			cOld = sq.c1();
-			cNew = newSq.c1();
-		} else if (sq.c1() == newSq.c0()) {
-			cOld = sq.c0();
-			cNew = newSq.c1();
-		} else if (sq.c0() == newSq.c1()) {
-			cOld = sq.c1();
-			cNew = newSq.c0();
-		} else if (sq.c1() == newSq.c1()) {
-			cOld = sq.c0();
-			cNew = newSq.c0();
-		}
-		fireUndoableEditUpdate(new SquareEditStep(rOld, cOld, rNew, cNew, SquareEditStep.CHANGED));
-		changeSquare(sq, newSq);
-	}
-
-	/**
-	 * 四角を除去する
-	 * アンドゥリスナーに通知する
-	 * @param sq 除去する四角
-	 */
-	public void removeSquareA(Square sq) {
-		fireUndoableEditUpdate(new SquareEditStep(sq.r0(), sq.c0(), sq.r1(), sq.c1(), SquareEditStep.REMOVED));
-		removeSquare(sq);
 	}
 	
 	public void undo(AbstractStep step) {
@@ -260,6 +199,8 @@ public class Board extends BoardBase {
 	 * @param sq 追加する四角
 	 */
 	public void addSquare(Square sq) {
+		if (isRecordUndo())
+			fireUndoableEditUpdate(new SquareEditStep(sq.r0(), sq.c0(), sq.r1(), sq.c1(), SquareEditStep.ADDED));
 		initSquare1(sq);
 		squareList.add(sq);
 	}
@@ -296,6 +237,38 @@ public class Board extends BoardBase {
 	 * @param newSq 変更後の四角の形
 	 */
 	public void changeSquare(Square sq, Square newSq) {
+		int rOld = -1;
+		int cOld= -1;
+		int rNew = -1;
+		int cNew= -1;
+		if (sq.r0() == newSq.r0()) {
+			rOld = sq.r1();
+			rNew = newSq.r1();
+		} else if (sq.r1() == newSq.r0()) {
+			rOld = sq.r0();
+			rNew = newSq.r1();
+		} else if (sq.r0() == newSq.r1()) {
+			rOld = sq.r1();
+			rNew = newSq.r0();
+		} else if (sq.r1() == newSq.r1()) {
+			rOld = sq.r0();
+			rNew = newSq.r0();
+		}
+		if (sq.c0() == newSq.c0()) {
+			cOld = sq.c1();
+			cNew = newSq.c1();
+		} else if (sq.c1() == newSq.c0()) {
+			cOld = sq.c0();
+			cNew = newSq.c1();
+		} else if (sq.c0() == newSq.c1()) {
+			cOld = sq.c1();
+			cNew = newSq.c0();
+		} else if (sq.c1() == newSq.c1()) {
+			cOld = sq.c0();
+			cNew = newSq.c0();
+		}
+		if (isRecordUndo())
+			fireUndoableEditUpdate(new SquareEditStep(rOld, cOld, rNew, cNew, SquareEditStep.CHANGED));
 		clearSquare1(sq);
 		sq.set(newSq.r0(), newSq.c0(), newSq.r1(), newSq.c1());
 		initSquare1(sq);
@@ -308,6 +281,8 @@ public class Board extends BoardBase {
 	public void removeSquare(Square sq) {
 		if (sq == null)
 			return;
+		if (isRecordUndo())
+			fireUndoableEditUpdate(new SquareEditStep(sq.r0(), sq.c0(), sq.r1(), sq.c1(), SquareEditStep.REMOVED));
 		clearSquare1(sq);
 		squareList.remove(sq);
 	}

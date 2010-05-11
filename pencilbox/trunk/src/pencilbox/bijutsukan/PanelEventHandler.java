@@ -57,7 +57,7 @@ import pencilbox.common.gui.PanelEventHandlerBase;
 		if (st == board.getState(pos)) {
 			st = Board.UNKNOWN;
 		}
-		board.changeStateA(pos, st);
+		board.changeState(pos, st);
 	}
 
 	private void sweepState(Address pos) {
@@ -65,7 +65,7 @@ import pencilbox.common.gui.PanelEventHandlerBase;
 			return;
 		if (currentState == board.getState(pos))
 			return;
-		board.changeStateA(pos, currentState);
+		board.changeState(pos, currentState);
 	}
 
 	/*

@@ -199,34 +199,28 @@ public class Board extends BoardBase {
 		removeCellFromArea(pos.r(), pos.c(), a);
 	}
 
-	public void changeState(int r, int c, int st) {
-		int prevSt = getState(r, c);
-		setState(r, c, st);
-		Area a = getArea(r, c);
+
+	/**
+	 * マスの状態を指定した状態に変更し，変更をアンドゥリスナーに通知する
+	 * @param p マス座標
+	 * @param st 変更後の状態
+	 */
+	public void changeState(Address p, int st) {
+		if (isRecordUndo())
+			fireUndoableEditUpdate(new CellEditStep(p, getState(p), st));
+		int prevSt = getState(p);
+		setState(p, st);
+		Area a = getArea(p);
 		if (a != null) {
 			if (prevSt == BLACK) {
-				a.getTetromino().remove(r, c);
+				a.getTetromino().remove(p);
 			}
 			if (st == BLACK) {
-				a.getTetromino().add(r, c);
+				a.getTetromino().add(p);
 			}
 		}
 	}
 	
-	public void changeState(Address pos, int st) {
-		changeState(pos.r(), pos.c(), st);
-	}
-	
-	/**
-	 * マスの状態を指定した状態に変更し，変更をアンドゥリスナーに通知する
-	 * @param pos マス座標
-	 * @param st 変更後の状態
-	 */
-	public void changeStateA(Address pos, int st) {
-		fireUndoableEditUpdate(new CellEditStep(pos, getState(pos), st));
-		changeState(pos, st);
-	}
-
 	public void undo(AbstractStep step) {
 		CellEditStep s = (CellEditStep) step;
 		changeState(s.getPos(), s.getBefore());

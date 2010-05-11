@@ -19,6 +19,7 @@ public class Board extends BoardBase {
 	static final int UNSTABLE = 0;
 	static final int STABLE = 1;
 	static final int UNKNOWN = 0;
+	static final int UNDETERMINED = -2;
 
 	private int[][] state; // 問題の数字:1, 解答すべき数字:0,
 	private int[][] number;
@@ -202,12 +203,22 @@ public class Board extends BoardBase {
 	}
 	
 	/**
-	 * Set number to  a cell.
-	 * @param r Row coordinate of the cell.
-	 * @param c Colmun coordinate of the cell.
-	 * @param n The number to set.
+	 * マスに数字を入力し，アドゥリスナーに通知する
+	 * @param pos マス座標
+	 * @param n 入力する数字
 	 */
-	public void changeNumber(int r, int c, int n) {
+	public void changeNumber(Address pos, int n) {
+		if (n < 0)
+			return;
+		if (n == getNumber(pos)) 
+			return;
+		if (isRecordUndo())
+			fireUndoableEditUpdate(new CellNumberEditStep(pos, getNumber(pos), n));
+		changeNumber1(pos, n);
+	}
+
+	private void changeNumber1(Address p, int n) {
+		int r = p.r(), c = p.c();
 		int prevNum = getNumber(r, c);
 		setNumber(r, c, n);
 		if (prevNum>0) {
@@ -217,23 +228,19 @@ public class Board extends BoardBase {
 			mergeArea(r, c, n);
 		}
 	}
-	
-	public void changeNumber(Address pos, int n) {
-		changeNumber(pos.r(), pos.c(), n);
-	}
 	/**
 	 * マスに数字を入力し，アドゥリスナーに通知する
 	 * @param pos マス座標
 	 * @param n 入力する数字
 	 */
-	public void enterNumberA(Address pos, int n) {
-		if (n < 0)
-			return;
-		if (n == getNumber(pos)) 
-			return;
-		fireUndoableEditUpdate(
-			new CellNumberEditStep(pos, getNumber(pos), n));
-		changeNumber(pos, n);
+	public void changeFixedNumber(Address pos, int n) {
+		if (n == Board.UNKNOWN)
+			setState(pos, Board.UNSTABLE);
+		else
+			setState(pos, Board.STABLE);
+		if (n == Board.UNDETERMINED)
+			n = 0;
+		changeNumber1(pos, n);
 	}
 
 	public void undo(AbstractStep step) {
