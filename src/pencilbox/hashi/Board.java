@@ -362,13 +362,13 @@ public class Board extends BoardBase {
 		if (n == +1) {
 			if (pier[r][c].getNBridge(d) == 2)
 				return;
-			pier[r][c].increaseBridge(d);
+			pier[r][c].changeBridge(d, n);
 			if (pier[r][c].getNBridge(d) == 1)
 				connectChain(pier[r][c], pier[r][c].getNextPier(d));
 		} else if (n == -1) {
 			if (pier[r][c].getNBridge(d) == 0)
 				return;
-			pier[r][c].decreaseBridge(d);
+			pier[r][c].changeBridge(d, n);
 			if (pier[r][c].getNBridge(d) == 0)
 				cutChain(pier[r][c], pier[r][c].getNextPier(d));
 		}

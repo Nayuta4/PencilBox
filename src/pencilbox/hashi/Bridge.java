@@ -21,16 +21,9 @@ class Bridge {
 		if (capacity > n) 
 			capacity = n;
 	}
-	void increaseBridge() {
-		bridge ++;
-		capacity --;
-	}
-	void decreaseBridge() {
-		bridge --;
-		capacity ++;
-	}
-	void decreaseCapacity() {
-		capacity --;
+	void changeBridge(int n) {
+		bridge += n;
+		capacity -= n;
 	}
 	int getBridge() {
 		return bridge;
