@@ -5,9 +5,6 @@ import pencilbox.common.core.Address;
 
 class BridgeEditStep extends AbstractStep {
 
-	public static final int ADDED = 1;
-	public static final int REMOVED = -1;
-
 	private Address pos;
 	private int direction;
 	private int change;
