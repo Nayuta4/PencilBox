@@ -348,61 +348,42 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * 橋をかける，アンドゥリスナーに通知する
+	 * 橋をかける／除く，アンドゥリスナーに通知する
 	 * @param pos 起点の座標
 	 * @param d 方向（上下左右）
+	 * @param n 橋の増減数
 	 */
-	public void addBridge(Address p, int d) {
-		if (isRecordUndo())
-			fireUndoableEditUpdate(new BridgeEditStep(p, d, BridgeEditStep.ADDED));
+	public void changeBridge(Address p, int d, int n) {
 		int r=p.r(), c=p.c();
 		if (!isPier(r, c))
 			return;
 		if (pier[r][c].getNextPier(d) == null)
 			return;
-		if (pier[r][c].getNBridge(d) == 2)
-			return;
-		pier[r][c].increaseBridge(d);
-		if (pier[r][c].getNBridge(d) == 1)
-			connectChain(pier[r][c], pier[r][c].getNextPier(d));
-	}
-
-	/**
-	 * 橋を除く，アンドゥリスナーに通知する
-	 * @param pos 起点の座標
-	 * @param direction 方向（上下左右）
-	 */
-	public void removeBridge(Address p, int d) {
+		if (n == +1) {
+			if (pier[r][c].getNBridge(d) == 2)
+				return;
+			pier[r][c].increaseBridge(d);
+			if (pier[r][c].getNBridge(d) == 1)
+				connectChain(pier[r][c], pier[r][c].getNextPier(d));
+		} else if (n == -1) {
+			if (pier[r][c].getNBridge(d) == 0)
+				return;
+			pier[r][c].decreaseBridge(d);
+			if (pier[r][c].getNBridge(d) == 0)
+				cutChain(pier[r][c], pier[r][c].getNextPier(d));
+		}
 		if (isRecordUndo())
-			fireUndoableEditUpdate(new BridgeEditStep(p, d, BridgeEditStep.REMOVED));
-		int r=p.r(), c=p.c();
-		if (!isPier(r, c))
-			return;
-		if (pier[r][c].getNextPier(d) == null)
-			return;
-		if (pier[r][c].getNBridge(d) == 0)
-			return;
-		pier[r][c].decreaseBridge(d);
-		if (pier[r][c].getNBridge(d) == 0)
-			cutChain(pier[r][c], pier[r][c].getNextPier(d));
+			fireUndoableEditUpdate(new BridgeEditStep(p, d, n));
 	}
 
 	public void undo(AbstractStep step) {
 		BridgeEditStep s = (BridgeEditStep) step;
-		if (s.getChange() == BridgeEditStep.ADDED) {
-			removeBridge(s.getPos(), s.getDirection());
-		} else if (s.getChange() == BridgeEditStep.REMOVED) {
-			addBridge(s.getPos(), s.getDirection());
-		}
+		changeBridge(s.getPos(), s.getDirection(), -s.getChange());
 	}
 
 	public void redo(AbstractStep step) {
 		BridgeEditStep s = (BridgeEditStep) step;
-		if (s.getChange() == BridgeEditStep.ADDED) {
-			addBridge(s.getPos(), s.getDirection());
-		} else if (s.getChange() == BridgeEditStep.REMOVED) {
-			removeBridge(s.getPos(), s.getDirection());
-		}
+		changeBridge(s.getPos(), s.getDirection(), +s.getChange());
 	}
 
 	/**
