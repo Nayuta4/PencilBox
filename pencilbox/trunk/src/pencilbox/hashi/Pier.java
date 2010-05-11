@@ -52,11 +52,8 @@ class Pier {
 		else
 			bridge[d].setBridge(n);
 	}
-	void increaseBridge(int d) {
-		bridge[d].increaseBridge();
-	}
-	void decreaseBridge(int d) {
-		bridge[d].decreaseBridge();
+	void changeBridge(int d, int n) {
+		bridge[d].changeBridge(n);
 	}
 	int getCapacity(int d) {
 		if (bridge[d] == null)
