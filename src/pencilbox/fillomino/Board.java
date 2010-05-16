@@ -38,11 +38,9 @@ public class Board extends BoardBase {
 
 	public void clearBoard() {
 		super.clearBoard();
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				if (!isStable(r,c))
-					number[r][c] = 0;
-			}
+		for (Address p : cellAddrs) {
+			if (!isStable(p))
+				setNumber(p, 0);
 		}
 		initBoard();
 	}
@@ -71,8 +69,8 @@ public class Board extends BoardBase {
 		return state[r][c] == STABLE;
 	}
 	
-	public boolean isStable(Address pos) {
-		return isStable(pos.r(), pos.c());
+	public boolean isStable(Address p) {
+		return isStable(p.r(), p.c());
 	}
 	/**
 	 * Get state of a cell.
@@ -84,8 +82,8 @@ public class Board extends BoardBase {
 		return state[r][c];
 	}
 
-	public int getState(Address pos) {
-		return getState(pos.r(), pos.c());
+	public int getState(Address p) {
+		return getState(p.r(), p.c());
 	}
 	/**
 	 * Set state to a cell.
@@ -97,8 +95,8 @@ public class Board extends BoardBase {
 		state[r][c] = st;
 	}
 
-	public void setState(Address pos, int st) {
-		setState(pos.r(), pos.c(), st);
+	public void setState(Address p, int st) {
+		setState(p.r(), p.c(), st);
 	}
 	/**
 	 * Get number of a cell.
@@ -110,8 +108,8 @@ public class Board extends BoardBase {
 		return number[r][c];
 	}
 
-	public int getNumber(Address pos) {
-		return getNumber(pos.r(), pos.c());
+	public int getNumber(Address p) {
+		return getNumber(p.r(), p.c());
 	}
 	/**
 	 * Set number to  a cell.
@@ -123,8 +121,8 @@ public class Board extends BoardBase {
 		number[r][c] = n;
 	}
 
-	public void setNumber(Address pos, int n) {
-		setNumber(pos.r(), pos.c(), n);
+	public void setNumber(Address p, int n) {
+		setNumber(p.r(), p.c(), n);
 	}
 
 	public void setFixedNumber(int r, int c, int n) {
@@ -166,38 +164,35 @@ public class Board extends BoardBase {
 	public void initAreas() {
 		ArrayUtil.initArrayObject2(area, null);
 		areaList.clear();
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				if (getNumber(r, c) > 0 && area[r][c] == null) {
-					initArea(r,c);
-				}
+		for (Address p : cellAddrs) {
+			if (getNumber(p) > 0 && getArea(p) == null) {
+				initArea(p);
 			}
 		}
 	}
 	/**
 	 * 指定したマスを起点としてマスのつながりを調べてAreaを作成する
-	 * @param r
-	 * @param c
+	 * @param p
 	 */
-	void initArea(int r, int c) {
-		initializingArea = new Area(getNumber(r,c));
-		initArea1(r, c);
+	void initArea(Address p) {
+		initializingArea = new Area(getNumber(p));
+		initArea1(p);
 		areaList.add(initializingArea);
 	}
 
-	private void initArea1(int r, int c) {
-		if (!isOn(r, c))
+	private void initArea1(Address p) {
+		if (!isOn(p))
 			return;
-		if (getArea(r, c) == initializingArea)
+		if (getArea(p) == initializingArea)
 			return;
-		if (getNumber(r, c) != initializingArea.getNumber())
+		if (getNumber(p) != initializingArea.getNumber())
 			return;
-		initializingArea.add(r, c);
-		setArea(r, c, initializingArea);
-		initArea1(r - 1, c);
-		initArea1(r, c - 1);
-		initArea1(r + 1, c);
-		initArea1(r, c + 1);
+		initializingArea.add(p);
+		setArea(p, initializingArea);
+		for (int d=0; d<4; d++) {
+			Address p1 = Address.nextCell(p, d);
+			initArea1(p1);
+		}
 		return;
 	}
 	/**
@@ -213,6 +208,9 @@ public class Board extends BoardBase {
 			return null;
 		return area[r][c];
 	}
+	public Area getArea(Address p) {
+		return getArea(p.r(), p.c());
+	}
 	/**
 	 * 盤上のマスに，そのマスの所属する領域を設定する
 	 * @param r Row coordinate of the cell.
@@ -222,46 +220,47 @@ public class Board extends BoardBase {
 	public void setArea(int r, int c,  Area a) {
 		area[r][c] = a;
 	}
-	
+	public void setArea(Address p, Area a) {
+		setArea(p.r(), p.c(), a);
+	}
 	/**
 	 * マスに数字を入力し，アドゥリスナーに通知する
-	 * @param pos マス座標
+	 * @param p マス座標
 	 * @param n 入力する数字
 	 */
-	public void changeNumber(Address pos, int n) {
+	public void changeNumber(Address p, int n) {
 		if (n < 0)
 			return;
-		if (n == getNumber(pos)) 
+		if (n == getNumber(p)) 
 			return;
 		if (isRecordUndo())
-			fireUndoableEditUpdate(new CellNumberEditStep(pos, getNumber(pos), n));
-		changeNumber1(pos, n);
+			fireUndoableEditUpdate(new CellNumberEditStep(p, getNumber(p), n));
+		changeNumber1(p, n);
 	}
 
 	private void changeNumber1(Address p, int n) {
-		int r = p.r(), c = p.c();
-		int prevNum = getNumber(r, c);
-		setNumber(r, c, n);
+		int prevNum = getNumber(p);
+		setNumber(p, n);
 		if (prevNum>0) {
-			splitArea(r, c, prevNum);
+			splitArea(p, prevNum);
 		}
 		if (n>0) {
-			mergeArea(r, c, n);
+			mergeArea(p, n);
 		}
 	}
 	/**
 	 * マスに数字を入力し，アドゥリスナーに通知する
-	 * @param pos マス座標
+	 * @param p マス座標
 	 * @param n 入力する数字
 	 */
-	public void changeFixedNumber(Address pos, int n) {
+	public void changeFixedNumber(Address p, int n) {
 		if (n == Board.UNKNOWN)
-			setState(pos, Board.UNSTABLE);
+			setState(p, Board.UNSTABLE);
 		else
-			setState(pos, Board.STABLE);
+			setState(p, Board.STABLE);
 		if (n == Board.UNDETERMINED)
 			n = 0;
-		changeNumber1(pos, n);
+		changeNumber1(p, n);
 	}
 
 	public void undo(AbstractStep step) {
@@ -284,18 +283,18 @@ public class Board extends BoardBase {
 	 * @param c 変更したマスの列座標
 	 * @param number 変更後の数字
 	 */
-	void mergeArea(int r, int c, int number) {
+	void mergeArea(Address p, int number) {
 		Area mergedArea = null;
-		mergedArea = mergeArea1(getArea(r-1, c), mergedArea, number);
-		mergedArea = mergeArea1(getArea(r, c-1), mergedArea, number);
-		mergedArea = mergeArea1(getArea(r+1, c), mergedArea, number);
-		mergedArea = mergeArea1(getArea(r, c+1), mergedArea, number);
+		for (int d=0; d<4; d++) {
+			Address p1 = Address.nextCell(p, d);
+			mergedArea = mergeArea1(getArea(p), mergedArea, number);
+		}
 		if (mergedArea == null) {
 			mergedArea = new Area(number);
 			areaList.add(mergedArea);
 		}
-		mergedArea.add(r,c);
-		setArea(r, c, mergedArea);
+		mergedArea.add(p);
+		setArea(p, mergedArea);
 	}
 	private Area mergeArea1(Area area, Area mergedArea, int number) {
 		if (area != null && area.getNumber() == number) {
@@ -303,8 +302,8 @@ public class Board extends BoardBase {
 				mergedArea = area;
 			} else if (mergedArea != area) {
 				mergedArea.addAll(area);
-				for (Address pos : area) {
-					setArea(pos.r(), pos.c(), mergedArea);
+				for (Address p : area) {
+					setArea(p.r(), p.c(), mergedArea);
 				}
 				areaList.remove(area);
 			}
@@ -317,19 +316,16 @@ public class Board extends BoardBase {
 	 * @param c 変更したマスの列座標
 	 * @param number 変更後の数字
 	 */
-	void splitArea(int r, int c, int number) {
-		areaList.remove(getArea(r, c));
-		for (Address pos : getArea(r, c)) {
-			setArea(pos.r(), pos.c(), null);
+	void splitArea(Address p0, int number) {
+		areaList.remove(getArea(p0));
+		for (Address p : getArea(p0)) {
+			setArea(p, null);
 		}
-		if (isOn(r-1,c) && getNumber(r-1,c)==number && getArea(r-1,c) == null)
-			initArea(r-1,c);
-		if (isOn(r,c-1) && getNumber(r,c-1)==number && getArea(r,c-1) == null)
-			initArea(r,c-1);
-		if (isOn(r+1,c) && getNumber(r+1,c)==number && getArea(r+1,c) == null)
-			initArea(r+1,c);
-		if (isOn(r,c+1) && getNumber(r,c+1)==number && getArea(r,c+1) == null)
-			initArea(r,c+1);
+		for (int d=0; d<4; d++) {
+			Address p = Address.nextCell(p0, d);
+			if (isOn(p) && getNumber(p)==number && getArea(p) == null)
+				initArea(p);
+		}
 	}
 	
 	public int checkAnswerCode() {
