@@ -12,7 +12,7 @@ public class BoardBase {
 	private UndoManager undoManager;
 	private Size size;
 
-	protected Address[] cellAddrs; // 盤面全体のマス座標リスト
+	private Address[] cellAddrs; // 盤面全体のマス座標リスト
 
 	/**
 	 * 盤面サイズをあたえて，Board 生成後の初期化処理を行う
@@ -199,6 +199,13 @@ public class BoardBase {
 			}
 		}
 		return area;
+	}
+
+	/**
+	 * @return the cellAddrs
+	 */
+	public Address[] cellAddrs() {
+		return cellAddrs;
 	}
 
 	/**
