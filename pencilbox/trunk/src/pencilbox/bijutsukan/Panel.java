@@ -3,6 +3,7 @@ package pencilbox.bijutsukan;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
 import pencilbox.common.gui.PanelBase;
@@ -144,9 +145,10 @@ public class Panel extends PanelBase {
 		g.setFont(getNumberFont());
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
-				int state = board.getState(r, c);
-				int l = board.getHorizIlluminated(r,c);
-				int m = board.getVertIlluminated(r,c);
+				Address p = Address.address(r, c);
+				int state = board.getState(p);
+				int l = board.getHorizIlluminated(p);
+				int m = board.getVertIlluminated(p);
 				if (isPaintIlluminatedCellMode()) {
 					if (l>0 || m>0) {
 						g.setColor(illuminatedCellColor);
@@ -158,7 +160,7 @@ public class Panel extends PanelBase {
 					paintCell(g, r, c);
 					g.setColor(getNumberColor());
 					if (isIndicateErrorMode()) {
-						if (board.checkAdjacentBulbs(r,c) <= 0) {
+						if (board.checkAdjacentBulbs(p) <= 0) {
 							g.setColor(getErrorColor());
 						}
 					}
@@ -169,7 +171,7 @@ public class Panel extends PanelBase {
 				} else if (state == Board.BULB) {
 					g.setColor(getBulbColor());
 					if (isIndicateErrorMode()) {
-						if (board.isMultiIlluminated(r,c)) {
+						if (board.isMultiIlluminated(p)) {
 							g.setColor(getErrorColor());
 						}
 					}

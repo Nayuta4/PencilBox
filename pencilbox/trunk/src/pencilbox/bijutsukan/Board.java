@@ -38,22 +38,18 @@ public class Board extends BoardBase {
 	
 	public void clearBoard() {
 		super.clearBoard();
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				if (isFloor(r, c)) {
-					setState(r,c,UNKNOWN);
-				}
+		for (Address p : cellAddrs) {
+			if (isFloor(p)) {
+				setState(p, UNKNOWN);
 			}
 		}
 		initBoard();
 	}
 
 	public void trimAnswer() {
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				if (getState(r, c) == NOBULB)
-					setState(r, c, UNKNOWN);
-				}
+		for (Address p : cellAddrs) {
+			if (getState(p) == NOBULB)
+				setState(p, UNKNOWN);
 		}
 	}
 
@@ -66,12 +62,9 @@ public class Board extends BoardBase {
 	void initIlluminations() {
 		ArrayUtil.initArrayInt2(illuminatedV, 0);
 		ArrayUtil.initArrayInt2(illuminatedH, 0);
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				Address p = Address.address(r, c);
-				if (getState(p) == Board.BULB) {
-					illuminate(p, true);
-				}
+		for (Address p : cellAddrs) {
+			if (getState(p) == Board.BULB) {
+				illuminate(p, true);
 			}
 		}
 	}
@@ -127,8 +120,8 @@ public class Board extends BoardBase {
 	 * @param c 列座標
 	 * @return 壁なら true
 	 */
-	public boolean isNumberedWall(int r, int c){
-		return state[r][c]>=0 && state[r][c]<=4;
+	public boolean isNumberedWall(Address p){
+		return state[p.r()][p.r()]>=0 && state[p.r()][p.c()]<=4;
 	}
 	/**
 	 * そのマスが壁のないマスかどうか
@@ -141,15 +134,6 @@ public class Board extends BoardBase {
 	}
 	public boolean isFloor(Address p){
 		return isFloor(p.r(), p.c());
-	}
-	/**
-	 * そのマスに照明が置かれているかどうか
-	 * @param r 行座標
-	 * @param c 列座標
-	 * @return 照明が置かれているなら true
-	 */
-	public boolean isBulb(int r, int c){
-		return isOn(r,c) && state[r][c] == BULB;
 	}
 	/**
 	 * そのマスの照明配置が未定かどうか
@@ -166,8 +150,8 @@ public class Board extends BoardBase {
 	 * @param c 列座標
 	 * @return 未定なら true
 	 */
-	public int getHorizIlluminated(int r, int c) {
-		return illuminatedH[r][c];
+	public int getHorizIlluminated(Address p) {
+		return illuminatedH[p.r()][p.c()];
 	}
 	/**
 	 * そのマスが縦方向から照らされているか
@@ -175,8 +159,8 @@ public class Board extends BoardBase {
 	 * @param c 列座標
 	 * @return 未定なら true
 	 */
-	public int getVertIlluminated(int r, int c) {
-		return illuminatedV[r][c];
+	public int getVertIlluminated(Address p) {
+		return illuminatedV[p.r()][p.c()];
 	}
 	/**
 	 * そのマスが同列の複数の照明により照らされているか？？？
@@ -184,8 +168,8 @@ public class Board extends BoardBase {
 	 * @param c 列座標
 	 * @return 未定なら true
 	 */
-	public boolean isMultiIlluminated(int r, int c) {
-		return illuminatedV[r][c]>1 || illuminatedH[r][c] > 1;
+	public boolean isMultiIlluminated(Address p) {
+		return illuminatedV[p.r()][p.c()]>1 || illuminatedH[p.r()][p.c()] > 1;
 	}
 	/**
 	 * マスが照らされているか，つまりそのマスの上下左右に照明があるかを調べる
@@ -193,8 +177,8 @@ public class Board extends BoardBase {
 	 * @param c 列座標
 	 * @return 照らされていれば true
 	 */
-	public boolean isIlluminated(int r, int c) {
-			return (illuminatedV[r][c] > 0 || illuminatedH[r][c] > 0);
+	public boolean isIlluminated(Address p) {
+			return (illuminatedV[p.r()][p.c()] > 0 || illuminatedH[p.r()][p.c()] > 0);
 	}
 	/**
 	 * マスの照明配置が変更された場合に，上下左右の光線を更新する
@@ -280,9 +264,8 @@ public class Board extends BoardBase {
 	 * @param c 列座標
 	 * @return 隣接する４マスの照明個数
 	 */
-	public int countAdjacentBulbs(int r, int c) {
+	public int countAdjacentBulbs(Address p0) {
 		int count = 0;
-		Address p0 = Address.address(r, c);
 		for (int d=0; d<4; d++) {
 			Address p = Address.nextCell(p0, d);
 			if (getState(p) == Board.BULB)
@@ -298,9 +281,9 @@ public class Board extends BoardBase {
 	 * 照明個数が多すぎるなら -1, 
 	 * 照明個数が数字より小さいなら 0
 	 */
-	public int checkAdjacentBulbs(int r, int c) {
-		int nBulb = countAdjacentBulbs(r,c);
-		int number = getState(r,c);
+	public int checkAdjacentBulbs(Address p) {
+		int nBulb = countAdjacentBulbs(p);
+		int number = getState(p);
 		if (nBulb > number) {
 			return -1;
 		} else if (nBulb == number) {
@@ -313,23 +296,20 @@ public class Board extends BoardBase {
 
 	public int checkAnswerCode() {
 		int result = 0;
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				if (!isWall(r,c)) {
-					if (isMultiIlluminated(r,c)) {
-						result |= 1;
-					}
-					else if (!isIlluminated(r,c)) {
-						result |= 2;
-					}
+		for (Address p : cellAddrs) {
+			if (!isWall(p)) {
+				if (isMultiIlluminated(p)) {
+					result |= 1;
 				}
-				else if (isNumberedWall(r,c)) {
-					if (countAdjacentBulbs(r,c) > getState(r,c)) {
-						result |= 4;
-					}
-					else if (countAdjacentBulbs(r,c) < getState(r,c)) {
-						result |= 8;
-					}
+				else if (!isIlluminated(p)) {
+					result |= 2;
+				}
+			} else if (isNumberedWall(p)) {
+				if (countAdjacentBulbs(p) > getState(p)) {
+					result |= 4;
+				}
+				else if (countAdjacentBulbs(p) < getState(p)) {
+					result |= 8;
 				}
 			}
 		}
