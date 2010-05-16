@@ -35,7 +35,7 @@ public class PzprWriter extends PzprWriterBase {
 	}
 
 	protected int QnC(int i) {
-		if (bd.getState(i2a(i)) == Board.STABLE) {
+		if (bd.isStable(i2a(i))) {
 			int n = bd.getNumber(i2a(i));
 			if (n > 0)
 				return n;
