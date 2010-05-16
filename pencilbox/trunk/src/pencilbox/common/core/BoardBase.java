@@ -11,7 +11,9 @@ public class BoardBase {
 
 	private UndoManager undoManager;
 	private Size size;
-	
+
+	protected Address[] cellAddrs; // 盤面全体のマス座標リスト
+
 	/**
 	 * 盤面サイズをあたえて，Board 生成後の初期化処理を行う
 	 * @param size 盤面の行列サイズ
@@ -20,6 +22,7 @@ public class BoardBase {
 		Address.createAddressInstances(size);
 		SideAddress.createSideAddressInstances(size);
 		this.size = size;
+		prepareAddresse();
 		setup();
 	}
 
@@ -33,6 +36,16 @@ public class BoardBase {
 	 */
 	protected void setup(){
 	}	
+
+	protected void prepareAddresse() {
+		this.cellAddrs = new Address[rows()*cols()];
+		for (int r=0; r<rows(); r++) {
+			for (int c=0; c<cols(); c++) {
+				cellAddrs[r*cols()+c] = Address.address(r, c);
+			}
+		}
+	}
+
 	/**
 	 * UndoManager を設定する
 	 * @param u UndoManager
