@@ -187,7 +187,7 @@ public class Panel extends PanelBase {
 	private void paintAreas(Graphics2D g) {
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
-				if (board.isCovered(r, c)) {
+				if (board.getArea(r, c) != null) {
 					if (board.getArea(r,c) == draggingArea) {
 						g.setColor(draggingAreaColor);
 					} else {
