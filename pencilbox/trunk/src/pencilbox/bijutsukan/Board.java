@@ -4,6 +4,7 @@ import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.CellEditStep;
+import pencilbox.common.core.Direction;
 import pencilbox.resource.Messages;
 import pencilbox.util.ArrayUtil;
 
@@ -67,8 +68,9 @@ public class Board extends BoardBase {
 		ArrayUtil.initArrayInt2(illuminatedH, 0);
 		for (int r=0; r<rows(); r++) {
 			for (int c=0; c<cols(); c++) {
-				if (isBulb(r,c)) {
-					illuminate(r, c, true);
+				Address p = Address.address(r, c);
+				if (getState(p) == Board.BULB) {
+					illuminate(p, true);
 				}
 			}
 		}
@@ -137,6 +139,9 @@ public class Board extends BoardBase {
 	public boolean isFloor(int r, int c){
 		return isOn(r,c) && (state[r][c] == UNKNOWN || state[r][c] == NOBULB || state[r][c] == BULB);
 	}
+	public boolean isFloor(Address p){
+		return isFloor(p.r(), p.c());
+	}
 	/**
 	 * そのマスに照明が置かれているかどうか
 	 * @param r 行座標
@@ -193,46 +198,43 @@ public class Board extends BoardBase {
 	}
 	/**
 	 * マスの照明配置が変更された場合に，上下左右の光線を更新する
-	 * @param r0 照明配置が変更されたマスの行座標
-	 * @param c0 照明配置が変更されたマスの列座標
+	 * @param p0 照明配置が変更されたマスの座標
 	 * @param on 照明が配置されたときには true, 取り除かれたときは false 
 	 */
-	private void illuminate(int r0, int c0, boolean on) {
+	private void illuminate(Address p0, boolean on) {
 		int k = on ? 1 : -1;
-		int r = r0;
-		int c = c0;
-		while (isFloor(r, c)) {
-			r--;
+		for (int d=0; d<4; d++) {
+			Address p = p0;
+			p = p0.nextCell(d);
+			while (isFloor(p)) {
+				increaseIlluminated(p, d, k);
+				p = p.nextCell(d);
+			}
 		}
-		r++;
-		while (isFloor(r, c)) {
-			illuminatedV[r][c] += k;
-			r++;
-		}
-		r = r0;
-		while(isFloor(r,c)) {
-			c--;
-		}
-		c++;
-		while(isFloor(r,c)) {
-			illuminatedH[r][c] += k;
-			c++;
+		increaseIlluminated(p0, 0, k);
+		increaseIlluminated(p0, 1, k);
+	}
+
+	public void increaseIlluminated(Address p, int d, int k) {
+		if ((d&1) == Direction.VERT) {
+			illuminatedV[p.r()][p.c()] += k;
+		} else if ((d&1) == Direction.HORIZ){
+			illuminatedH[p.r()][p.c()] += k;
 		}
 	}
 
 	/**
-	 * マスの上下４方向の明かりからの照明状態をすべて更新する
-	 * @param r0 中心マスの行座標
-	 * @param c0 中心マスの列座標
-	 * @param on 明かりをつけるときは true, 消すときは false 
+	 * マスの黒マス配置が変更された場合に，上下左右の照明からの光線を更新する
+	 * @param p0 黒マス配置が変更されたマスの座標
+	 * @param on 黒マス配置されたときには false, 取り除かれたときは true 
 	 */
-	private void illuminate4(int r0, int c0, boolean on) {
+	private void illuminate4(Address p0, boolean on) {
 		for (int d = 0; d < 4; d++) {
-			Address p = Address.address(r0, c0);
+			Address p = p0;
 			p = p.nextCell(d);
-			while (isFloor(p.r(), p.c())) {
-				if (isBulb(p.r(), p.c()))
-					illuminate(p.r(), p.c(), on);
+			while (isFloor(p)) {
+				if (getState(p) == Board.BULB)
+					illuminate(p, on);
 				p = p.nextCell(d);
 			}
 		}
@@ -248,19 +250,17 @@ public class Board extends BoardBase {
 	public void changeState(Address p, int st) {
 		if (isRecordUndo())
 			fireUndoableEditUpdate(new CellEditStep(p, getState(p), st));
-		int r = p.r();
-		int c = p.c();
-		int prev = getState(r, c);
+		int prev = getState(p);
 		if (isWall(st) || isWall(prev)) {
-			illuminate4(r, c, false);
+			illuminate4(p, false);
 		}
 		if (prev == BULB && st != BULB)
-			illuminate(r, c, false);
-		setState(r, c, st);
+			illuminate(p, false);
+		setState(p, st);
 		if (st == BULB && prev != BULB)
-			illuminate(r, c, true);
+			illuminate(p, true);
 		if (isWall(st) || isWall(prev)) {
-			illuminate4(r, c, true);
+			illuminate4(p, true);
 		}
 	}
 
@@ -282,10 +282,12 @@ public class Board extends BoardBase {
 	 */
 	public int countAdjacentBulbs(int r, int c) {
 		int count = 0;
-		if (isBulb(r-1,c)) count++;
-		if (isBulb(r+1,c)) count++;
-		if (isBulb(r,c-1)) count++;
-		if (isBulb(r,c+1)) count++;
+		Address p0 = Address.address(r, c);
+		for (int d=0; d<4; d++) {
+			Address p = Address.nextCell(p0, d);
+			if (getState(p) == Board.BULB)
+				count++;
+		}
 		return count;
 	}
 	/**
@@ -333,7 +335,7 @@ public class Board extends BoardBase {
 		}
 		return result;
 	}
-	
+
 	public String checkAnswerString() {
 		int result = checkAnswerCode();
 		if (result==0)
