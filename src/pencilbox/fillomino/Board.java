@@ -126,6 +126,27 @@ public class Board extends BoardBase {
 	public void setNumber(Address pos, int n) {
 		setNumber(pos.r(), pos.c(), n);
 	}
+
+	public void setFixedNumber(int r, int c, int n) {
+		state[r][c] = Board.STABLE;
+		if (n == Board.UNDETERMINED)
+			n=0;
+		number[r][c] = n;
+	}
+	public void setFixedNumber(Address p, int n) {
+		setFixedNumber(p.r(), p.c(), n);
+	}
+	public int getFixedNumber(Address p) {
+		int n = 0;
+		if (isStable(p)) {
+			n = getNumber(p);
+			if (n == 0)
+				n = Board.UNDETERMINED;
+			return n;
+		} else {
+			return 0;
+		}
+	}
 	/**
 	 * ƒ}ƒX‚É”š‚ª“ü‚Á‚Ä‚¢‚È‚¢‚©‚Ç‚¤‚©
 	 * @param r Row coordinate of the cell.
