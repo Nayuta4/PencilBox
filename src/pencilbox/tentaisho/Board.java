@@ -101,15 +101,6 @@ public class Board extends BoardBase {
 		return isOnStar(pos.r(), pos.c());
 	}
 	/**
-	 * 引数のマスがいずれかの領域に含まれているかどうか
-	 * @param r
-	 * @param c
-	 * @return 含まれていれば true
-	 */
-	public boolean isCovered(int r, int c) {
-		return area[r][c] != null;
-	}
-	/**
 	 * 引数に与えられたマスの所属領域を取得する
 	 * @param r
 	 * @param c
@@ -141,7 +132,7 @@ public class Board extends BoardBase {
 	 */
 	public void addArea(Area newArea) {
 		for (Address pos : newArea) {
-			setArea(pos.r(), pos.c(), newArea);
+			setArea(pos, newArea);
 		}
 		areaList.add(newArea);
 	}
@@ -152,8 +143,8 @@ public class Board extends BoardBase {
 	 */
 	public void removeArea(Area oldArea) {
 		for (Address pos : oldArea) {
-			if (getArea(pos.r(), pos.c()) == oldArea)
-				setArea(pos.r(), pos.c(), null);
+			if (getArea(pos) == oldArea)
+				setArea(pos, null);
 		}
 		areaList.remove(oldArea);
 	}
