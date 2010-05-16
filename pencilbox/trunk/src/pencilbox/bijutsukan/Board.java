@@ -38,7 +38,7 @@ public class Board extends BoardBase {
 	
 	public void clearBoard() {
 		super.clearBoard();
-		for (Address p : cellAddrs) {
+		for (Address p : cellAddrs()) {
 			if (isFloor(p)) {
 				setState(p, UNKNOWN);
 			}
@@ -47,7 +47,7 @@ public class Board extends BoardBase {
 	}
 
 	public void trimAnswer() {
-		for (Address p : cellAddrs) {
+		for (Address p : cellAddrs()) {
 			if (getState(p) == NOBULB)
 				setState(p, UNKNOWN);
 		}
@@ -62,7 +62,7 @@ public class Board extends BoardBase {
 	void initIlluminations() {
 		ArrayUtil.initArrayInt2(illuminatedV, 0);
 		ArrayUtil.initArrayInt2(illuminatedH, 0);
-		for (Address p : cellAddrs) {
+		for (Address p : cellAddrs()) {
 			if (getState(p) == Board.BULB) {
 				illuminate(p, true);
 			}
@@ -296,7 +296,7 @@ public class Board extends BoardBase {
 
 	public int checkAnswerCode() {
 		int result = 0;
-		for (Address p : cellAddrs) {
+		for (Address p : cellAddrs()) {
 			if (!isWall(p)) {
 				if (isMultiIlluminated(p)) {
 					result |= 1;
