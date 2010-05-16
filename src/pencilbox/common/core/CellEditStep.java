@@ -35,5 +35,9 @@ public class CellEditStep extends AbstractStep {
 	protected void setAfter(int a) {
 		this.after = a;
 	}
+
+	public String toString() {
+		return pos.toString() + getBefore() + "->" + getAfter() + " " + getType();
+	}
 	
 }
