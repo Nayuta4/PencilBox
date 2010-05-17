@@ -230,15 +230,6 @@ public class Board extends BoardBase {
 		return getState(pos.d(), pos.r(), pos.c());
 	}
 	/**
-	 * 辺状態の取得。マスと向きで座標指定する。
-	 * @param pos
-	 * @param d
-	 * @return
-	 */
-	public int getStateJ(Address pos, int d) {
-		return getState(SideAddress.get(pos, d));
-	}
-	/**
 	 * 辺状態の設定
 	 * @param d
 	 * @param r
@@ -252,16 +243,6 @@ public class Board extends BoardBase {
 
 	public void setState(SideAddress pos, int st) {
 		setState(pos.d(), pos.r(), pos.c(), st);
-	}
-
-	/**
-	 * 辺状態の設定。マスと向きで座標指定する。
-	 * @param pos
-	 * @param d
-	 * @param st
-	 */
-	public void setStateJ(Address pos, int d, int st) {
-		setState(SideAddress.get(pos, d), st);
 	}
 
 	public boolean isLine(int d, int r, int c) {

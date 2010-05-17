@@ -42,14 +42,6 @@ public class BoardCopier extends BoardCopierBase {
 		Board board = (Board) dstBoardBase;
 		for (Address s : region) {
 			Address d = translateAndRotateAddress(s, from, to, rotation);
-			for (int n : Direction.DN_RT) {
-				if (region.contains(s.nextCell(n))) {
-					int joint = srcBoard.getStateJ(s, n);
-					int dir = Rotator2.rotateDirection(n, rotation);
-					if (board.isSideOn(d, dir))
-						board.setStateJ(d, dir, joint);
-				}
-			}
 			if (board.isOn(d)) {
 				int number = srcBoard.getNumber(s);
 				if (number >= 0 || number == Board.BLACK) {
@@ -72,12 +64,11 @@ public class BoardCopier extends BoardCopierBase {
 	public void eraseRegion(BoardBase srcBoardBase, Area region) {
 		Board board = (Board) srcBoardBase;
 		for (Address s : region) {
-			for (int n : Direction.DN_RT) {
-				if (region.contains(Address.nextCell(s, n))) {
-					board.setStateJ(s, n, Board.UNKNOWN);
-				}
-			}
 			board.setNumber(s, Board.BLANK);
+		}
+		ArrayList<SideAddress> list = region.innerBorders();
+		for (SideAddress s : list) {
+			board.setState(s, Board.UNKNOWN);
 		}
 	}
 }
