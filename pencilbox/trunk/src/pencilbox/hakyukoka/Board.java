@@ -44,11 +44,9 @@ public class Board extends BoardBase {
 	}
 
 	public void clearBoard() {
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				if (!isStable(r,c))
-					number[r][c] = 0;
-			}
+		for (Address p : cellAddrs()) {
+			if (!isStable(p))
+				setNumber(p, 0);
 		}
 		initBoard();
 	}
@@ -148,39 +146,35 @@ public class Board extends BoardBase {
 	 * その数字の距離以内に同じ数字があるか，
 	 * 領域内に同じ数字があるか，
 	 * 領域のマス数よりも大きい数字であれば，trueを返す
-	 * @param r マスの行座標
-	 * @param c マスの列座標
+	 * @param p マスの座標
 	 * @return そのマスの数字が誤りであれば true を返す
 	 */
-	public boolean isError(int r, int c) {
-		return isTooClose(r,c) || isMultipleNumber(r,c) || isTooLarge(r,c);
+	public boolean isError(Address p) {
+		return isTooClose(p) || isMultipleNumber(p) || isTooLarge(p);
 	}
 	/**
 	 * そのマスから，マスの数字距離以内に同じ数字があるかどうかを調べる
-	 * @param r マスの行座標
-	 * @param c マスの列座標
+	 * @param p マスの座標
 	 * @return マスの数字距離以内に同じ数字がある場合 true を返す
 	 */
-	public boolean isTooClose(int r, int c) {
-		return multi[r][c] > 1;
+	public boolean isTooClose(Address p) {
+		return multi[p.r()][p.c()] > 1;
 	}
 	/**
 	 * そのマスと同じ領域内に同じ数字があるかどうかを調べる
-	 * @param r マスの行座標
-	 * @param c マスの列座標
+	 * @param p マスの座標
 	 * @return 領域内に同じ数字がある場合 true を返す
 	 */
-	public boolean isMultipleNumber(int r, int c) {
-		return multi2[r][c] > 1;
+	public boolean isMultipleNumber(Address p) {
+		return multi2[p.r()][p.c()] > 1;
 	}
 	/**
 	 * そのマスの数字が，領域面積を超えていないかどうかを調べる
-	 * @param r マスの行座標
-	 * @param c マスの列座標
+	 * @param p マスの座標
 	 * @return 領域面積を超えた数字の場合 true を返す
 	 */
-	public boolean isTooLarge(int r, int c) {
-		return getArea(r,c)!=null && getNumber(r,c) > getArea(r,c).size() ;
+	public boolean isTooLarge(Address p) {
+		return getArea(p)!=null && getNumber(p) > getArea(p).size() ;
 	}
 	/**
 	 * 引数の座標の可能数字のビットパターンを取得
@@ -204,17 +198,17 @@ public class Board extends BoardBase {
 	
 	/**
 	 * マスに数字を入力し，アドゥリスナーに通知する
-	 * @param pos マス座標
+	 * @param p マス座標
 	 * @param n 入力する数字
 	 */
-	public void changeNumber(Address pos, int n) {
+	public void changeNumber(Address p, int n) {
 		if (n < 0) 
 			return;
-		if (n == getNumber(pos)) 
+		if (n == getNumber(p)) 
 			return;
 		fireUndoableEditUpdate(
-			new CellNumberEditStep(pos, getNumber(pos), n));
-		changeNumber1(pos, n);
+			new CellNumberEditStep(p, getNumber(p), n));
+		changeNumber1(p, n);
 	}
 
 	private void changeNumber1(Address p, int n) {
@@ -465,17 +459,15 @@ public class Board extends BoardBase {
 	
 	public int checkAnswerCode() {
 		int result = 0;
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				if (getNumber(r,c) > 0 && isMultipleNumber(r,c))
-					result |= 2;
-				if (isTooLarge(r,c))
-					result |= 4;
-				if (isTooClose(r,c))
-					result |= 8;
-				if (getNumber(r,c) == 0)
-					result |= 1;
-			}
+		for (Address p : cellAddrs()) {
+			if (getNumber(p) > 0 && isMultipleNumber(p))
+				result |= 2;
+			if (isTooLarge(p))
+				result |= 4;
+			if (isTooClose(p))
+				result |= 8;
+			if (getNumber(p) == 0)
+				result |= 1;
 		}
 		return result;
 	}
