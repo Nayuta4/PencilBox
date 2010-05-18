@@ -26,27 +26,27 @@ public class BoardCopier extends BoardCopierBase {
 	public void copyRegion(BoardBase srcBoardBase, BoardBase dstBoardBase, Area region, Address from, Address to, int rotation) {
 		Board srcBoard = (Board) srcBoardBase;
 		Board board = (Board) dstBoardBase;
-		for (Address s : region) {
-			Address d = translateAndRotateAddress(s, from, to, rotation);
-			if (board.isOn(d))
-				board.setNumber(d, srcBoard.getNumber(s));
-		}
 		ArrayList<SideAddress> list = region.innerBorders();
 		for (SideAddress s : list) {
 			SideAddress d = Rotator2.translateAndRotateSideAddress(s, from, to, rotation);
 			if (board.isSideOn(d))
 				board.setState(d, srcBoard.getState(s));
 		}
+		for (Address s : region) {
+			Address d = translateAndRotateAddress(s, from, to, rotation);
+			if (board.isOn(d))
+				board.setNumber(d, srcBoard.getNumber(s));
+		}
 	}
 
 	public void eraseRegion(BoardBase srcBoardBase, Area region) {
 		Board board = (Board) srcBoardBase;
-		for (Address s : region) {
-			board.setNumber(s, Board.NO_PEARL);
-		}
 		ArrayList<SideAddress> list = region.innerBorders();
 		for (SideAddress s : list) {
 			board.setState(s, Board.UNKNOWN);
+		}
+		for (Address s : region) {
+			board.setNumber(s, Board.NO_PEARL);
 		}
 	}
 }
