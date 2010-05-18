@@ -59,6 +59,9 @@ public class Board extends BoardBase {
 	public boolean isBlack(int r, int c) {
 		return isOn(r,c) && number[r][c] == BLACK;
 	}
+	public boolean isBlack(Address p) {
+		return isOn(p) && getNumber(p) == BLACK;
+	}
 	/**
 	 * 指定したマスに数字マス，黒マス，白マス，空白マスの状態を設定する
 	 * @param r 行座標
@@ -393,18 +396,16 @@ public class Board extends BoardBase {
 	
 	/**
 	 * そのマスの上下左右の隣接４マスに黒マスがあるかどうかを調べる
-	 * @param r
-	 * @param c
+	 * @param p0
 	 * @return 上下左右に黒マスがひとつでもあれば true
 	 */
-	boolean isBlock(int r, int c) {
-		if (isBlack(r-1, c) || isBlack(r+1, c) || isBlack(r, c-1) || isBlack(r, c+1))
-			return true;
+	boolean isBlock(Address p0) {
+		for (int d=0; d<4; d++) {
+			Address p1 = p0.nextCell(d);
+			if (isBlack(p1))
+				return true;
+		}
 		return false;
-	}
-
-	boolean isBlock(Address pos) {
-		return isBlock(pos.r(), pos.c());
 	}
 
 	/**
@@ -549,19 +550,17 @@ public class Board extends BoardBase {
 
 	private int checkLinks() {
 		int result = 0;
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				int l = countLine(r,c);
-				if (l > 2) {
-					result |= 1;
-				} else if ( l == 1 ) {
-					result |= 2; 
-				}
-				if (isBlack(r,c) && (l > 0))
-					result |= 64;
-				if (!isNumber(r,c) && !isBlack(r,c) && (l == 0))
-					result |= 8;
+		for (Address p : cellAddrs()) {
+			int l = countLine(p);
+			if (l > 2) {
+				result |= 1;
+			} else if ( l == 1 ) {
+				result |= 2; 
 			}
+			if (isBlack(p) && (l > 0))
+				result |= 64;
+			if (!isNumber(p) && !isBlack(p) && (l == 0))
+				result |= 8;
 		}
 		if (hasMultipleLinks())
 			result |= 4;
@@ -570,15 +569,13 @@ public class Board extends BoardBase {
 	
 	private int checkArrows() {
 		int result = 0;
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				if (getNumber(r, c) >= 0) {
-					result |= checkArrow(r,c);
-				}
-				if (isBlack(r, c)) {
-					if (isBlock(r, c)) {
-						result |= 32;
-					}
+		for (Address p : cellAddrs()) {
+			if (getNumber(p) >= 0) {
+				result |= checkArrow(p);
+			}
+			if (isBlack(p)) {
+				if (isBlock(p)) {
+					result |= 32;
 				}
 			}
 		}
@@ -586,16 +583,19 @@ public class Board extends BoardBase {
 	}
 	
 	int checkArrow(int r, int c) {
+		return checkArrow(Address.address(r, c));
+	}
+
+	int checkArrow(Address p0) {
 		int result = 0;
 		int blackCount = 0;
-		int dir = getArrowDirection(r,c);
-		int number = getArrowNumber(r,c);
-		Address pos = Address.address(r, c);
-		pos = pos.nextCell(dir);
-		while (isOn(pos)) {
-			if (isBlack(pos.r(),pos.c()))
+		int dir = getArrowDirection(p0);
+		int number = getArrowNumber(p0);
+		Address p = p0.nextCell(dir);
+		while (isOn(p)) {
+			if (isBlack(p))
 				blackCount++;
-			pos = pos.nextCell(dir);
+			p = p.nextCell(dir);
 		}
 		if (number == blackCount)
 			result = 0;
