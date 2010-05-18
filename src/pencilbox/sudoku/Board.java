@@ -46,11 +46,9 @@ public class Board extends BoardBase {
 	
 	public void clearBoard() {
 		super.clearBoard();
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				if (!isStable(r,c)) {
-					number[r][c] = 0;
-				}
+		for (Address p : cellAddrs()) {
+			if (!isStable(p)) {
+				setNumber(p, 0);
 			}
 		}
 		initMulti();
@@ -175,17 +173,36 @@ public class Board extends BoardBase {
 	}
 	/**
 	 * マスに数字を入力し，アドゥリスナーに通知する
-	 * @param pos マス座標
+	 * @param p マス座標
 	 * @param n 入力する数字
 	 */
-	public void changeNumber(Address pos, int n) {
+	public void changeNumber(Address p, int n) {
 		if (n < 0 || n > maxNumber) return;
-		if (n == getNumber(pos)) return;
+		if (n == getNumber(p)) return;
 		if (isRecordUndo())
-			fireUndoableEditUpdate(new CellNumberEditStep(pos, getNumber(pos), n));
-		changeNumber1(pos, n);
+			fireUndoableEditUpdate(new CellNumberEditStep(p, getNumber(p), n));
+		changeNumber1(p, n);
 	}
 
+	public void changeFixedNumber(Address p, int n) {
+		if (n == Board.UNKNOWN)
+			setState(p, Board.UNSTABLE);
+		else
+			setState(p, Board.STABLE);
+		if (n == Board.UNDETERMINED)
+			n = 0;
+		changeNumber1(p, n);
+	}
+
+	private void changeNumber1(Address p, int n) {
+		int r=p.r(), c=p.c();
+		if (getNumber(r,c) == n)
+			return;
+		updateMulti(r, c, n);
+		hint.updateHint(r, c, n);
+		setNumber(r, c, n);
+	}
+	
 	public void undo(AbstractStep step) {
 		CellNumberEditStep s = (CellNumberEditStep) step;
 		if (isStable(s.getPos()))
@@ -198,31 +215,6 @@ public class Board extends BoardBase {
 		if (isStable(s.getPos()))
 			return;
 		changeNumber(s.getPos(), s.getAfter());
-	}
-
-	/**
-	 * Set number to  a cell.
-	 * @param r Row coordinate of the cell.
-	 * @param c Colmun coordinate of the cell.
-	 * @param n The number to set.
-	 */
-	private void changeNumber1(Address p, int n) {
-		int r=p.r(), c=p.c();
-		if (getNumber(r,c) == n)
-			return;
-		updateMulti(r, c, n);
-		hint.updateHint(r, c, n);
-		setNumber(r, c, n);
-	}
-	
-	public void changeFixedNumber(Address p, int n) {
-		if (n == Board.UNKNOWN)
-			setState(p, Board.UNSTABLE);
-		else
-			setState(p, Board.STABLE);
-		if (n == Board.UNDETERMINED)
-			n = 0;
-		changeNumber1(p, n);
 	}
 
 	/**
@@ -357,13 +349,11 @@ public class Board extends BoardBase {
 	
 	public int checkAnswerCode() {
 		int result = 0;
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				if (isMultipleNumber(r,c))
-					result |= 1;;
-				if (getNumber(r, c) == 0)
-					result |= 2;
-			}
+		for (Address p : cellAddrs()) {
+			if (isMultipleNumber(p.r(), p.c()))
+				result |= 1;;
+			if (getNumber(p) == 0)
+				result |= 2;
 		}
 		return result;
 	}
