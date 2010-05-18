@@ -3,6 +3,7 @@ package pencilbox.hakyukoka;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
 import pencilbox.common.gui.HintDot;
@@ -229,7 +230,7 @@ public class Panel extends PanelBase {
 					} else {
 						g.setColor(getInputColor());
 						if (isIndicateErrorMode()) {
-							if (board.isError(r,c))
+							if (board.isError(Address.address(r, c)))
 								g.setColor(getErrorColor());
 						}
 					}
