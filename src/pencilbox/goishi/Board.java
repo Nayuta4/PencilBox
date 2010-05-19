@@ -28,10 +28,8 @@ public class Board extends BoardBase {
 
 	public void clearBoard() {
 		super.clearBoard();
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				setNumber(r, c, 0);
-			}
+		for (Address p : cellAddrs()) {
+			setNumber(p, 0);
 		}
 		pickedList.clear();
 //		initBoard();
@@ -171,11 +169,9 @@ public class Board extends BoardBase {
 	 */
 	public void rePickUpAll() {
 		ArrayList<Address> copy = (ArrayList<Address>)(pickedList.clone());
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				if (getState(r, c) == Board.STONE)
-					setNumber(r, c, 0);
-			}
+		for (Address p : cellAddrs()) {
+			if (getState(p) == Board.STONE)
+				setNumber(p, 0);
 		}
 		pickedList.clear();
 		for (int i = 0; i < copy.size(); i++) {
@@ -189,13 +185,11 @@ public class Board extends BoardBase {
 
 	public int checkAnswerCode() {
 		int nStone = 0;
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				if (getState(r, c) == Board.STONE) {
-					nStone ++;
-					if (getNumber(r, c) == 0)
-						return 1;
-				}
+		for (Address p : cellAddrs()) {
+			if (getState(p) == Board.STONE) {
+				nStone ++;
+				if (getNumber(p) == 0)
+					return 1;
 			}
 		}
 		if (nStone == 0)
