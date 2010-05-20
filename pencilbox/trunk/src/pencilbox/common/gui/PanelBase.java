@@ -505,6 +505,10 @@ public class PanelBase extends JPanel implements Printable {
 	public void placeNumber(Graphics2D g, int r, int c, int number) {
 		placeString(g, r, c, Integer.toString(number));
 	}
+	public void placeNumber(Graphics2D g, Address p, int number) {
+		placeString(g, p.r(), p.c(), Integer.toString(number));
+	}
+
 	/**
 	 * マスに数字を配置する
 	 * @param g
@@ -524,6 +528,9 @@ public class PanelBase extends JPanel implements Printable {
 	public void paintCell(Graphics2D g, int r, int c) {
 		g.fillRect(toX(c), toY(r), getCellSize(), getCellSize());
 	}
+	public void paintCell(Graphics2D g, Address p) {
+		paintCell(g, p.r(), p.c());
+	}
 
 	/**
 	 * マスに○印を配置する
@@ -534,6 +541,9 @@ public class PanelBase extends JPanel implements Printable {
 	 */
 	public void placeCircle(Graphics2D g, int r, int c) {
 		placeCircle(g, r, c, getCircleSize());
+	}
+	public void placeCircle(Graphics2D g, Address p) {
+		placeCircle(g, p.r(), p.c(), getCircleSize());
 	}
 	/**
 	 * マスに○印を配置する
@@ -557,6 +567,9 @@ public class PanelBase extends JPanel implements Printable {
 	public void placeBoldCircle(Graphics2D g, int r, int c) {
 		placeBoldCircle(g, r, c, getCircleSize());
 	}
+	public void placeBoldCircle(Graphics2D g, Address p) {
+		placeBoldCircle(g, p.r(), p.c(), getCircleSize());
+	}
 	/**
 	 * マスに線幅2の○印を配置する
 	 * 大きさを引数で指定する
@@ -579,6 +592,9 @@ public class PanelBase extends JPanel implements Printable {
 	 */
 	public void placeFilledCircle(Graphics2D g, int r, int c) {
 		placeFilledCircle(g, r, c, getCircleSize());
+	}
+	public void placeFilledCircle(Graphics2D g, Address p) {
+		placeFilledCircle(g, p.r(), p.c(), getCircleSize());
 	}
 	/**
 	 * マスに塗りつぶした●印を配置する
@@ -684,6 +700,9 @@ public class PanelBase extends JPanel implements Printable {
 		else if (dir == Direction.VERT)
 			drawLineSegment(g, toX(c) + getHalfCellSize(), toY(r), dir, 1);
 	}
+	public void placeCenterLine(Graphics2D g, Address p, int dir) {
+		placeCenterLine(g, p.r(), p.c(), dir);
+	}
 	/**
 	 * 四角を配置する 
 	 * @param g 
@@ -748,6 +767,9 @@ public class PanelBase extends JPanel implements Printable {
 			paintCell(g, r, c);
 			break;
 		}
+	}
+	public void placeMark(Graphics2D g, Address p) {
+		placeMark(g, p.r(), p.c());
 	}
 
 	/* 

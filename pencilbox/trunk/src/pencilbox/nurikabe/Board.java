@@ -40,21 +40,17 @@ public class Board extends BoardBase {
 
 	public void clearBoard() {
 		super.clearBoard();
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				if (!isNumber(r,c))
-					state[r][c] = UNKNOWN;
-				}
+		for (Address p : cellAddrs()) {
+			if (!isNumber(p))
+				setState(p, UNKNOWN);
 		}
 		initBoard();
 	}
 
 	public void trimAnswer() {
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				if (state[r][c] == SPACE)
-					state[r][c] = UNKNOWN;
-				}
+		for (Address p : cellAddrs()) {
+			if (getState(p) == SPACE)
+				setState(p, UNKNOWN);
 		}
 		initBoard();
 	}
@@ -98,13 +94,14 @@ public class Board extends BoardBase {
 		return isNumber(pos.r(), pos.c());
 	}
 	
-	public boolean isWall(int r, int c) {
-		return isOn(r,c) && (state[r][c] == WALL);
+	public boolean isWall(Address p) {
+		return isOn(p) && (state[p.r()][p.c()] == WALL);
 	}
 	public boolean isUnknown(int r, int c) {
 		return (state[r][c] == UNKNOWN);
 	}
-	public int getSpaceOrWall(int r, int c) {
+	public int getSpaceOrWall(Address p) {
+		int r=p.r(), c=p.c();
 		if (state[r][c] > 0)
 			return SPACE;
 		else if (state[r][c] == UNDECIDED_NUMBER)
@@ -112,8 +109,8 @@ public class Board extends BoardBase {
 		else
 			return state[r][c];
 	}
-	public boolean isSpaceOrNumber(int r, int c) {
-		return isOn(r,c) && (state[r][c] > 0 || state[r][c] == SPACE || state[r][c] == UNDECIDED_NUMBER);
+	public boolean isSpaceOrNumber(Address p) {
+		return isOn(p) && (state[p.r()][p.c()] > 0 || state[p.r()][p.c()] == SPACE || state[p.r()][p.c()] == UNDECIDED_NUMBER);
 	}
 
 	public void initBoard() {
@@ -126,39 +123,35 @@ public class Board extends BoardBase {
 		ArrayUtil.initArrayObject2(area, null);
 		wallAreaList.clear();
 		spaceAreaList.clear();
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				if (getState(r, c) != UNKNOWN && area[r][c] == null) {
-					initArea(r,c);
-				}
+		for (Address p : cellAddrs()) {
+			if (getState(p) != UNKNOWN && getArea(p) == null) {
+				initArea(p);
 			}
 		}
 	}
 	/**
 	 * 指定したマスを起点としてマスのつながりを調べてAreaを作成する
-	 * @param r
-	 * @param c
+	 * @param p
 	 */
-	void initArea(int r, int c) {
-		initializingArea = makeNewArea(r, c);
-		initArea1(r, c);
+	void initArea(Address p) {
+		initializingArea = makeNewArea(p);
+		initArea1(p);
 	}
 
-	private void initArea1(int r, int c) {
-		if (!isOn(r, c))
+	private void initArea1(Address p) {
+		if (!isOn(p))
 			return;
-		if (getArea(r, c) == initializingArea)
+		if (getArea(p) == initializingArea)
 			return;
-		if (getSpaceOrWall(r, c) != initializingArea.getAreaType())
+		if (getSpaceOrWall(p) != initializingArea.getAreaType())
 			return;
-		initializingArea.add(r, c);
-		if (isNumber(r, c))
-			initializingArea.addNumber(getState(r, c));
-		setArea(r, c, initializingArea);
-		initArea1(r - 1, c);
-		initArea1(r, c - 1);
-		initArea1(r + 1, c);
-		initArea1(r, c + 1);
+		initializingArea.add(p);
+		if (isNumber(p))
+			initializingArea.addNumber(getState(p));
+		setArea(p, initializingArea);
+		for (int d=0; d<4; d++) {
+			initArea1(p.nextCell(d));
+		}
 	}
 	/**
 	 * そのマスの所属する領域を取得する
@@ -167,11 +160,11 @@ public class Board extends BoardBase {
 	 * @param c Colmun coordinate of the cell.
 	 * @return Returns the area.
 	 */
-	public Area getArea(int r, int c) {
+	public Area getArea(Address p) {
 		// mergeArea などから使用する場合のために，引数チェックを行う
-		if (!isOn(r, c))
+		if (!isOn(p))
 			return null;
-		return area[r][c];
+		return area[p.r()][p.c()];
 	}
 	/**
 	 * 盤上のマスに，そのマスの所属する領域を設定する
@@ -179,8 +172,8 @@ public class Board extends BoardBase {
 	 * @param c Colmun coordinate of the cell.
 	 * @param a The area to set.
 	 */
-	public void setArea(int r, int c, Area a) {
-		area[r][c] = a;
+	public void setArea(Address p, Area a) {
+		area[p.r()][p.c()] = a;
 	}
 
 	/**
@@ -191,19 +184,18 @@ public class Board extends BoardBase {
 	public void changeState(Address p, int st) {
 		if (isRecordUndo())
 			fireUndoableEditUpdate(new CellEditStep(p, getState(p), st));
-		int r=p.r(), c=p.c();
-		int prevSt = getSpaceOrWall(r, c);
-		setState(r, c, st);
+		int prevSt = getSpaceOrWall(p);
+		setState(p, st);
 		int type;
 		if (st > 0)
 			type = SPACE;
 		else
 			type = st;
 		if (prevSt != UNKNOWN) {
-			splitArea(r, c, prevSt);
+			splitArea(p, prevSt);
 		}
 		if (st != UNKNOWN) {
-			mergeArea(r, c, type);
+			mergeArea(p, type);
 		}
 	}
 
@@ -223,19 +215,19 @@ public class Board extends BoardBase {
 	 * @param c 変更したマスの列座標
 	 * @param type 変更後の領域の種類
 	 */
-	void mergeArea(int r, int c, int type) {
+	void mergeArea(Address p, int type) {
 		Area mergedArea = null;
-		mergedArea = mergeArea1(getArea(r-1, c), mergedArea, type);
-		mergedArea = mergeArea1(getArea(r, c-1), mergedArea, type);
-		mergedArea = mergeArea1(getArea(r+1, c), mergedArea, type);
-		mergedArea = mergeArea1(getArea(r, c+1), mergedArea, type);
-		if (mergedArea == null) {
-			mergedArea = makeNewArea(r,c);
+		for (int d=0; d<4; d++) {
+			Address p1 = p.nextCell(d);
+			mergedArea = mergeArea1(getArea(p1), mergedArea, type);
 		}
-		mergedArea.add(r,c);
-		if (isNumber(r,c))
-			mergedArea.addNumber(getState(r,c));
-		setArea(r, c, mergedArea);
+		if (mergedArea == null) {
+			mergedArea = makeNewArea(p);
+		}
+		mergedArea.add(p);
+		if (isNumber(p))
+			mergedArea.addNumber(getState(p));
+		setArea(p, mergedArea);
 	}
 
 	private Area mergeArea1(Area a, Area mergedArea, int type) {
@@ -245,9 +237,9 @@ public class Board extends BoardBase {
 			} else if (mergedArea != a) {
 				mergedArea.addAll(a);
 				for (Address pos : a) {
-					setArea(pos.r(), pos.c(), mergedArea);
-					if (isNumber(pos.r(),pos.c()))
-						mergedArea.addNumber(getState(pos.r(),pos.c()));
+					setArea(pos, mergedArea);
+					if (isNumber(pos))
+						mergedArea.addNumber(getState(pos));
 				}
 				removeAreaFromList(a);
 			}
@@ -260,32 +252,20 @@ public class Board extends BoardBase {
 	 * @param c 変更したマスの列座標
 	 * @param type 変更後の領域の種類
 	 */
-	void splitArea(int r, int c, int type) {
-		Area oldArea = getArea(r, c);
+	void splitArea(Address p, int type) {
+		Area oldArea = getArea(p);
 		Area largerArea = null;
 		removeAreaFromList(oldArea);
-		for (Address pos : oldArea) {
-			setArea(pos.r(), pos.c(), null);
+		for (Address p1 : oldArea) {
+			setArea(p1, null);
 		}
-		if (isOn(r-1,c) && getSpaceOrWall(r-1,c)==type && getArea(r-1,c) == null) {
-			initArea(r-1,c);
-			if (largerArea == null || initializingArea.size() > largerArea.size())
-				largerArea = initializingArea;
-		}
-		if (isOn(r,c-1) && getSpaceOrWall(r,c-1)==type && getArea(r,c-1) == null) {
-			initArea(r,c-1);
-			if (largerArea == null || initializingArea.size() > largerArea.size())
-				largerArea = initializingArea;
-		}
-		if (isOn(r+1,c) && getSpaceOrWall(r+1,c)==type && getArea(r+1,c) == null) {
-			initArea(r+1,c);
-			if (largerArea == null || initializingArea.size() > largerArea.size())
-				largerArea = initializingArea;
-		}
-		if (isOn(r,c+1) && getSpaceOrWall(r,c+1)==type && getArea(r,c+1) == null) {
-			initArea(r,c+1);
-			if (largerArea == null || initializingArea.size() > largerArea.size())
-				largerArea = initializingArea;
+		for (int d=0; d<4; d++) {
+			Address p1 = p.nextCell(d);
+			if (isOn(p1) && getSpaceOrWall(p1)==type && getArea(p1) == null) {
+				initArea(p1);
+				if (largerArea == null || initializingArea.size() > largerArea.size())
+					largerArea = initializingArea;
+			}
 		}
 		if (largerArea != null) {
 			largerArea.setId(oldArea.getId());
@@ -297,12 +277,12 @@ public class Board extends BoardBase {
 	 * @param c マスの列座標
 	 * @return 作成した領域
 	 */
-	private Area makeNewArea(int r, int c) {
-		if (isWall(r,c)) {
+	private Area makeNewArea(Address p) {
+		if (isWall(p)) {
 			Area a = new Area(WALL);
 			wallAreaList.add(a);
 			return a;
-		} else if (isSpaceOrNumber(r,c)) {
+		} else if (isSpaceOrNumber(p)) {
 			Area a = new Area(SPACE);
 			spaceAreaList.add(a);
 			return a;
@@ -326,29 +306,17 @@ public class Board extends BoardBase {
 	 * @param c
 	 * @return 2x2ブロックならば true
 	 */
-	boolean is2x2Block(int r, int c) {
-		if (isWall(r,c)) {
-			if (isWall(r-1,c)) {
-				if (isWall(r,c-1)) {
-					if (isWall(r-1,c-1)) {
-						return true;
-					}
-				}
-				if (isWall(r,c+1)) {
-					if (isWall(r-1,c+1)) {
-						return true;
-					}
-				}
-			}
-			if (isWall(r+1,c)) {
-				if (isWall(r,c-1)) {
-					if (isWall(r+1,c-1)) {
-						return true;
-					}
-				}
-				if (isWall(r,c+1)) {
-					if (isWall(r+1,c+1)) {
-						return true;
+	boolean is2x2Block(Address p) {
+		if (isWall(p)) {
+			for (int d = 0; d < 4; d++) {
+				Address p1 = Address.nextCell(p, d);
+				if (isWall(p1)) {
+					Address p2 = Address.nextCell(p1, (d+1)%4);
+					if (isWall(p2)) {
+						Address p3 = Address.nextCell(p2, (d+2)%4);
+						if (isWall(p3)) {
+							return true;
+						}
 					}
 				}
 			}
@@ -358,14 +326,9 @@ public class Board extends BoardBase {
 
 	public int checkAnswerCode() {
 		int result = 0;
-		for (int r=rows()-1; r>=0; r--) {
-			for (int c=cols()-1; c>=0; c--) {
-//				if (isUnknown(r,c)) {
-//					result |= 1;
-//				}
-				if (is2x2Block(r,c)) {
-					result |= 64;
-				}
+		for (Address p : cellAddrs()) {
+			if (is2x2Block(p)) {
+				result |= 64;
 			}
 		}
 		if (wallAreaList.size() > 1) {
@@ -393,13 +356,11 @@ public class Board extends BoardBase {
 	private int checkWhiteAreas() {
 		ArrayUtil.initArrayObject2(whiteArea, null);
 		int ret = 0;
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				if (getState(r, c) != WALL && whiteArea[r][c] == null) {
-					initializingArea = new Area(SPACE);
-					initWhiteArea1(r, c);
-					ret |= checkSpaceArea(initializingArea);
-				}
+		for (Address p : cellAddrs()) {
+			if (getState(p) != WALL && whiteArea[p.r()][p.c()] == null) {
+				initializingArea = new Area(SPACE);
+				initWhiteArea1(p);
+				ret |= checkSpaceArea(initializingArea);
 			}
 		}
 		return ret;
@@ -424,21 +385,20 @@ public class Board extends BoardBase {
 		return ret;
 	}
 
-	private void initWhiteArea1(int r, int c) {
-		if (!isOn(r, c))
+	private void initWhiteArea1(Address p) {
+		if (!isOn(p))
 			return;
-		if (whiteArea[r][c] == initializingArea)
+		if (whiteArea[p.r()][p.c()] == initializingArea)
 			return;
-		if (getState(r, c) == WALL)
+		if (getState(p) == WALL)
 			return;
-		initializingArea.add(r, c);
-		if (isNumber(r, c))
-			initializingArea.addNumber(getState(r, c));
-		whiteArea[r][c] = initializingArea;
-		initWhiteArea1(r - 1, c);
-		initWhiteArea1(r, c - 1);
-		initWhiteArea1(r + 1, c);
-		initWhiteArea1(r, c + 1);
+		initializingArea.add(p);
+		if (isNumber(p))
+			initializingArea.addNumber(getState(p));
+		whiteArea[p.r()][p.c()] = initializingArea;
+		for (int d=0; d<4; d++) {
+			initWhiteArea1(p.nextCell(d));
+		}
 	}
 
 	public String checkAnswerString() {

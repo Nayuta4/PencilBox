@@ -143,58 +143,55 @@ public class Panel extends PanelBase {
 
 	private void drawCells(Graphics2D g) {
 		g.setFont(getNumberFont());
-		for (int r = 0; r < board.rows(); r++) {
-			for (int c = 0; c < board.cols(); c++) {
-				Address p = Address.address(r, c);
-				int state = board.getState(p);
-				int l = board.getHorizIlluminated(p);
-				int m = board.getVertIlluminated(p);
-				if (isPaintIlluminatedCellMode()) {
-					if (l>0 || m>0) {
-						g.setColor(illuminatedCellColor);
-						paintCell(g,r,c);
+		for (Address p : board.cellAddrs()) {
+			int state = board.getState(p);
+			int l = board.getHorizIlluminated(p);
+			int m = board.getVertIlluminated(p);
+			if (isPaintIlluminatedCellMode()) {
+				if (l>0 || m>0) {
+					g.setColor(illuminatedCellColor);
+					paintCell(g,p);
+				}
+			}
+			if (state >= 0 && state <= 4) {
+				g.setColor(getWallColor());
+				paintCell(g, p);
+				g.setColor(getNumberColor());
+				if (isIndicateErrorMode()) {
+					if (board.checkAdjacentBulbs(p) <= 0) {
+						g.setColor(getErrorColor());
 					}
 				}
-				if (state >= 0 && state <= 4) {
-					g.setColor(getWallColor());
-					paintCell(g, r, c);
-					g.setColor(getNumberColor());
-					if (isIndicateErrorMode()) {
-						if (board.checkAdjacentBulbs(p) <= 0) {
-							g.setColor(getErrorColor());
-						}
+				placeNumber(g, p, state);
+			} else if (state == Board.NONUMBER_WALL) {
+				g.setColor(getWallColor());
+				paintCell(g, p);
+			} else if (state == Board.BULB) {
+				g.setColor(getBulbColor());
+				if (isIndicateErrorMode()) {
+					if (board.isMultiIlluminated(p)) {
+						g.setColor(getErrorColor());
 					}
-					placeNumber(g, r, c, state);
-				} else if (state == Board.NONUMBER_WALL) {
-					g.setColor(getWallColor());
-					paintCell(g, r, c);
-				} else if (state == Board.BULB) {
-					g.setColor(getBulbColor());
-					if (isIndicateErrorMode()) {
-						if (board.isMultiIlluminated(p)) {
-							g.setColor(getErrorColor());
-						}
-					}
-					placeFilledCircle(g, r, c);
-				} else if (state == Board.NOBULB) {
-					g.setColor(getNoBulbColor());
-					placeMark(g, r, c);
 				}
-				if (isShowBeamMode()) {
-					g.setColor(getBulbColor());
-					if (l > 0) {
-						if (isIndicateErrorMode() && l > 1) {
-							g.setColor(getErrorColor());
-						}
-						placeCenterLine(g, r, c, Direction.HORIZ);
+				placeFilledCircle(g, p);
+			} else if (state == Board.NOBULB) {
+				g.setColor(getNoBulbColor());
+				placeMark(g, p);
+			}
+			if (isShowBeamMode()) {
+				g.setColor(getBulbColor());
+				if (l > 0) {
+					if (isIndicateErrorMode() && l > 1) {
+						g.setColor(getErrorColor());
 					}
-					g.setColor(getBulbColor());
-					if (m > 0) {
-						if (isIndicateErrorMode() && m > 1) {
-							g.setColor(getErrorColor());
-						}
-						placeCenterLine(g, r, c, Direction.VERT);
+					placeCenterLine(g, p, Direction.HORIZ);
+				}
+				g.setColor(getBulbColor());
+				if (m > 0) {
+					if (isIndicateErrorMode() && m > 1) {
+						g.setColor(getErrorColor());
 					}
+					placeCenterLine(g, p, Direction.VERT);
 				}
 			}
 		}
