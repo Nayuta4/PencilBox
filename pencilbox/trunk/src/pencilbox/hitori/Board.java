@@ -120,14 +120,17 @@ public class Board extends BoardBase {
 	public boolean isBlack(int r, int c) {
 		return isOn(r, c) && state[r][c] == BLACK;
 	}
+	public boolean isBlack(Address p) {
+		return isOn(p) && state[p.r()][p.c()] == BLACK;
+	}
 	/**
 	 * そのマスと縦または横の同じ列に，黒マスで消されていない同じ数字があるか
 	 * @param r 行座標
 	 * @param c 列座標
 	 * @return 黒マスで消されていない同じ数字があれば true, なければ false
 	 */
-	public boolean isRedundantNumber(int r, int c) {
-		return multiH[r][c] > 1 || multiV[r][c] > 1;
+	public boolean isRedundantNumber(Address p) {
+		return multiH[p.r()][p.c()] > 1 || multiV[p.r()][p.c()] > 1;
 	}
 	/**
 	 * そのマスの数字が最初からひとりかどうか，
@@ -136,11 +139,11 @@ public class Board extends BoardBase {
 	 * @param c 列座標
 	 * @return 最初からひとりなら true, そうでなければ false
 	 */
-	public boolean isSingle(int r, int c) {
-		return single[r][c];
+	public boolean isSingle(Address p) {
+		return single[p.r()][p.c()];
 	}
-	int getChain(int r, int c) {
-		return chain[r][c];
+	int getChain(Address p) {
+		return chain[p.r()][p.c()];
 	}
 	
 	/**
@@ -219,16 +222,14 @@ public class Board extends BoardBase {
 	 * @param c
 	 * @return 上下左右に黒マスがひとつでもあれば true
 	 */
-	boolean isBlock(int r, int c) {
-		if (isBlack(r-1, c) || isBlack(r+1, c) || isBlack(r, c-1) || isBlack(r, c+1))
-			return true;
+	boolean isBlock(Address p) {
+		for (int d=0; d<4; d++) {
+			if (isBlack(p.nextCell(d)))
+				return true;
+		}
 		return false;
 	}
 	
-	boolean isBlock(Address pos) {
-		return isBlock(pos.r(), pos.c());
-	}
-
 	/**
 	 * 	chain配列を初期化する
 	 */
@@ -362,7 +363,7 @@ public class Board extends BoardBase {
 	boolean checkDivision() {
 		boolean ret = true;
 		for (Address p : cellAddrs()) {
-			if (getChain(p.r(), p.c()) == -1) {
+			if (getChain(p) == -1) {
 				ret = false;
 			}
 		}
@@ -374,12 +375,10 @@ public class Board extends BoardBase {
 	 */
 	boolean checkContinuousBlack() {
 		boolean ret = true;
-		for (int r = 0; r < rows() - 1; r++) {
-			for (int c = 0; c < cols(); c++) {
-				if (isBlack(r ,c)) {
-					if (isBlock(r, c)) {
-						ret = false;
-					}
+		for (Address p : cellAddrs()) { 
+			if (isBlack(p)) {
+				if (isBlock(p)) {
+					ret = false;
 				}
 			}
 		}
@@ -390,11 +389,9 @@ public class Board extends BoardBase {
 	 * @return 重複数字がなければ true あれば false
 	 */
 	boolean checkMulti() {
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				if (isRedundantNumber(r, c))
-					return false;
-			}
+		for (Address p : cellAddrs()) {
+			if (isRedundantNumber(p))
+				return false;
 		}
 		return true;
 	}

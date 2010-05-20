@@ -3,6 +3,7 @@ package pencilbox.hitori;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.gui.PanelBase;
 
@@ -130,51 +131,49 @@ public class Panel extends PanelBase {
 
 	private void drawCells(Graphics2D g) {
 		g.setFont(getNumberFont());
-		for (int r = 0; r < board.rows(); r++) {
-			for (int c = 0; c < board.cols(); c++) {
-				int state = board.getState(r, c);
-				drawState(g, r, c, state);
-				int number = board.getNumber(r, c);
-				if (number > 0) 
-					drawNumber1(g, r, c, number);
-				else if (number == Board.UNDECIDED_NUMBER) 
-					placeBoldCircle(g, r, c);
-			}
+		for (Address p : board.cellAddrs()) {
+			int state = board.getState(p);
+			drawState(g, p, state);
+			int number = board.getNumber(p);
+			if (number > 0) 
+				drawNumber1(g, p, number);
+			else if (number == Board.UNDECIDED_NUMBER) 
+				placeBoldCircle(g, p);
 		}
 	}
 
-	private void drawState(Graphics2D g, int r, int c, int state) {
+	private void drawState(Graphics2D g, Address p, int state) {
 		if (state == Board.BLACK) {
 			g.setColor(getPaintColor());
 			if (isIndicateErrorMode()) {
-				if (board.getChain(r,c) == -1)
+				if (board.getChain(p) == -1)
 					g.setColor(getErrorColor());
-				if (board.isBlock(r,c))
+				if (board.isBlock(p))
 					g.setColor(getErrorColor());
 			}
-			paintCell(g, r, c);
+			paintCell(g, p);
 		} else if (state == Board.WHITE) {
 			g.setColor(getCircleColor());
-			placeMark(g, r, c);
+			placeMark(g, p);
 		}
 	}
 
-	private void drawNumber1(Graphics2D g, int r, int c, int number) {
+	private void drawNumber1(Graphics2D g, Address p, int number) {
 		g.setColor(getNumberColor());
 		if (isHideSoleNumberMode()) {
-			if (board.isSingle(r, c)) {
+			if (board.isSingle(p)) {
 				g.setColor(soleNumberColor);
 			}
 		}
 		if (isIndicateErrorMode()) {
-			if (!board.isBlack(r, c) && board.isRedundantNumber(r, c)) {
+			if (!board.isBlack(p) && board.isRedundantNumber(p)) {
 				g.setColor(getErrorColor());
 			}
 		}
 		if (number <= letters.length)
-			placeLetter(g, r, c, letters[number-1]);
+			placeLetter(g, p, letters[number-1]);
 		else
-			placeNumber(g, r, c, number);
+			placeNumber(g, p, number);
 	}
 
 }
