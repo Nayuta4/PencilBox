@@ -501,6 +501,9 @@ public class PanelBase extends JPanel implements Printable {
 	public void placeLetter(Graphics2D g, int r, int c, char letter) {
 		placeString(g, r, c, Character.toString(letter));
 	}
+	public void placeLetter(Graphics2D g, Address p, char letter) {
+		placeLetter(g, p.r(), p.c(),letter);
+	}
 	/**
 	 * マスに数字を配置する
 	 * @param g
@@ -512,7 +515,7 @@ public class PanelBase extends JPanel implements Printable {
 		placeString(g, r, c, Integer.toString(number));
 	}
 	public void placeNumber(Graphics2D g, Address p, int number) {
-		placeString(g, p.r(), p.c(), Integer.toString(number));
+		placeNumber(g, p.r(), p.c(), number);
 	}
 
 	/**
