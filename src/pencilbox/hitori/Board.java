@@ -47,11 +47,9 @@ public class Board extends BoardBase {
 	}
 
 	public void trimAnswer() {
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				if (getState(r, c) == WHITE)
-					setState(r, c, UNKNOWN);
-				}
+		for (Address p : cellAddrs()) {
+			if (getState(p) == WHITE)
+				setState(p, UNKNOWN);
 		}
 	}
 
@@ -363,11 +361,9 @@ public class Board extends BoardBase {
 	 */
 	boolean checkDivision() {
 		boolean ret = true;
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols() - 1; c++) {
-				if (chain[r][c] == -1) {
-						ret = false;
-				}
+		for (Address p : cellAddrs()) {
+			if (getChain(p.r(), p.c()) == -1) {
+				ret = false;
 			}
 		}
 		return ret;
