@@ -116,7 +116,7 @@ public class Board extends BoardBase {
 	/**
 	 * 盤上のマスに，そのマスの所属する領域を設定する
 	 * @param r Row coordinate of the cell.
-	 * @param c Colmun coordinate of the cell.
+	 * @param c Column coordinate of the cell.
 	 * @param a The area to set.
 	 */
 	public void setArea(int r, int c, Area a) {

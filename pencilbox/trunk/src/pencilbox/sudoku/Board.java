@@ -89,7 +89,7 @@ public class Board extends BoardBase {
 	/**
 	 * Get state of a cell.
 	 * @param r Row coordinate of the cell.
-	 * @param c Colmun coordinate of the cell.
+	 * @param c Column coordinate of the cell.
 	 * @return Returns the state.
 	 */
 	public int getState(int r, int c) {
@@ -102,7 +102,7 @@ public class Board extends BoardBase {
 	/**
 	 * Set state to a cell.
 	 * @param r Row coordinate of the cell.
-	 * @param c Colmun coordinate of the cell.
+	 * @param c Column coordinate of the cell.
 	 * @param st The state to set.
 	 */
 	public void setState(int r, int c, int st) {
@@ -115,7 +115,7 @@ public class Board extends BoardBase {
 	/**
 	 * Get number of a cell.
 	 * @param r Row coordinate of the cell.
-	 * @param c Colmun coordinate of the cell.
+	 * @param c Column coordinate of the cell.
 	 * @return Returns the number.
 	 */
 	public int getNumber(int r, int c) {
@@ -128,7 +128,7 @@ public class Board extends BoardBase {
 	/**
 	 * Set number to  a cell.
 	 * @param r Row coordinate of the cell.
-	 * @param c Colmun coordinate of the cell.
+	 * @param c Column coordinate of the cell.
 	 * @param n The number to set.
 	 */
 	public void setNumber(int r, int c, int n) {
@@ -141,7 +141,7 @@ public class Board extends BoardBase {
 	/**
 	 * É}ÉXÇ…êîéöÇ™ì¸Ç¡ÇƒÇ¢Ç»Ç¢Ç©Ç«Ç§Ç©
 	 * @param r Row coordinate of the cell.
-	 * @param c Colmun coordinate of the cell.
+	 * @param c Column coordinate of the cell.
 	 * @return Returns true if the cell is empty.
 	 */
 	public boolean isUnknown(int r, int c) {
