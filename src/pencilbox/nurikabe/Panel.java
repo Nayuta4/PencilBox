@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
+import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.gui.PanelBase;
 import pencilbox.util.Colors;
@@ -106,67 +107,65 @@ public class Panel extends PanelBase {
 	}
 
 	private void drawCells(Graphics2D g) {
-		for (int r = 0; r < board.rows(); r++) {
-			for (int c = 0; c < board.cols(); c++) {
-				int st = board.getState(r, c);
-				if (st == Board.WALL) {
-					paintWall(g, r, c);
-				} else if (st == Board.SPACE) {
-					paintSpace(g, r, c);
-				} else if (st > 0) {
-					if (getMarkStyle() == 5) {
-						g.setColor(getCircleColor());
-						paintCell(g, r, c);
-					}
-					g.setFont(getNumberFont());
-					g.setColor(getNumberColor());
-					placeNumber(g, r, c, st);
-				} else if (st == Board.UNDECIDED_NUMBER) {
-					if (getMarkStyle() == 5) {
-						g.setColor(getCircleColor());
-						paintCell(g, r, c);
-					}
-					g.setColor(getNumberColor());
-					placeBoldCircle(g, r, c);
+		for (Address p : board.cellAddrs()) {
+			int st = board.getState(p);
+			if (st == Board.WALL) {
+				paintWall(g, p);
+			} else if (st == Board.SPACE) {
+				paintSpace(g, p);
+			} else if (st > 0) {
+				if (getMarkStyle() == 5) {
+					g.setColor(getCircleColor());
+					paintCell(g, p);
 				}
+				g.setFont(getNumberFont());
+				g.setColor(getNumberColor());
+				placeNumber(g, p, st);
+			} else if (st == Board.UNDECIDED_NUMBER) {
+				if (getMarkStyle() == 5) {
+					g.setColor(getCircleColor());
+					paintCell(g, p);
+				}
+				g.setColor(getNumberColor());
+				placeBoldCircle(g, p);
 			}
 		}
 	}
 
-	void paintSpace(Graphics2D g, int r, int c) {
+	void paintSpace(Graphics2D g, Address p) {
 		g.setFont(countFont);
-		Area area = board.getArea(r,c);
+		Area area = board.getArea(p);
 		int number = area.getNumber();
 		if (isCountAreaSizeMode()) {
 			if (number == 0 || (number > 0 && area.size() < number) || number == Board.UNDECIDED_NUMBER ) {
 				g.setColor(getCircleColor());
-				placeCircle(g, r, c);
-				placeNumber(g, r, c, area.size());
+				placeCircle(g, p);
+				placeNumber(g, p, area.size());
 			} else if (
 				number == Area.MULTIPLE_NUMBER	|| (number > 0 && area.size() > number)) {
 				g.setColor(Color.RED);
-				placeCircle(g, r, c);
-				placeNumber(g, r, c, area.size());
+				placeCircle(g, p);
+				placeNumber(g, p, area.size());
 			} else {
 				g.setColor(getCircleColor());
-				placeMark(g, r, c);
+				placeMark(g, p);
 			}
 		} else {
 			g.setColor(getCircleColor());
-			placeMark(g, r, c);
+			placeMark(g, p);
 		}
 	}
 
-	void paintWall(Graphics2D g, int r, int c) {
+	void paintWall(Graphics2D g, Address p) {
 		g.setColor(getPaintColor());
 		if (isSeparateAreaColorMode()) {
-			g.setColor(Colors.get(board.getArea(r,c).getId()));
+			g.setColor(Colors.get(board.getArea(p).getId()));
 		}
 //		if (isIndicateError()) {
-//			if (board.is2x2Block(r, c) ) {
+//			if (board.is2x2Block(p) ) {
 //				g.setColor(getErrorColor());
 //			}
 //		}
-		paintCell(g, r, c);
+		paintCell(g, p);
 	}
 }
