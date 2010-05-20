@@ -12,10 +12,10 @@ import pencilbox.resource.Messages;
  */
 public class Board extends BoardBase {
 
-	static final int UNSTABLE = 0;
-	static final int STABLE = 1;
-	static final int UNKNOWN = 0;
-	static final int UNDETERMINED = -2; // 仮設定。入力操作の目印に仮にこうしておくが，実際のデータ上は0とする
+	public static final int UNSTABLE = 0;
+	public static final int STABLE = 1;
+	public static final int UNKNOWN = 0;
+	public static final int UNDETERMINED = -2; // 仮設定。入力操作の目印に仮にこうしておくが，実際のデータ上は0とする
 
 	private int maxNumber; // 問題の最大数字
 	private int[][] state; // 問題の数字:1, 解答すべき数字:0,
