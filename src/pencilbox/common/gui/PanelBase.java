@@ -238,6 +238,9 @@ public class PanelBase extends JPanel implements Printable {
 	public final int toX(int c) {
 		return getOffsetx() + getCellSize() * c;
 	}
+	public final int toX(Address p) {
+		return toX(p.c());
+	}
 	/**
 	 * Panel上の列座標をピクセルy座標に変換する
 	 * @param r Panel上の行座標
@@ -245,6 +248,9 @@ public class PanelBase extends JPanel implements Printable {
 	 */
 	public final int toY(int r) {
 		return getOffsety() + getCellSize() * r;
+	}
+	public final int toY(Address p) {
+		return toY(p.r());
 	}
 
 	/**
@@ -628,6 +634,9 @@ public class PanelBase extends JPanel implements Printable {
 	public void placeCross(Graphics2D g, int r, int c) {
 		drawCross(g, toX(c) + getHalfCellSize(), toY(r) + getHalfCellSize(),
 				getSmallCrossSize());
+	}
+	public void placeCross(Graphics2D g, Address p) {
+		placeCross(g, p.r(), p.c());
 	}
 	/**
 	 * 辺上に線を配置する

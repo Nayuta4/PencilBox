@@ -3,6 +3,8 @@ package pencilbox.common.gui;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import pencilbox.common.core.Address;
+
 
 
 /**
@@ -50,23 +52,21 @@ public class HintDot{
 	}
 	/**
 	 * @param g
-	 * @param r
-	 * @param c
+	 * @param p
 	 */
-	public void placeHintCross(Graphics2D g, int r, int c) {
+	public void placeHintCross(Graphics2D g, Address p) {
 		g.setColor(Color.RED);
-		panel.placeCross(g, r, c);
+		panel.placeCross(g, p);
 	}
 	/**
 	 * @param g
-	 * @param r
-	 * @param c
+	 * @param p
 	 * @param pattern
 	 */
-	public void placeHintDot(Graphics2D g, int r, int c, int pattern) {
+	public void placeHintDot(Graphics2D g, Address p, int pattern) {
 		g.setColor(dotColor);
-		int x = panel.toX(c);
-		int y = panel.toY(r);
+		int x = panel.toX(p);
+		int y = panel.toY(p);
 		for (int d = 1; d <= maxNumber; d++) {
 			if ((pattern & DIGIT[d]) != 0) {
 				int dy = (d - 1) / unit;

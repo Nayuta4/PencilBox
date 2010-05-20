@@ -1,5 +1,6 @@
 package pencilbox.kakuro;
 
+import pencilbox.common.core.Address;
 import pencilbox.common.core.Direction;
 
 /**
@@ -17,8 +18,8 @@ public class DigitPatternHint {
 	 * @param c マスの列座標
 	 * @return 可能なビットパターンを返す。ただしそのマスが壁マスであるかまたはタテヨコの両方とも和が定義されていない場合は値 1 を返す。
 	 */
-	int getPattern(int r, int c) {
-		int pat = horizPattern[r][c] & vertPattern[r][c];
+	int getPattern(Address p) {
+		int pat = horizPattern[p.r()][p.c()] & vertPattern[p.r()][p.c()];
 		// 積の最下位ビット 1 であればタテヨコとも未定義ということなので，何も表示しないために 1 を返す。
 		// タテヨコとも未定義の場合も 1～9　まですべて可能というドット表示をする場合は以下2行削除せよ。
 		if ((pat & 1) == 1)

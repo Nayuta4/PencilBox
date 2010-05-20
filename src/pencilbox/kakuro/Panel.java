@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
+import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
 import pencilbox.common.gui.CellCursor;
@@ -122,20 +123,18 @@ public class Panel extends PanelBase {
 	private void drawNumbers(Graphics2D g) {
 		int number;
 		g.setFont(getNumberFont());
-		for (int r = 0; r < board.rows(); r++) {
-			for (int c = 0; c < board.cols(); c++) {
-				number = board.getNumber(r, c);
-				if (number > 0) {
-					g.setColor(getInputColor());
-					if (isIndicateErrorMode()) {
-						if (board.isMultipleNumber(r, c))
-							g.setColor(getErrorColor());
-					}
-					placeNumber(g, r, c, number);
-				} else if (number == 0) {
-					if (isDotHintMode()) {
-						placeHintDot(g, r, c);
-					}
+		for (Address p : board.cellAddrs()) {
+			number = board.getNumber(p);
+			if (number > 0) {
+				g.setColor(getInputColor());
+				if (isIndicateErrorMode()) {
+					if (board.isMultipleNumber(p))
+						g.setColor(getErrorColor());
+				}
+				placeNumber(g, p, number);
+			} else if (number == 0) {
+				if (isDotHintMode()) {
+					placeHintDot(g, p);
 				}
 			}
 		}
@@ -186,12 +185,12 @@ public class Panel extends PanelBase {
 		}
 	}
 	
-	void placeHintDot(Graphics2D g, int r, int c) {
-		int pattern = board.getPattern(r, c);
+	void placeHintDot(Graphics2D g, Address p) {
+		int pattern = board.getPattern(p);
 		if (pattern == 0) {
-			hintDot.placeHintCross(g, r, c);
+			hintDot.placeHintCross(g, p);
 		} else {
-			hintDot.placeHintDot(g, r, c, pattern);
+			hintDot.placeHintDot(g, p, pattern);
 		}
 	}
 
