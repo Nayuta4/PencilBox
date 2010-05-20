@@ -1,5 +1,7 @@
 package pencilbox.sudoku;
 
+import pencilbox.common.core.Address;
+
 /**
  * 可能数字をビットパターンで表現するヒント機能
  */
@@ -14,8 +16,8 @@ public class DigitPatternHint {
 	 * @param c colmun coordinate
 	 * @return Returns the pattern.
 	 */
-	int getPattern(int r, int c) {
-		return pattern[r][c];
+	int getPattern(Address p) {
+		return pattern[p.r()][p.c()];
 	}
 
 	/**
@@ -49,8 +51,8 @@ public class DigitPatternHint {
 		}
 	}
 	
-	boolean canPlace(int r, int c, int n) {
-		return (pattern[r][c] & (1<<n)) > 0;
+	boolean canPlace(Address p, int n) {
+		return (pattern[p.r()][p.c()] & (1<<n)) > 0;
 	}
 	/**
 	 * [r0, c0]と同じ行，列，ボックスについて，数字nを使用済みとする

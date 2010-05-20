@@ -221,28 +221,26 @@ public class Panel extends PanelBase {
 	
 	private void drawNumbers(Graphics2D g) {
 		g.setFont(getNumberFont());
-		for (int r = 0; r < board.rows(); r++) {
-			for (int c = 0; c < board.cols(); c++) {
-				int n = board.getNumber(r, c);
-				if (n > 0) {
-					if (board.isStable(r, c)) {
-						g.setColor(getNumberColor());
-					} else {
-						g.setColor(getInputColor());
-						if (isIndicateErrorMode()) {
-							if (board.isError(Address.address(r, c)))
-								g.setColor(getErrorColor());
-						}
+		for (Address p : board.cellAddrs()) {
+			int n = board.getNumber(p);
+			if (n > 0) {
+				if (board.isStable(p)) {
+					g.setColor(getNumberColor());
+				} else {
+					g.setColor(getInputColor());
+					if (isIndicateErrorMode()) {
+						if (board.isError(Address.address(p)))
+							g.setColor(getErrorColor());
 					}
-					placeNumber(g, r, c, n);
-				} else if (n == Board.UNKNOWN) {
-					if (isDotHintMode()) {
-						placeHintDot(g, r, c);
-					}
-					if (board.isStable(r,c)) {
-						g.setColor(getNumberColor());
-						placeBoldCircle(g, r, c);
-					}
+				}
+				placeNumber(g, p, n);
+			} else if (n == Board.UNKNOWN) {
+				if (isDotHintMode()) {
+					placeHintDot(g, p);
+				}
+				if (board.isStable(p)) {
+					g.setColor(getNumberColor());
+					placeBoldCircle(g, p);
 				}
 			}
 		}
@@ -274,12 +272,12 @@ public class Panel extends PanelBase {
 		}
 	}
 
-	private void placeHintDot(Graphics2D g, int r, int c) {
-		int pat = board.getPattern(r, c);
+	private void placeHintDot(Graphics2D g, Address p) {
+		int pat = board.getPattern(p);
 		if (pat == 0) {
-			hintDot.placeHintCross(g, r, c);
+			hintDot.placeHintCross(g, p);
 		} else {
-			hintDot.placeHintDot(g, r, c, pat);
+			hintDot.placeHintDot(g, p, pat);
 		}
 	}
 

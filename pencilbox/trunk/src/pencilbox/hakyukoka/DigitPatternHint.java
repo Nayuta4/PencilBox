@@ -17,8 +17,8 @@ public class DigitPatternHint {
 	 * @param c colmun coordinate
 	 * @return Returns the pattern.
 	 */
-	int getPattern(int r, int c) {
-		return pattern[r][c];
+	int getPattern(Address p) {
+		return pattern[p.r()][p.c()];
 	}
 
 	/**

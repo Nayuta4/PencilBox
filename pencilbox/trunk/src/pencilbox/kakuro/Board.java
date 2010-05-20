@@ -139,8 +139,8 @@ public class Board extends BoardBase {
 	 * @param c Colmun coordinate of the cell.
 	 * @return Returns true if the cell is empty.
 	 */
-	public boolean isUnknown(int r, int c) {
-		return number[r][c] == 0;
+	public boolean isUnknown(Address p) {
+		return number[p.r()][p.c()] == 0;
 	}
 	public int getSumV(int r, int c) {
 		return sumV[r][c];
@@ -240,8 +240,8 @@ public class Board extends BoardBase {
 	 * @param c 列座標
 	 * @return　重複数字があれば true
 	 */
-	public boolean isMultipleNumber(int r, int c) {
-		return multi[r][c] > 1;
+	public boolean isMultipleNumber(Address p) {
+		return multi[p.r()][p.c()] > 1;
 	}
 
 	/**
@@ -367,21 +367,19 @@ public class Board extends BoardBase {
 
 	public int checkAnswerCode() {
 		int result = 0;
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				if (!isWall(r, c)) {
-					if (isUnknown(r, c)) {
-						result |= 1;
-					} else if (isMultipleNumber(r, c)) {
-						result |= 2;
-					}
-				} else if (isWall(r, c)) {
-					if (getSumH(r,c) > 0 && wordH[r][c].getStatus() == -1) {
-						result |= 4;
-					}
-					if (getSumV(r,c) > 0 && wordV[r][c].getStatus() == -1) {
-						result |= 4;
-					}
+		for (Address p : cellAddrs()) {
+			if (!isWall(p)) {
+				if (isUnknown(p)) {
+					result |= 1;
+				} else if (isMultipleNumber(p)) {
+					result |= 2;
+				}
+			} else if (isWall(p)) {
+				if (getSumH(p.r(), p.c()) > 0 && wordH[p.r()][p.c()].getStatus() == -1) {
+					result |= 4;
+				}
+				if (getSumV(p.r(), p.c()) > 0 && wordV[p.r()][p.c()].getStatus() == -1) {
+					result |= 4;
 				}
 			}
 		}
@@ -409,8 +407,8 @@ public class Board extends BoardBase {
 		hint.updatePattern(r, c);
 	}
 
-	int getPattern(int r, int c) {
-		return hint.getPattern(r,c);
+	int getPattern(Address p) {
+		return hint.getPattern(p);
 	}
 	/**
 	 * そのマスを含むWordのマス数を返す

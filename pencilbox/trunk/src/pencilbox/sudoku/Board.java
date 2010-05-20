@@ -158,8 +158,8 @@ public class Board extends BoardBase {
 	 * @param c colmun coordinate
 	 * @return Returns the pattern.
 	 */
-	int getPattern(int r, int c){
-		return hint.getPattern(r,c);
+	int getPattern(Address p){
+		return hint.getPattern(p);
 	}
 	/**
 	 * [r,c] に n を配置可能かどうか
@@ -168,8 +168,8 @@ public class Board extends BoardBase {
 	 * @param n number to check
 	 * @return true if n can placed at cell [r,c]
 	 */
-	boolean canPlace(int r, int c, int n) {
-		return getNumber(r,c) == 0 && hint.canPlace(r, c, n);
+	boolean canPlace(Address p, int n) {
+		return getNumber(p) == 0 && hint.canPlace(p, n);
 	}
 	/**
 	 * マスに数字を入力し，アドゥリスナーに通知する
@@ -223,8 +223,8 @@ public class Board extends BoardBase {
 	 * @param c 列座標
 	 * @return　重複数字があれば true
 	 */
-	public boolean isMultipleNumber(int r, int c) {
-		return multi[r][c]>1;
+	public boolean isMultipleNumber(Address p) {
+		return multi[p.r()][p.c()]>1;
 	}
 	
 	/**
@@ -350,7 +350,7 @@ public class Board extends BoardBase {
 	public int checkAnswerCode() {
 		int result = 0;
 		for (Address p : cellAddrs()) {
-			if (isMultipleNumber(p.r(), p.c()))
+			if (isMultipleNumber(p))
 				result |= 1;;
 			if (getNumber(p) == 0)
 				result |= 2;

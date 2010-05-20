@@ -182,8 +182,8 @@ public class Board extends BoardBase {
 	 * @param c colmun coordinate
 	 * @return Returns the pattern.
 	 */
-	int getPattern(int r, int c){
-		return hint.getPattern(r,c);
+	int getPattern(Address p){
+		return hint.getPattern(p);
 	}
 	/**
 	 * その場所にある数字をルールに違反せずに配置可能かどうかを調べる

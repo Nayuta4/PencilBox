@@ -3,6 +3,7 @@ package pencilbox.sudoku;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.gui.HintDot;
 import pencilbox.common.gui.PanelBase;
@@ -176,57 +177,55 @@ public class Panel extends PanelBase {
 
 	protected void drawNumbers(Graphics2D g) {
 		g.setFont(getNumberFont());
-		for (int r = 0; r < board.rows(); r++) {
-			for (int c = 0; c < board.cols(); c++) {
-				int n = board.getNumber(r, c);
-				paintCell1(g, r, c, n);
-				if (n > 0) {
-					placeNumber1(g, r, c, n);
-				} else if (n == Board.UNKNOWN) {
-					if (isDotHintMode() && unit >= 3 && unit <=5) {
-						placeHintDot(g, r, c);
-					}
-					if (board.isStable(r,c)) {
-						g.setColor(getNumberColor());
-						placeBoldCircle(g, r, c);
-					} 
+		for (Address p : board.cellAddrs()) {
+			int n = board.getNumber(p);
+			paintCell1(g, p, n);
+			if (n > 0) {
+				placeNumber1(g, p, n);
+			} else if (n == Board.UNKNOWN) {
+				if (isDotHintMode() && unit >= 3 && unit <=5) {
+					placeHintDot(g, p);
 				}
+				if (board.isStable(p)) {
+					g.setColor(getNumberColor());
+					placeBoldCircle(g, p);
+				} 
 			}
 		}
 	}
 	// 選択数字と同じ行，列，ボックスを色塗り 
-	private void paintCell1(Graphics2D g, int r, int c, int num) {
+	private void paintCell1(Graphics2D g, Address p, int num) {
 		if (isHighlightSelectionMode() && getSelectedNumber() > 0) {
 			if (getSelectedNumber() == num) {
 				g.setColor(highlightColor);
-				paintCell(g, r, c);
-			} else if (board.canPlace(r, c, getSelectedNumber())) {
+				paintCell(g, p);
+			} else if (board.canPlace(p, getSelectedNumber())) {
 				g.setColor(highlight2Color);
-				paintCell(g, r, c);
+				paintCell(g, p);
 			}
 		}
 	}
 	
-	private void placeNumber1(Graphics2D g, int r, int c, int num) {
-		if (board.isStable(r, c)) {
+	private void placeNumber1(Graphics2D g, Address p, int num) {
+		if (board.isStable(p)) {
 			g.setColor(getNumberColor());
 		} else {
 			g.setColor(getInputColor());
 			if (isIndicateErrorMode()) {
-				if (board.isMultipleNumber(r, c)) {
+				if (board.isMultipleNumber(p)) {
 					g.setColor(getErrorColor());
 				}
 			}
 		}
-		placeNumber(g, r, c, num);
+		placeNumber(g, p, num);
 	}
 
-	private void placeHintDot(Graphics2D g, int r, int c) {
-		int pat = board.getPattern(r, c);
+	private void placeHintDot(Graphics2D g, Address p) {
+		int pat = board.getPattern(p);
 		if (pat == 0) {
-			hintDot.placeHintCross(g, r, c);
+			hintDot.placeHintCross(g, p);
 		} else {
-			hintDot.placeHintDot(g, r, c, pat);
+			hintDot.placeHintDot(g, p, pat);
 		}
 	}
 
