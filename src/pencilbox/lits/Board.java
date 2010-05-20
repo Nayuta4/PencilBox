@@ -57,7 +57,7 @@ public class Board extends BoardBase {
 	/**
 	 * Get state of a cell.
 	 * @param r Row coordinate of the cell.
-	 * @param c Colmun coordinate of the cell.
+	 * @param c Column coordinate of the cell.
 	 * @return Returns the state.
 	 */
 	public int getState(int r, int c) {
@@ -70,7 +70,7 @@ public class Board extends BoardBase {
 	/**
 	 * Set state to a cell.
 	 * @param r Row coordinate of the cell.
-	 * @param c Colmun coordinate of the cell.
+	 * @param c Column coordinate of the cell.
 	 * @param st The state to set.
 	 */
 	public void setState(int r, int c, int st) {
@@ -94,7 +94,7 @@ public class Board extends BoardBase {
 	 * そのマスの所属する領域を取得する
 	 * そのマスが領域に属していない場合は null を返す
 	 * @param r Row coordinate of the cell.
-	 * @param c Colmun coordinate of the cell.
+	 * @param c Column coordinate of the cell.
 	 * @return Returns the area.
 	 */
 	public Wall getWall(int r, int c ) {
@@ -103,7 +103,7 @@ public class Board extends BoardBase {
 	/**
 	 * 盤上のマスに，そのマスの所属する領域を設定する
 	 * @param r Row coordinate of the cell.
-	 * @param c Colmun coordinate of the cell.
+	 * @param c Column coordinate of the cell.
 	 * @param a The area to set.
 	 */
 	public void setWall(int r, int c, Wall a) {
@@ -114,7 +114,7 @@ public class Board extends BoardBase {
 	 * そのマスの所属する領域を取得する
 	 * そのマスが領域に属していない場合は null を返す
 	 * @param r Row coordinate of the cell.
-	 * @param c Colmun coordinate of the cell.
+	 * @param c Column coordinate of the cell.
 	 * @return Returns the area.
 	 */
 	public Area getArea(int r, int c ) {
@@ -130,7 +130,7 @@ public class Board extends BoardBase {
 	/**
 	 * 盤上のマスに，そのマスの所属する領域を設定する
 	 * @param r Row coordinate of the cell.
-	 * @param c Colmun coordinate of the cell.
+	 * @param c Column coordinate of the cell.
 	 * @param a The area to set.
 	 */
 	public void setArea(int r, int c, Area a) {

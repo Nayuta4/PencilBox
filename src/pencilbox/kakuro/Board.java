@@ -100,7 +100,7 @@ public class Board extends BoardBase {
 	/**
 	 * Get number of a cell.
 	 * @param r Row coordinate of the cell.
-	 * @param c Colmun coordinate of the cell.
+	 * @param c Column coordinate of the cell.
 	 * @return Returns the number.
 	 */
 	public int getNumber(int r, int c) {
@@ -113,7 +113,7 @@ public class Board extends BoardBase {
 	/**
 	 * Set number to  a cell.
 	 * @param r Row coordinate of the cell.
-	 * @param c Colmun coordinate of the cell.
+	 * @param c Column coordinate of the cell.
 	 * @param n The number to set.
 	 */
 	public void setNumber(int r, int c, int n) {
@@ -136,7 +136,7 @@ public class Board extends BoardBase {
 	/**
 	 * ƒ}ƒX‚É”š‚ª“ü‚Á‚Ä‚¢‚È‚¢‚©‚Ç‚¤‚©
 	 * @param r Row coordinate of the cell.
-	 * @param c Colmun coordinate of the cell.
+	 * @param c Column coordinate of the cell.
 	 * @return Returns true if the cell is empty.
 	 */
 	public boolean isUnknown(Address p) {
@@ -247,7 +247,7 @@ public class Board extends BoardBase {
 	/**
 	 * Set number to  a cell.
 	 * @param r Row coordinate of the cell.
-	 * @param c Colmun coordinate of the cell.
+	 * @param c Column coordinate of the cell.
 	 * @param n The number to set.
 	 */
 	public void changeNumber(Address p, int n) {

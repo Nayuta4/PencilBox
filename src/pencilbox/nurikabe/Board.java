@@ -157,7 +157,7 @@ public class Board extends BoardBase {
 	 * そのマスの所属する領域を取得する
 	 * そのマスが領域に属していない場合は null を返す
 	 * @param r Row coordinate of the cell.
-	 * @param c Colmun coordinate of the cell.
+	 * @param c Column coordinate of the cell.
 	 * @return Returns the area.
 	 */
 	public Area getArea(Address p) {
@@ -169,7 +169,7 @@ public class Board extends BoardBase {
 	/**
 	 * 盤上のマスに，そのマスの所属する領域を設定する
 	 * @param r Row coordinate of the cell.
-	 * @param c Colmun coordinate of the cell.
+	 * @param c Column coordinate of the cell.
 	 * @param a The area to set.
 	 */
 	public void setArea(Address p, Area a) {
