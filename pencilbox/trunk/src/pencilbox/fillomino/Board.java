@@ -38,7 +38,7 @@ public class Board extends BoardBase {
 
 	public void clearBoard() {
 		super.clearBoard();
-		for (Address p : cellAddrs) {
+		for (Address p : cellAddrs()) {
 			if (!isStable(p))
 				setNumber(p, 0);
 		}
@@ -164,7 +164,7 @@ public class Board extends BoardBase {
 	public void initAreas() {
 		ArrayUtil.initArrayObject2(area, null);
 		areaList.clear();
-		for (Address p : cellAddrs) {
+		for (Address p : cellAddrs()) {
 			if (getNumber(p) > 0 && getArea(p) == null) {
 				initArea(p);
 			}
