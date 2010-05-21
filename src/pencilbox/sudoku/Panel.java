@@ -181,11 +181,22 @@ public class Panel extends PanelBase {
 			int n = board.getNumber(p);
 			paintCell1(g, p, n);
 			if (n > 0) {
-				placeNumber1(g, p, n);
+				if (board.isStable(p)) {
+					g.setColor(getNumberColor());
+				} else {
+					g.setColor(getInputColor());
+					if (isIndicateErrorMode()) {
+						if (board.isMultipleNumber(p)) {
+							g.setColor(getErrorColor());
+						}
+					}
+				}
+				placeNumber(g, p, n);
 			} else if (n == Board.UNKNOWN) {
 				if (isDotHintMode() && unit >= 3 && unit <=5) {
 					placeHintDot(g, p);
 				}
+			} else if (n == Board.UNDETERMINED) {
 				if (board.isStable(p)) {
 					g.setColor(getNumberColor());
 					placeBoldCircle(g, p);
@@ -204,20 +215,6 @@ public class Panel extends PanelBase {
 				paintCell(g, p);
 			}
 		}
-	}
-	
-	private void placeNumber1(Graphics2D g, Address p, int num) {
-		if (board.isStable(p)) {
-			g.setColor(getNumberColor());
-		} else {
-			g.setColor(getInputColor());
-			if (isIndicateErrorMode()) {
-				if (board.isMultipleNumber(p)) {
-					g.setColor(getErrorColor());
-				}
-			}
-		}
-		placeNumber(g, p, num);
 	}
 
 	private void placeHintDot(Graphics2D g, Address p) {

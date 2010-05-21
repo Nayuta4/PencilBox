@@ -3,6 +3,7 @@ package pencilbox.sudoku;
 import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
+import pencilbox.common.core.CellEditStep;
 import pencilbox.common.core.CellNumberEditStep;
 import pencilbox.resource.Messages;
 
@@ -177,20 +178,29 @@ public class Board extends BoardBase {
 	 * @param n ì¸óÕÇ∑ÇÈêîéö
 	 */
 	public void changeNumber(Address p, int n) {
-		if (n < 0 || n > maxNumber) return;
-		if (n == getNumber(p)) return;
+		if (!isStable(p) && n == getNumber(p))
+			return;
+		if (isStable(p) && getNumber(p) != 0) {
+			changeFixedNumber(p, 0);
+		}
 		if (isRecordUndo())
 			fireUndoableEditUpdate(new CellNumberEditStep(p, getNumber(p), n));
+//		setState(p, Board.UNSTABLE);
 		changeNumber1(p, n);
 	}
 
 	public void changeFixedNumber(Address p, int n) {
+		if (isStable(p) && n == getNumber(p))
+			return;
+		if (!isStable(p) && getNumber(p) > 0) {
+			changeNumber(p, 0);
+		}
+		if (isRecordUndo())
+			fireUndoableEditUpdate(new CellEditStep(p, getNumber(p), n));
 		if (n == Board.UNKNOWN)
 			setState(p, Board.UNSTABLE);
 		else
 			setState(p, Board.STABLE);
-		if (n == Board.UNDETERMINED)
-			n = 0;
 		changeNumber1(p, n);
 	}
 
@@ -201,20 +211,41 @@ public class Board extends BoardBase {
 		updateMulti(r, c, n);
 		hint.updateHint(r, c, n);
 		setNumber(r, c, n);
+		printmult();
 	}
 	
+	public void printmult() {
+		for (int r=0; r<rows(); r++) {
+			for (int c=0; c<cols(); c++) {
+				System.out.print(' ');
+				System.out.print(multi[r][c]);
+			}
+			System.out.println();
+		}
+	}
+
 	public void undo(AbstractStep step) {
-		CellNumberEditStep s = (CellNumberEditStep) step;
-		if (isStable(s.getPos()))
-			return;
-		changeNumber(s.getPos(), s.getBefore());
+		if (step instanceof CellNumberEditStep) {
+			CellNumberEditStep s = (CellNumberEditStep) step;
+//			if (isStable(s.getPos()))
+//				return;
+			changeNumber(s.getPos(), s.getBefore());
+		} else if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep) step;
+			changeFixedNumber(s.getPos(), s.getBefore());
+		}
 	}
 
 	public void redo(AbstractStep step) {
-		CellNumberEditStep s = (CellNumberEditStep) step;
-		if (isStable(s.getPos()))
-			return;
-		changeNumber(s.getPos(), s.getAfter());
+		if (step instanceof CellNumberEditStep) {
+			CellNumberEditStep s = (CellNumberEditStep) step;
+//			if (isStable(s.getPos()))
+//				return;
+			changeNumber(s.getPos(), s.getAfter());
+		} else if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep) step;
+			changeFixedNumber(s.getPos(), s.getAfter());
+		}
 	}
 
 	/**
