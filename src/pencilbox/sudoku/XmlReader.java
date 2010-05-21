@@ -16,6 +16,8 @@ public class XmlReader extends XmlReaderBase {
 	}
 	protected void setBN(int r, int c, int n) {
 		board.setState(r, c, Board.STABLE);
+		if (n == 0)
+			n = Board.UNDETERMINED;
 		board.setNumber(r, c, n);
 	}
 	protected void setAN(int r, int c, int n) {

@@ -27,7 +27,7 @@ public class PzprReader extends PzprReaderBase {
 			bd.setNumber(i2a(id),num);
 		} else if (num == -2) {
 			bd.setState(i2a(id),Board.STABLE);
-			bd.setNumber(i2a(id), 0);
+			bd.setNumber(i2a(id), Board.UNDETERMINED);
 		}
 	}
 

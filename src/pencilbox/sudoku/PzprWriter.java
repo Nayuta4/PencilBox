@@ -25,7 +25,7 @@ public class PzprWriter extends PzprWriterBase {
 			int n = bd.getNumber(i2a(i));
 			if (n > 0)
 				return n;
-			else if (n == 0)
+			else if (n == Board.UNDETERMINED)
 				return -2;
 		}
 		return -1;

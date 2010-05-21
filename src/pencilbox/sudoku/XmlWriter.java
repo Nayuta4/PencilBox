@@ -14,8 +14,12 @@ public class XmlWriter extends XmlWriterBase {
 		int cols = board.cols();
 		for (int r = 0; r < rows; r++) {
 			for (int c = 0; c < cols; c++) {
-				if (board.isStable(r, c))
-					outNumber(r, c, board.getNumber(r, c));
+				if (board.isStable(r, c)) {
+					int n = board.getNumber(r, c);
+					if (n == 0)
+						n = Board.UNDETERMINED;
+					outNumber(r, c, n);
+				}
 			}
 		}
 	}
