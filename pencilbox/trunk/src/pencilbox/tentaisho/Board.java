@@ -150,39 +150,43 @@ public class Board extends BoardBase {
 	}
 
 	public void undo(AbstractStep step) {
-		AreaEditStep s = (AreaEditStep)step;
-		Area a;
-		if (s.getOperation() == AreaEditStep.ADDED) {
-			a = getArea(s.getPos());
-			if (a != null) {
-				removeCellFromArea(s.getPos(), a);
-			}
-		} else if (s.getOperation() == AreaEditStep.REMOVED) {
-			if (Address.NOWHERE.equals(s.getP0()))
-				a = new Area();
-			else
-				a = getArea(s.getP0());
-			if (a != null) {
-				addCellToArea(s.getPos(), a);
+		if (step instanceof AreaEditStep) {
+			AreaEditStep s = (AreaEditStep)step;
+			Area a;
+			if (s.getOperation() == AreaEditStep.ADDED) {
+				a = getArea(s.getPos());
+				if (a != null) {
+					removeCellFromArea(s.getPos(), a);
+				}
+			} else if (s.getOperation() == AreaEditStep.REMOVED) {
+				if (Address.NOWHERE.equals(s.getP0()))
+					a = new Area();
+				else
+					a = getArea(s.getP0());
+				if (a != null) {
+					addCellToArea(s.getPos(), a);
+				}
 			}
 		}
 	}
 
 	public void redo(AbstractStep step) {
-		AreaEditStep s = (AreaEditStep)step;
-		Area a;
-		if (s.getOperation() == AreaEditStep.ADDED) {
-			if (Address.NOWHERE.equals(s.getP0()))
-				a = new Area();
-			else
-				a = getArea(s.getP0());
-			if (a != null) {
-				addCellToArea(s.getPos(), a);
-			}
-		} else if (s.getOperation() == AreaEditStep.REMOVED) {
-			a = getArea(s.getPos());
-			if (a != null) {
-				removeCellFromArea(s.getPos(), a);
+		if (step instanceof AreaEditStep) {
+			AreaEditStep s = (AreaEditStep)step;
+			Area a;
+			if (s.getOperation() == AreaEditStep.ADDED) {
+				if (Address.NOWHERE.equals(s.getP0()))
+					a = new Area();
+				else
+					a = getArea(s.getP0());
+				if (a != null) {
+					addCellToArea(s.getPos(), a);
+				}
+			} else if (s.getOperation() == AreaEditStep.REMOVED) {
+				a = getArea(s.getPos());
+				if (a != null) {
+					removeCellFromArea(s.getPos(), a);
+				}
 			}
 		}
 	}
