@@ -94,23 +94,31 @@ public class Board extends BoardBase {
 		return isNumber(pos.r(), pos.c());
 	}
 	
-	public boolean isWall(Address p) {
-		return isOn(p) && (state[p.r()][p.c()] == WALL);
+	public boolean isWall(Address pos) {
+		return isOn(pos) && (getState(pos) == WALL);
 	}
+
 	public boolean isUnknown(int r, int c) {
 		return (state[r][c] == UNKNOWN);
 	}
+
 	public int getSpaceOrWall(Address p) {
-		int r=p.r(), c=p.c();
-		if (state[r][c] > 0)
+		int st = getState(p);
+		if (st > 0)
 			return SPACE;
-		else if (state[r][c] == UNDECIDED_NUMBER)
+		else if (st == UNDECIDED_NUMBER)
 			return SPACE;
 		else
-			return state[r][c];
+			return st;
 	}
+
 	public boolean isSpaceOrNumber(Address p) {
-		return isOn(p) && (state[p.r()][p.c()] > 0 || state[p.r()][p.c()] == SPACE || state[p.r()][p.c()] == UNDECIDED_NUMBER);
+		if (isOn(p)) {
+			int st = getState(p);
+			return (st > 0 || st == SPACE || st == UNDECIDED_NUMBER);
+		} else {
+			return false;
+		}
 	}
 
 	public void initBoard() {
