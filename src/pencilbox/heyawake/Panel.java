@@ -3,6 +3,7 @@ package pencilbox.heyawake;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
 import pencilbox.common.gui.PanelBase;
@@ -119,11 +120,9 @@ public class Panel extends PanelBase {
 	
 	private void paintAreas(Graphics2D g) {
 		g.setColor(noAreaColor);
-		for (int r = 0; r < board.rows(); r++) {
-			for (int c = 0; c < board.cols(); c++) {
-				if (board.getSquare(r,c)  == null) {
-					paintCell(g, r, c);
-				}
+		for (Address p : board.cellAddrs()) {
+			if (board.getSquare(p)  == null) {
+				paintCell(g, p);
 			}
 		}
 		Square square = getDraggingSquare();
@@ -139,21 +138,19 @@ public class Panel extends PanelBase {
 
 	private void drawCells(Graphics2D g) {
 		int st;
-		for (int r = 0; r < board.rows(); r++) {
-			for (int c = 0; c < board.cols(); c++) {
-				st = board.getState(r, c);
-				if (st == Board.BLACK) {
-					g.setColor(getPaintColor());
-					if (isIndicateErrorMode()) {
-						if (board.isBlock(r,c) || board.chain[r][c]==-1) {
-							g.setColor(getErrorColor());
-						}
+		for (Address p : board.cellAddrs()) {
+			st = board.getState(p);
+			if (st == Board.BLACK) {
+				g.setColor(getPaintColor());
+				if (isIndicateErrorMode()) {
+					if (board.isBlock(p) || board.getChain(p)==-1) {
+						g.setColor(getErrorColor());
 					}
-					paintCell(g, r, c);
-				} else if (st == Board.WHITE) {
-					g.setColor(getCircleColor());
-					placeMark(g, r, c);
 				}
+				paintCell(g, p);
+			} else if (st == Board.WHITE) {
+				g.setColor(getCircleColor());
+				placeMark(g, p);
 			}
 		}
 	}
@@ -169,14 +166,14 @@ public class Panel extends PanelBase {
 					if (square.getNumber() != square.getNBlack()) {
 //						g.setColor(Color.WHITE);
 //						placeFilledCircle(g, square.r0, square.c0);
-						if (board.isBlock(square.r0(), square.c0()) || board.chain[square.r0()][square.c0()]==-1) {
+						if (board.isBlock(square.p0()) || board.getChain(square.p0())==-1) {
 							;
 						} else {
 							g.setColor(getErrorColor());
 						}
 					}
 				}
-				placeNumber(g, square.r0(), square.c0(), square.getNumber());
+				placeNumber(g, square.p0(), square.getNumber());
 			}
 		}
 		Square square = getDraggingSquare();
@@ -188,24 +185,14 @@ public class Panel extends PanelBase {
 
 	private void drawBeams(Graphics2D g) {
 		if (isIndicateErrorMode()) {
-			for (int r = 0; r < board.rows(); r++) {
-				for (int c = 0; c < board.cols(); c++) {
-//					if (board.contWH[r][c] >= 3) {
-//						g.setColor(getErrorColor());
-//						placeCenterLine(g,r,c,Direction.HORIZ);
-//					} else
-					if (board.contH[r][c] >= 3) {
-						g.setColor(continuousRoomColor); 
-						placeCenterLine(g,r,c,Direction.HORIZ);
-					}
-//					if (board.contWV[r][c] >= 3) {
-//						g.setColor(getErrorColor());
-//						placeCenterLine(g,r,c,Direction.VERT);
-//					} else
-					if (board.contV[r][c] >= 3) {
-						g.setColor(continuousRoomColor); 
-						placeCenterLine(g,r,c,Direction.VERT);
-					}
+			for (Address p : board.cellAddrs()) {
+				if (board.getCont(p, Direction.HORIZ) >= 3) {
+					g.setColor(continuousRoomColor);
+					placeCenterLine(g,p,Direction.HORIZ);
+				}
+				if (board.getCont(p, Direction.VERT) >= 3) {
+					g.setColor(continuousRoomColor);
+					placeCenterLine(g,p,Direction.VERT);
 				}
 			}
 		}

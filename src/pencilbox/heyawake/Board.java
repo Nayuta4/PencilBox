@@ -7,6 +7,7 @@ import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.CellEditStep;
+import pencilbox.common.core.Direction;
 import pencilbox.resource.Messages;
 import pencilbox.util.ArrayUtil;
 
@@ -44,6 +45,31 @@ public class Board extends BoardBase {
 		maxChain = 1;
 	}
 	
+	public void clearBoard() {
+		super.clearBoard();
+		ArrayUtil.initArrayInt2(state, UNKNOWN);
+		for (int n=squareList.size()-1; n>=0; n--) {
+			squareList.get(n).clear();
+		}
+		initCont();
+		ArrayUtil.initArrayInt2(chain,0);
+	}
+	
+	public void trimAnswer() {
+		for (Address p : cellAddrs()) {
+			if (getState(p) == WHITE)
+				setState(p, UNKNOWN);
+		}
+		initCont();
+		initRoomCount();
+	}
+
+	public void initBoard() {
+		initCont();
+		initChain();
+		initRoomCount();
+	}
+
 	/**
 	 * @return Returns the state.
 	 */
@@ -67,31 +93,8 @@ public class Board extends BoardBase {
 		square[r][c] = sq;
 	}
 	
-	public void clearBoard() {
-		super.clearBoard();
-		ArrayUtil.initArrayInt2(state, UNKNOWN);
-		for (int n=squareList.size()-1; n>=0; n--) {
-			((Square) squareList.get(n)).clear();
-		}
-		initCont();
-		ArrayUtil.initArrayInt2(chain,0);
-	}
-	
-	public void trimAnswer() {
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				if (getState(r, c) == WHITE)
-					setState(r, c, UNKNOWN);
-				}
-		}
-		initCont();
-		initRoomCount();
-	}
-
-	public void initBoard() {
-		initCont();
-		initChain();
-		initRoomCount();
+	public void setSquare(Address pos, Square sq) {
+		square[pos.r()][pos.c()] = sq;
 	}
 	
 	List<Square> getSquareList() {
@@ -142,6 +145,66 @@ public class Board extends BoardBase {
 		return state[r][c] == WHITE;
 	}
 
+	public int getCont(Address p, int dir) {
+		if (dir == Direction.VERT) {
+			return contV[p.r()][p.c()];
+		} else if (dir == Direction.HORIZ) {
+			return contH[p.r()][p.c()];
+		} else {
+			return -1;
+		}
+	}
+
+	public void setCont(Address p, int dir, int v) {
+		if (dir == Direction.VERT) {
+			contV[p.r()][p.c()] = v;
+		} else if (dir == Direction.HORIZ) {
+			contH[p.r()][p.c()] = v;
+		}
+	}
+
+	public void setCont(int r, int c, int dir, int v) {
+		if (dir == Direction.VERT) {
+			contV[r][c] = v;
+		} else if (dir == Direction.HORIZ) {
+			contH[r][c] = v;
+		}
+	}
+
+	public int getContW(Address p, int dir) {
+		if (dir == Direction.VERT) {
+			return contWV[p.r()][p.c()];
+		} else if (dir == Direction.HORIZ) {
+			return contWH[p.r()][p.c()];
+		} else {
+			return -1;
+		}
+	}
+
+	public void setContW(Address p, int dir, int v) {
+		if (dir == Direction.VERT) {
+			contWV[p.r()][p.c()] = v;
+		} else if (dir == Direction.HORIZ) {
+			contWH[p.r()][p.c()] = v;
+		}
+	}
+
+	public void setContW(int r, int c, int dir, int v) {
+		if (dir == Direction.VERT) {
+			contWV[r][c] = v;
+		} else if (dir == Direction.HORIZ) {
+			contWH[r][c] = v;
+		}
+	}
+
+	int getChain(Address p) {
+		return chain[p.r()][p.c()];
+	}
+
+	void setChain(Address p, int n) {
+		chain[p.r()][p.c()] = n;
+	}
+	
 	void initCont() {
 		ArrayUtil.initArrayInt2(contH, 0);
 		ArrayUtil.initArrayInt2(contV, 0);
@@ -170,24 +233,20 @@ public class Board extends BoardBase {
 	}
 	
 	void initRoomCount() {
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				Square room = getSquare(r,c);
-				if (room!=null) {
-					room.setNBlack(0);
-					room.setNWhite(0);
-				}
+		for (Address p : cellAddrs()) {
+			Square room = getSquare(p);
+			if (room!=null) {
+				room.setNBlack(0);
+				room.setNWhite(0);
 			}
 		}
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				Square room = getSquare(r,c);
-				if (room!=null)
-					if (getState(r,c)==BLACK) {
-						room.setNBlack(room.getNBlack() + 1);
-					} else if (getState(r,c)==WHITE){
-						room.setNWhite(room.getNWhite() + 1);
-				}
+		for (Address p : cellAddrs()) {
+			Square room = getSquare(p);
+			if (room!=null)
+				if (getState(p)==BLACK) {
+					room.setNBlack(room.getNBlack() + 1);
+				} else if (getState(p)==WHITE){
+					room.setNWhite(room.getNWhite() + 1);
 			}
 		}
 	}
