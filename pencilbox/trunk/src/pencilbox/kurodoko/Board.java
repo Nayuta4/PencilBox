@@ -134,7 +134,7 @@ public class Board extends BoardBase {
 	/**
 	 * •ƒ}ƒX‚ÌÎ‚ß‚Â‚È‚ª‚è”Ô†‚ğ•Ô‚·
 	 * @param r row coordinate
-	 * @param c colmun coordinate
+	 * @param c column coordinate
 	 * @return Returns the chain.
 	 */
 	int getChain(int r, int c) {

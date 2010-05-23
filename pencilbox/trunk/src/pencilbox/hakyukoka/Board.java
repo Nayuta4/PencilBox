@@ -179,7 +179,7 @@ public class Board extends BoardBase {
 	/**
 	 * 引数の座標の可能数字のビットパターンを取得
 	 * @param r row coordinate
-	 * @param c colmun coordinate
+	 * @param c column coordinate
 	 * @return Returns the pattern.
 	 */
 	int getPattern(Address p){
