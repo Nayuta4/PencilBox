@@ -37,20 +37,16 @@ public class Board extends BoardBase {
 	}
 
 	public void clearBoard() {
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				state[r][c] = UNKNOWN;
-			}
+		for (Address p : cellAddrs()) {
+			setState(p, UNKNOWN);
 		}
 		initBoard();
 	}
 
 	public void trimAnswer() {
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				if (state[r][c] == WHITE)
-					state[r][c] = UNKNOWN;
-				}
+		for (Address p : cellAddrs()) {
+			if (getState(p) == WHITE)
+				setState(p, UNKNOWN);
 		}
 	}
 
@@ -126,7 +122,7 @@ public class Board extends BoardBase {
 	public Area getArea(Address pos) {
 		return getArea(pos.r(), pos.c());
 	}
-	
+
 	/**
 	 * 盤上のマスに，そのマスの所属する領域を設定する
 	 * @param r Row coordinate of the cell.
@@ -198,7 +194,6 @@ public class Board extends BoardBase {
 	public void removeCellFromArea(Address pos, Area a) {
 		removeCellFromArea(pos.r(), pos.c(), a);
 	}
-
 
 	/**
 	 * マスの状態を指定した状態に変更し，変更をアンドゥリスナーに通知する
