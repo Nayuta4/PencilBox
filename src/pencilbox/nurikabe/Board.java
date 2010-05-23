@@ -98,10 +98,6 @@ public class Board extends BoardBase {
 		return isOn(pos) && (getState(pos) == WALL);
 	}
 
-	public boolean isUnknown(int r, int c) {
-		return (state[r][c] == UNKNOWN);
-	}
-
 	public int getSpaceOrWall(Address p) {
 		int st = getState(p);
 		if (st > 0)
@@ -190,6 +186,8 @@ public class Board extends BoardBase {
 	 * @param st •ÏXŒã‚Ìó‘Ô
 	 */
 	public void changeState(Address p, int st) {
+		if (getState(p) == st)
+			return;
 		if (isRecordUndo())
 			fireUndoableEditUpdate(new CellEditStep(p, getState(p), st));
 		int prevSt = getSpaceOrWall(p);
