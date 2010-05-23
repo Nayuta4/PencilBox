@@ -204,7 +204,7 @@ public class Board extends BoardBase {
 	void setChain(Address p, int n) {
 		chain[p.r()][p.c()] = n;
 	}
-	
+
 	void initCont() {
 		ArrayUtil.initArrayInt2(contH, 0);
 		ArrayUtil.initArrayInt2(contV, 0);
