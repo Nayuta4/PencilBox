@@ -659,8 +659,8 @@ public class PanelBase extends JPanel implements Printable {
 	public void placeSideLine(Graphics2D g, int d, int r, int c) {
 		placeSideLine(g, d, r, c, 3);
 	}
-	public void placeSideLine(Graphics2D g, SideAddress p, int w) {
-		placeSideLine(g, p.d(), p.r(), p.c(), w);
+	public void placeSideLine(Graphics2D g, SideAddress p) {
+		placeSideLine(g, p.d(), p.r(), p.c());
 	}
 	/**
 	 * 辺上に線を配置する。マスとそのマスから見た辺の向きで指定する。

@@ -3,8 +3,10 @@ package pencilbox.tentaisho;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
+import pencilbox.common.core.SideAddress;
 import pencilbox.common.gui.PanelBase;
 
 
@@ -185,37 +187,35 @@ public class Panel extends PanelBase {
 	}
 
 	private void paintAreas(Graphics2D g) {
-		for (int r = 0; r < board.rows(); r++) {
-			for (int c = 0; c < board.cols(); c++) {
-				if (board.getArea(r, c) != null) {
-					if (board.getArea(r,c) == draggingArea) {
-						g.setColor(draggingAreaColor);
-					} else {
-						int starType = board.getArea(r, c).getStarType();
-						g.setColor(whiteAreaColor);
-						if (isSeparateAreaColorMode()) {
-							if (starType == -1) {
-								g.setColor(getErrorColor());
-							} else if (starType == Board.WHITESTAR) {
-								g.setColor(whiteAreaColor);
-							} else if (starType == Board.BLACKSTAR) {
-								g.setColor(blackAreaColor);
-							} else {
-								g.setColor(noStarAreaColor);
-							} 
-						}
-						if (isIndicateErrorMode()) {
-							if (starType == -1) {
-								g.setColor(getErrorColor());
-							} else if (starType == 0) {
-								g.setColor(noStarAreaColor);
-							} else if (!board.getArea(r, c).isPointSymmetry()) {
-								g.setColor(getErrorColor());
-							}
+		for (Address p : board.cellAddrs()) {
+			if (board.getArea(p) != null) {
+				if (board.getArea(p) == draggingArea) {
+					g.setColor(draggingAreaColor);
+				} else {
+					int starType = board.getArea(p).getStarType();
+					g.setColor(whiteAreaColor);
+					if (isSeparateAreaColorMode()) {
+						if (starType == -1) {
+							g.setColor(getErrorColor());
+						} else if (starType == Board.WHITESTAR) {
+							g.setColor(whiteAreaColor);
+						} else if (starType == Board.BLACKSTAR) {
+							g.setColor(blackAreaColor);
+						} else {
+							g.setColor(noStarAreaColor);
+						} 
+					}
+					if (isIndicateErrorMode()) {
+						if (starType == -1) {
+							g.setColor(getErrorColor());
+						} else if (starType == 0) {
+							g.setColor(noStarAreaColor);
+						} else if (!board.getArea(p).isPointSymmetry()) {
+							g.setColor(getErrorColor());
 						}
 					}
-					paintCell(g, r, c);
 				}
+				paintCell(g, p);
 			}
 		}
 	}
@@ -223,25 +223,23 @@ public class Panel extends PanelBase {
 	private void drawStars(Graphics2D g) {
 		for (int r = 0; r < board.rows() * 2 - 1; r++) {
 			for (int c = 0; c < board.cols() * 2 - 1; c++) {
-				if (board.getStar(r, c) > 0)
-					placeStar(g, r, c, board.getStar(r, c));
+				int n = board.getStar(r, c);
+				if (n > 0)
+					placeStar(g, r, c, n);
 			}
 		}
 	}
 
 	private void drawAreaBorders(Graphics2D g) {
 		g.setColor(areaBorderColor);
-		for (int r = 0; r < board.rows(); r++) {
-			for (int c = 0; c < board.cols() - 1; c++) {
-				if (board.getArea(r, c) != board.getArea(r, c + 1)) {
-					placeSideLine(g, Direction.VERT, r, c);
-				}
-			}
-		}
-		for (int r = 0; r < board.rows() - 1; r++) {
-			for (int c = 0; c < board.cols(); c++) {
-				if (board.getArea(r, c) != board.getArea(r + 1, c)) {
-					placeSideLine(g, Direction.HORIZ, r, c);
+		for (Address p : board.cellAddrs()) {
+			for (int d : Direction.DN_RT) {
+				Address p1 = p.nextCell(d);
+				SideAddress b = SideAddress.get(p, d);
+				if (board.isSideOn(b)) {
+					if (board.getArea(p) != board.getArea(p1)) {
+						placeSideLine(g, SideAddress.get(p, d));
+					}
 				}
 			}
 		}

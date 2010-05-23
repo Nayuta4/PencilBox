@@ -106,6 +106,20 @@ public class Area implements Set<Address> {
 	public Object[] toArray() {
 		return cellList.toArray();
 	}
+
+	/**
+	 * 代表セル座標を一つ返す。ただしp0以外とする。
+	 * @param p0
+	 * @return p0以外の代表セル座標，該当するものがなければ Address.NOWHERE
+	 */
+	public Address getTopCell(Address p0) {
+		for (Address p : this) {
+			if (p.equals(p0))
+				continue;
+			return p;
+		}
+		return Address.NOWHERE;
+	}
 	/**
 	 * 領域内部に含まれる辺座標の集合を返す
 	 * @return

@@ -42,4 +42,8 @@ public class AreaEditStep extends AbstractStep {
 		return operation;
 	}
 	
+	public String toString() {
+		return pos.toString() + " from " + p0 + " changed " + getOperation() + " " + getType();
+	}
+	
 }
