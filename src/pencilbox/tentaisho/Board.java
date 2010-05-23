@@ -7,6 +7,7 @@ import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.AreaEditStep;
 import pencilbox.common.core.BoardBase;
+import pencilbox.common.core.CellEditStep;
 import pencilbox.resource.Messages;
 import pencilbox.util.ArrayUtil;
 
@@ -86,6 +87,25 @@ public class Board extends BoardBase {
 	public void setStar(Address pos, int st) {
 		setStar(pos.r(), pos.c(), st);
 	}
+
+	public void changeStar(Address p, int st) {
+		int prev = getStar(p);
+		if (prev == st)
+			return;
+		if (isRecordUndo()) {
+			fireUndoableEditUpdate(new CellEditStep(p, prev, st));
+		}
+		setStar(p, st);
+		Address p0 = starAddressToSuperAddress(p);
+		if (getArea(p0) != null)
+			initArea(getArea(p0));
+	}
+
+	private Address starAddressToSuperAddress(Address p) {
+		return Address.address(p.r()/2, p.c()/2);
+	}
+
+
 	/**
 	 * ˆø”‚Ì¯À•W‚ª”Õã‚É‚ ‚é‚©
 	 * 0<=r<rows*2-1, 0<=c<cols*2-1 ‚Å‚ ‚ê‚Î”Õã‚Å‚ ‚é
@@ -167,6 +187,9 @@ public class Board extends BoardBase {
 					addCellToArea(s.getPos(), a);
 				}
 			}
+		} else if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep)step;
+			changeStar(s.getPos(), s.getBefore());
 		}
 	}
 
@@ -188,6 +211,9 @@ public class Board extends BoardBase {
 					removeCellFromArea(s.getPos(), a);
 				}
 			}
+		} else if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep)step;
+			changeStar(s.getPos(), s.getAfter());
 		}
 	}
 	/**
