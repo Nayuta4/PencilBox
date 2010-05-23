@@ -94,11 +94,11 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	protected void numberEntered(Address pos, int n) {
 		if (isProblemEditMode())
 			if (n == Board.BLACKSTAR || n == Board.WHITESTAR)
-				board.setStar(pos, n);
+				board.changeStar(pos, n);
 	}
 
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode())
-			board.setStar(pos, Board.NOSTAR);
+			board.changeStar(pos, Board.NOSTAR);
 	}
 }
