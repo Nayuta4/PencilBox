@@ -238,7 +238,7 @@ public class Panel extends PanelBase {
 				SideAddress b = SideAddress.get(p, d);
 				if (board.isSideOn(b)) {
 					if (board.getArea(p) != board.getArea(p1)) {
-						placeSideLine(g, SideAddress.get(p, d));
+						placeSideLine(g, b);
 					}
 				}
 			}
