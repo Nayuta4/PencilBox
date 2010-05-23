@@ -3,8 +3,10 @@ package pencilbox.lits;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
+import pencilbox.common.core.SideAddress;
 import pencilbox.common.gui.PanelBase;
 
 
@@ -118,15 +120,13 @@ public class Panel extends PanelBase {
 	}
 	
 	private void paintAreas(Graphics2D g) {
-		for (int r = 0; r < board.rows(); r++) {
-			for (int c = 0; c < board.cols(); c++) {
-				if (board.getArea(r, c) == null) {
-					g.setColor(noAreaColor);
-					paintCell(g, r, c);
-				} else if (board.getArea(r, c) == draggingArea) {
-					g.setColor(draggingAreaColor);
-					paintCell(g, r, c);
-				}
+		for (Address p : board.cellAddrs()) {
+			if (board.getArea(p) == null) {
+				g.setColor(noAreaColor);
+				paintCell(g, p);
+			} else if (board.getArea(p) == draggingArea) {
+				g.setColor(draggingAreaColor);
+				paintCell(g, p);
 			}
 		}
 	}
@@ -136,22 +136,20 @@ public class Panel extends PanelBase {
 	 * @param g
 	 */
 	protected void drawCells(Graphics2D g) {
-		for (int r = 0; r < board.rows(); r++) {
-			for (int c = 0; c < board.cols(); c++) {
-				int st = board.getState(r, c);
-				if (st == Board.BLACK) {
-					g.setColor(getPaintColor());
-					if (isSeparateTetrominoColorMode()) {
-						if (board.getArea(r, c) != null) {
-							int t = board.getArea(r, c).getTetrominoType();
-							g.setColor(getTetrominoColor(t));
-						}
+		for (Address p : board.cellAddrs()) {
+			int st = board.getState(p);
+			if (st == Board.BLACK) {
+				g.setColor(getPaintColor());
+				if (isSeparateTetrominoColorMode()) {
+					if (board.getArea(p) != null) {
+						int t = board.getArea(p).getTetrominoType();
+						g.setColor(getTetrominoColor(t));
 					}
-					paintCell(g, r, c);
-				} else if (st == Board.WHITE) {
-					g.setColor(getCircleColor());
-					placeMark(g, r, c);
 				}
+				paintCell(g, p);
+			} else if (st == Board.WHITE) {
+				g.setColor(getCircleColor());
+				placeMark(g, p);
 			}
 		}
 	}
@@ -174,28 +172,17 @@ public class Panel extends PanelBase {
 	}
 
 	private void drawAreaBorders(Graphics2D g) {
-		g.setColor(getAreaBorderColor());
-		for (int r = 0; r < board.rows(); r++) {
-			for (int c = 0; c < board.cols() - 1; c++) {
-				if (board.getArea(r, c) != board.getArea(r, c + 1)) {
-					placeSideLine(g, Direction.VERT, r, c);
+		g.setColor(areaBorderColor);
+		for (Address p : board.cellAddrs()) {
+			for (int d : Direction.DN_RT) {
+				Address p1 = p.nextCell(d);
+				SideAddress b = SideAddress.get(p, d);
+				if (board.isSideOn(b)) {
+					if (board.getArea(p) != board.getArea(p1)) {
+						placeSideLine(g, b);
+					}
 				}
 			}
-			if (board.getArea(r,0) != null)
-				placeSideLine(g, Direction.VERT, r, -1);
-			if (board.getArea(r,board.cols()-1) != null)
-				placeSideLine(g, Direction.VERT, r, board.cols()-1);
-		}
-		for (int c = 0; c < board.cols(); c++) {
-			for (int r = 0; r < board.rows() - 1; r++) {
-				if (board.getArea(r, c) != board.getArea(r + 1, c)) {
-					placeSideLine(g, Direction.HORIZ, r, c);
-				}
-			}
-			if (board.getArea(0, c) != null)
-				placeSideLine(g, Direction.HORIZ, -1, c);
-			if (board.getArea(board.rows()-1, c) != null)
-				placeSideLine(g, Direction.HORIZ, board.rows()-1, c);
 		}
 	}
 
