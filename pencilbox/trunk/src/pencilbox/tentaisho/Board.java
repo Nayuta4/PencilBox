@@ -195,7 +195,7 @@ public class Board extends BoardBase {
 	public void addCellToArea(Address pos, Area area) {
 		Address p0 = Address.NOWHERE;
 		if (area.size() > 0) {
-			p0 = (Address)area.toArray()[0];
+			p0 = area.getTopCell(Address.NOWHERE);
 		}
 		if (isRecordUndo())
 			fireUndoableEditUpdate(new AreaEditStep(pos, p0, AreaEditStep.ADDED));
@@ -216,9 +216,7 @@ public class Board extends BoardBase {
 	public void removeCellFromArea(Address pos, Area area) {
 		Address p0 = Address.NOWHERE;
 		if (area.size() > 1) {
-			p0 = (Address)area.toArray()[0];
-			if (p0.equals(pos))
-				p0 = (Address)area.toArray()[1];
+			p0 = area.getTopCell(pos);
 		}
 		if (isRecordUndo())
 			fireUndoableEditUpdate(new AreaEditStep(pos, p0, AreaEditStep.REMOVED));
@@ -266,10 +264,11 @@ public class Board extends BoardBase {
 				result |= 1;
 			} 
 		}
-		for (int r = 0; r < rows(); r++)
-			for (int c = 0; c < cols(); c++)
-				if (area[r][c] == null) result |= 2;
-	
+		for (Address p : cellAddrs()) {
+			if (getArea(p) == null) {
+				result |= 2;
+			}
+		}
 		return result;
 	}
 
