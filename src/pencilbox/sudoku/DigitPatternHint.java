@@ -13,7 +13,7 @@ public class DigitPatternHint {
 
 	/**
 	 * @param r row coordinate
-	 * @param c colmun coordinate
+	 * @param c column coordinate
 	 * @return Returns the pattern.
 	 */
 	int getPattern(Address p) {
