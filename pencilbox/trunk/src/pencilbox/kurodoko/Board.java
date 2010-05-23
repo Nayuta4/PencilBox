@@ -140,6 +140,9 @@ public class Board extends BoardBase {
 	int getChain(int r, int c) {
 		return chain[r][c];
 	}
+	int getChain(Address p) {
+		return chain[p.r()][p.c()];
+	}
 
 	/**
 	 * マスの状態を指定した状態に変更し，変更をアンドゥリスナーに通知する
@@ -373,11 +376,11 @@ public class Board extends BoardBase {
 		else return 0;
 	}
 	
-	int getSumSpace(int r, int c) {
-		return number[r][c].getSumSpace();
+	int getSumSpace(Address p) {
+		return getNumber(p).getSumSpace();
 	}
-	int getSumWhite(int r, int c) {
-		return number[r][c].getSumWhite();
+	int getSumWhite(Address p) {
+		return getNumber(p).getSumWhite();
 	}
 
 	public int checkAnswerCode() {
