@@ -3,6 +3,7 @@ package pencilbox.goishi;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.gui.PanelBase;
 
@@ -88,20 +89,18 @@ public class Panel extends PanelBase {
 
 	private void drawNumbers(Graphics2D g) {
 		g.setFont(getNumberFont());
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				if (board.getState(r, c) == Board.STONE) {
-					g.setColor(getPaintColor());
-					placeFilledCircle(g, r, c);
-					int n = board.getNumber(r, c);
-					if (n > 0) {
-						g.setColor(getInputColor());
-//						placeCircle(g, r, c);
-						placeNumber(g, r, c, n);
-					} else {
-						g.setColor(getNumberColor());
-						placeBoldCircle(g, r, c);
-					}
+		for (Address p : board.cellAddrs()) {
+			if (board.getState(p) == Board.STONE) {
+				g.setColor(getPaintColor());
+				placeFilledCircle(g, p);
+				int n = board.getNumber(p);
+				if (n > 0) {
+					g.setColor(getInputColor());
+//						placeCircle(g, p);
+					placeNumber(g, p, n);
+				} else {
+					g.setColor(getNumberColor());
+					placeBoldCircle(g, p);
 				}
 			}
 		}
