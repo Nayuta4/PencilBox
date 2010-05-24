@@ -619,6 +619,9 @@ public class PanelBase extends JPanel implements Printable {
 		fillCircle(g, toX(c) + getHalfCellSize(), toY(r) + getHalfCellSize(),
 				circleSize / 2);
 	}
+	public void placeFilledCircle(Graphics2D g, Address p, int circleSize) {
+		placeFilledCircle(g, p.r(), p.c(), circleSize);
+	}
 	/**
 	 * マスの中央に■を配置する
 	 * @param g
