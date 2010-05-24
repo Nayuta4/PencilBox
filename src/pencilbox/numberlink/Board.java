@@ -111,7 +111,7 @@ public class Board extends BoardBase {
 		else
 			return OUTER;
 	}
-	
+
 	public int getState(SideAddress pos) {
 		return getState(pos.d(), pos.r(), pos.c());
 	}
@@ -164,7 +164,6 @@ public class Board extends BoardBase {
 	public Link getLink(SideAddress pos) {
 		return link[pos.d()][pos.r()][pos.c()];
 	}
-	
 	/**
 	 * そのマスを含む Link を返す
 	 */
@@ -180,20 +179,19 @@ public class Board extends BoardBase {
 		if (link != null) return link;
 		return null;
 	}
-	
+
 	public Link getLink(Address pos) {
 		return getLink(pos.r(), pos.c());
 	}
-	
+
 	public void setLink(int d, int r, int c, Link l) {
 		link[d][r][c] =  l;
 	}
 	public void setLink(SideAddress pos, Link l) {
 		link[pos.d()][pos.r()][pos.c()] = l;
 	}
-	
+
 	/**
-	 * 辺の状態を指定した状態に変更する
 	 * 辺の状態を指定した状態に変更する
 	 * アンドゥリスナーに変更を通知する
 	 * @param p 辺座標
@@ -203,7 +201,7 @@ public class Board extends BoardBase {
 		if (isRecordUndo())
 			fireUndoableEditUpdate(new BorderEditStep(p, getState(p), st));
 		int previousState = getState(p);
-		setState(p,st);
+		setState(p, st);
 		if (previousState == LINE) {
 			cutLink(p);
 		}
@@ -225,7 +223,7 @@ public class Board extends BoardBase {
 	public void initBoard() {
 		initLinks();
 	}
-	
+
 	void initLinks() {
 		Link.resetId();
 		linkList.clear();
