@@ -3,6 +3,7 @@ package pencilbox.shikaku;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.gui.PanelBase;
 import pencilbox.util.Colors;
@@ -143,17 +144,15 @@ public class Panel extends PanelBase {
 	private void drawNumbers(Graphics2D g) {
 		g.setFont(getNumberFont());
 		int number;
-		for (int r = 0; r < board.rows(); r++) {
-			for (int c = 0; c < board.cols(); c++) {
-				number = board.getNumber(r, c);
-				if (number > 0 || number == Board.UNDECIDED_NUMBER) {
-					g.setColor(getNumberColor());
-					super.placeFilledCircle(g, r, c, (int)(getCellSize()*0.85) );
-				}
-				if (number > 0) {
-					g.setColor(getBackgroundColor());
-					super.placeNumber(g, r, c, number);
-				}
+		for (Address p : board.cellAddrs()) {
+			number = board.getNumber(p);
+			if (number > 0 || number == Board.UNDECIDED_NUMBER) {
+				g.setColor(getNumberColor());
+				super.placeFilledCircle(g, p, (int)(getCellSize()*0.85) );
+			}
+			if (number > 0) {
+				g.setColor(getBackgroundColor());
+				super.placeNumber(g, p, number);
 			}
 		}
 	}
