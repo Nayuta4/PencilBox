@@ -3,6 +3,7 @@ package pencilbox.fillomino;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
 import pencilbox.common.gui.PanelBase;
@@ -115,23 +116,21 @@ public class Panel extends PanelBase {
 	}
 
 	private void paintAreas(Graphics2D g) {
-		for (int r = 0; r < board.rows(); r++) {
-			for (int c = 0; c < board.cols(); c++) {
-				int number = board.getNumber(r, c);
-				if (number > 0) {
-					if (isIndicateErrorMode()) {
-						int status = board.getArea(r,c).getStatus();
-						if (status == -1) {
-							g.setColor(getErrorColor());
-							paintCell(g, r, c);
-						} else if (status == 1) {
-							g.setColor(successColor); 
-							paintCell(g, r, c);
-						}
-					} else if (isSeparateAreaColorMode()) {
-						g.setColor(Colors.getBrightColor(board.getNumber(r,c)));
-						paintCell(g, r, c);
+		for (Address p : board.cellAddrs()) {
+			int number = board.getNumber(p);
+			if (number > 0) {
+				if (isIndicateErrorMode()) {
+					int status = board.getArea(p).getStatus();
+					if (status == -1) {
+						g.setColor(getErrorColor());
+						paintCell(g, p);
+					} else if (status == 1) {
+						g.setColor(successColor); 
+						paintCell(g, p);
 					}
+				} else if (isSeparateAreaColorMode()) {
+					g.setColor(Colors.getBrightColor(board.getNumber(p)));
+					paintCell(g, p);
 				}
 			}
 		}
@@ -139,21 +138,19 @@ public class Panel extends PanelBase {
 
 	private void drawNumbers(Graphics2D g) {
 		g.setFont(getNumberFont());
-		for (int r = 0; r < board.rows(); r++) {
-			for (int c = 0; c < board.cols(); c++) {
-				int number = board.getNumber(r, c);
-				if (number > 0) {
-					if (board.isStable(r, c)) {
-						g.setColor(getNumberColor());
-					} else {
-						g.setColor(getInputColor());
-					}
-					placeNumber(g, r, c, board.getNumber(r, c));
-				} else if (number == Board.UNKNOWN) {
-					if (board.isStable(r, c)) {
-						g.setColor(getNumberColor());
-						placeBoldCircle(g, r, c);
-					}
+		for (Address p : board.cellAddrs()) {
+			int number = board.getNumber(p);
+			if (number > 0) {
+				if (board.isStable(p)) {
+					g.setColor(getNumberColor());
+				} else {
+					g.setColor(getInputColor());
+				}
+				placeNumber(g, p, board.getNumber(p));
+			} else if (number == Board.UNKNOWN) {
+				if (board.isStable(p)) {
+					g.setColor(getNumberColor());
+					placeBoldCircle(g, p);
 				}
 			}
 		}
