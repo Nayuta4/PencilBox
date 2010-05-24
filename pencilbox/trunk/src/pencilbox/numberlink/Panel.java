@@ -3,6 +3,7 @@ package pencilbox.numberlink;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.gui.PanelBase;
 import pencilbox.util.Colors;
@@ -164,18 +165,16 @@ public class Panel extends PanelBase {
 	private void drawNumbers(Graphics2D g) {
 		int number;
 		g.setFont(getNumberFont());
-		for (int r = 0; r < board.rows(); r++) {
-			for (int c = 0; c < board.cols(); c++) {
-				number = board.getNumber(r, c);
-				if (number > 0) {
-					g.setColor(getBackgroundColor());
-					placeFilledCircle(g, r, c);
-					g.setColor(getNumberColor());
-					placeNumber1(g, r, c, number);
-				} else if (number == Board.UNDECIDED_NUMBER) {
-					g.setColor(getNumberColor());
-					placeBoldCircle(g, r, c);
-				}
+		for (Address p : board.cellAddrs()) {
+			number = board.getNumber(p);
+			if (number > 0) {
+				g.setColor(getBackgroundColor());
+				placeFilledCircle(g, p);
+				g.setColor(getNumberColor());
+				placeNumber1(g, p, number);
+			} else if (number == Board.UNDECIDED_NUMBER) {
+				g.setColor(getNumberColor());
+				placeBoldCircle(g, p);
 			}
 		}
 	}
@@ -202,25 +201,25 @@ public class Panel extends PanelBase {
 		super.placeLink(g, d, r, c);
 	}
 
-	private void placeNumber1(Graphics2D g, int r, int c, int n) {
+	private void placeNumber1(Graphics2D g, Address p, int n) {
 		if (isHighlightSelectionMode()) {
 			if (n == getSelectedNumber()) {
 				g.setColor(highlightColor);
-				super.paintCell(g, r, c);
+				super.paintCell(g, p);
 			}
 		}
 		g.setColor(getNumberColor());
 		if (isSeparateLinkColorMode()) {
-			g.setColor(Colors.getDarkColor(board.getNumber(r,c)));
+			g.setColor(Colors.getDarkColor(board.getNumber(p)));
 		}
 //		if (isIndicateErrorMode()) {
-//			if (board.getLink(r, c) != null
-//					&& board.getLink(r, c).getNumber() == -1)
+//			if (board.getLink(p) != null
+//					&& board.getLink(p).getNumber() == -1)
 //				g.setColor(getErrorColor());
-////			if (board.countLine(r, c) > 1)
+////			if (board.countLine(p) > 1)
 ////				g.setColor(getErrorColor());
 //		}
-		super.placeNumber(g, r, c, n);
+		super.placeNumber(g, p, n);
 	}
 	
 }
