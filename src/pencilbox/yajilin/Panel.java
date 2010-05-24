@@ -3,6 +3,7 @@ package pencilbox.yajilin;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
 import pencilbox.common.gui.PanelBase;
@@ -132,26 +133,24 @@ public class Panel extends PanelBase {
 	private void drawNumbers(Graphics2D g) {
 		int state;
 		g.setFont(getNumberFont());
-		for (int r = 0; r < board.rows(); r++) {
-			for (int c = 0; c < board.cols(); c++) {
-				state = board.getNumber(r, c);
-				if (state == Board.BLACK) {
-					g.setColor(getPaintColor());
+		for (Address p : board.cellAddrs()) {
+			state = board.getNumber(p);
+			if (state == Board.BLACK) {
+				g.setColor(getPaintColor());
 //					if (isIndicateErrorMode()) {
-//						if (board.isBlock(r, c)) {
+//						if (board.isBlock(p)) {
 //							g.setColor(getErrorColor());
 //						}
 //					}
-					paintCell(g, r, c);
-				} else if (state == Board.WHITE) {
-					g.setColor(getCircleColor());
-					placeMark(g, r, c);
-				} else if (state >= 0) {
-					placeArrow(g, r, c, state);
-				} else if (state == Board.UNDECIDED_NUMBER) {
-					g.setColor(getNumberColor());
-					placeBoldCircle(g, r, c);
-				}
+				paintCell(g, p);
+			} else if (state == Board.WHITE) {
+				g.setColor(getCircleColor());
+				placeMark(g, p);
+			} else if (state >= 0) {
+				placeArrow(g, p, state);
+			} else if (state == Board.UNDECIDED_NUMBER) {
+				g.setColor(getNumberColor());
+				placeBoldCircle(g, p);
 			}
 		}
 	}
@@ -178,26 +177,26 @@ public class Panel extends PanelBase {
 	/**
 	 * マスに矢印付き数字を配置する。
 	 * @param g
-	 * @param r
-	 * @param c
+	 * @param p
 	 * @param arrow
 	 */
-	private void placeArrow(Graphics2D g, int r, int c, int arrow) {
+	private void placeArrow(Graphics2D g, Address p, int arrow) {
 //		g.setColor(wallColor);
-//		paintCell(g, r, c);
+//		paintCell(g, p);
 		g.setColor(getNumberColor());
-//		placeSquare(g, r, c, r, c);
+//		placeSquare(g, p);
 		if (isIndicateErrorMode()) {
-			if (board.checkArrow(r, c) == 16)
+			if (board.checkArrow(p) == 16)
 				g.setColor(getErrorColor());
 		}
 //		g.setColor(wallColor);
-//		paintCell(g, r, c);
+//		paintCell(g, p);
 //		g.setColor(getNumberColor());
 		int direction = (arrow >> 4) & 3;
 		int number = arrow & 15;
 		String arrowS = getArrowString(direction);
 		String numberS = Integer.toString(number);
+		int r=p.r(), c=p.c();
 		if (direction == Direction.UP || direction == Direction.DN) {
 			drawString(g, toX(c+1) - getCellSize()*1/6, toY(r) + getHalfCellSize(), arrowS);
 			drawString(g, toX(c) + getHalfCellSize() - getCellSize()*1/12, toY(r) + getHalfCellSize(), numberS);
