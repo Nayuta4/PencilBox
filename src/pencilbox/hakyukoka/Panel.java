@@ -193,27 +193,25 @@ public class Panel extends PanelBase {
 	}
 
 	private void paintCells(Graphics2D g) {
-		for (int r = 0; r < board.rows(); r++) {
-			for (int c = 0; c < board.cols(); c++) {
-				if (board.getArea(r, c) == null) {
-					g.setColor(noAreaColor);
-					paintCell(g, r, c);
-				} else if (board.getArea(r, c) == draggingArea) {
-					g.setColor(draggingAreaColor);
-					paintCell(g, r, c);
-				}
-				// 選択数字配置可能なマスを色塗り
-//				if (isHighlightSelectionMode()) {
-//					if (getSelectedNumber() > 0 && board.canPlace(r, c, selectedNumber)) {
-//						g.setColor(highlight2Color);
-//						paintCell(g, r, c);
-//					}
+		for (Address p : board.cellAddrs()) {
+			if (board.getArea(p) == null) {
+				g.setColor(noAreaColor);
+				paintCell(g, p);
+			} else if (board.getArea(p) == draggingArea) {
+				g.setColor(draggingAreaColor);
+				paintCell(g, p);
+			}
+			// 選択数字配置可能なマスを色塗り
+//			if (isHighlightSelectionMode()) {
+//				if (getSelectedNumber() > 0 && board.canPlace(p, selectedNumber)) {
+//					g.setColor(highlight2Color);
+//					paintCell(g, p);
 //				}
-				if (isHighlightSelectionMode()) {
-					if (getSelectedNumber() > 0 && board.getNumber(r, c) == getSelectedNumber()) {
-						g.setColor(highlightColor);
-						paintCell(g, r, c);
-					}
+//			}
+			if (isHighlightSelectionMode()) {
+				if (getSelectedNumber() > 0 && board.getNumber(p) == getSelectedNumber()) {
+					g.setColor(highlightColor);
+					paintCell(g, p);
 				}
 			}
 		}

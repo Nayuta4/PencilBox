@@ -744,8 +744,8 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param r0 盤面行座標
 	 * @param c0 盤面列座標
 	 */
-	public void edgeCell(Graphics2D g, int r0, int c0) {
-		g.drawRect(toX(c0), toY(r0), getCellSize(), getCellSize());
+	public void edgeCell(Graphics2D g, Address p0, int w) {
+		g.drawRect(toX(p0), toY(p0), getCellSize(), getCellSize());
 	}
 
 	/**
@@ -755,7 +755,8 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param c0 盤面列座標
 	 * @param w　線幅
 	 */
-	public void edgeCell(Graphics2D g, int r0, int c0, int w) {
+	public void edgeCell(Graphics2D g, int r0, int c0) {
+		int w = 1;
 		for (int i = 0; i < w; i++) {
 			g.drawRect(toX(c0)+i, toY(r0)+i, getCellSize()-i-i, getCellSize()-i-i);
 		}

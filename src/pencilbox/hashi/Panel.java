@@ -3,6 +3,7 @@ package pencilbox.hashi;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
 import pencilbox.common.gui.PanelBase;
@@ -84,60 +85,52 @@ public class Panel extends PanelBase {
 
 	private void drawBridgesAndPiers(Graphics2D g) {
 		g.setFont(getNumberFont());
-		for (int r = 0; r < board.rows(); r++) {
-			for (int c = 0; c < board.cols(); c++) {
-				if (board.isPier(r, c)) {
-					placeBridgeAndPier(g, r, c, board.getNumber(r, c));
-				}
+		for (Address p : board.cellAddrs()) {
+			if (board.isPier(p)) {
+				placeBridgeAndPier(g, p, board.getNumber(p));
 			}
 		}
 	}
 	
-	void placeBridgeAndPier(Graphics2D g, int r0, int c0, int n) {
+	void placeBridgeAndPier(Graphics2D g, Address p0, int n) {
 
-		Pier pier = board.getPier(r0,c0);
+		Pier pier = board.getPier(p0);
 		if (isSeparateLinkColorMode())
 			g.setColor(Colors.getColor(pier.getChain()));
 		else
 			g.setColor(getLineColor());
-		int r = r0;
-		int c = c0;
-		if (pier.getNBridge(Direction.DN) > 0) {
-			while (!board.isPier(++r, c)) {
-				placeBridge(g, r, c, Direction.VERT, pier.getNBridge(Direction.DN));
+		for (int d : Direction.DN_RT) {
+			Address p = p0;
+			if (pier.getNBridge(d) > 0) {
+				p = p.nextCell(p, d);
+				while (!board.isPier(p)) {
+					placeBridge(g, p, d^1, pier.getNBridge(d));
+				}
 			}
 		}
-		r = r0;
-		c = c0;
-		if (pier.getNBridge(Direction.RT) > 0) {
-			while (!board.isPier(r, ++c)) {
-				placeBridge(g, r, c, Direction.HORIZ, pier.getNBridge(Direction.RT));
-			}
-		}
-		placePier(g, r0, c0, n);
+		placePier(g, p0, n);
 	}
 	/**
 	 * ‹´‹r‚ð”z’u‚·‚é
 	 * @param g
-	 * @param r
-	 * @param c
+	 * @param p
 	 * @param n
 	 */
-	void placePier(Graphics2D g, int r, int c, int n) {
+	void placePier(Graphics2D g, Address p, int n) {
 		if (isIndicateErrorMode()) {
-			int check = board.checkPier(r, c);
+			int check = board.checkPier(p);
 			if (check < 0) {
 				g.setColor(getErrorColor());
-				placeFilledCircle(g, r, c, getCellSize());
+				placeFilledCircle(g, p, getCellSize());
 			} else if (check == 0) {
 				g.setColor(successColor);
-				placeFilledCircle(g, r, c, getCellSize());
+				placeFilledCircle(g, p, getCellSize());
 			}
 		}
 		g.setColor(getNumberColor());
-		placeCircle(g, r, c, getCellSize());
+		placeCircle(g, p, getCellSize());
 		if (n >= 1 && n <= 8) {
-			placeNumber(g, r, c, n);
+			placeNumber(g, p, n);
 		}
 	}
 	/**
@@ -148,7 +141,8 @@ public class Panel extends PanelBase {
 	 * @param dir ‰¡ü‚È‚ç HORIZ cü‚È‚ç VERT
 	 * @param n ü‚Ì–{”(1or2)
 	 */
-	public void placeBridge(Graphics2D g, int r, int c, int dir, int n) {
+	public void placeBridge(Graphics2D g, Address p, int dir, int n) {
+		int r=p.r(), c=p.c();
 		if (n == 1) {
 			if (dir == Direction.HORIZ) {
 				drawLineSegment(g, toX(c), toY(r) + getHalfCellSize(), dir, getLinkWidth());

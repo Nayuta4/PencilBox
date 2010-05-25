@@ -1,9 +1,9 @@
 package pencilbox.slalom;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics2D;
 
+import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
 import pencilbox.common.gui.PanelBase;
@@ -150,76 +150,72 @@ public class Panel extends PanelBase {
 	private void drawGates(Graphics2D g) {
 		int state;
 		g.setFont(getNumberFont());
-		for (int r = 0; r < board.rows(); r++) {
-			for (int c = 0; c < board.cols(); c++) {
-				state = board.getNumber(r, c);
-				if (state >= 0) {
-					placeNumber(g, r, c, board.getNGate());
-				} else if (state == Board.GATE_HORIZ) {
-					g.setColor(getGateColor());
-					placeGateLine(g, r, c, Direction.HORIZ);
-				} else if (state == Board.GATE_VERT) {
-					g.setColor(getGateColor());
-					placeGateLine(g, r, c, Direction.VERT);
-				}
-//				if (state == Board.GATE_HORIZ || state == Board.GATE_VERT) {
-//					g.setColor(getCircleColor());
-//					if (board.isGate(r, c)) {
-//						int n = board.getGateNumber(r, c);
-//						if (n >= -1) {
-//							placeSmallNumber(g, r, c, board.getGateNumber(r, c));
-//						} else {
-//							placeSmallNumber(g, r, c, n);
-//						}
+		for (Address p : board.cellAddrs()) {
+			state = board.getNumber(p);
+			if (state >= 0) {
+				placeNumber(g, p, board.getNGate());
+			} else if (state == Board.GATE_HORIZ) {
+				g.setColor(getGateColor());
+				placeGateLine(g, p, Direction.HORIZ);
+			} else if (state == Board.GATE_VERT) {
+				g.setColor(getGateColor());
+				placeGateLine(g, p, Direction.VERT);
+			}
+//			if (state == Board.GATE_HORIZ || state == Board.GATE_VERT) {
+//				g.setColor(getCircleColor());
+//				if (board.isGate(p)) {
+//					int n = board.getGateNumber(p);
+//					if (n >= -1) {
+//						placeSmallNumber(g, p, board.getGateNumber(p));
+//					} else {
+//						placeSmallNumber(g, p, n);
 //					}
 //				}
-			}
+//			}
 		}
 	}
 
 	private void drawNumbers(Graphics2D g) {
 		int state;
 		g.setFont(getNumberFont());
-		for (int r = 0; r < board.rows(); r++) {
-			for (int c = 0; c < board.cols(); c++) {
-//				if (board.getLink(r, c) != null) {
-//					g.setColor(backLineColor);
-//					paintCell(g, r, c);
-//				}
-				state = board.getNumber(r, c);
-				if (state >= 0) {
-					g.setColor(getWallColor());
-					paintCell(g, r, c);
-					if (state > 0) {
-						g.setColor(getNumberColor());
-						placeNumber(g, r, c, state);
-					}
-				} else if (state == Board.GOAL) {
-					g.setColor(getBackgroundColor());
-					placeFilledCircle(g, r, c, getCellSize()-2);
-					g.setColor(getCircleColor());
-//					placeBoldCircle(g, r, c, getCellSize()-2);
-					placeCircle(g, r, c, getCellSize()-2);
-					placeNumber(g, r, c, board.getNGate());
+		for (Address p : board.cellAddrs()) {
+//			if (board.getLink(p) != null) {
+//				g.setColor(backLineColor);
+//				paintCell(g, p);
+//			}
+			state = board.getNumber(p);
+			if (state >= 0) {
+				g.setColor(getWallColor());
+				paintCell(g, p);
+				if (state > 0) {
+					g.setColor(getNumberColor());
+					placeNumber(g, p, state);
 				}
+			} else if (state == Board.GOAL) {
+				g.setColor(getBackgroundColor());
+				placeFilledCircle(g, p, getCellSize()-2);
+				g.setColor(getCircleColor());
+//				placeBoldCircle(g, p, getCellSize()-2);
+				placeCircle(g, p, getCellSize()-2);
+				placeNumber(g, p, board.getNGate());
 			}
 		}
 	}
 
-//	private void placeSmallNumber(Graphics2D g, int r, int c, int n) {
+//	private void placeSmallNumber(Graphics2D g, Address p, int n) {
 //		g.setFont(smallFont);
 //		g.setColor(Color.RED);
-//		placeString(g, r, c, Integer.toString(n));
+//		placeString(g, p, Integer.toString(n));
 //		g.setFont(getNumberFont());
 //	}
 
-	private void placeGateLine(Graphics2D g, int r, int c, int dir) {
+	private void placeGateLine(Graphics2D g, Address p, int dir) {
 //		Stroke s = g.getStroke();
 //		g.setStroke(dotStroke);
 		if (dir == Direction.HORIZ)
-			drawLineSegment(g, toX(c), toY(r) + getHalfCellSize(), dir, gateLineWidth);
+			drawLineSegment(g, toX(p), toY(p) + getHalfCellSize(), dir, gateLineWidth);
 		else if (dir == Direction.VERT)
-			drawLineSegment(g, toX(c) + getHalfCellSize(), toY(r), dir, gateLineWidth);
+			drawLineSegment(g, toX(p) + getHalfCellSize(), toY(p), dir, gateLineWidth);
 //		g.setStroke(s);
 	}
 

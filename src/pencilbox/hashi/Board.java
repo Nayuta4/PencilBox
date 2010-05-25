@@ -176,6 +176,9 @@ public class Board extends BoardBase {
 	public Pier getPier(int r, int c) {
 		return pier[r][c];
 	}
+	public Pier getPier(Address p) {
+		return pier[p.r()][p.c()];
+	}
 	/**
 	 * そのマス上の橋を取得する
 	 * @param r 行座標
@@ -484,9 +487,9 @@ public class Board extends BoardBase {
 	 * @param c 列座標
 	 * @return >0: 少なすぎる, =0: ちょうど, <0 多すぎる
 	 */
-	public int checkPier(int r, int c) {
-		int number = pier[r][c].getNumber();
-		int bridges = pier[r][c].totalBridges();
+	public int checkPier(Address p) {
+		int number = getPier(p).getNumber();
+		int bridges = getPier(p).totalBridges();
 		if (number == UNDECIDED_NUMBER)
 			return 1;
 		return number - bridges;
