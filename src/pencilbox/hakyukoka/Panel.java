@@ -162,29 +162,19 @@ public class Panel extends PanelBase {
 	}
 
 	private void drawBeams(Graphics2D g) {
-		for (int r = 0; r < board.rows(); r++) {
-			for (int c = 0; c < board.cols(); c++) {
-				int n = board.getNumber(r, c);
-				if (isHighlightSelectionMode()) {
-					if (n > 0 && n == getSelectedNumber()) {
-						for (int cc = c-n; cc <= c+n; cc++) {
-							if (cc==c)
-								continue;
-							if (board.isOn(r,cc)) {
+		if (isHighlightSelectionMode()) {
+			for (Address p : board.cellAddrs()) {
+				int n = board.getNumber(p);
+				if (n > 0 && n == getSelectedNumber()) {
+					for (int d = 0; d < 4; d++) {
+						Address p1 = p;
+						for (int k = 0; k < n; k++) {
+							p1 = p1.nextCell(d);
+							if (board.isOn(p1)) {
 								g.setColor(beamColor);
-								placeCenterLine(g, r, cc, Direction.HORIZ);
+								placeCenterLine(g, p1, d&1);
 //								g.setColor(selectedNumberColor2);
-//								paintCell(g, r, cc);
-							}
-						}
-						for (int rr = r-n; rr <= r+n; rr++) {
-							if (rr==r)
-								continue;
-							if (board.isOn(rr,c)) {
-								g.setColor(beamColor);
-								placeCenterLine(g, rr, c, Direction.VERT);
-//								g.setColor(selectedNumberColor2);
-//								paintCell(g, rr, c);
+//								paintCell(g, p1);
 							}
 						}
 					}
