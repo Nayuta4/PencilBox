@@ -692,6 +692,9 @@ public class PanelBase extends JPanel implements Printable {
 	public void placeLink(Graphics2D g, int d, int r, int c) {
 		drawLineSegment(g, toX(c) + getHalfCellSize(), toY(r) + getHalfCellSize(), d ^ 1, getLinkWidth());
 	}
+	public void placeLink(Graphics2D g, SideAddress p) {
+		placeLink(g, p.d(), p.r(), p.c());
+	}
 	/**
 	 * 辺上に×印を配置する
 	 * @param g
@@ -704,6 +707,9 @@ public class PanelBase extends JPanel implements Printable {
 			drawCross(g, toX(c + 1), toY(r) + getHalfCellSize(), smallCrossSize);
 		else if (d == Direction.HORIZ)
 			drawCross(g, toX(c) + getHalfCellSize(), toY(r + 1), smallCrossSize);
+	}
+	public void placeSideCross(Graphics2D g, SideAddress p) {
+		placeSideCross(g, p.d(), p.r(), p.c());
 	}
 	/**
 	 * マスの中心に横または縦の線を配置する

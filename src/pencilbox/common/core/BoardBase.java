@@ -13,6 +13,7 @@ public class BoardBase {
 	private Size size;
 
 	private Address[] cellAddrs; // 盤面全体のマス座標リスト
+	private SideAddress[] borderAddrs; // 盤面内部の辺座標リスト
 
 	/**
 	 * 盤面サイズをあたえて，Board 生成後の初期化処理を行う
@@ -42,6 +43,19 @@ public class BoardBase {
 		for (int r=0; r<rows(); r++) {
 			for (int c=0; c<cols(); c++) {
 				cellAddrs[r*cols()+c] = Address.address(r, c);
+			}
+		}
+		this.borderAddrs = new SideAddress[rows()*(cols()-1)+(rows()-1)*cols()];
+		for (int r=0; r<rows(); r++) {
+			for (int c=0; c<cols()-1; c++) {
+				int p = r*(cols()-1)+c;
+				borderAddrs[p] = SideAddress.sideAddress(Direction.VERT, r, c);
+			}
+		}
+		for (int r=0; r<rows()-1; r++) {
+			for (int c=0; c<cols(); c++) {
+				int p = rows()*(cols()-1)+r*cols()+c;
+				borderAddrs[p] = SideAddress.sideAddress(Direction.HORIZ, r, c);
 			}
 		}
 	}
@@ -206,6 +220,13 @@ public class BoardBase {
 	 */
 	public Address[] cellAddrs() {
 		return cellAddrs;
+	}
+
+	/**
+	 * @return the borderAddrs
+	 */
+	public SideAddress[] borderAddrs() {
+		return borderAddrs;
 	}
 
 	/**

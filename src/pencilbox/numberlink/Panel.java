@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
+import pencilbox.common.core.SideAddress;
 import pencilbox.common.gui.PanelBase;
 import pencilbox.util.Colors;
 
@@ -146,18 +147,13 @@ public class Panel extends PanelBase {
 	}
 
 	private void drawLinks(Graphics2D g) {
-		int state;
-		for (int d = 0; d <= 1; d++) {
-			for (int r = 0; r < board.rows(); r++) {
-				for (int c = 0; c < board.cols(); c++) {
-					state = board.getState(d, r, c);
-					if (state == Board.LINE) {
-						placeLink1(g, d, r, c);
-//					} else if (state == Board.NOLINE) {
-//						g.setColor(getCrossColor());
-//						placeSideCross(g, d, r, c);
-					}
-				}
+		for (SideAddress p : board.borderAddrs()) {
+			int state = board.getState(p);
+			if (state == Board.LINE) {
+				placeLink1(g, p);
+//			} else if (state == Board.NOLINE) {
+//				g.setColor(getCrossColor());
+//				placeSideCross(g, p);
 			}
 		}
 	}
@@ -179,8 +175,8 @@ public class Panel extends PanelBase {
 		}
 	}
 
-	private void placeLink1(Graphics2D g, int d, int r, int c) {
-		Link link = board.getLink(d,r,c);
+	private void placeLink1(Graphics2D g, SideAddress p) {
+		Link link = board.getLink(p);
 		int linkNo = link.getNumber();
 		g.setColor(getLineColor());
 		if (isSeparateLinkColorMode()) {
@@ -198,7 +194,7 @@ public class Panel extends PanelBase {
 				g.setColor(highlightColor);
 			}
 		}
-		super.placeLink(g, d, r, c);
+		super.placeLink(g, p);
 	}
 
 	private void placeNumber1(Graphics2D g, Address p, int n) {
