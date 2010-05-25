@@ -3,6 +3,7 @@ package pencilbox.masyu;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.gui.PanelBase;
 import pencilbox.util.Colors;
@@ -90,17 +91,14 @@ public class Panel extends PanelBase {
 	}
 
 	private void drawNumbers(Graphics2D g) {
-		int number;
-		for (int r = 0; r < board.rows(); r++) {
-			for (int c = 0; c < board.cols(); c++) {
-				number = board.getNumber(r, c);
-				if (number == Board.WHITE_PEARL) {
-					placeWhitePearl(g,r,c);
-				} else if (number == Board.BLACK_PEARL) {
-					placeBlackPearl(g,r,c);
-				} else if (number == Board.GRAY_PEARL) {
-					placeGrayPearl(g,r,c);
-				}
+		for (Address p : board.cellAddrs()) {
+			int number = board.getNumber(p);
+			if (number == Board.WHITE_PEARL) {
+				placeWhitePearl(g, p);
+			} else if (number == Board.BLACK_PEARL) {
+				placeBlackPearl(g, p);
+			} else if (number == Board.GRAY_PEARL) {
+				placeGrayPearl(g, p);
 			}
 		}
 	}
@@ -125,10 +123,10 @@ public class Panel extends PanelBase {
 		}
 	}
 	
-	private void placeBlackPearl(Graphics2D g, int r, int c) {
+	private void placeBlackPearl(Graphics2D g, Address pp) {
 		g.setColor(getNumberColor());
 		if (isIndicateErrorMode()) {
-			int p = board.checkBlackPearl(r,c);
+			int p = board.checkBlackPearl(pp.r(), pp.c());
 			if (p==-1)
 				g.setColor(getErrorColor()); 
 			else if (p==0)
@@ -138,28 +136,28 @@ public class Panel extends PanelBase {
 //			else if (p==2)
 //				g.setColor(getNumberColor());
 		}
-		placeFilledCircle(g, r, c);
+		placeFilledCircle(g, pp);
 	}
 	
-	private void placeWhitePearl(Graphics2D g, int r, int c) {
+	private void placeWhitePearl(Graphics2D g, Address pp) {
 		g.setColor(getNumberColor());
 		if (isIndicateErrorMode()) {
-			int p = board.checkWhitePearl(r,c);
-			if (p==-1)
+			int n = board.checkWhitePearl(pp.r(), pp.c());
+			if (n==-1)
 				g.setColor(getErrorColor()); 
-			else if (p==0)
+			else if (n==0)
 				g.setColor(getErrorColor()); 
 //			else if (p==1)
 //				g.setColor(getErrorColor()); 
 //			else if (p==2)
 //				g.setColor(getNumberColor());
 		}
-		placeBoldCircle(g, r, c);
+		placeBoldCircle(g, pp);
 	}
 	
-	private void placeGrayPearl(Graphics2D g, int r, int c) {
+	private void placeGrayPearl(Graphics2D g, Address p) {
 		g.setColor(grayPearlColor);
-		placeFilledCircle(g, r, c);
+		placeFilledCircle(g, p);
 	}
 
 }
