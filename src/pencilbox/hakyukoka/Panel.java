@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
+import pencilbox.common.core.SideAddress;
 import pencilbox.common.gui.HintDot;
 import pencilbox.common.gui.PanelBase;
 
@@ -246,27 +247,16 @@ public class Panel extends PanelBase {
 	
 	private void drawAreaBorders(Graphics2D g) {
 		g.setColor(getAreaBorderColor());
-		for (int r = 0; r < board.rows(); r++) {
-			for (int c = 0; c < board.cols() - 1; c++) {
-				if (board.getArea(r, c) != board.getArea(r, c + 1)) {
-					placeSideLine(g, Direction.VERT, r, c);
+		for (Address p : board.cellAddrs()) {
+			for (int d : Direction.DN_RT) {
+				Address p1 = p.nextCell(d);
+				SideAddress b = SideAddress.get(p, d);
+				if (board.isSideOn(b)) {
+					if (board.getArea(p) != board.getArea(p1)) {
+						placeSideLine(g, b);
+					}
 				}
 			}
-			if (board.getArea(r,0) != null)
-				placeSideLine(g, Direction.VERT, r, -1);
-			if (board.getArea(r,board.cols()-1) != null)
-				placeSideLine(g, Direction.VERT, r, board.cols()-1);
-		}
-		for (int c = 0; c < board.cols(); c++) {
-			for (int r = 0; r < board.rows() - 1; r++) {
-				if (board.getArea(r, c) != board.getArea(r + 1, c)) {
-					placeSideLine(g, Direction.HORIZ, r, c);
-				}
-			}
-			if (board.getArea(0, c) != null)
-				placeSideLine(g, Direction.HORIZ, -1, c);
-			if (board.getArea(board.rows()-1, c) != null)
-				placeSideLine(g, Direction.HORIZ, board.rows()-1, c);
 		}
 	}
 
