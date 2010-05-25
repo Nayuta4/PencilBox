@@ -205,15 +205,14 @@ public class Board extends BoardBase {
 	}
 
 	private void changeNumber1(Address p, int n) {
-		int r=p.r(), c=p.c();
-		if (getNumber(r,c) == n)
+		if (getNumber(p) == n)
 			return;
-		updateMulti(r, c, n);
-		hint.updateHint(r, c, n);
-		setNumber(r, c, n);
+		updateMulti(p, n);
+		hint.updateHint(p.r(), p.c(), n);
+		setNumber(p, n);
 		printmult();
 	}
-	
+
 	public void printmult() {
 		for (int r=0; r<rows(); r++) {
 			for (int c=0; c<cols(); c++) {
@@ -262,75 +261,59 @@ public class Board extends BoardBase {
 	 * 現在の盤面状態から，multi[][] 配列を初期化する
 	 */
 	void initMulti() {
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				if(getNumber(r,c)>0)
-					initMulti1(r,c,getNumber(r,c));
+		for (Address p : cellAddrs()) {
+			if(getNumber(p)>0) {
+				multi[p.r()][p.c()] = 1;
+				updateMulti1(p, getNumber(p), +1, 0);
 			}
 		}
 	}
 
-	private void initMulti1(int r0, int c0, int num) {
-		multi[r0][c0] = 1;
-		for (int c = 0; c < cols(); c++) {
-			if (c==c0) continue;
-			if (getNumber(r0,c) == num) {
-				multi[r0][c0]++;
-			}
-		}
-		for (int r = 0; r < rows(); r++) {
-			if (r==r0) continue;
-			if (getNumber(r,c0) == num) {
-				multi[r0][c0]++;
-			}
-		}
-		int unit = getUnit();
-		for (int r = r0-r0%unit; r < r0-r0%unit+unit; r++) {
-			for (int c = c0-c0%unit; c < c0-c0%unit+unit; c++) {
-				if (r==r0 && c==c0)
-					continue;
-				if (getNumber(r,c) == num) {
-					multi[r0][c0]++;
-				}
-			}
-		}
-	}
 	/**
 	 *	[r0, c0]に変化があったときにmulti配列を更新する
 	 * @param r0 状態を変更したマスの行座標
 	 * @param c0 状態を変更したマスの列座標
 	 * @param num 変更後のマスの数字
 	 */
-	void updateMulti(int r0, int c0, int num) {
-		int prevNum = getNumber(r0, c0);
+	void updateMulti(Address p0, int num) {
+		int prevNum = getNumber(p0);
+		int r0=p0.r(), c0=p0.c();
+		// prevNumと同じ数字を探して重複数を-1する
 		if (multi[r0][c0]>1) {
-			decreaseMulti(r0, c0, prevNum);
+			updateMulti1(p0, prevNum, 0, -1);
 		}
+		// numと同じ数字を探して重複数を+1する，マス自身の重複数も+1する
 		if (num>0) {
-			increaseMulti(r0, c0, num);
+			multi[r0][c0] = 1;
+			updateMulti1(p0, num, +1, +1);
+		} else {
+			multi[r0][c0] = 0;
 		}
 	}
+
 	/**
-	 * [r0, c0] に数字num(>0)を入れるときに，multi[][]を更新する
-	 * @param r0 状態を変更したマスの行座標
-	 * @param c0 状態を変更したマスの列座標
-	 * @param num 変更後のマスの数字
+	 * p0の数字の変更に応じて重複数を数えるmulti[][]配列を更新する
+	 * @param p0 状態を変更したマスの座標
+	 * @param num 調べる数字
+	 * @param m 自分の重複数更新数
+	 * @param k 相手の重複数更新数
 	 */
-	private void increaseMulti(int r0, int c0, int num) {
-		multi[r0][c0] = 1;
+	private void updateMulti1(Address p0, int num, int m, int k) {
+		int r0=p0.r(), c0=p0.c();
 		for (int c = 0; c < cols(); c++) {
 			if (c==c0)
 				continue;
 			if (getNumber(r0,c) == num) {
-				multi[r0][c]++;
-				multi[r0][c0]++;
+				multi[r0][c] += k;
+				multi[r0][c0] += m;
 			}
 		}
 		for (int r = 0; r < rows(); r++) {
-			if (r==r0) continue;
+			if (r==r0)
+				continue;
 			if (getNumber(r,c0) == num) {
-				multi[r][c0]++;
-				multi[r0][c0]++;
+				multi[r][c0] += k;
+				multi[r0][c0] += m;
 			}
 		}
 		int unit = getUnit();
@@ -339,40 +322,8 @@ public class Board extends BoardBase {
 				if (r==r0 && c==c0)
 					continue;
 				if (getNumber(r,c) == num) {
-					multi[r][c]++;
-					multi[r0][c0]++;
-				}
-			}
-		}
-	}
-	/**
-	 * [r0, c0] の数字prevNum(>0)を消す，multi[][]を更新する
-	 * @param r0 状態を変更したマスの行座標
-	 * @param c0 状態を変更したマスの列座標
-	 * @param prevNum 変更前のマスに入っていた数字
-	 */
-	private void decreaseMulti(int r0, int c0, int prevNum) {
-		for (int c = 0; c < cols(); c++) {
-			if (c==c0)
-				continue;
-			if (getNumber(r0,c) == prevNum) {
-				multi[r0][c]--;
-			}
-		}
-		for (int r = 0; r < rows(); r++) {
-			if (r==r0)
-				continue;
-			if (getNumber(r,c0) == prevNum) {
-				multi[r][c0]--;
-			}
-		}
-		int unit = getUnit();
-		for (int r = r0-r0%unit; r < r0-r0%unit+unit; r++) {
-			for (int c = c0-c0%unit; c < c0-c0%unit+unit; c++) {
-				if (r==r0 && c==c0)
-					continue;
-				if (getNumber(r,c) == prevNum) {
-					multi[r][c]--;
+					multi[r][c] += k;
+					multi[r0][c0] += m;
 				}
 			}
 		}
@@ -382,7 +333,7 @@ public class Board extends BoardBase {
 		int result = 0;
 		for (Address p : cellAddrs()) {
 			if (isMultipleNumber(p))
-				result |= 1;;
+				result |= 1;
 			if (getNumber(p) == 0)
 				result |= 2;
 		}
