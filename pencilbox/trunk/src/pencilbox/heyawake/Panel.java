@@ -159,7 +159,7 @@ public class Panel extends PanelBase {
 		g.setFont(getNumberFont());
 		for (Square square : board.getSquareList()) {
 			g.setColor(getAreaBorderColor());
-			placeSquare(g, square.r0(), square.c0(), square.r1(), square.c1());
+			placeSquare(g, square);
 			if (square.getNumber() >= 0) {
 				g.setColor(getNumberColor());
 				if (isIndicateErrorMode()) {
@@ -179,7 +179,7 @@ public class Panel extends PanelBase {
 		Square square = getDraggingSquare();
 		if (square != null	) {
 			g.setColor(areaBorderColor);
-			placeSquare(g, square.r0(), square.c0(), square.r1(), square.c1());
+			placeSquare(g, square);
 		}
 	}
 
