@@ -147,49 +147,6 @@ public class Board extends BoardBase {
 	}
 	
 	/**
-	 *  マスを黒マスに確定する
-	 *  以前の状態が黒マス確定でないことは前提とする
-	 *  hmulit, vmulti, chain を更新する
-	 * @param r 行座標
-	 * @param c 列座標
-	 */
-	void setBlack(int r, int c) {
-		state[r][c] = BLACK;
-		decreseMulti(r, c);
-		connectChain(r,c);
-	}
-	/**
-	 *  マスを白マスに確定する
-	 *  以前の状態がシロマス確定でないことを前提とする
-	 *  hmulit, vmulti, chain を更新する
-	 * @param r 行座標
-	 * @param c 列座標
-	 */
-	void setWhite(int r, int c) {
-		int before = state[r][c];
-		state[r][c] = WHITE;
-		if (before == BLACK) {
-			increaseMulti(r, c);
-			cutChain(r, c);
-		}
-	}
-
-	/**
-	 *  マスの確定を取り消し未定状態とする
-	 *  以前の状態が未定状態でないことを前提とする
-	 *  hmulit, vmulti, chain を更新する
-	 * @param r 行座標
-	 * @param c 列座標
-	 */
-	public void erase(int r, int c) {
-		int before = getState(r,c);
-		state[r][c] = UNKNOWN;
-		if (before == BLACK) {
-			increaseMulti(r, c);
-			cutChain(r, c);
-		}
-	}
-	/**
 	 * マスの状態を指定した状態に変更し，変更をアンドゥリスナーに通知する
 	 * @param pos マス座標
 	 * @param st 変更後の状態
@@ -197,11 +154,15 @@ public class Board extends BoardBase {
 	public void changeState(Address p, int st) {
 		if (isRecordUndo())
 			fireUndoableEditUpdate(new CellEditStep(p, getState(p), st));
-		int r = p.r();
-		int c = p.c();
-		if (st == BLACK) setBlack(r,c);
-		else if (st == WHITE) setWhite(r,c);
-		else if (st == UNKNOWN) erase(r,c);
+		int prev = getState(p);
+		setState(p, st);
+		if (st == BLACK) {
+			decreseMulti(p);
+			connectChain(p.r(),p.c());
+		} else if (prev == BLACK) {
+			increaseMulti(p);
+			cutChain(p.r(), p.c());
+		}
 //		initChain();
 //		checkContinuousBlack();
 	}
@@ -244,7 +205,6 @@ public class Board extends BoardBase {
 							updateChain(r, c, -1);
 						}
 					}
-					
 				}
 			}
 		}
@@ -483,36 +443,30 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * 	マス(rr,cc)を黒で確定したときに，同じ行，列の hmulti, vmulti を1減らす
-	 * @param r0 状態を変更したマスの行座標
-	 * @param c0 状態を変更したマスの列座標
+	 * 	マスを黒で確定したときに，同じ行，列の hmulti, vmulti を1減らす
+	 * @param p 状態を変更したマスの行座標
 	 */
-	private void decreseMulti(int r0, int c0) {
-		for (int c = 0; c < cols(); c++) {
-			if (number[r0][c] == number[r0][c0]) {
-				multiH[r0][c]--;
-			}
-		}
-		for (int r = 0; r < rows(); r++) {
-			if (number[r][c0] == number[r0][c0]) {
-				multiV[r][c0]--;
-			}
-		}
+	private void decreseMulti(Address p) {
+		updateMulti(p, -1);
 	}
 	/**
-	 * マス(rr,cc)を黒を消したときに，同じ行，列の hmulti, vmulti を1増やす
-	 * @param r0 状態を変更したマスの行座標
-	 * @param c0 状態を変更したマスの列座標
+	 * マスを黒を消したときに，同じ行，列の hmulti, vmulti を1増やす
+	 * @param p 状態を変更したマスの行座標
 	 */
-	private void increaseMulti(int r0, int c0) {
+	private void increaseMulti(Address p) {
+		updateMulti(p, +1);
+	}
+
+	private void updateMulti(Address p0, int k) {
+		int r0=p0.r(), c0=p0.c();
 		for (int c = 0; c < cols(); c++) {
 			if (number[r0][c] == number[r0][c0]) {
-				multiH[r0][c]++;
+				multiH[r0][c] += k;
 			}
 		}
 		for (int r = 0; r < rows(); r++) {
 			if (number[r][c0] == number[r0][c0]) {
-				multiV[r][c0]++;
+				multiV[r][c0] += k;
 			}
 		}
 	}
