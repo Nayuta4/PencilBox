@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
+import pencilbox.common.core.SideAddress;
 import pencilbox.common.gui.PanelBase;
 import pencilbox.util.Colors;
 
@@ -102,35 +103,32 @@ public class Panel extends PanelBase {
 	}
 
 	private void paintAreas(Graphics2D g) {
-		Square square;
-		for (int r = 0; r < board.rows(); r++) {
-			for (int c = 0; c < board.cols(); c++) {
-				square = board.getSquare(r,c);
-				if (square == null)
-					continue;
-				g.setColor(areaPaintColor);
-				if (isIndicateErrorMode()) {
-					int number = square.getNumber();
-					if (number == Square.MULTIPLE_NUMBER) {
-						g.setColor(getErrorColor());
-					} else if (number == Square.NO_NUMBER) {
-						g.setColor(smallSizeColor);
-					} else if (number == Board.UNDECIDED_NUMBER) {
-						g.setColor(areaPaintColor);
-					} else if (number < square.getSquareSize()) {
-						g.setColor(getErrorColor());
-					} else if (number == square.getSquareSize()) {
-						g.setColor(areaPaintColor);
-					} else if (number > square.getSquareSize()) {
-						g.setColor(smallSizeColor);
-					}
-				} else if (isSeparateAreaColorMode()) {
-					g.setColor(Colors.getBrightColor(board.getSquare(r,c).getId()));
+		for (Address p : board.cellAddrs()) {
+			Square square = board.getSquare(p);
+			if (square == null)
+				continue;
+			g.setColor(areaPaintColor);
+			if (isIndicateErrorMode()) {
+				int number = square.getNumber();
+				if (number == Square.MULTIPLE_NUMBER) {
+					g.setColor(getErrorColor());
+				} else if (number == Square.NO_NUMBER) {
+					g.setColor(smallSizeColor);
+				} else if (number == Board.UNDECIDED_NUMBER) {
+					g.setColor(areaPaintColor);
+				} else if (number < square.getSquareSize()) {
+					g.setColor(getErrorColor());
+				} else if (number == square.getSquareSize()) {
+					g.setColor(areaPaintColor);
+				} else if (number > square.getSquareSize()) {
+					g.setColor(smallSizeColor);
 				}
-				paintCell(g, r, c);
+			} else if (isSeparateAreaColorMode()) {
+				g.setColor(Colors.getBrightColor(board.getSquare(p).getId()));
 			}
+			paintCell(g, p);
 		}
-		square = getDraggingSquare();
+		Square square = getDraggingSquare();
 		if (square != null) {
 			for (int r = square.r0(); r <= square.r1(); r++) {
 				for (int c = square.c0(); c <= square.c1(); c++) {
