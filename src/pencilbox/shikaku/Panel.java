@@ -158,11 +158,11 @@ public class Panel extends PanelBase {
 	private void drawAreaBorders(Graphics2D g) {
 		g.setColor(getAreaBorderColor());
 		for (Square square : board.getSquareList()) {
-			placeSquare(g, square.r0(), square.c0(), square.r1(), square.c1());
+			placeSquare(g, square);
 		}
 		Square square = getDraggingSquare();
 		if (square != null) {
-			placeSquare(g, square.r0(), square.c0(), square.r1(), square.c1());
+			placeSquare(g, square);
 		}
 	}
 

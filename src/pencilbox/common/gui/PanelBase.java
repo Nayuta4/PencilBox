@@ -10,7 +10,6 @@ import java.awt.RenderingHints;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
-import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
@@ -20,6 +19,7 @@ import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
 import pencilbox.common.core.SideAddress;
 import pencilbox.common.core.Size;
+import pencilbox.common.core.Square;
 
 
 /**
@@ -742,6 +742,10 @@ public class PanelBase extends JPanel implements Printable {
 				toY((r0 < r1) ? r0 : r1) + i,
 				getCellSize() * ((c0 < c1) ? c1-c0+1 : c0-c1+1) - i*2,
 				getCellSize() * ((r0 < r1) ? r1-r0+1 : r0-r1+1) - i*2);
+	}
+
+	public void placeSquare(Graphics2D g, Square sq) {
+		placeSquare(g, sq.r0(), sq.c0(), sq.r1(), sq.c1());
 	}
 
 	/**
