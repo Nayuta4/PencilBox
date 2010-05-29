@@ -145,25 +145,6 @@ public class Board extends BoardBase {
 		setState(pos.d(), pos.r(), pos.c(), st);
 	}
 
-	/**
-	 * 辺状態の取得。マス（スリリンでは点の位置）と向きで座標指定する。
-	 * @param pos
-	 * @param d
-	 * @return
-	 */
-	public int getStateJ(Address pos, int d) {
-		return getState(SideAddress.get(pos, d));
-	}
-	/**
-	 * 辺状態の設定。マス（スリリンでは点の位置）と向きで座標指定する。
-	 * @param pos
-	 * @param d
-	 * @param st
-	 */
-	public void setStateJ(Address pos, int d, int st) {
-		setState(SideAddress.get(pos, d), st);
-	}
-
 	public boolean isLine(int d, int r, int c) {
 		if (isSideOn(d, r, c))
 			return state[d][r][c] == LINE;
