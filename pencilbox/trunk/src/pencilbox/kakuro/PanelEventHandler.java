@@ -42,9 +42,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			if (!board.isWall(pos)) {
 				int n = board.getNumber(pos);
 				if (n >= board.getMaxNumber())
-					board.enterNumberA(pos, 0); 
+					board.changeNumber(pos, 0); 
 				else if (n >= 0)
-					board.enterNumberA(pos, n + 1);
+					board.changeNumber(pos, n + 1);
 			}
 		}
 	}
@@ -54,9 +54,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			if (!board.isWall(pos)) {
 				int n = board.getNumber(pos);
 				if (n == 0) 
-					board.enterNumberA(pos, board.getMaxNumber()); 
+					board.changeNumber(pos, board.getMaxNumber()); 
 				else if (n > 0)
-					board.enterNumberA(pos, n - 1);
+					board.changeNumber(pos, n - 1);
 			}
 		}
 	}
@@ -85,7 +85,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			}
 		} else if (isCursorOn()){
 			if (!board.isWall(pos))
-				board.enterNumberA(pos, num);
+				board.changeNumber(pos, num);
 		}
 	}
 	
@@ -102,7 +102,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			}
 		} else if (isCursorOn()){
 			if (!board.isWall(pos))
-				board.enterNumberA(pos, 0);
+				board.changeNumber(pos, 0);
 		}
 	}
 	

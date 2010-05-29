@@ -240,12 +240,17 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * Set number to  a cell.
-	 * @param r Row coordinate of the cell.
-	 * @param c Column coordinate of the cell.
-	 * @param n The number to set.
+	 * マスに数字を入力し，アンドゥリスナーに通知する
+	 * @param p マス座標
+	 * @param n 入力した数字
 	 */
 	public void changeNumber(Address p, int n) {
+		if (n < 0 || n > maxNumber) 
+			return;
+		if (n == getNumber(p)) 
+			return;
+		if (isRecordUndo())
+			fireUndoableEditUpdate(new CellNumberEditStep(p, getNumber(p), n));
 		int r=p.r(), c=p.c();
 		wordH[r][c].changeNumber(getNumber(r,c), n);
 		wordV[r][c].changeNumber(getNumber(r,c), n);
@@ -254,21 +259,6 @@ public class Board extends BoardBase {
 		updateHint(r, c);
 	}
 	
-	/**
-	 * マスに数字を入力し，アンドゥリスナーに通知する
-	 * @param pos マス座標
-	 * @param n 入力した数字
-	 */
-	public void enterNumberA(Address pos, int n) {
-		if (n < 0 || n > maxNumber) 
-			return;
-		if (n == getNumber(pos)) 
-			return;
-		if (isRecordUndo())
-			fireUndoableEditUpdate(new CellNumberEditStep(pos, getNumber(pos), n));
-		changeNumber(pos, n);
-	}
-
 	public void undo(AbstractStep step) {
 		CellNumberEditStep s = (CellNumberEditStep) step;
 		changeNumber(s.getPos(), s.getBefore());
