@@ -765,10 +765,10 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param c0 ”Õ–Ê—ñÀ•W
 	 * @param w@ü•
 	 */
-	public void edgeCell(Graphics2D g, int r0, int c0) {
+	public void edgeCell(Graphics2D g, Address p0) {
 		int w = 1;
 		for (int i = 0; i < w; i++) {
-			g.drawRect(toX(c0)+i, toY(r0)+i, getCellSize()-i-i, getCellSize()-i-i);
+			g.drawRect(toX(p0)+i, toY(p0)+i, getCellSize()-i-i, getCellSize()-i-i);
 		}
 	}
 

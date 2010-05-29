@@ -111,11 +111,9 @@ public class Panel extends PanelBase {
 
 	private void drawWalls(Graphics2D g) {
 		g.setFont(smallFont);
-		for (int r = 0; r < board.rows(); r++) {
-			for (int c = 0; c < board.cols(); c++) {
-				if (board.isWall(r, c)) {
-					drawWall(g, r, c, board.getSumH(r, c), board.getSumV(r, c));
-				}
+		for (Address p : board.cellAddrs()) {
+			if (board.isWall(p)) {
+				drawWall(g, p, board.getSumH(p), board.getSumV(p));
 			}
 		}
 	}
@@ -147,27 +145,27 @@ public class Panel extends PanelBase {
 	 * @param a ŽÎü‰Eã‚Ì”Žš
 	 * @param b ŽÎü¶‰º‚Ì”Žš
 	 */
-	void drawWall(Graphics2D g, int r, int c, int a, int b){
+	void drawWall(Graphics2D g, Address p, int a, int b){
 		g.setColor(getWallColor());
-		paintCell(g, r, c);
+		paintCell(g, p);
 		g.setColor(getGridColor());
-		edgeCell(g, r, c);
-		g.drawLine(toX(c), toY(r), toX(c+1), toY(r+1));
+		edgeCell(g, p);
+		g.drawLine(toX(p), toY(p), toX(p)+getCellSize(), toY(p)+getCellSize());
 		if (b>0) {
 			g.setColor(getNumberColor());
 			if (isIndicateErrorMode()) {
-				if (board.getWordStatus(r,c,Direction.VERT) == -1) 
+				if (board.getWordStatus(p,Direction.VERT) == -1) 
 					g.setColor(getErrorColor());
 			}
-			drawString(g, toX(c) + getHalfCellSize()/2 + 1, toY(r+1) - getHalfCellSize()/2, Integer.toString(b));
+			drawString(g, toX(p) + getHalfCellSize()/2 + 1, toY(p)+getCellSize() - getHalfCellSize()/2, Integer.toString(b));
 		}
 		if (a>0) {
 			g.setColor(getNumberColor());
 			if (isIndicateErrorMode()) {
-				if (board.getWordStatus(r,c,Direction.HORIZ) == -1)
+				if (board.getWordStatus(p, Direction.HORIZ) == -1)
 					g.setColor(getErrorColor());
 			}
-			drawString(g, toX(c+1) - getHalfCellSize()/2, toY(r) + getHalfCellSize()/2 + 1, Integer.toString(a));
+			drawString(g, toX(p)+getCellSize() - getHalfCellSize()/2, toY(p) + getHalfCellSize()/2 + 1, Integer.toString(a));
 		}
 	}
 	/**
