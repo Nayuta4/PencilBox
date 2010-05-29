@@ -51,11 +51,9 @@ public class Board extends BoardBase {
 
 	public void clearBoard() {
 		super.clearBoard();
-		for (int r = 1; r < rows(); r++) {
-			for (int c = 1; c < cols(); c++) {
-				if (!isWall(r, c)) {
-					number[r][c] = 0;
-				}
+		for (Address p : cellAddrs()) {
+			if (!isWall(p)) {
+				setNumber(p, 0);
 			}
 		}
 		ArrayUtil.initArrayInt2(multi, 0);
@@ -132,15 +130,6 @@ public class Board extends BoardBase {
 	
 	public boolean isWall(Address pos) {
 		return isWall(pos.r(), pos.c());
-	}
-	/**
-	 * ƒ}ƒX‚É”Žš‚ª“ü‚Á‚Ä‚¢‚È‚¢‚©‚Ç‚¤‚©
-	 * @param r Row coordinate of the cell.
-	 * @param c Column coordinate of the cell.
-	 * @return Returns true if the cell is empty.
-	 */
-	public boolean isUnknown(Address p) {
-		return number[p.r()][p.c()] == 0;
 	}
 	public int getSumV(int r, int c) {
 		return sumV[r][c];
@@ -369,7 +358,7 @@ public class Board extends BoardBase {
 		int result = 0;
 		for (Address p : cellAddrs()) {
 			if (!isWall(p)) {
-				if (isUnknown(p)) {
+				if (getNumber(p) == 0) {
 					result |= 1;
 				} else if (isMultipleNumber(p)) {
 					result |= 2;
