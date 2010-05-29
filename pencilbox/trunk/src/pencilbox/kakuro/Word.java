@@ -48,22 +48,14 @@ public class Word {
 		filledSize = 0;
 		filledSum = 0;
 	}
-	public void addNumber(int after) {
-		filledSize++;
-		filledSum += after;
-	}
-	public void removeNumber(int before) {
-		filledSize--;
-		filledSum -= before;
-	}
+
 	public void changeNumber(int before, int after) {
 		if (before == 0) {
 			if (after > 0) {
 				filledSize++;
 				filledSum += after;
 			} 
-		}
-		else if (before > 0 ) {
+		} else if (before > 0 ) {
 			if (after == 0) {
 				filledSize--;
 				filledSum -= before;

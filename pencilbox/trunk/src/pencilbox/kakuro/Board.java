@@ -134,8 +134,14 @@ public class Board extends BoardBase {
 	public int getSumV(int r, int c) {
 		return sumV[r][c];
 	}
+	public int getSumV(Address p) {
+		return sumV[p.r()][p.c()];
+	}
 	public int getSumH(int r, int c) {
 		return sumH[r][c];
+	}
+	public int getSumH(Address p) {
+		return sumH[p.r()][p.c()];
 	}
 	public int getSum(Address p, int dir) {
 		if (dir == Direction.VERT)
@@ -198,7 +204,7 @@ public class Board extends BoardBase {
 					while (isOn(r, cc) && getNumber(r,cc) != WALL) {
 						wordH[r][cc] = word;
 						if (getNumber(r,cc) > 0) {
-							word.addNumber(getNumber(r,cc));
+							word.changeNumber(0, getNumber(r,cc));
 						}
 						cc++;
 					}
@@ -214,7 +220,7 @@ public class Board extends BoardBase {
 					while (isOn(rr, c) && getNumber(rr,c) != WALL) {
 						wordV[rr][c] = word;
 						if (getNumber(rr,c) > 0) {
-							word.addNumber(getNumber(rr,c));
+							word.changeNumber(0, getNumber(rr,c));
 						}
 						rr++;
 					}
@@ -364,10 +370,10 @@ public class Board extends BoardBase {
 					result |= 2;
 				}
 			} else if (isWall(p)) {
-				if (getSumH(p.r(), p.c()) > 0 && wordH[p.r()][p.c()].getStatus() == -1) {
+				if (getSumH(p) > 0 && getWordStatus(p, HORIZ) == -1) {
 					result |= 4;
 				}
-				if (getSumV(p.r(), p.c()) > 0 && wordV[p.r()][p.c()].getStatus() == -1) {
+				if (getSumV(p) > 0 && getWordStatus(p, VERT) == -1) {
 					result |= 4;
 				}
 			}
@@ -452,11 +458,11 @@ public class Board extends BoardBase {
 	 * すべてのマスがうまっていて，合計は間違い : -1
 	 * （うまっていないマスがあって，合計が正しくなりえない）は今は判定していない
 	 */
-	int getWordStatus(int r, int c, int dir) {
+	int getWordStatus(Address p, int dir) {
 		if (dir == HORIZ)
-			return wordH[r][c].getStatus();
+			return wordH[p.r()][p.c()].getStatus();
 		else if (dir == VERT)
-			return wordV[r][c].getStatus();
+			return wordV[p.r()][p.c()].getStatus();
 		return 0;
 	}
 }
