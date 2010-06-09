@@ -36,21 +36,17 @@ public class Board extends BoardBase {
 
 	public void clearBoard() {
 		super.clearBoard();
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				if (state[r][c] == BLACK || state[r][c] == WHITE)
-					state[r][c] = UNKNOWN;
-			}
+		for (Address p : cellAddrs()) {
+			if (!isNumber(p))
+				setState(p,UNKNOWN);
 		}
 		initBoard();
 	}
 
 	public void trimAnswer() {
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				if (getState(r, c) == WHITE)
-					setState(r, c, UNKNOWN);
-				}
+		for (Address p : cellAddrs()) {
+			if (getState(p) == WHITE)
+				setState(p, UNKNOWN);
 		}
 		initNumber();
 	}
