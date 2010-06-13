@@ -567,7 +567,7 @@ public class PanelBase extends JPanel implements Printable {
 				circleSize / 2);
 	}
 	public void placeCircle(Graphics2D g, Address p, int circleSize) {
-		drawCircle(g, p.r(), p.c(), circleSize);
+		placeCircle(g, p.r(), p.c(), circleSize);
 	}
 	/**
 	 * マスに線幅2の○印を配置する
