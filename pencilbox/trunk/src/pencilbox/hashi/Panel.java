@@ -101,10 +101,12 @@ public class Panel extends PanelBase {
 			g.setColor(getLineColor());
 		for (int d : Direction.DN_RT) {
 			Address p = p0;
-			if (pier.getNBridge(d) > 0) {
-				p = p.nextCell(p, d);
+			int l = pier.getNBridge(d);
+			if (l > 0) {
+				p = Address.nextCell(p, d);
 				while (!board.isPier(p)) {
-					placeBridge(g, p, d^1, pier.getNBridge(d));
+					placeBridge(g, p, d&1, l);
+					p = Address.nextCell(p, d);
 				}
 			}
 		}
