@@ -144,20 +144,19 @@ public class Panel extends PanelBase {
 	 * @param n ê¸ÇÃñ{êî(1or2)
 	 */
 	public void placeBridge(Graphics2D g, Address p, int dir, int n) {
-		int r=p.r(), c=p.c();
 		if (n == 1) {
 			if (dir == Direction.HORIZ) {
-				drawLineSegment(g, toX(c), toY(r) + getHalfCellSize(), dir, getLinkWidth());
+				drawLineSegment(g, toX(p), toY(p) + getHalfCellSize(), dir, getLinkWidth());
 			} else if (dir == Direction.VERT) {
-				drawLineSegment(g, toX(c) + getHalfCellSize(), toY(r), dir, getLinkWidth());
+				drawLineSegment(g, toX(p) + getHalfCellSize(), toY(p), dir, getLinkWidth());
 			}
 		} else if (n == 2) {
 			if (dir == Direction.HORIZ) {
-				drawLineSegment(g, toX(c), toY(r) + getCellSize()/3, dir, getLinkWidth());
-				drawLineSegment(g, toX(c), toY(r+1) - getCellSize()/3, dir, getLinkWidth());
+				drawLineSegment(g, toX(p), toY(p) + getCellSize()/3, dir, getLinkWidth());
+				drawLineSegment(g, toX(p), toY(p) + getCellSize() - getCellSize()/3, dir, getLinkWidth());
 			} else if (dir == Direction.VERT) {
-				drawLineSegment(g, toX(c) + getCellSize()/3, toY(r), dir, getLinkWidth());
-				drawLineSegment(g, toX(c+1) - getCellSize()/3, toY(r), dir, getLinkWidth());
+				drawLineSegment(g, toX(p) + getCellSize()/3, toY(p), dir, getLinkWidth());
+				drawLineSegment(g, toX(p) + getCellSize() - getCellSize()/3, toY(p), dir, getLinkWidth());
 			}
 		}
 	}
