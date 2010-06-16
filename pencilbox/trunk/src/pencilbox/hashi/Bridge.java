@@ -7,7 +7,6 @@ package pencilbox.hashi;
 class Bridge {
 	
 	private int bridge = 0;
-	private int capacity = 2;
 	
 	private Pier pier0; // Solverのみで使用
 	private Pier pier1; // Solverのみで使用
@@ -17,25 +16,14 @@ class Bridge {
 		pier1 = p1;
 	}
 
-	void limitCapacity(int n) {
-		if (capacity > n) 
-			capacity = n;
-	}
 	void changeBridge(int n) {
 		bridge += n;
-		capacity -= n;
 	}
 	int getBridge() {
 		return bridge;
 	}
 	void setBridge(int n) {
 		bridge = n;
-	}
-	int getCapacity() {
-		return capacity;
-	}
-	void setCapacity(int n) {
-		capacity = n;
 	}
 
 	/**
