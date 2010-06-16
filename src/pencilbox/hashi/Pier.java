@@ -55,25 +55,7 @@ class Pier {
 	void changeBridge(int d, int n) {
 		bridge[d].changeBridge(n);
 	}
-	int getCapacity(int d) {
-		if (bridge[d] == null)
-			return 0;
-		else
-			return bridge[d].getCapacity();
-	}
-	int totalCapacity() {
-		int ret = 0;
-		for (int d=0; d<4; d++) {
-			ret += getCapacity(d);
-		}
-		return ret;
-	}
-	void limitCapacity(int d, int n) {
-		if (bridge[d] == null)
-			return;
-		else
-			bridge[d].limitCapacity(n);
-	}
+
 	int getChain() {
 		return chain;
 	}
