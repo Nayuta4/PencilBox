@@ -567,14 +567,4 @@ public class Board extends BoardBase {
 //	static final String ERR_TOO_MANY_LINE = "‹´‚Ì”‚ª‘½‚·‚¬‚é”š‚ª‚ ‚é\n";
 //	static final String YET_TOO_FEW_LINE= "‹´‚Ì”‚ª‘«‚è‚È‚¢”š‚ª‚ ‚é\n";
 	
-	int sumAllNumbers() {
-		int ret = 0;
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				if (isPier(r,c))
-					ret += pier[r][c].getNumber(); 
-			}
-		}
-		return ret/2;
-	}
 }
