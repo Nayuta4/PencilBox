@@ -93,7 +93,7 @@ public class Panel extends PanelBase {
 				else
 					g.setColor(getLineColor());
 				for (int d : Direction.DN_RT) {
-					int l = pier.getNBridge(d);
+					int l = pier.getLine(d);
 					if (l > 0) {
 						Address pp = Address.nextCell(p, d);
 						while (!board.isPier(pp)) {

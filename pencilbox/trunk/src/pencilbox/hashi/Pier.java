@@ -22,10 +22,10 @@ class Pier {
 		this.setPos(Address.address(r, c));
 		number = n;
 	}
-	int totalBridges() {
+	int totalLines() {
 		int ret = 0;
 		for (int d=0; d<4; d++) {
-			ret += getNBridge(d);
+			ret += getLine(d);
 		}
 		return ret;
 	}
@@ -36,20 +36,20 @@ class Pier {
 	void setNumber(int n) {
 		number = n;
 	}
-	int getNBridge(int d) {
+	int getLine(int d) {
 		if (bridge[d] == null)
 			return 0;
 		else
-			return bridge[d].getBridge();
+			return bridge[d].getLine();
 	}
-	void setNBridge(int d, int n) {
+	void setLine(int d, int n) {
 		if (bridge[d] == null)
 			return;
 		else
-			bridge[d].setBridge(n);
+			bridge[d].setLine(n);
 	}
-	void changeBridge(int d, int n) {
-		bridge[d].changeBridge(n);
+	void changeLine(int d, int n) {
+		bridge[d].changeLine(n);
 	}
 
 	int getChain() {
@@ -62,7 +62,7 @@ class Pier {
 	void clear() {
 		chain = 0;
 		for (int d=0; d<4; d++) 
-			setNBridge(d, 0);
+			setLine(d, 0);
 	}
 	/**
 	 * @param pos The pos to set.

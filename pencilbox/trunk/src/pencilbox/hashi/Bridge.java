@@ -6,7 +6,7 @@ package pencilbox.hashi;
  */
 class Bridge {
 	
-	private int bridge = 0;
+	private int line = 0;
 	
 	private Pier pier0; // Solverのみで使用
 	private Pier pier1; // Solverのみで使用
@@ -16,14 +16,14 @@ class Bridge {
 		pier1 = p1;
 	}
 
-	void changeBridge(int n) {
-		bridge += n;
+	void changeLine(int n) {
+		line += n;
 	}
-	int getBridge() {
-		return bridge;
+	int getLine() {
+		return line;
 	}
-	void setBridge(int n) {
-		bridge = n;
+	void setLine(int n) {
+		line = n;
 	}
 
 	/**
