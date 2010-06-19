@@ -219,6 +219,21 @@ public class Board extends BoardBase {
 			setBridge(pos.r(), pos.c(), d&1, b);
 		}
 	}
+
+	/**
+	 * あるマスから指定した方向へ出ている橋の数を返す。数字マス以外を指定したときは -1 を返す
+	 * @param p 数字マスの座標
+	 * @param d 向き
+	 * @return 数字マスからある向きへの橋の本数。数字マス以外であれば-1
+	 */
+	public int getLine(Address p, int d) {
+		if (!isPier(p)) {
+			return -1;
+		} else {
+			return getPier(p).getLine(d);
+		}
+	}
+
 	/**
 	 * 指定した座標に橋脚を新規に作成する
 	 * そのマスにもともとかかっていた橋は除去される
@@ -311,44 +326,40 @@ public class Board extends BoardBase {
 		}
 		return null;
 	}
-
 	/**
 	 * 橋をかける／除く，アンドゥリスナーに通知する
 	 * @param p 起点の座標
 	 * @param d 方向（上下左右）
 	 * @param n 橋の増減数
 	 */
-	public void changeBridge(Address p, int d, int n) {
+	public void changeLine(Address p, int d, int n) {
 		if (!isPier(p))
 			return;
 		Pier pp= pier[p.r()][p.c()];
 		if (pp.getNextPier(d) == null)
 			return;
-		if (n == +1) {
-			if (pp.getLine(d) == 2)
-				return;
-			pp.changeLine(d, n);
-			if (pp.getLine(d) == 1)
-				connectChain(pp, pp.getNextPier(d));
-		} else if (n == -1) {
-			if (pp.getLine(d) == 0)
-				return;
-			pp.changeLine(d, n);
-			if (pp.getLine(d) == 0)
-				cutChain(pp, pp.getNextPier(d));
-		}
+		int prev = pp.getLine(d);
+		if (n < 0 || n > 2)
+			return;
+		if (prev == n)
+			return;
+		pp.changeLine(d, n);
+		if (n == 0)
+			cutChain(pp, pp.getNextPier(d));
+		if (prev == 0)
+			connectChain(pp, pp.getNextPier(d));
 		if (isRecordUndo())
-			fireUndoableEditUpdate(new BridgeEditStep(p, d, n));
+			fireUndoableEditUpdate(new BridgeEditStep(p, d, prev, n));
 	}
 
 	public void undo(AbstractStep step) {
 		BridgeEditStep s = (BridgeEditStep) step;
-		changeBridge(s.getPos(), s.getDirection(), -s.getChange());
+		changeLine(s.getPos(), s.getDirection(), s.getBefore());
 	}
 
 	public void redo(AbstractStep step) {
 		BridgeEditStep s = (BridgeEditStep) step;
-		changeBridge(s.getPos(), s.getDirection(), +s.getChange());
+		changeLine(s.getPos(), s.getDirection(), s.getAfter());
 	}
 
 	/**
