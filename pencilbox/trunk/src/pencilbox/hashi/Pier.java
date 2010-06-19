@@ -11,7 +11,6 @@ class Pier {
 	private Bridge[] bridge = new Bridge[4];
 	private int number;
 	private int chain;
-	private int exit; // Solverで使用
 
 	/**
 	 * コンストラクタ
@@ -29,9 +28,6 @@ class Pier {
 			ret += getNBridge(d);
 		}
 		return ret;
-	}
-	int necessity() {
-		return number - totalBridges();
 	}
 
 	int getNumber() {
@@ -93,18 +89,6 @@ class Pier {
 	 */
 	Pier getNextPier(int d) {
 		return nextPier[d];
-	}
-	/**
-	 * @param exit The exit to set.
-	 */
-	void setExit(int exit) {
-		this.exit = exit;
-	}
-	/**
-	 * @return Returns the exit.
-	 */
-	int getExit() {
-		return exit;
 	}
 	/**
 	 * @param d Directon to set bridge
