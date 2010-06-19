@@ -87,59 +87,48 @@ public class Panel extends PanelBase {
 		g.setFont(getNumberFont());
 		for (Address p : board.cellAddrs()) {
 			if (board.isPier(p)) {
-				placeBridgeAndPier(g, p, board.getNumber(p));
-			}
-		}
-	}
-	
-	void placeBridgeAndPier(Graphics2D g, Address p0, int n) {
-
-		Pier pier = board.getPier(p0);
-		if (isSeparateLinkColorMode())
-			g.setColor(Colors.getColor(pier.getChain()));
-		else
-			g.setColor(getLineColor());
-		for (int d : Direction.DN_RT) {
-			Address p = p0;
-			int l = pier.getNBridge(d);
-			if (l > 0) {
-				p = Address.nextCell(p, d);
-				while (!board.isPier(p)) {
-					placeBridge(g, p, d&1, l);
-					p = Address.nextCell(p, d);
+				Pier pier = board.getPier(p);
+				if (isSeparateLinkColorMode())
+					g.setColor(Colors.getColor(pier.getChain()));
+				else
+					g.setColor(getLineColor());
+				for (int d : Direction.DN_RT) {
+					int l = pier.getNBridge(d);
+					if (l > 0) {
+						Address pp = Address.nextCell(p, d);
+						while (!board.isPier(pp)) {
+							placeBridge(g, pp, d&1, l);
+							pp = Address.nextCell(pp, d);
+						}
+					}
 				}
 			}
 		}
-		placePier(g, p0, n);
-	}
-	/**
-	 * 橋脚を配置する
-	 * @param g
-	 * @param p
-	 * @param n
-	 */
-	void placePier(Graphics2D g, Address p, int n) {
-		if (isIndicateErrorMode()) {
-			int check = board.checkPier(p);
-			if (check < 0) {
-				g.setColor(getErrorColor());
-				placeFilledCircle(g, p, getCellSize());
-			} else if (check == 0) {
-				g.setColor(successColor);
-				placeFilledCircle(g, p, getCellSize());
+		for (Address p : board.cellAddrs()) {
+			if (board.isPier(p)) {
+				if (isIndicateErrorMode()) {
+					int check = board.checkPier(p);
+					if (check < 0) {
+						g.setColor(getErrorColor());
+						placeFilledCircle(g, p, getCellSize());
+					} else if (check == 0) {
+						g.setColor(successColor);
+						placeFilledCircle(g, p, getCellSize());
+					}
+				}
+				g.setColor(getNumberColor());
+				placeCircle(g, p, getCellSize());
+				int n = board.getNumber(p);
+				if (n >= 1 && n <= 8) {
+					placeNumber(g, p, n);
+				}
 			}
-		}
-		g.setColor(getNumberColor());
-		placeCircle(g, p, getCellSize());
-		if (n >= 1 && n <= 8) {
-			placeNumber(g, p, n);
 		}
 	}
 	/**
 	 * マスに横または縦の線を配置する
 	 * @param g
-	 * @param r 盤面行座標
-	 * @param c 盤面列座標
+	 * @param p 盤面座標
 	 * @param dir 横線なら HORIZ 縦線なら VERT
 	 * @param n 線の本数(1or2)
 	 */
