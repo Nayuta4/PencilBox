@@ -132,36 +132,35 @@ public class Board extends BoardBase {
 	}
 	/**
 	 * そのマスを通過する縦方向の橋の数を返す
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param p 座標
 	 * @return　そのマスを通過する縦方向の橋の数
 	 */
-	public int getVertBridge(int r, int c) {
-		if (bridgeV[r][c] == null)
+	public int getVertBridge(Address p) {
+		Bridge b = bridgeV[p.r()][p.c()];
+		if (b == null)
 			return -1;
 		else
-			return bridgeV[r][c].getLine();
+			return b.getLine();
 	}
 	/**
 	 * そのマスを通過する横方向の橋の数を返す
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param p 座標
 	 * @return　そのマスを通過する横方向の橋の数
 	 */
-	public int getHorizBridge(int r, int c) {
-		if (bridgeH[r][c] == null)
+	public int getHorizBridge(Address p) {
+		Bridge b = bridgeH[p.r()][p.c()];
+		if (b == null)
 			return -1;
 		else
-			return bridgeH[r][c].getLine();
+			return b.getLine();
 	}
 	/**
 	 * そのマスの上で橋が交差しているかかっているかどうか
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param p 座標
 	 * @return そのマスの上で橋が交差していれば true
 	 */
-	public boolean hasCrossedBridge(int r, int c) {
-		return getHorizBridge(r, c) > 0 && getVertBridge(r, c) > 0;
+	public boolean hasCrossedBridge(Address p) {
+		return getHorizBridge(p) > 0 && getVertBridge(p) > 0;
 	}
 	
 	/**
@@ -492,14 +491,12 @@ public class Board extends BoardBase {
 			message.append(ERR_WRONG_NUMBER);
 		return message.toString();
 	}
+
 	private boolean checkNumbers() {
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				if (isPier(r, c)) {
-					if (pier[r][c].getNumber() == UNDECIDED_NUMBER)
-						continue;
-					if (pier[r][c].totalLines() != pier[r][c].getNumber())
-						return false;
+		for (Address p : cellAddrs()) {
+			if (isPier(p)) {
+				if (checkPier(p) != 0) {
+					return false;
 				}
 			}
 		}
@@ -508,28 +505,24 @@ public class Board extends BoardBase {
 	
 	private boolean checkConnection() {
 		int n = 0;
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				if (isPier(r, c)) {
-					int m = pier[r][c].getChain();
-					if (m == 0)
-						return false;
-					else if (n == 0)
-						n = m;
-					else if (n != m)
-						return false;
-				}
+		for (Address p : cellAddrs()) {
+			if (isPier(p)) {
+				int m = getPier(p).getChain();
+				if (m == 0)
+					return false;
+				else if (n == 0)
+					n = m;
+				else if (n != m)
+					return false;
 			}
 		}
 		return true;
 	}
 	
 	private boolean checkCross() {
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				if (hasCrossedBridge(r, c))
-					return false;
-			}
+		for (Address p : cellAddrs()) {
+			if (hasCrossedBridge(p))
+				return false;
 		}
 		return true;
 	}
