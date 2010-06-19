@@ -18,8 +18,6 @@ public class Board extends BoardBase {
 	private Bridge[][] bridgeV;
 	private Bridge[][] bridgeH;
 	private int maxChain;
-	private int nPier;
-	private int nBridge;
 
 	protected void setup() {
 		super.setup();
@@ -27,8 +25,6 @@ public class Board extends BoardBase {
 		bridgeH = new Bridge[rows()][cols()];
 		pier = new Pier[rows()][cols()];
 		maxChain = 1;
-		nPier = 0;
-		nBridge = 0;
 	}
 
 	public void clearBoard() {
@@ -109,9 +105,9 @@ public class Board extends BoardBase {
 	public int getState(int r, int c) {
 		int ret = 0;
 		if (bridgeV[r][c] != null)
-			ret += bridgeV[r][c].getBridge();
+			ret += bridgeV[r][c].getLine();
 		if (bridgeH[r][c] != null)
-			ret += (bridgeH[r][c].getBridge() << 2);
+			ret += (bridgeH[r][c].getLine() << 2);
 		return ret;
 	}
 	
@@ -126,9 +122,9 @@ public class Board extends BoardBase {
 	 */
 	public void setState(int r, int c, int n) {
 		if (bridgeV[r][c] != null)
-			bridgeV[r][c].setBridge(n & 0x3);
+			bridgeV[r][c].setLine(n & 0x3);
 		if (bridgeH[r][c] != null)
-			bridgeH[r][c].setBridge((n>>2) & 0x3);
+			bridgeH[r][c].setLine((n>>2) & 0x3);
 	}
 	
 	public void setState(Address pos, int n) {
@@ -144,7 +140,7 @@ public class Board extends BoardBase {
 		if (bridgeV[r][c] == null)
 			return -1;
 		else
-			return bridgeV[r][c].getBridge();
+			return bridgeV[r][c].getLine();
 	}
 	/**
 	 * そのマスを通過する横方向の橋の数を返す
@@ -156,7 +152,7 @@ public class Board extends BoardBase {
 		if (bridgeH[r][c] == null)
 			return -1;
 		else
-			return bridgeH[r][c].getBridge();
+			return bridgeH[r][c].getLine();
 	}
 	/**
 	 * そのマスの上で橋が交差しているかかっているかどうか
@@ -242,10 +238,8 @@ public class Board extends BoardBase {
 				next.setBridge(d^2, b);
 				p.setBridge(d, b);
 				setBridge(p.getPos(), next.getPos(), d, b);
-				nBridge ++;
 			}
 		}
-		nPier ++;
 	}
 	/**
 	 * 指定した座標にある橋脚を除去する
@@ -276,52 +270,20 @@ public class Board extends BoardBase {
 					setBridge(p2.getPos(), p1.getPos(), d, b);
 					p1.setBridge(d^2, b);
 					p2.setBridge(d, b);
-					nBridge --;
 				} else {
 					setBridge(p.getPos(), p1.getPos(), d, null);
 					p1.setBridge(d^2, null);
-					nBridge --;
 				}
 			} else {
 				if (p2 != null) {
 					setBridge(p.getPos(), p2.getPos(), d^2, null);
 					p2.setBridge(d, null);
-					nBridge --;
 				} else {
 				}
 			}
 		}
 
 		pier[r][c] = null;
-		nPier --;
-	}
-
-	/**
-	 * @param nBridge The nBridge to set.
-	 */
-	void setNBridge(int nBridge) {
-		this.nBridge = nBridge;
-	}
-
-	/**
-	 * @return Returns the nBridge.
-	 */
-	int getNBridge() {
-		return nBridge;
-	}
-
-	/**
-	 * @param nPier The nPier to set.
-	 */
-	void setNPier(int nPier) {
-		this.nPier = nPier;
-	}
-
-	/**
-	 * @return Returns the nPier.
-	 */
-	int getNPier() {
-		return nPier;
 	}
 
 	/**
@@ -352,28 +314,28 @@ public class Board extends BoardBase {
 
 	/**
 	 * 橋をかける／除く，アンドゥリスナーに通知する
-	 * @param pos 起点の座標
+	 * @param p 起点の座標
 	 * @param d 方向（上下左右）
 	 * @param n 橋の増減数
 	 */
 	public void changeBridge(Address p, int d, int n) {
-		int r=p.r(), c=p.c();
-		if (!isPier(r, c))
+		if (!isPier(p))
 			return;
-		if (pier[r][c].getNextPier(d) == null)
+		Pier pp= pier[p.r()][p.c()];
+		if (pp.getNextPier(d) == null)
 			return;
 		if (n == +1) {
-			if (pier[r][c].getNBridge(d) == 2)
+			if (pp.getLine(d) == 2)
 				return;
-			pier[r][c].changeBridge(d, n);
-			if (pier[r][c].getNBridge(d) == 1)
-				connectChain(pier[r][c], pier[r][c].getNextPier(d));
+			pp.changeLine(d, n);
+			if (pp.getLine(d) == 1)
+				connectChain(pp, pp.getNextPier(d));
 		} else if (n == -1) {
-			if (pier[r][c].getNBridge(d) == 0)
+			if (pp.getLine(d) == 0)
 				return;
-			pier[r][c].changeBridge(d, n);
-			if (pier[r][c].getNBridge(d) == 0)
-				cutChain(pier[r][c], pier[r][c].getNextPier(d));
+			pp.changeLine(d, n);
+			if (pp.getLine(d) == 0)
+				cutChain(pp, pp.getNextPier(d));
 		}
 		if (isRecordUndo())
 			fireUndoableEditUpdate(new BridgeEditStep(p, d, n));
@@ -404,7 +366,7 @@ public class Board extends BoardBase {
 		for (int r = 0; r < rows(); r++) {
 			for (int c = 0; c < cols(); c++) {
 				if (isPier(r, c)) {
-					if (pier[r][c].totalBridges() == 0)
+					if (pier[r][c].totalLines() == 0)
 						pier[r][c].setChain(0);
 					else if (pier[r][c].getChain() == 0) {
 						initChain1(pier[r][c], maxChain++);
@@ -424,7 +386,7 @@ public class Board extends BoardBase {
 			return;
 		p.setChain(chain);
 		for (int d = 0; d < 4; d++) {
-			if (p.getNBridge(d) > 0)
+			if (p.getLine(d) > 0)
 				initChain1(p.getNextPier(d), chain);
 		}
 	}
@@ -463,8 +425,8 @@ public class Board extends BoardBase {
 	 */
 	void cutChain(Pier pierA, Pier pierB) {
 
-		int a = pierA.totalBridges();
-		int b = pierB.totalBridges();
+		int a = pierA.totalLines();
+		int b = pierB.totalLines();
 
 		if (a == 0) {
 			pierA.setChain(0);
@@ -489,7 +451,7 @@ public class Board extends BoardBase {
 	 */
 	public int checkPier(Address p) {
 		int number = getPier(p).getNumber();
-		int bridges = getPier(p).totalBridges();
+		int bridges = getPier(p).totalLines();
 		if (number == UNDECIDED_NUMBER)
 			return 1;
 		return number - bridges;
@@ -525,7 +487,7 @@ public class Board extends BoardBase {
 				if (isPier(r, c)) {
 					if (pier[r][c].getNumber() == UNDECIDED_NUMBER)
 						continue;
-					if (pier[r][c].totalBridges() != pier[r][c].getNumber())
+					if (pier[r][c].totalLines() != pier[r][c].getNumber())
 						return false;
 				}
 			}
