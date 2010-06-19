@@ -7,19 +7,22 @@ class BridgeEditStep extends AbstractStep {
 
 	private Address pos;
 	private int direction;
-	private int change;
+	private int before;
+	private int after;
 
 	/**
 	 * コンストラクタ
 	 * @param p 変更された橋の起点マスの座標
 	 * @param dir マスからみた変更された橋の方向
-	 * @param ch 追加されたのか，除去されたのか
+	 * @param b 変更前の橋の数
+	 * @param a 変更後の橋の数
 	 */
-	public BridgeEditStep(Address p, int dir, int ch) {
+	public BridgeEditStep(Address p, int dir, int b, int a) {
 		super();
-		pos = Address.address(p);
+		pos = p;
 		direction = dir;
-		change = ch;
+		before = b;
+		after = a;
 	}
 
 	public Address getPos() {
@@ -30,8 +33,16 @@ class BridgeEditStep extends AbstractStep {
 		return direction;
 	}
 
-	public int getChange() {
-		return change;
+	public int getBefore() {
+		return before;
+	}
+
+	public int getAfter() {
+		return after;
+	}
+
+	public String toString() {
+		return pos.toString() + getDirection() + " "+ getBefore() + "->" + getAfter() + " " + getType();
 	}
 	
 }

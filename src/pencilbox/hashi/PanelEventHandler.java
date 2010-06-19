@@ -33,7 +33,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			return;
 		int dir = Address.getDirectionTo(dragStart, dragEnd);
 		if (dir >= 0) {
-			board.changeBridge(dragStart, dir, 1);
+			board.changeLine(dragStart, dir, board.getLine(dragStart, dir)+1);
 		}
 	}
 
@@ -44,7 +44,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			return;
 		int dir = Address.getDirectionTo(dragStart, dragEnd);
 		if (dir >= 0) {
-			board.changeBridge(dragStart, dir, -1);
+			board.changeLine(dragStart, dir, board.getLine(dragStart, dir)-1);
 		}
 	}
 

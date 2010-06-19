@@ -17,7 +17,7 @@ class Bridge {
 	}
 
 	void changeLine(int n) {
-		line += n;
+		line = n;
 	}
 	int getLine() {
 		return line;
