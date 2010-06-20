@@ -172,17 +172,13 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 */
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {
-			Square square = board.getSquare(pos);
-			if (square != null)
-				square.setNumber(num);
+			board.setNumber(pos, num);
 		}
 	}
 	
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode()) {
-			Square square = board.getSquare(pos);
-			if (square != null)
-				square.setNumber(Square.ANY);
+			board.setNumber(pos, Square.ANY);
 		}
 	}
 
