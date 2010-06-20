@@ -375,6 +375,16 @@ public class Board extends BoardBase {
 	}
 	
 	/**
+	 * マスの属する部屋に数字を入力する
+	 * @param pos マスの座標
+	 * @param num 数字
+	 */
+	public void setNumber(Address pos, int num) {
+		Square square = getSquare(pos);
+		if (square != null)
+			square.setNumber(num);
+	}
+	/**
 	 * そのマスの上下左右の隣接４マスに黒マスがあるかどうかを調べる
 	 * @param r
 	 * @param c
@@ -670,4 +680,5 @@ public class Board extends BoardBase {
 			message.append(Messages.getString("heyawake.AnswerCheckMessage4")); //$NON-NLS-1$
 		return message.toString();
 	}
+
 }
