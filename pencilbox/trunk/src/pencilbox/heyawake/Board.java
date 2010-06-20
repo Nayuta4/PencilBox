@@ -320,29 +320,23 @@ public class Board extends BoardBase {
 	 * @param org 変更する場合のもとの四角
 	 */
 	void removeOverlappedSquares(Square sq, Square org) {
-		for (int r = sq.r0(); r <= sq.r1(); r++ ) {
-			for (int c = sq.c0(); c <= sq.c1(); c++) {
-				Square s = getSquare(r, c);
-				if (s != null && s != org) {
-					removeSquare(s);
-				}
+		for (Address p : sq.cellSet()) {
+			Square s = getSquare(p);
+			if (s != null && s != org) {
+				removeSquare(s);
 			}
 		}
 	}
 	
 	public void initSquare1(Square sq) {
-		for (int r = sq.r0(); r <= sq.r1(); r++ ) {
-			for (int c = sq.c0(); c <= sq.c1(); c++) {
-				square[r][c] = sq;
-			}
+		for (Address p : sq.cellSet()) {
+			setSquare(p, sq);
 		}
 	}
 
 	public void clearSquare1(Square sq) {
-		for (int r = sq.r0(); r <= sq.r1(); r++ ) {
-			for (int c = sq.c0(); c <= sq.c1(); c++) {
-				square[r][c] = null;
-			}
+		for (Address p : sq.cellSet()) {
+			setSquare(p, null);
 		}
 	}
 	/**
@@ -373,7 +367,7 @@ public class Board extends BoardBase {
 		clearSquare1(sq);
 		squareList.remove(sq);
 	}
-	
+
 	/**
 	 * マスの属する部屋に数字を入力する
 	 * @param pos マスの座標
@@ -386,18 +380,16 @@ public class Board extends BoardBase {
 	}
 	/**
 	 * そのマスの上下左右の隣接４マスに黒マスがあるかどうかを調べる
-	 * @param r
-	 * @param c
+	 * @param p
 	 * @return 上下左右に黒マスがひとつでもあれば true
 	 */
-	boolean isBlock(int r, int c) {
-		if (isBlack(r-1, c) || isBlack(r+1, c) || isBlack(r, c-1) || isBlack(r, c+1))
-			return true;
-		return false;
-	}
-	
 	boolean isBlock(Address pos) {
-		return isBlock(pos.r(), pos.c());
+		for (int d = 0; d < 4; d++) {
+			Address p = Address.nextCell(pos, d);
+			if (isOn(p) && getState(p) == BLACK)
+				return true;
+		}
+		return false;
 	}
 	/**
 	 * 引数のマスから横に連続する部屋の個数を数えて設定する
@@ -522,7 +514,6 @@ public class Board extends BoardBase {
 							updateChain(r, c, -1);
 						}
 					}
-					
 				}
 			}
 		}
@@ -640,21 +631,17 @@ public class Board extends BoardBase {
 	
 	public int checkAnswerCode() {
 		int result = 0;
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				if (isBlack(r,c)) {
-					if (isBlock(r,c))
-						result |= 1;
-					if (chain[r][c] == -1)
-						result |= 2;
-				}
+		for (Address p : cellAddrs()) {
+			if (getState(p) == Board.BLACK) {
+				if (isBlock(p))
+					result |= 1;
+				if (getChain(p) == -1)
+					result |= 2;
 			}
 		}
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				if (contH[r][c] >= 3 || contV[r][c] >= 3) {
-					result |= 8;
-				}
+		for (Address p : cellAddrs()) {
+			if (getCont(p, Direction.HORIZ) >= 3 || getCont(p, Direction.VERT) >= 3) {
+				result |= 8;
 			}
 		}
 		for (Square sq : squareList) {
