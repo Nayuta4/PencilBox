@@ -107,7 +107,7 @@ public class Panel extends PanelBase {
 		for (Address p : board.cellAddrs()) {
 			if (board.isPier(p)) {
 				if (isIndicateErrorMode()) {
-					int check = board.checkPier(p);
+					int check = board.checkNumber(p);
 					if (check < 0) {
 						g.setColor(getErrorColor());
 						placeFilledCircle(g, p, getCellSize());

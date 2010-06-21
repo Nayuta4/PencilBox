@@ -5,7 +5,7 @@ import pencilbox.common.core.Address;
 /**
  * u‹´‚ğ‚©‚¯‚ëv‹´‹r
  */
-class Pier {
+public class Pier {
 	private Address pos ;
 	private Pier[] nextPier = new Pier[4];
 	private Bridge[] bridge = new Bridge[4];
@@ -18,8 +18,8 @@ class Pier {
 	 * @param c —ñÀ•W
 	 * @param n ”š
 	 */
-	Pier(int r, int c, int n) {
-		this.setPos(Address.address(r, c));
+	public Pier(Address p, int n) {
+		pos = p;
 		number = n;
 	}
 	int totalLines() {
