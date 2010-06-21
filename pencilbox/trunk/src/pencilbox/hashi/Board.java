@@ -29,11 +29,9 @@ public class Board extends BoardBase {
 
 	public void clearBoard() {
 		super.clearBoard();
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				if (isPier(r, c))
-					pier[r][c].clear();
-			}
+		for (Address p : cellAddrs()) {
+			if (isPier(p))
+				getPier(p).clear();
 		}
 	}
 
@@ -47,20 +45,20 @@ public class Board extends BoardBase {
 	 * @param n 設定する数字
 	 */
 	public void setNumber(int r, int c, int n) {
-		if (n == 0) {
-			if (isPier(r, c)) {
-				removePier(r, c);
-			}
-		} else if (n > 0) {
-			if (isPier(r, c))
-				pier[r][c].setNumber(n);
-			else
-				addPier(r, c, n);
-		}
+		setNumber(Address.address(r, c), n);
 	}
 	
-	public void setNumber(Address pos, int n) {
-		setNumber(pos.r(), pos.c(), n);
+	public void setNumber(Address p, int n) {
+		if (n == 0) {
+			if (isPier(p)) {
+				removePier(p);
+			}
+		} else if (n > 0) {
+			if (isPier(p))
+				getPier(p).setNumber(n);
+			else
+				addPier(p, n);
+		}
 	}
 	/**
 	 * マスの数字を取得する
@@ -69,31 +67,22 @@ public class Board extends BoardBase {
 	 * @return マスの数字
 	 */
 	public int getNumber(int r, int c) {
-		if (pier[r][c] == null)
-			return 0;
-		else
-			return pier[r][c].getNumber();
+		return getNumber(Address.address(r, c));
 	}
 	
-	public int getNumber(Address pos) {
-		return getNumber(pos.r(), pos.c());
+	public int getNumber(Address p) {
+		if (isPier(p))
+			return getPier(p).getNumber();
+		else
+			return 0;
 	}
 	/**
 	 * そのマスが数字マス（橋脚）かどうか
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param p 座標
 	 * @return 数字マスなら true
 	 */
-	public boolean isPier(int r, int c) {
-		return pier[r][c] != null;
-	}
-	/**
-	 * そのマスが数字マス（橋脚）かどうか
-	 * @param pos 座標
-	 * @return 数字マスなら true
-	 */
-	public boolean isPier(Address pos) {
-		return isPier(pos.r(), pos.c());
+	public boolean isPier(Address p) {
+		return pier[p.r()][p.c()] != null;
 	}
 	
 	/**
@@ -174,6 +163,10 @@ public class Board extends BoardBase {
 	public Pier getPier(Address p) {
 		return pier[p.r()][p.c()];
 	}
+
+	public Pier setPier(Address p, Pier pi) {
+		return pier[p.r()][p.c()] = pi;
+	}
 	/**
 	 * そのマス上の橋を取得する
 	 * @param r 行座標
@@ -236,38 +229,34 @@ public class Board extends BoardBase {
 	/**
 	 * 指定した座標に橋脚を新規に作成する
 	 * そのマスにもともとかかっていた橋は除去される
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param p 座標
 	 * @param n 数字
 	 */
-	void addPier(int r, int c, int n) {
-		Pier p = new Pier(r, c, n);
-		pier[r][c] = p;
+	void addPier(Address p, int n) {
+		Pier pi = new Pier(p, n);
+		setPier(p, pi);
 		for (int d = 0; d < 4; d++) {
-			Pier next = findPier(r, c, d);
+			Pier next = findPier(p, d);
 			if (next != null) {
-				next.setNextPier(d^2,p);
-				p.setNextPier(d,next);
-				Bridge b = new Bridge(p, next);
+				next.setNextPier(d^2,pi);
+				pi.setNextPier(d,next);
+				Bridge b = new Bridge(pi, next);
 				next.setBridge(d^2, b);
-				p.setBridge(d, b);
-				setBridge(p.getPos(), next.getPos(), d, b);
+				pi.setBridge(d, b);
+				setBridge(pi.getPos(), next.getPos(), d, b);
 			}
 		}
 	}
 	/**
 	 * 指定した座標にある橋脚を除去する
 	 * その橋から出ていた橋は除去される
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param p 座標
 	 */
-	void removePier(int r, int c) {
-		
-		Pier p = pier[r][c];
-		
+	void removePier(Address p) {
+		Pier pi = getPier(p);
 		for (int d=0; d<4; d++) {
-			Pier p1 = p.getNextPier(d);
-			Pier p2 = p.getNextPier(d^2);
+			Pier p1 = pi.getNextPier(d);
+			Pier p2 = pi.getNextPier(d^2);
 			if (p1 != null) {
 				if (p2 != null)
 					p1.setNextPier(d^2, p2);
@@ -276,8 +265,8 @@ public class Board extends BoardBase {
 			}
 		}
 		for (int d=0; d<2; d++) {
-			Pier p1 = p.getNextPier(d);
-			Pier p2 = p.getNextPier(d^2);
+			Pier p1 = pi.getNextPier(d);
+			Pier p2 = pi.getNextPier(d^2);
 			if (p1 != null) {
 				if (p2 != null) {
 					Bridge b = new Bridge(p1, p2);
@@ -285,19 +274,18 @@ public class Board extends BoardBase {
 					p1.setBridge(d^2, b);
 					p2.setBridge(d, b);
 				} else {
-					setBridge(p.getPos(), p1.getPos(), d, null);
+					setBridge(pi.getPos(), p1.getPos(), d, null);
 					p1.setBridge(d^2, null);
 				}
 			} else {
 				if (p2 != null) {
-					setBridge(p.getPos(), p2.getPos(), d^2, null);
+					setBridge(pi.getPos(), p2.getPos(), d^2, null);
 					p2.setBridge(d, null);
 				} else {
 				}
 			}
 		}
-
-		pier[r][c] = null;
+		setPier(p, null);
 	}
 
 	/**
@@ -309,17 +297,15 @@ public class Board extends BoardBase {
 
 	/**
 	 * 起点から指定した方向にある最初の橋脚を返す
-	 * @param r 起点の行座標
-	 * @param c 起点の列座標
+	 * @param p 起点の座標
 	 * @param direction 橋脚を探す向き
 	 * @return 起点から指定した方向にある最初の橋脚
 	 */
-	Pier findPier(int r, int c, int direction) {
-		Address pos = Address.address(r, c);
-		pos = pos.nextCell(direction);
+	Pier findPier(Address p, int direction) {
+		Address pos = Address.nextCell(p, direction);
 		while (isOn(pos)) {
 			if (isPier(pos)) {
-				return pier[pos.r()][pos.c()];
+				return getPier(pos);
 			}
 			pos = pos.nextCell(direction);
 		}
@@ -329,58 +315,59 @@ public class Board extends BoardBase {
 	 * 橋をかける／除く，アンドゥリスナーに通知する
 	 * @param p 起点の座標
 	 * @param d 方向（上下左右）
-	 * @param n 橋の増減数
+	 * @param n 変更後の橋の数
 	 */
 	public void changeLine(Address p, int d, int n) {
 		if (!isPier(p))
 			return;
-		Pier pp= pier[p.r()][p.c()];
-		if (pp.getNextPier(d) == null)
+		Pier pi= getPier(p);
+		if (pi.getNextPier(d) == null)
 			return;
-		int prev = pp.getLine(d);
+		int prev = pi.getLine(d);
 		if (n < 0 || n > 2)
 			return;
 		if (prev == n)
 			return;
-		pp.changeLine(d, n);
+		pi.changeLine(d, n);
 		if (n == 0)
-			cutChain(pp, pp.getNextPier(d));
+			cutChain(pi, pi.getNextPier(d));
 		if (prev == 0)
-			connectChain(pp, pp.getNextPier(d));
+			connectChain(pi, pi.getNextPier(d));
 		if (isRecordUndo())
 			fireUndoableEditUpdate(new BridgeEditStep(p, d, prev, n));
 	}
 
 	public void undo(AbstractStep step) {
-		BridgeEditStep s = (BridgeEditStep) step;
-		changeLine(s.getPos(), s.getDirection(), s.getBefore());
+		if (step instanceof BridgeEditStep) {
+			BridgeEditStep s = (BridgeEditStep) step;
+			changeLine(s.getPos(), s.getDirection(), s.getBefore());
+		}
 	}
 
 	public void redo(AbstractStep step) {
-		BridgeEditStep s = (BridgeEditStep) step;
-		changeLine(s.getPos(), s.getDirection(), s.getAfter());
+		if (step instanceof BridgeEditStep) {
+			BridgeEditStep s = (BridgeEditStep) step;
+			changeLine(s.getPos(), s.getDirection(), s.getAfter());
+		}
 	}
 
 	/**
 	 * 橋の連結番号を初期化する
 	 */
 	void initChain() {
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				if (isPier(r, c)) {
-					pier[r][c].setChain(0);
-				}
+		for (Address p : cellAddrs()) {
+			if (isPier(p)) {
+				getPier(p).setChain(0);
 			}
 		}
 		maxChain = 1;
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				if (isPier(r, c)) {
-					if (pier[r][c].totalLines() == 0)
-						pier[r][c].setChain(0);
-					else if (pier[r][c].getChain() == 0) {
-						initChain1(pier[r][c], maxChain++);
-					}
+		for (Address p : cellAddrs()) {
+			if (isPier(p)) {
+				Pier pi = getPier(p);
+				if (pi.totalLines() == 0)
+					pi.setChain(0);
+				else if (pi.getChain() == 0) {
+					initChain1(pi, maxChain++);
 				}
 			}
 		}
@@ -388,16 +375,16 @@ public class Board extends BoardBase {
 
 	/**
 	 * あるマスを始点とする chain番号の初期化
-	 * @param p 始点となる橋脚
+	 * @param pi 始点となる橋脚
 	 * @param chain 番号
 	 */
-	void initChain1(Pier p, int chain) {
-		if (p.getChain() == chain)
+	void initChain1(Pier pi, int chain) {
+		if (pi.getChain() == chain)
 			return;
-		p.setChain(chain);
+		pi.setChain(chain);
 		for (int d = 0; d < 4; d++) {
-			if (p.getLine(d) > 0)
-				initChain1(p.getNextPier(d), chain);
+			if (pi.getLine(d) > 0)
+				initChain1(pi.getNextPier(d), chain);
 		}
 	}
 	/**
@@ -407,14 +394,13 @@ public class Board extends BoardBase {
 	 * @param pierB
 	 */
 	void connectChain(Pier pierA, Pier pierB) {
-
 		int a = pierA.getChain();
 		int b = pierB.getChain();
-
 		if (a == 0) {
 			if (b == 0) {
 				pierA.setChain(maxChain);
-				pierB.setChain(maxChain++);
+				pierB.setChain(maxChain);
+				maxChain++;
 			} else if (b > 0) {
 				pierA.setChain(b);
 			}
@@ -434,10 +420,8 @@ public class Board extends BoardBase {
 	 * @param pierB
 	 */
 	void cutChain(Pier pierA, Pier pierB) {
-
 		int a = pierA.totalLines();
 		int b = pierB.totalLines();
-
 		if (a == 0) {
 			pierA.setChain(0);
 			if (b == 0) {
@@ -455,15 +439,15 @@ public class Board extends BoardBase {
 
 	/**
 	 * そのマスから出る橋の数が正解に達しているかどうか調べる
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param p 座標
 	 * @return >0: 少なすぎる, =0: ちょうど, <0 多すぎる
 	 */
-	public int checkPier(Address p) {
-		int number = getPier(p).getNumber();
-		int bridges = getPier(p).totalLines();
+	public int checkNumber(Address p) {
+		Pier pi = getPier(p);
+		int number = pi.getNumber();
+		int bridges = pi.totalLines();
 		if (number == UNDECIDED_NUMBER)
-			return 1;
+			return 0;
 		return number - bridges;
 	}
 
@@ -495,7 +479,7 @@ public class Board extends BoardBase {
 	private boolean checkNumbers() {
 		for (Address p : cellAddrs()) {
 			if (isPier(p)) {
-				if (checkPier(p) != 0) {
+				if (checkNumber(p) != 0) {
 					return false;
 				}
 			}
@@ -521,8 +505,9 @@ public class Board extends BoardBase {
 	
 	private boolean checkCross() {
 		for (Address p : cellAddrs()) {
-			if (hasCrossedBridge(p))
+			if (hasCrossedBridge(p)) {
 				return false;
+			}
 		}
 		return true;
 	}
