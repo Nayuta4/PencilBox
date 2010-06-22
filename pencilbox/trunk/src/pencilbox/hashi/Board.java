@@ -92,16 +92,8 @@ public class Board extends BoardBase {
 	 * @return マスの状態
 	 */
 	public int getState(int r, int c) {
-		int ret = 0;
-		if (bridgeV[r][c] != null)
-			ret += bridgeV[r][c].getLine();
-		if (bridgeH[r][c] != null)
-			ret += (bridgeH[r][c].getLine() << 2);
-		return ret;
-	}
-	
-	public int getState(Address pos) {
-		return getState(pos.r(), pos.c());
+		Address p = Address.address(r, c);
+		return getLine(p, Direction.VERT) + (getLine(p, Direction.HORIZ)<<2);
 	}
 	/**
 	 * マスの状態を設定する
@@ -110,46 +102,48 @@ public class Board extends BoardBase {
 	 * @param n マスの状態
 	 */
 	public void setState(int r, int c, int n) {
-		if (bridgeV[r][c] != null)
-			bridgeV[r][c].setLine(n & 0x3);
-		if (bridgeH[r][c] != null)
-			bridgeH[r][c].setLine((n>>2) & 0x3);
+		Address p = Address.address(r, c);
+		setLine(p, Direction.VERT, (n&0x3));
+		setLine(p, Direction.HORIZ, ((n>>2) & 0x3));
 	}
-	
+
 	public void setState(Address pos, int n) {
 		setState(pos.r(), pos.c(), n);
 	}
 	/**
-	 * そのマスを通過する縦方向の橋の数を返す
-	 * @param p 座標
-	 * @return　そのマスを通過する縦方向の橋の数
-	 */
-	public int getVertBridge(Address p) {
-		Bridge b = bridgeV[p.r()][p.c()];
-		if (b == null)
-			return -1;
-		else
-			return b.getLine();
-	}
-	/**
 	 * そのマスを通過する横方向の橋の数を返す
 	 * @param p 座標
+	 * @param d 向き（縦か横）
 	 * @return　そのマスを通過する横方向の橋の数
 	 */
-	public int getHorizBridge(Address p) {
-		Bridge b = bridgeH[p.r()][p.c()];
-		if (b == null)
-			return -1;
-		else
+	public int getLine(Address p, int d) {
+		Bridge b = getBridge(p, d);
+		if (b != null) {
 			return b.getLine();
+		} else {
+			return 0;
+		}
 	}
+	/**
+	 * マスの上の橋の数を設定する
+	 * @param p マス
+	 * @param d 向き（縦か横か）
+	 * @param n 橋の本数
+	 */
+	public void setLine(Address p, int d, int n) {
+		if (getBridge(p, d) != null)
+			getBridge(p, d).setLine(n);
+	}
+
 	/**
 	 * そのマスの上で橋が交差しているかかっているかどうか
 	 * @param p 座標
 	 * @return そのマスの上で橋が交差していれば true
 	 */
 	public boolean hasCrossedBridge(Address p) {
-		return getHorizBridge(p) > 0 && getVertBridge(p) > 0;
+		int v = getLine(p, Direction.VERT);
+		int h = getLine(p, Direction.HORIZ);
+		return (v>0 && h>0);
 	}
 	
 	/**
@@ -174,41 +168,32 @@ public class Board extends BoardBase {
 	 * @param dir 縦の橋か横の橋か
 	 * @return　そのマスの上の橋
 	 */
-	public Bridge getBridge(int r, int c, int dir) {
+	public Bridge getBridge(Address p, int dir) {
 		if (dir == Direction.HORIZ) {
-			return bridgeH[r][c];
+			return bridgeH[p.r()][p.c()];
 		} else if (dir == Direction.VERT) {
-			return bridgeV[r][c];
+			return bridgeV[p.r()][p.c()];
 		}
 		return null;
 	}
 	/**
-	 * マス上にそのマスを通る橋を設定する
-	 * @param r 行座標
-	 * @param c 列座標
-	 * @param dir 縦の橋か横の橋か
-	 * @param b 設定するBridge
-	 */
-	public void setBridge(int r, int c, int dir, Bridge b) {
-		if (dir == Direction.HORIZ) {
-			bridgeH[r][c] = b;
-		} else if (dir == Direction.VERT) {
-			bridgeV[r][c] = b;
-		}
-	}
-	/**
 	 * 橋の通る盤上の各マスに，その橋を設定する
 	 * @param pos0 始点マス
-	 * @param pos1 終点マス
 	 * @param d 始点から終点を見た向き
 	 * @param b Bridge
 	 */
-	void setBridge(Address pos0, Address pos1, int d, Bridge b) {
-		Address pos = Address.address(pos0);
+	void setBridge(Address pos0, int d, Bridge b) {
+		Address pos = pos0;
+		int dir = d&1;
 		while(true) {
 			pos = pos.nextCell(d);
-			if (pos.equals(pos1)) break;
-			setBridge(pos.r(), pos.c(), d&1, b);
+			if (isPier(pos))
+				break;
+			if (dir == Direction.HORIZ) {
+				bridgeH[pos.r()][pos.c()] = b;
+			} else if (dir == Direction.VERT) {
+				bridgeV[pos.r()][pos.c()] = b;
+			}
 		}
 	}
 
@@ -218,11 +203,11 @@ public class Board extends BoardBase {
 	 * @param d 向き
 	 * @return 数字マスからある向きへの橋の本数。数字マス以外であれば-1
 	 */
-	public int getLine(Address p, int d) {
-		if (!isPier(p)) {
-			return -1;
-		} else {
+	public int getLineFromPier(Address p, int d) {
+		if (isPier(p)) {
 			return getPier(p).getLine(d);
+		} else {
+			return -1;
 		}
 	}
 
@@ -243,7 +228,7 @@ public class Board extends BoardBase {
 				Bridge b = new Bridge(pi, next);
 				next.setBridge(d^2, b);
 				pi.setBridge(d, b);
-				setBridge(pi.getPos(), next.getPos(), d, b);
+				setBridge(pi.getPos(), d, b);
 			}
 		}
 	}
@@ -270,16 +255,16 @@ public class Board extends BoardBase {
 			if (p1 != null) {
 				if (p2 != null) {
 					Bridge b = new Bridge(p1, p2);
-					setBridge(p2.getPos(), p1.getPos(), d, b);
+					setBridge(p2.getPos(), d, b);
 					p1.setBridge(d^2, b);
 					p2.setBridge(d, b);
 				} else {
-					setBridge(pi.getPos(), p1.getPos(), d, null);
+					setBridge(p, d, null);
 					p1.setBridge(d^2, null);
 				}
 			} else {
 				if (p2 != null) {
-					setBridge(pi.getPos(), p2.getPos(), d^2, null);
+					setBridge(p, d^2, null);
 					p2.setBridge(d, null);
 				} else {
 				}
@@ -297,22 +282,22 @@ public class Board extends BoardBase {
 
 	/**
 	 * 起点から指定した方向にある最初の橋脚を返す
-	 * @param p 起点の座標
+	 * @param p0 起点の座標
 	 * @param direction 橋脚を探す向き
 	 * @return 起点から指定した方向にある最初の橋脚
 	 */
-	Pier findPier(Address p, int direction) {
-		Address pos = Address.nextCell(p, direction);
-		while (isOn(pos)) {
-			if (isPier(pos)) {
-				return getPier(pos);
+	Pier findPier(Address p0, int direction) {
+		Address p = Address.nextCell(p0, direction);
+		while (isOn(p)) {
+			if (isPier(p)) {
+				return getPier(p);
 			}
-			pos = pos.nextCell(direction);
+			p = p.nextCell(direction);
 		}
 		return null;
 	}
 	/**
-	 * 橋をかける／除く，アンドゥリスナーに通知する
+	 * 橋をかける，橋を除く
 	 * @param p 起点の座標
 	 * @param d 方向（上下左右）
 	 * @param n 変更後の橋の数
@@ -339,14 +324,14 @@ public class Board extends BoardBase {
 
 	public void undo(AbstractStep step) {
 		if (step instanceof BridgeEditStep) {
-			BridgeEditStep s = (BridgeEditStep) step;
+			BridgeEditStep s = (BridgeEditStep)step;
 			changeLine(s.getPos(), s.getDirection(), s.getBefore());
 		}
 	}
 
 	public void redo(AbstractStep step) {
 		if (step instanceof BridgeEditStep) {
-			BridgeEditStep s = (BridgeEditStep) step;
+			BridgeEditStep s = (BridgeEditStep)step;
 			changeLine(s.getPos(), s.getDirection(), s.getAfter());
 		}
 	}

@@ -52,7 +52,7 @@ public class BoardCopier extends BoardCopierBase {
 		for (Address s : region) {
 			Address d = translateAndRotateAddress(s, from, to, rotation);
 			if (board.isOn(d)) {
-				int st = srcBoard.getState(s);
+				int st = srcBoard.getState(s.r(), s.c());
 				if (Rotator2.isTransposed(rotation)) {
 					board.setState(d, ((st & 0x3) << 2) | ((st & 0xC) >> 2));
 				} else { 
