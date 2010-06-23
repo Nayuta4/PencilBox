@@ -48,9 +48,6 @@ public class Pier {
 		else
 			bridge[d].setLine(n);
 	}
-	void changeLine(int d, int n) {
-		bridge[d].changeLine(n);
-	}
 
 	int getChain() {
 		return chain;
