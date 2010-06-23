@@ -16,9 +16,6 @@ class Bridge {
 		pier1 = p1;
 	}
 
-	void changeLine(int n) {
-		line = n;
-	}
 	int getLine() {
 		return line;
 	}

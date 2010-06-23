@@ -3,6 +3,8 @@ package pencilbox.hashi;
 import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
+import pencilbox.common.core.CellEditStep;
+import pencilbox.common.core.CellNumberEditStep;
 import pencilbox.common.core.Direction;
 import pencilbox.resource.Messages;
 
@@ -12,7 +14,8 @@ import pencilbox.resource.Messages;
  */
 public class Board extends BoardBase {
 
-	static final int UNDECIDED_NUMBER = 9;
+	public static final int UNDECIDED_NUMBER = 9;
+	public static final int NO_NUMBER = 0;
 
 	private Pier[][] pier;
 	private Bridge[][] bridgeV;
@@ -49,15 +52,29 @@ public class Board extends BoardBase {
 	}
 	
 	public void setNumber(Address p, int n) {
-		if (n == 0) {
+		if (n == NO_NUMBER) {
 			if (isPier(p)) {
 				removePier(p);
 			}
-		} else if (n > 0) {
+		} else if (n >= 1 && n <= 8 || n == UNDECIDED_NUMBER) {
 			if (isPier(p))
 				getPier(p).setNumber(n);
 			else
 				addPier(p, n);
+		}
+	}
+	/**
+	 * 数字を変更する
+	 * @param p マス座標
+	 * @param n 変更後の数字 0 なら数字を消す
+	 */
+	public void changeNumber(Address p, int n) {
+		int prev = getNumber(p);
+		if (prev == n)
+			return;
+		setNumber(p, n);
+		if (isRecordUndo()) {
+			fireUndoableEditUpdate(new CellEditStep(p, prev, n));
 		}
 	}
 	/**
@@ -111,18 +128,15 @@ public class Board extends BoardBase {
 		setState(pos.r(), pos.c(), n);
 	}
 	/**
-	 * そのマスを通過する横方向の橋の数を返す
+	 * マスを通過する橋の数を返す
 	 * @param p 座標
 	 * @param d 向き（縦か横）
-	 * @return　そのマスを通過する横方向の橋の数
+	 * @return　マスを通過する橋の数
 	 */
 	public int getLine(Address p, int d) {
-		Bridge b = getBridge(p, d);
-		if (b != null) {
-			return b.getLine();
-		} else {
-			return 0;
-		}
+		if (getBridge(p, d) != null)
+			return getBridge(p, d).getLine();
+		return 0;
 	}
 	/**
 	 * マスの上の橋の数を設定する
@@ -221,15 +235,25 @@ public class Board extends BoardBase {
 		Pier pi = new Pier(p, n);
 		setPier(p, pi);
 		for (int d = 0; d < 4; d++) {
-			Pier next = findPier(p, d);
-			if (next != null) {
-				next.setNextPier(d^2,pi);
-				pi.setNextPier(d,next);
-				Bridge b = new Bridge(pi, next);
-				next.setBridge(d^2, b);
-				pi.setBridge(d, b);
-				setBridge(pi.getPos(), d, b);
+			Address nextPos = findPier(p, d);
+			if (nextPos == Address.nowhere())
+				continue;
+			Pier next = getPier(nextPos);
+			if (next.getLine(d^2) > 0) {
+				changeLine(nextPos, d^2, 0);
 			}
+		}
+		for (int d = 0; d < 4; d++) {
+			Address nextPos = findPier(p, d);
+			if (nextPos == Address.nowhere())
+				continue;
+			Pier next = getPier(nextPos);
+			next.setNextPier(d^2,pi);
+			pi.setNextPier(d,next);
+			Bridge b = new Bridge(pi, next);
+			next.setBridge(d^2, b);
+			pi.setBridge(d, b);
+			setBridge(p, d, b);
 		}
 	}
 	/**
@@ -239,6 +263,11 @@ public class Board extends BoardBase {
 	 */
 	void removePier(Address p) {
 		Pier pi = getPier(p);
+		for (int d=0; d<4; d++) {
+			if (getLineFromPier(p, d) > 0) {
+				changeLine(p, d, 0);
+			}
+		}
 		for (int d=0; d<4; d++) {
 			Pier p1 = pi.getNextPier(d);
 			Pier p2 = pi.getNextPier(d^2);
@@ -281,20 +310,20 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * 起点から指定した方向にある最初の橋脚を返す
+	 * 起点から指定した方向にある最初の橋のマスの座標を返す
 	 * @param p0 起点の座標
 	 * @param direction 橋脚を探す向き
 	 * @return 起点から指定した方向にある最初の橋脚
 	 */
-	Pier findPier(Address p0, int direction) {
+	Address findPier(Address p0, int direction) {
 		Address p = Address.nextCell(p0, direction);
 		while (isOn(p)) {
 			if (isPier(p)) {
-				return getPier(p);
+				return p;
 			}
 			p = p.nextCell(direction);
 		}
-		return null;
+		return Address.nowhere();
 	}
 	/**
 	 * 橋をかける，橋を除く
@@ -305,27 +334,31 @@ public class Board extends BoardBase {
 	public void changeLine(Address p, int d, int n) {
 		if (!isPier(p))
 			return;
-		Pier pi= getPier(p);
-		if (pi.getNextPier(d) == null)
-			return;
-		int prev = pi.getLine(d);
 		if (n < 0 || n > 2)
 			return;
+		Pier pi = getPier(p);
+		Pier nextPier = pi.getNextPier(d);
+		if (nextPier == null)
+			return;
+		int prev = pi.getLine(d);
 		if (prev == n)
 			return;
-		pi.changeLine(d, n);
-		if (n == 0)
-			cutChain(pi, pi.getNextPier(d));
-		if (prev == 0)
-			connectChain(pi, pi.getNextPier(d));
+		pi.setLine(d, n);
 		if (isRecordUndo())
 			fireUndoableEditUpdate(new BridgeEditStep(p, d, prev, n));
+		if (n == 0)
+			cutChain(pi, nextPier);
+		if (prev == 0)
+			connectChain(pi, nextPier);
 	}
 
 	public void undo(AbstractStep step) {
 		if (step instanceof BridgeEditStep) {
 			BridgeEditStep s = (BridgeEditStep)step;
 			changeLine(s.getPos(), s.getDirection(), s.getBefore());
+		} else if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep)step;
+			changeNumber(s.getPos(), s.getBefore());
 		}
 	}
 
@@ -333,6 +366,9 @@ public class Board extends BoardBase {
 		if (step instanceof BridgeEditStep) {
 			BridgeEditStep s = (BridgeEditStep)step;
 			changeLine(s.getPos(), s.getDirection(), s.getAfter());
+		} else if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep)step;
+			changeNumber(s.getPos(), s.getAfter());
 		}
 	}
 
