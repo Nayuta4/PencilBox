@@ -4,7 +4,6 @@ import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.gui.PanelEventHandlerBase;
 
-
 /**
  * 「ＬＩＴＳ」マウス／キー操作処理クラス
  */
@@ -22,7 +21,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard; 
 	}
-	
+
 	/**
 	 * @return the draggingArea
 	 */

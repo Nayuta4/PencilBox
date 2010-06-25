@@ -7,6 +7,7 @@ import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.CellEditStep;
+import pencilbox.common.core.Direction;
 import pencilbox.resource.Messages;
 import pencilbox.util.ArrayUtil;
 
@@ -59,9 +60,9 @@ public class Board extends BoardBase {
 	public int getState(int r, int c) {
 		return state[r][c];
 	}
-	
-	public int getState(Address pos) {
-		return getState(pos.r(), pos.c());
+
+	public int getState(Address p) {
+		return getState(p.r(), p.c());
 	}
 	/**
 	 * Set state to a cell.
@@ -73,10 +74,9 @@ public class Board extends BoardBase {
 		state[r][c] = st;
 	}
 	
-	public void setState(Address pos, int st) {
-		setState(pos.r(), pos.c(), st);
+	public void setState(Address p, int st) {
+		setState(p.r(), p.c(), st);
 	}
-	
 	/**
 	 * 引数の座標が黒マスかどうか。
 	 * @param r 行座標
@@ -86,24 +86,25 @@ public class Board extends BoardBase {
 	public boolean isBlack(int r, int c) {
 		return isOn(r, c) && (state[r][c] == BLACK);
 	}
+	public boolean isBlack(Address p) {
+		return isOn(p) && getState(p) == BLACK;
+	}
 	/**
 	 * そのマスの所属する領域を取得する
 	 * そのマスが領域に属していない場合は null を返す
-	 * @param r Row coordinate of the cell.
-	 * @param c Column coordinate of the cell.
+	 * @param p coordinate of the cell.
 	 * @return Returns the area.
 	 */
-	public Wall getWall(int r, int c ) {
-		return wall[r][c];
+	public Wall getWall(Address p ) {
+		return wall[p.r()][p.c()];
 	}
 	/**
 	 * 盤上のマスに，そのマスの所属する領域を設定する
-	 * @param r Row coordinate of the cell.
-	 * @param c Column coordinate of the cell.
+	 * @param p coordinate of the cell.
 	 * @param a The area to set.
 	 */
-	public void setWall(int r, int c, Wall a) {
-		wall[r][c] = a;
+	public void setWall(Address p, Wall a) {
+		wall[p.r()][p.c()] = a;
 	}
 	
 	/**
@@ -113,14 +114,14 @@ public class Board extends BoardBase {
 	 * @param c Column coordinate of the cell.
 	 * @return Returns the area.
 	 */
-	public Area getArea(int r, int c ) {
+	public Area getArea(int r, int c) {
 		if (!isOn(r, c))
 			return null;
 		return area[r][c];
 	}
-	
-	public Area getArea(Address pos) {
-		return getArea(pos.r(), pos.c());
+
+	public Area getArea(Address p) {
+		return getArea(p.r(), p.c());
 	}
 
 	/**
@@ -133,17 +134,17 @@ public class Board extends BoardBase {
 		area[r][c] = a;
 	}
 	
-	public void setArea(Address pos, Area a) {
-		setArea(pos.r(), pos.c(), a);
+	public void setArea(Address p, Area a) {
+		setArea(p.r(), p.c(), a);
 	}
-	
+
 	/**
 	 * 新しい領域を追加する
 	 * @param newArea
 	 */
 	public void addArea(Area newArea) {
-		for (Address pos : newArea) {
-			area[pos.r()][pos.c()] = newArea;
+		for (Address p : newArea) {
+			area[p.r()][p.c()] = newArea;
 		}
 		areaList.add(newArea);
 	}
@@ -153,46 +154,38 @@ public class Board extends BoardBase {
 	 * @param oldArea
 	 */
 	public void removeArea(Area oldArea) {
-		for (Address pos : oldArea) {
-			if (area[pos.r()][pos.c()] == oldArea)
-				area[pos.r()][pos.c()] = null;
+		for (Address p : oldArea) {
+			if (area[p.r()][p.c()] == oldArea)
+				area[p.r()][p.c()] = null;
 		}
 		areaList.remove(oldArea);
 	}
 	/**
 	 * マスを領域に追加する
-	 * @param pos 追加するマスの座標
+	 * @param p 追加するマスの座標
 	 * @param a 追加される領域
 	 */
-	public void addCellToArea(int r, int c, Area a) {
+	public void addCellToArea(Address p, Area a) {
 		if (a.isEmpty()) {
-			areaList.add(a);
-		}
-		setArea(r, c, a);
-		a.add(r, c);
-//		initArea(a);
-	}
-	
-	public void addCellToArea(Address pos, Area a) {
-		addCellToArea(pos.r(), pos.c(), a);
+					areaList.add(a);
+				}
+				setArea(p, a);
+				a.add(p);
+		//		initArea(a);
 	}
 	/**
 	 * マスを領域から取り除く
-	 * @param pos 取り除くマスの座標
+	 * @param p 取り除くマスの座標
 	 * @param a 取り除かれる領域
 	 */
-	public void removeCellFromArea(int r, int c, Area a) {
-		setArea(r, c, null);
-		a.remove(r, c);
+	public void removeCellFromArea(Address p, Area a) {
+		setArea(p, null);
+		a.remove(p);
 		if (a.isEmpty()) {
 			areaList.remove(a);
 		} else {
 //			initArea(a);
 		}
-	}
-	
-	public void removeCellFromArea(Address pos, Area a) {
-		removeCellFromArea(pos.r(), pos.c(), a);
 	}
 
 	/**
@@ -203,11 +196,11 @@ public class Board extends BoardBase {
 	public void changeState(Address p, int st) {
 		if (isRecordUndo())
 			fireUndoableEditUpdate(new CellEditStep(p, getState(p), st));
-		int prevSt = getState(p);
+		int prev = getState(p);
 		setState(p, st);
 		Area a = getArea(p);
 		if (a != null) {
-			if (prevSt == BLACK) {
+			if (prev == BLACK) {
 				a.getTetromino().remove(p);
 			}
 			if (st == BLACK) {
@@ -250,29 +243,17 @@ public class Board extends BoardBase {
 	 * @param c
 	 * @return 2x2ブロックならば true
 	 */
-	boolean is2x2Block(int r, int c) {
-		if (isBlack(r, c)) {
-			if (isBlack(r-1, c)) {
-				if (isBlack(r, c-1)) {
-					if (isBlack(r-1, c-1)) {
-						return true;
-					}
-				}
-				if (isBlack(r, c+1)) {
-					if (isBlack(r-1, c+1)) {
-						return true;
-					}
-				}
-			}
-			if (isBlack(r+1, c)) {
-				if (isBlack(r, c-1)) {
-					if (isBlack(r+1, c-1)) {
-						return true;
-					}
-				}
-				if (isBlack(r, c+1)) {
-					if (isBlack(r+1, c+1)) {
-						return true;
+	boolean is2x2Block(Address p) {
+		if (isBlack(p)) {
+			for (int d = 0; d < 4; d++) {
+				Address p1 = Address.nextCell(p, d);
+				if (isBlack(p1)) {
+					Address p2 = Address.nextCell(p1, (d+1)%4);
+					if (isBlack(p2)) {
+						Address p3 = Address.nextCell(p2, (d+2)%4);
+						if (isBlack(p3)) {
+							return true;
+						}
 					}
 				}
 			}
@@ -318,36 +299,26 @@ public class Board extends BoardBase {
 		for (Area a : areaList) {
 			a.getTetromino().clear();
 		}
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				if (getArea(r, c) != null) {
-					if (getState(r, c) == BLACK) {
-						getArea(r, c).getTetromino().add(r, c);
-					}
+		for (Address p : cellAddrs()) {
+			if (getArea(p) != null) {
+				if (getState(p) == BLACK) {
+					getArea(p).getTetromino().add(p);
 				}
 			}
 		}
 	}
-	
+
 	private int checkAdjacentCongruousTetrominos() {
 		int result = 0;
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				if (getArea(r, c) != null) {
-					if (getState(r, c) == BLACK) {
-						if (getArea(r, c+1) != null) {
-							if (getArea(r, c) != getArea(r, c+1)) {
-								if (getState(r, c+1) == BLACK) {
-									if (getArea(r, c).getTetrominoType() == getArea(r, c+1).getTetrominoType()) {
-										result = 16;
-									}
-								}
-							}
-						}
-						if (getArea(r+1,c) != null) {
-							if (getArea(r, c) != getArea(r+1, c)) {
-								if (getState(r+1, c) == BLACK) {
-									if (getArea(r, c).getTetrominoType() == getArea(r+1, c).getTetrominoType()) {
+		for (Address p : cellAddrs()) {
+			if (getArea(p) != null) {
+				if (getState(p) == BLACK) {
+					for (int d : Direction.DN_RT) {
+						Address p1 = Address.nextCell(p, d);
+						if (getArea(p1) != null) {
+							if (getArea(p) != getArea(p1)) {
+								if (getState(p1) == BLACK) {
+									if (getArea(p).getTetrominoType() == getArea(p1).getTetrominoType()) {
 										result = 16;
 									}
 								}
@@ -363,51 +334,45 @@ public class Board extends BoardBase {
 	private int checkConnection() {
 		ArrayUtil.initArrayObject2(wall, null);
 		wallList.clear();
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				if (getState(r, c) == BLACK && getWall(r, c) == null) {
-					if (wallList.size() > 0)
-						return 32;
-					initWall(r,c);
-				}
+		for (Address p : cellAddrs()) {
+			if (getState(p) == BLACK && getWall(p) == null) {
+				if (wallList.size() > 0)
+					return 32;
+				initWall(p);
 			}
 		}
 		return 0;
 	}
 	/**
 	 * あるマスを起点とする黒マスのつながりを調べてWallを作成する
-	 * @param r
-	 * @param c
+	 * @param p
 	 */
-	private void initWall(int r, int c) {
+	private void initWall(Address p) {
 		initializingWall = new Wall();
-		initWall1(r, c);
+		initWall1(p);
 		wallList.add(initializingWall);
 	}
 
-	private boolean initWall1(int r, int c) {
-		if (!isOn(r, c))
+	private boolean initWall1(Address p) {
+		if (!isOn(p))
 			return false;
-		if (!isBlack(r, c))
+		if (!isBlack(p))
 			return false;
-		if (getWall(r, c) == initializingWall)
+		if (getWall(p) == initializingWall)
 			return false;
-		initializingWall.add(r, c);
-		setWall(r, c, initializingWall);
-		initWall1(r-1, c);
-		initWall1(r, c-1);
-		initWall1(r+1, c);
-		initWall1(r, c+1);
+		initializingWall.add(p);
+		setWall(p, initializingWall);
+		for (int d = 0; d < 4; d++) {
+			initWall1(Address.nextCell(p, d));
+		}
 		return true;
 	}
 	
 	private int check2x2s() {
 		int result = 0;
-		for (int r=rows()-1; r>=0; r--) {
-			for (int c=cols()-1; c>=0; c--) {
-				if (is2x2Block(r,c)) {
-					result |= 64;
-				}
+		for (Address p : cellAddrs()) {
+			if (is2x2Block(p)) {
+				result |= 64;
 			}
 		}
 		return result;
