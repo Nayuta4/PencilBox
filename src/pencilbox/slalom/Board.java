@@ -45,7 +45,7 @@ public class Board extends BoardBase {
 		number = new int[rows()][cols()];
 		gateNumber = new int[rows()][cols()];
 		ArrayUtil.initArrayInt2(number, BLANK);
-		goal = Address.address(-1, -1);
+		goal = Address.nowhere();
 		state = new int[2][][];
 		state[VERT] = new int[rows()][cols()-1];
 		state[HORIZ] = new int[rows()-1][cols()];
@@ -95,16 +95,11 @@ public class Board extends BoardBase {
 
 	/**
 	 * 黒マスか
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param p 座標
 	 * @return 黒マスであれば true
 	 */
-	public boolean isWall(int r, int c) {
-		return number[r][c] >= 0 || number[r][c] == UNDECIDED_NUMBER;
-	}
-
-	public boolean isWall(Address pos) {
-		return isWall(pos.r(), pos.c());
+	public boolean isWall(Address p) {
+		return getNumber(p) >= 0 || getNumber(p) == UNDECIDED_NUMBER;
 	}
 	/**
 	 * 旗門マスか
@@ -121,21 +116,12 @@ public class Board extends BoardBase {
 	}
 	/**
 	 * 線座標の両側の2マスいずれかが黒マスかどうか
-	 * @param d
-	 * @param r
-	 * @param c
+	 * @param p 線座標
 	 * @return 線座標の両側の2マスいずれかが黒マスであれば true
 	 */
-	public boolean hasWall(int d, int r, int c) {
-		if (d == VERT)
-			return isWall(r, c) || isWall(r, c+1);
-		else if (d == HORIZ)
-			return isWall(r, c) || isWall(r+1, c);
-		return false;
-	}
-
-	public boolean hasWall(SideAddress pos) {
-		return hasWall(pos.d(), pos.r(), pos.c());
+	public boolean hasWall(SideAddress p) {
+		return isWall(SideAddress.nextCellFromBorder(p, 0))
+				|| isWall(SideAddress.nextCellFromBorder(p, 1));
 	}
 	/**
 	 * @param p
@@ -216,22 +202,6 @@ public class Board extends BoardBase {
 
 	public void setState(SideAddress pos, int st) {
 		setState(pos.d(), pos.r(), pos.c(), st);
-	}
-
-	/**
-	 * 辺状態の設定。マスと向きで座標指定する。
-	 * @param pos
-	 * @param d
-	 * @param st
-	 */
-	public void setStateJ(Address pos, int d, int st) {
-		setState(SideAddress.get(pos, d), st);
-	}
-
-	public boolean isLine(int d, int r, int c) {
-		if (!isSideOn(d, r, c))
-			return false;
-		return state[d][r][c] == LINE;
 	}
 
 	public Link getLink(int d, int r, int c) {
@@ -316,13 +286,9 @@ public class Board extends BoardBase {
 	}
 
 	public void trimAnswer() {
-		for (int d = 0; d <= 1; d++) {
-			for (int r = 0; r < rows(); r++) {
-				for (int c = 0; c < cols(); c++) {
-					if (getState(d, r, c) == NOLINE)
-						setState(d, r, c, UNKNOWN);
-				}
-			}
+		for (SideAddress p : borderAddrs()) {
+			if (getState(p) == NOLINE)
+				setState(p, UNKNOWN);
 		}
 	}
 
@@ -336,35 +302,31 @@ public class Board extends BoardBase {
 	 */
 	void initGates() {
 		nGate = 0;
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				setGateNumber(r, c, 0);
-			}
+		for (Address p : cellAddrs()) {
+			setGateNumber(p, 0);
 		}
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				int n = getNumber(r, c);
-				if (n == GOAL) {
-					goal = Address.address(r, c);
-				} else if (n == GATE_HORIZ) {
-					if (isOn(r, c-1) && getNumber(r, c-1) == GATE_HORIZ) {
-					} else {
-						nGate ++;
-					}
-				} else if (n == GATE_VERT) {
-					if (isOn(r-1, c) && getNumber(r-1, c) == GATE_VERT) {
-					} else {
-						nGate ++;
-					}
+		for (Address p : cellAddrs()) {
+			int n = getNumber(p);
+			if (n == GOAL) {
+				goal = p;
+			} else if (n == GATE_HORIZ) {
+				Address p1 = Address.nextCell(p, Direction.LT);
+				if (isOn(p1) && getNumber(p1) == GATE_HORIZ) {
+				} else {
+					nGate ++;
+				}
+			} else if (n == GATE_VERT) {
+				Address p1 = Address.nextCell(p, Direction.UP);
+				if (isOn(p1) && getNumber(p1) == GATE_VERT) {
+				} else {
+					nGate ++;
 				}
 			}
 		}
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				int n = getNumber(r, c);
-				if (n > 0) {
-					initGateNumber(r, c, n);
-				}
+		for (Address p : cellAddrs()) {
+			int n = getNumber(p);
+			if (n > 0) {
+				initGateNumber(p, n);
 			}
 		}
 	}
@@ -384,7 +346,7 @@ public class Board extends BoardBase {
 			gateType = GATE_HORIZ;
 		}
 		while (true) {
-			p = p.nextCell(d);
+			p = Address.nextCell(p, d);
 			if (isOn(p)) {
 				if (isWall(p)) {
 //					System.out.println(p.toString() + "他端は黒マスだ");
@@ -403,19 +365,17 @@ public class Board extends BoardBase {
 
 	/**
 	 * 黒マスを起点に，ある方向に出ている門に番号を設定する。
-	 * @param r
-	 * @param c
+	 * @param p0
 	 * @param d
 	 * @param n
 	 */
-	private void setGateNumber(int r, int c, int d, int n) {
-		Address p = Address.address(r, c);
+	private void setGateNumber(Address p0, int d, int n) {
 		int t = 0;
 		if (d == 0 || d == 2)
 			t = GATE_VERT;
 		else
 			t = GATE_HORIZ;
-		p = Address.address(r, c);
+		Address p = p0;
 		while (true) {
 			p = p.nextCell(d);
 			if (isOn(p) && getNumber(p) == t) {
@@ -432,12 +392,11 @@ public class Board extends BoardBase {
 	 * 門の反対側に同じ数字の黒マスがあれば，黒マスの数字が門の番号。
 	 * 門の反対側に異なる数字の黒マスがあれば，門の番号は -1。
 	 * 黒マスに隣接する門が１つだけで，門の番号がまだ決まっていなければ，黒マスの数字が門の番号。
-	 * @param r
-	 * @param c
+	 * @param p0s
 	 * @param n0 正の数とする
 	 */
-	private void initGateNumber(int r, int c, int n0) {
-		Address p = Address.address(r, c);
+	private void initGateNumber(Address p0, int n0) {
+		Address p = p0;
 		Address p1 = null;
 //		System.out.println(p.toString() + "の黒マスについて調べる。");
 		int d1 = -1; // 対岸の黒マスの向きを記録する
@@ -449,7 +408,7 @@ public class Board extends BoardBase {
 				t = GATE_VERT;
 			else
 				t = GATE_HORIZ;
-			p = Address.address(r, c);
+			p = p0;
 			p = p.nextCell(d);
 			if (isOn(p) && getNumber(p) == t) {
 //				System.out.println(d + "の向きに門があった");
@@ -460,11 +419,11 @@ public class Board extends BoardBase {
 					int n1 = getNumber(p1);
 					if (n1 == n0) { // 対岸の門と同じ番号
 						ng = n1;
-						setGateNumber(r, c, d, n1);
+						setGateNumber(p0, d, n1);
 //						System.out.println("対岸の数字マス" + p1.toString() + "との間の門の番号は " + n1);
 					} else if (n1 > 0 && n1 != n0) {
 						ng = -1;
-						setGateNumber(r, c, d, -1);
+						setGateNumber(p0, d, -1);
 //						System.out.println("対岸の数字マスが異なる番号であるため，門の番号は -1 とする。");
 					}
 				} else {
@@ -476,7 +435,7 @@ public class Board extends BoardBase {
 //			System.out.println("上下左右４方向に門がない ");
 		} else if (count == 1) {
 			if (ng == 0) {
-				setGateNumber(r, c, d1, n0);
+				setGateNumber(p0, d1, n0);
 //				System.out.println("隣接する門が１つしかないので，その門の番号を " + n0 + "に決める");
 			} else if (ng == -1) {
 //				System.out.println("隣接する門が１つしかない場合でも、異なる数字にはさまれた門の番号は-1とする。 ");
@@ -573,20 +532,17 @@ public class Board extends BoardBase {
 
 	/**
 	 * マスの上下左右4方向のうち，現在線が引かれている数を返す
-	 * @param r マスの行座標
-	 * @param c マスの列座標
+	 * @param p マスの座標
 	 * @return マスの上下左右に引かれている線の数
 	 */
-	public int countLine(int r, int c) {
+	public int countLine(Address p) {
 		int no = 0;
-		if (r < rows()-1 && isLine(HORIZ, r, c))
-			no++;
-		if (c < cols()-1 && isLine(VERT, r, c))
-			no++;
-		if (r > 0 && isLine(HORIZ, r-1, c))
-			no++;
-		if (c > 0 && isLine(VERT, r, c-1))
-			no++;
+		for (int d = 0; d < 4; d++) {
+			SideAddress b = SideAddress.get(p, d);
+			if (getState(b) == Board.LINE) {
+				no++;
+			}
+		}
 		return no;
 	}
 
@@ -596,14 +552,12 @@ public class Board extends BoardBase {
 	 */
 	private int checkLinks() {
 		int result = 0;
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				int l = countLine(r,c);
-				if (l > 2) {
-					result |= 1;
-				} else if (l == 1) {
-					result |= 2;
-				}
+		for (Address p : cellAddrs()) {
+			int l = countLine(p);
+			if (l > 2) {
+				result |= 1;
+			} else if (l == 1) {
+				result |= 2;
 			}
 		}
 		if (linkList.size() > 1)
@@ -621,18 +575,16 @@ public class Board extends BoardBase {
 	 * @return 誤りがあれば正数，なければ0
 	 */
 	private int checkGates() {
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				if (isGate(r, c)) {
-					int ret = checkGate1(r, c);
-					if (ret == -1) {
-						return 16;
-					} else if (ret == 0) {
-						return 32;
-					} else if (ret > 1) {
-						return 64;
-					} else if (ret == -2) {
-					}
+		for (Address p : cellAddrs()) {
+			if (isGate(p)) {
+				int ret = checkGate1(p);
+				if (ret == -1) {
+					return 16;
+				} else if (ret == 0) {
+					return 32;
+				} else if (ret > 1) {
+					return 64;
+				} else if (ret == -2) {
 				}
 			}
 		}
@@ -646,23 +598,21 @@ public class Board extends BoardBase {
 	 * @param p 旗門のマスの座標
 	 * @return 門の通り方が誤っていれば -1 , 調査済みは -2, 0以上の数は正常に交差した回数を返す。
 	 */
-	private int checkGate1(int r, int c) {
-		int count = 0;
-		int gateType = getNumber(r, c);
-		Address p = Address.address(r, c);
+	private int checkGate1(Address p0) {
+		int gateType = getNumber(p0);
 //		System.out.println(p.toString() + "の門を調べる。");
 		int d = 0;
 		if (gateType == Board.GATE_HORIZ) {
 			d = Direction.RT;
-			p = Address.address(r, c-1);
 		} else if (gateType == Board.GATE_VERT) {
 			d = Direction.DN;
-			p = Address.address(r-1, c);
 		}
-		if (isOn(p) && getNumber(p) == gateType) {
+		Address p2 = Address.nextCell(p0, d^2);
+		if (isOn(p2) && getNumber(p2) == gateType) { // ひとつ手前のマスも同じ向きの門ならば，
 			return -2; // 調査済みのはず
 		}
-		p = Address.address(r, c);
+		int count = 0;
+		Address p = p0;
 		while (true) {
 			int ret = checkGate2(p);
 			if (ret == -1) {
@@ -689,21 +639,25 @@ public class Board extends BoardBase {
 	 */
 	private int checkGate2(Address p) {
 		int type = getNumber(p);
+		int st4[] = new int[4];
+		for (int d = 0; d < 4; d++) {
+			st4[d] = getState(SideAddress.get(p, d));
+		}
 		if (type == GATE_VERT) {
-			if (getStateJ(p, Direction.UP) == LINE || getStateJ(p, Direction.DN) == LINE) {
+			if (st4[0] == LINE || st4[2] == LINE) {
 //				System.out.println("ゲート" + p.toString() + "と並行に走っている");
 				return -1;
 			}
-			if (getStateJ(p, Direction.LT) == LINE && getStateJ(p, Direction.RT) == LINE) {
+			if (st4[1] == LINE && st4[3] == LINE) {
 //				System.out.println("ゲート" + p.toString() + "と直交している");
 				return 1;
 			}
 		} else if (type == GATE_HORIZ) {
-			if (getStateJ(p, Direction.LT) == LINE || getStateJ(p, Direction.RT) == LINE) {
+			if (st4[1] == LINE || st4[3] == LINE) {
 //				System.out.println("ゲート" + p.toString() + "と並行に走っている");
 				return -1;
 			}
-			if (getStateJ(p, Direction.UP) == LINE && getStateJ(p, Direction.DN) == LINE) {
+			if (st4[0] == LINE && st4[2] == LINE) {
 //				System.out.println("ゲート" + p.toString() + "と直交している");
 				return 1;
 			}
@@ -726,41 +680,41 @@ public class Board extends BoardBase {
 			// ゴールがない場合は，順番を数える起点とするための仮のゴールを設定する。
 			p0 = ｔemporalGoal();
 		} else {
-			p0 = Address.address(goal);
+			p0 = goal;
 			if (getLink(p0) == null) {
-//				System.out.println("ゴールを通過していない。");
+				System.out.println("ゴールを通過していない。");
 				return 512;
 			}
 		}
-//		System.out.println("スタート／ゴール地点は " + p0.toString());
-		Address p = Address.address(p0);
+		System.out.println("スタート／ゴール地点は " + p0.toString());
+		Address p = p0;
 		int d = -1;
 		while (true) {
 			d = getLineDirection(p, d);
-			p = p.nextCell(d);
+			p = Address.nextCell(p, d);
 			if (isGate(p)) {
-//				System.out.println("ゲート " + getGate(p).getNumber() + " 通過");
+								System.out.println("ゲート " + getGateNumber(p) + " 通過");
 				gateNumber[k] = getGateNumber(p);
 				k++;
 				if (k > nGate) { // すべての門を正しく通過していることが前提ならば、ありえない
-//					System.out.println("門" + nGate + "のうち" + k + "箇所めを通過した。通過した門が多すぎる");
+					System.out.println("門" + nGate + "のうち" + k + "箇所めを通過した。通過した門が多すぎる");
 					return 128;
 				}
 			}
 			if (p.equals(p0)) {
-//				System.out.println("ゴール到達");
+				System.out.println("ゴール到達");
 				break;
 			}
 		}
 		if (k < nGate) { // すべての門を正しく通過していることが前提ならば、ありえない
-//			System.out.println("門" + nGate + "のうち" + k + "箇所通過した。通過した門が少なすぎる");
+			System.out.println("門" + nGate + "のうち" + k + "箇所通過した。通過した門が少なすぎる");
 			return 128;
 		}
-//		for (k = 0; k < nGate; k++) {
-//			System.out.print(gateNumber[k]);
-//			System.out.print(' ');
-//		}
-//		System.out.println(" の順番に門を通過した。");
+		for (k = 0; k < nGate; k++) {
+			System.out.print(gateNumber[k]);
+			System.out.print(' ');
+		}
+		System.out.println(" の順番に門を通過した。");
 		int gg = 1;
 		// ゴールが設定されていなときは、仮ゴールは何番目に通過してもよいことにする。
 		if (goal.isNowhere() && nGate >= 1) {
@@ -775,7 +729,7 @@ public class Board extends BoardBase {
 				}
 			}
 			if (k == nGate) {
-//				System.out.println("門の通過順が正しい。");
+				System.out.println("門の通過順が正しい。");
 				return 0;
 			}
 		}
@@ -788,11 +742,11 @@ public class Board extends BoardBase {
 				}
 			}
 			if (k == nGate) {
-//				System.out.println("門の通過順が正しい。");
+				System.out.println("門の通過順が正しい。");
 				return 0;
 			}
 		}
-//		System.out.println("門の通過順が誤っている。");
+		System.out.println("門の通過順が誤っている。");
 		return 256;
 	}
 
@@ -800,11 +754,9 @@ public class Board extends BoardBase {
 	 * ゴールが設定されていない盤面で、仮のゴールを設定する。
 	 */
 	private Address ｔemporalGoal() {
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				if (countLine(r, c) > 1) {
-					return Address.address(r, c);
-				}
+		for (Address p : cellAddrs()) {
+			if (countLine(p) > 1) {
+				return p;
 			}
 		}
 		return Address.NOWHERE;
@@ -818,14 +770,10 @@ public class Board extends BoardBase {
 	 * @return
 	 */
 	private int getLineDirection(Address p, int direction) {
-		if (getStateJ(p, Direction.UP) == LINE && direction != Direction.DN)
-			return Direction.UP;
-		if (getStateJ(p, Direction.LT) == LINE && direction != Direction.RT)
-			return Direction.LT;
-		if (getStateJ(p, Direction.DN) == LINE && direction != Direction.UP)
-			return Direction.DN;
-		if (getStateJ(p, Direction.RT) == LINE && direction != Direction.LT)
-			return Direction.RT;
+		for (int d = 0; d < 4; d++) {
+			if (getState(SideAddress.get(p, d)) == LINE && direction != (d^2))
+				return d;
+		}
 		return -1;
 	}
 
