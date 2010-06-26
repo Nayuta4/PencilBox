@@ -248,13 +248,6 @@ public class Board extends BoardBase {
 		setState(pos.d(), pos.r(), pos.c(), st);
 	}
 
-	public boolean isLine(int d, int r, int c) {
-		if (!isSideOn(d,r,c))
-			return false;
-		return
-		state[d][r][c] == LINE;
-	}
-
 	public Link getLink(int d, int r, int c) {
 		if (isSideOn(d,r,c) ) return link[d][r][c];
 		else return null;
@@ -360,23 +353,19 @@ public class Board extends BoardBase {
 	public void clearBoard() {
 		super.clearBoard();
 		ArrayUtil.initArrayInt3(state, UNKNOWN);
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				if (!isNumber(r,c)) {
-					number[r][c] = BLANK;
-				}
+		for (Address p : cellAddrs()) {
+			if (!isNumber(p)) {
+				setNumber(p, BLANK);
 			}
 		}
 		initBoard();
 	}
 	
 	public void trimAnswer() {
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				if (getNumber(r, c) == WHITE)
-					setNumber(r, c, BLANK);
-				}
-		}
+		for (Address p : cellAddrs()) {
+			if (getNumber(p) == WHITE)
+				setNumber(p, BLANK);
+			}
 	}
 
 	public void initBoard() {
@@ -481,27 +470,19 @@ public class Board extends BoardBase {
 
 	/**
 	 * マスの上下左右4方向のうち，現在線が引かれている数を返す
-	 * @param r マスの行座標
-	 * @param c マスの列座標
+	 * @param p マスの座標
 	 * @return マスの上下左右に引かれている線の数
 	 */
-	public int countLine(int r, int c) {
+	public int countLine(Address p) {
 		int no = 0;
-		if (r < rows() - 1 && isLine(HORIZ, r, c))
-			no++;
-		if (c < cols() - 1 && isLine(VERT, r, c))
-			no++;
-		if (r > 0 && isLine(HORIZ, r - 1, c))
-			no++;
-		if (c > 0 && isLine(VERT, r, c - 1))
-			no++;
+		for (int d = 0; d < 4; d++) {
+			SideAddress b = SideAddress.get(p, d);
+			if (isSideOn(b) && getState(b) == LINE)
+				no ++;
+		}
 		return no;
 	}
 	
-	public int countLine(Address pos) {
-		return countLine(pos.r(), pos.c());
-	}
-
 	private int checkLinks() {
 		int result = 0;
 		for (Address p : cellAddrs()) {
@@ -536,10 +517,6 @@ public class Board extends BoardBase {
 		return result;
 	}
 	
-	int checkArrow(int r, int c) {
-		return checkArrow(Address.address(r, c));
-	}
-
 	int checkArrow(Address p0) {
 		int result = 0;
 		int blackCount = 0;
