@@ -1,6 +1,7 @@
 package pencilbox.common.core;
 
-import pencilbox.common.core.Address;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * 共通四角クラス
@@ -11,7 +12,7 @@ public class Square {
 	private int c0;
 	private int r1;
 	private int c1;
-	
+
 	/**
 	 * コンストラクタ
 	 * @param ra 一方の角の行座標
@@ -146,7 +147,22 @@ public class Square {
 		return (r1-r0+1) * (c1-c0+1);
 	}
 	
+	/**
+	 * 長方形領域に含まれるマス座標の集合
+	 * @return マス座標の集合
+	 */
+	public Set<Address> cellSet() {
+		Set<Address> s = new TreeSet<Address>();
+		for (int r = r0; r <= r1; r++) {
+			for (int c = c0; c <= c1; c++) {
+				s.add(Address.address(r, c));
+			}
+		}
+		return s;
+	}
+
 	public String toString() {
 		return "["+r0+","+c0+","+r1+","+c1+"]";
 	}
+
 }
