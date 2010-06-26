@@ -22,18 +22,18 @@ public class BoardCopier extends BoardCopierBase {
 			if (board.isOn(d)) {
 				if (srcBoard.getNumber(s) == Board.GATE_HORIZ) {
 					if (Rotator2.isTransposed(rotation)) {
-						board.setNumber(d, Board.GATE_VERT);
+						board.changeNumber(d, Board.GATE_VERT);
 					} else {
-						board.setNumber(d, Board.GATE_HORIZ);
+						board.changeNumber(d, Board.GATE_HORIZ);
 					}
 				} else if (srcBoard.getNumber(s) == Board.GATE_VERT) {
 					if (Rotator2.isTransposed(rotation)) {
-						board.setNumber(d, Board.GATE_HORIZ);
+						board.changeNumber(d, Board.GATE_HORIZ);
 					} else {
-						board.setNumber(d, Board.GATE_VERT);
+						board.changeNumber(d, Board.GATE_VERT);
 					}
 				} else {
-					board.setNumber(d, srcBoard.getNumber(s));
+					board.changeNumber(d, srcBoard.getNumber(s));
 				}
 			}
 		}
@@ -41,18 +41,18 @@ public class BoardCopier extends BoardCopierBase {
 		for (SideAddress s : list) {
 			SideAddress d = Rotator2.translateAndRotateSideAddress(s, from, to, rotation);
 			if (board.isSideOn(d))
-				board.setState(d, srcBoard.getState(s));
+				board.changeState(d, srcBoard.getState(s));
 		}
 	}
 
 	public void eraseRegion(BoardBase srcBoardBase, Area region) {
 		Board board = (Board) srcBoardBase;
 		for (Address s : region) {
-			board.setNumber(s, Board.BLANK);
+			board.changeNumber(s, Board.BLANK);
 		}
 		ArrayList<SideAddress> list = region.innerBorders();
 		for (SideAddress s : list) {
-			board.setState(s, Board.UNKNOWN);
+			board.changeState(s, Board.UNKNOWN);
 		}
 	}
 }

@@ -7,6 +7,7 @@ import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.BorderEditStep;
+import pencilbox.common.core.CellEditStep;
 import pencilbox.common.core.Direction;
 import pencilbox.common.core.SideAddress;
 import pencilbox.resource.Messages;
@@ -63,17 +64,6 @@ public class Board extends BoardBase {
 	 * @param n 設定する状態
 	 */
 	public void setNumber(int r, int c, int n) {
-		int n0 = number[r][c];
-		if (n0 == Board.GOAL) {
-			goal = Address.nowhere();
-		}
-		if (n == Board.GOAL) {
-			if (goal.isNowhere()) {
-			} else {
-				number[goal.r()][goal.c()] = Board.BLANK;
-			}
-			goal = Address.address(r, c);
-		}
 		number[r][c] = n;
 	}
 
@@ -236,6 +226,32 @@ public class Board extends BoardBase {
 	public void setLink(SideAddress pos, Link l) {
 		link[pos.d()][pos.r()][pos.c()] = l;
 	}
+
+	/**
+	 * マスの状態を指定した状態に変更する
+	 * アンドゥリスナーに変更を通知する
+	 * @param p 辺座標
+	 * @param st 変更後の状態
+	 */
+	public void changeNumber(Address p, int st) {
+		int prev = getNumber(p);
+		if (prev == st)
+			return;
+		if (prev == Board.GOAL) {
+			goal = Address.nowhere();
+		}
+		if (st == Board.GOAL) {
+			if (!goal.isNowhere()) {
+				changeNumber(goal, Board.BLANK);
+			}
+			goal = p;
+		}
+		if (isRecordUndo()) {
+			fireUndoableEditUpdate(new CellEditStep(p, prev, st));
+		}
+		setNumber(p, st);
+	}
+
 	/**
 	 * マスから上下左右4方向に引かれている線を消去する
 	 * マスが黒マスや数字マスに変更された場合に線を消去するために使用する
@@ -257,11 +273,14 @@ public class Board extends BoardBase {
 	 * @param st 変更後の状態
 	 */
 	public void changeState(SideAddress p, int st) {
-		if (isRecordUndo())
-			fireUndoableEditUpdate(new BorderEditStep(p, getState(p), st));
-		int previousState = getState(p);
+		int prev = getState(p);
+		if (prev == st)
+			return;
+		if (isRecordUndo()) {
+			fireUndoableEditUpdate(new BorderEditStep(p, prev, st));
+		}
 		setState(p, st);
-		if (previousState == LINE) {
+		if (prev == LINE) {
 			cutLink(p);
 		}
 		if (st == LINE) {
@@ -270,13 +289,25 @@ public class Board extends BoardBase {
 	}
 
 	public void undo(AbstractStep step) {
-		BorderEditStep s = (BorderEditStep) step;
-		changeState(s.getPos(), s.getBefore());
+		if (step instanceof BorderEditStep) {
+			BorderEditStep s = (BorderEditStep) step;
+			changeState(s.getPos(), s.getBefore());
+		}
+		if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep) step;
+			changeNumber(s.getPos(), s.getBefore());
+		}
 	}
 
 	public void redo(AbstractStep step) {
-		BorderEditStep s = (BorderEditStep) step;
-		changeState(s.getPos(), s.getAfter());
+		if (step instanceof BorderEditStep) {
+			BorderEditStep s = (BorderEditStep) step;
+			changeState(s.getPos(), s.getAfter());
+		}
+		if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep) step;
+			changeNumber(s.getPos(), s.getAfter());
+		}
 	}
 
 	public void clearBoard() {

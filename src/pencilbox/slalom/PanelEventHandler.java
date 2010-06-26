@@ -91,14 +91,14 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 */
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {
-			board.setNumber(pos, num);
+			board.changeNumber(pos, num);
 			if (num >= 0) {
 				board.eraseLinesAround(pos);
 			}
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
 				if (!board.isWall(posS)) {
-					board.setNumber(posS, Board.UNDECIDED_NUMBER);
+					board.changeNumber(posS, Board.UNDECIDED_NUMBER);
 					if (num >= 0) {
 						board.eraseLinesAround(pos);
 					}
@@ -109,11 +109,11 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.setNumber(pos, Board.BLANK);
+			board.changeNumber(pos, Board.BLANK);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
 				if (board.isWall(posS))
-					board.setNumber(posS, Board.BLANK);
+					board.changeNumber(posS, Board.BLANK);
 			}
 		}
 	}
@@ -126,7 +126,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			} else if (number == Board.GATE_VERT) {
 				currentGate = Board.GATE_HORIZ;
 			}
-			board.setNumber(pos, currentGate);
+			board.changeNumber(pos, currentGate);
 		}
 	}
 
@@ -135,7 +135,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 
 	protected void plusEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.setNumber(pos, Board.GOAL);
+			board.changeNumber(pos, Board.GOAL);
 		}
 	}
 }
