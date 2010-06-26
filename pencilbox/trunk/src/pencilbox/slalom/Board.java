@@ -242,25 +242,20 @@ public class Board extends BoardBase {
 	}
 
 	public Link getLink(SideAddress pos) {
-		return link[pos.d()][pos.r()][pos.c()];
+		if (isSideOn(pos))
+			return link[pos.d()][pos.r()][pos.c()];
+		else
+			return null;
 	}
 	/**
 	 * そのマスを含む Link を返す
 	 */
-	public Link getLink(int r, int c) {
-		Link link;
-		link = getLink(VERT, r, c - 1);
-		if (link != null)
-			return link;
-		link = getLink(VERT, r, c);
-		if (link != null)
-			return link;
-		link = getLink(HORIZ, r - 1, c);
-		if (link != null)
-			return link;
-		link = getLink(HORIZ, r, c);
-		if (link != null)
-			return link;
+	public Link getLink(Address p) {
+		for (int d = 0; d < 4; d++) {
+			Link link = getLink(SideAddress.get(p, d));
+			if (link != null)
+				return link;
+		}
 		return null;
 	}
 
@@ -498,122 +493,78 @@ public class Board extends BoardBase {
 		linkList.clear();
 		ArrayUtil.initArrayObject2(link[0], null);
 		ArrayUtil.initArrayObject2(link[1], null);
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				initLink(r, c);
-			}
+		for (Address p : cellAddrs()) {
+			initLink(p);
 		}
 	}
 
 	/**
 	 * あるマスを含む Link の初期化
 	 * link[][][] は消去されているものとする
-	 * @param r Link初期化の起点マスの行座標
-	 * @param c Link初期化の起点マスの列座標
+	 * @param p Link初期化の起点マスの座標
 	 */
-	void initLink(int r, int c) {
+	void initLink(Address p) {
 		initializingLink = new Link();
-		initLink1(VERT, r, c - 1);
-		initLink1(VERT, r, c);
-		initLink1(HORIZ, r - 1, c);
-		initLink1(HORIZ, r, c);
-		if (!initializingLink.isEmpty())
+		for (int d = 0; d < 4; d++) {
+			initLink1(SideAddress.get(p, d));
+		}
+		if (!initializingLink.isEmpty()) {
 			linkList.add(initializingLink);
-		// printLink(d,r,c);
+		}
 	}
 
-	private void initLink1(int d, int r, int c) {
-		if (!isSideOn(d, r, c))
+	private void initLink1(SideAddress p) {
+		if (!isSideOn(p))
 			return;
-		if (!isLine(d, r, c))
+		if (getState(p) != LINE)
 			return;
-		if (getLink(d, r, c) != null)
+		if (getLink(p) != null)
 			return;
-		initializingLink.add(d, r, c);
-		setLink(d, r, c, initializingLink);
-		if (d == VERT) {
-			initLink1(VERT , r  , c-1);
-			initLink1(VERT , r  , c+1);
-			initLink1(HORIZ, r-1, c  );
-			initLink1(HORIZ, r-1, c+1);
-			initLink1(HORIZ, r  , c  );
-			initLink1(HORIZ, r  , c+1);
-		}
-		if (d == HORIZ) {
-			initLink1(HORIZ, r-1, c  );
-			initLink1(HORIZ, r+1, c  );
-			initLink1(VERT , r  , c-1);
-			initLink1(VERT , r+1, c-1);
-			initLink1(VERT , r  , c  );
-			initLink1(VERT , r+1, c  );
+		initializingLink.add(p);
+		setLink(p, initializingLink);
+		for (int d = 0; d < 6; d++) {
+			initLink1(SideAddress.nextBorder(p, d));
 		}
 	}
 	/**
 	 * Link 併合
 	 */	
 	void connectLink(SideAddress p) {
-		int d=p.d(), r=p.r(), c=p.c();	
-		Link newLink = null;
-		Link link1 = null;
-		Link link2 = null;
-		if (d==VERT) {
-			link1 = getLink(r,c);
-			link2 = getLink(r,c+1);
-		} else if (d==HORIZ) {
-			link1 = getLink(r,c);
-			link2 = getLink(r+1,c);
+		Link newLink = new Link();
+		for (int d = 0; d < 2; d++) {
+			Link link = getLink(SideAddress.nextCellFromBorder(p, d));
+			if (link != null && (link.size() > newLink.size()))
+				newLink = link;
 		}
-		if (link1==null && link2 == null) {
-			newLink = new Link();
+		if (newLink.isEmpty()) {
 			linkList.add(newLink);
-		} else if (link1==null && link2!=null) {
-			newLink = link2;
-		} else if (link1!=null && link2==null) {
-			newLink = link1;
-		} else if (link1==link2) {
-			newLink = link1;
-		} else {
-			if (link1.size() >= link2.size()) {
-				newLink = link1;
-				newLink.addAll(link2);
-				for(SideAddress joint : link2) {
-					setLink(joint, newLink);
+		}
+		for (int d = 0; d < 2; d++) {
+			Link link = getLink(SideAddress.nextCellFromBorder(p, d));
+			if (link != null && link != newLink) {
+				for(SideAddress b : link) {
+					setLink(b, newLink);
+					newLink.add(b);
 				}
-				linkList.remove(link2);
-			}
-			else {
-				newLink = link2;
-				newLink.addAll(link1);
-				for(SideAddress joint : link1) {
-					setLink(joint, newLink);
-				}
-				linkList.remove(link1);
+				linkList.remove(link);
 			}
 		}
-		newLink.add(d,r,c);
-		setLink(d,r,c, newLink);
+		newLink.add(p);
+		setLink(p, newLink);
 	}
 	/**
 	 * Link 切断
 	 */
 	void cutLink(SideAddress p) {
-		int d=p.d(), r=p.r(), c=p.c();	
-		Link oldLink = getLink(d, r, c);
-		Link longerLink = null;
-		for (SideAddress joint : oldLink) {
-			setLink(joint, null);
+		Link oldLink = getLink(p);
+		Link longerLink = new Link();
+		for (SideAddress b : oldLink) {
+			setLink(b, null);
 		}
 		linkList.remove(oldLink);
-		if (d==VERT) {
-			initLink(r, c);
-			longerLink = initializingLink;
-			initLink(r, c+1);
-			if (initializingLink.size() > longerLink.size())
-				longerLink = initializingLink;
-		} else if (d==HORIZ) {
-			initLink(r, c);
-			longerLink = initializingLink;
-			initLink(r+1, c);
+		for (int d = 0; d < 2; d++) {
+			Address p1 = SideAddress.nextCellFromBorder(p, d);
+			initLink(p1);
 			if (initializingLink.size() > longerLink.size())
 				longerLink = initializingLink;
 		}
@@ -776,7 +727,7 @@ public class Board extends BoardBase {
 			p0 = ｔemporalGoal();
 		} else {
 			p0 = Address.address(goal);
-			if (getLink(p0.r(), p0.c()) == null) {
+			if (getLink(p0) == null) {
 //				System.out.println("ゴールを通過していない。");
 				return 512;
 			}

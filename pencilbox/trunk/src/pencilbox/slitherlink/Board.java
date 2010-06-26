@@ -10,14 +10,14 @@ import pencilbox.common.core.BorderEditStep;
 import pencilbox.common.core.Direction;
 import pencilbox.common.core.SideAddress;
 import pencilbox.resource.Messages;
+import pencilbox.slalom.Link;
 import pencilbox.util.ArrayUtil;
-
 
 /**
  * 「スリザーリンク」盤面クラス
  */
 public class Board extends BoardBase {
-	
+
 	static final int HORIZ = Direction.HORIZ; 
 	static final int VERT = Direction.VERT;
 	
@@ -126,7 +126,7 @@ public class Board extends BoardBase {
 		else
 			return OUTER;
 	}
-	
+
 	public int getState(SideAddress pos) {
 		return getState(pos.d(), pos.r(), pos.c());
 	}
@@ -140,7 +140,7 @@ public class Board extends BoardBase {
 	public void setState(int d, int r, int c, int st) {
 		state[d][r][c] = st;
 	}
-	
+
 	public void setState(SideAddress pos, int st) {
 		setState(pos.d(), pos.r(), pos.c(), st);
 	}
@@ -159,28 +159,27 @@ public class Board extends BoardBase {
 			return null;
 	}
 	public Link getLink(SideAddress pos) {
-		return link[pos.d()][pos.r()][pos.c()];
+		if (isSideOn(pos))
+			return link[pos.d()][pos.r()][pos.c()];
+		else
+			return null;
 	}
 	/**
 	 * そのマスを含む Link を返す
 	 */
-	public Link getLink(int r, int c) {
-		Link link;
-		link = getLink(VERT, r, c - 1);
-		if (link != null) return link;
-		link = getLink(VERT, r, c);
-		if (link != null) return link;
-		link = getLink(HORIZ, r - 1, c);
-		if (link != null) return link;
-		link = getLink(HORIZ, r, c);
-		if (link != null) return link;
+	public Link getLink(Address p) {
+		for (int d = 0; d < 4; d++) {
+			Link link = getLink(SideAddress.get(p, d));
+			if (link != null)
+				return link;
+		}
 		return null;
 	}
 	public void setLink(int d, int r, int c, Link l) {
-		link[d][r][c] =  l;
+		link[d][r][c] = l;
 	}
 	public void setLink(SideAddress pos, Link l) {
-		link[pos.d()][pos.r()][pos.c()] =  l;
+		link[pos.d()][pos.r()][pos.c()] = l;
 	}
 	/**
 	 * 盤面に Link が複数あるか
@@ -189,7 +188,7 @@ public class Board extends BoardBase {
 	public boolean hasMultipleLinks() {
 		return linkList.size() > 1;
 	}
-	
+
 	/**
 	 * 辺の状態を指定した状態に変更する
 	 * @param p 辺座標
@@ -230,7 +229,7 @@ public class Board extends BoardBase {
 		ArrayUtil.initArrayInt3(state, UNKNOWN);
 		initBoard();
 	}
-	
+
 	public void trimAnswer() {
 		for (int d=0; d<=1; d++)
 			for (int r=0; r<rows(); r++) {
@@ -244,125 +243,83 @@ public class Board extends BoardBase {
 	public void initBoard() {
 		initLinks();
 	}
-	
+
 	void initLinks() {
 		Link.resetId();
 		linkList.clear();
 		ArrayUtil.initArrayObject2(link[0],null);
 		ArrayUtil.initArrayObject2(link[1],null);
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				initLink(r, c);
-			}
+		for (Address p : cellAddrs()) {
+			initLink(p);
 		}
 	}
-	
+
 	/**
 	 * あるマスを含む Link の初期化
 	 * link[][][] は消去されているものとする
-	 * @param r Link初期化の起点マスの行座標
-	 * @param c Link初期化の起点マスの列座標
-	 */	
-	void initLink (int r, int c) {
+	 * @param p Link初期化の起点マスの座標
+	 */
+	void initLink(Address p) {
 		initializingLink = new Link();
-		initLink1(VERT , r  , c-1);
-		initLink1(VERT , r  , c  );
-		initLink1(HORIZ, r-1, c  );
-		initLink1(HORIZ, r  , c  );
+		for (int d = 0; d < 4; d++) {
+			initLink1(SideAddress.get(p, d));
+		}
 		if (!initializingLink.isEmpty())
 			linkList.add(initializingLink);
 	}
-	private void initLink1(int d, int r, int c) {
-		if (!isSideOn(d,r,c)) return;
-		if (!isLine(d,r,c)) return;
-		if (getLink(d,r,c) != null) return;
-		initializingLink.add(d,r,c);
-		setLink(d, r, c, initializingLink);
-		if (d==VERT) {
-			initLink1(VERT , r  , c-1);
-			initLink1(VERT , r  , c+1);
-			initLink1(HORIZ, r-1, c  );
-			initLink1(HORIZ, r-1, c+1);
-			initLink1(HORIZ, r  , c  );
-			initLink1(HORIZ, r  , c+1);
-		}
-		if (d==HORIZ) {
-			initLink1(HORIZ, r-1, c  );
-			initLink1(HORIZ, r+1, c  );
-			initLink1(VERT , r  , c-1);
-			initLink1(VERT , r+1, c-1);
-			initLink1(VERT , r  , c  );
-			initLink1(VERT , r+1, c  );
+
+	private void initLink1(SideAddress p) {
+		if (!isSideOn(p))
+			return;
+		if (getState(p) != LINE)
+			return;
+		if (getLink(p) != null)
+			return;
+		initializingLink.add(p);
+		setLink(p, initializingLink);
+		for (int d = 0; d < 6; d++) {
+			initLink1(SideAddress.nextBorder(p, d));
 		}
 	}
 	/**
 	 * Link 併合
 	 */	
 	void connectLink(SideAddress p) {
-		int d = p.d(), r = p.r(), c = p.c();
-		Link newLink = null;
-		Link link1 = null;
-		Link link2 = null;
-		if (d==VERT) {
-			link1 = getLink(r,c);
-			link2 = getLink(r,c+1);
-		} else if (d==HORIZ) {
-			link1 = getLink(r,c);
-			link2 = getLink(r+1,c);
+		Link newLink = new Link();
+		for (int d = 0; d < 2; d++) {
+			Link link = getLink(SideAddress.nextCellFromBorder(p, d));
+			if (link != null && (link.size() > newLink.size()))
+				newLink = link;
 		}
-		if (link1==null && link2 == null) {
-			newLink = new Link();
+		if (newLink.isEmpty()) {
 			linkList.add(newLink);
-		} else if (link1==null && link2!=null) {
-			newLink = link2;
-		} else if (link1!=null && link2==null) {
-			newLink = link1;
-		} else if (link1==link2) {
-			newLink = link1;
-		} else {
-			if (link1.size() >= link2.size()) {
-				newLink = link1;
-				newLink.addAll(link2);
-				for(SideAddress joint : link2) {
-					setLink(joint, newLink);
+		}
+		for (int d = 0; d < 2; d++) {
+			Link link = getLink(SideAddress.nextCellFromBorder(p, d));
+			if (link != null && link != newLink) {
+				for(SideAddress b : link) {
+					setLink(b, newLink);
+					newLink.add(b);
 				}
-				linkList.remove(link2);
-			}
-			else {
-				newLink = link2;
-				newLink.addAll(link1);
-				for(SideAddress joint : link1) {
-					setLink(joint, newLink);
-				}
-				linkList.remove(link1);
+				linkList.remove(link);
 			}
 		}
-		newLink.add(d,r,c);
-		setLink(d,r,c, newLink);
+		newLink.add(p);
+		setLink(p, newLink);
 	}
-
 	/**
 	 * Link 切断
-	 */	
+	 */
 	void cutLink(SideAddress p) {
 		Link oldLink = getLink(p);
-		int d = p.d(), r = p.r(), c = p.c();
-		Link longerLink = null;
-		for (SideAddress joint : oldLink) {
-			setLink(joint, null);
+		Link longerLink = new Link();
+		for (SideAddress b : oldLink) {
+			setLink(b, null);
 		}
 		linkList.remove(oldLink);
-		if (d==VERT) {
-			initLink(r, c);
-			longerLink = initializingLink;
-			initLink(r  , c+1);
-			if (initializingLink.size() > longerLink.size())
-				longerLink = initializingLink;
-		}
-		else if (d==HORIZ) {
-			initLink(r, c);
-			longerLink = initializingLink;
-			initLink(r+1, c);
+		for (int d = 0; d < 2; d++) {
+			Address p1 = SideAddress.nextCellFromBorder(p, d);
+			initLink(p1);
 			if (initializingLink.size() > longerLink.size())
 				longerLink = initializingLink;
 		}

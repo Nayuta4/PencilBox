@@ -153,6 +153,35 @@ public class SideAddress implements Comparable<SideAddress> {
 		}
 	}
 	
+	/**
+	 * ã´äEÇÃóºó◊ÇÃã´äE
+	 * @param border ã´äEÇÃç¿ïW
+	 * @param direction 0 Ç»ÇÁ è„Ç‹ÇΩÇÕç∂ÅA1Ç»ÇÁâ∫Ç‹ÇΩÇÕâE
+	 * @return
+	 */
+	public static SideAddress nextBorder(SideAddress border, int direction) {
+		int d = border.d();
+		int r = border.r();
+		int c = border.c();
+		int dd = -1, rr = -1, cc = -1;
+		if (d==Direction.VERT) {
+			if (direction == 0) { dd = Direction.VERT  ; rr = r   ; cc = c-1; }
+			else if (direction == 1) { dd = Direction.VERT  ; rr = r   ; cc = c+1; }
+			else if (direction == 2) { dd = Direction.HORIZ ; rr = r-1 ; cc = c  ; }
+			else if (direction == 3) { dd = Direction.HORIZ ; rr = r-1 ; cc = c+1; }
+			else if (direction == 4) { dd = Direction.HORIZ ; rr = r   ; cc = c  ; }
+			else if (direction == 5) { dd = Direction.HORIZ ; rr = r   ; cc = c+1; }
+		} else if (d==Direction.HORIZ) {
+			if (direction == 0) { dd = Direction.HORIZ ; rr = r-1 ; cc = c  ; }
+			else if (direction == 1) { dd = Direction.HORIZ ; rr = r+1 ; cc = c  ; }
+			else if (direction == 2) { dd = Direction.VERT  ; rr = r   ; cc = c-1; }
+			else if (direction == 3) { dd = Direction.VERT  ; rr = r+1 ; cc = c-1; }
+			else if (direction == 4) { dd = Direction.VERT  ; rr = r   ; cc = c  ; }
+			else if (direction == 5) { dd = Direction.VERT  ; rr = r+1 ; cc = c  ; }
+		}
+		return sideAddress(dd, rr, cc);
+	}
+
 	public static Address nextCellFromBorder(SideAddress border, int direction) {
 		int d = border.d();
 		int r = border.r();
