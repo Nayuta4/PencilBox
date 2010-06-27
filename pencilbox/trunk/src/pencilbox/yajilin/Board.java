@@ -280,11 +280,11 @@ public class Board extends BoardBase {
 	/**
 	 * マスから上下左右4方向に引かれている線を消去する
 	 * マスが黒マスや数字マスに変更された場合に線を消去するために使用する
-	 * @param pos マスの座標
+	 * @param p マスの座標
 	 */
-	void eraseLinesAround(Address pos) {
+	void eraseLinesAround(Address p) {
 		for (int d = 0; d <= 3; d++) {
-			SideAddress side = SideAddress.get(pos, d);
+			SideAddress side = SideAddress.get(p, d);
 			if (getState(side) == LINE) {
 				changeState(side, UNKNOWN);
 			}
@@ -293,13 +293,13 @@ public class Board extends BoardBase {
 
 	/**
 	 * 盤面状態を変更し，アンドゥリスナーに変更を通知する．
-	 * @param pos
+	 * @param p
 	 * @param st
 	 */
-	public void changeState(Address pos, int st) {
+	public void changeState(Address p, int st) {
 		if (isRecordUndo())
-			fireUndoableEditUpdate(new CellEditStep(pos, getNumber(pos), st));
-		setNumber(pos, st);	
+			fireUndoableEditUpdate(new CellEditStep(p, getNumber(p), st));
+		setNumber(p, st);	
 	}
 
 	public void undo(AbstractStep step) {
@@ -355,9 +355,10 @@ public class Board extends BoardBase {
 	
 	public void trimAnswer() {
 		for (Address p : cellAddrs()) {
-			if (getNumber(p) == WHITE)
+			if (getNumber(p) == WHITE) {
 				setNumber(p, BLANK);
 			}
+		}
 	}
 
 	public void initBoard() {
@@ -376,12 +377,12 @@ public class Board extends BoardBase {
 	
 	/**
 	 * そのマスの上下左右の隣接４マスに黒マスがあるかどうかを調べる
-	 * @param p0
+	 * @param p
 	 * @return 上下左右に黒マスがひとつでもあれば true
 	 */
-	boolean isBlock(Address p0) {
+	boolean isBlock(Address p) {
 		for (int d=0; d<4; d++) {
-			Address p1 = p0.nextCell(d);
+			Address p1 = p.nextCell(d);
 			if (isBlack(p1))
 				return true;
 		}
