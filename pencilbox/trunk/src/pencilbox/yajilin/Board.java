@@ -248,11 +248,6 @@ public class Board extends BoardBase {
 		setState(pos.d(), pos.r(), pos.c(), st);
 	}
 
-	public Link getLink(int d, int r, int c) {
-		if (isSideOn(d,r,c) ) return link[d][r][c];
-		else return null;
-	}
-
 	public Link getLink(SideAddress pos) {
 		if (isSideOn(pos))
 			return link[pos.d()][pos.r()][pos.c()];
@@ -271,9 +266,6 @@ public class Board extends BoardBase {
 		return null;
 	}
 
-	public void setLink(int d, int r, int c, Link l) {
-		link[d][r][c] =  l;
-	}
 	public void setLink(SideAddress pos, Link l) {
 		link[pos.d()][pos.r()][pos.c()] =  l;
 	}
