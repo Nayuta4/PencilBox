@@ -169,16 +169,6 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * 辺状態の取得。マスと向きで座標指定する。
-	 * @param pos
-	 * @param d
-	 * @return
-	 */
-	public int getStateJ(Address pos, int d) {
-		return getState(SideAddress.get(pos, d));
-	}
-
-	/**
 	 * 辺状態の設定
 	 * @param d
 	 * @param r
@@ -192,13 +182,6 @@ public class Board extends BoardBase {
 
 	public void setState(SideAddress pos, int st) {
 		setState(pos.d(), pos.r(), pos.c(), st);
-	}
-
-	public Link getLink(int d, int r, int c) {
-		if (isSideOn(d, r, c))
-			return link[d][r][c];
-		else
-			return null;
 	}
 
 	public Link getLink(SideAddress pos) {
@@ -217,10 +200,6 @@ public class Board extends BoardBase {
 				return link;
 		}
 		return null;
-	}
-
-	public void setLink(int d, int r, int c, Link l) {
-		link[d][r][c] = l;
 	}
 
 	public void setLink(SideAddress pos, Link l) {
