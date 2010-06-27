@@ -12,13 +12,12 @@ import pencilbox.common.core.SideAddress;
 import pencilbox.resource.Messages;
 import pencilbox.util.ArrayUtil;
 
-
 /**
  * 「ナンバーリンク」ヒント付き盤面クラス
  */
 public class Board extends BoardBase {
-	
-	static final int HORIZ = Direction.HORIZ; 
+
+	static final int HORIZ = Direction.HORIZ;
 	static final int VERT = Direction.VERT;
 	static final int UNKNOWN = 0;
 	static final int LINE = 1;
@@ -53,13 +52,11 @@ public class Board extends BoardBase {
 	}
 
 	public void trimAnswer() {
-		for (int d=0; d<=1; d++)
-			for (int r=0; r<rows(); r++) {
-				for (int c=0; c<cols(); c++) {
-					if (getState(d, r, c) == NOLINE) 
-						setState(d, r, c, UNKNOWN);
-				}
+		for (SideAddress p : borderAddrs()) {
+			if (getState(p) == NOLINE) {
+				setState(p, UNKNOWN);
 			}
+		}
 	}
 
 	/**
@@ -130,19 +127,6 @@ public class Board extends BoardBase {
 		setState(pos.d(), pos.r(), pos.c(), st);
 	}
 
-	public boolean isLine(int d, int r, int c) {
-		if (!isSideOn(d,r,c))
-			return false;
-		return state[d][r][c] == LINE;
-	}
-
-	public Link getLink(int d, int r, int c) {
-		if (isSideOn(d,r,c) )
-			return link[d][r][c];
-		else
-			return null;
-	}
-
 	public Link getLink(SideAddress pos) {
 		if (isSideOn(pos))
 			return link[pos.d()][pos.r()][pos.c()];
@@ -161,9 +145,6 @@ public class Board extends BoardBase {
 		return null;
 	}
 
-	public void setLink(int d, int r, int c, Link l) {
-		link[d][r][c] =  l;
-	}
 	public void setLink(SideAddress pos, Link l) {
 		link[pos.d()][pos.r()][pos.c()] = l;
 	}
@@ -211,22 +192,13 @@ public class Board extends BoardBase {
 		}
 	}
 	
-	private void addNumberToLink(Link link, int d, int r, int c) {
-		if (d==VERT) {
-			if (isNumber(r,c))
-				link.setNumber(getNumber(r,c));
-			if (isNumber(r,c+1))
-				link.setNumber(getNumber(r,c+1));
-		} else {
-			if (isNumber(r,c))
-				link.setNumber(getNumber(r,c));
-			if (isNumber(r+1,c))
-				link.setNumber(getNumber(r+1,c));
+	private void addNumberToLink(Link link, SideAddress b) {
+		for (int d = 0; d < 2; d++) {
+			Address p = SideAddress.nextCellFromBorder(b, d);
+			if (isNumber(p)) {
+				link.setNumber(getNumber(p));
+			}
 		}
-	}
-	private void addNumberToLink(Link link, int r, int c) {
-		if (isNumber(r,c))
-			link.setNumber(getNumber(r,c));
 	}
 	
 	/**
@@ -255,7 +227,7 @@ public class Board extends BoardBase {
 		for (int d = 0; d < 6; d++) {
 			initLink1(SideAddress.nextBorder(p, d));
 		}
-		addNumberToLink(initializingLink, p.d(), p.r(), p.c());
+		addNumberToLink(initializingLink, p);
 	}
 	/**
 	 * Link 併合
@@ -282,7 +254,7 @@ public class Board extends BoardBase {
 		}
 		newLink.add(p);
 		setLink(p, newLink);
-		addNumberToLink(newLink, p.d(), p.r(), p.c());
+		addNumberToLink(newLink, p);
 	}
 
 	/**
@@ -306,23 +278,19 @@ public class Board extends BoardBase {
 
 	/**
 	 * マスの上下左右4方向のうち，現在線が引かれている数を返す
-	 * @param r マスの行座標
-	 * @param c マスの列座標
+	 * @param p マスの座標
 	 * @return マスの上下左右に引かれている線の数
 	 */
-	public int countLine(int r, int c) {
+	public int countLine(Address p) {
 		int no = 0;
-		if (r < rows() - 1 && isLine(HORIZ, r, c))
-			no++;
-		if (c < cols() - 1 && isLine(VERT, r, c))
-			no++;
-		if (r > 0 && isLine(HORIZ, r - 1, c))
-			no++;
-		if (c > 0 && isLine(VERT, r, c - 1))
-			no++;
+		for (int d = 0; d < 4; d++) {
+			SideAddress b = SideAddress.get(p, d);
+			if (getState(b) == Board.LINE)
+				no++;
+		}
 		return no;
 	}
-	
+
 	public int checkAnswerCode() {
 		int result = 0;
 		result |= checkBranch();
@@ -335,20 +303,18 @@ public class Board extends BoardBase {
 	 */
 	private int checkBranch() {
 		int result= 0;
-		for (int r= 0; r < rows(); r++) {
-			for (int c= 0; c < cols(); c++) {
-				int l= countLine(r, c);
-				if (isNumber(r, c)) {
-					if (l > 1)
-						result |= 4;
-					else if (l == 0)
-						result |= 8;
-				} else {
-					if (l > 2)
-						result |= 1;
-					else if (l == 1)
-						result |= 2;
-				}
+		for (Address p : cellAddrs()) {
+			int l = countLine(p);
+			if (isNumber(p)) {
+				if (l > 1)
+					result |= 4;
+				else if (l == 0)
+					result |= 8;
+			} else {
+				if (l > 2)
+					result |= 1;
+				else if (l == 1)
+					result |= 2;
 			}
 		}
 		return result;
