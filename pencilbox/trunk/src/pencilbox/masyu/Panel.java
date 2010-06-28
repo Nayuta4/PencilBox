@@ -122,7 +122,7 @@ public class Panel extends PanelBase {
 	private void placeBlackPearl(Graphics2D g, Address p) {
 		g.setColor(getNumberColor());
 		if (isIndicateErrorMode()) {
-			int n = board.checkBlackPearl(p.r(), p.c());
+			int n = board.checkBlackPearl(p);
 			if (n==-1)
 				g.setColor(getErrorColor()); 
 			else if (n==0)
@@ -138,7 +138,7 @@ public class Panel extends PanelBase {
 	private void placeWhitePearl(Graphics2D g, Address p) {
 		g.setColor(getNumberColor());
 		if (isIndicateErrorMode()) {
-			int n = board.checkWhitePearl(p.r(), p.c());
+			int n = board.checkWhitePearl(p);
 			if (n==-1)
 				g.setColor(getErrorColor()); 
 			else if (n==0)
