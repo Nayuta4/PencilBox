@@ -16,8 +16,8 @@ import pencilbox.util.ArrayUtil;
 /**
  * 「ましゅ」盤面クラス
  */
-public class Board extends BoardBase  {
-	
+public class Board extends BoardBase {
+
 	static final int HORIZ = Direction.HORIZ;
 	static final int VERT = Direction.VERT;
 	static final int UP = Direction.UP;
@@ -60,13 +60,10 @@ public class Board extends BoardBase  {
 	}
 	
 	public void trimAnswer() {
-		for (int d=0; d<=1; d++)
-			for (int r=0; r<rows(); r++) {
-				for (int c=0; c<cols(); c++) {
-					if (getState(d, r, c) == NOLINE) 
-						setState(d, r, c, UNKNOWN);
-				}
-			}
+		for (SideAddress p : borderAddrs()) {
+			if (getState(p) == NOLINE)
+				setState(p, UNKNOWN);
+		}
 	}
 
 	/**
@@ -154,12 +151,6 @@ public class Board extends BoardBase  {
 		return
 		state[d][r][c] == LINE;
 	}
-	public boolean isNoLine(int d, int r, int c) {
-		if (!isSideOn(d,r,c))
-			return true;
-		return
-		state[d][r][c] == NOLINE;
-	}
 	/**
 	 * マスから direction 方向に線はあるか
 	 */
@@ -171,12 +162,6 @@ public class Board extends BoardBase  {
 			case RT: return isLine(VERT, r,c);
 			default: return false;
 		}
-	}
-
-	public Link getLink(int d, int r, int c) {
-		if (isSideOn(d, r, c) )
-			return link[d][r][c];
-		else return null;
 	}
 
 	public Link getLink(SideAddress pos) {
@@ -198,9 +183,6 @@ public class Board extends BoardBase  {
 		return null;
 	}
 
-	public void setLink(int d, int r, int c, Link l) {
-		link[d][r][c] =  l;
-	}
 	public void setLink(SideAddress pos, Link l) {
 		link[pos.d()][pos.r()][pos.c()] =  l;
 	}
@@ -211,7 +193,7 @@ public class Board extends BoardBase  {
 	public boolean hasMultipleLinks() {
 		return linkList.size() > 1;
 	}
-	
+
 	/**
 	 * 辺の状態を指定した状態に変更する
 	 * アンドゥリスナーに変更を通知する
@@ -329,16 +311,16 @@ public class Board extends BoardBase  {
 
 	/**
 	 * マスの上下左右4方向のうち，現在線が引かれている数を返す
-	 * @param r マスの行座標
-	 * @param c マスの列座標
+	 * @param p マスの座標
 	 * @return マスの上下左右に引かれている線の数
 	 */
-	public int countLine(int r, int c) {
+	public int countLine(Address p) {
 		int no = 0;
-		if (isLineJ(r,c,UP)) no++;
-		if (isLineJ(r,c,LT)) no++;
-		if (isLineJ(r,c,DN)) no++;
-		if (isLineJ(r,c,RT)) no++;
+		for (int d = 0; d < 4; d++) {
+			SideAddress b = SideAddress.get(p, d);
+			if (isSideOn(b) && getState(b) == LINE)
+				no ++;
+		}
 		return no;
 	}
 	/**
@@ -347,21 +329,20 @@ public class Board extends BoardBase  {
 	 * ━○
 	 *   ┃ 曲がる場合
 	 * ━━○━━　両隣で直進する場合
-	 * @param r
-	 * @param c
+	 * @param p
 	 * @return
 	 * 線が通過して両隣のいずれかで曲がっていれば +2 を
 	 * 線が通過していて，間違いがなければ +1 を
 	 * 線が通過していて，間違いがあれば -1 を
 	 * 線が通過していなければ 0 を返す
 	 */
-	int checkWhitePearl(int r, int c) {
-		int l = countLine(r,c);
+	int checkWhitePearl(Address p) {
+		int l = countLine(p);
 		if (l > 2)
 			return -1; 
 		else if (l < 2)
 			return 0; 
-
+		int r=p.r(); int c=p.c();
 		if (isLineJ(r,c,UP) && isLineJ(r,c,RT)) return -1;
 		if (isLineJ(r,c,UP) && isLineJ(r,c,LT)) return -1;
 		if (isLineJ(r,c,DN) && isLineJ(r,c,RT)) return -1;
@@ -390,23 +371,23 @@ public class Board extends BoardBase  {
 	 * 次の２種類を間違いと判定する
 	 * ━●━  直進する場合
 	 * ┏●    隣のマスで曲がる場合
-	 * @param r
-	 * @param c
+	 * @param p
 	 * @return
 	 * 線が曲がって両側で直進していれば +2 を
 	 * 線が通過していて，間違いがなければ +1 を
 	 * 線が通過していて，間違いがあれば -1 を
 	 * 線が通過していなければ 0 を返す
 	 */
-	int checkBlackPearl(int r, int c) {
+	int checkBlackPearl(Address p) {
 		int success = 0;
 
-		int l = countLine(r,c);
+		int l = countLine(p);
 		if (l > 2)
 			return -1; 
 		else if (l < 2)
 			return 0; 
 
+		int r=p.r(); int c=p.c();
 		if (isLineJ(r,c,UP) && isLineJ(r,c,DN)) return -1;
 		if (isLineJ(r,c,RT) && isLineJ(r,c,LT)) return -1;
 
@@ -441,30 +422,28 @@ public class Board extends BoardBase  {
 
 	public int checkAnswerCode() {
 		int result = 0;
-		int p = 0;
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				int l = countLine(r,c);
-				if (l > 2) {
-					result |= 1;
-				} else if ( l == 1 ) {
-					result |= 2; 
-				}
-				int pearl = getNumber(r,c);
-				if (pearl == WHITE_PEARL) {
-					p = checkWhitePearl(r,c);
-						if (p == -1)
-							result |= 4;
-						else if (p == 0)
-							result |= 32;   
-				}
-				if (pearl == BLACK_PEARL) {
-					p = checkBlackPearl(r,c);
-					if (p == -1)
-						result |= 8; 
-					else if (p == 0)
-						result |= 64;   
-				}
+		int n = 0;
+		for (Address p : cellAddrs()) {
+			int l = countLine(p);
+			if (l > 2) {
+				result |= 1;
+			} else if ( l == 1 ) {
+				result |= 2; 
+			}
+			int pearl = getNumber(p);
+			if (pearl == WHITE_PEARL) {
+				n = checkWhitePearl(p);
+					if (n == -1)
+						result |= 4;
+					else if (n == 0)
+						result |= 32;   
+			}
+			if (pearl == BLACK_PEARL) {
+				n = checkBlackPearl(p);
+				if (n == -1)
+					result |= 8; 
+				else if (n == 0)
+					result |= 64;   
 			}
 		}
 		if (linkList.size() > 1)
