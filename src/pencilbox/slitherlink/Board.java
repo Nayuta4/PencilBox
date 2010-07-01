@@ -173,13 +173,6 @@ public class Board extends BoardBase {
 	public void setLink(SideAddress pos, Link l) {
 		link[pos.d()][pos.r()][pos.c()] = l;
 	}
-	/**
-	 * ”Õ–Ê‚É Link ‚ª•¡”‚ ‚é‚©
-	 * @return@Link ‚ª•¡”‚ ‚é‚È‚ç true
-	 */
-	public boolean hasMultipleLinks() {
-		return linkList.size() > 1;
-	}
 
 	/**
 	 * •Ó‚Ìó‘Ô‚ðŽw’è‚µ‚½ó‘Ô‚É•ÏX‚·‚é

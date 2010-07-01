@@ -269,13 +269,6 @@ public class Board extends BoardBase {
 	public void setLink(SideAddress pos, Link l) {
 		link[pos.d()][pos.r()][pos.c()] =  l;
 	}
-	/**
-	 * 盤面に Link が複数あるか
-	 * @return　Link が複数あるなら true
-	 */
-	public boolean hasMultipleLinks() {
-		return linkList.size() > 1;
-	}
 	
 	/**
 	 * マスから上下左右4方向に引かれている線を消去する
@@ -490,7 +483,7 @@ public class Board extends BoardBase {
 			if (!isNumber(p) && !isBlack(p) && (l == 0))
 				result |= 8;
 		}
-		if (hasMultipleLinks())
+		if (linkList.size() > 1)
 			result |= 4;
 		return result;
 	}
