@@ -18,9 +18,6 @@ import pencilbox.util.ArrayUtil;
  */
 public class Board extends BoardBase {
 	
-	private static final int HORIZ = Direction.HORIZ;
-	private static final int VERT = Direction.VERT;
-	
 	static final int UNKNOWN = 0;
 	static final int LINE = 1;
 	static final int NOLINE = -1; // GUIでは不使用
@@ -42,23 +39,19 @@ public class Board extends BoardBase {
 		number = new int[rows()][cols()];
 		ArrayUtil.initArrayInt2(number, BLANK);
 		state = new int[2][][];
-		state[VERT] = new int[rows()][cols() - 1];
-		state[HORIZ] = new int[rows() - 1][cols()];
+		state[0] = new int[rows()][cols() - 1];
+		state[1] = new int[rows() - 1][cols()];
 		linkList = new LinkedList<Link>();
 		link = new Link[2][][];
-		link[VERT] = new Link[rows()][cols() - 1];
-		link[HORIZ] = new Link[rows() - 1][cols()];
+		link[0] = new Link[rows()][cols() - 1];
+		link[1] = new Link[rows() - 1][cols()];
 	}
-	
+
 	/**
 	 * 引数の座標が黒マスかどうか。
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param p 座標
 	 * @return 黒マスなら true を返す。
 	 */
-	public boolean isBlack(int r, int c) {
-		return isOn(r,c) && number[r][c] == BLACK;
-	}
 	public boolean isBlack(Address p) {
 		return isOn(p) && getNumber(p) == BLACK;
 	}
@@ -89,55 +82,38 @@ public class Board extends BoardBase {
 	}
 	/**
 	 * 指定したマスの数字部分のみを返す。数字マスに対して使用する。
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param p 座標
 	 * @return マスの数字を返す。数字マスでなければ -1
 	 */
-	public int getArrowNumber(int r, int c) {
-		return number[r][c] >=0 ? number[r][c] & 15 : -1; 
+	public int getArrowNumber(Address p) {
+		int n = getNumber(p);
+		return n >=0 ? n&15 : -1; 
 	}
 	
-	public int getArrowNumber(Address pos) {
-		return getArrowNumber(pos.r(), pos.c());
-	}
 	/**
 	 * 指定したマスに上向き矢印の数字を設定する。
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param p 座標
 	 */
-	public void setArrowNumber(int r, int c, int n) {
-		number[r][c] = n; 
-	}
-	
-	public void setArrowNumber(Address pos, int n) {
-		setArrowNumber(pos.r(), pos.c(), n);
+	public void setArrowNumber(Address p, int n) {
+		setNumber(p, n);
 	}
 	/**
 	 * 指定したマスの矢印の方角を返す。数字マスに対して使用する。
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param p 座標
 	 * @return 矢印の方角定数返す。数字マスでなければ -1
 	 */
-	public int getArrowDirection(int r, int c) {
-		return number[r][c] >= 0 ? (number[r][c]>>4) & 3 : -1; 
-	}
-	
-	public int getArrowDirection(Address pos) {
-		return getArrowDirection(pos.r(), pos.c());
+	public int getArrowDirection(Address p) {
+		int n = getNumber(p);
+		return n >= 0 ? (n>>4) & 3 : -1; 
 	}
 	/**
 	 * 指定したマスの矢印の方角を設定する。数字マスに対して使用する。
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param p 座標
 	 */
-	public void setArrowDirection(int r, int c, int dir) {
+	public void setArrowDirection(Address p, int dir) {
 		if (dir < 0 || dir > 3) return;
-		number[r][c] &= ~(3 << 4);
-		number[r][c] |= (dir << 4); 
-	}
-	
-	public void setArrowDirection(Address pos, int dir) {
-		setArrowDirection(pos.r(), pos.c(), dir);
+		int n = (getNumber(p) & ~(3 << 4)) | (dir << 4); 
+		setNumber(p, n);
 	}
 	/**
 	 * 指定したマスの矢印の向きを　上→左→下→右→上 の順に変更する。数字マスに対して使用する。
@@ -151,47 +127,34 @@ public class Board extends BoardBase {
 	}
 	/**
 	 * 数字マスか
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param p 座標
 	 * @return 数字マスか，未定数字マスであれば true
 	 */
-	public boolean isNumber(int r, int c) {
-		return number[r][c] >= 0 || number[r][c] == UNDECIDED_NUMBER;
+	public boolean isNumber(Address p) {
+		int n = getNumber(p);
+		return n >= 0 || n == UNDECIDED_NUMBER;
 	}
-	
-	public boolean isNumber(Address pos) {
-		return isNumber(pos.r(), pos.c());
-	}
+
 	/**
 	 * 線座標の両側の2マスいずれかが数字マスないし黒マスかどうか
-	 * @param d
-	 * @param r
-	 * @param c
+	 * @param b
 	 * @return 線座標の両側の2マスいずれかが数字マスないし黒マスであれば true
 	 */
-	public boolean hasNumberOrBlack(int d, int r, int c) {
-		if (d == VERT)
-			return isNumber(r, c) || isNumber(r, c+1) || isBlack(r, c) || isBlack(r, c+1);
-		else if (d == HORIZ)
-			return isNumber(r, c) || isNumber(r+1, c) || isBlack(r, c) || isBlack(r+1, c);
+	public boolean hasNumberOrBlack(SideAddress b) {
+		for (int d = 0; d < 2; d++) {
+			Address p = SideAddress.nextCellFromBorder(b, d);
+			if (isNumber(p) || isBlack(p))
+				return true;
+		}
 		return false;
 	}
-
-	public boolean hasNumberOrBlack(SideAddress side) {
-		return hasNumberOrBlack(side.d(), side.r(), side.c());
-	}
-
+	
 	/**
 	 * 空白マスにする
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param p 座標
 	 */
-	public void eraseNumber(int r, int c) {
-		number[r][c] = BLANK;
-	}
-	
-	public void eraseNumber(Address pos) {
-		eraseNumber(pos.r(), pos.c());
+	public void eraseNumber(Address p) {
+		setNumber(p, BLANK);
 	}
 	/**
 	 * 数字の入力を受け付ける
@@ -248,9 +211,9 @@ public class Board extends BoardBase {
 		setState(pos.d(), pos.r(), pos.c(), st);
 	}
 
-	public Link getLink(SideAddress pos) {
-		if (isSideOn(pos))
-			return link[pos.d()][pos.r()][pos.c()];
+	public Link getLink(SideAddress p) {
+		if (isSideOn(p))
+			return link[p.d()][p.r()][p.c()];
 		else
 			return null;
 	}
@@ -266,24 +229,22 @@ public class Board extends BoardBase {
 		return null;
 	}
 
-	public void setLink(SideAddress pos, Link l) {
-		link[pos.d()][pos.r()][pos.c()] =  l;
+	public void setLink(SideAddress p, Link l) {
+		link[p.d()][p.r()][p.c()] =  l;
 	}
-	
 	/**
 	 * マスから上下左右4方向に引かれている線を消去する
 	 * マスが黒マスや数字マスに変更された場合に線を消去するために使用する
 	 * @param p マスの座標
 	 */
 	void eraseLinesAround(Address p) {
-		for (int d = 0; d <= 3; d++) {
+		for (int d = 0; d < 4; d++) {
 			SideAddress side = SideAddress.get(p, d);
 			if (getState(side) == LINE) {
 				changeState(side, UNKNOWN);
 			}
 		}
 	}
-
 	/**
 	 * 盤面状態を変更し，アンドゥリスナーに変更を通知する．
 	 * @param p
