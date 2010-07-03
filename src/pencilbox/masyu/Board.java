@@ -18,8 +18,6 @@ import pencilbox.util.ArrayUtil;
  */
 public class Board extends BoardBase {
 
-	static final int HORIZ = Direction.HORIZ;
-	static final int VERT = Direction.VERT;
 	static final int UP = Direction.UP;
 	static final int DN = Direction.DN;
 	static final int LT = Direction.LT;
@@ -49,8 +47,8 @@ public class Board extends BoardBase {
 		state[1] = new int[rows()- 1][cols()];
 		linkList = new LinkedList<Link>();
 		link = new Link[2][][];
-		link[VERT] = new Link[rows()][cols() - 1];
-		link[HORIZ] = new Link[rows() - 1][cols()];
+		link[Direction.VERT] = new Link[rows()][cols() - 1];
+		link[Direction.HORIZ] = new Link[rows() - 1][cols()];
 	}
 	
 	public void clearBoard() {
@@ -156,10 +154,10 @@ public class Board extends BoardBase {
 	 */
 	public boolean isLineJ(int r, int c, int direction) {
 		switch (direction) {
-			case UP: return isLine(HORIZ,r-1,c);
-			case LT: return isLine(VERT, r,c-1);
-			case DN: return isLine(HORIZ,r,c);
-			case RT: return isLine(VERT, r,c);
+			case UP: return isLine(Direction.HORIZ,r-1,c);
+			case LT: return isLine(Direction.VERT, r,c-1);
+			case DN: return isLine(Direction.HORIZ,r,c);
+			case RT: return isLine(Direction.VERT, r,c);
 			default: return false;
 		}
 	}
