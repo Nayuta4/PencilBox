@@ -18,9 +18,6 @@ import pencilbox.util.ArrayUtil;
  */
 public class Board extends BoardBase {
 
-	static final int HORIZ = Direction.HORIZ;
-	static final int VERT = Direction.VERT;
-
 	static final int UNKNOWN = 0;
 	static final int LINE = 1;
 	static final int NOLINE = -1;
@@ -48,12 +45,12 @@ public class Board extends BoardBase {
 		ArrayUtil.initArrayInt2(number, BLANK);
 		goal = Address.nowhere();
 		state = new int[2][][];
-		state[VERT] = new int[rows()][cols()-1];
-		state[HORIZ] = new int[rows()-1][cols()];
+		state[Direction.VERT] = new int[rows()][cols()-1];
+		state[Direction.HORIZ] = new int[rows()-1][cols()];
 		linkList = new LinkedList<Link>();
 		link = new Link[2][][];
-		link[VERT] = new Link[rows()][cols()-1];
-		link[HORIZ] = new Link[rows()-1][cols()];
+		link[Direction.VERT] = new Link[rows()][cols()-1];
+		link[Direction.HORIZ] = new Link[rows()-1][cols()];
 	}
 
 	/**

@@ -6,6 +6,7 @@ import java.io.Reader;
 import java.util.StringTokenizer;
 
 import pencilbox.common.core.BoardBase;
+import pencilbox.common.core.Direction;
 import pencilbox.common.core.Size;
 import pencilbox.common.io.TxtReaderBase;
 
@@ -57,7 +58,7 @@ public class TxtReader extends TxtReaderBase {
 			t = new StringTokenizer(line);
 			while (t.hasMoreTokens()) {
 				str = t.nextToken();
-				board.setState(Board.VERT, i, j, Integer.parseInt(str));
+				board.setState(Direction.VERT, i, j, Integer.parseInt(str));
 				j++;
 			}
 		}
@@ -69,7 +70,7 @@ public class TxtReader extends TxtReaderBase {
 			t = new StringTokenizer(line);
 			while (t.hasMoreTokens()) {
 				str = t.nextToken();
-				board.setState(Board.HORIZ, i, j, Integer.parseInt(str));
+				board.setState(Direction.HORIZ, i, j, Integer.parseInt(str));
 				j++;
 			}
 		}

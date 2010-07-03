@@ -7,7 +7,6 @@ import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.BorderEditStep;
-import pencilbox.common.core.Direction;
 import pencilbox.common.core.SideAddress;
 import pencilbox.resource.Messages;
 import pencilbox.util.ArrayUtil;
@@ -17,8 +16,6 @@ import pencilbox.util.ArrayUtil;
  */
 public class Board extends BoardBase {
 
-	static final int HORIZ = Direction.HORIZ;
-	static final int VERT = Direction.VERT;
 	static final int UNKNOWN = 0;
 	static final int LINE = 1;
 	static final int NOLINE = -1;

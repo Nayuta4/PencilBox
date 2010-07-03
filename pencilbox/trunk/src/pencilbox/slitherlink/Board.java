@@ -18,9 +18,6 @@ import pencilbox.util.ArrayUtil;
  */
 public class Board extends BoardBase {
 
-	static final int HORIZ = Direction.HORIZ; 
-	static final int VERT = Direction.VERT;
-	
 	static final int UNKNOWN = 0;
 	static final int LINE = 1;
 	static final int NOLINE = -1;
@@ -44,8 +41,8 @@ public class Board extends BoardBase {
 		state[1] = new int[rows() - 1][cols()];
 		linkList = new LinkedList<Link>();
 		link = new Link[2][][];
-		link[VERT] = new Link[rows()][cols() - 1];
-		link[HORIZ] = new Link[rows() - 1][cols()];
+		link[Direction.VERT] = new Link[rows()][cols() - 1];
+		link[Direction.HORIZ] = new Link[rows() - 1][cols()];
 	}
 	
 	/**
@@ -330,14 +327,18 @@ public class Board extends BoardBase {
 	 * @return 	êîéöÇÃÇSï”ÇÃê¸ÇÃêîÇêîÇ¶ÇÈ
 	 */
 	public int lineAround(int r, int c){
+		SideAddress.sideAddress(Direction.VERT, r, c);
+		SideAddress.sideAddress(Direction.HORIZ, r, c);
+		SideAddress.sideAddress(Direction.VERT, r+1, c);
+		SideAddress.sideAddress(Direction.HORIZ, r, c+1);
 		int nl = 0;
-		if (isLine(VERT,r,c))
+		if (isLine(Direction.VERT,r,c))
 			nl++;
-		if (isLine(HORIZ,r,c))
+		if (isLine(Direction.HORIZ,r,c))
 			nl++;
-		if (isLine(VERT,r + 1,c))
+		if (isLine(Direction.VERT,r + 1,c))
 			nl++;
-		if (isLine(HORIZ,r,c + 1))
+		if (isLine(Direction.HORIZ,r,c + 1))
 			nl++;
 		return nl;		
 	}

@@ -1,6 +1,7 @@
 package pencilbox.masyu;
 
 import pencilbox.common.core.BoardBase;
+import pencilbox.common.core.Direction;
 import pencilbox.common.io.XmlWriterBase;
 
 /**
@@ -27,13 +28,13 @@ public class XmlWriter extends XmlWriterBase {
 			startArow(r);
 			for (int c = 0; c < cols; c++) {
 				int type = 0;
-				if (r<rows-1 && board.getState(Board.HORIZ, r, c) == Board.LINE)
+				if (r<rows-1 && board.getState(Direction.HORIZ, r, c) == Board.LINE)
 					type += 1;
-				if (c<cols-1 && board.getState(Board.VERT, r, c) == Board.LINE)
+				if (c<cols-1 && board.getState(Direction.VERT, r, c) == Board.LINE)
 					type += 2;
-				if (r<rows-1 && board.getState(Board.HORIZ, r, c) == Board.NOLINE)
+				if (r<rows-1 && board.getState(Direction.HORIZ, r, c) == Board.NOLINE)
 					type += 4;
-				if (c<cols-1 && board.getState(Board.VERT, r, c) == Board.NOLINE)
+				if (c<cols-1 && board.getState(Direction.VERT, r, c) == Board.NOLINE)
 					type += 8;
 
 				switch (type) {
