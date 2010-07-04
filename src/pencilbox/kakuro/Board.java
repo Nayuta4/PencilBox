@@ -231,8 +231,7 @@ public class Board extends BoardBase {
 	}
 	/**
 	 * 縦または横の計の中に，そのマスの数字と重複する数字があるかどうかを調べる
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param p 座標
 	 * @return　重複数字があれば true
 	 */
 	public boolean isMultipleNumber(Address p) {
@@ -258,7 +257,7 @@ public class Board extends BoardBase {
 		setNumber(r, c, n);
 		updateHint(r, c);
 	}
-	
+
 	public void undo(AbstractStep step) {
 		CellNumberEditStep s = (CellNumberEditStep) step;
 		changeNumber(s.getPos(), s.getBefore());
