@@ -187,13 +187,12 @@ public class Board extends BoardBase {
 	}
 	/**
 	 * その場所にある数字をルールに違反せずに配置可能かどうかを調べる
-	 * @param r マスの行座標
-	 * @param c マスの列座標
+	 * @param p マスの座標
 	 * @param n 配置できるかどうかを調べる数字
 	 * @return 配置可能なら true　を返す
 	 */
-	boolean canPlace(int r, int c, int n) {
-		return hint.canPlace(r, c, n);
+	boolean canPlace(Address p, int n) {
+		return hint.canPlace(p, n);
 	}
 	
 	/**
@@ -212,14 +211,13 @@ public class Board extends BoardBase {
 	}
 
 	private void changeNumber1(Address p, int n) {
-		int r=p.r(), c=p.c();
-		int prevNum = getNumber(r,c);
-		updateMulti(r, c, n);
-		if (getArea(r,c) != null)
-			updateMulti2(r, c, n);
-		setNumber(r,c,n);
+		int prevNum = getNumber(p);
+		updateMulti(p, n);
+		if (getArea(p) != null)
+			updateMulti2(p, n);
+		setNumber(p, n);
 		if (prevNum == 0 && n > 0)
-			hint.checkUsedNumber(r, c, n);
+			hint.checkUsedNumber(p, n);
 		else
 			hint.initHint();
 	}
@@ -253,8 +251,8 @@ public class Board extends BoardBase {
 	 * @param newArea
 	 */
 	public void addArea(Area newArea) {
-		for (Address pos : newArea) {
-			area[pos.r()][pos.c()] = newArea;
+		for (Address p : newArea) {
+			setArea(p, newArea);
 		}
 		areaList.add(newArea);
 	}
@@ -264,9 +262,9 @@ public class Board extends BoardBase {
 	 * @param oldArea
 	 */
 	public void removeArea(Area oldArea) {
-		for (Address pos : oldArea) {
-			if (area[pos.r()][pos.c()] == oldArea)
-				area[pos.r()][pos.c()] = null;
+		for (Address p : oldArea) {
+			if (getArea(p) == oldArea)
+				setArea(p, null);
 		}
 		areaList.remove(oldArea);
 	}
@@ -362,11 +360,12 @@ public class Board extends BoardBase {
 
 	/**
 	 * マスの数字が変更されたときに，それに応じて距離内の重複数を表すmulti配列を更新する
-	 * @param r0 数字の変更されたマスの行座標
-	 * @param c0 数字の変更されたマスの列座標
+	 * @param p0 数字の変更されたマスの行標
 	 * @param num 変更後の数字
 	 */
-	void updateMulti(int r0, int c0, int num) {
+	void updateMulti(Address p0, int num) {
+		int r0 = p0.r();
+		int c0 = p0.c();
 		int prevNum = getNumber(r0, c0);
 		if (multi[r0][c0]>1) {
 			for (int c = c0-prevNum; c <= c0+prevNum; c++) {
@@ -427,11 +426,12 @@ public class Board extends BoardBase {
 	}
 	/**
 	 * マスの数字が変更されたときに，それに応じて領域内の重複数を表すmulti2配列を更新する
-	 * @param r0 数字の変更されたマスの行座標
-	 * @param c0 数字の変更されたマスの列座標
+	 * @param p0 数字の変更されたマスの行座標
 	 * @param num 変更後の数字
 	 */
-	void updateMulti2(int r0, int c0, int num) {
+	void updateMulti2(Address p0, int num) {
+		int r0=p0.r();
+		int c0=p0.c();
 		int prevNum = getNumber(r0, c0);
 		if (multi2[r0][c0]>1) {
 			for (Address pos : getArea(r0,c0)) {
