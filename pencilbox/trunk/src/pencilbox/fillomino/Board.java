@@ -279,15 +279,14 @@ public class Board extends BoardBase {
 
 	/**
 	 * 数字を設定，変更したときの Area 併合処理を行う
-	 * @param r 変更したマスの行座標
-	 * @param c 変更したマスの列座標
+	 * @param p 変更したマスの座標
 	 * @param number 変更後の数字
 	 */
 	void mergeArea(Address p, int number) {
 		Area mergedArea = null;
 		for (int d=0; d<4; d++) {
 			Address p1 = Address.nextCell(p, d);
-			mergedArea = mergeArea1(getArea(p), mergedArea, number);
+			mergedArea = mergeArea1(getArea(p1), mergedArea, number);
 		}
 		if (mergedArea == null) {
 			mergedArea = new Area(number);
@@ -303,7 +302,7 @@ public class Board extends BoardBase {
 			} else if (mergedArea != area) {
 				mergedArea.addAll(area);
 				for (Address p : area) {
-					setArea(p.r(), p.c(), mergedArea);
+					setArea(p, mergedArea);
 				}
 				areaList.remove(area);
 			}
@@ -312,8 +311,7 @@ public class Board extends BoardBase {
 	}
 	/**
 	 * 数字を変更，消去したときの Area 分割処理を行う
-	 * @param r 変更したマスの行座標
-	 * @param c 変更したマスの列座標
+	 * @param p0 変更したマスの行座標
 	 * @param number 変更後の数字
 	 */
 	void splitArea(Address p0, int number) {
