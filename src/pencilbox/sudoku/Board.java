@@ -208,19 +208,8 @@ public class Board extends BoardBase {
 		if (getNumber(p) == n)
 			return;
 		updateMulti(p, n);
-		hint.updateHint(p.r(), p.c(), n);
+		hint.updateHint(p, n);
 		setNumber(p, n);
-		printmult();
-	}
-
-	public void printmult() {
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				System.out.print(' ');
-				System.out.print(multi[r][c]);
-			}
-			System.out.println();
-		}
 	}
 
 	public void undo(AbstractStep step) {
