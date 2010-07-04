@@ -12,8 +12,7 @@ public class DigitPatternHint {
 	private int[][] pattern;
 
 	/**
-	 * @param r row coordinate
-	 * @param c column coordinate
+	 * @param p coordinate
 	 * @return Returns the pattern.
 	 */
 	int getPattern(Address p) {
@@ -35,19 +34,13 @@ public class DigitPatternHint {
 	 * 盤面全体の可能パターンを再計算する
 	 */
 	void initHint() {
-		int rows = board.rows();
-		int cols = board.cols();
-		for (int r = 0; r < rows; r++) {
-			for (int c = 0; c < cols; c++) {
-				pattern[r][c] = allDigitPattern;
-			}
+		for (Address p : board.cellAddrs()) {
+			pattern[p.r()][p.c()] = allDigitPattern;
 		}
-		for (int r = 0; r < rows; r++) {
-			for (int c = 0; c < cols; c++) {
-				int n = board.getNumber(r,c);
-				if (n > 0)
-					checkUsedNumber(r, c, n);
-			}
+		for (Address p : board.cellAddrs()) {
+			int n = board.getNumber(p);
+			if (n > 0)
+				checkUsedNumber(p, n);
 		}
 	}
 	
@@ -55,24 +48,23 @@ public class DigitPatternHint {
 		return (pattern[p.r()][p.c()] & (1<<n)) > 0;
 	}
 	/**
-	 * [r0, c0]と同じ行，列，ボックスについて，数字nを使用済みとする
-	 * @param r0
-	 * @param c0
+	 * p0と同じ行，列，ボックスについて，数字nを使用済みとする
+	 * @param p0
 	 * @param n
 	 */
-	void checkUsedNumber(int r0, int c0, int n) {
+	void checkUsedNumber(Address p0, int n) {
 		int rows = board.rows();
 		int cols = board.cols();
 		int unit = board.getUnit();
 		int pat = ~(1 << n);
 		for (int cc = 0; cc < cols; cc++) {
-			pattern[r0][cc] &= pat;
+			pattern[p0.r()][cc] &= pat;
 		}
 		for (int rr = 0; rr < rows; rr++) {
-			pattern[rr][c0] &= pat;
+			pattern[rr][p0.c()] &= pat;
 		}
-		int boxR = r0 / unit * unit;
-		int boxC = c0 / unit * unit;
+		int boxR = p0.r() / unit * unit;
+		int boxC = p0.c() / unit * unit;
 		for (int rr = 0; rr < unit; rr++) {
 			for (int cc = 0; cc < unit; cc++) {
 				pattern[boxR + rr][boxC + cc] &= pat;
@@ -80,43 +72,35 @@ public class DigitPatternHint {
 		}
 	}
 	/**
-	 *	[r0, c0]にnを入れるときに変化があったときにhintを更新する
-	 * @param r0
-	 * @param c0
+	 *	p0にnを入れるときに変化があったときにhintを更新する
+	 * @param p0
 	 * @param n
 	 */
-	void updateHint(int r0, int c0, int n) {
-		int prevNum = board.getNumber(r0, c0);
+	void updateHint(Address p0, int n) {
+		int prevNum = board.getNumber(p0);
 		if (prevNum > 0) {
-			deleteHint(r0, c0, prevNum);
+			deleteHint(p0, prevNum);
 		}
 		if (n > 0) {
-			checkUsedNumber(r0, c0, n);
+			checkUsedNumber(p0, n);
 		}
 	}
 	/**
-	 *	[r0, c0]に入っていた数字n0を消すときに，
+	 *	p0に入っていた数字n0を消すときに，
 	 * 盤面全体の可能パターンについて，数字 n に関する部分のみを再計算する
-	 * @param r0
-	 * @param c0
+	 * @param p0
 	 * @param n0
 	 */
-	void deleteHint(int r0, int c0, int n0) {
+	void deleteHint(Address p0, int n0) {
 		int pat = (1 << n0);
-		int rows = board.rows();
-		int cols = board.cols();
-		for (int r = 0; r < rows; r++) {
-			for (int c = 0; c < cols; c++) {
-				pattern[r][c] |= pat;
-			}
+		for (Address p : board.cellAddrs()) {
+			pattern[p.r()][p.c()] |= pat;
 		}
-		for (int r = 0; r < rows; r++) {
-			for (int c = 0; c < cols; c++) {
-				int n = board.getNumber(r,c);
-				if (n == n0) {
-					if (r==r0 && c==c0) continue; // このマスはn0だが今から消すところ
-					checkUsedNumber(r, c, n);
-				}
+		for (Address p : board.cellAddrs()) {
+			int n = board.getNumber(p);
+			if (n == n0) {
+				if (p.equals(p0)) continue; // このマスはn0だが今から消すところ
+				checkUsedNumber(p, n);
 			}
 		}
 	}
