@@ -14,8 +14,7 @@ public class DigitPatternHint {
 
 	/**
 	 * そのマスに配置して直接のルール違反にならない数字のビットパターンを返す。
-	 * @param r　マスの行座標
-	 * @param c マスの列座標
+	 * @param p マスの座標
 	 * @return 可能なビットパターンを返す。ただしそのマスが壁マスであるかまたはタテヨコの両方とも和が定義されていない場合は値 1 を返す。
 	 */
 	int getPattern(Address p) {
@@ -29,10 +28,8 @@ public class DigitPatternHint {
 	
 	void setupHint(Board board) {
 		this.board = board;
-		int rows = board.rows();
-		int cols = board.cols();
-		horizPattern = new int[rows][cols];
-		vertPattern = new int[rows][cols];
+		horizPattern = new int[board.rows()][board.cols()];
+		vertPattern = new int[board.rows()][board.cols()];
 	}
 
 	/**
