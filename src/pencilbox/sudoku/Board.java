@@ -13,14 +13,13 @@ import pencilbox.resource.Messages;
  */
 public class Board extends BoardBase {
 
-	public static final int UNSTABLE = 0;
-	public static final int STABLE = 1;
-	public static final int UNKNOWN = 0;
-	public static final int UNDETERMINED = -2; // 仮設定。入力操作の目印に仮にこうしておくが，実際のデータ上は0とする
+	public static final int UNKNOWN = 0; // 解答数字がない状態
+	public static final int BLANK = 0; // 問題数字がない状態
+	public static final int UNDETERMINED = -2; // 問題数字が未定数字の状態
 
 	private int maxNumber; // 問題の最大数字
-	private int[][] state; // 問題の数字:1, 解答すべき数字:0,
-	private int[][] number;
+	private int[][] state; // 解答の数字
+	private int[][] number; // 問題の数字
 	private int unit = 0;
 
 	private int[][] multi; // 重複数
@@ -44,12 +43,12 @@ public class Board extends BoardBase {
 		hint = new DigitPatternHint();
 		hint.setupHint(this);
 	}
-	
+
 	public void clearBoard() {
 		super.clearBoard();
 		for (Address p : cellAddrs()) {
 			if (!isStable(p)) {
-				setNumber(p, 0);
+				setState(p, 0);
 			}
 		}
 		initMulti();
@@ -82,7 +81,7 @@ public class Board extends BoardBase {
 	 * @return 問題数字のマスなら true, 解答すべきマスなら false
 	 */
 	public boolean isStable(int r, int c) {
-		return state[r][c] == STABLE;
+		return number[r][c] != Board.BLANK;
 	}
 	public boolean isStable(Address pos) {
 		return isStable(pos.r(), pos.c());
@@ -123,8 +122,8 @@ public class Board extends BoardBase {
 		return number[r][c];
 	}
 
-	public int getNumber(Address pos) {
-		return getNumber(pos.r(), pos.c());
+	public int getNumber(Address p) {
+		return number[p.r()][p.c()];
 	}
 	/**
 	 * Set number to  a cell.
@@ -139,14 +138,13 @@ public class Board extends BoardBase {
 	public void setNumber(Address pos, int n) {
 		setNumber(pos.r(), pos.c(), n);
 	}
-	/**
-	 * マスに数字が入っていないかどうか
-	 * @param r Row coordinate of the cell.
-	 * @param c Column coordinate of the cell.
-	 * @return Returns true if the cell is empty.
-	 */
-	public boolean isUnknown(int r, int c) {
-		return number[r][c] == 0;
+
+	public int getNumberOrState(Address p) {
+		return isStable(p) ? getNumber(p) : getState(p);
+	}
+
+	public int getNumberOrState(int r, int c) {
+		return isStable(r,c) ? getNumber(r,c) : getState(r,c);
 	}
 
 	public void initBoard() {
@@ -173,51 +171,49 @@ public class Board extends BoardBase {
 		return getNumber(p) == 0 && hint.canPlace(p, n);
 	}
 	/**
-	 * マスに数字を入力し，アドゥリスナーに通知する
+	 * マスに解答数字を入力し，アドゥリスナーに通知する
 	 * @param p マス座標
 	 * @param n 入力する数字
 	 */
-	public void changeNumber(Address p, int n) {
-		if (!isStable(p) && n == getNumber(p))
+	public void changeAnswerNumber(Address p, int n) {
+		int prev = getState(p);
+		if (n == prev)
 			return;
-		if (isStable(p) && getNumber(p) != 0) {
-			changeFixedNumber(p, 0);
+		if (isStable(p)) {
+			changeFixedNumber(p, Board.BLANK);
 		}
 		if (isRecordUndo())
-			fireUndoableEditUpdate(new CellNumberEditStep(p, getNumber(p), n));
-//		setState(p, Board.UNSTABLE);
-		changeNumber1(p, n);
+			fireUndoableEditUpdate(new CellNumberEditStep(p, prev, n));
+		changeNumber1(p, prev, n);
+		setState(p, n);
 	}
-
+	/**
+	 * マスに問題数字を入力し，アドゥリスナーに通知する
+	 * @param p マス座標
+	 * @param n 入力する数字
+	 */
 	public void changeFixedNumber(Address p, int n) {
-		if (isStable(p) && n == getNumber(p))
+		int prev = getNumber(p);
+		if (n == prev)
 			return;
-		if (!isStable(p) && getNumber(p) > 0) {
-			changeNumber(p, 0);
+		if (getState(p) > 0) {
+			changeAnswerNumber(p, 0);
 		}
 		if (isRecordUndo())
-			fireUndoableEditUpdate(new CellEditStep(p, getNumber(p), n));
-		if (n == Board.UNKNOWN)
-			setState(p, Board.UNSTABLE);
-		else
-			setState(p, Board.STABLE);
-		changeNumber1(p, n);
+			fireUndoableEditUpdate(new CellEditStep(p, prev, n));
+		changeNumber1(p, prev, n);
+		setNumber(p, n);
 	}
 
-	private void changeNumber1(Address p, int n) {
-		if (getNumber(p) == n)
-			return;
-		updateMulti(p, n);
+	private void changeNumber1(Address p, int prev, int n) {
+		updateMulti(p, prev, n);
 		hint.updateHint(p, n);
-		setNumber(p, n);
 	}
 
 	public void undo(AbstractStep step) {
 		if (step instanceof CellNumberEditStep) {
 			CellNumberEditStep s = (CellNumberEditStep) step;
-//			if (isStable(s.getPos()))
-//				return;
-			changeNumber(s.getPos(), s.getBefore());
+			changeAnswerNumber(s.getPos(), s.getBefore());
 		} else if (step instanceof CellEditStep) {
 			CellEditStep s = (CellEditStep) step;
 			changeFixedNumber(s.getPos(), s.getBefore());
@@ -227,9 +223,7 @@ public class Board extends BoardBase {
 	public void redo(AbstractStep step) {
 		if (step instanceof CellNumberEditStep) {
 			CellNumberEditStep s = (CellNumberEditStep) step;
-//			if (isStable(s.getPos()))
-//				return;
-			changeNumber(s.getPos(), s.getAfter());
+			changeAnswerNumber(s.getPos(), s.getAfter());
 		} else if (step instanceof CellEditStep) {
 			CellEditStep s = (CellEditStep) step;
 			changeFixedNumber(s.getPos(), s.getAfter());
@@ -251,30 +245,29 @@ public class Board extends BoardBase {
 	 */
 	void initMulti() {
 		for (Address p : cellAddrs()) {
-			if(getNumber(p)>0) {
+			if(getNumberOrState(p)>0) {
 				multi[p.r()][p.c()] = 1;
-				updateMulti1(p, getNumber(p), +1, 0);
+				updateMulti1(p, getNumberOrState(p), +1, 0);
 			}
 		}
 	}
 
 	/**
-	 *	[r0, c0]に変化があったときにmulti配列を更新する
-	 * @param r0 状態を変更したマスの行座標
-	 * @param c0 状態を変更したマスの列座標
-	 * @param num 変更後のマスの数字
+	 *	p0に変化があったときにmulti配列を更新する
+	 * @param p0 状態を変更したマスの座標
+	 * @param prev 変更前の数字
+	 * @param n 変更後の数字
 	 */
-	void updateMulti(Address p0, int num) {
-		int prevNum = getNumber(p0);
+	void updateMulti(Address p0, int prev, int n) {
 		int r0=p0.r(), c0=p0.c();
 		// prevNumと同じ数字を探して重複数を-1する
 		if (multi[r0][c0]>1) {
-			updateMulti1(p0, prevNum, 0, -1);
+			updateMulti1(p0, prev, 0, -1);
 		}
 		// numと同じ数字を探して重複数を+1する，マス自身の重複数も+1する
-		if (num>0) {
+		if (n>0) {
 			multi[r0][c0] = 1;
-			updateMulti1(p0, num, +1, +1);
+			updateMulti1(p0, n, +1, +1);
 		} else {
 			multi[r0][c0] = 0;
 		}
@@ -292,7 +285,7 @@ public class Board extends BoardBase {
 		for (int c = 0; c < cols(); c++) {
 			if (c==c0)
 				continue;
-			if (getNumber(r0,c) == num) {
+			if (getNumberOrState(r0,c) == num) {
 				multi[r0][c] += k;
 				multi[r0][c0] += m;
 			}
@@ -300,7 +293,7 @@ public class Board extends BoardBase {
 		for (int r = 0; r < rows(); r++) {
 			if (r==r0)
 				continue;
-			if (getNumber(r,c0) == num) {
+			if (getNumberOrState(r,c0) == num) {
 				multi[r][c0] += k;
 				multi[r0][c0] += m;
 			}
@@ -310,7 +303,7 @@ public class Board extends BoardBase {
 			for (int c = c0-c0%unit; c < c0-c0%unit+unit; c++) {
 				if (r==r0 && c==c0)
 					continue;
-				if (getNumber(r,c) == num) {
+				if (getNumberOrState(r,c) == num) {
 					multi[r][c] += k;
 					multi[r0][c0] += m;
 				}
@@ -323,7 +316,7 @@ public class Board extends BoardBase {
 		for (Address p : cellAddrs()) {
 			if (isMultipleNumber(p))
 				result |= 1;
-			if (getNumber(p) == 0)
+			if (getNumberOrState(p) <= 0)
 				result |= 2;
 		}
 		return result;

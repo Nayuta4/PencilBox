@@ -30,7 +30,7 @@ public class PclWriter extends PclWriterBase {
 		sb.append('\n');
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
-				int n = board.getNumber(r, c);
+				int n = board.getState(r, c);
 				if (n > 0)
 					sb.append(Integer.toString(n));
 				else

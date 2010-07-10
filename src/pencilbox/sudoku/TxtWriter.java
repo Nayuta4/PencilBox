@@ -18,11 +18,11 @@ public class TxtWriter extends TxtWriterBase {
 		out.println(board.rows());
 		for(int r=0; r<board.rows(); r++){
 			for(int c=0; c<board.cols(); c++){
-				if (board.isStable(r,c)) {
-					int n = board.getNumber(r,c);
-					if (n == Board.UNDETERMINED)
-						n = 0;
-					out.print(board.getNumber(r,c));
+				int n = board.getNumber(r,c);
+				if (n > 0) {
+					out.print(n);
+				} else if (n == Board.UNDETERMINED) {
+					out.print(0);
 				} else {
 					out.print('.');
 				}
@@ -35,7 +35,7 @@ public class TxtWriter extends TxtWriterBase {
 		for(int r=0; r<board.rows(); r++){
 			for(int c=0; c<board.cols(); c++){
 				if (!board.isStable(r,c)) {
-					out.print(board.getNumber(r,c));
+					out.print(board.getState(r,c));
 				} else {
 					out.print('.');
 				}
@@ -43,6 +43,5 @@ public class TxtWriter extends TxtWriterBase {
 			}
 			out.println();
 		}
-		
 	}
 }

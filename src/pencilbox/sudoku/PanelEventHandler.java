@@ -35,12 +35,12 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			if (!board.isStable(pos)) {
 				int n = board.getNumber(pos);
 				if (n >= getMaxInputNumber())
-					board.changeNumber(pos, 0);
+					board.changeAnswerNumber(pos, 0);
 				else if (n >= 0)
-					board.changeNumber(pos, n + 1);
+					board.changeAnswerNumber(pos, n + 1);
 			}
 		}
-		setSelectedNumber(board.getNumber(pos));
+		setSelectedNumber(board.getNumberOrState(pos));
 	}
 	
 	protected void rightPressed(Address pos) {
@@ -48,12 +48,12 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			if (!board.isStable(pos)) {
 				int n = board.getNumber(pos);
 				if (n == 0)
-					board.changeNumber(pos, getMaxInputNumber());
+					board.changeAnswerNumber(pos, getMaxInputNumber());
 				else if (n > 0)
-					board.changeNumber(pos, n - 1);
+					board.changeAnswerNumber(pos, n - 1);
 			}
 		}
-		setSelectedNumber(board.getNumber(pos));
+		setSelectedNumber(board.getNumberOrState(pos));
 	}
 	/*
 	 * 「数独」キー操作
@@ -73,7 +73,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		} else if (isCursorOn()){
 			if (num >= 0) {
 				if (!board.isStable(pos)) {
-					board.changeNumber(pos, num);
+					board.changeAnswerNumber(pos, num);
 				}
 			}
 		}
@@ -91,7 +91,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			}
 		} else if (isCursorOn()){
 			if (!board.isStable(pos)) {
-				board.changeNumber(pos, Board.UNKNOWN);
+				board.changeAnswerNumber(pos, Board.UNKNOWN);
 			}
 		}
 	}

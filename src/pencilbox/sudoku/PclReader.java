@@ -21,7 +21,6 @@ public class PclReader extends PclReaderBase {
 					num = 0;
 				else
 					num = Integer.parseInt(n);
-				board.setState(r, c, Board.STABLE);
 				board.setNumber(r ,c, num);
 			}
 		}
@@ -38,8 +37,7 @@ public class PclReader extends PclReaderBase {
 				else
 					num = Integer.parseInt(n);
 				if (board.getNumber(r,c) == 0) {
-					board.setState(r, c, Board.UNSTABLE);
-					board.setNumber(r ,c, num);
+					board.setState(r ,c, num);
 				}
 			}
 		}

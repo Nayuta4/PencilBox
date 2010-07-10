@@ -38,7 +38,7 @@ public class DigitPatternHint {
 			pattern[p.r()][p.c()] = allDigitPattern;
 		}
 		for (Address p : board.cellAddrs()) {
-			int n = board.getNumber(p);
+			int n = board.getNumberOrState(p);
 			if (n > 0)
 				checkUsedNumber(p, n);
 		}
@@ -53,14 +53,12 @@ public class DigitPatternHint {
 	 * @param n
 	 */
 	void checkUsedNumber(Address p0, int n) {
-		int rows = board.rows();
-		int cols = board.cols();
 		int unit = board.getUnit();
 		int pat = ~(1 << n);
-		for (int cc = 0; cc < cols; cc++) {
+		for (int cc = 0; cc < board.cols(); cc++) {
 			pattern[p0.r()][cc] &= pat;
 		}
-		for (int rr = 0; rr < rows; rr++) {
+		for (int rr = 0; rr < board.rows(); rr++) {
 			pattern[rr][p0.c()] &= pat;
 		}
 		int boxR = p0.r() / unit * unit;
@@ -77,9 +75,9 @@ public class DigitPatternHint {
 	 * @param n
 	 */
 	void updateHint(Address p0, int n) {
-		int prevNum = board.getNumber(p0);
-		if (prevNum > 0) {
-			deleteHint(p0, prevNum);
+		int prev = board.getNumberOrState(p0);
+		if (prev > 0) {
+			deleteHint(p0, prev);
 		}
 		if (n > 0) {
 			checkUsedNumber(p0, n);
@@ -97,7 +95,7 @@ public class DigitPatternHint {
 			pattern[p.r()][p.c()] |= pat;
 		}
 		for (Address p : board.cellAddrs()) {
-			int n = board.getNumber(p);
+			int n = board.getNumberOrState(p);
 			if (n == n0) {
 				if (p.equals(p0)) continue; // ‚±‚Ìƒ}ƒX‚Ín0‚¾‚ª¡‚©‚çÁ‚·‚Æ‚±‚ë
 				checkUsedNumber(p, n);
