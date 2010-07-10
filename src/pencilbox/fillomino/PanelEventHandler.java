@@ -68,10 +68,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 				board.changeFixedNumber(pos, num);
 				if (isSymmetricPlacementMode()) {
 					Address posS = getSymmetricPosition(pos);
-					if (!posS.equals(pos))
-						if (!board.isStable(posS)) {
-							board.changeFixedNumber(posS, Board.UNDETERMINED);
-						}
+					if (!board.isStable(posS)) {
+						board.changeFixedNumber(posS, Board.UNDETERMINED);
+					}
 				}
 			}
 		} else if (isCursorOn()) {
@@ -88,10 +87,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			board.changeFixedNumber(pos, Board.BLANK);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
-				if (!posS.equals(pos))
-					if (board.isStable(posS)) {
-						board.changeFixedNumber(posS, Board.BLANK);
-					}
+				if (board.isStable(posS)) {
+					board.changeFixedNumber(posS, Board.BLANK);
+				}
 			}
 		} else if (isCursorOn()) {
 			if (!board.isStable(pos)) {
@@ -105,10 +103,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			board.changeFixedNumber(pos, Board.UNDETERMINED);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
-				if (!posS.equals(pos))
-					if (!board.isStable(posS)) {
-						board.changeFixedNumber(posS, Board.UNDETERMINED);
-					}
+				if (!board.isStable(posS)) {
+					board.changeFixedNumber(posS, Board.UNDETERMINED);
+				}
 			}
 		}
 	}

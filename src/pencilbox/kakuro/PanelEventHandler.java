@@ -114,7 +114,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 				board.setSum(pos, Direction.HORIZ, 0);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
-				if (isOn(posS) && !posS.equals(pos))
+				if (isOn(posS))
 					if (!board.isWall(posS))
 						board.setWall(posS, 0, 0);
 			}
