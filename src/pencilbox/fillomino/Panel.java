@@ -118,8 +118,8 @@ public class Panel extends PanelBase {
 
 	private void paintAreas(Graphics2D g) {
 		for (Address p : board.cellAddrs()) {
-			int number = board.getNumber(p);
-			if (number > 0) {
+			int n = board.getNumberOrState(p);
+			if (n > 0) {
 				if (isIndicateErrorMode()) {
 					int status = board.getArea(p).getStatus();
 					if (status == -1) {
@@ -130,7 +130,7 @@ public class Panel extends PanelBase {
 						paintCell(g, p);
 					}
 				} else if (isSeparateAreaColorMode()) {
-					g.setColor(Colors.getBrightColor(board.getNumber(p)));
+					g.setColor(Colors.getBrightColor(n));
 					paintCell(g, p);
 				}
 			}
@@ -140,18 +140,18 @@ public class Panel extends PanelBase {
 	private void drawNumbers(Graphics2D g) {
 		g.setFont(getNumberFont());
 		for (Address p : board.cellAddrs()) {
-			int number = board.getNumber(p);
-			if (number > 0) {
-				if (board.isStable(p)) {
-					g.setColor(getNumberColor());
-				} else {
+			int n = board.getNumber(p);
+			if (n > 0) {
+				g.setColor(getNumberColor());
+				placeNumber(g, p, n);
+			} else if (n == Board.UNDETERMINED) {
+				g.setColor(getNumberColor());
+				placeBoldCircle(g, p);
+			} else {
+				int s = board.getState(p);
+				if (s > 0) {
 					g.setColor(getInputColor());
-				}
-				placeNumber(g, p, board.getNumber(p));
-			} else if (number == Board.UNKNOWN) {
-				if (board.isStable(p)) {
-					g.setColor(getNumberColor());
-					placeBoldCircle(g, p);
+					placeNumber(g, p, s);
 				}
 			}
 		}
@@ -164,7 +164,7 @@ public class Panel extends PanelBase {
 				Address p1 = p.nextCell(d);
 				SideAddress b = SideAddress.get(p, d);
 				if (board.isSideOn(b)) {
-					if (board.getNumber(p) != board.getNumber(p1)) {
+					if (board.getNumberOrState(p) != board.getNumberOrState(p1)) {
 						placeSideLine(g, b);
 					}
 				}

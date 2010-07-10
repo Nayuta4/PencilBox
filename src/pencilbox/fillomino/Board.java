@@ -6,6 +6,7 @@ import java.util.List;
 import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
+import pencilbox.common.core.CellEditStep;
 import pencilbox.common.core.CellNumberEditStep;
 import pencilbox.resource.Messages;
 import pencilbox.util.ArrayUtil;
@@ -16,13 +17,12 @@ import pencilbox.util.ArrayUtil;
  */
 public class Board extends BoardBase {
 
-	static final int UNSTABLE = 0;
-	static final int STABLE = 1;
+	static final int BLANK = 0;
 	static final int UNKNOWN = 0;
 	static final int UNDETERMINED = -2;
 
-	private int[][] state; // 問題の数字:1, 解答すべき数字:0,
-	private int[][] number;
+	private int[][] state; // 解答の数字
+	private int[][] number; // 問題の数字
 	
 	private Area[][] area;
 	private List<Area> areaList;
@@ -40,7 +40,7 @@ public class Board extends BoardBase {
 		super.clearBoard();
 		for (Address p : cellAddrs()) {
 			if (!isStable(p))
-				setNumber(p, 0);
+				setState(p, 0);
 		}
 		initBoard();
 	}
@@ -66,7 +66,7 @@ public class Board extends BoardBase {
 	 * @return 問題数字のマスなら true, 解答すべきマスなら false
 	 */
 	public boolean isStable(int r, int c) {
-		return state[r][c] == STABLE;
+		return number[r][c] != 0;
 	}
 	
 	public boolean isStable(Address p) {
@@ -111,6 +111,10 @@ public class Board extends BoardBase {
 	public int getNumber(Address p) {
 		return getNumber(p.r(), p.c());
 	}
+
+	public int getNumberOrState(Address p) {
+		return isStable(p) ? getNumber(p) : getState(p);
+	}
 	/**
 	 * Set number to  a cell.
 	 * @param r Row coordinate of the cell.
@@ -125,36 +129,6 @@ public class Board extends BoardBase {
 		setNumber(p.r(), p.c(), n);
 	}
 
-	public void setFixedNumber(int r, int c, int n) {
-		state[r][c] = Board.STABLE;
-		if (n == Board.UNDETERMINED)
-			n=0;
-		number[r][c] = n;
-	}
-	public void setFixedNumber(Address p, int n) {
-		setFixedNumber(p.r(), p.c(), n);
-	}
-	public int getFixedNumber(Address p) {
-		int n = 0;
-		if (isStable(p)) {
-			n = getNumber(p);
-			if (n == 0)
-				n = Board.UNDETERMINED;
-			return n;
-		} else {
-			return 0;
-		}
-	}
-	/**
-	 * マスに数字が入っていないかどうか
-	 * @param r Row coordinate of the cell.
-	 * @param c Column coordinate of the cell.
-	 * @return Returns true if the cell is empty.
-	 */
-	public boolean isUnknown(int r, int c) {
-		return number[r][c] == 0;
-	}
-
 	public void initBoard() {
 		initAreas();
 	}
@@ -165,7 +139,7 @@ public class Board extends BoardBase {
 		ArrayUtil.initArrayObject2(area, null);
 		areaList.clear();
 		for (Address p : cellAddrs()) {
-			if (getNumber(p) > 0 && getArea(p) == null) {
+			if (getNumberOrState(p) > 0 && getArea(p) == null) {
 				initArea(p);
 			}
 		}
@@ -175,7 +149,7 @@ public class Board extends BoardBase {
 	 * @param p
 	 */
 	void initArea(Address p) {
-		initializingArea = new Area(getNumber(p));
+		initializingArea = new Area(getNumberOrState(p));
 		initArea1(p);
 		areaList.add(initializingArea);
 	}
@@ -185,7 +159,7 @@ public class Board extends BoardBase {
 			return;
 		if (getArea(p) == initializingArea)
 			return;
-		if (getNumber(p) != initializingArea.getNumber())
+		if (getNumberOrState(p) != initializingArea.getNumber())
 			return;
 		initializingArea.add(p);
 		setArea(p, initializingArea);
@@ -198,83 +172,86 @@ public class Board extends BoardBase {
 	/**
 	 * そのマスの所属する領域を取得する
 	 * そのマスが領域に属していない場合は null を返す
-	 * @param r Row coordinate of the cell.
-	 * @param c Column coordinate of the cell.
+	 * @param p coordinate of the cell.
 	 * @return Returns the area.
 	 */
-	public Area getArea(int r, int c ) {
-		// mergeArea などから使用する場合のために，引数チェックを行う
-		if (!isOn(r,c))
-			return null;
-		return area[r][c];
-	}
 	public Area getArea(Address p) {
-		return getArea(p.r(), p.c());
+		// mergeArea などから使用する場合のために，引数チェックを行う
+		if (!isOn(p))
+			return null;
+		return area[p.r()][p.c()];
 	}
 	/**
 	 * 盤上のマスに，そのマスの所属する領域を設定する
-	 * @param r Row coordinate of the cell.
-	 * @param c Column coordinate of the cell.
+	 * @param p coordinate of the cell.
 	 * @param a The area to set.
 	 */
-	public void setArea(int r, int c,  Area a) {
-		area[r][c] = a;
-	}
 	public void setArea(Address p, Area a) {
-		setArea(p.r(), p.c(), a);
+		area[p.r()][p.c()] = a;
 	}
 	/**
-	 * マスに数字を入力し，アドゥリスナーに通知する
+	 * マスに解答数字を入力し，アドゥリスナーに通知する
 	 * @param p マス座標
 	 * @param n 入力する数字
 	 */
-	public void changeNumber(Address p, int n) {
-		if (n < 0)
+	public void changeAnswerNumber(Address p, int n) {
+		int prev = getState(p);
+		if (n == prev) 
 			return;
-		if (n == getNumber(p)) 
-			return;
+		if (getNumber(p) != 0) {
+			changeFixedNumber(p, 0);
+		}
 		if (isRecordUndo())
-			fireUndoableEditUpdate(new CellNumberEditStep(p, getNumber(p), n));
-		changeNumber1(p, n);
+			fireUndoableEditUpdate(new CellNumberEditStep(p, prev, n));
+		setState(p, n);
+		changeNumber1(p, prev, n);
 	}
 
-	private void changeNumber1(Address p, int n) {
-		int prevNum = getNumber(p);
+	/**
+	 * マスに問題数字を入力し，アドゥリスナーに通知する
+	 * @param p マス座標
+	 * @param n 入力する数字
+	 */
+	public void changeFixedNumber(Address p, int n) {
+		int prev = getNumber(p);
+		if (n == prev)
+			return;
+		if (getState(p) > 0) {
+			changeAnswerNumber(p, 0);
+		}
+		if (isRecordUndo())
+			fireUndoableEditUpdate(new CellEditStep(p, prev, n));
 		setNumber(p, n);
-		if (prevNum>0) {
-			splitArea(p, prevNum);
+		changeNumber1(p, prev, n);
+	}
+
+	private void changeNumber1(Address p, int prev, int n) {
+		if (prev>0) {
+			splitArea(p, prev);
 		}
 		if (n>0) {
 			mergeArea(p, n);
 		}
 	}
-	/**
-	 * マスに数字を入力し，アドゥリスナーに通知する
-	 * @param p マス座標
-	 * @param n 入力する数字
-	 */
-	public void changeFixedNumber(Address p, int n) {
-		if (n == Board.UNKNOWN)
-			setState(p, Board.UNSTABLE);
-		else
-			setState(p, Board.STABLE);
-		if (n == Board.UNDETERMINED)
-			n = 0;
-		changeNumber1(p, n);
-	}
 
 	public void undo(AbstractStep step) {
-		CellNumberEditStep s = (CellNumberEditStep) step;
-		if (isStable(s.getPos()))
-			return;
-		changeNumber(s.getPos(), s.getBefore());
+		if (step instanceof CellNumberEditStep) {
+			CellNumberEditStep s = (CellNumberEditStep) step;
+			changeAnswerNumber(s.getPos(), s.getBefore());
+		} else if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep) step;
+			changeFixedNumber(s.getPos(), s.getBefore());
+		}
 	}
 
 	public void redo(AbstractStep step) {
-		CellNumberEditStep s = (CellNumberEditStep) step;
-		if (isStable(s.getPos()))
-			return;
-		changeNumber(s.getPos(), s.getAfter());
+		if (step instanceof CellNumberEditStep) {
+			CellNumberEditStep s = (CellNumberEditStep) step;
+			changeAnswerNumber(s.getPos(), s.getAfter());
+		} else if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep) step;
+			changeFixedNumber(s.getPos(), s.getAfter());
+		}
 	}
 
 	/**
@@ -285,8 +262,7 @@ public class Board extends BoardBase {
 	void mergeArea(Address p, int number) {
 		Area mergedArea = null;
 		for (int d=0; d<4; d++) {
-			Address p1 = Address.nextCell(p, d);
-			mergedArea = mergeArea1(getArea(p1), mergedArea, number);
+			mergedArea = mergeArea1(getArea(Address.nextCell(p, d)), mergedArea, number);
 		}
 		if (mergedArea == null) {
 			mergedArea = new Area(number);
@@ -311,7 +287,7 @@ public class Board extends BoardBase {
 	}
 	/**
 	 * 数字を変更，消去したときの Area 分割処理を行う
-	 * @param p0 変更したマスの行座標
+	 * @param p0 変更したマスの座標
 	 * @param number 変更後の数字
 	 */
 	void splitArea(Address p0, int number) {
@@ -321,18 +297,16 @@ public class Board extends BoardBase {
 		}
 		for (int d=0; d<4; d++) {
 			Address p = Address.nextCell(p0, d);
-			if (isOn(p) && getNumber(p)==number && getArea(p) == null)
+			if (isOn(p) && getNumberOrState(p)==number && getArea(p)==null)
 				initArea(p);
 		}
 	}
 	
 	public int checkAnswerCode() {
 		int result = 0;
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++){
-				if (isUnknown(r,c))
-					result |= 1;
-			}
+		for (Address p : cellAddrs()) {
+			if (getNumberOrState(p) <= 0)
+				result |= 1;
 		}
 		for (Area area : areaList) {
 			int status = area.getStatus();
