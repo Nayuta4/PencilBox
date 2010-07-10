@@ -4,7 +4,6 @@ import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.CellEditStep;
-import pencilbox.common.core.CellNumberEditStep;
 import pencilbox.common.core.Direction;
 import pencilbox.resource.Messages;
 
