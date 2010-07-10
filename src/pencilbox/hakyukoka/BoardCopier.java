@@ -77,7 +77,7 @@ public class BoardCopier extends BoardCopierBase {
 			if (srcArea != null) {
 				if (!region.containsAll(srcArea)) // ブロック全体が選択された場合に消去する。
 					continue;
-				board.removeCellFromArea(s, srcArea);
+				board.removeArea(srcArea);
 			}
 		}
 	}
