@@ -178,29 +178,32 @@ public class Panel extends PanelBase {
 	protected void drawNumbers(Graphics2D g) {
 		g.setFont(getNumberFont());
 		for (Address p : board.cellAddrs()) {
+			paintCell1(g, p, board.getNumberOrState(p));
 			int n = board.getNumber(p);
-			paintCell1(g, p, n);
 			if (n > 0) {
-				if (board.isStable(p)) {
-					g.setColor(getNumberColor());
-				} else {
+				g.setColor(getNumberColor());
+				placeNumber(g, p, n);
+			} else if (n == Board.UNDETERMINED) {
+				if (isDotHintMode() && unit >= 3 && unit <=5) {
+					placeHintDot(g, p);
+				}
+				g.setColor(getNumberColor());
+				placeBoldCircle(g, p);
+			} else if (n == Board.BLANK) {
+				int s = board.getState(p);
+				if (s > 0) {
 					g.setColor(getInputColor());
 					if (isIndicateErrorMode()) {
 						if (board.isMultipleNumber(p)) {
 							g.setColor(getErrorColor());
 						}
 					}
+					placeNumber(g, p, s);
+				} else {
+					if (isDotHintMode() && unit >= 3 && unit <=5) {
+						placeHintDot(g, p);
+					}
 				}
-				placeNumber(g, p, n);
-			} else if (n == Board.UNKNOWN) {
-				if (isDotHintMode() && unit >= 3 && unit <=5) {
-					placeHintDot(g, p);
-				}
-			} else if (n == Board.UNDETERMINED) {
-				if (board.isStable(p)) {
-					g.setColor(getNumberColor());
-					placeBoldCircle(g, p);
-				} 
 			}
 		}
 	}

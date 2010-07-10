@@ -37,14 +37,14 @@ public class TxtReader extends TxtReaderBase {
 				while (t.hasMoreTokens()) {
 					str = t.nextToken();
 					if (str.equals(".")) {
-						 board.setState(i,j,Board.UNSTABLE);
-						 board.setNumber(i,j,0);
-					} else if (str.equals("0")) {
-						board.setState(i,j,Board.STABLE);
-						board.setNumber(i,j,Board.UNDETERMINED);
+						 board.setNumber(i, j, Board.BLANK);
 					} else {
-						board.setState(i,j,Board.STABLE);
-						board.setNumber(i,j,Integer.parseInt(str));
+						int n = Integer.parseInt(str);
+						if (n == 0){
+							board.setNumber(i, j, Board.UNDETERMINED);
+						} else {
+							board.setNumber(i, j, n);
+						}
 					}
 					j++;
 				}
@@ -58,9 +58,9 @@ public class TxtReader extends TxtReaderBase {
 				while (t.hasMoreTokens()) {
 					str = t.nextToken();
 					if (str.equals(".")) {
-					} 
+					}
 					else {
-						board.setNumber(i,j,Integer.parseInt(str));
+						board.setState(i,j,Integer.parseInt(str));
 					}
 					j++;
 				}
