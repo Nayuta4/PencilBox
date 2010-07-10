@@ -291,40 +291,30 @@ public class Board extends BoardBase {
 	}
 	/**
 	 * マスを領域に追加する
-	 * @param r 追加するマスの行座標
-	 * @param c 追加するマスの列座標
+	 * @param p 追加するマスの座標
 	 * @param area 追加される領域
 	 */
-	public void addCellToArea(int r, int c, Area area) {
+	public void addCellToArea(Address pos, Area area) {
 		if (area.isEmpty()) {
 			areaList.add(area);
 		}
-		setArea(r, c, area);
-		area.add(r, c);
+		setArea(pos, area);
+		area.add(pos);
 //		initArea(area);
-	}
-
-	public void addCellToArea(Address pos, Area area) {
-		addCellToArea(pos.r(), pos.c(), area);
 	}
 	/**
 	 * マスを領域から取り除く
-	 * @param r 取り除くマスの行座標
-	 * @param c 取り除くマスの列座標
+	 * @param p 取り除くマスの座標
 	 * @param area 取り除かれる領域
 	 */
-	public void removeCellFromArea(int r, int c, Area area) {
-		setArea(r, c, null);
-		area.remove(r, c);
+	public void removeCellFromArea(Address pos, Area area) {
+		setArea(pos, null);
+		area.remove(pos);
 		if (area.isEmpty()) {
 			areaList.remove(area);
 		} else {
 //			initArea(area);
 		}
-	}
-
-	public void removeCellFromArea(Address pos, Area area) {
-		removeCellFromArea(pos.r(), pos.c(), area);
 	}
 	/**
 	 * @return Returns the areaList.
