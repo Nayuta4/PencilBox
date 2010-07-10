@@ -366,10 +366,10 @@ public class Board extends BoardBase {
 		if (multi[r0][c0]>1) {
 			updateMulti1(p0, prev, 0, -1);
 		}
-		if (num>0) {
+		if (num > 0) {
 			multi[r0][c0] = 1;
 			updateMulti1(p0, num, +1, +1);
-		} else if (num==0) {
+		} else if (num <= 0) {
 			multi[r0][c0]=0;
 		}
 	}
@@ -409,7 +409,6 @@ public class Board extends BoardBase {
 			}
 		}
 	}
-
 	/**
 	 * マスの数字が変更されたときに，それに応じて領域内の重複数を表すmulti2配列を更新する
 	 * @param p0 数字の変更されたマスの行座標
@@ -421,25 +420,32 @@ public class Board extends BoardBase {
 		if (multi2[r0][c0]>1) {
 			updateMulti21(p0, prev, 0, -1);
 		}
-		if (num>0) {
+		if (num > 0) {
 			multi2[r0][c0] = 1;
 			updateMulti21(p0, num, +1, +1);
-		} else if (num==0) {
+		} else if (num <= 0) {
 			multi2[r0][c0]=0;
 		}
 	}
-	
+	/**
+	 * p0の数字の変更に応じて重複数を数えるmulti2[][]配列を更新する
+	 * 範囲の数字を見て，num と同じ数字のマスがあったらp0の超複数をm, そのマスの超複数をk変更する。
+	 * @param p0 状態を変更したマスの座標
+	 * @param num 調べる数字
+	 * @param m 自分の重複数更新数
+	 * @param k 相手の重複数更新数
+	 */
 	private void updateMulti21(Address p0, int num, int m, int k) {
 		for (Address p : getArea(p0)) {
 			if (p.equals(p0))
 				continue;
-			if (getNumberOrState(p) == num) {
-				multi2[p.r()][p.c()] += k;
-				multi2[p0.r()][p0.c()] += m;
+			if (getNumberOrState(p) == num) { // 変更後の数字と同じ数字があったら，
+				multi2[p.r()][p.c()] += k; // 変更後の数字と同じ数字があったら，
+				multi2[p0.r()][p0.c()] += m; // 変更されたマスの重複数もm増やす
 			}
 		}
 	}
-	
+
 	public int checkAnswerCode() {
 		int result = 0;
 		for (Address p : cellAddrs()) {
