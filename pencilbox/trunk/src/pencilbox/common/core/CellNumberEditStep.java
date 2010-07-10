@@ -14,12 +14,12 @@ public class CellNumberEditStep extends CellEditStep {
 		super(p, b, a);
 	}
 
-	public boolean addEdit(AbstractStep anEdit) {
-		if (! (anEdit instanceof CellNumberEditStep))
+	public boolean attachEdit(AbstractStep edit) {
+		if (! (edit instanceof CellNumberEditStep))
 			return false;
-		CellNumberEditStep edit = (CellNumberEditStep) anEdit;
-		if (edit.getPos().equals(getPos())) {
-			this.setAfter(edit.getAfter());
+		CellNumberEditStep ed = (CellNumberEditStep) edit;
+		if (ed.getPos().equals(this.getPos())) {
+			this.setAfter(ed.getAfter());
 			return true;
 		} else {
 			return false;
