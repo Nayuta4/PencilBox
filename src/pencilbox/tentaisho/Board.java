@@ -18,11 +18,11 @@ import pencilbox.util.ArrayUtil;
 public class Board extends BoardBase {
 	
 	/** 星がないこと */
-	static final int NOSTAR = 0;
+	public static final int NOSTAR = 0;
 	/** 白い星 */
-	static final int WHITESTAR = 1;
+	public static final int WHITESTAR = 1;
 	/** 黒い星 */
-	static final int BLACKSTAR = 2;
+	public static final int BLACKSTAR = 2;
 
 	private int[][] star;
 	private Area[][] area;
@@ -34,7 +34,6 @@ public class Board extends BoardBase {
 		area = new Area[rows()][cols()];
 		areaList = new LinkedList<Area>();
 	}
-
 
 	public void clearBoard() {
 		super.clearBoard();
@@ -92,9 +91,8 @@ public class Board extends BoardBase {
 		int prev = getStar(p);
 		if (prev == st)
 			return;
-		if (isRecordUndo()) {
+		if (isRecordUndo())
 			fireUndoableEditUpdate(new CellEditStep(p, prev, st));
-		}
 		setStar(p, st);
 		Address p0 = starAddressToSuperAddress(p);
 		if (getArea(p0) != null)
@@ -104,7 +102,6 @@ public class Board extends BoardBase {
 	private Address starAddressToSuperAddress(Address p) {
 		return Address.address(p.r()/2, p.c()/2);
 	}
-
 
 	/**
 	 * 引数の星座標が盤上にあるか
@@ -218,44 +215,42 @@ public class Board extends BoardBase {
 	}
 	/**
 	 * マスを領域に追加する
-	 * @param r 追加するマスの行座標
-	 * @param c 追加するマスの列座標
-	 * @param area 追加される領域
+	 * @param p 追加するマスの座標
+	 * @param a 追加される領域
 	 */
-	public void addCellToArea(Address pos, Area area) {
+	public void addCellToArea(Address p, Area a) {
 		Address p0 = Address.NOWHERE;
-		if (area.size() > 0) {
-			p0 = area.getTopCell(Address.NOWHERE);
+		if (a.size() > 0) {
+			p0 = a.getTopCell(Address.NOWHERE);
 		}
 		if (isRecordUndo())
-			fireUndoableEditUpdate(new AreaEditStep(pos, p0, AreaEditStep.ADDED));
-		if (area.isEmpty()) {
-			areaList.add(area);
+			fireUndoableEditUpdate(new AreaEditStep(p, p0, AreaEditStep.ADDED));
+		if (a.isEmpty()) {
+			areaList.add(a);
 		}
-		setArea(pos, area);
-		area.add(pos);
-		initArea(area);
+		setArea(p, a);
+		a.add(p);
+		initArea(a);
 	}
 
 	/**
 	 * マスを領域から取り除く
-	 * @param r 取り除くマスの行座標
-	 * @param c 取り除くマスの列座標
-	 * @param area 取り除かれる領域
+	 * @param p 取り除くマスの座標
+	 * @param a 取り除かれる領域
 	 */
-	public void removeCellFromArea(Address pos, Area area) {
+	public void removeCellFromArea(Address p, Area a) {
 		Address p0 = Address.NOWHERE;
-		if (area.size() > 1) {
-			p0 = area.getTopCell(pos);
+		if (a.size() > 1) {
+			p0 = a.getTopCell(p);
 		}
 		if (isRecordUndo())
-			fireUndoableEditUpdate(new AreaEditStep(pos, p0, AreaEditStep.REMOVED));
-		setArea(pos, null);
-		area.remove(pos);
-		if (area.isEmpty()) {
-			areaList.remove(area);
+			fireUndoableEditUpdate(new AreaEditStep(p, p0, AreaEditStep.REMOVED));
+		setArea(p, null);
+		a.remove(p);
+		if (a.isEmpty()) {
+			areaList.remove(a);
 		} else {
-			initArea(area);
+			initArea(a);
 		}
 	}
 
