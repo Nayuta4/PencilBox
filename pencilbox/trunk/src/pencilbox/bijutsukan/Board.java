@@ -136,15 +136,6 @@ public class Board extends BoardBase {
 		return isFloor(p.r(), p.c());
 	}
 	/**
-	 * そのマスの照明配置が未定かどうか
-	 * @param r 行座標
-	 * @param c 列座標
-	 * @return 未定なら true
-	 */
-	public boolean isUnknown(int r, int c) {
-		return state[r][c] == UNKNOWN;
-	}
-	/**
 	 * そのマスが横方向から照らされているか
 	 * @param r 行座標
 	 * @param c 列座標
@@ -258,7 +249,7 @@ public class Board extends BoardBase {
 		changeState(s.getPos(), s.getAfter());
 	}
 
-	 /**
+	/**
 	 * 隣接する４マスの照明個数を調べる
 	 * @param r 行座標
 	 * @param c 列座標
