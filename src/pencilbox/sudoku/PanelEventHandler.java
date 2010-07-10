@@ -4,7 +4,6 @@ import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.gui.PanelEventHandlerBase;
 
-
 /**
  * 「数独」マウス／キー操作処理クラス
  */
@@ -42,7 +41,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		}
 		setSelectedNumber(board.getNumberOrState(pos));
 	}
-	
+
 	protected void rightPressed(Address pos) {
 		if (!isCursorOn() || getCellCursor().isAt(pos)) {
 			if (!board.isStable(pos)) {
@@ -78,15 +77,15 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			}
 		}
 	}
-	
+
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.changeFixedNumber(pos, Board.UNKNOWN);
+			board.changeFixedNumber(pos, Board.BLANK);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
 				if (!posS.equals(pos))
 					if (board.isStable(posS)) {
-						board.changeFixedNumber(posS, Board.UNKNOWN);
+						board.changeFixedNumber(posS, Board.BLANK);
 					}
 			}
 		} else if (isCursorOn()){
@@ -95,7 +94,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			}
 		}
 	}
-	
+
 	protected void minusEntered(Address pos) {
 		if (isProblemEditMode()) {
 			board.changeFixedNumber(pos, Board.UNDETERMINED);
@@ -106,6 +105,6 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 						board.changeFixedNumber(posS, Board.UNDETERMINED);
 					}
 			}
-		} 
+		}
 	}
 }
