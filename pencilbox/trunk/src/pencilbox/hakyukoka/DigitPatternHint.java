@@ -40,7 +40,7 @@ public class DigitPatternHint {
 				pattern[p.r()][p.c()] = getAllDigitPattern(maxNumber);
 		}
 		for (Address p : board.cellAddrs()) {
-			int n = board.getNumber(p);
+			int n = board.getNumberOrState(p);
 			if (n > 0)
 				checkUsedNumber(p, n);
 		}

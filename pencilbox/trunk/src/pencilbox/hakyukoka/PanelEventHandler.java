@@ -4,7 +4,6 @@ import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.gui.PanelEventHandlerBase;
 
-
 /**
  * 「波及効果」マウス／キー操作処理クラス
  */
@@ -67,14 +66,14 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		} else {
 			if (!isCursorOn() || getCellCursor().isAt(pos)) {
 				if (!board.isStable(pos)) {
-					int n = board.getNumber(pos);
+					int n = board.getNumberOrState(pos);
 					if (n >= getMaxInputNumber()) 
-						board.changeNumber(pos, 0);
+						board.changeAnswerNumber(pos, 0);
 					else if (n >= 0)
-						board.changeNumber(pos, n + 1);
+						board.changeAnswerNumber(pos, n + 1);
 				}
 			}
-			setSelectedNumber(board.getNumber(pos));
+			setSelectedNumber(board.getNumberOrState(pos));
 		}
 	}
 
@@ -104,12 +103,12 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		} else {
 			if (!isCursorOn() || getCellCursor().isAt(pos)) {
 				if (!board.isStable(pos)) {
-					int n = board.getNumber(pos);
+					int n = board.getNumberOrState(pos);
 					if (n > 0) 
-						board.changeNumber(pos, n - 1);
+						board.changeAnswerNumber(pos, n - 1);
 				}
 			}
-			setSelectedNumber(board.getNumber(pos));
+			setSelectedNumber(board.getNumberOrState(pos));
 		}
 	}
 
@@ -138,7 +137,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		} else if (isCursorOn()){
 			if (num >= 0) {
 				if (!board.isStable(pos)) {
-					board.changeNumber(pos, num);
+					board.changeAnswerNumber(pos, num);
 				}
 			}
 		}
@@ -146,16 +145,16 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.changeFixedNumber(pos, Board.UNKNOWN);
+			board.changeFixedNumber(pos, Board.BLANK);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
 				if (board.isStable(posS)) {
-					board.changeFixedNumber(posS, Board.UNKNOWN);
+					board.changeFixedNumber(posS, Board.BLANK);
 				}
 			}
 		} else if (isCursorOn()){
 			if (!board.isStable(pos)) {
-				board.changeNumber(pos, 0);
+				board.changeAnswerNumber(pos, 0);
 			}
 		}
 	}
