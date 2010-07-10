@@ -61,11 +61,11 @@ public class UndoManager {
 	 * Adds an <code>AbstractStep</code> to this <code>UndoManager</code>, if it's possible. 
 	 * This removes all edits from the index of the next edit to
 	 * the end of the edits list. 
-	 * @param anEdit the edit to be added
+	 * @param edit the edit to be added
 	 * @return true
 	 */
-	public synchronized boolean addEdit(AbstractStep anEdit) {
-		System.out.println("add edit " + anEdit);
+	public synchronized boolean addEdit(AbstractStep edit) {
+		System.out.println("add edit " + edit);
 		// 現在位置より後ろを削除
         trimEdits(indexOfNextAdd, edits.size()-1);
 		AbstractStep last = lastEdit();
@@ -73,9 +73,9 @@ public class UndoManager {
 		// そうでなければ，新しい操作を最後の操作と合成できるかを調べ，
 		// 合成できなければ，新しい操作を追加する。
 		if (last == null) {
-			edits.addElement(anEdit);
-		} else if (!last.addEdit(anEdit)) {
-			edits.addElement(anEdit);
+			edits.addElement(edit);
+		} else if (!last.attachEdit(edit)) {
+			edits.addElement(edit);
 		} else {
 		}
 		// 現在位置を更新

@@ -28,7 +28,7 @@ public class AbstractStep {
 	 * @param edit V‚µ‚¢‘€ì
 	 * @return ‘€ì‚ğ‡¬‚·‚é‚È‚ç true, ‚»‚¤‚Å‚È‚¯‚ê‚Î false
 	 */
-	public boolean addEdit(AbstractStep edit) {
+	public boolean attachEdit(AbstractStep edit) {
 		return false;
 	}
 
