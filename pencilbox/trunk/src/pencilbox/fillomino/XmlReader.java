@@ -15,10 +15,13 @@ public class XmlReader extends XmlReaderBase {
 		return board;
 	}
 	protected void setBN(int r, int c, int n) {
-		board.setFixedNumber(r, c, n);
+		if (n > 0)
+			board.setNumber(r, c, n);
+		else if (n == 0)
+			board.setNumber(r, c, Board.UNDETERMINED);
 	}
 	protected void setAN(int r, int c, int n) {
 		if (n != 0)
-			board.setNumber(r, c, n);
+			board.setState(r, c, n);
 	}
 }

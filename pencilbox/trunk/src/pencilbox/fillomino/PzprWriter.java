@@ -21,13 +21,12 @@ public class PzprWriter extends PzprWriterBase {
 	}
 
 	protected int QnC(int i) {
-		if (bd.isStable(i2a(i))) {
-			int n = bd.getNumber(i2a(i));
-			if (n > 0)
-				return n;
-			else if (n == 0)
-				return -2;
-		}
-		return -1;
+		int n = bd.getNumber(i2a(i));
+		if (n > 0)
+			return n;
+		else if (n == Board.UNDETERMINED)
+			return -2;
+		else
+			return -1;
 	}
 }
