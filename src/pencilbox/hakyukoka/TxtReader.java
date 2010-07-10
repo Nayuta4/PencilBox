@@ -81,8 +81,7 @@ public class TxtReader extends TxtReaderBase {
 			while (t.hasMoreTokens()) {
 				str = t.nextToken();
 				if (str.equals(".")) {
-				} 
-				else {
+				} else {
 					board.setState(i,j,Integer.parseInt(str));
 				}
 				j++;

@@ -44,6 +44,6 @@ public class XmlReader extends XmlReaderBase {
 	}
 	protected void setAN(int r, int c, int n) {
 		if (n != 0)
-			board.setNumber(r, c, n);
+			board.setState(r, c, n);
 	}
 }
