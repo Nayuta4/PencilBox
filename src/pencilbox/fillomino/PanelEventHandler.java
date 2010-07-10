@@ -52,7 +52,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	protected void leftReleased(Address pos) {
 		if (currentState == 1 && isOn(pos)) {
 			if (!board.isStable(pos)) {
-				int n = board.getNumberOrState(pos);
+				int n = board.getState(pos);
 				board.changeAnswerNumber(pos, n + 1);
 			}
 		}

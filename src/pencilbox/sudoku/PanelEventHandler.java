@@ -32,7 +32,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	protected void leftPressed(Address pos) {
 		if (!isCursorOn() || getCellCursor().isAt(pos)) {
 			if (!board.isStable(pos)) {
-				int n = board.getNumber(pos);
+				int n = board.getState(pos);
 				if (n >= getMaxInputNumber())
 					board.changeAnswerNumber(pos, 0);
 				else if (n >= 0)
@@ -45,7 +45,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	protected void rightPressed(Address pos) {
 		if (!isCursorOn() || getCellCursor().isAt(pos)) {
 			if (!board.isStable(pos)) {
-				int n = board.getNumber(pos);
+				int n = board.getState(pos);
 				if (n == 0)
 					board.changeAnswerNumber(pos, getMaxInputNumber());
 				else if (n > 0)

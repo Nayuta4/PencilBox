@@ -18,7 +18,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	protected void setBoard(BoardBase aBoard) {
-		board = (Board) aBoard; 
+		board = (Board) aBoard;
 		setMaxInputNumber(9);   // Žb’è“I
 	}
 	
@@ -66,7 +66,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		} else {
 			if (!isCursorOn() || getCellCursor().isAt(pos)) {
 				if (!board.isStable(pos)) {
-					int n = board.getNumberOrState(pos);
+					int n = board.getState(pos);
 					if (n >= getMaxInputNumber()) 
 						board.changeAnswerNumber(pos, 0);
 					else if (n >= 0)
@@ -103,7 +103,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		} else {
 			if (!isCursorOn() || getCellCursor().isAt(pos)) {
 				if (!board.isStable(pos)) {
-					int n = board.getNumberOrState(pos);
+					int n = board.getState(pos);
 					if (n > 0) 
 						board.changeAnswerNumber(pos, n - 1);
 				}
@@ -154,7 +154,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			}
 		} else if (isCursorOn()){
 			if (!board.isStable(pos)) {
-				board.changeAnswerNumber(pos, 0);
+				board.changeAnswerNumber(pos, Board.UNKNOWN);
 			}
 		}
 	}
