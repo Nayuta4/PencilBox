@@ -164,12 +164,12 @@ public class Panel extends PanelBase {
 	private void drawBeams(Graphics2D g) {
 		if (isHighlightSelectionMode()) {
 			for (Address p : board.cellAddrs()) {
-				int n = board.getNumber(p);
+				int n = board.getNumberOrState(p);
 				if (n > 0 && n == getSelectedNumber()) {
 					for (int d = 0; d < 4; d++) {
 						Address p1 = p;
 						for (int k = 0; k < n; k++) {
-							p1 = p1.nextCell(d);
+							p1 = Address.nextCell(p1, d);
 							if (board.isOn(p1)) {
 								g.setColor(beamColor);
 								placeCenterLine(g, p1, d&1);
@@ -200,7 +200,7 @@ public class Panel extends PanelBase {
 //				}
 //			}
 			if (isHighlightSelectionMode()) {
-				if (getSelectedNumber() > 0 && board.getNumber(p) == getSelectedNumber()) {
+				if (getSelectedNumber() > 0 && board.getNumberOrState(p) == getSelectedNumber()) {
 					g.setColor(highlightColor);
 					paintCell(g, p);
 				}
@@ -212,24 +212,27 @@ public class Panel extends PanelBase {
 		g.setFont(getNumberFont());
 		for (Address p : board.cellAddrs()) {
 			int n = board.getNumber(p);
+			int s = board.getState(p);
 			if (n > 0) {
-				if (board.isStable(p)) {
-					g.setColor(getNumberColor());
-				} else {
-					g.setColor(getInputColor());
-					if (isIndicateErrorMode()) {
-						if (board.isError(Address.address(p)))
-							g.setColor(getErrorColor());
-					}
-				}
+				g.setColor(getNumberColor());
 				placeNumber(g, p, n);
-			} else if (n == Board.UNKNOWN) {
+			} else if (n == Board.UNDETERMINED) {
 				if (isDotHintMode()) {
 					placeHintDot(g, p);
 				}
-				if (board.isStable(p)) {
-					g.setColor(getNumberColor());
-					placeBoldCircle(g, p);
+				g.setColor(getNumberColor());
+				placeBoldCircle(g, p);
+			} else if (s > 0) {
+				g.setColor(getInputColor());
+				if (isIndicateErrorMode()) {
+					if (board.isError(p)) {
+						g.setColor(getErrorColor());
+					}
+				}
+				placeNumber(g, p, s);
+			} else {
+				if (isDotHintMode()) {
+					placeHintDot(g, p);
 				}
 			}
 		}

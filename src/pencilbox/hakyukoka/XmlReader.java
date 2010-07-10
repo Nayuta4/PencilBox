@@ -32,8 +32,11 @@ public class XmlReader extends XmlReaderBase {
 		int r = Integer.parseInt(attributes.getValue("r"))-1;
 		int c = Integer.parseInt(attributes.getValue("c"))-1;
 		int n = Integer.parseInt(attributes.getValue("n"));
-		board.setState(r,c,Board.STABLE);
-		board.setNumber(r,c,n);
+		if (n == 0) {
+			board.setNumber(r,c,Board.UNDETERMINED);
+		} else {
+			board.setNumber(r,c,n);
+		}
 	}
 	protected void onBoardEnd() {
 		super.onBoardEnd();

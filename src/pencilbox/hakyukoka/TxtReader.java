@@ -30,7 +30,7 @@ public class TxtReader extends TxtReaderBase {
 		Board board = new Board();
 		board.setSize(new Size(row, col));
 		line = reader.readLine();
-		int nArea = Integer.parseInt(line); 
+		int nArea = Integer.parseInt(line);
 		Area[] areaArray = new Area[nArea];
 		for (int k=0; k<nArea; k++) {
 			areaArray[k] = new Area();
@@ -60,12 +60,14 @@ public class TxtReader extends TxtReaderBase {
 			while (t.hasMoreTokens()) {
 				str = t.nextToken();
 				if (str.equals(".")) {
-					 board.setState(i,j,Board.UNSTABLE);
-					 board.setNumber(i,j,0);
-				} 
-				else {
-					board.setState(i,j,Board.STABLE);
-					board.setNumber(i,j,Integer.parseInt(str));
+					 board.setNumber(i, j, Board.BLANK);
+				} else {
+					int n = Integer.parseInt(str);
+					if (n == 0){
+						board.setNumber(i, j, Board.UNDETERMINED);
+					} else {
+						board.setNumber(i, j, n);
+					}
 				}
 				j++;
 			}
@@ -81,7 +83,7 @@ public class TxtReader extends TxtReaderBase {
 				if (str.equals(".")) {
 				} 
 				else {
-					board.setNumber(i,j,Integer.parseInt(str));
+					board.setState(i,j,Integer.parseInt(str));
 				}
 				j++;
 			}
