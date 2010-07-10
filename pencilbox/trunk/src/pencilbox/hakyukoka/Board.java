@@ -84,7 +84,7 @@ public class Board extends BoardBase {
 	public void setState(int r, int c, int st) {
 		state[r][c] = st;
 	}
-	
+
 	public void setState(Address pos, int st) {
 		setState(pos.r(), pos.c(), st);
 	}
@@ -97,6 +97,7 @@ public class Board extends BoardBase {
 	public int getNumber(int r, int c) {
 		return number[r][c];
 	}
+
 	public int getNumber(Address pos) {
 		return getNumber(pos.r(), pos.c());
 	}
@@ -205,7 +206,7 @@ public class Board extends BoardBase {
 	 */
 	public void changeAnswerNumber(Address p, int n) {
 		int prev = getState(p);
-		if (n == prev) 
+		if (n == prev)
 			return;
 		if (isStable(p)) {
 			changeFixedNumber(p, Board.BLANK);
@@ -348,23 +349,10 @@ public class Board extends BoardBase {
 	 */
 	void initMulti() {
 		for (Address p : cellAddrs()) {
-			if(getNumber(p)>0)
-				initMulti1(p,getNumber(p));
-		}
-	}
-
-	private void initMulti1(Address p0, int num) {
-		int r0=p0.r(), c0=p0.c();
-		multi[r0][c0] = 1;
-		for (int d=0; d<4; d++) {
-			Address p = p0;
-			for (int k=1; k<=num; k++) {
-				p = Address.nextCell(p, d);
-				if (!isOn(p))
-					break;
-				if (getNumber(p) == num) {
-					multi[r0][c0]++;
-				}
+			int n = getNumberOrState(p);
+			if(n > 0) {
+				multi[p.r()][p.c()] = 1;
+				updateMulti1(p, n, +1, 0);
 			}
 		}
 	}
@@ -375,87 +363,77 @@ public class Board extends BoardBase {
 	 * @param num 変更後の数字
 	 */
 	void updateMulti(Address p0, int num) {
-		int r0 = p0.r();
-		int c0 = p0.c();
+		int r0 = p0.r(), c0 = p0.c();
 		int prev = getNumberOrState(p0);
 		if (multi[r0][c0]>1) {
-			for (int d=0; d<4; d++) {
-				Address p = p0;
-				for (int k=1; k<=prev; k++) {
-					p = Address.nextCell(p, d);
-					if (!isOn(p))
-						break;
-					if (getNumber(p) == prev) {
-						multi[p.r()][p.c()]--;
-					}
-				}
-			}
+			updateMulti1(p0, prev, 0, -1);
 		}
-		if (num==0)
-			multi[r0][c0]=0;
-		else if (num>0) {
+		if (num>0) {
 			multi[r0][c0] = 1;
-			for (int d=0; d<4; d++) {
-				Address p = p0;
-				for (int k=1; k<=num; k++) {
-					p = Address.nextCell(p, d);
-					if (!isOn(p))
-						break;
-					if (getNumber(p) == num) {
-						multi[p.r()][p.c()]++;
-						multi[p0.r()][p0.c()]++;
-					}
+			updateMulti1(p0, num, +1, +1);
+		} else if (num==0) {
+			multi[r0][c0]=0;
+		}
+	}
+	/**
+	 * p0の数字の変更に応じて重複数を数えるmulti[][]配列を更新する
+	 * 範囲の数字を見て，num と同じ数字のマスがあったらp0の超複数をm, そのマスの超複数をk変更する。
+	 * @param p0 状態を変更したマスの座標
+	 * @param num 調べる数字
+	 * @param m 自分の重複数更新数
+	 * @param k 相手の重複数更新数
+	 */
+	private void updateMulti1(Address p0, int num, int m, int k) {
+		for (int d=0; d<4; d++) {
+			Address p = p0;
+			for (int l=1; l<=num; l++) {
+				p = Address.nextCell(p, d);
+				if (!isOn(p))
+					break;
+				if (getNumberOrState(p) == num) {
+					multi[p.r()][p.c()] += k;
+					multi[p0.r()][p0.c()] += m;
 				}
 			}
-		}
-//			printMulti();
-	}
-	void initMulti2() {
-		for (Address p : cellAddrs()) {
-			if(getNumber(p)>0 && getArea(p)!=null)
-				initMulti21(p,getNumberOrState(p));
 		}
 	}
 
-	private void initMulti21(Address p0, int num) {
-		multi2[p0.r()][p0.r()] = 1;
-		for (Address p : getArea(p0)) {
-			if (p.equals(p0))
-				continue;
-			if (getNumber(p) == num) {
-				multi2[p0.r()][p0.r()]++;
+	void initMulti2() {
+		for (Address p : cellAddrs()) {
+			int n = getNumberOrState(p);
+			if (n>0 && getArea(p)!=null) {
+				multi2[p.r()][p.r()] = 1;
+				updateMulti21(p, n, +1, 0);
 			}
 		}
 	}
+
 	/**
 	 * マスの数字が変更されたときに，それに応じて領域内の重複数を表すmulti2配列を更新する
 	 * @param p0 数字の変更されたマスの行座標
 	 * @param num 変更後の数字
 	 */
 	void updateMulti2(Address p0, int num) {
-		int r0=p0.r();
-		int c0=p0.c();
+		int r0=p0.r(), c0=p0.c();
 		int prevNum = getNumber(p0);
 		if (multi2[r0][c0]>1) {
-			for (Address p : getArea(p0)) {
-				if (p.equals(p0))
-					continue;
-				if (getNumber(p) == prevNum) {
-					multi2[p.r()][p.c()]--;
-				}
-			}
+			updateMulti21(p0, prevNum, 0, -1);
 		}
-		if (num==0)
-			multi2[r0][c0]=0;
-		else if (num>0) {
+		if (num>0) {
 			multi2[r0][c0] = 1;
-			for (Address p : getArea(p0)) {
-				if (p.equals(p0))
-					continue;
-				if (getNumber(p) == num) {
-					multi2[p.r()][p.c()]++;
-					multi2[r0][c0]++;
-				}
+			updateMulti21(p0, num, +1, +1);
+		} else if (num==0) {
+			multi2[r0][c0]=0;
+		}
+	}
+	
+	private void updateMulti21(Address p0, int num, int m, int k) {
+		for (Address p : getArea(p0)) {
+			if (p.equals(p0))
+				continue;
+			if (getNumberOrState(p) == num) {
+				multi2[p.r()][p.c()] += k;
+				multi2[p0.r()][p0.c()] += m;
 			}
 		}
 	}
