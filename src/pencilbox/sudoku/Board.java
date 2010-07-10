@@ -95,7 +95,7 @@ public class Board extends BoardBase {
 	public int getState(int r, int c) {
 		return state[r][c];
 	}
-	
+
 	public int getState(Address pos) {
 		return getState(pos.r(), pos.c());
 	}
@@ -197,7 +197,7 @@ public class Board extends BoardBase {
 		if (n == prev)
 			return;
 		if (getState(p) > 0) {
-			changeAnswerNumber(p, 0);
+			changeAnswerNumber(p, Board.UNKNOWN);
 		}
 		if (isRecordUndo())
 			fireUndoableEditUpdate(new CellEditStep(EditType.FIXED, p, prev, n));
@@ -226,7 +226,7 @@ public class Board extends BoardBase {
 			CellEditStep s = (CellEditStep) step;
 			if (s.getType() == EditType.NUMBER) {
 				changeAnswerNumber(s.getPos(), s.getAfter());
-			} else {
+			} else if (s.getType() == EditType.FIXED) {
 				changeFixedNumber(s.getPos(), s.getAfter());
 			}
 		}
@@ -240,15 +240,16 @@ public class Board extends BoardBase {
 	public boolean isMultipleNumber(Address p) {
 		return multi[p.r()][p.c()]>1;
 	}
-	
+
 	/**
 	 * 現在の盤面状態から，multi[][] 配列を初期化する
 	 */
 	void initMulti() {
 		for (Address p : cellAddrs()) {
-			if(getNumberOrState(p)>0) {
+			int n = getNumberOrState(p);
+			if(n>0) {
 				multi[p.r()][p.c()] = 1;
-				updateMulti1(p, getNumberOrState(p), +1, 0);
+				updateMulti1(p, n, +1, 0);
 			}
 		}
 	}
@@ -261,11 +262,11 @@ public class Board extends BoardBase {
 	 */
 	void updateMulti(Address p0, int prev, int n) {
 		int r0=p0.r(), c0=p0.c();
-		// prevNumと同じ数字を探して重複数を-1する
+		// prevと同じ数字を探して重複数を-1する
 		if (multi[r0][c0]>1) {
 			updateMulti1(p0, prev, 0, -1);
 		}
-		// numと同じ数字を探して重複数を+1する，マス自身の重複数も+1する
+		// nと同じ数字を探して重複数を+1する，マス自身の重複数も+1する
 		if (n>0) {
 			multi[r0][c0] = 1;
 			updateMulti1(p0, n, +1, +1);
@@ -276,6 +277,7 @@ public class Board extends BoardBase {
 
 	/**
 	 * p0の数字の変更に応じて重複数を数えるmulti[][]配列を更新する
+	 * 範囲の数字を見て，num と同じ数字のマスがあったらp0の超複数をm, そのマスの超複数をk変更する。
 	 * @param p0 状態を変更したマスの座標
 	 * @param num 調べる数字
 	 * @param m 自分の重複数更新数
