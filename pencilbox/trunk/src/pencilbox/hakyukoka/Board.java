@@ -355,26 +355,24 @@ public class Board extends BoardBase {
 	 * multi[][] èâä˙âª
 	 */
 	void initMulti() {
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				if(getNumber(r,c)>0)
-					initMulti1(r,c,getNumber(r,c));
-			}
+		for (Address p : cellAddrs()) {
+			if(getNumber(p)>0)
+				initMulti1(p,getNumber(p));
 		}
 	}
 
-	private void initMulti1(int r0, int c0, int num) {
+	private void initMulti1(Address p0, int num) {
+		int r0=p0.r(), c0=p0.c();
 		multi[r0][c0] = 1;
-		for (int c = c0-num; c <= c0+num; c++) {
-			if (c==c0 || !isOn(r0,c)) continue;
-			if (getNumber(r0,c) == num) {
-				multi[r0][c0]++;
-			}
-		}
-		for (int r = r0-num; r <= r0+num; r++) {
-			if (r==r0 || !isOn(r,c0)) continue;
-			if (getNumber(r,c0) == num) {
-				multi[r0][c0]++;
+		for (int d=0; d<4; d++) {
+			Address p = p0;
+			for (int k=1; k<=num; k++) {
+				p = Address.nextCell(p, d);
+				if (!isOn(p))
+					break;
+				if (getNumber(p) == num) {
+					multi[r0][c0]++;
+				}
 			}
 		}
 	}
@@ -387,20 +385,17 @@ public class Board extends BoardBase {
 	void updateMulti(Address p0, int num) {
 		int r0 = p0.r();
 		int c0 = p0.c();
-		int prevNum = getNumber(r0, c0);
+		int prev = getNumberOrState(p0);
 		if (multi[r0][c0]>1) {
-			for (int c = c0-prevNum; c <= c0+prevNum; c++) {
-				if (c==c0 || !isOn(r0,c))
-					continue;
-				if (getNumber(r0,c) == prevNum) {
-					multi[r0][c]--;
-				}
-			}
-			for (int r = r0-prevNum; r <= r0+prevNum; r++) {
-				if (r==r0 || !isOn(r,c0))
-					continue;
-				if (getNumber(r,c0) == prevNum) {
-					multi[r][c0]--;
+			for (int d=0; d<4; d++) {
+				Address p = p0;
+				for (int k=1; k<=prev; k++) {
+					p = Address.nextCell(p, d);
+					if (!isOn(p))
+						break;
+					if (getNumber(p) == prev) {
+						multi[p.r()][p.c()]--;
+					}
 				}
 			}
 		}
@@ -408,41 +403,35 @@ public class Board extends BoardBase {
 			multi[r0][c0]=0;
 		else if (num>0) {
 			multi[r0][c0] = 1;
-			for (int c = c0-num; c <= c0+num; c++) {
-				if (c==c0 || !isOn(r0,c))
-					continue;
-				if (getNumber(r0,c) == num) {
-					multi[r0][c]++;
-					multi[r0][c0]++;
-				}
-			}
-			for (int r = r0-num; r <= r0+num; r++) {
-				if (r==r0 || !isOn(r,c0))
-					continue;
-				if (getNumber(r,c0) == num) {
-					multi[r][c0]++;
-					multi[r0][c0]++;
+			for (int d=0; d<4; d++) {
+				Address p = p0;
+				for (int k=1; k<=num; k++) {
+					p = Address.nextCell(p, d);
+					if (!isOn(p))
+						break;
+					if (getNumber(p) == num) {
+						multi[p.r()][p.c()]++;
+						multi[p0.r()][p0.c()]++;
+					}
 				}
 			}
 		}
 //			printMulti();
 	}
 	void initMulti2() {
-		for (int r = rows() - 1; r >= 0; r--) {
-			for (int c = cols() - 1; c >= 0; c--) {
-				if(getNumber(r,c)>0 && getArea(r,c)!=null)
-					initMulti21(r,c,getNumber(r,c));
-			}
+		for (Address p : cellAddrs()) {
+			if(getNumber(p)>0 && getArea(p)!=null)
+				initMulti21(p,getNumberOrState(p));
 		}
 	}
 
-	private void initMulti21(int r0, int c0, int num) {
-		multi2[r0][c0] = 1;
-		for (Address pos : getArea(r0,c0)) {
-			if (pos.equals(r0,c0))
+	private void initMulti21(Address p0, int num) {
+		multi2[p0.r()][p0.r()] = 1;
+		for (Address p : getArea(p0)) {
+			if (p.equals(p0))
 				continue;
-			if (getNumber(pos.r(),pos.c()) == num) {
-				multi2[r0][c0]++;
+			if (getNumber(p) == num) {
+				multi2[p0.r()][p0.r()]++;
 			}
 		}
 	}
@@ -454,13 +443,13 @@ public class Board extends BoardBase {
 	void updateMulti2(Address p0, int num) {
 		int r0=p0.r();
 		int c0=p0.c();
-		int prevNum = getNumber(r0, c0);
+		int prevNum = getNumber(p0);
 		if (multi2[r0][c0]>1) {
-			for (Address pos : getArea(r0,c0)) {
-				if (pos.equals(r0,c0))
+			for (Address p : getArea(p0)) {
+				if (p.equals(p0))
 					continue;
-				if (getNumber(pos.r(),pos.c()) == prevNum) {
-					multi2[pos.r()][pos.c()]--;
+				if (getNumber(p) == prevNum) {
+					multi2[p.r()][p.c()]--;
 				}
 			}
 		}
@@ -468,11 +457,11 @@ public class Board extends BoardBase {
 			multi2[r0][c0]=0;
 		else if (num>0) {
 			multi2[r0][c0] = 1;
-			for (Address pos : getArea(r0,c0)) {
-				if (pos.equals(r0,c0))
+			for (Address p : getArea(p0)) {
+				if (p.equals(p0))
 					continue;
-				if (getNumber(pos.r(),pos.c()) == num) {
-					multi2[pos.r()][pos.c()]++;
+				if (getNumber(p) == num) {
+					multi2[p.r()][p.c()]++;
 					multi2[r0][c0]++;
 				}
 			}

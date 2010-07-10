@@ -237,7 +237,7 @@ public class Panel extends PanelBase {
 			}
 		}
 	}
-	
+
 	private void drawAreaBorders(Graphics2D g) {
 		g.setColor(getAreaBorderColor());
 		for (Address p : board.cellAddrs()) {
