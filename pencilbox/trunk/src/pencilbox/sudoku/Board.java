@@ -232,8 +232,7 @@ public class Board extends BoardBase {
 
 	/**
 	 * マスと同じ行，列，ボックスに，そのマスの数字と重複する数字があるかどうかを調べる
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param p 座標
 	 * @return　重複数字があれば true
 	 */
 	public boolean isMultipleNumber(Address p) {
