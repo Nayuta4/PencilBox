@@ -250,20 +250,20 @@ public class Board extends BoardBase {
 	public void undo(AbstractStep step) {
 		if (step instanceof CellNumberEditStep) {
 			CellNumberEditStep s = (CellNumberEditStep) step;
-			changeFixedNumber(s.getPos(), s.getBefore());
+			changeAnswerNumber(s.getPos(), s.getBefore());
 		} else if (step instanceof CellEditStep) {
 			CellEditStep s = (CellEditStep) step;
-			changeAnswerNumber(s.getPos(), s.getBefore());
+			changeFixedNumber(s.getPos(), s.getBefore());
 		}
 	}
 
 	public void redo(AbstractStep step) {
 		if (step instanceof CellNumberEditStep) {
 			CellNumberEditStep s = (CellNumberEditStep) step;
-			changeFixedNumber(s.getPos(), s.getAfter());
+			changeAnswerNumber(s.getPos(), s.getAfter());
 		} else if (step instanceof CellEditStep) {
 			CellEditStep s = (CellEditStep) step;
-			changeAnswerNumber(s.getPos(), s.getAfter());
+			changeFixedNumber(s.getPos(), s.getAfter());
 		}
 	}
 
