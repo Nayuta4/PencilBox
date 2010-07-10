@@ -7,7 +7,7 @@ import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.CellEditStep;
-import pencilbox.common.core.CellNumberEditStep;
+import pencilbox.common.core.AbstractStep.EditType;
 import pencilbox.resource.Messages;
 import pencilbox.util.ArrayUtil;
 
@@ -66,7 +66,7 @@ public class Board extends BoardBase {
 	 * @return 問題数字のマスなら true, 解答すべきマスなら false
 	 */
 	public boolean isStable(int r, int c) {
-		return number[r][c] != 0;
+		return number[r][c] != Board.BLANK;
 	}
 	
 	public boolean isStable(Address p) {
@@ -198,11 +198,11 @@ public class Board extends BoardBase {
 		int prev = getState(p);
 		if (n == prev) 
 			return;
-		if (getNumber(p) != 0) {
+		if (isStable(p)) {
 			changeFixedNumber(p, 0);
 		}
 		if (isRecordUndo())
-			fireUndoableEditUpdate(new CellNumberEditStep(p, prev, n));
+			fireUndoableEditUpdate(new CellEditStep(EditType.NUMBER, p, prev, n));
 		setState(p, n);
 		changeNumber1(p, prev, n);
 	}
@@ -220,7 +220,7 @@ public class Board extends BoardBase {
 			changeAnswerNumber(p, 0);
 		}
 		if (isRecordUndo())
-			fireUndoableEditUpdate(new CellEditStep(p, prev, n));
+			fireUndoableEditUpdate(new CellEditStep(EditType.FIXED, p, prev, n));
 		setNumber(p, n);
 		changeNumber1(p, prev, n);
 	}
@@ -235,22 +235,24 @@ public class Board extends BoardBase {
 	}
 
 	public void undo(AbstractStep step) {
-		if (step instanceof CellNumberEditStep) {
-			CellNumberEditStep s = (CellNumberEditStep) step;
-			changeAnswerNumber(s.getPos(), s.getBefore());
-		} else if (step instanceof CellEditStep) {
+		if (step instanceof CellEditStep) {
 			CellEditStep s = (CellEditStep) step;
-			changeFixedNumber(s.getPos(), s.getBefore());
+			if (s.getType() == EditType.NUMBER) {
+				changeAnswerNumber(s.getPos(), s.getBefore());
+			} else if (s.getType() == EditType.FIXED) {
+				changeFixedNumber(s.getPos(), s.getBefore());
+			}
 		}
 	}
 
 	public void redo(AbstractStep step) {
-		if (step instanceof CellNumberEditStep) {
-			CellNumberEditStep s = (CellNumberEditStep) step;
-			changeAnswerNumber(s.getPos(), s.getAfter());
-		} else if (step instanceof CellEditStep) {
+		if (step instanceof CellEditStep) {
 			CellEditStep s = (CellEditStep) step;
-			changeFixedNumber(s.getPos(), s.getAfter());
+			if (s.getType() == EditType.NUMBER) {
+				changeAnswerNumber(s.getPos(), s.getAfter());
+			} else if (s.getType() == EditType.FIXED) {
+				changeFixedNumber(s.getPos(), s.getAfter());
+			}
 		}
 	}
 

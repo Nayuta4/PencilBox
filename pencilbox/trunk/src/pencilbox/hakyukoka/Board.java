@@ -7,7 +7,7 @@ import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.CellEditStep;
-import pencilbox.common.core.CellNumberEditStep;
+import pencilbox.common.core.AbstractStep.EditType;
 import pencilbox.resource.Messages;
 
 
@@ -124,7 +124,7 @@ public class Board extends BoardBase {
 	 * @param c Column coordinate of the cell.
 	 * @return Returns the area.
 	 */
-	public Area getArea(int r, int c ) {
+	public Area getArea(int r, int c) {
 		return area[r][c];
 	}
 	
@@ -211,7 +211,7 @@ public class Board extends BoardBase {
 			changeFixedNumber(p, Board.BLANK);
 		}
 		if (isRecordUndo())
-			fireUndoableEditUpdate(new CellNumberEditStep(p, prev, n));
+			fireUndoableEditUpdate(new CellEditStep(EditType.NUMBER, p, prev, n));
 		updateMulti(p, n);
 		if (getArea(p) != null)
 			updateMulti2(p, n);
@@ -231,11 +231,11 @@ public class Board extends BoardBase {
 		int prev = getNumber(p);
 		if (n == prev)
 			return;
-		if (getState(p) != Board.UNKNOWN) {
+		if (getState(p) > 0) {
 			changeAnswerNumber(p, Board.UNKNOWN);
 		}
 		if (isRecordUndo())
-			fireUndoableEditUpdate(new CellEditStep(p, prev, n));
+			fireUndoableEditUpdate(new CellEditStep(EditType.FIXED, p, prev, n));
 		updateMulti(p, n);
 		if (getArea(p) != null)
 			updateMulti2(p, n);
@@ -248,22 +248,24 @@ public class Board extends BoardBase {
 	}
 
 	public void undo(AbstractStep step) {
-		if (step instanceof CellNumberEditStep) {
-			CellNumberEditStep s = (CellNumberEditStep) step;
-			changeAnswerNumber(s.getPos(), s.getBefore());
-		} else if (step instanceof CellEditStep) {
+		if (step instanceof CellEditStep) {
 			CellEditStep s = (CellEditStep) step;
-			changeFixedNumber(s.getPos(), s.getBefore());
+			if (s.getType() == EditType.NUMBER) {
+				changeAnswerNumber(s.getPos(), s.getBefore());
+			} else if (s.getType() == EditType.FIXED) {
+				changeFixedNumber(s.getPos(), s.getBefore());
+			}
 		}
 	}
 
 	public void redo(AbstractStep step) {
-		if (step instanceof CellNumberEditStep) {
-			CellNumberEditStep s = (CellNumberEditStep) step;
-			changeAnswerNumber(s.getPos(), s.getAfter());
-		} else if (step instanceof CellEditStep) {
+		if (step instanceof CellEditStep) {
 			CellEditStep s = (CellEditStep) step;
-			changeFixedNumber(s.getPos(), s.getAfter());
+			if (s.getType() == EditType.NUMBER) {
+				changeAnswerNumber(s.getPos(), s.getAfter());
+			} else if (s.getType() == EditType.FIXED) {
+				changeFixedNumber(s.getPos(), s.getAfter());
+			}
 		}
 	}
 
@@ -292,26 +294,26 @@ public class Board extends BoardBase {
 	/**
 	 * マスを領域に追加する
 	 * @param p 追加するマスの座標
-	 * @param area 追加される領域
+	 * @param a 追加される領域
 	 */
-	public void addCellToArea(Address pos, Area area) {
-		if (area.isEmpty()) {
-			areaList.add(area);
+	public void addCellToArea(Address p, Area a) {
+		if (a.isEmpty()) {
+			areaList.add(a);
 		}
-		setArea(pos, area);
-		area.add(pos);
+		setArea(p, a);
+		a.add(p);
 //		initArea(area);
 	}
 	/**
 	 * マスを領域から取り除く
 	 * @param p 取り除くマスの座標
-	 * @param area 取り除かれる領域
+	 * @param a 取り除かれる領域
 	 */
-	public void removeCellFromArea(Address pos, Area area) {
-		setArea(pos, null);
-		area.remove(pos);
-		if (area.isEmpty()) {
-			areaList.remove(area);
+	public void removeCellFromArea(Address p, Area a) {
+		setArea(p, null);
+		a.remove(p);
+		if (a.isEmpty()) {
+			areaList.remove(a);
 		} else {
 //			initArea(area);
 		}

@@ -4,7 +4,7 @@ import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.CellEditStep;
-import pencilbox.common.core.CellNumberEditStep;
+import pencilbox.common.core.AbstractStep.EditType;
 import pencilbox.resource.Messages;
 
 
@@ -183,7 +183,7 @@ public class Board extends BoardBase {
 			changeFixedNumber(p, Board.BLANK);
 		}
 		if (isRecordUndo())
-			fireUndoableEditUpdate(new CellNumberEditStep(p, prev, n));
+			fireUndoableEditUpdate(new CellEditStep(EditType.NUMBER, p, prev, n));
 		changeNumber1(p, prev, n);
 		setState(p, n);
 	}
@@ -200,7 +200,7 @@ public class Board extends BoardBase {
 			changeAnswerNumber(p, 0);
 		}
 		if (isRecordUndo())
-			fireUndoableEditUpdate(new CellEditStep(p, prev, n));
+			fireUndoableEditUpdate(new CellEditStep(EditType.FIXED, p, prev, n));
 		changeNumber1(p, prev, n);
 		setNumber(p, n);
 	}
@@ -211,22 +211,24 @@ public class Board extends BoardBase {
 	}
 
 	public void undo(AbstractStep step) {
-		if (step instanceof CellNumberEditStep) {
-			CellNumberEditStep s = (CellNumberEditStep) step;
-			changeAnswerNumber(s.getPos(), s.getBefore());
-		} else if (step instanceof CellEditStep) {
+		if (step instanceof CellEditStep) {
 			CellEditStep s = (CellEditStep) step;
-			changeFixedNumber(s.getPos(), s.getBefore());
+			if (s.getType() == EditType.NUMBER) {
+				changeAnswerNumber(s.getPos(), s.getBefore());
+			} else if (s.getType() == EditType.FIXED) {
+				changeFixedNumber(s.getPos(), s.getBefore());
+			}
 		}
 	}
 
 	public void redo(AbstractStep step) {
-		if (step instanceof CellNumberEditStep) {
-			CellNumberEditStep s = (CellNumberEditStep) step;
-			changeAnswerNumber(s.getPos(), s.getAfter());
-		} else if (step instanceof CellEditStep) {
+		if (step instanceof CellEditStep) {
 			CellEditStep s = (CellEditStep) step;
-			changeFixedNumber(s.getPos(), s.getAfter());
+			if (s.getType() == EditType.NUMBER) {
+				changeAnswerNumber(s.getPos(), s.getAfter());
+			} else {
+				changeFixedNumber(s.getPos(), s.getAfter());
+			}
 		}
 	}
 

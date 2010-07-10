@@ -3,8 +3,9 @@ package pencilbox.kakuro;
 import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
-import pencilbox.common.core.CellNumberEditStep;
+import pencilbox.common.core.CellEditStep;
 import pencilbox.common.core.Direction;
+import pencilbox.common.core.AbstractStep.EditType;
 import pencilbox.resource.Messages;
 import pencilbox.util.ArrayUtil;
 
@@ -249,7 +250,7 @@ public class Board extends BoardBase {
 		if (n == getNumber(p)) 
 			return;
 		if (isRecordUndo())
-			fireUndoableEditUpdate(new CellNumberEditStep(p, getNumber(p), n));
+			fireUndoableEditUpdate(new CellEditStep(EditType.NUMBER, p, getNumber(p), n));
 		int r=p.r(), c=p.c();
 		wordH[r][c].changeNumber(getNumber(r,c), n);
 		wordV[r][c].changeNumber(getNumber(r,c), n);
@@ -259,12 +260,12 @@ public class Board extends BoardBase {
 	}
 
 	public void undo(AbstractStep step) {
-		CellNumberEditStep s = (CellNumberEditStep) step;
+		CellEditStep s = (CellEditStep) step;
 		changeNumber(s.getPos(), s.getBefore());
 	}
 
 	public void redo(AbstractStep step) {
-		CellNumberEditStep s = (CellNumberEditStep) step;
+		CellEditStep s = (CellEditStep) step;
 		changeNumber(s.getPos(), s.getAfter());
 	}
 
