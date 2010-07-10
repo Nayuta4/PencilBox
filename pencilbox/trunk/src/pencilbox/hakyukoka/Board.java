@@ -213,15 +213,8 @@ public class Board extends BoardBase {
 		}
 		if (isRecordUndo())
 			fireUndoableEditUpdate(new CellEditStep(EditType.NUMBER, p, prev, n));
-		updateMulti(p, n);
-		if (getArea(p) != null)
-			updateMulti2(p, n);
 		setState(p, n);
-		if (prev == 0 && n > 0)
-			hint.checkUsedNumber(p, n);
-		else
-			hint.initHint();
-//		changeNumber1(p, prev, n);
+		changeNumber1(p, prev, n);
 	}
 	/**
 	 * マスに問題数字を入力し，アドゥリスナーに通知する
@@ -237,15 +230,18 @@ public class Board extends BoardBase {
 		}
 		if (isRecordUndo())
 			fireUndoableEditUpdate(new CellEditStep(EditType.FIXED, p, prev, n));
-		updateMulti(p, n);
-		if (getArea(p) != null)
-			updateMulti2(p, n);
 		setNumber(p, n);
+		changeNumber1(p, prev, n);
+	}
+
+	private void changeNumber1(Address p, int prev, int n) {
+		updateMulti(p, prev, n);
+		if (getArea(p) != null)
+			updateMulti2(p, prev, n);
 		if (prev == 0 && n > 0)
 			hint.checkUsedNumber(p, n);
 		else
 			hint.initHint();
-//		changeNumber1(p, prev, n);
 	}
 
 	public void undo(AbstractStep step) {
@@ -345,14 +341,16 @@ public class Board extends BoardBase {
 		hint.initHint();
 	}
 	/**
-	 * multi[][] 初期化
+	 * 現在の盤面について距離内の重複数を表すmulti配列を求める
 	 */
 	void initMulti() {
 		for (Address p : cellAddrs()) {
 			int n = getNumberOrState(p);
-			if(n > 0) {
+			if (n > 0) {
 				multi[p.r()][p.c()] = 1;
 				updateMulti1(p, n, +1, 0);
+			} else {
+				multi[p.r()][p.c()] = 0;
 			}
 		}
 	}
@@ -360,11 +358,11 @@ public class Board extends BoardBase {
 	/**
 	 * マスの数字が変更されたときに，それに応じて距離内の重複数を表すmulti配列を更新する
 	 * @param p0 数字の変更されたマスの座標
+	 * @param prev 変更前の数字
 	 * @param num 変更後の数字
 	 */
-	void updateMulti(Address p0, int num) {
+	void updateMulti(Address p0, int prev, int num) {
 		int r0 = p0.r(), c0 = p0.c();
-		int prev = getNumberOrState(p0);
 		if (multi[r0][c0]>1) {
 			updateMulti1(p0, prev, 0, -1);
 		}
@@ -397,13 +395,17 @@ public class Board extends BoardBase {
 			}
 		}
 	}
-
+	/**
+	 * 現在の盤面の領域内の重複数を表すmulti2配列を求める。
+	 */
 	void initMulti2() {
 		for (Address p : cellAddrs()) {
 			int n = getNumberOrState(p);
 			if (n>0 && getArea(p)!=null) {
 				multi2[p.r()][p.r()] = 1;
 				updateMulti21(p, n, +1, 0);
+			} else {
+				multi2[p.r()][p.c()] = 0;
 			}
 		}
 	}
@@ -411,13 +413,13 @@ public class Board extends BoardBase {
 	/**
 	 * マスの数字が変更されたときに，それに応じて領域内の重複数を表すmulti2配列を更新する
 	 * @param p0 数字の変更されたマスの行座標
+	 * @param prev 変更前の数字
 	 * @param num 変更後の数字
 	 */
-	void updateMulti2(Address p0, int num) {
+	void updateMulti2(Address p0, int prev, int num) {
 		int r0=p0.r(), c0=p0.c();
-		int prevNum = getNumber(p0);
 		if (multi2[r0][c0]>1) {
-			updateMulti21(p0, prevNum, 0, -1);
+			updateMulti21(p0, prev, 0, -1);
 		}
 		if (num>0) {
 			multi2[r0][c0] = 1;
