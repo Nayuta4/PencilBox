@@ -140,6 +140,29 @@ public class Board extends BoardBase {
 	}
 
 	/**
+	 * マスの状態を指定した状態に変更し，変更をアンドゥリスナーに通知する
+	 * @param p マス座標
+	 * @param st 変更後の状態
+	 */
+	public void changeState(Address p, int st) {
+		int prev = getState(p);
+		if (st == prev)
+			return;
+		if (isRecordUndo())
+			fireUndoableEditUpdate(new CellEditStep(p, prev, st));
+		setState(p, st);
+		Area a = getArea(p);
+		if (a != null) {
+			if (prev == BLACK) {
+				a.getTetromino().remove(p);
+			}
+			if (st == BLACK) {
+				a.getTetromino().add(p);
+			}
+		}
+	}
+
+	/**
 	 * 新しい領域を追加する
 	 * @param newArea
 	 */
@@ -208,28 +231,6 @@ public class Board extends BoardBase {
 //			initArea(a);
 		}
 	}
-
-	/**
-	 * マスの状態を指定した状態に変更し，変更をアンドゥリスナーに通知する
-	 * @param p マス座標
-	 * @param st 変更後の状態
-	 */
-	public void changeState(Address p, int st) {
-		if (isRecordUndo())
-			fireUndoableEditUpdate(new CellEditStep(p, getState(p), st));
-		int prev = getState(p);
-		setState(p, st);
-		Area a = getArea(p);
-		if (a != null) {
-			if (prev == BLACK) {
-				a.getTetromino().remove(p);
-			}
-			if (st == BLACK) {
-				a.getTetromino().add(p);
-			}
-		}
-	}
-	
 	/**
 	 * マスp を p0 と同じ領域にする。ただし p0が NOWHWERならば新しい領域を作る
 	 * @param p0
