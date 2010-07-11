@@ -45,7 +45,7 @@ public class Panel extends PanelBase {
 	}
 
 	protected void setBoard(BoardBase aBoard) {
-		board = (Board) aBoard; 
+		board = (Board) aBoard;
 		hintDot.setDot(this, 3, getCellSize());
 	}
 

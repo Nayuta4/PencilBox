@@ -15,7 +15,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	private int currentState = Board.UNKNOWN;
 
 	protected void setBoard(BoardBase aBoard) {
-		board = (Board) aBoard; 
+		board = (Board) aBoard;
 	}
 
 	/*

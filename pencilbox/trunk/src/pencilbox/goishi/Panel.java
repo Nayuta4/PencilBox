@@ -27,7 +27,7 @@ public class Panel extends PanelBase {
 	}
 
 	protected void setBoard(BoardBase aBoard) {
-		board = (Board) aBoard; 
+		board = (Board) aBoard;
 	}
 
 	/**

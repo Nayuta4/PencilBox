@@ -19,7 +19,7 @@ import pencilbox.common.gui.PanelEventHandlerBase;
 	}
 
 	protected void setBoard(BoardBase aBoard) {
-		board = (Board) aBoard; 
+		board = (Board) aBoard;
 	}
 
 	/*

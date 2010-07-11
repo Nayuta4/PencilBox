@@ -30,7 +30,7 @@ public class Panel extends PanelBase {
 		setGridColor(Color.BLACK);
 	}
 	protected void setBoard(BoardBase aBoard) {
-		board = (Board) aBoard; 
+		board = (Board) aBoard;
 	}
 
 	/**
