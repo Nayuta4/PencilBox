@@ -20,7 +20,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	protected void setBoard(BoardBase aBoard) {
-		board = (Board) aBoard; 
+		board = (Board) aBoard;
 		setMaxInputNumber(9);
 	}
 

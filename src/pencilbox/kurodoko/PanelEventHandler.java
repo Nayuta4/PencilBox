@@ -13,7 +13,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	private Board board;
 
 	protected void setBoard(BoardBase aBoard) {
-		board = (Board) aBoard; 
+		board = (Board) aBoard;
 	}
 
 	/*
