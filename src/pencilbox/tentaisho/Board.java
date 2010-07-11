@@ -210,8 +210,7 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * p 領域から取り除く。
-	 * @param p0
+	 * マスを領域から取り除く。
 	 * @param p
 	 */
 	void removeCell(Address p) {
