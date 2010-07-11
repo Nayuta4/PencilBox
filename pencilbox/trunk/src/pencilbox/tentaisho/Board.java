@@ -147,7 +147,7 @@ public class Board extends BoardBase {
 	 * 盤面に新しい領域を追加する
 	 * @param newArea 追加する領域
 	 */
-	public void addArea(Area newArea) {
+	public void addWholeArea(Area newArea) {
 		for (Address pos : newArea) {
 			setArea(pos, newArea);
 		}
@@ -158,7 +158,7 @@ public class Board extends BoardBase {
 	 * 領域を削除する
 	 * @param oldArea
 	 */
-	public void removeArea(Area oldArea) {
+	public void removeWholeArea(Area oldArea) {
 		for (Address pos : oldArea) {
 			if (getArea(pos) == oldArea)
 				setArea(pos, null);
@@ -169,20 +169,10 @@ public class Board extends BoardBase {
 	public void undo(AbstractStep step) {
 		if (step instanceof AreaEditStep) {
 			AreaEditStep s = (AreaEditStep)step;
-			Area a;
 			if (s.getOperation() == AreaEditStep.ADDED) {
-				a = getArea(s.getPos());
-				if (a != null) {
-					removeCellFromArea(s.getPos(), a);
-				}
+				removeCell(s.getPos());
 			} else if (s.getOperation() == AreaEditStep.REMOVED) {
-				if (Address.NOWHERE.equals(s.getP0()))
-					a = new Area();
-				else
-					a = getArea(s.getP0());
-				if (a != null) {
-					addCellToArea(s.getPos(), a);
-				}
+				addCell(s.getPos(), s.getP0());
 			}
 		} else if (step instanceof CellEditStep) {
 			CellEditStep s = (CellEditStep)step;
@@ -193,24 +183,41 @@ public class Board extends BoardBase {
 	public void redo(AbstractStep step) {
 		if (step instanceof AreaEditStep) {
 			AreaEditStep s = (AreaEditStep)step;
-			Area a;
 			if (s.getOperation() == AreaEditStep.ADDED) {
-				if (Address.NOWHERE.equals(s.getP0()))
-					a = new Area();
-				else
-					a = getArea(s.getP0());
-				if (a != null) {
-					addCellToArea(s.getPos(), a);
-				}
+				addCell(s.getPos(), s.getP0());
 			} else if (s.getOperation() == AreaEditStep.REMOVED) {
-				a = getArea(s.getPos());
-				if (a != null) {
-					removeCellFromArea(s.getPos(), a);
-				}
+				removeCell(s.getPos());
 			}
 		} else if (step instanceof CellEditStep) {
 			CellEditStep s = (CellEditStep)step;
 			changeStar(s.getPos(), s.getAfter());
+		}
+	}
+	/**
+	 * p を p0 と同じ領域にする。ただし p0が NOWHWERならば新しい領域を作る
+	 * @param p
+	 * @param p0
+	 */
+	void addCell(Address p, Address p0) {
+		if (p0.equals(Address.NOWHERE)) {
+			Area a = new Area();
+			addCellToArea(p, a);
+		} else {
+			Area a = getArea(p0);
+			if (a != null) {
+				addCellToArea(p, a);
+			}
+		}
+	}
+	/**
+	 * p 領域から取り除く。
+	 * @param p0
+	 * @param p
+	 */
+	void removeCell(Address p) {
+		Area a = getArea(p);
+		if (a != null) {
+			removeCellFromArea(p, a);
 		}
 	}
 	/**
@@ -219,12 +226,13 @@ public class Board extends BoardBase {
 	 * @param a 追加される領域
 	 */
 	public void addCellToArea(Address p, Area a) {
-		Address p0 = Address.NOWHERE;
-		if (a.size() > 0) {
-			p0 = a.getTopCell(Address.NOWHERE);
-		}
-		if (isRecordUndo())
+		if (isRecordUndo()) {
+			Address p0 = Address.NOWHERE;
+			if (a.size() > 0) {
+				p0 = a.getTopCell(Address.NOWHERE);
+			}
 			fireUndoableEditUpdate(new AreaEditStep(p, p0, AreaEditStep.ADDED));
+		}
 		if (a.isEmpty()) {
 			areaList.add(a);
 		}
@@ -239,12 +247,13 @@ public class Board extends BoardBase {
 	 * @param a 取り除かれる領域
 	 */
 	public void removeCellFromArea(Address p, Area a) {
-		Address p0 = Address.NOWHERE;
-		if (a.size() > 1) {
-			p0 = a.getTopCell(p);
-		}
-		if (isRecordUndo())
+		if (isRecordUndo()) {
+			Address p0 = Address.NOWHERE;
+			if (a.size() > 1) {
+				p0 = a.getTopCell(p);
+			}
 			fireUndoableEditUpdate(new AreaEditStep(p, p0, AreaEditStep.REMOVED));
+		}
 		setArea(p, null);
 		a.remove(p);
 		if (a.isEmpty()) {

@@ -21,7 +21,7 @@ public class BoardCopier extends BoardCopierBase {
 			Area a = new Area();
 			rotator.rotateArea(srcArea, a);
 			if (d.isAreaOn(a)) {
-				d.addArea(a);
+				d.addWholeArea(a);
 			}
 		}
 		Rotator rotator2 = new Rotator(s.rows()*2-1, s.cols()*2-1, n);
@@ -56,11 +56,11 @@ public class BoardCopier extends BoardCopierBase {
 						continue;
 					for (Address dd : dstArea) {
 						if (board.getArea(dd) != null) {
-							board.removeArea(board.getArea(dd));
+							board.removeWholeArea(board.getArea(dd));
 //							board.removeCellFromArea(dd, board.getArea(dd));
 						}
 					}
-					board.addArea(dstArea);
+					board.addWholeArea(dstArea);
 				}
 			}
 		}
@@ -85,7 +85,7 @@ public class BoardCopier extends BoardCopierBase {
 			if (srcArea != null) {
 				if (! region.containsAll(srcArea)) // ブロック全体が選択された場合に消去する。
 					continue;
-				board.removeCellFromArea(s, srcArea);
+				board.removeWholeArea(srcArea);
 			}
 		}
 		pencilbox.common.core.Area region2 = makeStarRegion(region);
