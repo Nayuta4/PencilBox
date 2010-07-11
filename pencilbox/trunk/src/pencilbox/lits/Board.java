@@ -5,6 +5,7 @@ import java.util.List;
 
 import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
+import pencilbox.common.core.AreaEditStep;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.CellEditStep;
 import pencilbox.common.core.Direction;
@@ -166,12 +167,19 @@ public class Board extends BoardBase {
 	 * @param a 追加される領域
 	 */
 	public void addCellToArea(Address p, Area a) {
+		if (isRecordUndo()) {
+			Address p0 = Address.NOWHERE;
+			if (a.size() > 0) {
+				p0 = a.getTopCell(Address.NOWHERE);
+			}
+			fireUndoableEditUpdate(new AreaEditStep(p, p0, AreaEditStep.ADDED));
+		}
 		if (a.isEmpty()) {
-					areaList.add(a);
-				}
-				setArea(p, a);
-				a.add(p);
-		//		initArea(a);
+			areaList.add(a);
+		}
+		setArea(p, a);
+		a.add(p);
+//		initArea(a);
 	}
 	/**
 	 * マスを領域から取り除く
@@ -179,6 +187,13 @@ public class Board extends BoardBase {
 	 * @param a 取り除かれる領域
 	 */
 	public void removeCellFromArea(Address p, Area a) {
+		if (isRecordUndo()) {
+			Address p0 = Address.NOWHERE;
+			if (a.size() > 1) {
+				p0 = a.getTopCell(p);
+			}
+			fireUndoableEditUpdate(new AreaEditStep(p, p0, AreaEditStep.REMOVED));
+		}
 		setArea(p, null);
 		a.remove(p);
 		if (a.isEmpty()) {
@@ -209,14 +224,59 @@ public class Board extends BoardBase {
 		}
 	}
 	
+	/**
+	 * マスp を p0 と同じ領域にする。ただし p0が NOWHWERならば新しい領域を作る
+	 * @param p0
+	 * @param p
+	 */
+	void addCell(Address p0, Address p) {
+		if (Address.NOWHERE.equals(p0)) { 
+			Area a = new Area();
+			addCellToArea(p, a);
+		} else {
+			Area a = getArea(p0);
+			if (a != null) {
+				addCellToArea(p, a);
+			}
+		}
+	}
+	/**
+	 * マス p を領域から取り除く。
+	 * @param p
+	 */
+	void removeCell(Address p) {
+		Area a = getArea(p);
+		if (a != null) {
+			removeCellFromArea(p, a);
+		}
+	}
+
 	public void undo(AbstractStep step) {
-		CellEditStep s = (CellEditStep) step;
-		changeState(s.getPos(), s.getBefore());
+		if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep) step;
+			changeState(s.getPos(), s.getBefore());
+		} else if (step instanceof AreaEditStep) {
+			AreaEditStep s = (AreaEditStep) step;
+			if (s.getOperation() == AreaEditStep.ADDED) {
+				removeCell(s.getPos());
+			} else if (s.getOperation() == AreaEditStep.REMOVED) {
+				addCell(s.getP0(), s.getPos());
+			}
+		}
 	}
 
 	public void redo(AbstractStep step) {
-		CellEditStep s = (CellEditStep) step;
-		changeState(s.getPos(), s.getAfter());
+		if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep) step;
+			changeState(s.getPos(), s.getAfter());
+		} else if (step instanceof AreaEditStep) {
+			AreaEditStep s = (AreaEditStep) step;
+			if (s.getOperation() == AreaEditStep.ADDED) {
+				addCell(s.getP0(), s.getPos());
+			} else if (s.getOperation() == AreaEditStep.REMOVED) {
+				removeCell(s.getPos());
+			}
+		}
 	}
 
 	/**

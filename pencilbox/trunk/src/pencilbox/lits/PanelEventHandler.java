@@ -19,7 +19,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	protected void setBoard(BoardBase aBoard) {
-		board = (Board) aBoard; 
+		board = (Board) aBoard;
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			sweepState(pos);
 		}
 	}
-	
+
 	protected void leftReleased(Address dragEnd) {
 		setDraggingArea(null);
 	}
