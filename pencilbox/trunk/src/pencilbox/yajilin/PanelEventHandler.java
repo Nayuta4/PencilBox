@@ -83,7 +83,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		if (st == Board.BLACK) {
 			board.eraseLinesAround(pos);
 		}
-		board.changeState(pos, st);
+		board.changeNumber(pos, st);
 		currentState = st;
 	}
 
@@ -111,7 +111,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			if (st == Board.BLACK)
 				return;
 		}
-		board.changeState(pos, currentState);
+		board.changeNumber(pos, currentState);
 	}
 	/**
 	 * 始点マスと終点マスを結んだ線上の状態を指定の状態に変更する
@@ -121,7 +121,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 * @param st 変更後の状態
 	 */
 	private void changeLineState(Address pos0, Address pos1, int st) {
-		int direction = pos0.getDirectionTo(pos1);
+		int direction = Address.getDirectionTo(pos0, pos1);
 		if (direction < 0) {
 			currentState = st;
 			return;
@@ -157,11 +157,11 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.eraseNumber(pos);
+			board.enterNumber(pos, Board.BLANK);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
 				if (board.isNumber(posS))
-					board.eraseNumber(posS);
+					board.enterNumber(posS, Board.BLANK);
 			}
 		}
 	}

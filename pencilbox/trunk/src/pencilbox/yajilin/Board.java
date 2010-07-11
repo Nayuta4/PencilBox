@@ -116,16 +116,6 @@ public class Board extends BoardBase {
 		setNumber(p, n);
 	}
 	/**
-	 * 指定したマスの矢印の向きを　上→左→下→右→上 の順に変更する。数字マスに対して使用する。
-	 * @param pos マス座標
-	 */
-	public void toggleArrowDirection(Address pos) {
-		int t = getArrowDirection(pos);
-		if (t<0) return;
-		t = (t+1)%4;
-		setArrowDirection(pos, t);
-	}
-	/**
 	 * 数字マスか
 	 * @param p 座標
 	 * @return 数字マスか，未定数字マスであれば true
@@ -160,18 +150,45 @@ public class Board extends BoardBase {
 	 * 数字の入力を受け付ける
 	 * 今の数字と同じ数字であれば矢印の向きを変える。
 	 * そうでなければ新しく上向き矢印付きの数字を設定する。
-	 * @param pos マス座標
+	 * 2桁数字を入力するには？
+	 * 数字を消去する
+	 * @param p マス座標
 	 * @param n 入力された数字
 	 */
-	public void enterNumber(Address pos, int n) {
-		if (getArrowNumber(pos) == n)
-			toggleArrowDirection(pos);
-		else {
-			eraseLinesAround(pos);
-			setArrowNumber(pos, n);
+	public void enterNumber(Address p, int n) {
+		int v = -99;
+		if (n >= 0) {
+			int t = getArrowDirection(p);
+			if (getArrowNumber(p) == n) {
+				t = (t+1)%4;
+			} else {
+			}
+			v = getNumberValue(n, t);
+		} else if (n == Board.UNDECIDED_NUMBER) {
+			v = n;
+		} else if (n == Board.BLANK) {
+			v = n;
 		}
+		if (v != Board.BLANK) {
+			eraseLinesAround(p);
+		}
+		changeNumber(p, v);
 	}
 
+	/**
+	 * 引数の数字と向きのデータ上を持つマスの内部データ上の値を取得する
+	 * 0以上の数字以外を受けたときはそのままの値を返す
+	 * @param n  数字　
+	 * @param d 向き
+	 * @return 値
+	 */
+	static int getNumberValue(int n, int d) {
+		if (d >= 0 && d <= 3) {
+			n &= ~(3 << 4);
+			n |= (d << 4); 
+		}
+		return n;
+	}
 	/**
 	 * @return Returns the state.
 	 */
@@ -250,30 +267,13 @@ public class Board extends BoardBase {
 	 * @param p
 	 * @param st
 	 */
-	public void changeState(Address p, int st) {
+	public void changeNumber(Address p, int st) {
+		int prev = getNumber(p);
+		if (st == prev)
+			return;
 		if (isRecordUndo())
-			fireUndoableEditUpdate(new CellEditStep(p, getNumber(p), st));
-		setNumber(p, st);	
-	}
-
-	public void undo(AbstractStep step) {
-		if (step instanceof BorderEditStep) {
-			BorderEditStep s = (BorderEditStep) step;
-			changeState(s.getPos(), s.getBefore());
-		} else if (step instanceof CellEditStep) {
-			CellEditStep s = (CellEditStep) step;
-			setNumber(s.getPos(), s.getBefore());
-		}
-	}
-
-	public void redo(AbstractStep step) {
-		if (step instanceof BorderEditStep) {
-			BorderEditStep s = (BorderEditStep) step;
-			changeState(s.getPos(), s.getAfter());
-		} else if (step instanceof CellEditStep) {
-			CellEditStep s = (CellEditStep) step;
-			setNumber(s.getPos(), s.getAfter());
-		}
+			fireUndoableEditUpdate(new CellEditStep(p, prev, st));
+		setNumber(p, st);
 	}
 
 	/**
@@ -288,7 +288,7 @@ public class Board extends BoardBase {
 			return;
 		if (isRecordUndo())
 			fireUndoableEditUpdate(new BorderEditStep(p, prev, st));
-		setState(p,st);
+		setState(p, st);
 		if (prev == LINE) {
 			cutLink(p);
 		}
@@ -297,6 +297,25 @@ public class Board extends BoardBase {
 		}
 	}
 
+	public void undo(AbstractStep step) {
+		if (step instanceof BorderEditStep) {
+			BorderEditStep s = (BorderEditStep) step;
+			changeState(s.getPos(), s.getBefore());
+		} else if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep) step;
+			changeNumber(s.getPos(), s.getBefore());
+		}
+	}
+
+	public void redo(AbstractStep step) {
+		if (step instanceof BorderEditStep) {
+			BorderEditStep s = (BorderEditStep) step;
+			changeState(s.getPos(), s.getAfter());
+		} else if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep) step;
+			changeNumber(s.getPos(), s.getAfter());
+		}
+	}
 
 	public void clearBoard() {
 		super.clearBoard();
@@ -431,7 +450,7 @@ public class Board extends BoardBase {
 		}
 		return no;
 	}
-	
+
 	private int checkLinks() {
 		int result = 0;
 		for (Address p : cellAddrs()) {
@@ -471,16 +490,16 @@ public class Board extends BoardBase {
 		int blackCount = 0;
 		int dir = getArrowDirection(p0);
 		int number = getArrowNumber(p0);
-		Address p = p0.nextCell(dir);
+		Address p = Address.nextCell(p0, dir);
 		while (isOn(p)) {
 			if (isBlack(p))
 				blackCount++;
-			p = p.nextCell(dir);
+			p = Address.nextCell(p, dir);
 		}
 		if (number == blackCount)
-			result = 0;
+			result = 0; // 数字と黒マス数が一致する
 		else
-			result = 16;
+			result = 16; // 数字と黒マス数が一致しない
 		return result;
 	}
 
