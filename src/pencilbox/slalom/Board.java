@@ -250,11 +250,10 @@ public class Board extends BoardBase {
 	 */
 	public void changeState(SideAddress p, int st) {
 		int prev = getState(p);
-		if (prev == st)
+		if (st == prev)
 			return;
-		if (isRecordUndo()) {
+		if (isRecordUndo())
 			fireUndoableEditUpdate(new BorderEditStep(p, prev, st));
-		}
 		setState(p, st);
 		if (prev == LINE) {
 			cutLink(p);
