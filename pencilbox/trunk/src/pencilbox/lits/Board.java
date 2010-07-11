@@ -179,6 +179,9 @@ public class Board extends BoardBase {
 		}
 		setArea(p, a);
 		a.add(p);
+		if (getState(p) == Board.BLACK) {
+			a.getTetromino().add(p);
+		}
 //		initArea(a);
 	}
 	/**
@@ -196,6 +199,9 @@ public class Board extends BoardBase {
 		}
 		setArea(p, null);
 		a.remove(p);
+		if (getState(p) == Board.BLACK) {
+			a.getTetromino().remove(p);
+		}
 		if (a.isEmpty()) {
 			areaList.remove(a);
 		} else {
