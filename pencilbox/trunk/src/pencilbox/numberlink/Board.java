@@ -153,11 +153,13 @@ public class Board extends BoardBase {
 	 * @param st •ÏXŒã‚Ìó‘Ô
 	 */
 	public void changeState(SideAddress p, int st) {
+		int prev = getState(p);
+		if (st == prev)
+			return;
 		if (isRecordUndo())
-			fireUndoableEditUpdate(new BorderEditStep(p, getState(p), st));
-		int previousState = getState(p);
+			fireUndoableEditUpdate(new BorderEditStep(p, prev, st));
 		setState(p, st);
-		if (previousState == LINE) {
+		if (prev == LINE) {
 			cutLink(p);
 		}
 		if (st == LINE) {
