@@ -7,6 +7,7 @@ import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.BorderEditStep;
+import pencilbox.common.core.CellEditStep;
 import pencilbox.common.core.SideAddress;
 import pencilbox.resource.Messages;
 import pencilbox.util.ArrayUtil;
@@ -16,12 +17,12 @@ import pencilbox.util.ArrayUtil;
  */
 public class Board extends BoardBase {
 
-	static final int UNKNOWN = 0;
-	static final int LINE = 1;
-	static final int NOLINE = -1;
-	static final int OUTER = -9;
-	static final int UNDECIDED_NUMBER = -1;
-	static final int BLANK = 0;
+	public static final int UNKNOWN = 0;
+	public static final int LINE = 1;
+	public static final int NOLINE = -1;
+	public static final int OUTER = -9;
+	public static final int UNDECIDED_NUMBER = -1;
+	public static final int BLANK = 0;
 
 	private int[][] number;
 	private int[][][] state;
@@ -147,6 +148,20 @@ public class Board extends BoardBase {
 	}
 
 	/**
+	 * マスの状態を指定した状態に変更する
+	 * @param p 辺座標
+	 * @param n 変更後の状態
+	 */
+	public void changeNumber(Address p, int n) {
+		int prev = getNumber(p);
+		if (prev == n)
+			return;
+		if (isRecordUndo()) {
+			fireUndoableEditUpdate(new CellEditStep(p, prev, n));
+		}
+		setNumber(p, n);
+	}
+	/**
 	 * 辺の状態を指定した状態に変更する
 	 * アンドゥリスナーに変更を通知する
 	 * @param p 辺座標
@@ -168,13 +183,23 @@ public class Board extends BoardBase {
 	}
 
 	public void undo(AbstractStep step) {
-		BorderEditStep s = (BorderEditStep)step;
-		changeState(s.getPos(), s.getBefore());
+		if (step instanceof BorderEditStep) {
+			BorderEditStep s = (BorderEditStep) step;
+			changeState(s.getPos(), s.getBefore());
+		} else if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep) step;
+			changeNumber(s.getPos(), s.getBefore());
+		}
 	}
 
 	public void redo(AbstractStep step) {
-		BorderEditStep s = (BorderEditStep)step;
-		changeState(s.getPos(), s.getAfter());
+		if (step instanceof BorderEditStep) {
+			BorderEditStep s = (BorderEditStep) step;
+			changeState(s.getPos(), s.getAfter());
+		} else if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep) step;
+			changeNumber(s.getPos(), s.getAfter());
+		}
 	}
 
 	public void initBoard() {
@@ -351,6 +376,5 @@ public class Board extends BoardBase {
 		if ((result & 32) == 32)
 			message.append(Messages.getString("numberlink.AnswerCheckMessage6")); //$NON-NLS-1$
 		return message.toString();
-
 	}
 }
