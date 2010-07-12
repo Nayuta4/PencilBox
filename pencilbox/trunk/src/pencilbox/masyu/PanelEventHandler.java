@@ -91,33 +91,33 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	protected void numberEntered(Address pos, int n) {
 		if (isProblemEditMode()) {
 			if(n == 1 || n == 2) {
-				board.setNumber(pos, n);
+				board.changeNumber(pos, n);
 				if (isSymmetricPlacementMode()) {
 					Address posS = getSymmetricPosition(pos);
 					if (!board.isNumber(posS))
-						board.setNumber(posS, Board.GRAY_PEARL);
+						board.changeNumber(posS, Board.GRAY_PEARL);
 				}
 			}
 		}
 	}
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.setNumber(pos, Board.NO_PEARL);
+			board.changeNumber(pos, Board.BLANK);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
 				if (board.isNumber(posS))
-					board.setNumber(posS, Board.NO_PEARL);
+					board.changeNumber(posS, Board.BLANK);
 			}
 		}
 	}
 
 	protected void minusEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.setNumber(pos, Board.GRAY_PEARL);
+			board.changeNumber(pos, Board.GRAY_PEARL);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
 				if (!board.isNumber(posS))
-					board.setNumber(posS, Board.GRAY_PEARL);
+					board.changeNumber(posS, Board.GRAY_PEARL);
 			}
 		}
 	}

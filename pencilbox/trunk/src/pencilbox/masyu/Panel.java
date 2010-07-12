@@ -127,9 +127,9 @@ public class Panel extends PanelBase {
 				g.setColor(getErrorColor()); 
 			else if (n==0)
 				g.setColor(getErrorColor()); 
-//			else if (p==1)
+//			else if (n==1)
 //				g.setColor(getErrorColor()); 
-//			else if (p==2)
+//			else if (n==2)
 //				g.setColor(getNumberColor());
 		}
 		placeFilledCircle(g, p);
@@ -143,9 +143,9 @@ public class Panel extends PanelBase {
 				g.setColor(getErrorColor()); 
 			else if (n==0)
 				g.setColor(getErrorColor()); 
-//			else if (p==1)
+//			else if (n==1)
 //				g.setColor(getErrorColor()); 
-//			else if (p==2)
+//			else if (n==2)
 //				g.setColor(getNumberColor());
 		}
 		placeBoldCircle(g, p);

@@ -46,7 +46,7 @@ public class BoardCopier extends BoardCopierBase {
 			board.setState(s, Board.UNKNOWN);
 		}
 		for (Address s : region) {
-			board.setNumber(s, Board.NO_PEARL);
+			board.setNumber(s, Board.BLANK);
 		}
 	}
 }
