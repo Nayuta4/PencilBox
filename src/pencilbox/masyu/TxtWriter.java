@@ -21,7 +21,7 @@ public class TxtWriter extends TxtWriterBase {
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {
 				st = board.getNumber(r, c);
-				if (st == Board.NO_PEARL)
+				if (st == Board.BLANK)
 					out.print('.');
 				else if (st == Board.BLACK_PEARL || st == Board.WHITE_PEARL || st == Board.GRAY_PEARL)
 					out.print(st);

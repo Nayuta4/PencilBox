@@ -40,7 +40,7 @@ public class TxtReader extends TxtReaderBase {
 			while (t.hasMoreTokens()) {
 				str = t.nextToken();
 				if (str.equals("."))
-					board.setNumber(i, j, Board.NO_PEARL);
+					board.setNumber(i, j, Board.BLANK);
 				else if (str.equals("1"))
 					board.setNumber(i, j, Board.WHITE_PEARL);
 				else if (str.equals("2"))

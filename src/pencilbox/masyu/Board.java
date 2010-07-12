@@ -7,30 +7,30 @@ import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.BorderEditStep;
+import pencilbox.common.core.CellEditStep;
 import pencilbox.common.core.Direction;
 import pencilbox.common.core.SideAddress;
 import pencilbox.resource.Messages;
 import pencilbox.util.ArrayUtil;
-
 
 /**
  * 「ましゅ」盤面クラス
  */
 public class Board extends BoardBase {
 
-	static final int UP = Direction.UP;
-	static final int DN = Direction.DN;
-	static final int LT = Direction.LT;
-	static final int RT = Direction.RT;
+	public static final int UP = Direction.UP;
+	public static final int DN = Direction.DN;
+	public static final int LT = Direction.LT;
+	public static final int RT = Direction.RT;
 
-	static final int UNKNOWN = 0;
-	static final int LINE = 1;
-	static final int NOLINE = -1;
-	static final int OUTER = -9;
-	static final int NO_PEARL = 0;
-	static final int WHITE_PEARL = 1;
-	static final int BLACK_PEARL = 2;
-	static final int GRAY_PEARL = 3;
+	public static final int UNKNOWN = 0;
+	public static final int LINE = 1;
+	public static final int NOLINE = -1;
+	public static final int OUTER = -9;
+	public static final int BLANK = 0;
+	public static final int WHITE_PEARL = 1;
+	public static final int BLACK_PEARL = 2;
+	public static final int GRAY_PEARL = 3;
 
 	private int[][] number;
 	private int[][][] state;
@@ -123,7 +123,7 @@ public class Board extends BoardBase {
 		else
 			return OUTER;
 	}
-	
+
 	public int getState(SideAddress pos) {
 		return getState(pos.d(), pos.r(), pos.c());
 	}
@@ -186,6 +186,20 @@ public class Board extends BoardBase {
 	}
 
 	/**
+	 * マスの状態を指定した状態に変更する
+	 * @param p 辺座標
+	 * @param n 変更後の状態
+	 */
+	public void changeNumber(Address p, int n) {
+		int prev = getNumber(p);
+		if (prev == n)
+			return;
+		if (isRecordUndo()) {
+			fireUndoableEditUpdate(new CellEditStep(p, prev, n));
+		}
+		setNumber(p, n);
+	}
+	/**
 	 * 辺の状態を指定した状態に変更する
 	 * アンドゥリスナーに変更を通知する
 	 * @param p 辺座標
@@ -197,7 +211,7 @@ public class Board extends BoardBase {
 			return;
 		if (isRecordUndo())
 			fireUndoableEditUpdate(new BorderEditStep(p, prev, st));
-		setState(p,st);
+		setState(p, st);
 		if (prev == LINE) {
 			cutLink(p);
 		}
@@ -207,13 +221,23 @@ public class Board extends BoardBase {
 	}
 
 	public void undo(AbstractStep step) {
-		BorderEditStep s = (BorderEditStep)step;
-		changeState(s.getPos(), s.getBefore());
+		if (step instanceof BorderEditStep) {
+			BorderEditStep s = (BorderEditStep) step;
+			changeState(s.getPos(), s.getBefore());
+		} else if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep) step;
+			changeNumber(s.getPos(), s.getBefore());
+		}
 	}
 
 	public void redo(AbstractStep step) {
-		BorderEditStep s = (BorderEditStep)step;
-		changeState(s.getPos(), s.getAfter());
+		if (step instanceof BorderEditStep) {
+			BorderEditStep s = (BorderEditStep) step;
+			changeState(s.getPos(), s.getAfter());
+		} else if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep) step;
+			changeNumber(s.getPos(), s.getAfter());
+		}
 	}
 
 	public void initBoard() {
