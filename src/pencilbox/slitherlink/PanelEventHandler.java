@@ -13,7 +13,6 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	private Board board;
 
 	private int currentState = Board.OUTER; // ドラッグ中の辺の状態を表す
-
 	/**
 	 * 
 	 */
@@ -82,7 +81,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 				currentState = st;
 			}
 		}
-		for (Address p = pos0; !p.equals(pos1); p = p.nextCell(direction)) {
+		for (Address p = pos0; !p.equals(pos1); p = Address.nextCell(p, direction)) {
 			side = SideAddress.get(p, direction);
 			if (board.getState(side) != currentState)
 				board.changeState(side, currentState);
@@ -100,33 +99,33 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 */
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {
-			board.setNumber(pos, num);
+			board.changeNumber(pos, num);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
 				if (!board.isNumber(posS))
-					board.setNumber(posS, Board.UNDECIDED_NUMBER);
+					board.changeNumber(posS, Board.UNDECIDED_NUMBER);
 			}
 		}
 	}
 
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.setNumber(pos, Board.NONUMBER);
+			board.changeNumber(pos, Board.NONUMBER);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
 				if (board.isNumber(posS))
-					board.setNumber(posS, Board.NONUMBER);
+					board.changeNumber(posS, Board.NONUMBER);
 			}
 		}
 	}
 
 	protected void minusEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.setNumber(pos, Board.UNDECIDED_NUMBER);
+			board.changeNumber(pos, Board.UNDECIDED_NUMBER);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
 				if (!board.isNumber(posS))
-					board.setNumber(posS, Board.UNDECIDED_NUMBER);
+					board.changeNumber(posS, Board.UNDECIDED_NUMBER);
 			}
 		}
 	}
