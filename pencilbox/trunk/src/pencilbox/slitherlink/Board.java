@@ -7,6 +7,7 @@ import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.BorderEditStep;
+import pencilbox.common.core.CellEditStep;
 import pencilbox.common.core.Direction;
 import pencilbox.common.core.SideAddress;
 import pencilbox.resource.Messages;
@@ -44,7 +45,6 @@ public class Board extends BoardBase {
 		link[Direction.VERT] = new Link[rows()][cols() - 1];
 		link[Direction.HORIZ] = new Link[rows() - 1][cols()];
 	}
-	
 	/**
 	 * 指定した座標が問題数字座標で盤面上にあるか
 	 * @param r 行座標
@@ -170,7 +170,6 @@ public class Board extends BoardBase {
 	public void setLink(SideAddress pos, Link l) {
 		link[pos.d()][pos.r()][pos.c()] = l;
 	}
-
 	/**
 	 * 辺の状態を指定した状態に変更する
 	 * @param p 辺座標
@@ -192,6 +191,20 @@ public class Board extends BoardBase {
 	}
 
 	/**
+	 * マスの状態を指定した状態に変更する
+	 * @param p マス座標
+	 * @param n 変更後の状態
+	 */
+	public void changeNumber(Address p, int n) {
+		int prev = getNumber(p);
+		if (prev == n)
+			return;
+		if (isRecordUndo()) {
+			fireUndoableEditUpdate(new CellEditStep(p, prev, n));
+		}
+		setNumber(p, n);
+	}
+	/**
 	 * 辺の状態を指定した状態に変更する
 	 * アンドゥリスナーに変更を通知する
 	 * @param pos 辺座標
@@ -199,13 +212,23 @@ public class Board extends BoardBase {
 	 */
 
 	public void undo(AbstractStep step) {
-		BorderEditStep s = (BorderEditStep) step;
-		changeState(s.getPos(), s.getBefore());
+		if (step instanceof BorderEditStep) {
+			BorderEditStep s = (BorderEditStep) step;
+			changeState(s.getPos(), s.getBefore());
+		} else {
+			CellEditStep s = (CellEditStep) step;
+			changeNumber(s.getPos(), s.getBefore());
+		}
 	}
 
 	public void redo(AbstractStep step) {
-		BorderEditStep s = (BorderEditStep) step;
-		changeState(s.getPos(), s.getAfter());
+		if (step instanceof BorderEditStep) {
+			BorderEditStep s = (BorderEditStep) step;
+			changeState(s.getPos(), s.getAfter());
+		} else {
+			CellEditStep s = (CellEditStep) step;
+			changeNumber(s.getPos(), s.getAfter());
+		}
 	}
 
 	public void clearBoard() {
@@ -216,7 +239,7 @@ public class Board extends BoardBase {
 
 	public void trimAnswer() {
 		for (SideAddress p : borderAddrs()) {
-			if (getState(p) == NOLINE) 
+			if (getState(p) == NOLINE)
 				setState(p, UNKNOWN);
 		}
 	}
@@ -252,7 +275,7 @@ public class Board extends BoardBase {
 	private void initLink1(SideAddress p) {
 		if (!isSideOn(p))
 			return;
-		if (getState(p) != LINE)
+		if (getState(p) != Board.LINE)
 			return;
 		if (getLink(p) != null)
 			return;
@@ -329,18 +352,14 @@ public class Board extends BoardBase {
 	 * @return 	数字の４辺の線の数を数える
 	 */
 	public int lineAround(int r, int c){
-		SideAddress.sideAddress(Direction.VERT, r, c);
-		SideAddress.sideAddress(Direction.HORIZ, r, c);
-		SideAddress.sideAddress(Direction.VERT, r+1, c);
-		SideAddress.sideAddress(Direction.HORIZ, r, c+1);
 		int nl = 0;
-		if (isLine(Direction.VERT,r,c))
+		if (getState(SideAddress.sideAddress(Direction.VERT, r, c)) == LINE)
 			nl++;
-		if (isLine(Direction.HORIZ,r,c))
+		if (getState(SideAddress.sideAddress(Direction.HORIZ, r, c)) == LINE)
 			nl++;
-		if (isLine(Direction.VERT,r + 1,c))
+		if (getState(SideAddress.sideAddress(Direction.VERT, r+1, c)) == LINE)
 			nl++;
-		if (isLine(Direction.HORIZ,r,c + 1))
+		if (getState(SideAddress.sideAddress(Direction.HORIZ, r, c+1)) == LINE)
 			nl++;
 		return nl;		
 	}
