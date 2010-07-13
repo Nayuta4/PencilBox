@@ -103,12 +103,9 @@ public class Board extends BoardBase {
 		return getNumber(pos.r(), pos.c());
 	}
 
-	public boolean isNumber(int r, int c) {
-		return (number[r][c] >= 1 && number[r][c] <= 3);
-	}
-	
 	public boolean isNumber(Address pos) {
-		return isNumber(pos.r(), pos.c());
+		int n = getNumber(pos);
+		return n>=1 && n<=3;
 	}
 	/**
 	 * 辺状態の取得
@@ -143,23 +140,12 @@ public class Board extends BoardBase {
 		setState(pos.d(), pos.r(), pos.c(), st);
 	}
 
-	public boolean isLine(int d, int r, int c) {
-		if (!isSideOn(d,r,c))
-			return false;
-		return
-		state[d][r][c] == LINE;
-	}
 	/**
 	 * マスから direction 方向に線はあるか
 	 */
-	public boolean isLineJ(int r, int c, int direction) {
-		switch (direction) {
-			case UP: return isLine(Direction.HORIZ,r-1,c);
-			case LT: return isLine(Direction.VERT, r,c-1);
-			case DN: return isLine(Direction.HORIZ,r,c);
-			case RT: return isLine(Direction.VERT, r,c);
-			default: return false;
-		}
+	public boolean isLineJ(Address p0, int direction) {
+		SideAddress p = SideAddress.get(p0, direction);
+		return (isSideOn(p)) && (getState(p) == LINE);
 	}
 
 	public Link getLink(SideAddress pos) {
@@ -168,7 +154,6 @@ public class Board extends BoardBase {
 		else
 			return null;
 	}
-
 	/**
 	 * そのマスを含む Link を返す
 	 */
@@ -187,7 +172,7 @@ public class Board extends BoardBase {
 
 	/**
 	 * マスの状態を指定した状態に変更する
-	 * @param p 辺座標
+	 * @param p マス座標
 	 * @param n 変更後の状態
 	 */
 	public void changeNumber(Address p, int n) {
@@ -359,25 +344,28 @@ public class Board extends BoardBase {
 			return -1; 
 		else if (l < 2)
 			return 0; 
-		int r=p.r(); int c=p.c();
-		if (isLineJ(r,c,UP) && isLineJ(r,c,RT)) return -1;
-		if (isLineJ(r,c,UP) && isLineJ(r,c,LT)) return -1;
-		if (isLineJ(r,c,DN) && isLineJ(r,c,RT)) return -1;
-		if (isLineJ(r,c,DN) && isLineJ(r,c,LT)) return -1;
-		if (isLineJ(r,c,UP) && isLineJ(r,c,DN)) {
-			if (isLineJ(r-1,c,UP) && isLineJ(r+1,c,DN)) return -1;
-			if (isLineJ(r-1,c,RT)) return 2;
-			if (isLineJ(r-1,c,LT)) return 2;
-			if (isLineJ(r+1,c,RT)) return 2;
-			if (isLineJ(r+1,c,LT)) return 2;
+		if (isLineJ(p,UP) && isLineJ(p,RT)) return -1;
+		if (isLineJ(p,UP) && isLineJ(p,LT)) return -1;
+		if (isLineJ(p,DN) && isLineJ(p,RT)) return -1;
+		if (isLineJ(p,DN) && isLineJ(p,LT)) return -1;
+		if (isLineJ(p,UP) && isLineJ(p,DN)) {
+			Address pu = Address.nextCell(p,UP);
+			Address pd = Address.nextCell(p,DN);
+			if (isLineJ(pu,UP) && isLineJ(pd,DN)) return -1;
+			if (isLineJ(pu,RT)) return 2;
+			if (isLineJ(pu,LT)) return 2;
+			if (isLineJ(pd,RT)) return 2;
+			if (isLineJ(pd,LT)) return 2;
 			return 1;
 		}
-		if (isLineJ(r,c,LT) &&  isLineJ(r,c,RT)) {
-			if (isLineJ(r,c-1,LT) && isLineJ(r,c+1,RT)) return -1;
-			if (isLineJ(r,c-1,UP)) return 2;
-			if (isLineJ(r,c-1,DN)) return 2;
-			if (isLineJ(r,c+1,UP)) return 2;
-			if (isLineJ(r,c+1,DN)) return 2;
+		if (isLineJ(p,LT) &&  isLineJ(p,RT)) {
+			Address pl = Address.nextCell(p,LT);
+			Address pr = Address.nextCell(p,RT);
+			if (isLineJ(pl,LT) && isLineJ(pr,RT)) return -1;
+			if (isLineJ(pl,UP)) return 2;
+			if (isLineJ(pl,DN)) return 2;
+			if (isLineJ(pr,UP)) return 2;
+			if (isLineJ(pr,DN)) return 2;
 			return 1;
 		}
 		return -9;
@@ -404,32 +392,35 @@ public class Board extends BoardBase {
 		else if (l < 2)
 			return 0; 
 
-		int r=p.r(); int c=p.c();
-		if (isLineJ(r,c,UP) && isLineJ(r,c,DN)) return -1;
-		if (isLineJ(r,c,RT) && isLineJ(r,c,LT)) return -1;
+		if (isLineJ(p,UP) && isLineJ(p,DN)) return -1;
+		if (isLineJ(p,RT) && isLineJ(p,LT)) return -1;
 
-		if (isLineJ(r,c,UP)) {
-			if (isLineJ(r-1,c,LT)) return -1;
-			if (isLineJ(r-1,c,RT)) return -1;
-			if (isLineJ(r-1,c,UP)) success |= 2;
+		if (isLineJ(p,UP)) {
+			Address pu = Address.nextCell(p,UP);
+			if (isLineJ(pu,LT)) return -1;
+			if (isLineJ(pu,RT)) return -1;
+			if (isLineJ(pu,UP)) success |= 2;
 			else success |= 1;
 		}
-		if (isLineJ(r,c,DN)) {
-			if (isLineJ(r+1,c,LT)) return -1;
-			if (isLineJ(r+1,c,RT)) return -1;
-			if (isLineJ(r+1,c,DN)) success |= 2;
+		if (isLineJ(p,DN)) {
+			Address pd = Address.nextCell(p,DN);
+			if (isLineJ(pd,LT)) return -1;
+			if (isLineJ(pd,RT)) return -1;
+			if (isLineJ(pd,DN)) success |= 2;
 			else success |= 1;
 		} 
-		if (isLineJ(r,c,LT)) {
-			if (isLineJ(r,c-1,UP)) return -1;
-			if (isLineJ(r,c-1,DN)) return -1;
-			if (isLineJ(r,c-1,LT)) success |= 8;
+		if (isLineJ(p,LT)) {
+			Address pl = Address.nextCell(p,LT);
+			if (isLineJ(pl,UP)) return -1;
+			if (isLineJ(pl,DN)) return -1;
+			if (isLineJ(pl,LT)) success |= 8;
 			else success |= 4;
 		}
-		if (isLineJ(r,c,RT)) {
-			if (isLineJ(r,c+1,UP)) return -1;
-			if (isLineJ(r,c+1,DN)) return -1;
-			if (isLineJ(r,c+1,RT)) success |= 8;
+		if (isLineJ(p,RT)) {
+			Address pr = Address.nextCell(p,RT);
+			if (isLineJ(pr,UP)) return -1;
+			if (isLineJ(pr,DN)) return -1;
+			if (isLineJ(pr,RT)) success |= 8;
 			else success |= 4;
 		}
 		if (success == 10) return 2;
