@@ -75,17 +75,17 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode())
 			if (num > 0)
-				board.setNumber(pos, num);
+				board.changeNumber(pos, num);
 	}
 
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode())
-			board.setNumber(pos, 0);
+			board.changeNumber(pos, 0);
 	}
 
 //	protected void starEntered(Address pos) {
 //		if (problemEditMode)
-//			board.setNumber(pos.r, pos.c, Board.UNDEFINED_NUMBER);
+//			board.changeNumber(pos.r, pos.c, Board.UNDEFINED_NUMBER);
 //	}
 
 }

@@ -4,6 +4,7 @@ import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.CellEditStep;
+import pencilbox.common.core.AbstractStep.EditType;
 import pencilbox.resource.Messages;
 import pencilbox.util.ArrayUtil;
 
@@ -13,10 +14,10 @@ import pencilbox.util.ArrayUtil;
  */
 public class Board extends BoardBase {
 
-	static final int WHITE = -1;
-	static final int BLACK = -2;
-	static final int UNKNOWN = 0;
-	static final int UNDECIDED_NUMBER = -1;
+	public static final int WHITE = -1;
+	public static final int BLACK = -2;
+	public static final int UNKNOWN = 0;
+	public static final int UNDECIDED_NUMBER = -1;
 
 	private int[][] state;
 	private int[][] number;
@@ -125,8 +126,7 @@ public class Board extends BoardBase {
 	}
 	/**
 	 * そのマスと縦または横の同じ列に，黒マスで消されていない同じ数字があるか
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param p 座標
 	 * @return 黒マスで消されていない同じ数字があれば true, なければ false
 	 */
 	public boolean isRedundantNumber(Address p) {
@@ -145,16 +145,33 @@ public class Board extends BoardBase {
 	int getChain(Address p) {
 		return chain[p.r()][p.c()];
 	}
+	/**
+	 * マスの状態を指定した状態に変更し，変更をアンドゥリスナーに通知する
+	 * @param p マス座標
+	 * @param n 変更後の状態
+	 */
+	public void changeNumber(Address p, int n) {
+		int prev = getNumber(p);
+		if (n == prev)
+			return;
+		if (isRecordUndo())
+			fireUndoableEditUpdate(new CellEditStep(EditType.FIXED, p, prev, n));
+		setNumber(p, n);
+//		initChain();
+//		checkContinuousBlack();
+	}
 	
 	/**
 	 * マスの状態を指定した状態に変更し，変更をアンドゥリスナーに通知する
-	 * @param pos マス座標
+	 * @param p マス座標
 	 * @param st 変更後の状態
 	 */
 	public void changeState(Address p, int st) {
-		if (isRecordUndo())
-			fireUndoableEditUpdate(new CellEditStep(p, getState(p), st));
 		int prev = getState(p);
+		if (st == prev)
+			return;
+		if (isRecordUndo())
+			fireUndoableEditUpdate(new CellEditStep(EditType.STATE, p, prev, st));
 		setState(p, st);
 		if (st == BLACK) {
 			decreseMulti(p);
@@ -168,24 +185,34 @@ public class Board extends BoardBase {
 	}
 	
 	public void undo(AbstractStep step) {
-		CellEditStep s = (CellEditStep) step;
-		changeState(s.getPos(), s.getBefore());
+		if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep) step;
+			if (step.getType() == EditType.STATE) {
+				changeState(s.getPos(), s.getBefore());
+			} else if (step.getType() == EditType.FIXED) {
+				changeNumber(s.getPos(), s.getBefore());
+			}
+		} 
 	}
 
 	public void redo(AbstractStep step) {
-		CellEditStep s = (CellEditStep) step;
-		changeState(s.getPos(), s.getAfter());
+		if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep) step;
+			if (step.getType() == EditType.STATE) {
+				changeState(s.getPos(), s.getAfter());
+			} else if (step.getType() == EditType.FIXED) {
+				changeNumber(s.getPos(), s.getAfter());
+			}
+		}
 	}
-
 	/**
 	 * そのマスの上下左右の隣接４マスに黒マスがあるかどうかを調べる
-	 * @param r
-	 * @param c
+	 * @param p
 	 * @return 上下左右に黒マスがひとつでもあれば true
 	 */
 	boolean isBlock(Address p) {
 		for (int d=0; d<4; d++) {
-			if (isBlack(p.nextCell(d)))
+			if (isBlack(Address.nextCell(p, d)))
 				return true;
 		}
 		return false;
@@ -335,7 +362,7 @@ public class Board extends BoardBase {
 	 */
 	boolean checkContinuousBlack() {
 		boolean ret = true;
-		for (Address p : cellAddrs()) { 
+		for (Address p : cellAddrs()) {
 			if (isBlack(p)) {
 				if (isBlock(p)) {
 					ret = false;
