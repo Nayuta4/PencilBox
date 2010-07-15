@@ -6,7 +6,9 @@ import java.util.List;
 import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
+import pencilbox.common.core.CellEditStep;
 import pencilbox.common.core.SquareEditStep;
+import pencilbox.common.core.AbstractStep.EditType;
 import pencilbox.resource.Messages;
 import pencilbox.util.ArrayUtil;
 
@@ -60,25 +62,22 @@ public class Board extends BoardBase {
 	 */
 	public void initSquare1(Square sq) {
 		int n = 0;
-		for (int r = sq.r0(); r <= sq.r1(); r++ ) {
-			for (int c = sq.c0(); c <= sq.c1(); c++) {
-				if (isNumber(r,c)) {
-					if (n != 0)
-						n = Square.MULTIPLE_NUMBER;
-					else
-						n = number[r][c];
+		for (Address p : sq.cellSet()) {
+			if (isNumber(p)) {
+				if (n != 0) {
+					n = Square.MULTIPLE_NUMBER;
+				} else {
+					n = getNumber(p);
 				}
-				square[r][c] = sq;
 			}
+			setSquare(p, sq);
 		}
 		sq.setNumber(n);
 	}
 
 	public void clearSquare1(Square sq) {
-		for (int r = sq.r0(); r <= sq.r1(); r++ ) {
-			for (int c = sq.c0(); c <= sq.c1(); c++) {
-				square[r][c] = null;
-			}
+		for (Address p : sq.cellSet()) {
+			setSquare(p, null);
 		}
 	}
 	
@@ -117,16 +116,12 @@ public class Board extends BoardBase {
 	}
 	/**
 	 * そのマスに数字があるか
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param p 座標
 	 * @return　そのマスに数字があれば true
 	 */
-	public boolean isNumber(int r, int c) {
-		return number[r][c] > 0 || number[r][c] == UNDECIDED_NUMBER;
-	}
-	
 	public boolean isNumber(Address pos) {
-		return isNumber(pos.r(), pos.c());
+		int n = getNumber(pos);
+		return n > 0 || n == Board.UNDECIDED_NUMBER;
 	}
 	/**
 	 * そのマスの属する Square を返す
@@ -138,22 +133,16 @@ public class Board extends BoardBase {
 		return square[r][c];
 	}
 
+	public Square getSquare(Address p) {
+		return square[p.r()][p.c()];
+	}
+
 	public void setSquare(int r, int c, Square s) {
 		square[r][c] = s;
 	}
 
-	public Square getSquare(Address pos) {
-		return square[pos.r()][pos.c()];
-	}
-
-	/**
-	 * 引数のマスがいずれかの四角に含まれているかどうか
-	 * @param r 行座標
-	 * @param c 列座標
-	 * @return 含まれていれば true
-	 */
-	public boolean isCovered(int r, int c) {
-		return square[r][c] != null;
+	public void setSquare(Address p, Square s) {
+		square[p.r()][p.c()] = s;
 	}
 
 	/**
@@ -162,35 +151,60 @@ public class Board extends BoardBase {
 	 * @param org 変更する場合のもとの四角
 	 */
 	void removeOverlappedSquares(Square sq, Square org) {
-		for (int r = sq.r0(); r <= sq.r1(); r++ ) {
-			for (int c = sq.c0(); c <= sq.c1(); c++) {
-				Square s = getSquare(r, c);
-				if (s != null && s != org) {
-					removeSquare(s);
-				}
+		for (Address p : sq.cellSet()) {
+			Square s = getSquare(p);
+			if (s != null && s != org) {
+				removeSquare(s);
 			}
 		}
 	}
 	
+	/**
+	 * 部屋の数字を変更する。
+	 * @param p
+	 * @param n
+	 */
+	public void changeNumber(Address p, int n) {
+		int prev = getNumber(p);
+		if (n == prev)
+			return;
+		if (isRecordUndo()) {
+			fireUndoableEditUpdate(new CellEditStep(EditType.FIXED, p, prev, n));
+		}
+		setNumber(p, n);
+	}
+
 	public void undo(AbstractStep step) {
-		SquareEditStep s = (SquareEditStep) step;
-		if (s.getOperation() == SquareEditStep.ADDED) {
-			removeSquare(s.getR0(), s.getC0());
-		} else if (s.getOperation() == SquareEditStep.REMOVED) {
-			addSquare(s.getR0(), s.getC0(), s.getR1(), s.getC1());
-		} else if (s.getOperation() == SquareEditStep.CHANGED) {
-			changeSquare(s.getR1(), s.getC1(), s.getR0(), s.getC0());
+		if (step instanceof SquareEditStep) {
+			SquareEditStep s = (SquareEditStep) step;
+			if (s.getOperation() == SquareEditStep.ADDED) {
+				removeSquare(s.getR0(), s.getC0());
+			} else if (s.getOperation() == SquareEditStep.REMOVED) {
+				addSquare(s.getR0(), s.getC0(), s.getR1(), s.getC1());
+			} else if (s.getOperation() == SquareEditStep.CHANGED) {
+				changeSquare(s.getR1(), s.getC1(), s.getR0(), s.getC0());
+			}
+		}
+		if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep)step;
+			changeNumber(s.getPos(), s.getBefore());
 		}
 	}
 
 	public void redo(AbstractStep step) {
-		SquareEditStep s = (SquareEditStep) step;
-		if (s.getOperation() == SquareEditStep.ADDED) {
-			addSquare(s.getR0(), s.getC0(), s.getR1(), s.getC1());
-		} else if (s.getOperation() == SquareEditStep.REMOVED) {
-			removeSquare(s.getR0(), s.getC0());
-		} else if (s.getOperation() == SquareEditStep.CHANGED) {
-			changeSquare(s.getR0(), s.getC0(), s.getR1(), s.getC1());
+		if (step instanceof SquareEditStep) {
+			SquareEditStep s = (SquareEditStep) step;
+			if (s.getOperation() == SquareEditStep.ADDED) {
+				addSquare(s.getR0(), s.getC0(), s.getR1(), s.getC1());
+			} else if (s.getOperation() == SquareEditStep.REMOVED) {
+				removeSquare(s.getR0(), s.getC0());
+			} else if (s.getOperation() == SquareEditStep.CHANGED) {
+				changeSquare(s.getR0(), s.getC0(), s.getR1(), s.getC1());
+			}
+		}
+		if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep)step;
+			changeNumber(s.getPos(), s.getAfter());
 		}
 	}
 
@@ -314,13 +328,11 @@ public class Board extends BoardBase {
 				errorCode |= 8; 
 			}
 		}
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				if (isNumber(r,c))
-					nNumber ++;
-					if (square[r][c] == null)
-						errorCode |= 16; 
-			}
+		for (Address p : cellAddrs()) {
+			if (isNumber(p))
+				nNumber ++;
+				if (getSquare(p) == null)
+					errorCode |= 16;
 		}
 		if (nNumber==0)
 			errorCode = 32; 
