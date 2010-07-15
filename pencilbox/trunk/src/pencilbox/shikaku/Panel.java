@@ -130,11 +130,9 @@ public class Panel extends PanelBase {
 		}
 		Square square = getDraggingSquare();
 		if (square != null) {
-			for (int r = square.r0(); r <= square.r1(); r++) {
-				for (int c = square.c0(); c <= square.c1(); c++) {
-					g.setColor(draggingAreaColor);
-					paintCell(g, r, c);
-				}
+			for (Address p : square.cellSet()) {
+				g.setColor(draggingAreaColor);
+				paintCell(g, p);
 			}
 		}
 	}

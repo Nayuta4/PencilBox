@@ -53,11 +53,11 @@ public class TxtReader extends TxtReaderBase {
 			line = reader.readLine();
 			t = new StringTokenizer(line);
 			while (t.hasMoreTokens()) {
-				board.addSquare(new Square(
+				board.addSquare(
 					Integer.parseInt(t.nextToken()),
 					Integer.parseInt(t.nextToken()),
 					Integer.parseInt(t.nextToken()),
-					Integer.parseInt(t.nextToken())));
+					Integer.parseInt(t.nextToken()));
 			}
 		}
 		return board;
