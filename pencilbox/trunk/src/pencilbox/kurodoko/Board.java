@@ -116,7 +116,13 @@ public class Board extends BoardBase {
 			}
 		}
 	}
-	
+
+	void initNumber(Address p0) {
+		for (int d=0; d<4; d++) {
+		  countSpace(p0, d);
+		}
+	}
+
 	public Number getNumber(Address p) {
 		return number[p.r()][p.c()];
 	}
@@ -155,7 +161,14 @@ public class Board extends BoardBase {
 		} else if (prev == BLACK) {
 			cutChain(r, c);
 		}
-		updateSpace(p);
+		if (st > 0) {
+			setNumber(p, new Number(st));
+			initNumber(p);
+		} else if (prev > 0) {
+			setNumber(p, null);
+		}
+		if (st == BLACK || prev == BLACK)
+			updateSpace(p);
 	}
 
 	public void undo(AbstractStep step) {
@@ -311,10 +324,15 @@ public class Board extends BoardBase {
 		}
 	}
 	
-	int initNumber(Address p0, int d) {
+	/**
+	 * マス p0 から d 方向に見たときの白マスの数を調べる
+	 * @param p0
+	 * @param d
+	 */
+	void countSpace(Address p0, int d) {
 		int n=0;
 		Address p = p0;
-		while(true) {
+		while(isOn(p) && !isBlack(p)) {
 			p = p.nextCell(d);
 			if (!isOn(p))
 				break;
@@ -323,7 +341,6 @@ public class Board extends BoardBase {
 			n++;
 		};
 		getNumber(p0).setNSpace(d, n);
-
 		p = p0;
 		n = 0;
 		while(true) {
@@ -335,24 +352,12 @@ public class Board extends BoardBase {
 			n++;
 		};
 		getNumber(p0).setNWhite(d, n);
-
-		if (getNumber(p0).tooSmallSpace()) return -1;
-		if (getNumber(p0).tooLargeWhite()) return -1;
-		return 0;
 	}
 
-	void initNumber(Address p0) {
-		for (int d=0; d<4; d++) {
-		  initNumber(p0, d);
-		}
-	}
 	/**
-	 * マスの状態を変更したときに，そのマスの上下左右の数字クラス属性を更新する
-	 * space と white を両方更新する
-	 * 誤り発生時に-1を，通常時に0を返す
+	 * マスの状態を変更したときに，そのマスの上下左右の数字マスを探して白マス数を数え直す
 	 */
-	int updateSpace(Address p0) {
-		int ret = 0;
+	void updateSpace(Address p0) {
 		for (int d=0; d<4; d++) {
 			Address p = p0;
 			while(true) {
@@ -362,14 +367,10 @@ public class Board extends BoardBase {
 				if (isBlack(p))
 					break;
 				if (isNumber(p)) {
-					ret += initNumber(p, d^2);
+					countSpace(p, d^2);
 				}
 			}
 		}
-		if (ret<0)
-			return -1;
-		else
-			return 0;
 	}
 	
 	int getSumSpace(Address p) {
