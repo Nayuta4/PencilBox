@@ -13,14 +13,14 @@ import pencilbox.util.ArrayUtil;
  */
 public class Board extends BoardBase {
 
-	static final int HORIZ = Direction.HORIZ; 
-	static final int VERT = Direction.VERT;
+	public static final int HORIZ = Direction.HORIZ; 
+	public static final int VERT = Direction.VERT;
 
-	static final int WHITE = -1;
-	static final int BLACK = -2;
-	static final int UNKNOWN = 0;
-	static final int OUT = -3;
-	static int UNDECIDED_NUMBER = -4;
+	public static final int WHITE = -1;
+	public static final int BLACK = -2;
+	public static final int UNKNOWN = 0;
+	public static final int OUT = -3;
+	public static int UNDECIDED_NUMBER = -4;
 
 	private int[][] state;
 	private int[][] chain; // 黒マスの斜めつながりを記録する
@@ -91,41 +91,38 @@ public class Board extends BoardBase {
 	public boolean isBlack(int r, int c) {
 		return isOn(r, c) && state[r][c] == BLACK;
 	}
-	public boolean isWhiteOrNumber(int r, int c) {
-		return state[r][c] == WHITE || state[r][c]>0 || state[r][c] == UNDECIDED_NUMBER;
+
+	public boolean isBlack(Address p) {
+		return isOn(p) && (getState(p) == BLACK);
+	}
+
+	public boolean isWhiteOrNumber(Address p) {
+		int n = getState(p);
+		return n == WHITE || n>0 || n == UNDECIDED_NUMBER;
 	}
 
 	public void initBoard() {
 		initChain();
 		initNumber();
 	}
+
 	void initNumber() {
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				if (isNumber(r,c)) {
-					number[r][c] = new Number(getState(r,c));
-					initNumber(r, c);
-				} else
-					number[r][c] = null;
+		for (Address p : cellAddrs()) {
+			if (isNumber(p)) {
+				setNumber(p, new Number(getState(p)));
+				initNumber(p);
+			} else {
+				setNumber(p, null);
 			}
 		}
 	}
-	public Number getNumber(int r, int c) {
-		return number[r][c];
+	
+	public Number getNumber(Address p) {
+		return number[p.r()][p.c()];
 	}
 	
-	public Number getNumber(Address pos) {
-		return getNumber(pos.r(), pos.c());
-	}
-	
-	public void setNumber(int r, int c, int n) {
-		setState(r,c,n);
-		number[r][c] = new Number(n);
-		initNumber(r, c);
-	}
-	
-	public void setNumber(Address pos, int n) {
-		setNumber(pos.r(), pos.c(), n);
+	public void setNumber(Address p, Number n) {
+		number[p.r()][p.c()] = n;
 	}
 	/**
 	 * 黒マスの斜めつながり番号を返す
@@ -146,45 +143,47 @@ public class Board extends BoardBase {
 	 * @param st 変更後の状態
 	 */
 	public void changeState(Address p, int st) {
+		int prev = getState(p);
+		if (st == prev)
+			return;
 		if (isRecordUndo())
-			fireUndoableEditUpdate(new CellEditStep(p, getState(p), st));
+			fireUndoableEditUpdate(new CellEditStep(p, prev, st));
 		int r=p.r(), c=p.c();
-		int prevState = getState(r,c);
-		setState(r,c,st);
+		setState(p, st);
 		if (st == BLACK) {
 			connectChain(r, c);
-		} else if (prevState == BLACK) {
+		} else if (prev == BLACK) {
 			cutChain(r, c);
 		}
-		updateSpace(r, c);
+		updateSpace(p);
 	}
-	
+
 	public void undo(AbstractStep step) {
-		CellEditStep s = (CellEditStep)step;
-		changeState(s.getPos(), s.getBefore());
+		if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep) step;
+			changeState(s.getPos(), s.getBefore());
+		}
 	}
 
 	public void redo(AbstractStep step) {
-		CellEditStep s = (CellEditStep)step;
-		changeState(s.getPos(), s.getAfter());
+		if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep) step;
+			changeState(s.getPos(), s.getAfter());
+		}
 	}
 
 	/**
 	 * そのマスの上下左右の隣接４マスに黒マスがあるかどうかを調べる
-	 * @param r
-	 * @param c
+	 * @param p
 	 * @return 上下左右に黒マスがひとつでもあれば true
 	 */
-	boolean isBlock(int r, int c) {
-		if (isBlack(r-1, c) || isBlack(r+1, c) || isBlack(r, c-1) || isBlack(r, c+1))
-			return true;
+	boolean isBlock(Address p) {
+		for (int d=0; d<4; d++) {
+			if (isBlack(Address.nextCell(p, d)))
+				return true;
+		}
 		return false;
 	}
-	
-	boolean isBlock(Address pos) {
-		return isBlock(pos.r(), pos.c());
-	}
-
 	/**
 	 * 	chain配列を初期化する
 	 */
@@ -312,90 +311,86 @@ public class Board extends BoardBase {
 		}
 	}
 	
-	int initNumber(int r0, int c0, int direction) {
+	int initNumber(Address p0, int d) {
 		int n=0;
-		Address pos = Address.address(r0, c0);
+		Address p = p0;
 		while(true) {
-			pos = pos.nextCell(direction);
-			if (!isOn(pos.r(),pos.c()))
+			p = p.nextCell(d);
+			if (!isOn(p))
 				break;
-			if (isBlack(pos.r(), pos.c()))
+			if (isBlack(p))
 				break;
 			n++;
 		};
-		number[r0][c0].setNSpace(direction, n);
+		getNumber(p0).setNSpace(d, n);
 
-		pos = Address.address(r0, c0);
+		p = p0;
 		n = 0;
 		while(true) {
-			pos = pos.nextCell(direction);
-			if (!isOn(pos.r(),pos.c()))
+			p = p.nextCell(d);
+			if (!isOn(p))
 				break;
-			if (!isWhiteOrNumber(pos.r(), pos.c()))
+			if (!isWhiteOrNumber(p))
 				break;
 			n++;
 		};
-		number[r0][c0].setNWhite(direction, n);
+		getNumber(p0).setNWhite(d, n);
 
-		if (number[r0][c0].tooSmallSpace()) return -1;
-		if (number[r0][c0].tooLargeWhite()) return -1;
+		if (getNumber(p0).tooSmallSpace()) return -1;
+		if (getNumber(p0).tooLargeWhite()) return -1;
 		return 0;
 	}
 
-	void initNumber(int r0, int c0) {
-		  initNumber(r0, c0, Direction.UP);
-		  initNumber(r0, c0, Direction.DN);
-		  initNumber(r0, c0, Direction.LT);
-		  initNumber(r0, c0, Direction.RT);
+	void initNumber(Address p0) {
+		for (int d=0; d<4; d++) {
+		  initNumber(p0, d);
+		}
 	}
 	/**
 	 * マスの状態を変更したときに，そのマスの上下左右の数字クラス属性を更新する
 	 * space と white を両方更新する
 	 * 誤り発生時に-1を，通常時に0を返す
 	 */
-	int updateSpace(int r0, int c0) {
+	int updateSpace(Address p0) {
 		int ret = 0;
 		for (int d=0; d<4; d++) {
-			Address pos = Address.address(r0, c0);
+			Address p = p0;
 			while(true) {
-				pos = pos.nextCell(d);
-				if (!isOn(pos.r(), pos.c()))
+				p = Address.nextCell(p, d);
+				if (!isOn(p))
 					break;
-				if (isBlack(pos.r(), pos.c()))
+				if (isBlack(p))
 					break;
-				if (isNumber(pos.r(), pos.c())) {
-					ret += initNumber(pos.r(), pos.c(), d^2);
+				if (isNumber(p)) {
+					ret += initNumber(p, d^2);
 				}
 			}
 		}
-		if (ret<0) return -1;
-		else return 0;
+		if (ret<0)
+			return -1;
+		else
+			return 0;
 	}
 	
 	int getSumSpace(Address p) {
 		return getNumber(p).getSumSpace();
 	}
-	int getSumWhite(Address p) {
-		return getNumber(p).getSumWhite();
-	}
 
 	public int checkAnswerCode() {
 		int result = 0;
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				if (isBlack(r, c)) {
-					if (isBlock(r,c))
-						result |= (1<<0);
-					if (chain[r][c] == -1)
-						result |= (1<<1);
-				}
-				if (isNumber(r, c)) {
-					int remainder = number[r][c].getSumSpace() - number[r][c].getNumber();
-					if (remainder < 0)
-						result |= (1<<2);
-					else if (remainder > 0)
-						result |= (1<<3);
-				}
+		for (Address p : cellAddrs()) {
+			if (isBlack(p)) {
+				if (isBlock(p))
+					result |= (1<<0);
+				if (getChain(p) == -1)
+					result |= (1<<1);
+			}
+			if (isNumber(p)) {
+				int remainder = getNumber(p).getSumSpace() - getNumber(p).getNumber();
+				if (remainder < 0)
+					result |= (1<<2);
+				else if (remainder > 0)
+					result |= (1<<3);
 			}
 		}
 		return result;
