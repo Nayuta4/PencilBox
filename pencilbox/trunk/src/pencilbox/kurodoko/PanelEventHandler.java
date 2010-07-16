@@ -80,11 +80,11 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {
 			if (num > 0) {
-				board.setNumber(pos, num);
+				board.changeState(pos, num);
 				if (isSymmetricPlacementMode()) {
 					Address posS = getSymmetricPosition(pos);
 					if (!board.isNumber(posS))
-						board.setNumber(posS, Board.UNDECIDED_NUMBER);
+						board.changeState(posS, Board.UNDECIDED_NUMBER);
 				}
 			}
 		}
@@ -96,7 +96,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
 				if (board.isNumber(posS))
-					board.setNumber(posS, Board.UNKNOWN);
+					board.changeState(posS, Board.UNKNOWN);
 			}
 		}
 	}
@@ -107,7 +107,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
 				if (!board.isNumber(posS))
-					board.setNumber(posS, Board.UNDECIDED_NUMBER);
+					board.changeState(posS, Board.UNDECIDED_NUMBER);
 			}
 		}
 	}
