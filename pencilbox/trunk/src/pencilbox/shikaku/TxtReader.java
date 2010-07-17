@@ -58,7 +58,8 @@ public class TxtReader extends TxtReaderBase {
 					Integer.parseInt(t.nextToken()),
 					Integer.parseInt(t.nextToken()),
 					Integer.parseInt(t.nextToken()));
-				board.addSquare(sq);
+				board.setSquare(sq, sq);
+				board.getSquareList().add(sq);
 			}
 		}
 		return board;
