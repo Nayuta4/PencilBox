@@ -107,11 +107,11 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 				board.removeOverlappedSquares(draggingSquare, null);
 				board.addSquare(new Square(draggingSquare));
 			} else {
-				if (sq.r0() == draggingSquare.r0() && sq.c0() == draggingSquare.c0() && sq.r1() == draggingSquare.r1() && sq.c1() == draggingSquare.c1()) {
+				if (sq.equals(draggingSquare)) {
 					;
 				} else {
 					board.removeOverlappedSquares(draggingSquare, sq);
-					board.changeSquare(sq, draggingSquare);
+					board.changeSquare(sq, draggingSquare.p0(), draggingSquare.p1());
 				}
 			}
 			setDraggingSquare(null);
@@ -139,7 +139,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			sweepState(pos);
 		}
 	}
-	
+
 	private void resetPivot() {
 		pivotR = -1;
 		pivotC = -1;
@@ -172,13 +172,13 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 */
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {
-			board.setNumber(pos, num);
+			board.changeNumber(pos, num);
 		}
 	}
 	
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.setNumber(pos, Square.ANY);
+			board.changeNumber(pos, Square.ANY);
 		}
 	}
 
@@ -196,4 +196,3 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		return ((Panel) getPanel()).getDraggingSquare();
 	}
 }
-

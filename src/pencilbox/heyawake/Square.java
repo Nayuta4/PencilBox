@@ -25,6 +25,9 @@ public class Square extends pencilbox.common.core.Square {
 		super(ra, ca, rb, cb);
 		this.setNumber(number);
 	}
+	public Square(Address p0, Address p1, int number){
+		this(p0.r(), p0.c(), p1.r(), p1.c(), number);
+	}
 	/**
 	 * コンストラクタ
 	 * 両対角点の座標から 数字なしの部屋を作成
