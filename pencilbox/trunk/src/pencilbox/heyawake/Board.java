@@ -620,7 +620,7 @@ public class Board extends BoardBase {
 		int[] adjacent = adjacentChain;
 		int k = 0;
 		int newChain = Integer.MAX_VALUE;
-		if (isOnPeriphery(r,c)) 
+		if (isOnPeriphery(r,c))
 			newChain = 1;
 		for (int u = -1; u <= 1; u += 2) {
 			for (int v = -1; v <= 1; v += 2) {
@@ -628,7 +628,7 @@ public class Board extends BoardBase {
 				if (getState(r + u,c + v) != BLACK) continue; // 黒マス以外はとばす
 				if (isOnPeriphery(r, c) && chain[r + u][c + v] == 1) {
 					newChain = -1; // 端のマスにいるとき番号1が見つかったら
-				} 
+				}
 				adjacent[k] = chain[r + u][c + v];
 				for (int l = 0; l < k; l++) {
 					if (adjacent[k] == adjacent[l]) // 同じ番号が見つかったら

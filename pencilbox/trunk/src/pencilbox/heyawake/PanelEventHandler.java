@@ -100,8 +100,8 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			Square draggingSquare = getDraggingSquare();
 			if (draggingSquare == null)
 				return;
-			int rp = pivotR >= 0 ? pivotR : draggingSquare.r0(); 
-			int cp = pivotC >= 0 ? pivotC : draggingSquare.c0(); 
+			int rp = pivotR >= 0 ? pivotR : draggingSquare.r0();
+			int cp = pivotC >= 0 ? pivotC : draggingSquare.c0();
 			Square sq = board.getSquare(rp, cp);
 			if (sq == null) {
 				board.removeOverlappedSquares(draggingSquare, null);
