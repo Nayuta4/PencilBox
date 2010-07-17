@@ -4,7 +4,6 @@ import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.BoardCopierBase;
 import pencilbox.common.core.Rotator;
-import pencilbox.common.core.Rotator2;
 
 /**
  * 
@@ -17,10 +16,10 @@ public class BoardCopier extends BoardCopierBase {
 		Rotator rotator = new Rotator(src.getSize(), n);
 		rotator.rotateArrayInt2(s.getNumber(), d.getNumber());
 		for (Square srcSquare : s.getSquareList()) {
-			Address pos0 = rotator.rotateAddress(Address.address(srcSquare.r0(), srcSquare.c0()));
-			Address pos1 = rotator.rotateAddress(Address.address(srcSquare.r1(), srcSquare.c1()));
+			Address pos0 = rotator.rotateAddress(srcSquare.p0());
+			Address pos1 = rotator.rotateAddress(srcSquare.p1());
 			if (d.isOn(pos0) && d.isOn(pos1)) {
-				Square dstSquare = new Square(pos0.r(), pos0.c(), pos1.r(), pos1.c());
+				Square dstSquare = new Square(pos0, pos1);
 				d.addSquare(dstSquare);
 			}
 		}
