@@ -178,15 +178,15 @@ public class Board extends BoardBase {
 		if (step instanceof SquareEditStep) {
 			SquareEditStep s = (SquareEditStep) step;
 			if (s.getOperation() == SquareEditStep.ADDED) {
-				removeSquare(s.getR0(), s.getC0());
+				removeSquare(getSquare(s.getQ0()));
 			} else if (s.getOperation() == SquareEditStep.REMOVED) {
-				addSquare(s.getR0(), s.getC0(), s.getR1(), s.getC1());
+				addSquare(new Square(s.getP0(), s.getP1()));
 			} else if (s.getOperation() == SquareEditStep.CHANGED) {
-				changeSquare(s.getR1(), s.getC1(), s.getR0(), s.getC0());
+				changeSquare(getSquare(s.getQ0()), s.getP0(), s.getP1());
 			}
 		}
 		if (step instanceof CellEditStep) {
-			CellEditStep s = (CellEditStep)step;
+			CellEditStep s = (CellEditStep) step;
 			changeNumber(s.getPos(), s.getBefore());
 		}
 	}
@@ -195,96 +195,39 @@ public class Board extends BoardBase {
 		if (step instanceof SquareEditStep) {
 			SquareEditStep s = (SquareEditStep) step;
 			if (s.getOperation() == SquareEditStep.ADDED) {
-				addSquare(s.getR0(), s.getC0(), s.getR1(), s.getC1());
+				addSquare(new Square(s.getQ0(), s.getQ1()));
 			} else if (s.getOperation() == SquareEditStep.REMOVED) {
-				removeSquare(s.getR0(), s.getC0());
+				removeSquare(getSquare(s.getP0()));
 			} else if (s.getOperation() == SquareEditStep.CHANGED) {
-				changeSquare(s.getR0(), s.getC0(), s.getR1(), s.getC1());
+				changeSquare(getSquare(s.getP0()), s.getQ0(), s.getQ1());
 			}
 		}
 		if (step instanceof CellEditStep) {
-			CellEditStep s = (CellEditStep)step;
+			CellEditStep s = (CellEditStep) step;
 			changeNumber(s.getPos(), s.getAfter());
 		}
 	}
-
 	/**
 	 * 四角を追加する
 	 * @param sq 追加する四角
 	 */
 	public void addSquare(Square sq) {
 		if (isRecordUndo())
-			fireUndoableEditUpdate(new SquareEditStep(sq.r0(), sq.c0(), sq.r1(), sq.c1(), SquareEditStep.ADDED));
+			fireUndoableEditUpdate(new SquareEditStep(sq.p0(), sq.p1(), SquareEditStep.ADDED));
 		initSquare1(sq);
 		squareList.add(sq);
 	}
-
-	/**
-	 * 座標を指定して四角を作成して追加する
-	 * @param r0
-	 * @param c0
-	 * @param r1
-	 * @param c1
-	 */
-	public void addSquare(int r0, int c0, int r1, int c1) {
-		Square sq = new Square(r0, c0, r1, c1);
-		addSquare(sq);
-	}
-
-	/**
-	 * 四角の1つの頂点を固定したまま，他の1つの頂点を変更する。
-	 * @param rOld
-	 * @param cOld
-	 * @param rNew
-	 * @param cNew
-	 */
-	public void changeSquare(int rOld, int cOld, int rNew, int cNew) {
-		Square sq = getSquare(rOld, cOld);
-		clearSquare1(sq);
-		sq.changeCorner(rOld, cOld, rNew, cNew);
-		initSquare1(sq);
-	}
-	
 	/**
 	 * 四角を変更する
 	 * @param sq 変更される四角
-	 * @param newSq 変更後の四角の形
+	 * @param q0 変更後の四角の角の座標
+	 * @param q1 変更後の四角の角の座標
 	 */
-	public void changeSquare(Square sq, Square newSq) {
-		int rOld = -1;
-		int cOld= -1;
-		int rNew = -1;
-		int cNew= -1;
-		if (sq.r0() == newSq.r0()) {
-			rOld = sq.r1();
-			rNew = newSq.r1();
-		} else if (sq.r1() == newSq.r0()) {
-			rOld = sq.r0();
-			rNew = newSq.r1();
-		} else if (sq.r0() == newSq.r1()) {
-			rOld = sq.r1();
-			rNew = newSq.r0();
-		} else if (sq.r1() == newSq.r1()) {
-			rOld = sq.r0();
-			rNew = newSq.r0();
-		}
-		if (sq.c0() == newSq.c0()) {
-			cOld = sq.c1();
-			cNew = newSq.c1();
-		} else if (sq.c1() == newSq.c0()) {
-			cOld = sq.c0();
-			cNew = newSq.c1();
-		} else if (sq.c0() == newSq.c1()) {
-			cOld = sq.c1();
-			cNew = newSq.c0();
-		} else if (sq.c1() == newSq.c1()) {
-			cOld = sq.c0();
-			cNew = newSq.c0();
-		}
+	public void changeSquare(Square sq, Address q0, Address q1) {
 		if (isRecordUndo())
-			fireUndoableEditUpdate(new SquareEditStep(rOld, cOld, rNew, cNew, SquareEditStep.CHANGED));
+			fireUndoableEditUpdate(new SquareEditStep(sq.p0(), sq.p1(), q0, q1, SquareEditStep.CHANGED));
 		clearSquare1(sq);
-		sq.set(newSq.r0(), newSq.c0(), newSq.r1(), newSq.c1());
+		sq.set(q0, q1);
 		initSquare1(sq);
 	}
 
@@ -293,22 +236,10 @@ public class Board extends BoardBase {
 	 * @param sq 消去する四角
 	 */
 	public void removeSquare(Square sq) {
-		if (sq == null)
-			return;
 		if (isRecordUndo())
-			fireUndoableEditUpdate(new SquareEditStep(sq.r0(), sq.c0(), sq.r1(), sq.c1(), SquareEditStep.REMOVED));
+			fireUndoableEditUpdate(new SquareEditStep(sq.p0(), sq.p1(), SquareEditStep.REMOVED));
 		clearSquare1(sq);
 		squareList.remove(sq);
-	}
-
-	/**
-	 * 四角を消去する
-	 * @param r0
-	 * @param c0
-	 */
-	public void removeSquare(int r0, int c0) {
-		Square sq = getSquare(r0, c0);
-		removeSquare(sq);
 	}
 
 	public int checkAnswerCode() {
@@ -317,15 +248,15 @@ public class Board extends BoardBase {
 		for (Square sq : squareList) {
 			int n = sq.getNumber();
 			if (n == Square.MULTIPLE_NUMBER) {
-				errorCode |= 1; 
+				errorCode |= 1;
 			} else if (n == Square.NO_NUMBER) {
-				errorCode |= 2; 
+				errorCode |= 2;
 			} else if (n == UNDECIDED_NUMBER) {
 				;
 			} else if (n < sq.getSquareSize()) {
-				errorCode |= 4; 
+				errorCode |= 4;
 			} else if (n > sq.getSquareSize()) {
-				errorCode |= 8; 
+				errorCode |= 8;
 			}
 		}
 		for (Address p : cellAddrs()) {
@@ -335,7 +266,7 @@ public class Board extends BoardBase {
 					errorCode |= 16;
 		}
 		if (nNumber==0)
-			errorCode = 32; 
+			errorCode = 32;
 		return errorCode;
 	}
 
@@ -358,4 +289,4 @@ public class Board extends BoardBase {
 			message.append(Messages.getString("shikaku.AnswerCheckMessage5")); //$NON-NLS-1$
 		return message.toString();
 	}
-}	
+}
