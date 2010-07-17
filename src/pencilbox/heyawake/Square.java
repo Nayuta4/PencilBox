@@ -105,11 +105,11 @@ public class Square extends pencilbox.common.core.Square {
 	}
 
 	int mx() {
-		
+
 		int min;
 		int max;
 		int mx;
-		
+
 		if (this.sizeC() < this.sizeR()) {
 			min = this.sizeC();
 			max = this.sizeR();
@@ -117,12 +117,12 @@ public class Square extends pencilbox.common.core.Square {
 			min = this.sizeR();
 			max = this.sizeC();
 		}
-		
+
 		if (min == 1) {
 			mx = (max + 1) / 2;
 		} else if (min == 3) {
 			mx = (max / 4) * 5;
-			
+
 			switch (max & 0x3) {
 				case 1:
 					mx += 2;
@@ -143,7 +143,7 @@ public class Square extends pencilbox.common.core.Square {
 		} else {
 			mx = (min * max + min + max - 2) / 3;
 		}
-		
+
 		return mx;
 	}
 }

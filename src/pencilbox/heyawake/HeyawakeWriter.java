@@ -20,17 +20,17 @@ public final class HeyawakeWriter {
 	 */
 	public String writeQuestion(BoardBase b) {
 		Board board = (Board)b;
-		
+
 		Size size = board.getSize();
 		int height = size.getRows();
 		int width = size.getCols();
 		String err = null;
-		
+
 		StringBuffer buffer = new StringBuffer();
 		buffer.append(width);
 		buffer.append('x');
 		buffer.append(height);
-		
+
 		for (int y = 0; y < height; ++y) {
 			for (int x = 0; x < width; ++x) {
 				Square square = board.getSquare(y, x);

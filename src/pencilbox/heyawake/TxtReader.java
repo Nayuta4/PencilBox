@@ -68,7 +68,7 @@ public class TxtReader extends TxtReaderBase {
 					field[i][j] = Board.WHITE;
 				else if (line.charAt(k) == '#')
 					field[i][j] = Board.BLACK;
-				else 
+				else
 					field[i][j] = -9;
 				k++;
 				j++;
