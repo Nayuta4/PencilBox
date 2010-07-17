@@ -45,22 +45,16 @@ public class Board extends BoardBase {
 	}
 
 	public void initBoard() {
-		initSquares();
+		for (Square sq : squareList) {
+			initSquareNumber(sq);
+		}
 	}
 
 	/**
-	 * 盤面上の領域の初期処理を行う
+	 * 四角に含まれる数字マスを設定する
+	 * @param sq
 	 */
-	public void initSquares() {
-		for (Square sq : squareList) {
-			initSquare1(sq);
-		}
-	}
-	/**
-	 * 四角に数字を設定し，マスに四角を設定する
-	 * @param sq 追加する四角
-	 */
-	public void initSquare1(Square sq) {
+	public void initSquareNumber(Square sq) {
 		int n = 0;
 		for (Address p : sq.cellSet()) {
 			if (isNumber(p)) {
@@ -70,17 +64,10 @@ public class Board extends BoardBase {
 					n = getNumber(p);
 				}
 			}
-			setSquare(p, sq);
 		}
 		sq.setNumber(n);
 	}
 
-	public void clearSquare1(Square sq) {
-		for (Address p : sq.cellSet()) {
-			setSquare(p, null);
-		}
-	}
-	
 	/**
 	 * @return Returns the squareList.
 	 */
@@ -144,13 +131,22 @@ public class Board extends BoardBase {
 	public void setSquare(Address p, Square s) {
 		square[p.r()][p.c()] = s;
 	}
-
+	/**
+	 * 四角形の範囲に含まれるマスにSquareオブジェクトを設定する
+	 * @param region 設定する四角形の範囲
+	 * @param sq 設定するSquareオブジェクト
+	 */
+	public void setSquare(Square region, Square sq) {
+		for (Address p : region.cellSet()) {
+			setSquare(p, sq);
+		}
+	}
 	/**
 	 * 四角を追加，変更したときにすでにある他の四角と重なる場合，その四角を除去する。
 	 * @param sq 追加,変更する四角
 	 * @param org 変更する場合のもとの四角
 	 */
-	void removeOverlappedSquares(Square sq, Square org) {
+	public void removeOverlappedSquares(Square sq, Square org) {
 		for (Address p : sq.cellSet()) {
 			Square s = getSquare(p);
 			if (s != null && s != org) {
@@ -158,7 +154,7 @@ public class Board extends BoardBase {
 			}
 		}
 	}
-	
+
 	/**
 	 * 部屋の数字を変更する。
 	 * @param p
@@ -214,7 +210,8 @@ public class Board extends BoardBase {
 	public void addSquare(Square sq) {
 		if (isRecordUndo())
 			fireUndoableEditUpdate(new SquareEditStep(sq.p0(), sq.p1(), SquareEditStep.ADDED));
-		initSquare1(sq);
+		setSquare(sq, sq);
+		initSquareNumber(sq);
 		squareList.add(sq);
 	}
 	/**
@@ -226,11 +223,11 @@ public class Board extends BoardBase {
 	public void changeSquare(Square sq, Address q0, Address q1) {
 		if (isRecordUndo())
 			fireUndoableEditUpdate(new SquareEditStep(sq.p0(), sq.p1(), q0, q1, SquareEditStep.CHANGED));
-		clearSquare1(sq);
+		setSquare(sq, null);
 		sq.set(q0, q1);
-		initSquare1(sq);
+		setSquare(sq, sq);
+		initSquareNumber(sq);
 	}
-
 	/**
 	 * 四角を消去する
 	 * @param sq 消去する四角
@@ -238,7 +235,7 @@ public class Board extends BoardBase {
 	public void removeSquare(Square sq) {
 		if (isRecordUndo())
 			fireUndoableEditUpdate(new SquareEditStep(sq.p0(), sq.p1(), SquareEditStep.REMOVED));
-		clearSquare1(sq);
+		setSquare(sq, null);
 		squareList.remove(sq);
 	}
 
