@@ -45,7 +45,8 @@ public class HeyawakeReader {
 			for (int c = 0; c < board.cols(); c++) {
 				if (board.getSquare(r, c) == null) {
 					Square square = new Square(r, c, r+row-1, c+col-1, num);
-					board.addSquare(square);
+					board.setSquare(square, square);
+					board.getSquareList().add(square);
 					return;
 				}
 			}

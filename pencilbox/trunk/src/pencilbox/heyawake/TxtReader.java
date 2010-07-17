@@ -35,7 +35,6 @@ public class TxtReader extends TxtReaderBase {
 			t4 = t.nextToken();
 			if (t.hasMoreTokens()) {
 				t5 = t.nextToken();
-//				board.roomList.add(
 				newRoom = new Square(
 						Integer.parseInt(t1),
 						Integer.parseInt(t2),
@@ -43,14 +42,14 @@ public class TxtReader extends TxtReaderBase {
 						Integer.parseInt(t4),
 						Integer.parseInt(t5));
 			} else {
-//				board.roomList.add(
 				newRoom = new Square(
 						Integer.parseInt(t1),
 						Integer.parseInt(t2),
 						Integer.parseInt(t3),
 						Integer.parseInt(t4));
 			}
-			board.addSquare(newRoom);
+			board.setSquare(newRoom, newRoom);
+			board.getSquareList().add(newRoom);
 		}
 		int[][] field = board.getState();
 		for (int i = 0; i < rows; i++) {

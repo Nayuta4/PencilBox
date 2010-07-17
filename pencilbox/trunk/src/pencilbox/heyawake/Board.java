@@ -319,9 +319,9 @@ public class Board extends BoardBase {
 		} else if (step instanceof SquareEditStep) {
 			SquareEditStep s = (SquareEditStep) step;
 			if (s.getOperation() == SquareEditStep.ADDED) {
-				removeSquare(getSquare(s.getP0()));
+				removeSquare(getSquare(s.getQ0()));
 			} else if (s.getOperation() == SquareEditStep.REMOVED) {
-				addSquare(new Square(s.getQ0(), s.getQ1()));
+				addSquare(new Square(s.getP0(), s.getP1()));
 			} else if (s.getOperation() == SquareEditStep.CHANGED) {
 				changeSquare(getSquare(s.getQ0()), s.getP0(), s.getP1());
 			}
@@ -353,7 +353,7 @@ public class Board extends BoardBase {
 	 * @param sq 追加,変更する四角
 	 * @param org 変更する場合のもとの四角
 	 */
-	void removeOverlappedSquares(Square sq, Square org) {
+	public void removeOverlappedSquares(Square sq, Square org) {
 		for (Address p : sq.cellSet()) {
 			Square s = getSquare(p);
 			if (s != null && s != org) {
@@ -361,16 +361,15 @@ public class Board extends BoardBase {
 			}
 		}
 	}
-	
-	public void initSquare1(Square sq) {
-		for (Address p : sq.cellSet()) {
-			setSquare(p, sq);
-		}
-	}
 
-	public void clearSquare1(Square sq) {
-		for (Address p : sq.cellSet()) {
-			setSquare(p, null);
+	/**
+	 * 四角形の範囲に含まれるマスにSquareオブジェクトを設定する
+	 * @param region 設定する四角形の範囲
+	 * @param sq 設定するSquareオブジェクト
+	 */
+	public void setSquare(Square region, Square sq) {
+		for (Address p : region.cellSet()) {
+			setSquare(p, sq);
 		}
 	}
 	/**
@@ -380,7 +379,7 @@ public class Board extends BoardBase {
 	public void addSquare(Square sq) {
 		if (isRecordUndo())
 			fireUndoableEditUpdate(new SquareEditStep(sq.p0(), sq.p1(), SquareEditStep.ADDED));
-		initSquare1(sq);
+		setSquare(sq, sq);
 		squareList.add(sq);
 	}
 	/**
@@ -392,8 +391,9 @@ public class Board extends BoardBase {
 	public void changeSquare(Square sq, Address q0, Address q1) {
 		if (isRecordUndo())
 			fireUndoableEditUpdate(new SquareEditStep(sq.p0(), sq.p1(), q0, q1, SquareEditStep.CHANGED));
+		setSquare(sq, null);
 		sq.set(q0, q1);
-		initSquare1(sq);
+		setSquare(sq, sq);
 	}
 	/**
 	 * 四角を消去する
@@ -403,7 +403,7 @@ public class Board extends BoardBase {
 		changeNumber(sq.p0(), Square.ANY);
 		if (isRecordUndo())
 			fireUndoableEditUpdate(new SquareEditStep(sq.p0(), sq.p1(), SquareEditStep.REMOVED));
-		clearSquare1(sq);
+		setSquare(sq, null);
 		squareList.remove(sq);
 	}
 	/**

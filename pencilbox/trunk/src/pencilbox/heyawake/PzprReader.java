@@ -64,7 +64,8 @@ public class PzprReader extends PzprReaderBase {
 			if (sq.getSquareSize() == areaArray[k].size()) {
 				squareArray[nSquare] = sq;
 				nSquare++;
-				bd.addSquare(sq);
+				bd.setSquare(sq, sq);
+				bd.getSquareList().add(sq);
 			} else {
 				System.out.println("—Ìˆæ‚ªŽlŠpŒ`‚Å‚È‚¢");
 			}
