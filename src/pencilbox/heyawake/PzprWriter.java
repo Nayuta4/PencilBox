@@ -42,10 +42,8 @@ public class PzprWriter extends PzprWriterBase {
 				if (sq != null) {
 					rooms.add(sq);
 					roomMax ++;
-					for (int r=sq.r0(); r<=sq.r1(); r++) {
-						for (int c=sq.c0(); c<=sq.c1(); c++) {
-							roomId[r*cols+c] = roomMax;
-						}
+					for (Address p : sq.cellSet()) {
+						roomId[a2i(p)] = roomMax;
 					}
 				}
 			}

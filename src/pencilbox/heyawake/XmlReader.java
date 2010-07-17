@@ -27,7 +27,9 @@ public class XmlReader extends XmlReaderBase {
 			int r1 = Integer.parseInt(attributes.getValue("r1"))-1;
 			int c1 = Integer.parseInt(attributes.getValue("c1"))-1;
 			int n = Integer.parseInt(attributes.getValue("n"));
-			board.addSquare(new Square(r0, c0, r1, c1, n));
+			Square sq = new Square(r0, c0, r1, c1, n);
+			board.setSquare(sq, sq);
+			board.getSquareList().add(sq);
 		}
 	}
 }
