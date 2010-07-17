@@ -37,12 +37,11 @@ public class BoardCopier extends BoardCopierBase {
 			}
 			srcSquare = srcBoard.getSquare(s);
 			if (srcSquare != null) {
-				if (s.equals(srcSquare.r0(), srcSquare.c0())) {
+				if (s.equals(srcSquare.p0())) {
 					if (region.containsAll(srcSquare.getCorners())) {
 						Address d0 = translateAndRotateAddress(srcSquare.p0(), from, to, rotation);
 						Address d1 = translateAndRotateAddress(srcSquare.p1(), from, to, rotation);
-						dstSquare = new Square(srcSquare);
-						dstSquare.set(d0, d1);
+						dstSquare = new Square(d0, d1);
 						dstSquare.setNumber(srcSquare.getNumber());
 						if (dstBoardBase.isOnAll(dstSquare.getCorners())) {
 							board.removeOverlappedSquares(dstSquare, null);
