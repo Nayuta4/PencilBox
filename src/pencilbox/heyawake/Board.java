@@ -8,6 +8,8 @@ import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.CellEditStep;
 import pencilbox.common.core.Direction;
+import pencilbox.common.core.SquareEditStep;
+import pencilbox.common.core.AbstractStep.EditType;
 import pencilbox.resource.Messages;
 import pencilbox.util.ArrayUtil;
 
@@ -257,12 +259,14 @@ public class Board extends BoardBase {
 	 * @param st 変更後の状態
 	 */
 	public void changeState(Address p, int st) {
+		int prev = getState(p);
+		if (prev == st)
+			return;
 		if (isRecordUndo())
-			fireUndoableEditUpdate(new CellEditStep(p, getState(p), st));
+			fireUndoableEditUpdate(new CellEditStep(EditType.STATE, p, prev, st));
+		setState(p, st);
 		int r = p.r();
 		int c = p.c();
-		int prevState = getState(r,c);
-		setState(r,c,st);
 		if (st==BLACK) {
 			contH[r][c] = 0;
 			contV[r][c] = 0;
@@ -272,7 +276,7 @@ public class Board extends BoardBase {
 			if (c < cols()-1) countHorizontalContinuousRoom(r, c + 1);
 			connectChain(r,c);
 		}
-		if (prevState==BLACK) {
+		if (prev==BLACK) {
 			countVerticalContinuousRoom(r, c);
 			countHorizontalContinuousRoom(r, c);
 			cutChain(r,c);
@@ -281,7 +285,7 @@ public class Board extends BoardBase {
 			countVerticalContinuousRoomW(r, c);
 			countHorizontalContinuousRoomW(r, c);
 		}
-		if (prevState==WHITE) {
+		if (prev==WHITE) {
 			contWH[r][c] = 0;
 			contWV[r][c] = 0;
 			if (r > 0) countVerticalContinuousRoomW(r - 1, c);
@@ -296,22 +300,52 @@ public class Board extends BoardBase {
 			} else if (st==WHITE){
 				room.setNWhite(room.getNWhite() + 1);
 			}
-			if (prevState==BLACK) {
+			if (prev==BLACK) {
 				room.setNBlack(room.getNBlack() - 1);
-			} else if (prevState==WHITE){
+			} else if (prev==WHITE){
 				room.setNWhite(room.getNWhite() - 1);
 			}
 		}
 	}
-	
+
 	public void undo(AbstractStep step) {
-		CellEditStep s = (CellEditStep)step;
-		changeState(s.getPos(), s.getBefore());
+		if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep)step;
+			if (step.getType() == EditType.STATE) {
+				changeState(s.getPos(), s.getBefore());
+			} else if (step.getType() == EditType.NUMBER) {
+				changeNumber(s.getPos(), s.getBefore());
+			}
+		} else if (step instanceof SquareEditStep) {
+			SquareEditStep s = (SquareEditStep) step;
+			if (s.getOperation() == SquareEditStep.ADDED) {
+				removeSquare(getSquare(s.getP0()));
+			} else if (s.getOperation() == SquareEditStep.REMOVED) {
+				addSquare(new Square(s.getQ0(), s.getQ1()));
+			} else if (s.getOperation() == SquareEditStep.CHANGED) {
+				changeSquare(getSquare(s.getQ0()), s.getP0(), s.getP1());
+			}
+		}
 	}
 
 	public void redo(AbstractStep step) {
-		CellEditStep s = (CellEditStep)step;
-		changeState(s.getPos(), s.getAfter());
+		if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep)step;
+			if (step.getType() == EditType.STATE) {
+				changeState(s.getPos(), s.getAfter());
+			} else if (step.getType() == EditType.NUMBER) {
+				changeNumber(s.getPos(), s.getAfter());
+			}
+		} else if (step instanceof SquareEditStep) {
+			SquareEditStep s = (SquareEditStep) step;
+			if (s.getOperation() == SquareEditStep.ADDED) {
+				addSquare(new Square(s.getQ0(), s.getQ1()));
+			} else if (s.getOperation() == SquareEditStep.REMOVED) {
+				removeSquare(getSquare(s.getP0()));
+			} else if (s.getOperation() == SquareEditStep.CHANGED) {
+				changeSquare(getSquare(s.getP0()), s.getQ0(), s.getQ1());
+			}
+		}
 	}
 
 	/**
@@ -344,39 +378,50 @@ public class Board extends BoardBase {
 	 * @param sq 追加する四角
 	 */
 	public void addSquare(Square sq) {
+		if (isRecordUndo())
+			fireUndoableEditUpdate(new SquareEditStep(sq.p0(), sq.p1(), SquareEditStep.ADDED));
 		initSquare1(sq);
 		squareList.add(sq);
 	}
-
 	/**
 	 * 四角を変更する
 	 * @param sq 変更される四角
-	 * @param newSq 変更後の四角の形
+	 * @param q0 変更後の四角の角の座標
+	 * @param q1 変更後の四角の角の座標
 	 */
-	public void changeSquare(Square sq, Square newSq) {
-		clearSquare1(sq);
-		sq.set(newSq.r0(), newSq.c0(), newSq.r1(), newSq.c1());
+	public void changeSquare(Square sq, Address q0, Address q1) {
+		if (isRecordUndo())
+			fireUndoableEditUpdate(new SquareEditStep(sq.p0(), sq.p1(), q0, q1, SquareEditStep.CHANGED));
+		sq.set(q0, q1);
 		initSquare1(sq);
 	}
-
 	/**
 	 * 四角を消去する
 	 * @param sq 消去する四角
 	 */
 	public void removeSquare(Square sq) {
+		changeNumber(sq.p0(), Square.ANY);
+		if (isRecordUndo())
+			fireUndoableEditUpdate(new SquareEditStep(sq.p0(), sq.p1(), SquareEditStep.REMOVED));
 		clearSquare1(sq);
 		squareList.remove(sq);
 	}
-
 	/**
-	 * マスの属する部屋に数字を入力する
-	 * @param pos マスの座標
-	 * @param num 数字
+	 * 部屋の数字を変更する。
+	 * @param p
+	 * @param n
 	 */
-	public void setNumber(Address pos, int num) {
-		Square square = getSquare(pos);
-		if (square != null)
-			square.setNumber(num);
+	public void changeNumber(Address p, int n) {
+		Square square = getSquare(p);
+		if (square == null)
+			return;
+		int prev = square.getNumber();
+		if (prev == n)
+			return;
+		square.setNumber(n);
+		if (isRecordUndo()) {
+			fireUndoableEditUpdate(new CellEditStep(EditType.NUMBER, p, prev, n));
+		}
 	}
 	/**
 	 * そのマスの上下左右の隣接４マスに黒マスがあるかどうかを調べる
@@ -632,7 +677,7 @@ public class Board extends BoardBase {
 	public int checkAnswerCode() {
 		int result = 0;
 		for (Address p : cellAddrs()) {
-			if (getState(p) == Board.BLACK) {
+			if (getState(p) == BLACK) {
 				if (isBlock(p))
 					result |= 1;
 				if (getChain(p) == -1)
@@ -667,5 +712,4 @@ public class Board extends BoardBase {
 			message.append(Messages.getString("heyawake.AnswerCheckMessage4")); //$NON-NLS-1$
 		return message.toString();
 	}
-
 }
