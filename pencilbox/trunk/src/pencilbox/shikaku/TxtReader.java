@@ -46,9 +46,9 @@ public class TxtReader extends TxtReaderBase {
 		line = reader.readLine();
 		if (line == null || line.equals(""))
 			return board;
-		
+
 		int nArea = Integer.parseInt(line);
-	
+
 		for (int i = 0; i < nArea; i++) {
 			line = reader.readLine();
 			t = new StringTokenizer(line);
@@ -64,5 +64,4 @@ public class TxtReader extends TxtReaderBase {
 		}
 		return board;
 	}
-
 }
