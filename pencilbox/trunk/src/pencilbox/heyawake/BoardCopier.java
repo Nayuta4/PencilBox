@@ -20,8 +20,9 @@ public class BoardCopier extends BoardCopierBase {
 			Address pos0 = rotator.rotateAddress(srcSquare.p0());
 			Address pos1 = rotator.rotateAddress(srcSquare.p1());
 			if (d.isOn(pos0) && d.isOn(pos1)) {
-				Square dstSquare = new Square(pos0, pos1, srcSquare.getNumber());
+				Square dstSquare = new Square(pos0, pos1);
 				d.addSquare(dstSquare);
+				dstSquare.setNumber(srcSquare.getNumber());
 			}
 		}
 	}
