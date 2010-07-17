@@ -101,6 +101,10 @@ public class Square {
 		set(p0.r(), p0.c(), p1.r(), p1.c());
 	}
 
+	public void set(Square a) {
+		set(a.r0(), a.c0(), a.r1(), a.c1());
+	}
+
 	/**
 	 * 四角の1つの頂点を固定したまま，対角位置の頂点の座標を変更する。
 	 * @param rOld 変更前の頂点の行座標
@@ -145,6 +149,19 @@ public class Square {
 	 */
 	public int getSquareSize() {
 		return (r1-r0+1) * (c1-c0+1);
+	}
+	
+	/**
+	 * 四角の形状が等しいか
+	 * @param o 比較対象の四角
+	 * @return 四角の角の座標が一致すれば true
+	 */
+	public boolean equals(Square o) {
+		if (this == o) 
+			return true;
+		if (this.r0 == o.r0 && this.c0 == o.c0 && this.r1 == o.r1 && this.c1 == o.c1)
+			return true;
+		return false;
 	}
 	
 	/**

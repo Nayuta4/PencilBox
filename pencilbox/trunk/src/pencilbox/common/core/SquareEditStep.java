@@ -6,10 +6,10 @@ public class SquareEditStep extends AbstractStep {
 	public static final int REMOVED = 0;
 	public static final int CHANGED = 2;
 	
-	private int r0;
-	private int c0;
-	private int r1;
-	private int c1;
+	private Address p0 = Address.NOWHERE;
+	private Address p1 = Address.NOWHERE;
+	private Address q0 = Address.NOWHERE;
+	private Address q1 = Address.NOWHERE;
 	private int operation;
 
 	/**
@@ -17,29 +17,49 @@ public class SquareEditStep extends AbstractStep {
 	 * @param sq 操作れた領域
 	 * @param operation 操作の種類：追加されたのか，除去されたのか
 	 */
-	public SquareEditStep(int r0, int c0, int r1, int c1, int operation) {
+	public SquareEditStep(Address p0, Address p1, int operation) {
 		super();
-		this.r0 = r0;
-		this.c0 = c0;
-		this.r1 = r1;
-		this.c1 = c1;
+		if (operation == ADDED) {
+			this.q0 = p0;
+			this.q1 = p1;
+		} else if (operation == REMOVED) {
+			this.p0 = p0;
+			this.p1 = p1;
+		}
 		this.operation = operation;
 	}
 
-	public int getR0() {
-		return r0;
+	/**
+	 * コンストラクタ
+	 * @param p0 変更前の角の座標
+	 * @param p1 変更前の角の座標
+	 * @param q0 変更後の角の座標
+	 * @param q1 変更後の角の座標
+	 * @param operation 操作の種類：追加されたのか，除去されたのか，変更されたのか
+	 */
+	public SquareEditStep(Address p0, Address p1, Address q0, Address q1, int operation) {
+		super();
+		this.p0 = p0;
+		this.p1 = p1;
+		this.q0 = q0;
+		this.q1 = q1;
+		this.operation = operation;
 	}
 
-	public int getC0() {
-		return c0;
+	public Address getP0() {
+		return p0;
 	}
 
-	public int getR1() {
-		return r1;
+	public Address getP1() {
+		return p1;
 	}
 
-	public int getC1() {
-		return c1;
+	public Address getQ0() {
+		return q0;
+	}
+
+	public Address getQ1() {
+		return q1;
 	}
 
 	public int getOperation() {
