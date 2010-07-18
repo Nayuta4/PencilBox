@@ -44,7 +44,7 @@ public class PzprReader extends PzprReaderBase {
 		bd.initGates(); // 門の数を数えるためにいったん門を調べる
 		int nGate = bd.getNGate();
 		System.out.println(nGate);
-		
+
 		if (ver==0) {
 			int[] gateNumbers = new int[nGate]; // 門番号を順番に記録するローカル変数配列。
 	

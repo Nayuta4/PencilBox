@@ -132,10 +132,9 @@ public class Panel extends PanelBase {
 	}
 
 	private void drawNumbers(Graphics2D g) {
-		int state;
 		g.setFont(getNumberFont());
 		for (Address p : board.cellAddrs()) {
-			state = board.getNumber(p);
+			int state = board.getNumber(p);
 			if (state == Board.BLACK) {
 				g.setColor(getPaintColor());
 //					if (isIndicateErrorMode()) {

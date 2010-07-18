@@ -149,10 +149,9 @@ public class Panel extends PanelBase {
 	}
 
 	private void drawGates(Graphics2D g) {
-		int state;
 		g.setFont(getNumberFont());
 		for (Address p : board.cellAddrs()) {
-			state = board.getNumber(p);
+			int state = board.getNumber(p);
 			if (state >= 0) {
 				placeNumber(g, p, board.getNGate());
 			} else if (state == Board.GATE_HORIZ) {
@@ -177,14 +176,13 @@ public class Panel extends PanelBase {
 	}
 
 	private void drawNumbers(Graphics2D g) {
-		int state;
 		g.setFont(getNumberFont());
 		for (Address p : board.cellAddrs()) {
 //			if (board.getLink(p) != null) {
 //				g.setColor(backLineColor);
 //				paintCell(g, p);
 //			}
-			state = board.getNumber(p);
+			int state = board.getNumber(p);
 			if (state >= 0) {
 				g.setColor(getWallColor());
 				paintCell(g, p);

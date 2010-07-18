@@ -18,15 +18,15 @@ import pencilbox.util.ArrayUtil;
  */
 public class Board extends BoardBase {
 
-	static final int UNKNOWN = 0;
-	static final int LINE = 1;
-	static final int NOLINE = -1;
-	static final int BLANK = -3;
-	static final int GOAL = -1;
-	static final int OUTER = -9;
-	static final int UNDECIDED_NUMBER = 0;
-	static final int GATE_VERT = -5;
-	static final int GATE_HORIZ = -4;
+	public static final int UNKNOWN = 0;
+	public static final int LINE = 1;
+	public static final int NOLINE = -1;
+	public static final int BLANK = -3;
+	public static final int GOAL = -1;
+	public static final int OUTER = -9;
+	public static final int UNDECIDED_NUMBER = 0;
+	public static final int GATE_VERT = -5;
+	public static final int GATE_HORIZ = -4;
 
 	private int[][] number;  // マスの状態
 	private int[][][] state; // 辺の状態
@@ -267,8 +267,7 @@ public class Board extends BoardBase {
 		if (step instanceof BorderEditStep) {
 			BorderEditStep s = (BorderEditStep) step;
 			changeState(s.getPos(), s.getBefore());
-		}
-		if (step instanceof CellEditStep) {
+		} else if (step instanceof CellEditStep) {
 			CellEditStep s = (CellEditStep) step;
 			changeNumber(s.getPos(), s.getBefore());
 		}
@@ -278,8 +277,7 @@ public class Board extends BoardBase {
 		if (step instanceof BorderEditStep) {
 			BorderEditStep s = (BorderEditStep) step;
 			changeState(s.getPos(), s.getAfter());
-		}
-		if (step instanceof CellEditStep) {
+		} else if (step instanceof CellEditStep) {
 			CellEditStep s = (CellEditStep) step;
 			changeNumber(s.getPos(), s.getAfter());
 		}
@@ -574,7 +572,7 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * 旗門について、正しく通過しているかどうかを調べる。 
+	 * 旗門について、正しく通過しているかどうかを調べる。
 	 * 門と１箇所のみで直交する場合が正しい。
 	 * 直交しない場合は誤り。
 	 * 複数回直交する場合は誤り。
