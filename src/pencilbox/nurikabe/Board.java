@@ -86,12 +86,8 @@ public class Board extends BoardBase {
 		setState(pos.r(), pos.c(), st);
 	}
 
-	public boolean isNumber(int r, int c) {
-		return isOn(r,c) && (state[r][c] > 0 || state[r][c] == UNDECIDED_NUMBER);
-	}
-	
-	public boolean isNumber(Address pos) {
-		return isNumber(pos.r(), pos.c());
+	public boolean isNumber(Address p) {
+		return isOn(p) && (getState(p) > 0 || getState(p) == UNDECIDED_NUMBER);
 	}
 	
 	public boolean isWall(Address pos) {
@@ -217,8 +213,7 @@ public class Board extends BoardBase {
 
 	/**
 	 * マスの状態を変更したときの Area 併合処理を行う
-	 * @param r 変更したマスの行座標
-	 * @param c 変更したマスの列座標
+	 * @param p 変更したマスの座標
 	 * @param type 変更後の領域の種類
 	 */
 	void mergeArea(Address p, int type) {
@@ -266,7 +261,7 @@ public class Board extends BoardBase {
 			setArea(p1, null);
 		}
 		for (int d=0; d<4; d++) {
-			Address p1 = p.nextCell(d);
+			Address p1 = Address.nextCell(p, d);
 			if (isOn(p1) && getSpaceOrWall(p1)==type && getArea(p1) == null) {
 				initArea(p1);
 				if (largerArea == null || initializingArea.size() > largerArea.size())
