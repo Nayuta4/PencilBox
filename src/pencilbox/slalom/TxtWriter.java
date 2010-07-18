@@ -54,6 +54,5 @@ public class TxtWriter extends TxtWriterBase {
 			}
 			out.println();
 		}
-		
 	}
 }
