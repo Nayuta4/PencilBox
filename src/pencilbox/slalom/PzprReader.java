@@ -103,26 +103,23 @@ public class PzprReader extends PzprReaderBase {
 	 */
 	private void setGateNumbers(int[] gateNumbers) {
 		int k = 0;
-		for (int r = 0; r < bd.rows(); r++) {
-			for (int c = 0; c < bd.cols(); c++) {
-				Address a = Address.address(r, c);
-				int n = bd.getNumber(a);
-				if (n == Board.GATE_HORIZ) {
-					Address aa = Address.nextCell(a, Direction.LT);
-					if (bd.isOn(aa) && bd.getNumber(aa) == Board.GATE_HORIZ) {
-					} else {
-						setGateNumber(a, Direction.LT, gateNumbers[k]);
-						setGateNumber(a, Direction.RT, gateNumbers[k]);
-						k++;
-					}
-				} else if (n == Board.GATE_VERT) {
-					Address aa = Address.nextCell(a, Direction.UP);
-					if (bd.isOn(aa) && bd.getNumber(aa) == Board.GATE_VERT) {
-					} else {
-						setGateNumber(a, Direction.UP, gateNumbers[k]);
-						setGateNumber(a, Direction.DN, gateNumbers[k]);
-						k++;
-					}
+		for (Address a : bd.cellAddrs()) {
+			int n = bd.getNumber(a);
+			if (n == Board.GATE_HORIZ) {
+				Address aa = Address.nextCell(a, Direction.LT);
+				if (bd.isOn(aa) && bd.getNumber(aa) == Board.GATE_HORIZ) {
+				} else {
+					setGateNumber(a, Direction.LT, gateNumbers[k]);
+					setGateNumber(a, Direction.RT, gateNumbers[k]);
+					k++;
+				}
+			} else if (n == Board.GATE_VERT) {
+				Address aa = Address.nextCell(a, Direction.UP);
+				if (bd.isOn(aa) && bd.getNumber(aa) == Board.GATE_VERT) {
+				} else {
+					setGateNumber(a, Direction.UP, gateNumbers[k]);
+					setGateNumber(a, Direction.DN, gateNumbers[k]);
+					k++;
 				}
 			}
 		}

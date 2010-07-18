@@ -85,22 +85,19 @@ public class PzprWriter extends PzprWriterBase {
 
 	private ArrayList<Address> makeGateList() {
 		ArrayList<Address> gateList = new ArrayList<Address>();
-		for (int r = 0; r < bd.rows(); r++) {
-			for (int c = 0; c < bd.cols(); c++) {
-				Address a = Address.address(r, c);
-				int n = bd.getNumber(a);
-				if (n == Board.GATE_HORIZ) {
-					Address aa = Address.nextCell(a, Direction.LT);
-					if (bd.isOn(aa) && bd.getNumber(aa) == Board.GATE_HORIZ) {
-					} else {
-						gateList.add(a);
-					}
-				} else if (n == Board.GATE_VERT) {
-					Address aa = Address.nextCell(a, Direction.UP);
-					if (bd.isOn(aa) && bd.getNumber(aa) == Board.GATE_VERT) {
-					} else {
-						gateList.add(a);
-					}
+		for (Address a : bd.cellAddrs()) {
+			int n = bd.getNumber(a);
+			if (n == Board.GATE_HORIZ) {
+				Address aa = Address.nextCell(a, Direction.LT);
+				if (bd.isOn(aa) && bd.getNumber(aa) == Board.GATE_HORIZ) {
+				} else {
+					gateList.add(a);
+				}
+			} else if (n == Board.GATE_VERT) {
+				Address aa = Address.nextCell(a, Direction.UP);
+				if (bd.isOn(aa) && bd.getNumber(aa) == Board.GATE_VERT) {
+				} else {
+					gateList.add(a);
 				}
 			}
 		}
