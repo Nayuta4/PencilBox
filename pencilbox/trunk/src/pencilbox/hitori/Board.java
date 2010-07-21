@@ -4,10 +4,10 @@ import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.CellEditStep;
+import pencilbox.common.core.Direction;
 import pencilbox.common.core.AbstractStep.EditType;
 import pencilbox.resource.Messages;
 import pencilbox.util.ArrayUtil;
-
 
 /**
  * 「ひとりにしてくれ」盤面クラス
@@ -108,21 +108,17 @@ public class Board extends BoardBase {
 	public void setNumber(int r, int c, int n) {
 		number[r][c] = n;
 	}
-	
+
 	public void setNumber(Address pos, int n) {
 		setNumber(pos.r(), pos.c(), n);
 	}
 	/**
 	 * 引数の座標が黒マスかどうか。
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param p 座標
 	 * @return 黒マスなら true を返す。
 	 */
-	public boolean isBlack(int r, int c) {
-		return isOn(r, c) && state[r][c] == BLACK;
-	}
 	public boolean isBlack(Address p) {
-		return isOn(p) && state[p.r()][p.c()] == BLACK;
+		return isOn(p) && getState(p) == BLACK;
 	}
 	/**
 	 * そのマスと縦または横の同じ列に，黒マスで消されていない同じ数字があるか
@@ -135,15 +131,19 @@ public class Board extends BoardBase {
 	/**
 	 * そのマスの数字が最初からひとりかどうか，
 	 * つまり縦横の同じ列に同一の数字が存在しないかどうかを返す
-	 * @param r 行座標 
-	 * @param c 列座標
+	 * @param p 座標 
 	 * @return 最初からひとりなら true, そうでなければ false
 	 */
 	public boolean isSingle(Address p) {
 		return single[p.r()][p.c()];
 	}
+
 	int getChain(Address p) {
 		return chain[p.r()][p.c()];
+	}
+
+	void setChain(Address p, int n) {
+		chain[p.r()][p.c()] = n;
 	}
 	/**
 	 * マスの状態を指定した状態に変更し，変更をアンドゥリスナーに通知する
@@ -160,7 +160,7 @@ public class Board extends BoardBase {
 //		initChain();
 //		checkContinuousBlack();
 	}
-	
+
 	/**
 	 * マスの状態を指定した状態に変更し，変更をアンドゥリスナーに通知する
 	 * @param p マス座標
@@ -175,15 +175,14 @@ public class Board extends BoardBase {
 		setState(p, st);
 		if (st == BLACK) {
 			decreseMulti(p);
-			connectChain(p.r(),p.c());
+			connectChain(p);
 		} else if (prev == BLACK) {
 			increaseMulti(p);
-			cutChain(p.r(), p.c());
+			cutChain(p);
 		}
-//		initChain();
-//		checkContinuousBlack();
+		printMulti();
 	}
-	
+
 	public void undo(AbstractStep step) {
 		if (step instanceof CellEditStep) {
 			CellEditStep s = (CellEditStep) step;
@@ -217,29 +216,28 @@ public class Board extends BoardBase {
 		}
 		return false;
 	}
-	
 	/**
 	 * 	chain配列を初期化する
 	 */
 	void initChain() {
 		maxChain = 1;
-		ArrayUtil.initArrayInt2(chain,0);
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				if (isOnPeriphery(r, c)) {
-					if (isBlack(r, c) && chain[r][c] == 0) {
-						if (initChain1(r, c, 0, 0, 1) == -1) {
-							updateChain(r, c, -1);
-						}
+		for (Address p : cellAddrs()) {
+			setChain(p, 0);
+		}
+		for (Address p : cellAddrs()) {
+			if (isOnPeriphery(p)) {
+				if (isBlack(p) && getChain(p) == 0) {
+					if (initChain1(p, -1, 1) == -1) {
+						updateChain(p, -1);
 					}
 				}
 			}
 		}
-		for (int r = 1; r < rows() - 1; r++) {
-			for (int c = 1; c < cols() - 1; c++) {
-				if (isBlack(r, c) && chain[r][c] == 0) {
-					if (initChain1(r, c, 0, 0, ++maxChain) == -1) {
-						updateChain(r, c, -1);
+		for (Address p : cellAddrs()) {
+			if (!isOnPeriphery(p)) {
+				if (isBlack(p) && getChain(p) == 0) {
+					if (initChain1(p, -1, ++maxChain) == -1) {
+						updateChain(p, -1);
 					}
 				}
 			}
@@ -248,33 +246,30 @@ public class Board extends BoardBase {
 	/**
 	 * 斜めにつながる黒マスをたどり，chain に番号 n を設定する
 	 * 分断を発見したら，その時点で -1 を返して戻る
-	 * @param r
-	 * @param c
-	 * @param uu
-	 * @param vv
-	 * @param n
+	 * @param p 今のマス
+	 * @param d 呼び出し元のマスから今のマスを見た向き，このマスが初めなら -1
+	 * @param n 設定する値
 	 * @return 盤面の分断を発見したら -1 , そうでなければ n と同じ値
 	 */
-	int initChain1(int r, int c, int uu, int vv, int n) {
-		if (n == 1 && uu != 0 && isOnPeriphery(r, c)) { // 輪が外周に達した
+	int initChain1(Address p, int d, int n) {
+		if (n == 1 && d != -1 && isOnPeriphery(p)) { // 輪が外周に達した
 			return -1;
 		}
-		if (n >= 0 && isOnPeriphery(r, c)) {
-			chain[r][c] = 1;
+		if (n >= 0 && isOnPeriphery(p)) {
+			setChain(p, 1);
 		} else {
-			chain[r][c] = n;
+			setChain(p, n);
 		}
-		for (int u = -1; u < 2; u += 2) {
-			for (int v = -1; v < 2; v += 2) {
-				if ((u == -uu) && (v == -vv))
-					continue; // 今来たところはとばす
-				if (!isBlack(r + u, c + v))
-					continue; // 黒マス以外はとばす
-				if (chain[r + u][c + v] == n) // 輪が閉じた
-					return -1;
-				if (initChain1(r + u, c + v, u, v, n) == -1)
-					return -1;
-			}
+		for (int dd : Direction.DIAGONAL4) {
+			Address pp = Address.nextCell(p, dd);
+			if (dd == (d^2))
+				continue; // 今来たところはとばす
+			if (!isBlack(pp))
+				continue; // 黒マス以外はとばす
+			if (getChain(pp) == n) // 輪が閉じた
+				return -1;
+			if (initChain1(pp, dd, n) == -1)
+				return -1;
 		}
 		return n;
 	}
@@ -285,61 +280,59 @@ public class Board extends BoardBase {
 	 * 	発生するなら chain 全体を -1 で更新する．
 	 * 	発生しないなら，斜め隣接4マスの最小値にあわせる．
 	 * 	斜め隣に黒マスがなければ，新しい番号をつける．
-	 * @param r
-	 * @param c
+	 * @param p マスの座標
 	 */
-	void connectChain(int r, int c) {
+	void connectChain(Address p) {
 		int[] adjacent = adjacentChain;
 		int k = 0;
 		int newChain = Integer.MAX_VALUE;
-		if (isOnPeriphery(r,c)) newChain = 1;
-		for (int u = -1; u < 2; u += 2) {
-			for (int v = -1; v < 2; v += 2) {
-				if (!isBlack(r + u, c + v))
-					continue; // 黒マス以外はとばす
-				if (isOnPeriphery(r, c) && chain[r + u][c + v] == 1) {
-					newChain = -1; // 端のマスにいるとき番号1が見つかったら
-				} 
-				adjacent[k] = chain[r + u][c + v];
-				for (int l = 0; l < k; l++) {
-					if (adjacent[k] == adjacent[l]) // 同じ番号が見つかったら
-						newChain = -1;
-				}
-				k++;
-				if (chain[r + u][c + v] < newChain)
-					newChain = chain[r + u][c + v];
+		if (isOnPeriphery(p))
+			newChain = 1;
+		for (int dd : Direction.DIAGONAL4) {
+			Address pp = Address.nextCell(p, dd);
+			if (!isBlack(pp))
+				continue; // 黒マス以外はとばす
+			int c1 = getChain(pp);
+			if (isOnPeriphery(p) && c1 == 1) {
+				newChain = -1; // 端のマスにいるとき番号1が見つかったら分断された
+			} 
+			adjacent[k] = c1;
+			for (int l = 0; l < k; l++) {
+				if (adjacent[k] == adjacent[l]) // 同じ番号が見つかったら分断された
+					newChain = -1;
 			}
+			k++;
+			if (c1 < newChain)
+				newChain = c1;
 		}
 		if (newChain == Integer.MAX_VALUE)
-			chain[r][c] = ++maxChain; // 周囲に黒マスがないとき，新しい番号をつける
+			setChain(p, ++maxChain); // 周囲に黒マスがないとき，新しい番号をつける
 		else
-			updateChain(r, c, newChain); // 周囲に黒マスがあるとき，その最小番号をつける
+			updateChain(p, newChain); // 周囲に黒マスがあるとき，その最小番号をつける
 	}
 	/**
-	 * 黒マスを取り消したときに，斜め隣のchainを更新する．
-	 * @param r
-	 * @param c
+	 * 黒マスを取り消したときに，chainを更新する
+	 * 全部計算しなおすことにする
+	 * @param p
 	 */
-	void cutChain(int r, int c) {
+	void cutChain(Address p) {
 		initChain();
 	}
 	/**
 	 * 	マスに chain番号を設定する
 	 * 	斜め隣に黒マスがあれば同じ番号を設定する
-	 * @param r
-	 * @param c
-	 * @param n
+	 * @param p マスの座標
+	 * @param n 設定する値
 	 */
-	 void updateChain(int r, int c, int n) {
-		chain[r][c] = n;
-		for (int u = -1; u < 2; u += 2) {
-			for (int v = -1; v < 2; v += 2) {
-				if (!isBlack(r + u, c + v))
-					continue; // 黒マス以外はとばす
-				if (chain[r + u][c + v] == n)
-					continue; // 同じ番号があったらそのまま
-				updateChain(r + u, c + v, n);
-			}
+	void updateChain(Address p, int n) {
+		setChain(p, n);
+		for (int dd : Direction.DIAGONAL4) {
+			Address pp = Address.nextCell(p, dd);
+			if (!isBlack(pp))
+				continue; // 黒マス以外はとばす
+			if (getChain(pp) == n)
+				continue; // 同じ番号があったらそのまま
+			updateChain(pp, n);
 		}
 	}
 
@@ -522,4 +515,15 @@ public class Board extends BoardBase {
 	int[][] getState() {
 		return state;
 	}
+	public void printMulti() {
+		for (int r=0; r<rows(); r++) {
+			for (int c=0; c<cols(); c++) {
+			System.out.print(' ');
+				System.out.print(chain[r][c]);
+			}
+			System.out.println();
+		}
+		System.out.println();
+	}
+
 }
