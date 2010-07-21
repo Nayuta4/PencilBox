@@ -256,6 +256,10 @@ public class BoardBase {
 	public boolean isOnPeriphery(int r, int c) {
 		return (r == 0 || r == rows() - 1 || c == 0 || c == cols() - 1);
 	}
+
+	public boolean isOnPeriphery(Address p) {
+		return isOnPeriphery(p.r(), p.c());
+	}
 	/**
 	 * アンドゥイベントリスナーにイベントの発生を通知する
 	 * アンドゥ対象の操作が発生したときに呼ぶ
