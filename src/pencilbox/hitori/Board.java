@@ -180,7 +180,6 @@ public class Board extends BoardBase {
 			increaseMulti(p);
 			cutChain(p);
 		}
-		printMulti();
 	}
 
 	public void undo(AbstractStep step) {
@@ -515,15 +514,4 @@ public class Board extends BoardBase {
 	int[][] getState() {
 		return state;
 	}
-	public void printMulti() {
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-			System.out.print(' ');
-				System.out.print(chain[r][c]);
-			}
-			System.out.println();
-		}
-		System.out.println();
-	}
-
 }
