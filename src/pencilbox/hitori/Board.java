@@ -157,8 +157,6 @@ public class Board extends BoardBase {
 		if (isRecordUndo())
 			fireUndoableEditUpdate(new CellEditStep(EditType.FIXED, p, prev, n));
 		setNumber(p, n);
-//		initChain();
-//		checkContinuousBlack();
 	}
 
 	/**
@@ -174,10 +172,10 @@ public class Board extends BoardBase {
 			fireUndoableEditUpdate(new CellEditStep(EditType.STATE, p, prev, st));
 		setState(p, st);
 		if (st == BLACK) {
-			decreseMulti(p);
+			updateMulti(p, -1);
 			connectChain(p);
 		} else if (prev == BLACK) {
-			increaseMulti(p);
+			updateMulti(p, +1);
 			cutChain(p);
 		}
 	}
@@ -461,21 +459,12 @@ public class Board extends BoardBase {
 			}
 		}
 	}
-	/**
-	 * 	マスを黒で確定したときに，同じ行，列の hmulti, vmulti を1減らす
-	 * @param p 状態を変更したマスの行座標
-	 */
-	private void decreseMulti(Address p) {
-		updateMulti(p, -1);
-	}
-	/**
-	 * マスを黒を消したときに，同じ行，列の hmulti, vmulti を1増やす
-	 * @param p 状態を変更したマスの行座標
-	 */
-	private void increaseMulti(Address p) {
-		updateMulti(p, +1);
-	}
 
+	/**
+	 * 	マスを確定したときに，同じ行，列の hmulti, vmulti を変更する
+	 * @param p0 状態を変更したマスの座標
+	 * @param k 増減する値
+	 */
 	private void updateMulti(Address p0, int k) {
 		int r0=p0.r(), c0=p0.c();
 		for (int c = 0; c < cols(); c++) {
