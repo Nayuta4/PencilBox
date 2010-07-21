@@ -248,6 +248,14 @@ public class Address implements Comparable<Address> {
 			return address(r+1, c);
 		case Direction.RT:
 			return address(r, c+1);
+		case Direction.LTUP:
+			return address(r-1, c-1);
+		case Direction.LTDN:
+			return address(r+1, c-1);
+		case Direction.RTDN:
+			return address(r+1, c+1);
+		case Direction.RTUP:
+			return address(r-1, c+1);
 		default:
 			return Address.NOWHERE;
 		}
