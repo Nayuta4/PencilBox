@@ -13,7 +13,6 @@ import pencilbox.common.core.AbstractStep.EditType;
 import pencilbox.resource.Messages;
 import pencilbox.util.ArrayUtil;
 
-
 /**
  * 「へやわけ」盤面
  */
@@ -137,19 +136,6 @@ public class Board extends BoardBase {
 		return isOn(p) && getState(p) == BLACK;
 	}
 
-	public boolean isBlack(int r, int c) {
-		return isOn(r, c) && getState(r, c) == BLACK;
-	}
-	/**
-	 * そのマスの状態が白マス確定かどうかを調べる
-	 * @param r マスの行座標
-	 * @param c マスの列座標
-	 * @return 白マス確定なら true
-	 */
-	public boolean isWhite(int r, int c) {
-		return state[r][c] == WHITE;
-	}
-
 	public int getCont(Address p, int dir) {
 		if (dir == Direction.VERT) {
 			return contV[p.r()][p.c()];
@@ -215,22 +201,18 @@ public class Board extends BoardBase {
 		ArrayUtil.initArrayInt2(contV, 0);
 		ArrayUtil.initArrayInt2(contWH, 0);
 		ArrayUtil.initArrayInt2(contWV, 0);
-		for (int r=0; r<rows(); r++) {
-			for (int c=0; c<cols(); c++) {
-				if (getState(r,c) != BLACK) {
-					if (contH[r][c] == 0) {
-						countHorizontalContinuousRoom(r,c);
-					}
-					if (contV[r][c] == 0) {
-						countVerticalContinuousRoom(r,c);
+		for (Address p : cellAddrs()) {
+			if (getState(p) != BLACK) {
+				for (int dir = 0; dir < 2; dir++) {
+					if (getCont(p, dir) == 0) {
+						countContinuousRoom(p, dir);
 					}
 				}
-				if (getState(r,c) == WHITE) {
-					if (contWH[r][c] == 0) {
-						countHorizontalContinuousRoomW(r,c);
-					}
-					if (contWV[r][c] == 0) {
-						countVerticalContinuousRoomW(r,c);
+			}
+			if (getState(p) == WHITE) {
+				for (int dir = 0; dir < 2; dir++) {
+					if (getCont(p, dir) == 0) {
+						countContinuousRoomW(p, dir);
 					}
 				}
 			}
@@ -268,35 +250,37 @@ public class Board extends BoardBase {
 		if (isRecordUndo())
 			fireUndoableEditUpdate(new CellEditStep(EditType.STATE, p, prev, st));
 		setState(p, st);
-		int r = p.r();
-		int c = p.c();
-		if (st==BLACK) {
-			contH[r][c] = 0;
-			contV[r][c] = 0;
-			if (r > 0) countVerticalContinuousRoom(r - 1, c);
-			if (r < rows()-1) countVerticalContinuousRoom(r + 1, c);
-			if (c > 0) countHorizontalContinuousRoom(r, c - 1);
-			if (c < cols()-1) countHorizontalContinuousRoom(r, c + 1);
+		if (st == BLACK) {
+			setCont(p, Direction.HORIZ, 0);
+			setCont(p, Direction.VERT, 0);
+			for (int d = 0; d < 4; d++) {
+				Address p1 = Address.nextCell(p, d);
+				if (isOn(p1)) {
+					countContinuousRoom(p1, d&1);
+				}
+			}
 			connectChain(p);
 		}
-		if (prev==BLACK) {
-			countVerticalContinuousRoom(r, c);
-			countHorizontalContinuousRoom(r, c);
+		if (prev == BLACK) {
+			countContinuousRoom(p, Direction.VERT);
+			countContinuousRoom(p, Direction.HORIZ);
 			cutChain(p);
 		}
-		if (st==WHITE) {
-			countVerticalContinuousRoomW(r, c);
-			countHorizontalContinuousRoomW(r, c);
+		if (st == WHITE) {
+			countContinuousRoomW(p, Direction.VERT);
+			countContinuousRoomW(p, Direction.HORIZ);
 		}
-		if (prev==WHITE) {
-			contWH[r][c] = 0;
-			contWV[r][c] = 0;
-			if (r > 0) countVerticalContinuousRoomW(r - 1, c);
-			if (r < rows()-1) countVerticalContinuousRoomW(r + 1, c);
-			if (c > 0) countHorizontalContinuousRoomW(r, c - 1);
-			if (c < cols()-1) countHorizontalContinuousRoomW(r, c + 1);
+		if (prev == WHITE) {
+			setContW(p, Direction.HORIZ, 0);
+			setContW(p, Direction.VERT, 0);
+			for (int d = 0; d < 4; d++) {
+				Address p1 = Address.nextCell(p, d);
+				if (isOn(p1)) {
+					countContinuousRoomW(p1, d&1);
+				}
+			}
 		}
-		Square room = getSquare(r,c);
+		Square room = getSquare(p);
 		if (room!=null) {
 			if (st==BLACK) {
 				room.setNBlack(room.getNBlack() + 1);
@@ -439,111 +423,57 @@ public class Board extends BoardBase {
 		return false;
 	}
 	/**
-	 * 引数のマスから横に連続する部屋の個数を数えて設定する
+	 * 引数のマスから縦横に連続する部屋の個数を数えて設定する
+	 * @param p0 起点マス
+	 * @param dir 縦か横か
 	 */
-	void countHorizontalContinuousRoom(int r, int c) {
-		int c0;
-		int c1;
+	void countContinuousRoom(Address p0, int dir) {
 		int count = 0;
-		Square d = null;
-		while (c > 0 && !isBlack(r, c-1)) {
-			c--;
+		Square sq = null;
+		Address p = p0;
+		while (isOn(p) && getState(p) != BLACK) {
+			p = Address.nextCell(p, dir);
 		}
-		c0 = c;
-		while (c < cols() && !isBlack(r, c)) {
-			Square room = getSquare(r,c);
-			if (room != d) {
+		p = Address.nextCell(p, dir^2);
+		while (isOn(p) && getState(p) != BLACK) {
+			Square room = getSquare(p);
+			if (sq == null || room != sq) {
 				count++;
-				d = room;
+				sq = room;
 			}
-			c++;
+			p = Address.nextCell(p, dir^2);
 		}
-		c1 = c;
-		c = c0;
-		while (c<c1) {
-			contH[r][c] = count;
-			c++;
+		p = Address.nextCell(p, dir);
+		while (isOn(p) && getState(p) != BLACK) {
+			setCont(p, dir, count);
+			p = Address.nextCell(p, dir);
 		}
 	}
 	/**
-	 * 引数のマスから縦に連続する部屋の個数を数えて設定する
+	 * 引数のマスから縦横に連続する部屋の個数を数えて設定する
+	 * @param p0 起点マス
+	 * @param dir 縦か横か
 	 */
-	void countVerticalContinuousRoom(int r, int c) {
-		int r0;
-		int r1;
+	void countContinuousRoomW(Address p0, int dir) {
 		int count = 0;
-		Square d = null;
-		while (r > 0 && !isBlack(r-1, c)) {
-			r--;
+		Square sq = null;
+		Address p = p0;
+		while (isOn(p) && getState(p) == WHITE) {
+			p = Address.nextCell(p, dir);
 		}
-		r0 = r;
-		while (r < rows() && !isBlack(r, c)) {
-			Square room = getSquare(r,c);
-			if (room != d) {
+		p = Address.nextCell(p, dir^2);
+		while (isOn(p) && getState(p) == WHITE) {
+			Square room = getSquare(p);
+			if (room != sq) {
 				count++;
-				d = room;
+				sq = room;
 			}
-			r++;
+			p = Address.nextCell(p, dir^2);
 		}
-		r1 = r;
-		r = r0;
-		while (r<r1) {
-			contV[r][c] = count;
-			r++;
-		}
-	}
-	/**
-	 * 引数のマスから横に白マスの連続する部屋の個数を数えて設定する
-	 */
-	void countHorizontalContinuousRoomW(int r, int c) {
-		int c0;
-		int c1;
-		int count = 0;
-		Square d = null;
-		while (c > 0 && isWhite(r, c-1)) {
-			c--;
-		}
-		c0 = c;
-		while (c < cols() && isWhite(r, c)) {
-			Square room = getSquare(r,c);
-			if (room != d) {
-				count++;
-				d = room;
-			}
-			c++;
-		}
-		c1 = c;
-		c = c0;
-		while (c<c1) {
-			contWH[r][c] = count;
-			c++;
-		}
-	}
-	/**
-	 * 引数のマスから縦に白マスの連続する部屋の個数を数えて設定する
-	 */
-	void countVerticalContinuousRoomW(int r, int c) {
-		int r0;
-		int r1;
-		int count = 0;
-		Square d = null;
-		while (r > 0 && isWhite(r-1, c)) {
-			r--;
-		}
-		r0 = r;
-		while (r < rows() && isWhite(r, c)) {
-			Square room = getSquare(r,c);
-			if (room != d) {
-				count++;
-				d = room;
-			}
-			r++;
-		}
-		r1 = r;
-		r = r0;
-		while (r<r1) {
-			contWV[r][c] = count;
-			r++;
+		p = Address.nextCell(p, dir);
+		while (isOn(p) && getState(p) == WHITE) {
+			setContW(p, dir, count);
+			p = Address.nextCell(p, dir);
 		}
 	}
 
