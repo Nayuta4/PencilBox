@@ -13,8 +13,6 @@ import pencilbox.resource.Messages;
  */
 public class Board extends BoardBase {
 
-	static final int HORIZ = Direction.HORIZ; 
-	static final int VERT = Direction.VERT;
 	static final int WALL = -1;
 	static final int maxNumber = 9;
 
@@ -273,13 +271,21 @@ public class Board extends BoardBase {
 	}
 
 	public void undo(AbstractStep step) {
-		CellEditStep s = (CellEditStep) step;
-		changeNumber(s.getPos(), s.getBefore());
+		if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep) step;
+			if (s.getType() == EditType.NUMBER) {
+				changeNumber(s.getPos(), s.getBefore());
+			}
+		}
 	}
 
 	public void redo(AbstractStep step) {
-		CellEditStep s = (CellEditStep) step;
-		changeNumber(s.getPos(), s.getAfter());
+		if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep) step;
+			if (s.getType() == EditType.NUMBER) {
+				changeNumber(s.getPos(), s.getAfter());
+			}
+		}
 	}
 
 	/**
