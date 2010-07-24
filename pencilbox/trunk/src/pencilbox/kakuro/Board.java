@@ -247,15 +247,16 @@ public class Board extends BoardBase {
 	public void changeNumber(Address p, int n) {
 		if (n < 0 || n > maxNumber) 
 			return;
-		if (n == getNumber(p)) 
+		int prev = getNumber(p);
+		if (n == prev) 
 			return;
 		if (isRecordUndo())
-			fireUndoableEditUpdate(new CellEditStep(EditType.NUMBER, p, getNumber(p), n));
+			fireUndoableEditUpdate(new CellEditStep(EditType.NUMBER, p, prev, n));
 		int r=p.r(), c=p.c();
-		wordH[r][c].changeNumber(getNumber(r,c), n);
-		wordV[r][c].changeNumber(getNumber(r,c), n);
-		updateMulti(r, c, n);
-		setNumber(r, c, n);
+		wordH[r][c].changeNumber(prev, n);
+		wordV[r][c].changeNumber(prev, n);
+		updateMulti(p, n);
+		setNumber(p, n);
 		updateHint(r, c);
 	}
 
@@ -273,29 +274,11 @@ public class Board extends BoardBase {
 	 *  重複数の初期化
 	 */
 	void initMulti() {
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				if (getNumber(r,c) > 0)
-					initMulti1(r, c, getNumber(r,c));
-			}
-		}
-	}
-	private void initMulti1(int r0, int c0, int num) {
-		multi[r0][c0] = 1;
-		int c = getWordHead(r0,c0,HORIZ) + 1;
-		for (int i = 0; i < getWordSize(r0,c0,HORIZ); c++, i++) {
-			if (c == c0)
-				continue;
-			if (getNumber(r0,c) == num) {
-				multi[r0][c0]++;
-			}
-		}
-		int r = getWordHead(r0,c0,VERT) + 1;
-		for (int j = 0; j < getWordSize(r0,c0,VERT); r++, j++) {
-			if (r == r0)
-				continue;
-			if (getNumber(r,c0) == num) {
-				multi[r0][c0]++;
+		for (Address p : cellAddrs()) {
+			int n = getNumber(p);
+			if (n > 0) {
+				multi[p.r()][p.c()] = 1;
+				updateMulti1(p, n, +1, 0);
 			}
 		}
 	}
@@ -303,49 +286,48 @@ public class Board extends BoardBase {
 	/**
 	 * 数字の重複数の更新
 	 */
-	void updateMulti(int r0, int c0, int num) {
-		int prevNum = getNumber(r0, c0);
-		if (prevNum == num)
-			return;
+	void updateMulti(Address p0, int num) {
+		int r0 = p0.r();
+		int c0 = p0.c();
+		int prevNum = getNumber(p0);
 		if (multi[r0][c0] > 1) {
-			int c = getWordHead(r0,c0,HORIZ) + 1;
-			for (int i = 0; i < getWordSize(r0,c0,HORIZ); c++, i++) {
-				if (c == c0)
-					continue;
-				if (getNumber(r0,c) == prevNum) {
-					multi[r0][c]--;
-				}
-			}
-			int r = getWordHead(r0,c0,VERT) + 1;
-			for (int j = 0; j < getWordSize(r0,c0,VERT); r++, j++) {
-				if (r == r0)
-					continue;
-				if (getNumber(r,c0) == prevNum) {
-					multi[r][c0]--;
-				}
+			updateMulti1(p0, prevNum, 0, -1);
+		}
+		if (num > 0) {
+			multi[r0][c0] = 1;
+			updateMulti1(p0, num, +1, +1);
+		} else if (num == 0) {
+			multi[r0][c0] = 0;
+		}
+	}
+
+	/**
+	 * p0の数字の変更に応じて重複数を数えるmulti[][]配列を更新する
+	 * 範囲の数字を見て，num と同じ数字のマスがあったらp0の超複数をm, そのマスの超複数をk変更する。
+	 * @param p0 状態を変更したマスの座標
+	 * @param num 調べる数字
+	 * @param m 自分の重複数更新数
+	 * @param k 相手の重複数更新数
+	 */
+	private void updateMulti1(Address p0, int num, int m, int k) {
+		int r0=p0.r();
+		int c0=p0.c();
+		int c = getWordHead(r0,c0,HORIZ) + 1;
+		for (int i = 0; i < getWordSize(r0,c0,HORIZ); c++, i++) {
+			if (c == c0)
+				continue;
+			if (getNumber(r0,c) == num) {
+				multi[r0][c] += k;
+				multi[r0][c0] += m;
 			}
 		}
-		if (num == 0)
-			multi[r0][c0] = 0;
-		else if (num > 0) {
-			multi[r0][c0] = 1;
-			int c = getWordHead(r0,c0,HORIZ) + 1;
-			for (int i = 0; i < getWordSize(r0,c0,HORIZ); c++, i++) {
-				if (c == c0)
-					continue;
-				if (getNumber(r0,c) == num) {
-					multi[r0][c]++;
-					multi[r0][c0]++;
-				}
-			}
-			int r = getWordHead(r0,c0,VERT) + 1;
-			for (int j = 0; j < getWordSize(r0,c0,VERT); r++, j++) {
-				if (r == r0)
-					continue;
-				if (getNumber(r,c0) == num) {
-					multi[r][c0]++;
-					multi[r0][c0]++;
-				}
+		int r = getWordHead(r0,c0,VERT) + 1;
+		for (int j = 0; j < getWordSize(r0,c0,VERT); r++, j++) {
+			if (r == r0)
+				continue;
+			if (getNumber(r,c0) == num) {
+				multi[r][c0] += k;
+				multi[r0][c0] += m;
 			}
 		}
 	}
