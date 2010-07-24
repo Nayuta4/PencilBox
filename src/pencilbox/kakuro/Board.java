@@ -7,7 +7,6 @@ import pencilbox.common.core.CellEditStep;
 import pencilbox.common.core.Direction;
 import pencilbox.common.core.AbstractStep.EditType;
 import pencilbox.resource.Messages;
-import pencilbox.util.ArrayUtil;
 
 /**
  * 「カックロ」 ヒント付き盤面クラス
@@ -57,7 +56,9 @@ public class Board extends BoardBase {
 				setNumber(p, 0);
 			}
 		}
-		ArrayUtil.initArrayInt2(multi, 0);
+		for (Address p : cellAddrs()) {
+			setMulti(p, 0);
+		}
 		for (Address p : cellAddrs()) {
 			for (int d = 0; d < 2; d++) {
 				if (getSum(p, d) > 0)
@@ -204,6 +205,14 @@ public class Board extends BoardBase {
 			wordH[p.r()][p.c()] = w;
 	}
 
+	public int getMulti(Address pos) {
+		return multi[pos.r()][pos.c()];
+	}
+
+	public void setMulti(Address pos, int n) {
+		multi[pos.r()][pos.c()] = n;
+	}
+
 	public void initBoard() {
 		initWord();
 		initMulti();
@@ -240,7 +249,7 @@ public class Board extends BoardBase {
 	 * @return　重複数字があれば true
 	 */
 	public boolean isMultipleNumber(Address p) {
-		return multi[p.r()][p.c()] > 1;
+		return getMulti(p) > 1;
 	}
 
 	/**
@@ -258,7 +267,7 @@ public class Board extends BoardBase {
 			fireUndoableEditUpdate(new CellEditStep(EditType.NUMBER, p, prev, n));
 		getWord(p, Direction.HORIZ).changeNumber(prev, n);
 		getWord(p, Direction.VERT).changeNumber(prev, n);
-		updateMulti(p, n);
+		updateMulti(p, prev, n);
 		setNumber(p, n);
 		updateHint(p);
 	}
@@ -280,7 +289,7 @@ public class Board extends BoardBase {
 		for (Address p : cellAddrs()) {
 			int n = getNumber(p);
 			if (n > 0) {
-				multi[p.r()][p.c()] = 1;
+				setMulti(p, 1);
 				updateMulti1(p, n, +1, 0);
 			}
 		}
@@ -289,18 +298,17 @@ public class Board extends BoardBase {
 	/**
 	 * 数字の重複数の更新
 	 */
-	void updateMulti(Address p0, int num) {
-		int r0 = p0.r();
-		int c0 = p0.c();
-		int prevNum = getNumber(p0);
-		if (multi[r0][c0] > 1) {
-			updateMulti1(p0, prevNum, 0, -1);
+	void updateMulti(Address p0, int prev, int num) {
+		// prevと同じ数字を探して重複数を-1する
+		if (getMulti(p0) > 1) {	
+			updateMulti1(p0, prev, 0, -1);
 		}
+		// numと同じ数字を探して重複数を+1する，マス自身の重複数も+1する
 		if (num > 0) {
-			multi[r0][c0] = 1;
+			setMulti(p0, 1);
 			updateMulti1(p0, num, +1, +1);
 		} else if (num == 0) {
-			multi[r0][c0] = 0;
+			setMulti(p0, 0);
 		}
 	}
 
@@ -320,8 +328,8 @@ public class Board extends BoardBase {
 				if (p.equals(p0))
 					continue;
 				if (getNumber(p) == num) {
-					multi[p.r()][p.c()] += k;
-					multi[p0.r()][p0.c()] += m;
+					setMulti(p, getMulti(p)+k);
+					setMulti(p0, getMulti(p0)+m);
 				}
 			}
 		}
