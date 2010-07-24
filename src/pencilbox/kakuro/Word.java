@@ -32,14 +32,13 @@ public class Word {
 		return head;
 	}
 	/**
-	 * @param r
-	 * @param c
+	 * @param p
 	 * @param count
 	 * @param number
 	 */
-	public Word(int r, int c, int count, int number) {
+	public Word(Address p, int count, int number) {
 		
-		this.head = Address.address(r, c);
+		this.head = p;
 		this.size = count;
 		this.sum = number; 
 		
