@@ -58,12 +58,10 @@ public class Board extends BoardBase {
 			}
 		}
 		ArrayUtil.initArrayInt2(multi, 0);
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				if (getSumH(r,c) > 0)
-					wordH[r][c].clear();
-				if (getSumV(r,c) > 0)
-					wordV[r][c].clear();
+		for (Address p : cellAddrs()) {
+			for (int d = 0; d < 2; d++) {
+				if (getSum(p, d) > 0)
+					getWord(p, d).clear();
 			}
 		}
 		initHint();
@@ -174,13 +172,36 @@ public class Board extends BoardBase {
 	public void setWall(Address pos, int a, int b) {
 		setWall(pos.r(), pos.c(), a, b);
 	}
+
 	public void removeWall(int r, int c) {
 		number[r][c] = 0;
 		sumH[r][c] = 0;
 		sumV[r][c] = 0;
 	}
+
 	public void removeWall(Address pos) {
 		removeWall(pos.r(), pos.c());
+	}
+
+	/**
+	 * そのマスを含むWordを返す
+	 * @param p 座標
+	 * @param dir 縦か横か
+	 * @return　そのマスを含むWord
+	 */
+	public Word getWord(Address p, int dir) {
+		if (dir == Direction.VERT)
+			return wordV[p.r()][p.c()];
+		if (dir == Direction.HORIZ)
+			return wordH[p.r()][p.c()];
+		return null;
+	}
+
+	public void setWord(Address p, int dir, Word w) {
+		if (dir == Direction.VERT)
+			wordV[p.r()][p.c()] = w;
+		if (dir == Direction.HORIZ)
+			wordH[p.r()][p.c()] = w;
 	}
 
 	public void initBoard() {
@@ -188,47 +209,30 @@ public class Board extends BoardBase {
 		initMulti();
 		initHint();
 	}
-	
+
 	void initWord() {
-		Word word;
-		for (int r = 0; r < rows(); r++) {
-			for (int c = 0; c < cols(); c++) {
-				if (getNumber(r,c) == WALL) {
-					//					if (sumHoriz[r][c] > 0) {
-					int cc = c + 1;
-					while (isOn(r, cc) && getNumber(r,cc) != WALL) {
-						cc++;
+		for (Address p : cellAddrs()) {
+			if (getNumber(p) == WALL) {
+				for (int d = 0; d < 2; d++) {
+					Address pp = Address.nextCell(p, d|2);
+					int i = 0;
+					while (isOn(pp) && getNumber(pp) != WALL) {
+						pp = Address.nextCell(pp, d|2);
+						i++;
 					}
-					word = new Word(r, c, cc - c - 1, getSumH(r,c));
-					wordH[r][c] = word;
-					cc = c + 1;
-					while (isOn(r, cc) && getNumber(r,cc) != WALL) {
-						wordH[r][cc] = word;
-						if (getNumber(r,cc) > 0) {
-							word.changeNumber(0, getNumber(r,cc));
+					Word word = new Word(p, i, getSum(p, d));
+					setWord(p, d, word);
+					pp = Address.nextCell(p, d|2);
+					while (isOn(pp) && getNumber(pp) != WALL) {
+						setWord(pp, d, word);
+						if (getNumber(pp) > 0) {
+							word.changeNumber(0, getNumber(pp));
 						}
-						cc++;
-					}
-					//					}
-					//					if (sumVert[r][c] > 0) {
-					int rr = r + 1;
-					while (isOn(rr, c) && getNumber(rr,c) != WALL) {
-						rr++;
-					}
-					word = new Word(r, c, rr - r - 1, getSumV(r,c));
-					wordV[r][c] = word;
-					rr = r + 1;
-					while (isOn(rr, c) && getNumber(rr,c) != WALL) {
-						wordV[rr][c] = word;
-						if (getNumber(rr,c) > 0) {
-							word.changeNumber(0, getNumber(rr,c));
-						}
-						rr++;
+						pp = Address.nextCell(pp, d|2);
 					}
 				}
 			}
 		}
-		//		}
 	}
 	/**
 	 * 縦または横の計の中に，そのマスの数字と重複する数字があるかどうかを調べる
@@ -252,12 +256,11 @@ public class Board extends BoardBase {
 			return;
 		if (isRecordUndo())
 			fireUndoableEditUpdate(new CellEditStep(EditType.NUMBER, p, prev, n));
-		int r=p.r(), c=p.c();
-		wordH[r][c].changeNumber(prev, n);
-		wordV[r][c].changeNumber(prev, n);
+		getWord(p, Direction.HORIZ).changeNumber(prev, n);
+		getWord(p, Direction.VERT).changeNumber(prev, n);
 		updateMulti(p, n);
 		setNumber(p, n);
-		updateHint(r, c);
+		updateHint(p);
 	}
 
 	public void undo(AbstractStep step) {
@@ -310,24 +313,16 @@ public class Board extends BoardBase {
 	 * @param k 相手の重複数更新数
 	 */
 	private void updateMulti1(Address p0, int num, int m, int k) {
-		int r0=p0.r();
-		int c0=p0.c();
-		int c = getWordHead(r0,c0,HORIZ) + 1;
-		for (int i = 0; i < getWordSize(r0,c0,HORIZ); c++, i++) {
-			if (c == c0)
-				continue;
-			if (getNumber(r0,c) == num) {
-				multi[r0][c] += k;
-				multi[r0][c0] += m;
-			}
-		}
-		int r = getWordHead(r0,c0,VERT) + 1;
-		for (int j = 0; j < getWordSize(r0,c0,VERT); r++, j++) {
-			if (r == r0)
-				continue;
-			if (getNumber(r,c0) == num) {
-				multi[r][c0] += k;
-				multi[r0][c0] += m;
+		for (int d = 0; d < 2; d++) {
+			Address p = getWordHead(p0, d);
+			for (int i = 0; i < getWordSize(p0, d); i++) {
+				p = Address.nextCell(p, d|2);
+				if (p.equals(p0))
+					continue;
+				if (getNumber(p) == num) {
+					multi[p.r()][p.c()] += k;
+					multi[p0.r()][p0.c()] += m;
+				}
 			}
 		}
 	}
@@ -342,10 +337,10 @@ public class Board extends BoardBase {
 					result |= 2;
 				}
 			} else if (isWall(p)) {
-				if (getSumH(p) > 0 && getWordStatus(p, HORIZ) == -1) {
+				if (getSumH(p) > 0 && getWordStatus(p, Direction.HORIZ) == -1) {
 					result |= 4;
 				}
-				if (getSumV(p) > 0 && getWordStatus(p, VERT) == -1) {
+				if (getSumV(p) > 0 && getWordStatus(p, Direction.VERT) == -1) {
 					result |= 4;
 				}
 			}
@@ -370,8 +365,8 @@ public class Board extends BoardBase {
 	void initHint() {
 		hint.initHint();
 	}
-	protected void updateHint(int r, int c) {
-		hint.updatePattern(r, c);
+	protected void updateHint(Address p) {
+		hint.updatePattern(p);
 	}
 
 	int getPattern(Address p) {
@@ -384,12 +379,8 @@ public class Board extends BoardBase {
 	 * @param dir 縦か横か
 	 * @return　そのマスを含むWordのマス数
 	 */
-	int getWordSize(int r, int c, int dir) {
-		if (dir == HORIZ)
-			return wordH[r][c].getSize();
-		else if (dir == VERT)
-			return wordV[r][c].getSize();
-		return 0;
+	int getWordSize(Address p, int dir) {
+		return getWord(p, dir).getSize();
 	}
 	/**
 	 * そのマスを含むWordの和の数字を表示したマスの座標を返す
@@ -398,12 +389,8 @@ public class Board extends BoardBase {
 	 * @param dir 縦か横か
 	 * @return　そのマスを含むWordの和の数字を表示したマスの座標
 	 */
-	int getWordHead(int r, int c, int dir) {
-		if (dir == HORIZ)
-			return wordH[r][c].getHead().c();
-		else if (dir == VERT)
-			return wordV[r][c].getHead().r();
-		return 0;
+	Address getWordHead(Address p, int dir) {
+		return getWord(p, dir).getHead();
 	}
 	/**
 	 * そのマスを含むWordの和を返す
@@ -412,12 +399,8 @@ public class Board extends BoardBase {
 	 * @param dir 縦か横か
 	 * @return　そのマスを含むWordの和
 	 */
-	int getWordSum(int r, int c, int dir) {
-		if (dir == HORIZ)
-			return wordH[r][c].getSum();
-		else if (dir == VERT)
-			return wordV[r][c].getSum();
-		return 0;
+	int getWordSum(Address p, int dir) {
+		return getWord(p, dir).getSum();
 	}
 	/**
 	 * そのマスを含むWordの完成状態
@@ -431,10 +414,6 @@ public class Board extends BoardBase {
 	 * （うまっていないマスがあって，合計が正しくなりえない）は今は判定していない
 	 */
 	int getWordStatus(Address p, int dir) {
-		if (dir == HORIZ)
-			return wordH[p.r()][p.c()].getStatus();
-		else if (dir == VERT)
-			return wordV[p.r()][p.c()].getStatus();
-		return 0;
+		return getWord(p, dir).getStatus();
 	}
 }
