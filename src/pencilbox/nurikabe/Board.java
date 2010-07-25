@@ -202,13 +202,17 @@ public class Board extends BoardBase {
 	}
 
 	public void undo(AbstractStep step) {
-		CellEditStep s = (CellEditStep)step;
-		changeState(s.getPos(), s.getBefore());
+		if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep)step;
+			changeState(s.getPos(), s.getBefore());
+		}
 	}
 
 	public void redo(AbstractStep step) {
-		CellEditStep s = (CellEditStep)step;
-		changeState(s.getPos(), s.getAfter());
+		if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep)step;
+			changeState(s.getPos(), s.getAfter());
+		}
 	}
 
 	/**
