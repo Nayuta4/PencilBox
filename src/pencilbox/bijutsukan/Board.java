@@ -103,42 +103,38 @@ public class Board extends BoardBase {
 	}
 	/**
 	 * そのマスが壁かどうか
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param p マス座標
 	 * @return 壁なら true
 	 */
-	public boolean isWall(int r, int c){
-		return state[r][c]>=0 && state[r][c]<=4 || state[r][c]==NONUMBER_WALL;
-	}
-	
-	public boolean isWall(Address pos) {
-		return isWall(pos.r(), pos.c());
+	public boolean isWall(Address p) {
+		int n = getState(p);
+		return n>=0 && n<=4 || n==NONUMBER_WALL;
 	}
 	/**
 	 * そのマスが数字つきの壁かどうか
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param p マス座標
 	 * @return 壁なら true
 	 */
 	public boolean isNumberedWall(Address p){
-		return state[p.r()][p.r()]>=0 && state[p.r()][p.c()]<=4;
+		int n = getState(p);
+		return n>=0 && n<=4;
 	}
 	/**
 	 * そのマスが壁のないマスかどうか
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param p マス座標
 	 * @return 盤内でかつ壁でないなら true
 	 */
-	public boolean isFloor(int r, int c){
-		return isOn(r,c) && (state[r][c] == UNKNOWN || state[r][c] == NOBULB || state[r][c] == BULB);
-	}
 	public boolean isFloor(Address p){
-		return isFloor(p.r(), p.c());
+		if (isOn(p)) {
+			int n = getState(p);
+			return n == UNKNOWN || n == NOBULB || n == BULB;
+		} else {
+			return false;
+		}
 	}
 	/**
 	 * そのマスが横方向から照らされているか
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param p マス座標
 	 * @return 未定なら true
 	 */
 	public int getHorizIlluminated(Address p) {
@@ -146,8 +142,7 @@ public class Board extends BoardBase {
 	}
 	/**
 	 * そのマスが縦方向から照らされているか
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param p マス座標
 	 * @return 未定なら true
 	 */
 	public int getVertIlluminated(Address p) {
@@ -155,8 +150,7 @@ public class Board extends BoardBase {
 	}
 	/**
 	 * そのマスが同列の複数の照明により照らされているか？？？
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param p マス座標
 	 * @return 未定なら true
 	 */
 	public boolean isMultiIlluminated(Address p) {
@@ -164,8 +158,7 @@ public class Board extends BoardBase {
 	}
 	/**
 	 * マスが照らされているか，つまりそのマスの上下左右に照明があるかを調べる
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param p マス座標
 	 * @return 照らされていれば true
 	 */
 	public boolean isIlluminated(Address p) {
@@ -205,8 +198,7 @@ public class Board extends BoardBase {
 	 */
 	private void illuminate4(Address p0, boolean on) {
 		for (int d = 0; d < 4; d++) {
-			Address p = p0;
-			p = p.nextCell(d);
+			Address p = p0.nextCell(d);
 			while (isFloor(p)) {
 				if (getState(p) == Board.BULB)
 					illuminate(p, on);
@@ -214,60 +206,66 @@ public class Board extends BoardBase {
 			}
 		}
 	}
-
 	/**
 	 * マスの状態を指定した状態に変更する
 	 * マスからの光線を更新する
 	 * 黒マスを操作したときは、上下４方向の明かりからの照明状態をすべて更新する
-	 * @param pos マス座標
+	 * @param p マス座標
 	 * @param st 変更後の状態
 	 */
 	public void changeState(Address p, int st) {
-		if (isRecordUndo())
-			fireUndoableEditUpdate(new CellEditStep(p, getState(p), st));
 		int prev = getState(p);
+		if (st == prev)
+			return;
+		if (isRecordUndo())
+			fireUndoableEditUpdate(new CellEditStep(p, prev, st));
 		if (isWall(st) || isWall(prev)) {
 			illuminate4(p, false);
 		}
-		if (prev == BULB && st != BULB)
+		if (prev == BULB && st != BULB) {
 			illuminate(p, false);
+		}
 		setState(p, st);
-		if (st == BULB && prev != BULB)
+		if (st == BULB && prev != BULB) {
 			illuminate(p, true);
+		}
 		if (isWall(st) || isWall(prev)) {
 			illuminate4(p, true);
 		}
 	}
 
 	public void undo(AbstractStep step) {
-		CellEditStep s = (CellEditStep) step;
-		changeState(s.getPos(), s.getBefore());
+		if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep) step;
+			changeState(s.getPos(), s.getBefore());
+		}
 	}
 
 	public void redo(AbstractStep step) {
-		CellEditStep s = (CellEditStep) step;
-		changeState(s.getPos(), s.getAfter());
+		if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep) step;
+			changeState(s.getPos(), s.getAfter());
+		}
 	}
 
 	/**
 	 * 隣接する４マスの照明個数を調べる
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param p マス座標
 	 * @return 隣接する４マスの照明個数
 	 */
 	public int countAdjacentBulbs(Address p0) {
 		int count = 0;
 		for (int d=0; d<4; d++) {
 			Address p = Address.nextCell(p0, d);
-			if (getState(p) == Board.BULB)
+			if (getState(p) == Board.BULB) {
 				count++;
+			}
 		}
 		return count;
 	}
 	/**
 	 * 壁に隣接する4マスの照明個数が正しいかどうかを調査する
-	 * @param r 行座標
-	 * @param c 列座標
+	 * @param p マス座標
 	 * @return 照明個数が数字と等しいなら，1, 
 	 * 照明個数が多すぎるなら -1, 
 	 * 照明個数が数字より小さいなら 0
