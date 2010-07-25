@@ -7,7 +7,8 @@ import pencilbox.common.gui.PanelEventHandlerBase;
 
 /**
  * 「美術館」マウス／キー操作処理クラス
- */public class PanelEventHandler extends PanelEventHandlerBase {
+ */
+public class PanelEventHandler extends PanelEventHandlerBase {
 
 	private Board board;
 	
@@ -103,5 +104,4 @@ import pencilbox.common.gui.PanelEventHandlerBase;
 			}
 		}
 	}
-
 }
