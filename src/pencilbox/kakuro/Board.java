@@ -13,7 +13,8 @@ import pencilbox.resource.Messages;
  */
 public class Board extends BoardBase {
 
-	static final int WALL = -1;
+	static final int WALL = -1; // 黒マスであることを表す(numberフィールド用)
+	static final int BLANK = -2; // 黒マスでないことを表す（一時変数用）
 	static final int maxNumber = 9;
 
 	private int number[][];
@@ -183,11 +184,14 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * そのマスを含むWordを返す
-	 * @param p 座標
-	 * @param dir 縦か横か
-	 * @return　そのマスを含むWord
+	 * アンドゥ記録用に黒マスの２つの数字を合わせた数字を取得する。
+	 * @param p
+	 * @return
 	 */
+	public int getSum2(Address p) {
+		return getSum(p, Direction.VERT) | (getSum(p, Direction.HORIZ)<<8);
+	}
+
 	public Word getWord(Address p, int dir) {
 		if (dir == Direction.VERT)
 			return wordV[p.r()][p.c()];
@@ -251,13 +255,52 @@ public class Board extends BoardBase {
 	}
 
 	/**
+	 * 黒マスの数字を変更する
+	 * @param p 座標
+	 * @param dir 黒マスの縦の計を表す数字か横の計を表す数字か
+	 * @param n 変更後の数
+	 */
+	public void changeSum(Address p, int dir, int n) {
+		int nn = 0;
+		if (dir == Direction.VERT) {
+			nn = n | (getSum(p, Direction.HORIZ)<<8);
+		} else if (dir == Direction.HORIZ) {
+			nn = getSum(p, Direction.VERT) | (n<<8);
+		}
+		changeWall(p, nn);
+	}
+	/**
+	 * 黒マス変更
+	 * @param p マス座標
+	 * @param n 0なら数字のない壁，-2なら壁を消す 正の数なら縦横を正しく合わせた数
+	 */
+	public void changeWall(Address p, int n) {
+		if (getNumber(p) > 0) {
+			changeAnswerNumber(p, 0);
+		}
+		int prev = isWall(p) ? getSum2(p) : BLANK;
+		if (n == prev) 
+			return;
+		if (isRecordUndo())
+			fireUndoableEditUpdate(new CellEditStep(EditType.FIXED, p, prev, n));
+		if (n == BLANK) {
+			removeWall(p);
+		} else {
+			setWall(p, 0, 0);
+			setSum(p, Direction.VERT, n&255);
+			setSum(p, Direction.HORIZ, (n>>8)&255);
+		}
+	}
+
+	/**
 	 * マスに数字を入力し，アンドゥリスナーに通知する
 	 * @param p マス座標
 	 * @param n 入力した数字
 	 */
-	public void changeNumber(Address p, int n) {
-		if (n < 0 || n > maxNumber) 
-			return;
+	public void changeAnswerNumber(Address p, int n) {
+		if (isWall(p)) {
+			changeWall(p, 0);
+		}
 		int prev = getNumber(p);
 		if (n == prev) 
 			return;
@@ -274,7 +317,9 @@ public class Board extends BoardBase {
 		if (step instanceof CellEditStep) {
 			CellEditStep s = (CellEditStep) step;
 			if (s.getType() == EditType.NUMBER) {
-				changeNumber(s.getPos(), s.getBefore());
+				changeAnswerNumber(s.getPos(), s.getBefore());
+			} else if (s.getType() == EditType.FIXED) {
+				changeWall(s.getPos(), s.getBefore());
 			}
 		}
 	}
@@ -283,7 +328,9 @@ public class Board extends BoardBase {
 		if (step instanceof CellEditStep) {
 			CellEditStep s = (CellEditStep) step;
 			if (s.getType() == EditType.NUMBER) {
-				changeNumber(s.getPos(), s.getAfter());
+				changeAnswerNumber(s.getPos(), s.getAfter());
+			} else if (s.getType() == EditType.FIXED) {
+				changeWall(s.getPos(), s.getAfter());
 			}
 		}
 	}

@@ -42,9 +42,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			if (!board.isWall(pos)) {
 				int n = board.getNumber(pos);
 				if (n >= board.getMaxNumber())
-					board.changeNumber(pos, 0); 
+					board.changeAnswerNumber(pos, 0); 
 				else if (n >= 0)
-					board.changeNumber(pos, n + 1);
+					board.changeAnswerNumber(pos, n + 1);
 			}
 		}
 	}
@@ -54,9 +54,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			if (!board.isWall(pos)) {
 				int n = board.getNumber(pos);
 				if (n == 0) 
-					board.changeNumber(pos, board.getMaxNumber()); 
+					board.changeAnswerNumber(pos, board.getMaxNumber()); 
 				else if (n > 0)
-					board.changeNumber(pos, n - 1);
+					board.changeAnswerNumber(pos, n - 1);
 			}
 		}
 	}
@@ -74,18 +74,18 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {
 			if (getKKCursor().getStair() == KakuroCursor.LOWER)
-				board.setSum(pos, Direction.VERT, num);
+				board.changeSum(pos, Direction.VERT, num);
 			else if (getKKCursor().getStair() == KakuroCursor.UPPER)
-				board.setSum(pos, Direction.HORIZ, num);
+				board.changeSum(pos, Direction.HORIZ, num);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
 				if (isOn(posS))
 					if (!board.isWall(posS))
-						board.setWall(posS, 0, 0);
+						board.changeWall(posS, 0);
 			}
 		} else if (isCursorOn()){
 			if (!board.isWall(pos))
-				board.changeNumber(pos, num);
+				board.changeAnswerNumber(pos, num);
 		}
 	}
 	
@@ -93,30 +93,30 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		if (isProblemEditMode()) {
 			if (pos.r() ==0 || pos.c() == 0)
 				return;
-			board.removeWall(pos);
+			board.changeWall(pos, Board.BLANK);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
 				if (isOn(posS))
 					if (board.isWall(posS))
-						board.removeWall(posS);
+						board.changeWall(posS, Board.BLANK);
 			}
 		} else if (isCursorOn()){
 			if (!board.isWall(pos))
-				board.changeNumber(pos, 0);
+				board.changeAnswerNumber(pos, 0);
 		}
 	}
 	
 	protected void minusEntered(Address pos) {
 		if (isProblemEditMode()) {
 			if (getKKCursor().getStair() == KakuroCursor.LOWER)
-				board.setSum(pos, Direction.VERT, 0);
+				board.changeSum(pos, Direction.VERT, 0);
 			else if (getKKCursor().getStair() == KakuroCursor.UPPER)
-				board.setSum(pos, Direction.HORIZ, 0);
+				board.changeSum(pos, Direction.HORIZ, 0);
 			if (isSymmetricPlacementMode()) {
 				Address posS = getSymmetricPosition(pos);
 				if (isOn(posS))
 					if (!board.isWall(posS))
-						board.setWall(posS, 0, 0);
+						board.changeWall(posS, 0);
 			}
 		}
 	}
@@ -130,7 +130,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 
 	/**
 	 * 点対称位置の座標を取得する。 カックロ用。
-	 * @param pos　元座標
+	 * @param pos 元座標
 	 * @return posと点対称な位置の座標
 	 */
 	public Address getSymmetricPosition(Address pos) {
