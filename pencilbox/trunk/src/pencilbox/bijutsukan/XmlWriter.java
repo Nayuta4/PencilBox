@@ -13,8 +13,9 @@ public class XmlWriter extends XmlWriterBase {
 		int cols = board.cols();
 		for (int r = 0; r < rows; r++) {
 			for (int c = 0; c < cols; c++) {
-				if (board.isWall(r, c))
-					outNumber(r,c,board.getState(r,c));
+				int n = board.getState(r, c);
+				if (Board.isWall(n))
+					outNumber(r,c,n);
 			}
 		}
 	}
