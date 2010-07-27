@@ -204,18 +204,12 @@ public class Board extends BoardBase {
 		}
 		setNumber(p, n);
 	}
-	/**
-	 * 辺の状態を指定した状態に変更する
-	 * アンドゥリスナーに変更を通知する
-	 * @param pos 辺座標
-	 * @param st 変更後の状態
-	 */
 
 	public void undo(AbstractStep step) {
 		if (step instanceof BorderEditStep) {
 			BorderEditStep s = (BorderEditStep) step;
 			changeState(s.getPos(), s.getBefore());
-		} else {
+		} else if (step instanceof CellEditStep) {
 			CellEditStep s = (CellEditStep) step;
 			changeNumber(s.getPos(), s.getBefore());
 		}
@@ -225,7 +219,7 @@ public class Board extends BoardBase {
 		if (step instanceof BorderEditStep) {
 			BorderEditStep s = (BorderEditStep) step;
 			changeState(s.getPos(), s.getAfter());
-		} else {
+		} else if (step instanceof CellEditStep) {
 			CellEditStep s = (CellEditStep) step;
 			changeNumber(s.getPos(), s.getAfter());
 		}
