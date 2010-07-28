@@ -12,7 +12,9 @@ public class UndoManager {
 	private int indexOfNextAdd;
 	private BoardBase board;
 	private boolean recordUndo = true;
-	
+	private boolean compoundUndo = false; // 記録する複数の操作を一つにまとめるかどうか
+	private CompoundStep currentCompoundEdit = null; // 現在の操作
+
 	/**
 	 * Creates a new <code>UndoManager</code>.
 	 */
@@ -57,6 +59,23 @@ public class UndoManager {
 		return recordUndo;
 	}
 
+	public void startCompoundUndo() {
+		this.compoundUndo = true;
+		currentCompoundEdit = new CompoundStep();
+		System.out.println("CompoundEdit started");
+	}
+
+	public void stopCompoundUndo() {
+		this.compoundUndo = false;
+		this.addEdit(currentCompoundEdit);
+		System.out.println("CompoundEdit stopeed " + currentCompoundEdit.toString());
+		currentCompoundEdit = null;
+	}
+
+	protected boolean isCompoundUndo() {
+		return this.compoundUndo;
+	}
+
 	/**
 	 * Adds an <code>AbstractStep</code> to this <code>UndoManager</code>, if it's possible. 
 	 * This removes all edits from the index of the next edit to
@@ -68,19 +87,22 @@ public class UndoManager {
 		System.out.println("add edit " + edit);
 		// 現在位置より後ろを削除
         trimEdits(indexOfNextAdd, edits.size()-1);
-		AbstractStep last = lastEdit();
-		// 新しい操作が最初の操作なら，追加する
-		// そうでなければ，新しい操作を最後の操作と合成できるかを調べ，
-		// 合成できなければ，新しい操作を追加する。
-		if (last == null) {
-			edits.addElement(edit);
-		} else if (!last.attachEdit(edit)) {
-			edits.addElement(edit);
+		if (isCompoundUndo()) {
+			currentCompoundEdit.attachEdit(edit);
+			return true;
 		} else {
+        	// 新しい操作が最初の操作なら，追加する
+			// そうでなければ，新しい操作を最後の操作と合成できるかを調べ，
+			// 合成できなければ，新しい操作を追加する。
+			AbstractStep last = lastEdit();
+			if (last == null || last.attachEdit(edit) == false) {
+				edits.addElement(edit);
+			} else {
+			}
+			// 現在位置を更新
+			indexOfNextAdd = edits.size();
+			return true;
 		}
-		// 現在位置を更新
-        indexOfNextAdd = edits.size();
-        return true;
 	}
 
 	protected AbstractStep lastEdit() {
@@ -100,8 +122,15 @@ public class UndoManager {
 		setRecordUndo(false);
 		if (indexOfNextAdd > 0) {
 			AbstractStep edit = edits.elementAt(indexOfNextAdd - 1);
-//			System.out.println("undo " + edit);
-			board.undo(edit);
+//			System.out.println("undo : "+ edit);
+			if (edit instanceof CompoundStep) {
+				Vector<AbstractStep> edits = ((CompoundStep)edit).edits;;
+				for (int i = edits.size()-1; i >= 0; i--) {
+					board.undo(edits.get(i));
+				}
+			} else {
+				board.undo(edit);
+			}
 			--indexOfNextAdd;
 		}
 		setRecordUndo(true);
@@ -124,8 +153,15 @@ public class UndoManager {
 		setRecordUndo(false);
 		if (indexOfNextAdd < edits.size()) {
 			AbstractStep edit = edits.elementAt(indexOfNextAdd);
-//			System.out.println("redo " + edit);
-			board.redo(edit);
+			System.out.println("redo " + edit);
+			if (edit instanceof CompoundStep) {
+				Vector<AbstractStep> edits = ((CompoundStep)edit).edits;;
+				for (int i = 0; i < edits.size(); i++) {
+					board.redo(edits.get(i));
+				}
+			} else { 
+				board.redo(edit);
+			}
 			indexOfNextAdd++;
 		}
 		setRecordUndo(true);
