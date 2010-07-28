@@ -49,7 +49,7 @@ public class BoardCopierBase {
 	
 	/**
 	 * 盤面状態を回転して複製する。
-	 * 盤面前領域を対象とした複写を行う。
+	 * 盤面全領域を対象とした複写を行う。
 	 * そのように扱えない特殊な場合（カックロなど）については，各サブクラスで実装する。
 	 * @param src 複製元の盤面
 	 * @param dst 複製先の盤面
@@ -108,7 +108,6 @@ public class BoardCopierBase {
 		}
 		return Address.address(R, C);
 	}
-
 	/**
 	 * 領域消去。
 	 * 具体的な処理はサブクラスで記述する。
@@ -117,7 +116,6 @@ public class BoardCopierBase {
 	 */
 	public void eraseRegion(BoardBase board, Area region) {
 	}
-
 	/**
 	 * 領域複写。
 	 * 具体的な処理はサブクラスで記述する。
@@ -130,7 +128,14 @@ public class BoardCopierBase {
 	 */
 	public void copyRegion(BoardBase srcBoard, BoardBase board, Area region, Address from, Address to, int rotation) {
 	}
-
+	/**
+	 * 領域消去。
+	 * @param board 編集する盤面
+	 * @param region 消去領域
+	 */
+	public void eraseRegion2(BoardBase board, Area region) {
+		eraseRegion(board, region);
+	}
 	/**
 	 * 領域複写。
 	 * 初めに盤面全体を複製してから複写処理を行う。
@@ -140,7 +145,7 @@ public class BoardCopierBase {
 	 * @param to 原点の複写先
 	 * @param rotation 回転
 	 */
-	public void copyRegion(BoardBase board, Area region, Address from, Address to, int rotation) {
+	public void copyRegion2(BoardBase board, Area region, Address from, Address to, int rotation) {
 		try {
 			BoardBase srcBoard = duplicateBoard(board);
 			copyRegion(srcBoard, board, region, from, to, rotation);
@@ -148,7 +153,6 @@ public class BoardCopierBase {
 			e.printStackTrace();
 		}
 	}
-	
 	/**
 	 * 領域移動。
 	 * 初めに盤面全体を複製してから複写処理を行い，移動後の領域を消去する。
@@ -167,7 +171,6 @@ public class BoardCopierBase {
 			e.printStackTrace();
 		}
 	}
-
 
 	protected Address translateAndRotateAddress(Address pos, Address from, Address to, int rotation) {
 		return Rotator2.translateAndRotateAddress(pos, from, to, rotation);

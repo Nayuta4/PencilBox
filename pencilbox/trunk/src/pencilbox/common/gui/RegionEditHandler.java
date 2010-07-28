@@ -191,7 +191,7 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	 * ピリオドキーの入力を処理する。
 	 */
 	protected void spaceKeyEntered() {
-		boardCopier.eraseRegion(board, copyRegion);
+		boardCopier.eraseRegion2(board, copyRegion);
 		board.initBoard();
 	}
 
@@ -335,7 +335,7 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	protected void leftReleased(boolean shift, boolean ctrl) {
 		if (isMovingRegion()) {
 			if (ctrl) {
-				boardCopier.copyRegion(board, copyRegion, copyRegionOrigin, pasteRegionOrigin, pasteRotation);
+				boardCopier.copyRegion2(board, copyRegion, copyRegionOrigin, pasteRegionOrigin, pasteRotation);
 			} else {
 				boardCopier.moveRegion(board, copyRegion, copyRegionOrigin, pasteRegionOrigin, pasteRotation);
 			}

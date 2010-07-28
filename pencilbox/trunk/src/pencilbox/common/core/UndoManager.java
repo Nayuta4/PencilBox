@@ -13,14 +13,6 @@ public class UndoManager {
 	private BoardBase board;
 	private boolean recordUndo = true;
 	
-	public void setRecordUndo(boolean b) {
-		this.recordUndo = b;
-	}
-
-	public boolean isRecordUndo() {
-		return recordUndo;
-	}
-
 	/**
 	 * Creates a new <code>UndoManager</code>.
 	 */
@@ -55,6 +47,14 @@ public class UndoManager {
 				indexOfNextAdd = from;
 			}
 		}
+	}
+
+	public void setRecordUndo(boolean b) {
+		this.recordUndo = b;
+	}
+
+	public boolean isRecordUndo() {
+		return recordUndo;
 	}
 
 	/**
