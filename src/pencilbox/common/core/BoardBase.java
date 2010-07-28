@@ -98,6 +98,19 @@ public class BoardBase {
 	}
 
 	/**
+	 * 以降のアンドゥ操作を一つにまとめる
+	 */
+	protected void startCompoundUndo() {
+		getUndoManager().startCompoundUndo();
+	}
+	/**
+	 * ここまでのアンドゥ操作を一つにまとめる
+	 */
+	protected void stopCompoundUndo() {
+		getUndoManager().stopCompoundUndo();
+	}
+
+	/**
 	 * 盤面の列数を取得する
 	 * @return 列数
 	 */
