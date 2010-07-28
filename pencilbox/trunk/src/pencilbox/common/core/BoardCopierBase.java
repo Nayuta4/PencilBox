@@ -134,7 +134,9 @@ public class BoardCopierBase {
 	 * @param region è¡ãéóÃàÊ
 	 */
 	public void eraseRegion2(BoardBase board, Area region) {
+		board.startCompoundUndo();
 		eraseRegion(board, region);
+		board.stopCompoundUndo();
 	}
 	/**
 	 * óÃàÊï°é ÅB
@@ -148,7 +150,9 @@ public class BoardCopierBase {
 	public void copyRegion2(BoardBase board, Area region, Address from, Address to, int rotation) {
 		try {
 			BoardBase srcBoard = duplicateBoard(board);
+			board.startCompoundUndo();
 			copyRegion(srcBoard, board, region, from, to, rotation);
+			board.stopCompoundUndo();
 		} catch (PencilBoxClassException e) {
 			e.printStackTrace();
 		}
@@ -165,8 +169,10 @@ public class BoardCopierBase {
 	public void moveRegion(BoardBase board, Area region, Address from, Address to, int rotation) {
 		try {
 			BoardBase srcBoard = duplicateBoard(board);
+			board.startCompoundUndo();
 			eraseRegion(board, region);
 			copyRegion(srcBoard, board, region, from, to, rotation);
+			board.stopCompoundUndo();
 		} catch (PencilBoxClassException e) {
 			e.printStackTrace();
 		}

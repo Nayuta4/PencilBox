@@ -62,13 +62,13 @@ public class UndoManager {
 	public void startCompoundUndo() {
 		this.compoundUndo = true;
 		currentCompoundEdit = new CompoundStep();
-		System.out.println("CompoundEdit started");
+//		System.out.println("CompoundEdit started");
 	}
 
 	public void stopCompoundUndo() {
 		this.compoundUndo = false;
 		this.addEdit(currentCompoundEdit);
-		System.out.println("CompoundEdit stopeed " + currentCompoundEdit.toString());
+//		System.out.println("CompoundEdit stopped " + currentCompoundEdit.toString());
 		currentCompoundEdit = null;
 	}
 
