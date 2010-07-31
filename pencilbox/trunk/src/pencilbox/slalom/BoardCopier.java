@@ -47,12 +47,12 @@ public class BoardCopier extends BoardCopierBase {
 
 	public void eraseRegion(BoardBase srcBoardBase, Area region) {
 		Board board = (Board) srcBoardBase;
-		for (Address s : region) {
-			board.changeNumber(s, Board.BLANK);
-		}
 		ArrayList<SideAddress> list = region.innerBorders();
 		for (SideAddress s : list) {
 			board.changeState(s, Board.UNKNOWN);
+		}
+		for (Address s : region) {
+			board.changeNumber(s, Board.BLANK);
 		}
 	}
 }

@@ -6,13 +6,16 @@ import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.BoardCopierBase;
 import pencilbox.common.core.Direction;
 import pencilbox.common.core.Rotator;
-import pencilbox.common.core.Rotator2;
 
 /**
  * 
  */
 public class BoardCopier extends BoardCopierBase {
 	
+	/*
+	 * 最上段および最左列は除いた部分を回転，複写する。
+	 * 黒マスの数字もコピーするが，その際白マスに接していない数字はコピーしない。
+	 */
 	public void copyBoardStates(BoardBase src, BoardBase dst, int n) {
 		Board s = (Board) src;
 		Board d = (Board) dst;
@@ -48,6 +51,9 @@ public class BoardCopier extends BoardCopierBase {
 		}
 	}
 
+	/*
+	 * 回転したときに黒マスの数字をしかるべき位置に書くための補助メソッド
+	 */
 	private void setSum(Board d, int r, int c, int sum, int dir, int rotation) {
 		if ((dir == Direction.VERT) ^ Rotator.isTransposed(rotation)) {
 			int rr = r;
@@ -68,18 +74,22 @@ public class BoardCopier extends BoardCopierBase {
 		for (Address s : region) {
 			Address d = translateAndRotateAddress(s, from, to, rotation);
 			if (board.isOn(d)) {
-				if (d.r() > 0 && d.c() > 0) {
-					board.setNumber(d, srcBoard.getNumber(s));
-				}
-				if (board.isWall(d)) {
+				if (srcBoard.isWall(s)) {
+					int h = 0;
+					int v = 0;
 					if (rotation == 0 || rotation == 5)
-						board.setSumV(d.r(), d.c(), srcBoard.getSumV(s.r(), s.c()));
+						v = srcBoard.getSumV(s);
 					else if (rotation == 1 || rotation == 4)
-						board.setSumH(d.r(), d.c(), srcBoard.getSumV(s.r(), s.c()));
+						h = srcBoard.getSumV(s);
 					if (rotation == 0 || rotation == 7)
-						board.setSumH(d.r(), d.c(), srcBoard.getSumH(s.r(), s.c()));
+						h = srcBoard.getSumH(s);
 					else if (rotation == 3 || rotation == 4)
-						board.setSumV(d.r(), d.c(), srcBoard.getSumH(s.r(), s.c()));
+						v = srcBoard.getSumH(s);
+					board.changeWall(d, (v|(h<<8)));
+				} else {
+					if (d.r() > 0 && d.c() > 0) {
+						board.changeAnswerNumber(d, srcBoard.getNumber(s));
+					}
 				}
 			}
 		}
@@ -88,12 +98,15 @@ public class BoardCopier extends BoardCopierBase {
 	public void eraseRegion(BoardBase boardBase, Area region) {
 		Board board = (Board) boardBase;
 		for (Address s : region) {
-			int r = s.r();
-			int c = s.c();
-			if (r == 0 | c == 0)
-				board.setWall(r, c, 0, 0);
-			else
-				board.removeWall(r, c);
+			if (board.isWall(s)) {
+				if (s.r() > 0 && s.c() > 0) {
+					board.changeWall(s, Board.BLANK);
+				} else {
+					board.changeWall(s, 0);
+				}
+			} else {
+				board.changeAnswerNumber(s, 0);
+			}
 		}
 	}
 }

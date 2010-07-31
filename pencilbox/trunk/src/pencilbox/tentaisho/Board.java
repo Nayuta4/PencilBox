@@ -147,23 +147,21 @@ public class Board extends BoardBase {
 	 * ”Õ–Ê‚ÉV‚µ‚¢—Ìˆæ‚ğ’Ç‰Á‚·‚é
 	 * @param newArea ’Ç‰Á‚·‚é—Ìˆæ
 	 */
-	public void addWholeArea(Area newArea) {
+	public void addArea(Area newArea) {
 		for (Address pos : newArea) {
 			setArea(pos, newArea);
 		}
 		areaList.add(newArea);
 	}
-
 	/**
-	 * —Ìˆæ‚ğíœ‚·‚é
+	 * —Ìˆæ‚Ì‚·‚×‚Ä‚Ìƒ}ƒX‚ğ—Ìˆæ‚©‚çœ‚¢‚Ä—Ìˆæ‚ğíœ‚·‚é
 	 * @param oldArea
 	 */
 	public void removeWholeArea(Area oldArea) {
-		for (Address pos : oldArea) {
-			if (getArea(pos) == oldArea)
-				setArea(pos, null);
+		Address[] cells = oldArea.toArray(new Address[0]);
+		for (Address p : cells) {
+			removeCellFromArea(p, oldArea);
 		}
-		areaList.remove(oldArea);
 	}
 
 	public void undo(AbstractStep step) {

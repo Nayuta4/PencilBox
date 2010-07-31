@@ -28,21 +28,20 @@ public class BoardCopier extends BoardCopierBase {
 	public void copyRegion(BoardBase srcBoardBase, BoardBase dstBoardBase, pencilbox.common.core.Area region, Address from, Address to, int rotation) {
 		Board srcBoard = (Board) srcBoardBase;
 		Board board = (Board) dstBoardBase;
-		Square srcSquare = null;
-		Square dstSquare = null;
 		for (Address s : region) {
 			Address d = translateAndRotateAddress(s, from, to, rotation);
 			if (dstBoardBase.isOn(d)) {
-				board.setNumber(d, srcBoard.getNumber(s));
+				board.changeNumber(d, srcBoard.getNumber(s));
 			}
-			srcSquare = srcBoard.getSquare(s);
+		}
+		for (Address s : region) {
+			Square srcSquare = srcBoard.getSquare(s);
 			if (srcSquare != null) {
 				if (s.equals(srcSquare.p0())) {
 					if (region.containsAll(srcSquare.getCorners())) {
 						Address d0 = translateAndRotateAddress(srcSquare.p0(), from, to, rotation);
 						Address d1 = translateAndRotateAddress(srcSquare.p1(), from, to, rotation);
-						dstSquare = new Square(d0, d1);
-						dstSquare.setNumber(srcSquare.getNumber());
+						Square dstSquare = new Square(d0, d1);
 						if (dstBoardBase.isOnAll(dstSquare.getCorners())) {
 							board.removeOverlappedSquares(dstSquare, null);
 							board.addSquare(dstSquare);
@@ -56,7 +55,6 @@ public class BoardCopier extends BoardCopierBase {
 	public void eraseRegion(BoardBase boardBase, pencilbox.common.core.Area region) {
 		Board board = (Board) boardBase;
 		for (Address s : region) {
-			board.setNumber(s, 0);
 			Square square = board.getSquare(s);
 			if (square != null) {
 				if (s.equals(square.p0())) {
@@ -65,6 +63,9 @@ public class BoardCopier extends BoardCopierBase {
 					}
 				}
 			}
+		}
+		for (Address s : region) {
+			board.changeNumber(s, 0);
 		}
 	}
 

@@ -4,7 +4,6 @@ import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.BoardCopierBase;
 import pencilbox.common.core.Rotator;
-import pencilbox.common.core.Rotator2;
 
 /**
  * 
@@ -30,28 +29,27 @@ public class BoardCopier extends BoardCopierBase {
 	public void copyRegion(BoardBase srcBoardBase, BoardBase dstBoardBase, pencilbox.common.core.Area region, Address from, Address to, int rotation) {
 		Board srcBoard = (Board) srcBoardBase;
 		Board board = (Board) dstBoardBase;
-		Square srcSquare = null;
-		Square dstSquare = null;
 		for (Address s : region) {
-			Address d = translateAndRotateAddress(s, from, to, rotation);
-			if (board.isOn(d)) {
-				board.setState(d, srcBoard.getState(s));
-			}
-			srcSquare = srcBoard.getSquare(s);
+			Square srcSquare = srcBoard.getSquare(s);
 			if (srcSquare != null) {
 				if (s.equals(srcSquare.p0())) {
 					if (region.containsAll(srcSquare.getCorners())) {
 						Address d0 = translateAndRotateAddress(srcSquare.p0(), from, to, rotation);
 						Address d1 = translateAndRotateAddress(srcSquare.p1(), from, to, rotation);
-						dstSquare = new Square(srcSquare);
-						dstSquare.set(d0, d1);
-						dstSquare.setNumber(srcSquare.getNumber());
+						Square dstSquare = new Square(d0, d1);
 						if (board.isOnAll(dstSquare.getCorners())) {
 							board.removeOverlappedSquares(dstSquare, null);
 							board.addSquare(dstSquare);
+							board.changeNumber(d0, srcSquare.getNumber());
 						}
 					}
 				}
+			}
+		}
+		for (Address s : region) {
+			Address d = translateAndRotateAddress(s, from, to, rotation);
+			if (board.isOn(d)) {
+				board.changeState(d, srcBoard.getState(s));
 			}
 		}
 	}
@@ -59,11 +57,14 @@ public class BoardCopier extends BoardCopierBase {
 	public void eraseRegion(BoardBase boardBase, pencilbox.common.core.Area region) {
 		Board board = (Board) boardBase;
 		for (Address s : region) {
-			board.setState(s, Board.UNKNOWN);
+			board.changeState(s, Board.UNKNOWN);
+		}
+		for (Address s : region) {
 			Square square = board.getSquare(s);
 			if (square != null) {
 				if (s.equals(square.p0())) {
 					if (region.containsAll(square.getCorners())) {
+						board.changeNumber(square.p0(), Square.ANY);
 						board.removeSquare(square);
 					}
 				}

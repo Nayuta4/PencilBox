@@ -21,7 +21,7 @@ public class BoardCopier extends BoardCopierBase {
 			Area a = new Area();
 			rotator.rotateArea(srcArea, a);
 			if (d.isAreaOn(a)) {
-				d.addWholeArea(a);
+				d.addArea(a);
 			}
 		}
 		Rotator rotator2 = new Rotator(s.rows()*2-1, s.cols()*2-1, n);
@@ -32,43 +32,40 @@ public class BoardCopier extends BoardCopierBase {
 		Board srcBoard = (Board) srcBoardBase;
 		Board board = (Board) boardBase;
 		ArrayList<Area> srcAreaList = new ArrayList<Area>();
-		Area srcArea = null;
-		Area dstArea = null;
+		label:
 		for (Address s : region) {
-			Address d = translateAndRotateAddress(s, from, to, rotation);
-			if (board.isOn(d)) {
-				srcArea = srcBoard.getArea(s);
-				if (srcArea != null) {
-					if (srcAreaList.contains(srcArea))
-						continue;
-					if (! region.containsAll(srcArea)) // ブロック全体が選択された場合に移動する。
-						continue;
-					srcAreaList.add(srcArea);
-					dstArea = new Area();
-					for (Address ss : srcArea) {
-						if (region.contains(ss)) {
-							Address dd = translateAndRotateAddress(ss, from, to, rotation);
-							if (board.isOn(dd))
-								dstArea.add(dd);
-						}
+			Area srcArea = srcBoard.getArea(s);
+			if (srcArea != null) {
+				if (srcAreaList.contains(srcArea)) // 作業済み
+					continue;
+				srcAreaList.add(srcArea); //　作業済みリストに記録する
+				if (! region.containsAll(srcArea)) // 領域全体が含まれない場合はとばす
+					continue;
+				Area dstArea = new Area();
+				for (Address ss : srcArea) {
+					Address dd = translateAndRotateAddress(ss, from, to, rotation);
+					if (! board.isOn(dd)) {
+						continue label; // 移動先が盤外にはみ出る場合は中止
 					}
-					if (dstArea.size() < srcArea.size()) // ブロック全体移動のとき，移動先でブロックが盤外にはみ出る場合はブロックを消去する
-						continue;
-					for (Address dd : dstArea) {
-						if (board.getArea(dd) != null) {
-							board.removeWholeArea(board.getArea(dd));
-//							board.removeCellFromArea(dd, board.getArea(dd));
+				}
+				for (Address ss : srcArea) {
+					Address dd = translateAndRotateAddress(ss, from, to, rotation);
+					if (board.isOn(dd)) {
+						Area oldArea = board.getArea(dd);
+						if (oldArea != null) { // 移動先に既存の領域があったら，領域全体を消去する。
+							board.removeWholeArea(oldArea);
 						}
+						board.addCellToArea(dd, dstArea);
 					}
-					board.addWholeArea(dstArea);
 				}
 			}
 		}
 		pencilbox.common.core.Area region2 = makeStarRegion(region);
 		for (Address ss : region2) {
 			Address dd = translateAndRotateStarAddress(ss, from, to, rotation);
-			if (board.isOnStar(dd))
-				board.setStar(dd, srcBoard.getStar(ss));
+			if (board.isOnStar(dd)) {
+				board.changeStar(dd, srcBoard.getStar(ss));
+			}
 		}
 	}
 
@@ -85,12 +82,12 @@ public class BoardCopier extends BoardCopierBase {
 			if (srcArea != null) {
 				if (! region.containsAll(srcArea)) // ブロック全体が選択された場合に消去する。
 					continue;
-				board.removeWholeArea(srcArea);
+				board.removeWholeArea(srcArea); // 領域ごと消去する。
 			}
 		}
 		pencilbox.common.core.Area region2 = makeStarRegion(region);
 		for (Address ss : region2) {
-			board.setStar(ss, Board.NOSTAR);
+			board.changeStar(ss, Board.NOSTAR);
 		}
 	}
 	
@@ -107,5 +104,4 @@ public class BoardCopier extends BoardCopierBase {
 		}
 		return region2;
 	}
-
 }

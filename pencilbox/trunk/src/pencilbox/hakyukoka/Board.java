@@ -357,17 +357,25 @@ public class Board extends BoardBase {
 		}
 		areaList.add(newArea);
 	}
-
 	/**
-	 * 領域を削除する
+	 * 領域すべてのマスを追加する
+	 * @param newArea
+	 */
+	public void addWholeArea(Area newArea) {
+		Address[] cells = newArea.toArray(new Address[0]);
+		for (Address p : cells) {
+			addCellToArea(p, newArea);
+		}
+	}
+	/**
+	 * 領域のすべてのマスを領域から除いて領域を削除する
 	 * @param oldArea
 	 */
-	public void removeArea(Area oldArea) {
-		for (Address p : oldArea) {
-			if (getArea(p) == oldArea)
-				setArea(p, null);
+	public void removeWholeArea(Area oldArea) {
+		Address[] cells = oldArea.toArray(new Address[0]);
+		for (Address p : cells) {
+			removeCellFromArea(p, oldArea);
 		}
-		areaList.remove(oldArea);
 	}
 	/**
 	 * @return Returns the areaList.
@@ -530,4 +538,5 @@ public class Board extends BoardBase {
 			message.append(Messages.getString("hakyukoka.AnswerCheckMessage4")); //$NON-NLS-1$
 		return message.toString();
 	}
+
 }

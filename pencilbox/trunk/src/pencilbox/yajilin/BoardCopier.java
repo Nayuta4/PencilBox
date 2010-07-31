@@ -6,7 +6,6 @@ import pencilbox.common.core.Address;
 import pencilbox.common.core.Area;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.BoardCopierBase;
-import pencilbox.common.core.Direction;
 import pencilbox.common.core.Rotator;
 import pencilbox.common.core.Rotator2;
 import pencilbox.common.core.SideAddress;
@@ -21,18 +20,15 @@ public class BoardCopier extends BoardCopierBase {
 		Board d = (Board) dst;
 		Rotator rotator = new Rotator(src.getSize(), n);
 		rotator.rotateArrayInt3(s.getState(), d.getState());
-		for (int r = 0; r < s.rows(); r++) {
-			for (int c = 0; c < s.cols(); c++) {
-				Address pos0 = Address.address(r, c);
-				Address pos = rotator.rotateAddress(pos0);
-				if (!d.isOn(pos))
-					continue;
-				if (s.getNumber(pos0) >= 0) {
-					d.setArrowNumber(pos, s.getArrowNumber(pos0));
-					d.setArrowDirection(pos, rotator.rotateDirection(s.getArrowDirection(pos0)));
-				} else {
-					d.setNumber(pos, s.getNumber(pos0));
-				}
+		for (Address pos0 : src.cellAddrs()) {
+			Address pos = rotator.rotateAddress(pos0);
+			if (!d.isOn(pos))
+				continue;
+			if (s.getNumber(pos0) >= 0) {
+				d.setArrowNumber(pos, s.getArrowNumber(pos0));
+				d.setArrowDirection(pos, rotator.rotateDirection(s.getArrowDirection(pos0)));
+			} else {
+				d.setNumber(pos, s.getNumber(pos0));
 			}
 		}
 	}
@@ -44,31 +40,33 @@ public class BoardCopier extends BoardCopierBase {
 			Address d = translateAndRotateAddress(s, from, to, rotation);
 			if (board.isOn(d)) {
 				int number = srcBoard.getNumber(s);
-				if (number >= 0 || number == Board.BLACK) {
+				if (number >= 0 || number == Board.UNDECIDED_NUMBER || number == Board.BLACK) {
 					board.eraseLinesAround(d);
 				}
-				board.setNumber(d, number);
-				if (board.isNumber(d))
-					board.setArrowDirection(d, Rotator2.rotateDirection(srcBoard.getArrowDirection(s), rotation));
+				if (number >= 0) {
+					int dir = Rotator2.rotateDirection(srcBoard.getArrowDirection(s), rotation);
+					number = Board.getNumberValue(number, dir);
+				}
+				board.changeNumber(d, number);
 			}
 		}
 		ArrayList<SideAddress> list = region.innerBorders(); {
 			for (SideAddress s : list) {
 				SideAddress d = Rotator2.translateAndRotateSideAddress(s, from, to, rotation);
 				if (board.isSideOn(d))
-					board.setState(d, srcBoard.getState(s));
+					board.changeState(d, srcBoard.getState(s));
 			}
 		}
 	}
 
 	public void eraseRegion(BoardBase srcBoardBase, Area region) {
 		Board board = (Board) srcBoardBase;
-		for (Address s : region) {
-			board.setNumber(s, Board.BLANK);
-		}
 		ArrayList<SideAddress> list = region.innerBorders();
 		for (SideAddress s : list) {
-			board.setState(s, Board.UNKNOWN);
+			board.changeState(s, Board.UNKNOWN);
+		}
+		for (Address s : region) {
+			board.changeNumber(s, Board.BLANK);
 		}
 	}
 }
