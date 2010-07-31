@@ -96,7 +96,6 @@ public class Panel extends PanelBase {
 				int n = board.getNumber(p);
 				if (n > 0) {
 					g.setColor(getInputColor());
-//						placeCircle(g, p);
 					placeNumber(g, p, n);
 				} else {
 					g.setColor(getNumberColor());
