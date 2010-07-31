@@ -172,17 +172,15 @@ public class Board extends BoardBase {
 		}
 		areaList.add(newArea);
 	}
-
 	/**
-	 * 領域を削除する
+	 * 領域のすべてのマスを領域から除いて領域を削除する
 	 * @param oldArea
 	 */
-	public void removeArea(Area oldArea) {
-		for (Address p : oldArea) {
-			if (area[p.r()][p.c()] == oldArea)
-				area[p.r()][p.c()] = null;
+	public void removeWholeArea(Area oldArea) {
+		Address[] cells = oldArea.toArray(new Address[0]);
+		for (Address p : cells) {
+			removeCellFromArea(p, oldArea);
 		}
-		areaList.remove(oldArea);
 	}
 	/**
 	 * マスを領域に追加する

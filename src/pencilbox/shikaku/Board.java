@@ -17,9 +17,9 @@ import pencilbox.util.ArrayUtil;
  * 「四角に切れ」盤面クラス
  */
 public class Board extends BoardBase {
-	
+
 	static final int UNDECIDED_NUMBER = -1;
-	
+
 	private int[][] number;
 	private Square[][] square;
 	private List<Square> squareList;
@@ -168,6 +168,8 @@ public class Board extends BoardBase {
 			fireUndoableEditUpdate(new CellEditStep(EditType.FIXED, p, prev, n));
 		}
 		setNumber(p, n);
+		if (getSquare(p) != null)
+			initSquareNumber(getSquare(p));
 	}
 
 	public void undo(AbstractStep step) {

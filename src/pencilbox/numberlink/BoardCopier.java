@@ -29,26 +29,25 @@ public class BoardCopier extends BoardCopierBase {
 		for (Address s : region) {
 			Address d = translateAndRotateAddress(s, from, to, rotation);
 			if (board.isOn(d)) {
-				board.setNumber(d, srcBoard.getNumber(s));
+				board.changeNumber(d, srcBoard.getNumber(s));
 			}
 		}
 		ArrayList<SideAddress> list = region.innerBorders();
 		for (SideAddress s : list) {
 			SideAddress d = Rotator2.translateAndRotateSideAddress(s, from, to, rotation);
 			if (board.isSideOn(d))
-				board.setState(d, srcBoard.getState(s));
+				board.changeState(d, srcBoard.getState(s));
 		}
 	}
 
 	public void eraseRegion(BoardBase srcBoardBase, Area region) {
 		Board board = (Board) srcBoardBase;
-		for (Address s : region) {
-			board.setNumber(s, Board.BLANK);
-		}
 		ArrayList<SideAddress> list = region.innerBorders();
 		for (SideAddress s : list) {
-			board.setState(s, Board.UNKNOWN);
+			board.changeState(s, Board.UNKNOWN);
+		}
+		for (Address s : region) {
+			board.changeNumber(s, Board.BLANK);
 		}
 	}
-
 }

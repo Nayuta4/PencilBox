@@ -3,6 +3,7 @@ package pencilbox.hashi;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.BoardCopierBase;
+import pencilbox.common.core.Direction;
 import pencilbox.common.core.Rotator;
 import pencilbox.common.core.Rotator2;
 
@@ -46,17 +47,30 @@ public class BoardCopier extends BoardCopierBase {
 		for (Address s : region) {
 			Address d = translateAndRotateAddress(s, from, to, rotation);
 			if (board.isOn(d)) {
-				board.setNumber(d, srcBoard.getNumber(s));
+				board.changeNumber(d, srcBoard.getNumber(s));
 			}
 		}
 		for (Address s : region) {
 			Address d = translateAndRotateAddress(s, from, to, rotation);
 			if (board.isOn(d)) {
-				int st = srcBoard.getState(s.r(), s.c());
-				if (Rotator2.isTransposed(rotation)) {
-					board.setState(d, ((st & 0x3) << 2) | ((st & 0xC) >> 2));
-				} else { 
-					board.setState(d, st);
+				if (srcBoard.isPier(s)) {
+					Pier pi = srcBoard.getPier(s);
+					for (int dir : Direction.DN_RT) {
+						Pier pi2 = pi.getNextPier(dir);
+						if (pi2 != null) {
+							int n = pi.getLine(dir);
+							Address s2 = pi.getNextPier(dir).getPos();
+							if (region.contains(s2)) {
+								Address d2 = translateAndRotateAddress(s2, from, to, rotation);
+								int ddir = Rotator2.rotateDirection(dir, rotation);
+								if (board.isOn(d2)) {
+									if (board.getPier(d).getNextPier(ddir).getPos().equals(d2)) {
+										board.changeLine(d, ddir, n);
+									}
+								}
+							}
+						}
+					}
 				}
 			}
 		}
@@ -65,8 +79,7 @@ public class BoardCopier extends BoardCopierBase {
 	public void eraseRegion(BoardBase boardBase, pencilbox.common.core.Area region) {
 		Board board = (Board) boardBase;
 		for (Address s : region) {
-			board.setNumber(s, 0);
-			board.setState(s, 0);
+			board.changeNumber(s, 0);
 		}
 	}
 }

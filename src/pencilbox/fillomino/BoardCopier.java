@@ -24,8 +24,11 @@ public class BoardCopier extends BoardCopierBase {
 		for (Address s : region) {
 			Address d = translateAndRotateAddress(s, from, to, rotation);
 			if (board.isOn(d)) {
-				board.setState(d, srcBoard.getState(s));
-				board.setNumber(d, srcBoard.getNumber(s));
+				if (srcBoard.isStable(s)) {
+					board.changeFixedNumber(d, srcBoard.getNumber(s));
+				} else {
+					board.changeAnswerNumber(d, srcBoard.getState(s));
+				}
 			}
 		}
 	}
@@ -33,8 +36,11 @@ public class BoardCopier extends BoardCopierBase {
 	public void eraseRegion(BoardBase boardBase, pencilbox.common.core.Area region) {
 		Board board = (Board) boardBase;
 		for (Address s : region) {
-			board.setState(s, Board.UNKNOWN);
-			board.setNumber(s, Board.BLANK);
+			if (board.isStable(s)) {
+				board.changeFixedNumber(s, Board.BLANK);
+			} else {
+				board.changeAnswerNumber(s, Board.BLANK);
+			}
 		}
 	}
 

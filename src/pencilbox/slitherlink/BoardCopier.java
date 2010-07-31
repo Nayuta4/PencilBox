@@ -45,30 +45,30 @@ public class BoardCopier extends BoardCopierBase {
 				else if (rotation == 3 || rotation == 5)
 					dd = Address.address(d.r(), d.c()-1);
 				if (board.isNumberOn(dd))
-					board.setNumber(dd, grid);
+					board.changeNumber(dd, grid);
 			}
 		}
 		ArrayList<SideAddress> list = region.innerBorders();
 		for (SideAddress s : list) {
 			SideAddress d = Rotator2.translateAndRotateSideAddress(s, from, to, rotation);
 			if (board.isSideOn(d))
-				board.setState(d, srcBoard.getState(s));
+				board.changeState(d, srcBoard.getState(s));
 		}
 	}
 
 	public void eraseRegion(BoardBase boardBase, Area region) {
 		Board board = (Board) boardBase;
+		ArrayList<SideAddress> list = region.innerBorders();
+		for (SideAddress s : list) {
+			board.changeState(s, Board.UNKNOWN);
+		}
 		for (Address s : region) {
 			Address dn = Address.nextCell(s, Direction.DN);
 			Address rt = Address.nextCell(s, Direction.RT);
 			Address dnrt = Address.nextCell(dn, Direction.RT);
 			if (region.containsAll(dn, rt, dnrt)) {
-				board.setNumber(s, Board.NONUMBER);
+				board.changeNumber(s, Board.NONUMBER);
 			}
-		}
-		ArrayList<SideAddress> list = region.innerBorders();
-		for (SideAddress s : list) {
-			board.setState(s, Board.UNKNOWN);
 		}
 	}
 }
