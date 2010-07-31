@@ -36,7 +36,7 @@ public class PzprReader extends PzprReaderBase {
 		Area[] areaArray = new pencilbox.lits.Area[nArea];
 		for (int k=0; k<nArea; k++) {
 			areaArray[k] = new Area();
-			bd.addArea(areaArray[k]);
+			bd.getAreaList().add(areaArray[k]);
 		}
 		for (int i = 0; i < bd.rows()*bd.cols(); i++) {
 			int k = areaIds[i]-1;
