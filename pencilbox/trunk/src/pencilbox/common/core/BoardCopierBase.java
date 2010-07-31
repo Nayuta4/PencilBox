@@ -137,6 +137,7 @@ public class BoardCopierBase {
 		board.startCompoundUndo();
 		eraseRegion(board, region);
 		board.stopCompoundUndo();
+		board.initBoard();
 	}
 	/**
 	 * óÃàÊï°é ÅB
@@ -153,6 +154,7 @@ public class BoardCopierBase {
 			board.startCompoundUndo();
 			copyRegion(srcBoard, board, region, from, to, rotation);
 			board.stopCompoundUndo();
+			board.initBoard();
 		} catch (PencilBoxClassException e) {
 			e.printStackTrace();
 		}
@@ -173,6 +175,7 @@ public class BoardCopierBase {
 			eraseRegion(board, region);
 			copyRegion(srcBoard, board, region, from, to, rotation);
 			board.stopCompoundUndo();
+			board.initBoard();
 		} catch (PencilBoxClassException e) {
 			e.printStackTrace();
 		}
