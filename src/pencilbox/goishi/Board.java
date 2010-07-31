@@ -29,7 +29,8 @@ public class Board extends BoardBase {
 	public void clearBoard() {
 		super.clearBoard();
 		for (Address p : cellAddrs()) {
-			setNumber(p, 0);
+			if (getState(p) == STONE)
+				setNumber(p, 0);
 		}
 		pickedList.clear();
 //		initBoard();
@@ -116,7 +117,7 @@ public class Board extends BoardBase {
 	 * @param pos
 	 */
 	public void pickUp(Address p) {
-		pickedList.add(Address.address(p));
+		pickedList.add(p);
 		setNumber(p, pickedList.size());
 	}
 
@@ -151,7 +152,7 @@ public class Board extends BoardBase {
 		int direction = Address.getDirectionTo(prev, pos);
 		if (direction < 0)
 			return false;
-		for (Address p = Address.address(prev); !p.equals(pos); p = p.nextCell(direction)) {
+		for (Address p = prev; !p.equals(pos); p = p.nextCell(direction)) {
 			if (isStone(p) && getNumber(p) == 0)
 				return false;
 		}
