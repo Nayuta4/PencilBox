@@ -41,7 +41,7 @@ public class TxtReader extends TxtReaderBase {
 			while (t.hasMoreTokens()) {
 				str = t.nextToken();
 				if (str.equals(".")) {
-					 board.setState(Address.address(i, j), Board.BLANK);
+					board.setState(Address.address(i, j), Board.BLANK);
 				} else if (str.equals("1")){
 					board.setState(Address.address(i, j), Board.STONE);
 				}
@@ -56,7 +56,9 @@ public class TxtReader extends TxtReaderBase {
 			t1 = Integer.parseInt(t.nextToken());
 			t2 = Integer.parseInt(t.nextToken());
 			t3 = Integer.parseInt(t.nextToken());
-			board.pickUp(Address.address(t2, t3));
+			Address p = Address.address(t2, t3);
+			board.pickedList.add(p);
+			board.setNumber(p, board.pickedList.size());
 		}
 		return board;
 	}

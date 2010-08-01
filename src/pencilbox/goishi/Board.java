@@ -2,8 +2,11 @@ package pencilbox.goishi;
 
 import java.util.ArrayList;
 
+import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
+import pencilbox.common.core.CellEditStep;
+import pencilbox.common.core.AbstractStep.EditType;
 import pencilbox.resource.Messages;
 
 
@@ -66,68 +69,73 @@ public class Board extends BoardBase {
 		setState(pos.r(), pos.c(), st);
 	}
 
-	public int getNumber(int r, int c) {
-		return number[r][c];
-	}
-
 	public int getNumber(Address pos) {
 		return number[pos.r()][pos.c()];
-	}
-
-	public void setNumber(int r, int c, int n) {
-		number[r][c] = n;
 	}
 
 	public void setNumber(Address pos, int n) {
 		number[pos.r()][pos.c()] = n;
 	}
 
-	/**
-	 * @param pos
-	 */
-	public void addStone(Address pos) {
-		if (getState(pos) == STONE)
-			return;
-		setState(pos, STONE);
-		rePickUpAll();
+	public void initBoard() {
+//		rePickUpAll();
 	}
 
 	/**
-	 * 石を取り除く。
-	 * もしもすでに拾った石を取り除いたときは、拾いなおす。
-	 * @param pos
+	 * 石を置くか取り除く。
+	 * @param p 座標
+	 * @param st 変更後の状態 置いたか，取り除いたか
 	 */
-	public void removeStone(Address pos) {
-		if (getState(pos) == BLANK)
+	public void changeState(Address p, int st) {
+		int prev = getState(p);
+		if (prev == st)
 			return;
-		setState(pos, BLANK);
-		if (getNumber(pos) > 0) {
-			setNumber(pos, 0);
-			pickedList.remove(pos);
-			rePickUpAll();
+		if (st == STONE) {
+			int m = checkRoute(p);
+			if (m > 0) {
+				placeBackFromN(m);
+			}
+		} else if (st == BLANK) {
+			int m = getNumber(p);
+			if (m > 0) {
+				placeBackFromN(m);
+			}
+		}
+		if (isRecordUndo())
+			fireUndoableEditUpdate(new CellEditStep(EditType.FIXED, p, getState(p), st));
+		setState(p, st);
+	}
+
+	private void placeBackFromN(int m) {
+		for (int i = pickedList.size(); i >= m; i--) {
+			placeBack();
 		}
 	}
 
-	public void initBoard() {
-		rePickUpAll();
-	}
-
 	/**
-	 * 拾う
-	 * @param pos
+	 * 拾う。UndoMangerに通知する。
+	 * @param p
 	 */
 	public void pickUp(Address p) {
+		int n = pickedList.size();
+		if (isRecordUndo()) {
+			fireUndoableEditUpdate(new CellEditStep(EditType.STATE, p, 0, n+1));
+		}
 		pickedList.add(p);
-		setNumber(p, pickedList.size());
+		setNumber(p, n+1);
 	}
 
 	/**
-	 * 戻す
+	 * 戻す。UndoMangerに通知する。
 	 */
 	public void placeBack() {
-		Address p = pickedList.get(pickedList.size()-1);
+		int n = pickedList.size();
+		Address p = pickedList.get(n-1);
+		if (isRecordUndo()) {
+			fireUndoableEditUpdate(new CellEditStep(EditType.STATE, p, n, 0));
+		}
+		pickedList.remove(n-1);
 		setNumber(p, 0);
-		pickedList.remove(pickedList.size()-1);
 	}
 
 	/**
@@ -166,21 +174,78 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * はじめから石を拾いなおす。
+	 * 上下左右を見て拾えなくなるような最小の番号を返す
+	 * 拾えなくなることがなければ0を返す
 	 */
-	public void rePickUpAll() {
-		ArrayList<Address> copy = (ArrayList<Address>)(pickedList.clone());
-		for (Address p : cellAddrs()) {
-			if (getState(p) == Board.STONE)
-				setNumber(p, 0);
+	private int checkRoute(Address p0) {
+		int[] next4 = new int[4];
+		for (int d = 0; d < 4; d++) {
+			Address p = p0;
+			while (isOn(p)) {
+				p = p.nextCell(d);
+				if (getState(p) == STONE) {
+					int n = getNumber(p);
+					if (n > 0)
+						next4[d] = n;
+					break;
+				}
+			}
 		}
-		pickedList.clear();
-		for (int i = 0; i < copy.size(); i++) {
-			Address p = copy.get(i);
-			if (canPick(p))
-				pickUp(p);
-			else
-				break;
+		int m1 = diff1(next4[0], next4[2]);
+		int m2 = diff1(next4[1], next4[3]);
+		int mm = min2(m1, m2);
+		return mm;
+	}
+	/**
+	 * 2つの正数の差が1の場合，その大きい方の値を返す
+	 */
+	private int diff1(int a, int b) {
+		if (a > 0 && b > 0) {
+			if (a == b+1)
+				return a;
+			else if (b == a+1)
+				return b;
+		}
+		return 0;
+	}
+	/**
+	 * 2つの正数のうちより小さい方の値を返す。片方のみが正数ならその値を返す
+	 */
+	private int min2(int a, int b) {
+		if (a > 0 && b > 0) {
+			return (a > b) ? b : a;
+		} else if (a > 0 && b == 0) {
+			return a;
+		} else if (b > 0 && a == 0) {
+			return b;
+		}
+		return 0;
+	}
+	public void undo(AbstractStep step) {
+		if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep) step;
+			if (step.getType() == EditType.FIXED) {
+				changeState(s.getPos(), s.getBefore());
+			} else if (step.getType() == EditType.STATE) {
+				if (s.getBefore() > 0)
+					pickUp(s.getPos());
+				else
+					placeBack();
+			}
+		}
+	}
+
+	public void redo(AbstractStep step) {
+		if (step instanceof CellEditStep) {
+			CellEditStep s = (CellEditStep) step;
+			if (step.getType() == EditType.FIXED) {
+				changeState(s.getPos(), s.getAfter());
+			} else if (step.getType() == EditType.STATE) {
+				if (s.getAfter() > 0)
+					pickUp(s.getPos());
+				else
+					placeBack();
+			}
 		}
 	}
 
