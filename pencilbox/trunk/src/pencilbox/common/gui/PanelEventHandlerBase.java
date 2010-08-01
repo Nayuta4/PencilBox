@@ -28,8 +28,8 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	private int symmetricPlacementMode = 0;
 	private int immediateAnswerCheckMode = -1; // -1:OFF, 0:ON, 1:ALREADY_CHECKED
 
-	private Address oldPos = Address.address(-1, -1);
-//	private Address newPos = Address.address(-1, -1);
+	private Address oldPos = Address.NOWHERE;
+//	private Address newPos = Address.NOWHERE;
 
 	/**
 	 * PanelEventHandlerを生成する
@@ -376,7 +376,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	 */
 	public void mousePressed(MouseEvent e) {
 		mousePressed2(e); // 辺の操作
-		Address newPos = panel.pointToAddress(e.getX(), e.getY());
+		Address newPos = pointToAddress(e);
 		if (!isOn(newPos))
 			return;
 		int button = getMouseButton(e);
@@ -406,7 +406,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	}
 
 	public void mouseDragged(MouseEvent e) {
-		Address newPos = panel.pointToAddress(e.getX(), e.getY());
+		Address newPos = pointToAddress(e);
 		if (!isOn(newPos)) {
 			oldPos = Address.nowhere();
 			return;
@@ -518,19 +518,29 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	}
 
 	/**
-	 * 辺の位置を左クリックしたときの動作を定める。
+	 * 辺の位置を左ボタンを押したときの動作を定める。
 	 * @param position
 	 */
 	protected void leftPressedEdge(SideAddress position) {
 	}
 
 	/**
-	 * 辺の位置を右クリックしたときの動作を定める。
+	 * 辺の位置を右ボタンを押したときの動作を定める。
 	 * @param position
 	 */
 	protected void rightPressedEdge(SideAddress position) {
 	}
 
+	/**
+	 * マウスイベントの位置に対応するマス座標を返す
+//	 * @param e マウスイベント
+	 * @return マス座標
+	 */
+	public Address pointToAddress(MouseEvent e) {
+		int r = (e.getY() - panel.getOffsety()) / panel.getCellSize();
+		int c = (e.getX() - panel.getOffsetx()) / panel.getCellSize();
+		return Address.address(r, c);
+	}
 	/**
 	 * 	即時正解判定
 	 */
@@ -545,5 +555,4 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 			}
 		}
 	}
-
 }
