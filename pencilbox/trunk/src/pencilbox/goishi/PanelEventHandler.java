@@ -43,22 +43,22 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {
 			if (num == 0) {
-				board.removeStone(pos);
+				board.changeState(pos, Board.BLANK);
 			} else if (num == 1) {
-				board.addStone(pos);
+				board.changeState(pos, Board.STONE);
 			}
 		}
 	}
 
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.removeStone(pos);
+			board.changeState(pos, Board.BLANK);
 		}
 	}
 
 	protected void minusEntered(Address pos) {
 		if (isProblemEditMode()) {
-			board.addStone(pos);
+			board.changeState(pos, Board.BLANK);
 		}
 	}
 }

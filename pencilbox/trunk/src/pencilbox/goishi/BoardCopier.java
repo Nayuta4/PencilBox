@@ -4,7 +4,6 @@ import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.BoardCopierBase;
 import pencilbox.common.core.Rotator;
-import pencilbox.common.core.Rotator2;
 
 /**
  * 
@@ -15,17 +14,16 @@ public class BoardCopier extends BoardCopierBase {
 		Board srcBoard = (Board) src;
 		Board board = (Board) dst;
 		Rotator rotator = new Rotator(src.getSize(), n);
-		for (int r = 0; r < board.rows(); r++) {
-			for (int c = 0; c < board.cols(); c++) {
-				Address s = Address.address(r, c);
-				Address d = rotator.rotateAddress(s);
-				if (board.isOn(d)) {
-					board.setState(d, srcBoard.getState(s));
-				}
+		for (Address s : src.cellAddrs()) {
+			Address d = rotator.rotateAddress(s);
+			if (board.isOn(d)) {
+				board.setState(d, srcBoard.getState(s));
 			}
 		}
 		for (int i = 0; i < srcBoard.pickedList.size(); i++) {
-			board.pickedList.add(rotator.rotateAddress(srcBoard.pickedList.get(i)));
+			Address d = rotator.rotateAddress(srcBoard.pickedList.get(i));
+			board.pickedList.add(d);
+			board.setNumber(d, i+1);
 		}
 	}
 
@@ -35,19 +33,9 @@ public class BoardCopier extends BoardCopierBase {
 		for (Address s : region) {
 			Address d = translateAndRotateAddress(s, from, to, rotation);
 			if (board.isOn(d)) {
-				board.setState(d, srcBoard.getState(s));
+				board.changeState(d, srcBoard.getState(s));
 			}
 		}
-		// Œ³—Ìˆæ‚ÌE‚Á‚½Î‚Í‚¢‚Á‚½‚ñ–ß‚·
-		for (int i = board.pickedList.size()-1; i >= 0; i--) {
-			Address s = board.pickedList.get(i);
-			if (region.contains(s)) {
-				board.pickedList.remove(i);
-			}
-		}
-		// ‚»‚Ìó‘Ô‚Å‚¢‚Á‚½‚ñ”Õ–ÊXV
-		board.rePickUpAll();
-//		System.out.println("intermidiate size is " + board.pickedList.size());
 		// E‚Á‚½Î‚ğˆÚ“®‚·‚é
 		for (int i = 0; i < srcBoard.pickedList.size(); i++) {
 			Address s = srcBoard.pickedList.get(i);
@@ -55,7 +43,9 @@ public class BoardCopier extends BoardCopierBase {
 				Address d = translateAndRotateAddress(s, from, to, rotation);
 //				System.out.print(s.toString() + " moves to " + d.toString() + ", ");
 				if (board.isOn(d)) {
-					board.pickUp(d);
+					if (board.canPick(d)) {
+						board.pickUp(d);
+					}
 				} 
 			}
 		}
@@ -65,7 +55,7 @@ public class BoardCopier extends BoardCopierBase {
 	public void eraseRegion(BoardBase boardBase, pencilbox.common.core.Area region) {
 		Board board = (Board) boardBase;
 		for (Address s : region) {
-			board.setState(s, Board.BLANK);
+			board.changeState(s, Board.BLANK);
 		}
 	}
 

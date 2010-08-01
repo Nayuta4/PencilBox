@@ -23,7 +23,9 @@ public class XmlReader extends XmlReaderBase {
 			int n = Integer.parseInt(attributes.getValue("n"))-1;
 			int r = Integer.parseInt(attributes.getValue("r"))-1;
 			int c = Integer.parseInt(attributes.getValue("c"))-1;
-			board.pickUp(Address.address(r, c));
+			Address p = Address.address(r, c);
+			board.pickedList.add(p);
+			board.setNumber(p, board.pickedList.size());
 		}
 	}
 
