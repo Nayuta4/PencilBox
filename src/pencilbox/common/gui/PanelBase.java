@@ -372,7 +372,7 @@ public class PanelBase extends JPanel implements Printable {
 	public void drawCursor(Graphics2D g) {
 		if (isProblemEditMode()) {
 			g.setColor(cursorColor);
-		} else if (cursorMode) {
+		} else if (isCursorMode()) {
 			g.setColor(answerCursorColor);
 		} else {
 			return;
@@ -658,28 +658,11 @@ public class PanelBase extends JPanel implements Printable {
 		else if (d == Direction.HORIZ)
 			drawLineSegment(g, toX(c), toY(r + 1), d, w);
 	}
-
-	public void placeSideLine(Graphics2D g, int d, int r, int c) {
-		placeSideLine(g, d, r, c, 3);
+	public void placeSideLine(Graphics2D g, SideAddress p, int w) {
+		placeSideLine(g, p.d(), p.r(), p.c(), w);
 	}
 	public void placeSideLine(Graphics2D g, SideAddress p) {
-		placeSideLine(g, p.d(), p.r(), p.c());
-	}
-	/**
-	 * 辺上に線を配置する。マスとそのマスから見た辺の向きで指定する。
-	 * @param g
-	 * @param pos マス
-	 * @param dir マスのどの向きの辺か
-	 */
-	public void placeSideLineJ(Graphics2D g, Address pos, int dir, int w) {
-		if (dir == Direction.UP)
-			placeSideLine(g, Direction.HORIZ, pos.r()-1, pos.c(), w);		
-		else if (dir == Direction.LT)
-			placeSideLine(g, Direction.VERT, pos.r(), pos.c()-1, w);		
-		else if (dir == Direction.DN)
-			placeSideLine(g, Direction.HORIZ, pos.r(), pos.c(), w);		
-		else if (dir == Direction.RT)
-			placeSideLine(g, Direction.VERT, pos.r(), pos.c(), w);		
+		placeSideLine(g, p, 3);
 	}
 	
 	/**
@@ -751,24 +734,42 @@ public class PanelBase extends JPanel implements Printable {
 	/**
 	 * マスの縁取り 
 	 * @param g 
-	 * @param r0 盤面行座標
-	 * @param c0 盤面列座標
+	 * @param p マス座標
 	 */
-	public void edgeCell(Graphics2D g, Address p0, int w) {
-		g.drawRect(toX(p0), toY(p0), getCellSize(), getCellSize());
+	public void edgeCell(Graphics2D g, Address p, int w) {
+		g.drawRect(toX(p), toY(p), getCellSize(), getCellSize());
 	}
 
 	/**
 	 * マスの縁取り 
 	 * @param g
-	 * @param r0 盤面行座標
-	 * @param c0 盤面列座標
+	 * @param p マス座標
 	 * @param w　線幅
 	 */
-	public void edgeCell(Graphics2D g, Address p0) {
+	public void edgeCell(Graphics2D g, Address p) {
 		int w = 1;
 		for (int i = 0; i < w; i++) {
-			g.drawRect(toX(p0)+i, toY(p0)+i, getCellSize()-i-i, getCellSize()-i-i);
+			g.drawRect(toX(p)+i, toY(p)+i, getCellSize()-i-i, getCellSize()-i-i);
+		}
+	}
+
+	/**
+	 * 領域の縁取り 
+	 * @param g
+	 * @param area 領域
+	 */
+	public void edgeArea(Graphics2D g, Area area) {
+		Address neighbor;
+		for (Address pos : area) {
+			for (int dir = 0; dir < 4; dir++) {
+				neighbor = Address.nextCell(pos, dir);
+				if (area.contains(neighbor)) {
+					if (dir >= 2)
+						placeSideLine(g, SideAddress.get(pos, dir), 1);
+				} else {
+					placeSideLine(g, SideAddress.get(pos, dir), 3);
+				}
+			}
 		}
 	}
 
@@ -1040,26 +1041,6 @@ public class PanelBase extends JPanel implements Printable {
 		edgeArea(g, copyRegion);
 		g.setColor(pasteRegionColor);
 		edgeArea(g, pasteRegion);
-	}
-
-	/**
-	 * 領域の縁取り 
-	 * 領域の外周を太線で，領域内部のマス教会を細線で描画する
-	 * @param g
-	 * @param area 領域
-	 */
-	public void edgeArea(Graphics2D g, Area area) {
-		for (Address pos : area) {
-			for (int dir = 0; dir < 4; dir++) {
-				Address neighbor = Address.nextCell(pos, dir);
-				if (area.contains(neighbor)) {
-					if (dir >=2)
-						placeSideLineJ(g, pos, dir, 1);
-				} else {
-					placeSideLineJ(g, pos, dir, 3);
-				}
-			}
-		}
 	}
 }
 
