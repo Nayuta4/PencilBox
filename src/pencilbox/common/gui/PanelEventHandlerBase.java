@@ -533,7 +533,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 
 	/**
 	 * マウスイベントの位置に対応するマス座標を返す
-//	 * @param e マウスイベント
+	 * @param e マウスイベント
 	 * @return マス座標
 	 */
 	public Address pointToAddress(MouseEvent e) {
