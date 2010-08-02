@@ -17,7 +17,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 //	private Square draggingSquare; // ドラッグして今まさに描こうとしている四角
 
 	/**
-	 * パネルを生成する
+	 * 
 	 */
 	public PanelEventHandler() {
 	}
