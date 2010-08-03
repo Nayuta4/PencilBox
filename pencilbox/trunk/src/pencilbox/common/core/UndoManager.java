@@ -84,7 +84,7 @@ public class UndoManager {
 	 * @return true
 	 */
 	public synchronized boolean addEdit(AbstractStep edit) {
-		System.out.println("add edit " + edit);
+//		System.out.println("add edit " + edit);
 		// Œ»İˆÊ’u‚æ‚èŒã‚ë‚ğíœ
         trimEdits(indexOfNextAdd, edits.size()-1);
 		if (isCompoundUndo()) {
@@ -153,7 +153,7 @@ public class UndoManager {
 		setRecordUndo(false);
 		if (indexOfNextAdd < edits.size()) {
 			AbstractStep edit = edits.elementAt(indexOfNextAdd);
-			System.out.println("redo " + edit);
+//			System.out.println("redo " + edit);
 			if (edit instanceof CompoundStep) {
 				Vector<AbstractStep> edits = ((CompoundStep)edit).edits;;
 				for (int i = 0; i < edits.size(); i++) {
