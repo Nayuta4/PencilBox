@@ -10,7 +10,15 @@ import pencilbox.common.gui.PanelEventHandlerBase;
 public class PanelEventHandler extends PanelEventHandlerBase {
 
 	private Board board;
+
+	private int dragState = 0;
 	private int currentState = Board.UNKNOWN;
+
+	private static final int INIT = 0;           // ‰Šúó‘Ô
+	private static final int PRESS_NEW = 1;      // V—Ìˆæì¬
+	private static final int PRESS_EXISTING = 2; // Šù‘¶—Ìˆæ‘I‘ğ
+	private static final int DRAG_ADD = 3;       // —ÌˆæŠg‘å‘€ì 
+	private static final int DRAG_REMOVE = 4;   // —Ìˆæk¬‘€ì 
 
 	/**
 	 * 
@@ -44,6 +52,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			if (area == null) {
 				area = new Area();
 				board.addCellToArea(pos, area);
+				dragState = PRESS_NEW;
+			} else {
+				dragState = PRESS_EXISTING;
 			}
 			setDraggingArea(area);
 		} else {
@@ -52,30 +63,56 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		}
 	}
 
-	protected void leftDragged(Address pos) {
+	protected void leftDragged(Address oldPos, Address pos) {
 		if (isProblemEditMode()) {
 			Area draggingArea = getDraggingArea();
 			if (draggingArea == null)
 				return;
 			Area oldArea = board.getArea(pos);
-			if (oldArea != null && oldArea != draggingArea) {
-				board.removeCellFromArea(pos, oldArea);
-				board.addCellToArea(pos, draggingArea);
-			} else if (oldArea != null && oldArea == draggingArea) {
-			} else if (oldArea == null) {
-				board.addCellToArea(pos, draggingArea);
+			if (dragState == PRESS_NEW || dragState == PRESS_EXISTING) {
+				if (oldArea == null || oldArea != draggingArea) {
+					dragState = DRAG_ADD; // —ÌˆæŠg‘å‘€ì
+				} else {
+					dragState = DRAG_REMOVE; // —Ìˆæk¬‘€ì
+				}
+			}
+			if (dragState == DRAG_ADD) {
+				if (oldArea != null && oldArea != draggingArea) {
+					board.removeCellFromArea(pos, oldArea);
+					board.addCellToArea(pos, draggingArea);
+				} else if (oldArea != null && oldArea == draggingArea) {
+				} else if (oldArea == null) {
+					board.addCellToArea(pos, draggingArea);
+				}
+			} else if (dragState == DRAG_REMOVE) {
+				if (!isOn(oldPos))
+					return;
+				Area oldoldArea = board.getArea(oldPos);
+				if (oldoldArea!= null) {
+					board.removeCellFromArea(oldPos, oldoldArea);
+				}
 			}
 		} else {
 			sweepState(pos);
 		}
 	}
 
+	protected void leftReleased(Address pos) {
+		if (isProblemEditMode()) {
+			if (dragState == PRESS_EXISTING) {
+				board.removeCellFromArea(pos, board.getArea(pos));
+			}
+			setDraggingArea(null);
+			dragState = INIT;
+		}
+	}
+
 	protected void rightPressed(Address pos) {
 		if (isProblemEditMode()) {
-			Area oldArea = board.getArea(pos);
-			if (oldArea != null) {
-				board.removeCellFromArea(pos, oldArea);
-			}
+//			Area oldArea = board.getArea(pos);
+//			if (oldArea != null) {
+//				board.removeCellFromArea(pos, oldArea);
+//			}
 		} else {
 			toggleState(pos, Board.WHITE);
 			currentState = board.getState(pos);
@@ -84,14 +121,10 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 
 	protected void rightDragged(Address pos) {
 		if (isProblemEditMode()) {
-			rightPressed(pos);
+//			rightPressed(pos);
 		} else {
 			sweepState(pos);
 		}
-	}
-
-	protected void leftReleased(Address dragEnd) {
-		setDraggingArea(null);
 	}
 
 	/**

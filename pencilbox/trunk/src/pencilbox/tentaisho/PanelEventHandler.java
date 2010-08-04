@@ -7,7 +7,6 @@ import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.SideAddress;
 import pencilbox.common.gui.PanelEventHandlerBase;
 
-
 /**
  * 「天体ショー」マウス／キー操作処理クラス
  */
@@ -19,11 +18,11 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	private int currentState = -1;
 	private Address pos3 = Address.NOWHERE;
 
-	public static int INIT = 0;           // 初期状態
-	public static int PRESS_NEW = 1;      // 新領域作成
-	public static int PRESS_EXISTING = 2; // 既存領域選択
-	public static int DRAG_ADD = 3;       // 領域拡大操作 
-	public static int DRAG_REMOVE = 4;   // 領域縮小操作 
+	private static final int INIT = 0;           // 初期状態
+	private static final int PRESS_NEW = 1;      // 新領域作成
+	private static final int PRESS_EXISTING = 2; // 既存領域選択
+	private static final int DRAG_ADD = 3;       // 領域拡大操作 
+	private static final int DRAG_REMOVE = 4;   // 領域縮小操作 
 
 	/**
 	 * 
@@ -46,7 +45,6 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	Area getDraggingArea() {
 		return ((Panel) getPanel()).getDraggingArea();
 	}
-
 	/**
 	 * @param draggingArea the draggingArea to set
 	 */
@@ -90,6 +88,8 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 				board.addCellToArea(pos, draggingArea);
 			}
 		} else if (dragState == DRAG_REMOVE) {
+			if (!isOn(oldPos))
+				return;
 			Area oldoldArea = board.getArea(oldPos);
 			if (oldoldArea!= null) {
 				board.removeCellFromArea(oldPos, oldoldArea);
