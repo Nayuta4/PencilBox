@@ -15,6 +15,8 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	private int pivotR = -1;  // ドラッグ時に固定する頂点の行座標
 	private int pivotC = -1;  // ドラッグ時に固定する頂点の列座標
 //	private Square draggingSquare; // ドラッグして今まさに描こうとしている四角
+	private int dragState = 0;
+	private int currentState = Board.UNKNOWN;
 
 	/**
 	 * 
@@ -36,8 +38,6 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	/*
 	 * 「へやわけ」マウス操作
 	 */
-	private int currentState = Board.UNKNOWN;
-
 	protected void leftPressed(Address pos) {
 		if (isProblemEditMode()) {
 			Square draggingSquare;
@@ -46,6 +46,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 				draggingSquare = new Square(pos, pos);
 			} else {
 				draggingSquare = new Square(sq);
+				dragState = 1; // ドラッグ開始
 			}
 			fixPivot(draggingSquare, pos);
 			setDraggingSquare(draggingSquare);
@@ -70,6 +71,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			} else if (pivotR == -1 && pivotC == -1) {
 //				draggingSquare.set(draggingSquare.r0, draggingSquare.c0, draggingSquare.r1, drggingSquare.c1());
 			}
+			dragState = 2; //ドラッグ中
 			fixPivot(draggingSquare, pos);
 		} else {
 			sweepState(pos);
@@ -107,7 +109,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 				board.removeOverlappedSquares(draggingSquare, null);
 				board.addSquare(new Square(draggingSquare));
 			} else {
-				if (sq.equals(draggingSquare)) {
+				if (dragState == 1 && isOn(pos)) {
+					board.removeSquare(sq);
+				} else if (sq.equals(draggingSquare)) {
 					;
 				} else {
 					board.removeOverlappedSquares(draggingSquare, sq);
@@ -116,14 +120,15 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			}
 			setDraggingSquare(null);
 			resetPivot();
+			dragState = 0;
 		}
 	}
 
 	protected void rightPressed(Address pos) {
 		if (isProblemEditMode()) {
-			Square sq = board.getSquare(pos);
-			if (sq != null)
-				board.removeSquare(sq);
+//			Square sq = board.getSquare(pos);
+//			if (sq != null)
+//				board.removeSquare(sq);
 		} else {
 			toggleState(pos, Board.WHITE);
 			currentState = board.getState(pos);
@@ -132,9 +137,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 
 	protected void rightDragged(Address pos) {
 		if (isProblemEditMode()) {
-			Square sq = board.getSquare(pos);
-			if (sq != null)
-				board.removeSquare(sq);
+//			Square sq = board.getSquare(pos);
+//			if (sq != null)
+//				board.removeSquare(sq);
 		} else {
 			sweepState(pos);
 		}
