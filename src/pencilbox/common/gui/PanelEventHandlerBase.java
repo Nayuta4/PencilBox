@@ -376,6 +376,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	 */
 	public void mousePressed(MouseEvent e) {
 		mousePressed2(e); // 辺の操作
+		mousePressed3(e);
 		Address newPos = pointToAddress(e);
 		if (!isOn(newPos))
 			return;
@@ -406,6 +407,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	}
 
 	public void mouseDragged(MouseEvent e) {
+		mouseDragged3(e);
 		Address newPos = pointToAddress(e);
 		if (!isOn(newPos)) {
 			oldPos = Address.nowhere();
@@ -531,15 +533,82 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	protected void rightPressedEdge(SideAddress position) {
 	}
 
+	public void mousePressed3(MouseEvent e) {
+		int button = getMouseButton(e);
+		if (button == 1) {
+		} else if (button == 3) {
+			rightPressed3(e);
+		}
+	}
+
+	public void mouseDragged3(MouseEvent e) {
+		int botton = getMouseButton(e);
+		if (botton == 1) {
+		} else if (botton == 3) {
+			rightDragged3(e);
+		}
+		repaint();
+	}
+
+	protected void rightPressed3(MouseEvent e) {
+	}
+
+	protected void rightDragged3(MouseEvent e) {
+	}
+
 	/**
 	 * マウスイベントの位置に対応するマス座標を返す
 	 * @param e マウスイベント
 	 * @return マス座標
 	 */
 	public Address pointToAddress(MouseEvent e) {
-		int r = (e.getY() - panel.getOffsety()) / panel.getCellSize();
-		int c = (e.getX() - panel.getOffsetx()) / panel.getCellSize();
-		return Address.address(r, c);
+		return panel.pointToAddress(e.getX(), e.getY());
+	}
+	/**
+	 * マウス位置を統一座標に変換する
+┌─┬───┬─┐
+│┏┿━━━┿┓│0
+├╂┼───┼╂┤
+│┃│　　　│┃│1
+│┃│　　　│┃│
+│┃│　　　│┃│
+├╂┼───┼╂┤
+│┗┿━━━┿┛│2
+└─┴───┴─┘
+  0   1       2   	 * 
+	 * @param e
+	 * @param rc 判定しきい値
+	 * @return
+	 */
+	public Address pointToSuperAddress(MouseEvent e, double rc) {
+		int pm = (int)(panel.getCellSize() * rc);
+//		int cx = mf((p.x-k.p0.x+pm)/k.cwidth), cy = mf((p.y-k.p0.y+pm)/k.cheight);
+//		int dx = (p.x-k.p0.x+pm)%k.cwidth,     dy = (p.y-k.p0.y+pm)%k.cheight;
+		int c = (e.getX() - panel.getOffsetx() + pm) / panel.getCellSize();
+		int r = (e.getY() - panel.getOffsety() + pm) / panel.getCellSize();
+		int dx = (e.getX() - panel.getOffsetx() + pm) % panel.getCellSize();
+		int dy = (e.getY() - panel.getOffsety() + pm) % panel.getCellSize();
+//		System.out.println(pm + " " + c+" "+r+" "+dx+" "+dy + " " + (r*2 + (dy<pm*2?0:1)) + " " + (c*2 + (dx<pm*2?0:1)));
+		return Address.address(r*2 + (dy<pm*2?0:1), c*2 + (dx<pm*2?0:1));
+//		return Address.address(r, c);
+	}
+
+	public SideAddress superAddress2SideAddress(Address a) {
+		int r = a.r();
+		int c = a.c();
+		if (r%2 == 0) {
+			if (c%2 == 0) {
+				return SideAddress.NOWHERE;
+			} else {
+				return SideAddress.sideAddress(Direction.HORIZ, r/2-1, c/2);
+			}
+		} else { 
+			if (c%2 == 0) {
+				return SideAddress.sideAddress(Direction.VERT, r/2, c/2-1);
+			} else {
+				return SideAddress.NOWHERE;
+			}
+		}
 	}
 	/**
 	 * 	即時正解判定

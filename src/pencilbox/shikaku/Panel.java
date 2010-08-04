@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
+import pencilbox.common.core.Direction;
 import pencilbox.common.core.SideAddress;
 import pencilbox.common.gui.PanelBase;
 import pencilbox.util.Colors;
@@ -21,6 +22,7 @@ public class Panel extends PanelBase {
 	private Color smallSizeColor = new Color(0xFFFF99); // 面積小さい
 	private Color areaPaintColor   = new Color(0xAAFFFF); // 標準色
 	private Color draggingAreaColor = new Color(0xCCFFFF);
+	private Color borderColor = new Color(0xFF0099);
 
 	private Square draggingSquare; // ドラッグして今まさに描こうとしている四角
 
@@ -67,6 +69,20 @@ public class Panel extends PanelBase {
 	}
 
 	/**
+	 * @return Returns the borderColor.
+	 */
+	public Color getBorderColor() {
+		return borderColor;
+	}
+
+	/**
+	 * @param borderColor The borderColor to set.
+	 */
+	public void setBorderColor(Color borderColor) {
+		this.borderColor = borderColor;
+	}
+
+	/**
 	 * @return the separateAreaColorMode
 	 */
 	public boolean isSeparateAreaColorMode() {
@@ -100,6 +116,7 @@ public class Panel extends PanelBase {
 		drawGrid(g);
 		drawAreaBorders(g);
 		drawBoardBorder(g);
+		drawEdges(g);
 	}
 
 	private void paintAreas(Graphics2D g) {
@@ -161,6 +178,16 @@ public class Panel extends PanelBase {
 		Square square = getDraggingSquare();
 		if (square != null) {
 			placeSquare(g, square);
+		}
+	}
+
+	private void drawEdges(Graphics2D g) {
+		g.setColor(borderColor);
+		for (SideAddress p : board.borderAddrs()) {
+			int state = board.getEdge(p);
+			if (state == Board.LINE) {
+				placeSideLine(g, p);
+			}
 		}
 	}
 

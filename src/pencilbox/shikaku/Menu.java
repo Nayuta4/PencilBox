@@ -11,10 +11,11 @@ import pencilbox.resource.Messages;
  * 「四角に切れ」メニュークラス
  */
 public class Menu extends MenuBase {
-	
+
 	private JMenuItem numberColorItem;
 	private JMenuItem areaBorderColorItem;
 	private JMenuItem areaPaintColorItem;
+	private JMenuItem borderColorItem;
 	private JMenuItem indicateErrorItem;
 	private JMenuItem separateAreaColorItem;
 	
@@ -23,6 +24,7 @@ public class Menu extends MenuBase {
 	}
 
 	protected void buildEditMenu() {
+		addTrimAnswerMenuItem();
 		addSymmetricPlacementMenuItem();
 		super.buildEditMenu();
 	}
@@ -32,6 +34,7 @@ public class Menu extends MenuBase {
 		numberColorItem = addColorMenuItem(Messages.getString("Menu.numberColorItem")); //$NON-NLS-1$
 		areaBorderColorItem = addColorMenuItem(Messages.getString("Menu.areaBorderColorItem")); //$NON-NLS-1$
 		areaPaintColorItem = addColorMenuItem(Messages.getString("Menu.areaPaintColorItem")); //$NON-NLS-1$
+		borderColorItem = addColorMenuItem(Messages.getString("Menu.borderColorItem")); //$NON-NLS-1$
 		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.indicateCompletionItem"), 'E', false)); //$NON-NLS-1$
 		addToViewMenu(separateAreaColorItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.separateAreaColorItem"), 'R', false)); //$NON-NLS-1$
 		addRenewColorMenuItem();
@@ -52,6 +55,8 @@ public class Menu extends MenuBase {
 			return getPanel().getAreaPaintColor();
 		else if (target == numberColorItem)
 			return getPanel().getNumberColor();
+		else if (target == borderColorItem)
+			return getPanel().getBorderColor();
 		else
 			return super.getColor(target);
 	}
@@ -63,14 +68,16 @@ public class Menu extends MenuBase {
 			getPanel().setAreaPaintColor(color);
 		else if (target == numberColorItem)
 			getPanel().setNumberColor(color);
+		else if (target == borderColorItem)
+			getPanel().setBorderColor(color);
 		else
 			super.setColor(target, color);
 	}
-	
+
 	public void updateCurrentMenuSelection() {
 		super.updateCurrentMenuSelection();
 		indicateErrorItem.setSelected(getPanel().isIndicateErrorMode());
 		separateAreaColorItem.setSelected(getPanel().isSeparateAreaColorMode());
 	}
-	
+
 }

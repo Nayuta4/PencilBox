@@ -15,6 +15,7 @@ public class Menu extends MenuBase {
 	private JMenuItem areaBorderColorItem;
 	private JMenuItem whiteAreaColorItem;
 	private JMenuItem blackAreaColorItem;
+	private JMenuItem borderColorItem;
 	private JMenuItem hideStarItem;
 	private JMenuItem showAreaBorderItem;
 	private JMenuItem indicateErrorItem;
@@ -25,6 +26,7 @@ public class Menu extends MenuBase {
 	}
 
 	protected void buildEditMenu() {
+		addTrimAnswerMenuItem();
 		super.buildEditMenu();
 	}
 
@@ -33,6 +35,7 @@ public class Menu extends MenuBase {
 		areaBorderColorItem = addColorMenuItem(Messages.getString("Menu.areaBorderColorItem")); //$NON-NLS-1$
 		whiteAreaColorItem = addColorMenuItem(Messages.getString("Menu.whiteAreaColorItem")); //$NON-NLS-1$
 		blackAreaColorItem = addColorMenuItem(Messages.getString("Menu.blackAreaColorItem")); //$NON-NLS-1$
+		borderColorItem = addColorMenuItem(Messages.getString("Menu.borderColorItem")); //$NON-NLS-1$
 		addToViewMenu(hideStarItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.hideStarItem"), 'H', false)); //$NON-NLS-1$
 		addToViewMenu(showAreaBorderItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.showAreaBorderItem"), 'B', true)); //$NON-NLS-1$
 		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.indicateCompletionItem"), 'E', false)); //$NON-NLS-1$
@@ -50,7 +53,7 @@ public class Menu extends MenuBase {
 		else if (target == hideStarItem)
 			getPanel().setHideStarMode(target.isSelected());
 	}
-	
+
 	public Color getColor(JMenuItem target) {
 		if (target == areaBorderColorItem)
 			return getPanel().getAreaBorderColor();
@@ -58,6 +61,8 @@ public class Menu extends MenuBase {
 			return getPanel().getWhiteAreaColor();
 		else if (target == blackAreaColorItem)
 			return getPanel().getBlackAreaColor();
+		else if (target == borderColorItem)
+			return getPanel().getBorderColor();
 		else
 			return super.getColor(target);
 	}
@@ -69,6 +74,8 @@ public class Menu extends MenuBase {
 			getPanel().setWhiteAreaColor(color);
 		else if (target == blackAreaColorItem)
 			getPanel().setBlackAreaColor(color);
+		else if (target == borderColorItem)
+			getPanel().setBorderColor(color);
 		else
 			super.setColor(target, color);
 	}
