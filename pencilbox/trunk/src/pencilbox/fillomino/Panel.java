@@ -25,6 +25,7 @@ public class Panel extends PanelBase {
 	private Color inputColor = new Color(0x000099);
 	private Color areaBorderColor = new Color(0x000099);
 	private Color successColor = new Color(0x80FFFF);
+	private Color borderColor = new Color(0xFF0099);
 
 	/**
 	 * 
@@ -49,6 +50,20 @@ public class Panel extends PanelBase {
 	 */
 	public void setAreaBorderColor(Color areaBorderColor) {
 		this.areaBorderColor = areaBorderColor;
+	}
+
+	/**
+	 * @return Returns the borderColor.
+	 */
+	public Color getBorderColor() {
+		return borderColor;
+	}
+
+	/**
+	 * @param borderColor The borderColor to set.
+	 */
+	public void setBorderColor(Color borderColor) {
+		this.borderColor = borderColor;
 	}
 
 	/**
@@ -114,6 +129,7 @@ public class Panel extends PanelBase {
 		if (isShowAreaBorderMode()) 
 			drawAreaBorders(g);
 		drawBoardBorder(g);
+		drawEdges(g);
 	}
 
 	private void paintAreas(Graphics2D g) {
@@ -172,4 +188,13 @@ public class Panel extends PanelBase {
 		}
 	}
 
+	private void drawEdges(Graphics2D g) {
+		g.setColor(borderColor);
+		for (SideAddress p : board.borderAddrs()) {
+			int state = board.getEdge(p);
+			if (state == Board.LINE) {
+				placeSideLine(g, p);
+			}
+		}
+	}
 }

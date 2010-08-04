@@ -1,7 +1,10 @@
 package pencilbox.shikaku;
 
+import java.awt.event.MouseEvent;
+
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
+import pencilbox.common.core.SideAddress;
 import pencilbox.common.gui.PanelEventHandlerBase;
 
 
@@ -15,6 +18,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	private int pivotR = -1;  // ドラッグ時に固定する頂点の行座標
 	private int pivotC = -1;  // ドラッグ時に固定する頂点の列座標
 //	private Square draggingSquare; // ドラッグして今まさに描こうとしている四角
+	private int dragState = 0;
+	private int currentState = -1;
+	private Address pos3 = Address.NOWHERE;
 
 	/**
 	 * 
@@ -28,14 +34,21 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 
 	/*
 	 * 「四角に切れ」マウス操作
+	 * 
+	 * 左ドラッグボタンを離して四角を確定する
+	 * 既存の四角がなければ，新しい四角を作る
+	 * 既存の四角があってはじめのマスから動かずにボタンを離したなら，その四角を消す
+	 * 既存の四角があってはじめのマスと別のマスでボタンを離したなら，四角を変更する
+	 * 既存の四角があってはじめのマスに戻ってボタンを離したなら，何もしない
 	 */
 	protected void leftPressed(Address pos) {
 		Square draggingSquare;
 		Square sq = board.getSquare(pos);
-		if (sq == null) {
+		if (sq == null) { // 始点に四角がない場合，新しく四角を作る
 			draggingSquare = new Square(pos, pos);
-		} else {
+		} else { // 始点に既存の四角がある場合，その四角を変更する
 			draggingSquare = new Square(sq);
+			dragState = 1; // ドラッグ開始
 		}
 		fixPivot(draggingSquare, pos);
 		setDraggingSquare(draggingSquare);
@@ -55,9 +68,17 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		} else if (pivotR == -1 && pivotC == -1) {
 //			draggingSquare.set(draggingSquare.r0, draggingSquare.c0, draggingSquare.r1, drggingSquare.c1());
 		}
-		fixPivot(draggingSquare, pos);
+		dragState = 2; //ドラッグ中
+		fixPivot(draggingSquare, pos); // もし現在座標が四角の端であれば，固定頂点を更新
 	}
 
+	/**
+	 * ドラッグするときの固定される点を設定する。
+	 * もしもドラッグしたマスが既存の四角の外周ならば，そちら側が動き，反対側が固定となる。
+	 * すでに固定される点が決まっていれば，何もしない。
+	 * @param s
+	 * @param p
+	 */
 	private void fixPivot(Square s, Address p) {
 		if (pivotR == -1) {
 			if (p.r() == s.r0()) {
@@ -86,7 +107,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			board.removeOverlappedSquares(draggingSquare, null);
 			board.addSquare(new Square(draggingSquare));
 		} else {
-			if (sq.equals(draggingSquare)) {
+			if (dragState == 1 && isOn(pos)) {
+				board.removeSquare(sq);
+			} else if (sq.equals(draggingSquare)) {
 				;
 			} else {
 				board.removeOverlappedSquares(draggingSquare, sq);
@@ -95,25 +118,61 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		}
 		setDraggingSquare(null);
 		resetPivot();
+		dragState = 0;
 	}
 
-	protected void rightPressed(Address pos) {
-		Square s = board.getSquare(pos);
-		if(s != null) {
-			board.removeSquare(s);
-		}
-	}
+//	protected void rightPressed(Address pos) {
+//		Square s = board.getSquare(pos);
+//		if(s != null) {
+//			board.removeSquare(s);
+//		}
+//	}
 
-	protected void rightDragged(Address pos) {
-		Square s = board.getSquare(pos);
-		if(s != null) {
-			board.removeSquare(s);
-		}
-	}
+//	protected void rightDragged(Address pos) {
+//		Square s = board.getSquare(pos);
+//		if(s != null) {
+//			board.removeSquare(s);
+//		}
+//	}
 
 	private void resetPivot() {
 		pivotR = -1;
 		pivotC = -1;
+	}
+
+	protected void rightPressed3(MouseEvent e) {
+		Address sa = pointToSuperAddress(e, 0.5);
+		this.pos3 = sa;
+	}
+
+	protected void rightDragged3(MouseEvent e) {
+		Address sa = pointToSuperAddress(e, 0.5);
+		if (pos3.equals(sa))
+			return;
+		else if (pos3.r() != sa.r() && pos3.c() != sa.c())
+			return;
+		int dir = pos3.getDirectionTo(sa);
+		Address sb = Address.nextCell(pos3, dir);
+		SideAddress b = superAddress2SideAddress(sb);
+		if (! isSideOn(b))
+			return;
+		sweepEdgeState(b, Board.LINE);
+		this.pos3 = sa;
+	}
+
+	protected void rightReleased(Address pos) {
+		currentState = -1;
+	}
+
+	private void sweepEdgeState(SideAddress side, int st) {
+		if (currentState == -1) {
+			if (board.getEdge(side) == Board.LINE) {
+				currentState = Board.NOLINE;
+			} else {
+				currentState = Board.LINE;
+			}
+		}
+		board.changeEdge(side, currentState);
 	}
 
 	/*

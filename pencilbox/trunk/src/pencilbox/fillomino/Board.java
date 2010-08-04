@@ -1,12 +1,15 @@
 package pencilbox.fillomino;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
+import pencilbox.common.core.BorderEditStep;
 import pencilbox.common.core.CellEditStep;
+import pencilbox.common.core.SideAddress;
 import pencilbox.common.core.AbstractStep.EditType;
 import pencilbox.resource.Messages;
 import pencilbox.util.ArrayUtil;
@@ -20,10 +23,13 @@ public class Board extends BoardBase {
 	public static final int BLANK = 0;
 	public static final int UNKNOWN = 0;
 	public static final int UNDETERMINED = -2;
+	public static final int LINE = 1;
+	public static final int NOLINE = 0;
 
 	private int[][] state; // âìöÇÃêîéö
 	private int[][] number; // ñ‚ëËÇÃêîéö
-	
+	int[] edge;
+
 	private Area[][] area;
 	private List<Area> areaList;
 	private Area initializingArea;
@@ -34,6 +40,7 @@ public class Board extends BoardBase {
 		number = new int[rows()][cols()];
 		area = new Area[rows()][cols()];
 		areaList = new LinkedList<Area>();
+		edge = new int[rows()*(cols()-1) + (rows()-1)*cols()];
 	}
 
 	public void clearBoard() {
@@ -43,6 +50,11 @@ public class Board extends BoardBase {
 				setState(p, 0);
 		}
 		initBoard();
+		Arrays.fill(edge, 0);
+	}
+
+	public void trimAnswer() {
+		Arrays.fill(edge, 0);
 	}
 
 	/**
@@ -127,6 +139,22 @@ public class Board extends BoardBase {
 
 	public void setNumber(Address p, int n) {
 		setNumber(p.r(), p.c(), n);
+	}
+
+	public void setEdge(SideAddress p, int i) {
+		int d = p.d();
+		int r = p.r();
+		int c = p.c();
+		int b = ( d==0 ? r*(cols()-1)+c : (rows()*(cols()-1) + r*cols()+c) );
+		edge[b] = i;
+	}
+
+	public int getEdge(SideAddress p) {
+		int d = p.d();
+		int r = p.r();
+		int c = p.c();
+		int b = (d==0 ? r*(cols()-1)+c : (rows()*(cols()-1) + r*cols()+c));
+		return edge[b];
 	}
 
 	public void initBoard() {
@@ -234,6 +262,17 @@ public class Board extends BoardBase {
 		}
 	}
 
+	/**
+	 * @param pos
+	 * @param st
+	 */
+	public void changeEdge(SideAddress pos, int st) {
+		if (isRecordUndo()) {
+			fireUndoableEditUpdate(new BorderEditStep(pos, getEdge(pos), st));
+		}
+		setEdge(pos, st);
+	}
+
 	public void undo(AbstractStep step) {
 		if (step instanceof CellEditStep) {
 			CellEditStep s = (CellEditStep) step;
@@ -242,6 +281,9 @@ public class Board extends BoardBase {
 			} else if (s.getType() == EditType.FIXED) {
 				changeFixedNumber(s.getPos(), s.getBefore());
 			}
+		} else if (step instanceof BorderEditStep) {
+			BorderEditStep s = (BorderEditStep) step;
+			changeEdge(s.getPos(), s.getBefore());
 		}
 	}
 
@@ -253,6 +295,9 @@ public class Board extends BoardBase {
 			} else if (s.getType() == EditType.FIXED) {
 				changeFixedNumber(s.getPos(), s.getAfter());
 			}
+		} else if (step instanceof BorderEditStep) {
+			BorderEditStep s = (BorderEditStep) step;
+			changeEdge(s.getPos(), s.getAfter());
 		}
 	}
 

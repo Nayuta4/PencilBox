@@ -1,12 +1,15 @@
 package pencilbox.shikaku;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 import pencilbox.common.core.AbstractStep;
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
+import pencilbox.common.core.BorderEditStep;
 import pencilbox.common.core.CellEditStep;
+import pencilbox.common.core.SideAddress;
 import pencilbox.common.core.SquareEditStep;
 import pencilbox.common.core.AbstractStep.EditType;
 import pencilbox.resource.Messages;
@@ -18,9 +21,12 @@ import pencilbox.util.ArrayUtil;
  */
 public class Board extends BoardBase {
 
-	static final int UNDECIDED_NUMBER = -1;
+	public static final int UNDECIDED_NUMBER = -1;
+	public static final int LINE = 1;
+	public static final int NOLINE = 0;
 
 	private int[][] number;
+	int[] edge;
 	private Square[][] square;
 	private List<Square> squareList;
 
@@ -29,12 +35,18 @@ public class Board extends BoardBase {
 		number = new int[rows()][cols()];
 		square = new Square[rows()][cols()];
 		squareList = new LinkedList<Square>();
+		edge = new int[rows()*(cols()-1) + (rows()-1)*cols()];
 	}
 
 	public void clearBoard() {
 		super.clearBoard();
 		squareList.clear();
 		ArrayUtil.initArrayObject2(square, null);
+		Arrays.fill(edge, 0);
+	}
+
+	public void trimAnswer() {
+		Arrays.fill(edge, 0);
 	}
 
 	/**
@@ -131,6 +143,22 @@ public class Board extends BoardBase {
 	public void setSquare(Address p, Square s) {
 		square[p.r()][p.c()] = s;
 	}
+	public void setEdge(SideAddress p, int i) {
+		int d = p.d();
+		int r = p.r();
+		int c = p.c();
+		int b = ( d==0 ? r*(cols()-1)+c : (rows()*(cols()-1) + r*cols()+c) );
+		edge[b] = i;
+	}
+
+	public int getEdge(SideAddress p) {
+		int d = p.d();
+		int r = p.r();
+		int c = p.c();
+		int b = (d==0 ? r*(cols()-1)+c : (rows()*(cols()-1) + r*cols()+c));
+		return edge[b];
+	}
+
 	/**
 	 * 四角形の範囲に含まれるマスにSquareオブジェクトを設定する
 	 * @param region 設定する四角形の範囲
@@ -172,6 +200,17 @@ public class Board extends BoardBase {
 			initSquareNumber(getSquare(p));
 	}
 
+	/**
+	 * @param pos
+	 * @param st
+	 */
+	public void changeEdge(SideAddress pos, int st) {
+		if (isRecordUndo()) {
+			fireUndoableEditUpdate(new BorderEditStep(pos, getEdge(pos), st));
+		}
+		setEdge(pos, st);
+	}
+
 	public void undo(AbstractStep step) {
 		if (step instanceof SquareEditStep) {
 			SquareEditStep s = (SquareEditStep) step;
@@ -182,8 +221,10 @@ public class Board extends BoardBase {
 			} else if (s.getOperation() == SquareEditStep.CHANGED) {
 				changeSquare(getSquare(s.getQ0()), s.getP0(), s.getP1());
 			}
-		}
-		if (step instanceof CellEditStep) {
+		} else if (step instanceof BorderEditStep) {
+			BorderEditStep s = (BorderEditStep) step;
+			changeEdge(s.getPos(), s.getBefore());
+		} else if (step instanceof CellEditStep) {
 			CellEditStep s = (CellEditStep) step;
 			changeNumber(s.getPos(), s.getBefore());
 		}
@@ -199,8 +240,10 @@ public class Board extends BoardBase {
 			} else if (s.getOperation() == SquareEditStep.CHANGED) {
 				changeSquare(getSquare(s.getP0()), s.getQ0(), s.getQ1());
 			}
-		}
-		if (step instanceof CellEditStep) {
+		} else if (step instanceof BorderEditStep) {
+			BorderEditStep s = (BorderEditStep) step;
+			changeEdge(s.getPos(), s.getAfter());
+		} else if (step instanceof CellEditStep) {
 			CellEditStep s = (CellEditStep) step;
 			changeNumber(s.getPos(), s.getAfter());
 		}

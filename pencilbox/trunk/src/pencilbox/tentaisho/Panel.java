@@ -28,6 +28,7 @@ public class Panel extends PanelBase {
 	private Color blackAreaColor = new Color(0xFFAAFF);
 	private Color draggingAreaColor = new Color(0xCCFFFF);
 	private Color starColor = Color.BLACK;
+	private Color borderColor = new Color(0xFF0099);
 
 	private int halfStarSize = 3;
 
@@ -83,6 +84,20 @@ public class Panel extends PanelBase {
 	 */
 	public void setAreaBorderColor(Color areaBorderColor) {
 		this.areaBorderColor = areaBorderColor;
+	}
+
+	/**
+	 * @return Returns the borderColor.
+	 */
+	public Color getBorderColor() {
+		return borderColor;
+	}
+
+	/**
+	 * @param borderColor The borderColor to set.
+	 */
+	public void setBorderColor(Color borderColor) {
+		this.borderColor = borderColor;
 	}
 
 	/**
@@ -183,6 +198,7 @@ public class Panel extends PanelBase {
 		if (isShowAreaBorderMode()) {
 			drawAreaBorders(g);
 		}
+		drawEdges(g);
 		drawBoardBorder(g);
 	}
 
@@ -245,6 +261,15 @@ public class Panel extends PanelBase {
 		}
 	}
 
+	private void drawEdges(Graphics2D g) {
+		g.setColor(borderColor);
+		for (SideAddress p : board.borderAddrs()) {
+			int state = board.getEdge(p);
+			if (state == Board.LINE) {
+				placeSideLine(g, p);
+			}
+		}
+	}
 	/**
 	 * êØÇîzíuÇ∑ÇÈ
 	 * @param g
@@ -284,5 +309,4 @@ public class Panel extends PanelBase {
 				getHalfCellSize());
 		}
 	}
-
 }

@@ -1,7 +1,10 @@
 package pencilbox.tentaisho;
 
+import java.awt.event.MouseEvent;
+
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
+import pencilbox.common.core.SideAddress;
 import pencilbox.common.gui.PanelEventHandlerBase;
 
 
@@ -11,6 +14,16 @@ import pencilbox.common.gui.PanelEventHandlerBase;
 public class PanelEventHandler extends PanelEventHandlerBase {
 
 	private Board board;
+
+	private int dragState = 0;
+	private int currentState = -1;
+	private Address pos3 = Address.NOWHERE;
+
+	public static int INIT = 0;           // ‰Šúó‘Ô
+	public static int PRESS_NEW = 1;      // V—Ìˆæì¬
+	public static int PRESS_EXISTING = 2; // Šù‘¶—Ìˆæ‘I‘ğ
+	public static int DRAG_ADD = 3;       // —ÌˆæŠg‘å‘€ì 
+	public static int DRAG_REMOVE = 4;   // —Ìˆæk¬‘€ì 
 
 	/**
 	 * 
@@ -49,37 +62,93 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		if (area == null) {
 			area = new Area();
 			board.addCellToArea(pos, area);
+			dragState = PRESS_NEW;
+		} else {
+			dragState = PRESS_EXISTING;
 		}
 		setDraggingArea(area);
 	}
 
-	protected void leftDragged(Address pos) {
+	protected void leftDragged(Address oldPos, Address pos) {
 		Area draggingArea = getDraggingArea();
 		if (draggingArea == null)
 			return;
 		Area oldArea = board.getArea(pos);
-		if (oldArea != null && oldArea != draggingArea) {
-			board.removeCellFromArea(pos, oldArea);
-			board.addCellToArea(pos, draggingArea);
-		} else if (oldArea != null && oldArea == draggingArea) {
-		} else if (oldArea == null) {
-			board.addCellToArea(pos, draggingArea);
+		if (dragState == PRESS_NEW || dragState == PRESS_EXISTING) {
+			if (oldArea == null || oldArea != draggingArea) {
+				dragState = DRAG_ADD; // —ÌˆæŠg‘å‘€ì
+			} else {
+				dragState = DRAG_REMOVE; // —Ìˆæk¬‘€ì
+			}
+		}
+		if (dragState == DRAG_ADD) {
+			if (oldArea != null && oldArea != draggingArea) {
+				board.removeCellFromArea(pos, oldArea);
+				board.addCellToArea(pos, draggingArea);
+			} else if (oldArea != null && oldArea == draggingArea) {
+			} else if (oldArea == null) {
+				board.addCellToArea(pos, draggingArea);
+			}
+		} else if (dragState == DRAG_REMOVE) {
+			Area oldoldArea = board.getArea(oldPos);
+			if (oldoldArea!= null) {
+				board.removeCellFromArea(oldPos, oldoldArea);
+			}
 		}
 	}
 
-	protected void rightPressed(Address pos) {
-		Area oldArea = board.getArea(pos);
-		if (oldArea != null) {
-			board.removeCellFromArea(pos, oldArea);
+	protected void leftReleased(Address pos) {
+		if (dragState == PRESS_EXISTING) {
+			board.removeCellFromArea(pos, board.getArea(pos));
 		}
-	}
-
-	protected void rightDragged(Address pos) {
-		rightPressed(pos);			
-	}
-
-	protected void leftReleased(Address dragEnd) {
 		setDraggingArea(null);
+		dragState = INIT;
+	}
+
+//	protected void rightPressed(Address pos) {
+//		Area oldArea = board.getArea(pos);
+//		if (oldArea != null) {
+//			board.removeCellFromArea(pos, oldArea);
+//		}
+//	}
+
+//	protected void rightDragged(Address pos) {
+//		rightPressed(pos);			
+//	}
+
+	protected void rightPressed3(MouseEvent e) {
+		Address sa = pointToSuperAddress(e, 0.5);
+		this.pos3 = sa;
+	}
+
+	protected void rightDragged3(MouseEvent e) {
+		Address sa = pointToSuperAddress(e, 0.5);
+		if (pos3.equals(sa))
+			return;
+		else if (pos3.r() != sa.r() && pos3.c() != sa.c())
+			return;
+		int dir = pos3.getDirectionTo(sa);
+		Address sb =Address.nextCell(pos3, dir);
+		SideAddress b = superAddress2SideAddress(sb);
+		if (! isSideOn(b))
+			return;
+		sweepEdgeState(b, Board.LINE);
+		this.pos3 = sa;
+	}
+
+	protected void rightReleased(Address pos) {
+		currentState = -1;
+	}
+
+	private void sweepEdgeState(SideAddress side, int st) {
+		if (currentState == -1) {
+			if (board.getEdge(side) == Board.LINE) {
+				currentState = Board.NOLINE;
+			} else {
+				currentState = Board.LINE;
+			}
+		}
+		board.changeEdge(side, currentState);
 	}
 
 	/*
