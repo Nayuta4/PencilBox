@@ -1,9 +1,13 @@
 package pencilbox.fillomino;
 
+import java.util.ArrayList;
+
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.BoardCopierBase;
 import pencilbox.common.core.Rotator;
+import pencilbox.common.core.Rotator2;
+import pencilbox.common.core.SideAddress;
 
 /**
  * 
@@ -31,6 +35,13 @@ public class BoardCopier extends BoardCopierBase {
 				}
 			}
 		}
+		ArrayList<SideAddress> innerBorders = region.innerBorders();
+		for (SideAddress s : innerBorders) {
+			SideAddress d = Rotator2.translateAndRotateSideAddress(s, from, to, rotation);
+			if (boardBase.isSideOn(d)) {
+				board.changeEdge(d, srcBoard.getEdge(s));
+			}
+		}
 	}
 
 	public void eraseRegion(BoardBase boardBase, pencilbox.common.core.Area region) {
@@ -41,6 +52,10 @@ public class BoardCopier extends BoardCopierBase {
 			} else {
 				board.changeAnswerNumber(s, Board.BLANK);
 			}
+		}
+		ArrayList<SideAddress> innerBorders = region.innerBorders();
+		for (SideAddress s : innerBorders) {
+			board.changeEdge(s, Board.NOLINE);
 		}
 	}
 

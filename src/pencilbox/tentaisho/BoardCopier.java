@@ -7,6 +7,7 @@ import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.BoardCopierBase;
 import pencilbox.common.core.Rotator;
 import pencilbox.common.core.Rotator2;
+import pencilbox.common.core.SideAddress;
 
 /**
  * 
@@ -67,6 +68,13 @@ public class BoardCopier extends BoardCopierBase {
 				board.changeStar(dd, srcBoard.getStar(ss));
 			}
 		}
+		ArrayList<SideAddress> innerBorders = region.innerBorders();
+		for (SideAddress s : innerBorders) {
+			SideAddress d = Rotator2.translateAndRotateSideAddress(s, from, to, rotation);
+			if (boardBase.isSideOn(d)) {
+				board.changeEdge(d, srcBoard.getEdge(s));
+			}
+		}
 	}
 
 	private Address translateAndRotateStarAddress(Address ss, Address from, Address to, int rotation) {
@@ -88,6 +96,10 @@ public class BoardCopier extends BoardCopierBase {
 		pencilbox.common.core.Area region2 = makeStarRegion(region);
 		for (Address ss : region2) {
 			board.changeStar(ss, Board.NOSTAR);
+		}
+		ArrayList<SideAddress> innerBorders = region.innerBorders();
+		for (SideAddress s : innerBorders) {
+			board.changeEdge(s, Board.NOLINE);
 		}
 	}
 	
