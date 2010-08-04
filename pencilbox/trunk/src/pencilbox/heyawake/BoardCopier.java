@@ -26,9 +26,9 @@ public class BoardCopier extends BoardCopierBase {
 		}
 	}
 
-	public void copyRegion(BoardBase srcBoardBase, BoardBase dstBoardBase, pencilbox.common.core.Area region, Address from, Address to, int rotation) {
+	public void copyRegion(BoardBase srcBoardBase, BoardBase boardBase, pencilbox.common.core.Area region, Address from, Address to, int rotation) {
 		Board srcBoard = (Board) srcBoardBase;
-		Board board = (Board) dstBoardBase;
+		Board board = (Board) boardBase;
 		for (Address s : region) {
 			Square srcSquare = srcBoard.getSquare(s);
 			if (srcSquare != null) {

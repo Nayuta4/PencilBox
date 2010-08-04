@@ -1,9 +1,13 @@
 package pencilbox.shikaku;
 
+import java.util.ArrayList;
+
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.BoardCopierBase;
 import pencilbox.common.core.Rotator;
+import pencilbox.common.core.Rotator2;
+import pencilbox.common.core.SideAddress;
 
 /**
  * 
@@ -25,12 +29,12 @@ public class BoardCopier extends BoardCopierBase {
 		}
 	}
 
-	public void copyRegion(BoardBase srcBoardBase, BoardBase dstBoardBase, pencilbox.common.core.Area region, Address from, Address to, int rotation) {
+	public void copyRegion(BoardBase srcBoardBase, BoardBase boardBase, pencilbox.common.core.Area region, Address from, Address to, int rotation) {
 		Board srcBoard = (Board) srcBoardBase;
-		Board board = (Board) dstBoardBase;
+		Board board = (Board) boardBase;
 		for (Address s : region) {
 			Address d = translateAndRotateAddress(s, from, to, rotation);
-			if (dstBoardBase.isOn(d)) {
+			if (boardBase.isOn(d)) {
 				board.changeNumber(d, srcBoard.getNumber(s));
 			}
 		}
@@ -42,12 +46,19 @@ public class BoardCopier extends BoardCopierBase {
 						Address d0 = translateAndRotateAddress(srcSquare.p0(), from, to, rotation);
 						Address d1 = translateAndRotateAddress(srcSquare.p1(), from, to, rotation);
 						Square dstSquare = new Square(d0, d1);
-						if (dstBoardBase.isOnAll(dstSquare.getCorners())) {
+						if (boardBase.isOnAll(dstSquare.getCorners())) {
 							board.removeOverlappedSquares(dstSquare, null);
 							board.addSquare(dstSquare);
 						}
 					}
 				}
+			}
+		}
+		ArrayList<SideAddress> innerBorders = region.innerBorders();
+		for (SideAddress s : innerBorders) {
+			SideAddress d = Rotator2.translateAndRotateSideAddress(s, from, to, rotation);
+			if (boardBase.isSideOn(d)) {
+				board.changeEdge(d, srcBoard.getEdge(s));
 			}
 		}
 	}
@@ -66,6 +77,10 @@ public class BoardCopier extends BoardCopierBase {
 		}
 		for (Address s : region) {
 			board.changeNumber(s, 0);
+		}
+		ArrayList<SideAddress> innerBorders = region.innerBorders();
+		for (SideAddress s : innerBorders) {
+			board.changeEdge(s, Board.NOLINE);
 		}
 	}
 

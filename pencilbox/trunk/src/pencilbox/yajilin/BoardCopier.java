@@ -33,9 +33,9 @@ public class BoardCopier extends BoardCopierBase {
 		}
 	}
 
-	public void copyRegion(BoardBase srcBoardBase, BoardBase dstBoardBase, Area region, Address from, Address to, int rotation) {
+	public void copyRegion(BoardBase srcBoardBase, BoardBase boardBase, Area region, Address from, Address to, int rotation) {
 		Board srcBoard = (Board) srcBoardBase;
-		Board board = (Board) dstBoardBase;
+		Board board = (Board) boardBase;
 		for (Address s : region) {
 			Address d = translateAndRotateAddress(s, from, to, rotation);
 			if (board.isOn(d)) {
