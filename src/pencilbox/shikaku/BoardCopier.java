@@ -14,20 +14,20 @@ import pencilbox.common.core.SideAddress;
  */
 public class BoardCopier extends BoardCopierBase {
 
-	public void copyBoardStates(BoardBase src, BoardBase dst, int n) {
-		Board s = (Board) src;
-		Board d = (Board) dst;
-		Rotator rotator = new Rotator(src.getSize(), n);
-		rotator.rotateArrayInt2(s.getNumber(), d.getNumber());
-		for (Square srcSquare : s.getSquareList()) {
-			Address pos0 = rotator.rotateAddress(srcSquare.p0());
-			Address pos1 = rotator.rotateAddress(srcSquare.p1());
-			if (d.isOn(pos0) && d.isOn(pos1)) {
-				Square dstSquare = new Square(pos0, pos1);
-				d.addSquare(dstSquare);
-			}
-		}
-	}
+//	public void copyBoardStates(BoardBase src, BoardBase dst, int n) {
+//		Board s = (Board) src;
+//		Board d = (Board) dst;
+//		Rotator rotator = new Rotator(src.getSize(), n);
+//		rotator.rotateArrayInt2(s.getNumber(), d.getNumber());
+//		for (Square srcSquare : s.getSquareList()) {
+//			Address pos0 = rotator.rotateAddress(srcSquare.p0());
+//			Address pos1 = rotator.rotateAddress(srcSquare.p1());
+//			if (d.isOn(pos0) && d.isOn(pos1)) {
+//				Square dstSquare = new Square(pos0, pos1);
+//				d.addSquare(dstSquare);
+//			}
+//		}
+//	}
 
 	public void copyRegion(BoardBase srcBoardBase, BoardBase boardBase, pencilbox.common.core.Area region, Address from, Address to, int rotation) {
 		Board srcBoard = (Board) srcBoardBase;
