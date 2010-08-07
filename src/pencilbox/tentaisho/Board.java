@@ -32,22 +32,26 @@ public class Board extends BoardBase {
 
 	private int[][] star;
 	private Area[][] area;
-	int[] edge;
+	private int[][][] edge;
 	private List<Area> areaList;
 
 	protected void setup () {
 		super.setup();
 		star = new int[rows()*2-1][cols()*2-1];
+		edge = new int[2][][];
+		edge[0] = new int[rows()][cols() - 1];
+		edge[1] = new int[rows() - 1][cols()];
 		area = new Area[rows()][cols()];
 		areaList = new LinkedList<Area>();
-		edge = new int[rows()*(cols()-1) + (rows()-1)*cols()];
 	}
 
 	public void clearBoard() {
 		super.clearBoard();
 		areaList.clear();
 		ArrayUtil.initArrayObject2(area, null);
-		Arrays.fill(edge, 0);
+		for (SideAddress p : borderAddrs()) {
+			setEdge(p, NOLINE);
+		}
 	}
 
 	public void trimAnswer() {
@@ -136,19 +140,11 @@ public class Board extends BoardBase {
 	}
 
 	public void setEdge(SideAddress p, int i) {
-		int d = p.d();
-		int r = p.r();
-		int c = p.c();
-		int b = ( d==0 ? r*(cols()-1)+c : (rows()*(cols()-1) + r*cols()+c) );
-		edge[b] = i;
+		edge[p.d()][p.r()][p.c()] = i;
 	}
 
 	public int getEdge(SideAddress p) {
-		int d = p.d();
-		int r = p.r();
-		int c = p.c();
-		int b = (d==0 ? r*(cols()-1)+c : (rows()*(cols()-1) + r*cols()+c));
-		return edge[b];
+		return edge[p.r()][p.d()][p.c()];
 	}
 
 	/**
