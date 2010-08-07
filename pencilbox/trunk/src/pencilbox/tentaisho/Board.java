@@ -144,7 +144,7 @@ public class Board extends BoardBase {
 	}
 
 	public int getEdge(SideAddress p) {
-		return edge[p.r()][p.d()][p.c()];
+		return edge[p.d()][p.r()][p.c()];
 	}
 
 	/**
