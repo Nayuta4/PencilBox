@@ -3,6 +3,7 @@ package pencilbox.shikaku;
 import java.io.PrintWriter;
 
 import pencilbox.common.core.BoardBase;
+import pencilbox.common.core.SideAddress;
 import pencilbox.common.io.TxtWriterBase;
 
 
@@ -37,6 +38,22 @@ public class TxtWriter extends TxtWriterBase {
 			out.print( sq.r1() );
 			out.print( ' ' );
 			out.print( sq.c1() );
+			out.println();
+		}
+
+		// 辺データの書き出し，線が全くなければ何も書かない
+		boolean useEdgeData = false;
+		for (SideAddress pp : board.borderAddrs()) {
+			if (board.getEdge(pp) == Board.LINE) {
+				useEdgeData = true;
+				break;
+			}
+		}
+		if (useEdgeData) {
+			for (SideAddress p : board.borderAddrs()) {
+				out.print(board.getEdge(p));
+				out.print(' ');
+			}
 			out.println();
 		}
 	}

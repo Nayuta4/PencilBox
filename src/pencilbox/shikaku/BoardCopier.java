@@ -75,12 +75,12 @@ public class BoardCopier extends BoardCopierBase {
 				}
 			}
 		}
-		for (Address s : region) {
-			board.changeNumber(s, 0);
-		}
 		ArrayList<SideAddress> innerBorders = region.innerBorders();
 		for (SideAddress s : innerBorders) {
 			board.changeEdge(s, Board.NOLINE);
+		}
+		for (Address s : region) {
+			board.changeNumber(s, 0);
 		}
 	}
 

@@ -31,8 +31,8 @@ public class Board extends BoardBase {
 	public static final int NOLINE = 0;
 
 	private int[][] star;
-	private Area[][] area;
 	private int[][][] edge;
+	private Area[][] area;
 	private List<Area> areaList;
 
 	protected void setup () {
@@ -139,12 +139,12 @@ public class Board extends BoardBase {
 		return isOnStar(pos.r(), pos.c());
 	}
 
-	public void setEdge(SideAddress p, int i) {
-		edge[p.d()][p.r()][p.c()] = i;
-	}
-
 	public int getEdge(SideAddress p) {
 		return edge[p.d()][p.r()][p.c()];
+	}
+
+	public void setEdge(SideAddress p, int i) {
+		edge[p.d()][p.r()][p.c()] = i;
 	}
 
 	/**
@@ -195,19 +195,22 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * @param pos
+	 * @param p
 	 * @param st
 	 */
-	public void changeEdge(SideAddress pos, int st) {
+	public void changeEdge(SideAddress p, int st) {
+		int prev = getEdge(p);
+		if (prev == st)
+			return;
 		if (isRecordUndo()) {
-			fireUndoableEditUpdate(new BorderEditStep(pos, getEdge(pos), st));
+			fireUndoableEditUpdate(new BorderEditStep(p, prev, st));
 		}
-		setEdge(pos, st);
+		setEdge(p, st);
 	}
 
 	public void undo(AbstractStep step) {
 		if (step instanceof AreaEditStep) {
-			AreaEditStep s = (AreaEditStep)step;
+			AreaEditStep s = (AreaEditStep) step;
 			if (s.getOperation() == AreaEditStep.ADDED) {
 				removeCell(s.getPos());
 			} else if (s.getOperation() == AreaEditStep.REMOVED) {
@@ -217,14 +220,14 @@ public class Board extends BoardBase {
 			BorderEditStep s = (BorderEditStep) step;
 			changeEdge(s.getPos(), s.getBefore());
 		} else if (step instanceof CellEditStep) {
-			CellEditStep s = (CellEditStep)step;
+			CellEditStep s = (CellEditStep) step;
 			changeStar(s.getPos(), s.getBefore());
 		}
 	}
 
 	public void redo(AbstractStep step) {
 		if (step instanceof AreaEditStep) {
-			AreaEditStep s = (AreaEditStep)step;
+			AreaEditStep s = (AreaEditStep) step;
 			if (s.getOperation() == AreaEditStep.ADDED) {
 				addCell(s.getPos(), s.getP0());
 			} else if (s.getOperation() == AreaEditStep.REMOVED) {
@@ -234,7 +237,7 @@ public class Board extends BoardBase {
 			BorderEditStep s = (BorderEditStep) step;
 			changeEdge(s.getPos(), s.getAfter());
 		} else if (step instanceof CellEditStep) {
-			CellEditStep s = (CellEditStep)step;
+			CellEditStep s = (CellEditStep) step;
 			changeStar(s.getPos(), s.getAfter());
 		}
 	}
