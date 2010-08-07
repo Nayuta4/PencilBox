@@ -405,7 +405,7 @@ public class MenuCommand {
 	 *  [•ÒW]-[•â•‹L†Á‹]
 	 */
 	public void trimAnswer() {
-		board.trimAnswer();
+		board.trimAnswer1();
 		panel.repaint();
 	}
 	/**

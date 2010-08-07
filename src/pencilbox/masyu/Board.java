@@ -59,8 +59,9 @@ public class Board extends BoardBase {
 	
 	public void trimAnswer() {
 		for (SideAddress p : borderAddrs()) {
-			if (getState(p) == NOLINE)
-				setState(p, UNKNOWN);
+			if (getState(p) == NOLINE) {
+				changeState(p, UNKNOWN);
+			}
 		}
 	}
 
