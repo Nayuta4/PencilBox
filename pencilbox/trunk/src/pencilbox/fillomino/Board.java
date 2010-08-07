@@ -28,7 +28,7 @@ public class Board extends BoardBase {
 
 	private int[][] state; // ‰ğ“š‚Ì”š
 	private int[][] number; // –â‘è‚Ì”š
-	int[] edge;
+	private int[][][] edge;
 
 	private Area[][] area;
 	private List<Area> areaList;
@@ -38,9 +38,11 @@ public class Board extends BoardBase {
 		super.setup();
 		state = new int[rows()][cols()];
 		number = new int[rows()][cols()];
+		edge = new int[2][][];
+		edge[0] = new int[rows()][cols() - 1];
+		edge[1] = new int[rows() - 1][cols()];
 		area = new Area[rows()][cols()];
 		areaList = new LinkedList<Area>();
-		edge = new int[rows()*(cols()-1) + (rows()-1)*cols()];
 	}
 
 	public void clearBoard() {
@@ -49,8 +51,10 @@ public class Board extends BoardBase {
 			if (!isStable(p))
 				setState(p, 0);
 		}
+		for (SideAddress p : borderAddrs()) {
+			setEdge(p, NOLINE);
+		}
 		initBoard();
-		Arrays.fill(edge, 0);
 	}
 
 	public void trimAnswer() {
@@ -146,19 +150,11 @@ public class Board extends BoardBase {
 	}
 
 	public void setEdge(SideAddress p, int i) {
-		int d = p.d();
-		int r = p.r();
-		int c = p.c();
-		int b = ( d==0 ? r*(cols()-1)+c : (rows()*(cols()-1) + r*cols()+c) );
-		edge[b] = i;
+		edge[p.d()][p.r()][p.c()] = i;
 	}
 
 	public int getEdge(SideAddress p) {
-		int d = p.d();
-		int r = p.r();
-		int c = p.c();
-		int b = (d==0 ? r*(cols()-1)+c : (rows()*(cols()-1) + r*cols()+c));
-		return edge[b];
+		return edge[p.d()][p.r()][p.c()];
 	}
 
 	public void initBoard() {

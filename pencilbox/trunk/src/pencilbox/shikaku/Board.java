@@ -1,6 +1,5 @@
 package pencilbox.shikaku;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class Board extends BoardBase {
 	public static final int NOLINE = 0;
 
 	private int[][] number;
-	int[] edge;
+	private int[][][] edge;
 	private Square[][] square;
 	private List<Square> squareList;
 
@@ -35,14 +34,18 @@ public class Board extends BoardBase {
 		number = new int[rows()][cols()];
 		square = new Square[rows()][cols()];
 		squareList = new LinkedList<Square>();
-		edge = new int[rows()*(cols()-1) + (rows()-1)*cols()];
+		edge = new int[2][][];
+		edge[0] = new int[rows()][cols() - 1];
+		edge[1] = new int[rows() - 1][cols()];
 	}
 
 	public void clearBoard() {
 		super.clearBoard();
 		squareList.clear();
 		ArrayUtil.initArrayObject2(square, null);
-		Arrays.fill(edge, 0);
+		for (SideAddress p : borderAddrs()) {
+			setEdge(p, NOLINE);
+		}
 	}
 
 	public void trimAnswer() {
@@ -148,19 +151,11 @@ public class Board extends BoardBase {
 		square[p.r()][p.c()] = s;
 	}
 	public void setEdge(SideAddress p, int i) {
-		int d = p.d();
-		int r = p.r();
-		int c = p.c();
-		int b = ( d==0 ? r*(cols()-1)+c : (rows()*(cols()-1) + r*cols()+c) );
-		edge[b] = i;
+		edge[p.d()][p.r()][p.c()] = i;
 	}
 
 	public int getEdge(SideAddress p) {
-		int d = p.d();
-		int r = p.r();
-		int c = p.c();
-		int b = (d==0 ? r*(cols()-1)+c : (rows()*(cols()-1) + r*cols()+c));
-		return edge[b];
+		return edge[p.d()][p.r()][p.c()];
 	}
 
 	/**
