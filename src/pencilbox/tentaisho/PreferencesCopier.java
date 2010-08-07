@@ -18,6 +18,7 @@ public class PreferencesCopier extends PreferencesCopierBase {
 		panel.setWhiteAreaColor(getColorProperty(PreferencesKeys.WHITE_AREA_COLOR));
 		panel.setBlackAreaColor(getColorProperty(PreferencesKeys.BLACK_AREA_COLOR));
 		panel.setAreaBorderColor(getColorProperty(PreferencesKeys.AREA_BORDER_COLOR));
+		panel.setBorderColor(getColorProperty(PreferencesKeys.BORDER_COLOR));
 	}
 	
 	public void acquireCurrentPreferences(MenuCommand command) {
@@ -29,6 +30,7 @@ public class PreferencesCopier extends PreferencesCopierBase {
 		setColorProperty(PreferencesKeys.WHITE_AREA_COLOR, panel.getWhiteAreaColor());
 		setColorProperty(PreferencesKeys.BLACK_AREA_COLOR, panel.getBlackAreaColor());
 		setColorProperty(PreferencesKeys.AREA_BORDER_COLOR, panel.getAreaBorderColor());
+		setColorProperty(PreferencesKeys.BORDER_COLOR, panel.getBorderColor());
 	}
 
 }
