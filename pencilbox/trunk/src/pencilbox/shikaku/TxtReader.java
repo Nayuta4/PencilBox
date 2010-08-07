@@ -6,6 +6,7 @@ import java.io.Reader;
 import java.util.StringTokenizer;
 
 import pencilbox.common.core.BoardBase;
+import pencilbox.common.core.SideAddress;
 import pencilbox.common.core.Size;
 import pencilbox.common.io.TxtReaderBase;
 
@@ -62,6 +63,19 @@ public class TxtReader extends TxtReaderBase {
 				board.getSquareList().add(sq);
 			}
 		}
+
+		// 辺データの読み込み，なければここで終わり
+		line = reader.readLine();
+		if (line != null) {
+			t = new StringTokenizer(line);
+			for (SideAddress b : board.borderAddrs()) {
+				if (t.hasMoreTokens()) {
+					str = t.nextToken();
+					board.setEdge(b, Integer.parseInt(str));
+				}
+			}
+		}
+
 		return board;
 	}
 }

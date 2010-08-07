@@ -1,6 +1,5 @@
 package pencilbox.fillomino;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -149,12 +148,12 @@ public class Board extends BoardBase {
 		setNumber(p.r(), p.c(), n);
 	}
 
-	public void setEdge(SideAddress p, int i) {
-		edge[p.d()][p.r()][p.c()] = i;
-	}
-
 	public int getEdge(SideAddress p) {
 		return edge[p.d()][p.r()][p.c()];
+	}
+
+	public void setEdge(SideAddress p, int n) {
+		edge[p.d()][p.r()][p.c()] = n;
 	}
 
 	public void initBoard() {
@@ -263,14 +262,17 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * @param pos
+	 * @param p
 	 * @param st
 	 */
-	public void changeEdge(SideAddress pos, int st) {
+	public void changeEdge(SideAddress p, int st) {
+		int prev = getEdge(p);
+		if (prev == st)
+			return;
 		if (isRecordUndo()) {
-			fireUndoableEditUpdate(new BorderEditStep(pos, getEdge(pos), st));
+			fireUndoableEditUpdate(new BorderEditStep(p, prev, st));
 		}
-		setEdge(pos, st);
+		setEdge(p, st);
 	}
 
 	public void undo(AbstractStep step) {

@@ -150,12 +150,13 @@ public class Board extends BoardBase {
 	public void setSquare(Address p, Square s) {
 		square[p.r()][p.c()] = s;
 	}
-	public void setEdge(SideAddress p, int i) {
-		edge[p.d()][p.r()][p.c()] = i;
-	}
 
 	public int getEdge(SideAddress p) {
 		return edge[p.d()][p.r()][p.c()];
+	}
+
+	public void setEdge(SideAddress p, int i) {
+		edge[p.d()][p.r()][p.c()] = i;
 	}
 
 	/**
@@ -181,7 +182,6 @@ public class Board extends BoardBase {
 			}
 		}
 	}
-
 	/**
 	 * •”‰®‚Ì”š‚ğ•ÏX‚·‚éB
 	 * @param p
@@ -200,14 +200,17 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * @param pos
+	 * @param p
 	 * @param st
 	 */
-	public void changeEdge(SideAddress pos, int st) {
+	public void changeEdge(SideAddress p, int st) {
+		int prev = getEdge(p);
+		if (prev == st)
+			return;
 		if (isRecordUndo()) {
-			fireUndoableEditUpdate(new BorderEditStep(pos, getEdge(pos), st));
+			fireUndoableEditUpdate(new BorderEditStep(p, prev, st));
 		}
-		setEdge(pos, st);
+		setEdge(p, st);
 	}
 
 	public void undo(AbstractStep step) {
