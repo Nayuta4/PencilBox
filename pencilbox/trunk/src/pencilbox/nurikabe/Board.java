@@ -49,8 +49,9 @@ public class Board extends BoardBase {
 
 	public void trimAnswer() {
 		for (Address p : cellAddrs()) {
-			if (getState(p) == SPACE)
-				setState(p, UNKNOWN);
+			if (getState(p) == SPACE) {
+				changeState(p, UNKNOWN);
+			}
 		}
 		initBoard();
 	}

@@ -54,7 +54,11 @@ public class Board extends BoardBase {
 	}
 
 	public void trimAnswer() {
-		Arrays.fill(edge, 0);
+		for (SideAddress p : borderAddrs()) {
+			if (getEdge(p) == LINE) {
+				changeEdge(p, NOLINE);
+			}
+		}
 	}
 
 	/**

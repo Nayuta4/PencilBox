@@ -250,9 +250,18 @@ public class BoardBase {
 	}
 	/**
 	 * 解答から盤面から白マスや×印などの補助的入力を消去する
-	 * （今後，）各サブクラスで実装する
+	 * 各サブクラスで実装する
 	 */
 	public void trimAnswer() {
+	}
+	/**
+	 * 解答から盤面から白マスや×印などの補助的入力を消去する
+	 * アンドゥ操作は一つにまとめる
+	 */
+	public void trimAnswer1() {
+		startCompoundUndo();
+		trimAnswer();
+		stopCompoundUndo();
 	}
 	/**
 	 * 盤面設定したあとに呼び，盤面状態を初期化する

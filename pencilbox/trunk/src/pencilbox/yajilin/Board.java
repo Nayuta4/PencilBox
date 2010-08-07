@@ -331,7 +331,7 @@ public class Board extends BoardBase {
 	public void trimAnswer() {
 		for (Address p : cellAddrs()) {
 			if (getNumber(p) == WHITE) {
-				setNumber(p, BLANK);
+				changeNumber(p, BLANK);
 			}
 		}
 	}
