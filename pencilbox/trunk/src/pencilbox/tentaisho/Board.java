@@ -1,6 +1,5 @@
 package pencilbox.tentaisho;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,14 +20,14 @@ import pencilbox.util.ArrayUtil;
 public class Board extends BoardBase {
 	
 	/** ¯‚ª‚È‚¢‚±‚Æ */
-	public static final int NOSTAR = 0;
+	static final int NOSTAR = 0;
 	/** ”’‚¢¯ */
-	public static final int WHITESTAR = 1;
+	static final int WHITESTAR = 1;
 	/** •‚¢¯ */
-	public static final int BLACKSTAR = 2;
+	static final int BLACKSTAR = 2;
 
-	public static final int LINE = 1;
-	public static final int NOLINE = 0;
+	static final int LINE = 1;
+	static final int NOLINE = 0;
 
 	private int[][] star;
 	private int[][][] edge;

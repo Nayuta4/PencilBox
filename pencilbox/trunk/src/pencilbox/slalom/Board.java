@@ -18,15 +18,15 @@ import pencilbox.util.ArrayUtil;
  */
 public class Board extends BoardBase {
 
-	public static final int UNKNOWN = 0;
-	public static final int LINE = 1;
-	public static final int NOLINE = -1;
-	public static final int BLANK = -3;
-	public static final int GOAL = -1;
-	public static final int OUTER = -9;
-	public static final int UNDECIDED_NUMBER = 0;
-	public static final int GATE_VERT = -5;
-	public static final int GATE_HORIZ = -4;
+	static final int UNKNOWN = 0;
+	static final int LINE = 1;
+	static final int NOLINE = -1;
+	static final int BLANK = -3;
+	static final int GOAL = -1;
+	static final int OUTER = -9;
+	static final int UNDECIDED_NUMBER = 0;
+	static final int GATE_VERT = -5;
+	static final int GATE_HORIZ = -4;
 
 	private int[][] number;  // É}ÉXÇÃèÛë‘
 	private int[][][] state; // ï”ÇÃèÛë‘

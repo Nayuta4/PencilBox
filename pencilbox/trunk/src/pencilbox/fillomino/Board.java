@@ -19,11 +19,11 @@ import pencilbox.util.ArrayUtil;
  */
 public class Board extends BoardBase {
 
-	public static final int BLANK = 0;
-	public static final int UNKNOWN = 0;
-	public static final int UNDETERMINED = -2;
-	public static final int LINE = 1;
-	public static final int NOLINE = 0;
+	static final int BLANK = 0;
+	static final int UNKNOWN = 0;
+	static final int UNDETERMINED = -2;
+	static final int LINE = 1;
+	static final int NOLINE = 0;
 
 	private int[][] state; // ‰ğ“š‚Ì”š
 	private int[][] number; // –â‘è‚Ì”š

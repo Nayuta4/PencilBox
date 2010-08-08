@@ -18,9 +18,9 @@ import pencilbox.util.ArrayUtil;
  */
 public class Board extends BoardBase {
 	
-	public static final int WHITE = -1;
-	public static final int BLACK = -2;
-	public static final int UNKNOWN = 0;
+	static final int WHITE = -1;
+	static final int BLACK = -2;
+	static final int UNKNOWN = 0;
 	
 	private List<Area> areaList;
 	private Area[][] area;

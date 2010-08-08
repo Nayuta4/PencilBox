@@ -6,21 +6,20 @@ import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.CellEditStep;
 import pencilbox.common.core.Direction;
 import pencilbox.resource.Messages;
-import pencilbox.util.ArrayUtil;
 
 /**
  * 「黒マスはどこだ」盤面クラス
  */
 public class Board extends BoardBase {
 
-	public static final int HORIZ = Direction.HORIZ; 
-	public static final int VERT = Direction.VERT;
+	static final int HORIZ = Direction.HORIZ; 
+	static final int VERT = Direction.VERT;
 
-	public static final int WHITE = -1;
-	public static final int BLACK = -2;
-	public static final int UNKNOWN = 0;
-	public static final int OUT = -3;
-	public static int UNDECIDED_NUMBER = -4;
+	static final int WHITE = -1;
+	static final int BLACK = -2;
+	static final int UNKNOWN = 0;
+	static final int OUT = -3;
+	static int UNDECIDED_NUMBER = -4;
 
 	private int[][] state;
 	private int[][] chain; // 黒マスの斜めつながりを記録する

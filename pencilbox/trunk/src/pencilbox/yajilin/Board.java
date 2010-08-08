@@ -8,7 +8,6 @@ import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.BorderEditStep;
 import pencilbox.common.core.CellEditStep;
-import pencilbox.common.core.Direction;
 import pencilbox.common.core.SideAddress;
 import pencilbox.resource.Messages;
 import pencilbox.util.ArrayUtil;
@@ -18,14 +17,14 @@ import pencilbox.util.ArrayUtil;
  */
 public class Board extends BoardBase {
 	
-	public static final int UNKNOWN = 0;
-	public static final int LINE = 1;
-	public static final int NOLINE = -1; // GUIでは不使用
-	public static final int BLANK = -3;
-	public static final int WHITE = -1;
-	public static final int BLACK = -2;
-	public static final int OUTER = -9;
-	public static final int UNDECIDED_NUMBER = -4;
+	static final int UNKNOWN = 0;
+	static final int LINE = 1;
+	static final int NOLINE = -1; // GUIでは不使用
+	static final int BLANK = -3;
+	static final int WHITE = -1;
+	static final int BLACK = -2;
+	static final int OUTER = -9;
+	static final int UNDECIDED_NUMBER = -4;
 
 	private int[][] number;  // マスの状態
 	private int[][][] state; // 辺の状態

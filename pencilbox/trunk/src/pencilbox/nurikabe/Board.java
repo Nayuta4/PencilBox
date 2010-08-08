@@ -16,10 +16,10 @@ import pencilbox.util.ArrayUtil;
  */
 public class Board extends BoardBase {
 
-	public static final int SPACE = -1;
-	public static final int WALL = -2;
-	public static final int UNKNOWN = 0;
-	public static final int UNDECIDED_NUMBER = -3;
+	static final int SPACE = -1;
+	static final int WALL = -2;
+	static final int UNKNOWN = 0;
+	static final int UNDECIDED_NUMBER = -3;
 	
 	private int[][] state;
 

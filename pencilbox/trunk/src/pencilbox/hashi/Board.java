@@ -13,8 +13,8 @@ import pencilbox.resource.Messages;
  */
 public class Board extends BoardBase {
 
-	public static final int UNDECIDED_NUMBER = 9;
-	public static final int NO_NUMBER = 0;
+	static final int UNDECIDED_NUMBER = 9;
+	static final int NO_NUMBER = 0;
 
 	private Pier[][] pier;
 	private Bridge[][] bridgeV;
