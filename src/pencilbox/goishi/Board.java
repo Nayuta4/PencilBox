@@ -15,8 +15,8 @@ import pencilbox.resource.Messages;
  */
 public class Board extends BoardBase {
 
-	public static final int BLANK = 0;
-	public static final int STONE = -1;
+	static final int BLANK = 0;
+	static final int STONE = -1;
 	
 	private int[][] state;
 	private int[][] number;

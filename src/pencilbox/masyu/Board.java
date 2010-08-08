@@ -18,19 +18,19 @@ import pencilbox.util.ArrayUtil;
  */
 public class Board extends BoardBase {
 
-	public static final int UP = Direction.UP;
-	public static final int DN = Direction.DN;
-	public static final int LT = Direction.LT;
-	public static final int RT = Direction.RT;
+	static final int UP = Direction.UP;
+	static final int DN = Direction.DN;
+	static final int LT = Direction.LT;
+	static final int RT = Direction.RT;
 
-	public static final int UNKNOWN = 0;
-	public static final int LINE = 1;
-	public static final int NOLINE = -1;
-	public static final int OUTER = -9;
-	public static final int BLANK = 0;
-	public static final int WHITE_PEARL = 1;
-	public static final int BLACK_PEARL = 2;
-	public static final int GRAY_PEARL = 3;
+	static final int UNKNOWN = 0;
+	static final int LINE = 1;
+	static final int NOLINE = -1;
+	static final int OUTER = -9;
+	static final int BLANK = 0;
+	static final int WHITE_PEARL = 1;
+	static final int BLACK_PEARL = 2;
+	static final int GRAY_PEARL = 3;
 
 	private int[][] number;
 	private int[][][] state;

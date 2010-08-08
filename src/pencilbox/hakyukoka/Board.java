@@ -18,9 +18,9 @@ import pencilbox.resource.Messages;
  */
 public class Board extends BoardBase {
 	
-	public static final int BLANK = 0;
-	public static final int UNKNOWN = 0;
-	public static final int UNDETERMINED = -2;
+	static final int BLANK = 0;
+	static final int UNKNOWN = 0;
+	static final int UNDETERMINED = -2;
 	
 	private List<Area> areaList;
 //	private int maxNumber = 9; // Å‘å”š9‚Æ‚·‚é

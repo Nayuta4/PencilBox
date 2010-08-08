@@ -17,12 +17,12 @@ import pencilbox.util.ArrayUtil;
  */
 public class Board extends BoardBase {
 
-	public static final int UNKNOWN = 0;
-	public static final int LINE = 1;
-	public static final int NOLINE = -1;
-	public static final int OUTER = -9;
-	public static final int UNDECIDED_NUMBER = -1;
-	public static final int BLANK = 0;
+	static final int UNKNOWN = 0;
+	static final int LINE = 1;
+	static final int NOLINE = -1;
+	static final int OUTER = -9;
+	static final int UNDECIDED_NUMBER = -1;
+	static final int BLANK = 0;
 
 	private int[][] number;
 	private int[][][] state;

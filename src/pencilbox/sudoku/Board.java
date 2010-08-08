@@ -13,9 +13,9 @@ import pencilbox.resource.Messages;
  */
 public class Board extends BoardBase {
 
-	public static final int UNKNOWN = 0; // ‰ğ“š”š‚ª‚È‚¢ó‘Ô
-	public static final int BLANK = 0; // –â‘è”š‚ª‚È‚¢ó‘Ô
-	public static final int UNDETERMINED = -2; // –â‘è”š‚ª–¢’è”š‚Ìó‘Ô
+	static final int UNKNOWN = 0; // ‰ğ“š”š‚ª‚È‚¢ó‘Ô
+	static final int BLANK = 0; // –â‘è”š‚ª‚È‚¢ó‘Ô
+	static final int UNDETERMINED = -2; // –â‘è”š‚ª–¢’è”š‚Ìó‘Ô
 
 	private int maxNumber; // –â‘è‚ÌÅ‘å”š
 	private int[][] state; // ‰ğ“š‚Ì”š

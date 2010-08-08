@@ -14,10 +14,10 @@ import pencilbox.util.ArrayUtil;
  */
 public class Board extends BoardBase {
 
-	public static final int WHITE = -1;
-	public static final int BLACK = -2;
-	public static final int UNKNOWN = 0;
-	public static final int UNDECIDED_NUMBER = -1;
+	static final int WHITE = -1;
+	static final int BLACK = -2;
+	static final int UNKNOWN = 0;
+	static final int UNDECIDED_NUMBER = -1;
 
 	private int[][] state;
 	private int[][] number;
