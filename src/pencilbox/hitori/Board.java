@@ -90,7 +90,7 @@ public class Board extends BoardBase {
 	/**
 	 * マスの数字を取得する
 	 * @param r row coordinate of the cell.
-	 * @param c columun coordinate of the cell.
+	 * @param c column coordinate of the cell.
 	 * @return Returns the number of the cell.
 	 */
 	public int getNumber(int r, int c) {
@@ -103,7 +103,7 @@ public class Board extends BoardBase {
 	/**
 	 * マスに数字を設定する
 	 * @param r row coordinate of the cell.
-	 * @param c columun coordinate of the cell.
+	 * @param c column coordinate of the cell.
 	 * @param n the number to set.
 	 */
 	public void setNumber(int r, int c, int n) {
