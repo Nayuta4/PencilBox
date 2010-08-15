@@ -112,10 +112,37 @@ public class Board extends BoardBase {
 		}
 	}
 
+	/**
+	 * マス p0 から d 方向に見たときの白マスの数を調べる
+	 * @param p0
+	 */
 	void initNumber(Address p0) {
+		int n=1;
 		for (int d=0; d<4; d++) {
-		  countSpace(p0, d);
+			Address p = p0;
+			while(isOn(p) && !isBlack(p)) {
+				p = p.nextCell(d);
+				if (!isOn(p))
+					break;
+				if (isBlack(p))
+					break;
+				n++;
+			};
 		}
+		getNumber(p0).setNSpace(n);
+		n=1;
+		for (int d=0; d<4; d++) {
+			Address p = p0;
+			while(true) {
+				p = p.nextCell(d);
+				if (!isOn(p))
+					break;
+				if (!isWhiteOrNumber(p))
+					break;
+				n++;
+			};
+		}
+		getNumber(p0).setNWhite(n);
 	}
 
 	public Number getNumber(Address p) {
@@ -310,37 +337,6 @@ public class Board extends BoardBase {
 			updateChain(pp, n);
 		}
 	}
-
-	/**
-	 * マス p0 から d 方向に見たときの白マスの数を調べる
-	 * @param p0
-	 * @param d
-	 */
-	void countSpace(Address p0, int d) {
-		int n=0;
-		Address p = p0;
-		while(isOn(p) && !isBlack(p)) {
-			p = p.nextCell(d);
-			if (!isOn(p))
-				break;
-			if (isBlack(p))
-				break;
-			n++;
-		};
-		getNumber(p0).setNSpace(d, n);
-		p = p0;
-		n = 0;
-		while(true) {
-			p = p.nextCell(d);
-			if (!isOn(p))
-				break;
-			if (!isWhiteOrNumber(p))
-				break;
-			n++;
-		};
-		getNumber(p0).setNWhite(d, n);
-	}
-
 	/**
 	 * マスの状態を変更したときに，そのマスの上下左右の数字マスを探して白マス数を数え直す
 	 */
@@ -354,16 +350,12 @@ public class Board extends BoardBase {
 				if (isBlack(p))
 					break;
 				if (isNumber(p)) {
-					countSpace(p, d^2);
+					initNumber(p);
 				}
 			}
 		}
 	}
 	
-	int getSumSpace(Address p) {
-		return getNumber(p).getSumSpace();
-	}
-
 	public int checkAnswerCode() {
 		int result = 0;
 		for (Address p : cellAddrs()) {
@@ -374,7 +366,7 @@ public class Board extends BoardBase {
 					result |= (1<<1);
 			}
 			if (isNumber(p)) {
-				int remainder = getNumber(p).getSumSpace() - getNumber(p).getNumber();
+				int remainder = getNumber(p).getNSpace() - getNumber(p).getNumber();
 				if (remainder < 0)
 					result |= (1<<2);
 				else if (remainder > 0)

@@ -122,7 +122,7 @@ public class Panel extends PanelBase {
 		placeCircle(g, p, getCellSize()-2);
 		if (num > 0) {
 			if (isIndicateErrorMode()) {
-				int nSpace = board.getSumSpace(p);
+				int nSpace = board.getNumber(p).getNSpace();
 				if (nSpace != num) {
 					g.setColor(getErrorColor());
 				}
