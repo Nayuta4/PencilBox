@@ -6,8 +6,8 @@ package pencilbox.kurodoko;
 class Number {
 	
 	private int number;
-	private int nSpace[] = new int[4];
-	private int nWhite[] = new int[4];
+	private int nSpace;
+	private int nWhite;
 	
 	/**
 	 * @return Returns the number.
@@ -26,39 +26,16 @@ class Number {
 	public Number(int number) {
 		this.number = number;
 	}
-	public int getNSpace(int direction) {
-		return nSpace[direction];
+	public int getNSpace() {
+		return nSpace;
 	}
-	public void setNSpace(int direction, int n) {
-		nSpace[direction] = n;
+	public void setNSpace(int n) {
+		nSpace = n;
 	}
-	public int getNWhite(int direction) {
-		return nWhite[direction];
+	public int getNWhite() {
+		return nWhite;
 	}
-	public void setNWhite(int direction, int n) {
-		nWhite[direction] = n;
+	public void setNWhite(int n) {
+		nWhite = n;
 	}
-	public int getSumSpace() {
-		int ret = 1;
-		for (int d=0; d<4; d++)
-			ret += nSpace[d];
-		return ret;
-	}
-	public int getSumWhite() {
-		int ret = 1;
-		for (int d=0; d<4; d++)
-			ret += nWhite[d];
-		return ret;
-	}
-	
-	boolean tooSmallSpace() {
-		if (number == Board.UNDECIDED_NUMBER) return false;
-		return getSumSpace() < number;		
-	}
-	boolean tooLargeWhite() {
-		if (number == Board.UNDECIDED_NUMBER) return false;
-		return getSumWhite() > number;		
-	}
-	
-
 }
