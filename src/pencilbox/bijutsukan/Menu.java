@@ -14,7 +14,7 @@ public class Menu extends MenuBase {
 
 	private JMenuItem bulbColorItem;
 	private JMenuItem noBulbColorItem;
-	private JMenuItem lluminatedCellColorItem;
+	private JMenuItem illuminatedCellColorItem;
 	private JMenuItem wallColorItem;
 	private JMenuItem numberColorItem;
 	private JMenuItem indicateErrorItem;
@@ -38,7 +38,7 @@ public class Menu extends MenuBase {
 		numberColorItem = addColorMenuItem(Messages.getString("Menu.numberColorItem")); //$NON-NLS-1$
 		bulbColorItem = addColorMenuItem(Messages.getString("Menu.bulbColorItem")); //$NON-NLS-1$
 		noBulbColorItem = addColorMenuItem(Messages.getString("Menu.noBulbColorItem")); //$NON-NLS-1$
-		lluminatedCellColorItem = addColorMenuItem(Messages.getString("Menu.illuminatedCellColorItem")); //$NON-NLS-1$
+		illuminatedCellColorItem = addColorMenuItem(Messages.getString("Menu.illuminatedCellColorItem")); //$NON-NLS-1$
 		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.indicateErrorItem"), 'E', false)); //$NON-NLS-1$
 		addToViewMenu(paintIlluminatedCellItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.paintIlluminatedCellItem"), 'P', true)); //$NON-NLS-1$
 		addToViewMenu(showBeamItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.showBeamItem"), 'B', false)); //$NON-NLS-1$
@@ -59,7 +59,7 @@ public class Menu extends MenuBase {
 			return getPanel().getBulbColor();
 		else if (target == noBulbColorItem)
 			return getPanel().getNoBulbColor();
-		else if (target == lluminatedCellColorItem)
+		else if (target == illuminatedCellColorItem)
 			return getPanel().getIlluminatedCellColor();
 		else if (target == wallColorItem)
 			return getPanel().getWallColor();
@@ -74,7 +74,7 @@ public class Menu extends MenuBase {
 			getPanel().setBulbColor(color);
 		else if (target == noBulbColorItem)
 			getPanel().setNoBulbColor(color);
-		else if (target == lluminatedCellColorItem)
+		else if (target == illuminatedCellColorItem)
 			getPanel().setIlluminatedCellColor(color);
 		else if (target == wallColorItem)
 			getPanel().setWallColor(color);
