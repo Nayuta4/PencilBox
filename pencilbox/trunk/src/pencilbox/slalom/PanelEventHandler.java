@@ -19,7 +19,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 * 
 	 */
 	public PanelEventHandler() {
-		setMaxInputNumber(99);
+		setMaxInputNumber(999);
 	}
 
 	protected void setBoard(BoardBase aBoard) {
