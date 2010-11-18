@@ -12,10 +12,6 @@ import pencilbox.resource.Messages;
  */
 public class Menu extends MenuBase {
 	
-	private JMenuItem numberColorItem;
-	private JMenuItem inputColorItem;
-	private JMenuItem paintColorItem;
-	
 	public Panel getPanel() {
 		return (Panel)getPanelBase();
 	}
