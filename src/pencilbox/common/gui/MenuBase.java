@@ -80,6 +80,38 @@ public class MenuBase {
 	private JMenuItem backgroundColorItem;
 	private JMenuItem gridColorItem;
 
+	protected JMenuItem illuminatedCellColorItem;
+	protected JMenuItem numberColorItem;
+	protected JMenuItem inputColorItem;
+	protected JMenuItem wallColorItem;
+	protected JMenuItem areaBorderColorItem;
+	protected JMenuItem areaPaintColorItem;
+	protected JMenuItem whiteAreaColorItem;
+	protected JMenuItem blackAreaColorItem;
+	protected JMenuItem paintColorItem;
+	protected JMenuItem circleColorItem;
+	protected JMenuItem lineColorItem;
+	protected JMenuItem crossColorItem;
+	protected JMenuItem bulbColorItem;
+	protected JMenuItem noBulbColorItem;
+	protected JMenuItem gateColorItem;
+	protected JMenuItem borderColorItem;
+
+	protected JMenuItem highlightSelectionItem;
+	protected JMenuItem indicateErrorItem;
+	protected JMenuItem countAreaSizeItem;
+	protected JMenuItem dotHintItem;
+	protected JMenuItem hideSoleNumberItem;
+	protected JMenuItem hideStarItem;
+	protected JMenuItem showAreaBorderItem;
+	protected JMenuItem showBeamItem;
+	protected JMenuItem paintIlluminatedCellItem;
+	protected JMenuItem separateAreaColorItem;
+	protected JMenuItem separateLinkColorItem;
+	protected JMenuItem separateTetrominoColorItem;
+
+	protected JMenuItem selectLetterItem;
+
 	private Frame frame;
 	private MenuCommand command;
 	private PanelBase panel;
