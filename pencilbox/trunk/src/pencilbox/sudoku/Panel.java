@@ -16,15 +16,6 @@ public class Panel extends PanelBase {
 
 	private Board board;
 
-	private boolean highlightSelectionMode = false;
-	private boolean indicateErrorMode = false;
-	private boolean dotHintMode = false;
-
-	private Color inputColor = new Color(0x000099);
-	private Color areaBorderColor = Color.BLACK;
-
-	private int selectedNumber = 0;
-	private Color highlightColor = Color.GREEN;
 	private Color highlight2Color = new Color(0xFFFF80);
 
 	private HintDot hintDot = new HintDot();
@@ -43,104 +34,6 @@ public class Panel extends PanelBase {
 		// ドットヒント表示可能なのは，サイズ3,4,5のみ
 		if (unit>=3 && unit<=5)
 			hintDot.setDot(this, unit, getCellSize());
-	}
-
-	/**
-	 * @return the selectedNumber
-	 */
-	protected int getSelectedNumber() {
-		return selectedNumber;
-	}
-
-	/**
-	 * @param selectedNumber the selectedNumber to set
-	 */
-	protected void setSelectedNumber(int selectedNumber) {
-		this.selectedNumber = selectedNumber;
-	}
-
-	/**
-	 * @return the indicateErrorMode
-	 */
-	public boolean isIndicateErrorMode() {
-		return indicateErrorMode;
-	}
-
-	/**
-	 * @param indicateErrorMode The indicateErrorMode to set.
-	 */
-	public void setIndicateErrorMode(boolean indicateErrorMode) {
-		this.indicateErrorMode = indicateErrorMode;
-	}
-
-	/**
-	 * @return the highlightSelectionMode
-	 */
-	public boolean isHighlightSelectionMode() {
-		return highlightSelectionMode;
-	}
-
-	/**
-	 * @param highlightSelectionMode The highlightSelectionMode to set.
-	 */
-	public void setHighlightSelectionMode(boolean highlightSelectionMode) {
-		this.highlightSelectionMode = highlightSelectionMode;
-	}
-
-	/**
-	 * @return the dotHintMode
-	 */
-	public boolean isDotHintMode() {
-		return dotHintMode;
-	}
-
-	/**
-	 * @param dotHintMode The dotHintMode to set.
-	 */
-	public void setDotHintMode(boolean dotHintMode) {
-		this.dotHintMode = dotHintMode;
-	}
-
-	/**
-	 * @return Returns the inputColor.
-	 */
-	public Color getInputColor() {
-		return inputColor;
-	}
-
-	/**
-	 * @param inputColor The inputColor to set.
-	 */
-	public void setInputColor(Color inputColor) {
-		this.inputColor = inputColor;
-	}
-
-	/**
-	 * @param areaBorderColor the areaBorderColor to set
-	 */
-	public void setAreaBorderColor(Color areaBorderColor) {
-		this.areaBorderColor = areaBorderColor;
-	}
-
-	/**
-	 * @return the areaBorderColor
-	 */
-	public Color getAreaBorderColor() {
-		return areaBorderColor;
-	}
-
-	/**
-	 * @return Returns the highlightColor.
-	 */
-	public Color getHighlightColor() {
-		return highlightColor;
-	}
-
-	/**
-	 * @param highlightColor The highlightColor to set.
-	 */
-	public void setHighlightColor(Color highlightColor) {
-		this.highlightColor = highlightColor;
 	}
 
 	public void setDisplaySize(int cellSize) {

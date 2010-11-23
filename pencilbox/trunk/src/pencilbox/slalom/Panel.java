@@ -17,15 +17,6 @@ public class Panel extends PanelBase {
 
 	private Board board;
 
-	private boolean indicateErrorMode = false;
-	private boolean separateLinkColorMode = false;
-
-	private Color gateColor = new Color(0x808080);
-	private Color circleColor = Color.BLACK;
-	private Color lineColor = new Color(0x000099);
-	private Color crossColor = new Color(0xFF0099);
-	private Color wallColor = Color.BLACK;
-
 	private int gateLineWidth = 3;
 //	private Font smallFont = new Font("SansSerif", Font.BOLD, 14);
 
@@ -36,108 +27,11 @@ public class Panel extends PanelBase {
 		super();
 		setGridColor(Color.BLACK);
 		setNumberColor(Color.WHITE);
+		setCircleColor(Color.BLACK);
 	}
 
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard;
-	}
-
-	/**
-	 * @return Returns the separateLinkColorMode.
-	 */
-	public boolean isSeparateLinkColorMode() {
-		return separateLinkColorMode;
-	}
-
-	/**
-	 * @param separateLinkColorMode The separateLinkColorMode to set.
-	 */
-	public void setSeparateLinkColorMode(boolean separateLinkColorMode) {
-		this.separateLinkColorMode = separateLinkColorMode;
-	}
-
-	/**
-	 * @return Returns the indicateErrorMode.
-	 */
-	public boolean isIndicateErrorMode() {
-		return indicateErrorMode;
-	}
-
-	/**
-	 * @param indicateErrorMode The indicateErrorMode to set.
-	 */
-	public void setIndicateErrorMode(boolean indicateErrorMode) {
-		this.indicateErrorMode = indicateErrorMode;
-	}
-
-	/**
-	 * @return Returns the crossColor.
-	 */
-	public Color getCrossColor() {
-		return crossColor;
-	}
-
-	/**
-	 * @param crossColor The crossColor to set.
-	 */
-	public void setCrossColor(Color crossColor) {
-		this.crossColor = crossColor;
-	}
-
-	/**
-	 * @return Returns the lineColor.
-	 */
-	public Color getLineColor() {
-		return lineColor;
-	}
-
-	/**
-	 * @param lineColor The lineColor to set.
-	 */
-	public void setLineColor(Color lineColor) {
-		this.lineColor = lineColor;
-	}
-
-	/**
-	 * @return Returns the circleColor.
-	 */
-	public Color getCircleColor() {
-		return circleColor;
-	}
-
-	/**
-	 * @param circleColor The circleColor to set.
-	 */
-	public void setCircleColor(Color circleColor) {
-		this.circleColor = circleColor;
-	}
-
-	/**
-	 * @return Returns the gateColor.
-	 */
-	public Color getGateColor() {
-		return gateColor;
-	}
-
-	/**
-	 * @param gateColor The gateColor to set.
-	 */
-	public void setGateColor(Color gateColor) {
-		this.gateColor = gateColor;
-	}
-
-	/**
-	 * @param wallColor the wallColor to set
-	 */
-	public void setWallColor(Color wallColor) {
-		this.wallColor = wallColor;
-	}
-
-	/**
-	 * @return the wallColor
-	 */
-	public Color getWallColor() {
-		return wallColor;
 	}
 
 	public void drawBoard(Graphics2D g) {

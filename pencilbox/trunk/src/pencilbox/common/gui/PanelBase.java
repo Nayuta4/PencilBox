@@ -64,6 +64,44 @@ public class PanelBase extends JPanel implements Printable {
 	private boolean cursorMode = false;
 	private CellCursor cellCursor;
 
+	private boolean indicateErrorMode = false;
+	private boolean showBeamMode = false;
+	private boolean paintIlluminatedCellMode = true;
+	private boolean showAreaBorderMode = true;
+	private boolean separateAreaColorMode = false;
+	private boolean highlightSelectionMode = false;
+	private boolean dotHintMode = false;
+	private boolean separateLinkColorMode = false;
+	private boolean hideSoleNumberMode = false;
+	private boolean countAreaSizeMode = false;
+	private boolean hideStarMode = false;
+	private boolean separateTetrominoColorMode = false;
+
+	private Color wallColor = Color.BLACK;
+	private Color bulbColor = new Color(0x000099);
+	private Color illuminatedCellColor = new Color(0xAAFFFF);
+	private Color noBulbColor = new Color(0xFF9999);
+	private Color inputColor = new Color(0x000099);
+	protected Color areaBorderColor = Color.BLACK;
+	protected Color successColor = new Color(0x80FFFF);
+	protected Color borderColor = new Color(0xFF0099);
+	private Color paintColor = new Color(0x0099FF);
+	protected Color noAreaColor = new Color(0xC0C0C0);
+	protected Color highlightColor = new Color(0x00FF00);
+	protected Color beamColor = new Color(0x800000);
+	protected Color draggingAreaColor = new Color(0xCCFFFF);
+	private Color lineColor = new Color(0x000099);
+	private Color circleColor = new Color(0xFF9999);
+	private Color crossColor = new Color(0xFF0099);
+	protected Color noStarAreaColor = new Color(0xFFFF99);
+	protected Color whiteAreaColor = new Color(0xAAFFFF);
+	protected Color blackAreaColor = new Color(0xFFAAFF);
+	protected Color starColor = Color.BLACK;
+	private Color gateColor = new Color(0x808080);
+	protected Color areaPaintColor = new Color(0xAAFFFF);
+
+	protected int selectedNumber = 0;
+
 	private Area copyRegion = new Area();
 	private Area pasteRegion = new Area();
 	private Color copyRegionColor = new Color(0xFF0000);
@@ -1042,5 +1080,346 @@ public class PanelBase extends JPanel implements Printable {
 		g.setColor(pasteRegionColor);
 		edgeArea(g, pasteRegion);
 	}
+
+	/**
+	 * @return Returns the indicateErrorMode.
+	 */
+	public boolean isIndicateErrorMode() {
+		return indicateErrorMode;
+	}
+	/**
+	 * @param indicateErrorMode The indicateErrorMode to set.
+	 */
+	public void setIndicateErrorMode(boolean indicateErrorMode) {
+		this.indicateErrorMode = indicateErrorMode;
+	}
+	/**
+	 * @return the paintIlluminatedCellMode
+	 */
+	public boolean isPaintIlluminatedCellMode() {
+		return paintIlluminatedCellMode;
+	}
+	/**
+	 * @param paintIlluminatedCellMode the paintIlluminatedCellMode to set
+	 */
+	public void setPaintIlluminatedCellMode(boolean paintIlluminatedCellMode) {
+		this.paintIlluminatedCellMode = paintIlluminatedCellMode;
+	}
+	/**
+	 * @return the showRayMode
+	 */
+	public boolean isShowBeamMode() {
+		return showBeamMode;
+	}
+	/**
+	 * @param showRayMode the showRayMode to set
+	 */
+	public void setShowBeamMode(boolean showRayMode) {
+		this.showBeamMode = showRayMode;
+	}
+	/**
+	 * @return Returns the showAreaBorderMode.
+	 */
+	public boolean isShowAreaBorderMode() {
+		return showAreaBorderMode;
+	}
+	/**
+	 * @param showAreaBorderMode The showAreaBorderMode to set.
+	 */
+	public void setShowAreaBorderMode(boolean showAreaBorderMode) {
+		this.showAreaBorderMode = showAreaBorderMode;
+	}
+	/**
+	 * @return the separateAreaColorMode
+	 */
+	public boolean isSeparateAreaColorMode() {
+		return separateAreaColorMode;
+	}
+	/**
+	 * @param separateAreaColorMode the separateAreaColorMode to set
+	 */
+	public void setSeparateAreaColorMode(boolean separateAreaColorMode) {
+		this.separateAreaColorMode = separateAreaColorMode;
+	}
+	public boolean isHideSoleNumberMode() {
+		return hideSoleNumberMode;
+	}
+	/**
+	 * @param hideSoleNumberMode The hideSoleNumberMode to set.
+	 */
+	public void setHideSoleNumberMode(boolean hideSoleNumberMode) {
+		this.hideSoleNumberMode = hideSoleNumberMode;
+	}
+	/**
+	 * @return the countAreaSizeMode
+	 */
+	public boolean isCountAreaSizeMode() {
+		return countAreaSizeMode;
+	}
+	/**
+	 * @param countAreaSizeMode The countAreaSizeMode to set.
+	 */
+	public void setCountAreaSizeMode(boolean countAreaSizeMode) {
+		this.countAreaSizeMode = countAreaSizeMode;
+	}
+	/**
+	 * @return the highlightSelectionMode
+	 */
+	public boolean isHighlightSelectionMode() {
+		return highlightSelectionMode;
+	}
+	/**
+	 * @param highlightSelectionMode The highlightSelectionMode to set.
+	 */
+	public void setHighlightSelectionMode(boolean highlightSelectionMode) {
+		this.highlightSelectionMode = highlightSelectionMode;
+	}
+	/**
+	 * @return the dotHintMode
+	 */
+	public boolean isDotHintMode() {
+		return dotHintMode;
+	}
+	/**
+	 * @param dotHintMode The dotHintMode to set.
+	 */
+	public void setDotHintMode(boolean dotHintMode) {
+		this.dotHintMode = dotHintMode;
+	}
+	/**
+	 * @return the separateLinkColorMode
+	 */
+	public boolean isSeparateLinkColorMode() {
+		return separateLinkColorMode;
+	}
+	/**
+	 * @return the hideStarMode
+	 */
+	public boolean isHideStarMode() {
+		return hideStarMode;
+	}
+
+	/**
+	 * @param hideStarMode The hideStarMode to set.
+	 */
+	public void setHideStarMode(boolean hideStarMode) {
+		this.hideStarMode = hideStarMode;
+	}
+	/**
+	 * @param separateLinkColorMode The separateLinkColorMode to set.
+	 */
+	public void setSeparateLinkColorMode(boolean separateLinkColorMode) {
+		this.separateLinkColorMode = separateLinkColorMode;
+	}
+	/**
+	 * @return the separateTetrominoColorMode
+	 */
+	public boolean isSeparateTetrominoColorMode() {
+		return separateTetrominoColorMode;
+	}
+	/**
+	 * @param separateTetrominoColorMode the separateTetrominoColorMode to set
+	 */
+	public void setSeparateTetrominoColorMode(boolean separateTetrominoColorMode) {
+		this.separateTetrominoColorMode = separateTetrominoColorMode;
+	}
+	/**
+	 * @return Returns the bulbColor.
+	 */
+	public Color getBulbColor() {
+		return bulbColor;
+	}
+	/**
+	 * @param bulbColor The bulbColor to set.
+	 */
+	public void setBulbColor(Color bulbColor) {
+		this.bulbColor = bulbColor;
+	}
+	/**
+	 * @return Returns the noBulbColor.
+	 */
+	public Color getNoBulbColor() {
+		return noBulbColor;
+	}
+	/**
+	 * @param noBulbColor The noBulbColor to set.
+	 */
+	public void setNoBulbColor(Color noBulbColor) {
+		this.noBulbColor = noBulbColor;
+	}
+	/**
+	 * @param wallColor the wallColor to set
+	 */
+	public void setWallColor(Color wallColor) {
+		this.wallColor = wallColor;
+	}
+	/**
+	 * @return the wallColor
+	 */
+	public Color getWallColor() {
+		return wallColor;
+	}
+	/**
+	 * @return Returns the illuminatedCellColor.
+	 */
+	public Color getIlluminatedCellColor() {
+		return illuminatedCellColor;
+	}
+	/**
+	 * @param illuminatedCellColor The illuminatedCellColor to set.
+	 */
+	public void setIlluminatedCellColor(Color illuminatedCellColor) {
+		this.illuminatedCellColor = illuminatedCellColor;
+	}
+	/**
+	 * @return the hideSoleNumberMode
+	 */
+	/**
+	 * @return Returns the areaBorderColor.
+	 */
+	public Color getAreaBorderColor() {
+		return areaBorderColor;
+	}
+	/**
+	 * @param areaBorderColor The areaBorderColor to set.
+	 */
+	public void setAreaBorderColor(Color areaBorderColor) {
+		this.areaBorderColor = areaBorderColor;
+	}
+	/**
+	 * @return Returns the borderColor.
+	 */
+	public Color getBorderColor() {
+		return borderColor;
+	}
+	/**
+	 * @param borderColor The borderColor to set.
+	 */
+	public void setBorderColor(Color borderColor) {
+		this.borderColor = borderColor;
+	}
+	/**
+	 * @return Returns the inputColor.
+	 */
+	public Color getInputColor() {
+		return inputColor;
+	}
+	/**
+	 * @param inputColor The inputColor to set.
+	 */
+	public void setInputColor(Color inputColor) {
+		this.inputColor = inputColor;
+	}
+	/**
+	 * @return Returns the paintColor.
+	 */
+	public Color getPaintColor() {
+		return paintColor;
+	}
+	/**
+	 * @param paintColor The paintColor to set.
+	 */
+	public void setPaintColor(Color paintColor) {
+		this.paintColor = paintColor;
+	}
+	/**
+	 * @return Returns the lineColor.
+	 */
+	public Color getLineColor() {
+		return lineColor;
+	}
+	/**
+	 * @param lineColor The lineColor to set.
+	 */
+	public void setLineColor(Color lineColor) {
+		this.lineColor = lineColor;
+	}
+	/**
+	 * @return Returns the circleColor.
+	 */
+	public Color getCircleColor() {
+		return circleColor;
+	}
+	/**
+	 * @param circleColor The circleColor to set.
+	 */
+	public void setCircleColor(Color circleColor) {
+		this.circleColor = circleColor;
+	}
+	/**
+	 * @return Returns the crossColor.
+	 */
+	public Color getCrossColor() {
+		return crossColor;
+	}
+	/**
+	 * @param crossColor The crossColor to set.
+	 */
+	public void setCrossColor(Color crossColor) {
+		this.crossColor = crossColor;
+	}
+	/**
+	 * @return Returns the gateColor.
+	 */
+	public Color getGateColor() {
+		return gateColor;
+	}
+	/**
+	 * @param gateColor The gateColor to set.
+	 */
+	public void setGateColor(Color gateColor) {
+		this.gateColor = gateColor;
+	}
+	/**
+	 * @return Returns the areaPaintColor.
+	 */
+	public Color getAreaPaintColor() {
+		return areaPaintColor;
+	}
+	/**
+	 * @param areaPaintColor The areaPaintColor to set.
+	 */
+	public void setAreaPaintColor(Color areaPaintColor) {
+		this.areaPaintColor = areaPaintColor;
+	}
+	/**
+	 * @return Returns the blackAreaColor.
+	 */
+	public Color getBlackAreaColor() {
+		return blackAreaColor;
+	}
+	/**
+	 * @param blackAreaColor The blackAreaColor to set.
+	 */
+	public void setBlackAreaColor(Color blackAreaColor) {
+		this.blackAreaColor = blackAreaColor;
+	}
+	/**
+	 * @return Returns the whiteAreaColor.
+	 */
+	public Color getWhiteAreaColor() {
+		return whiteAreaColor;
+	}
+	/**
+	 * @param whiteAreaColor The whiteAreaColor to set.
+	 */
+	public void setWhiteAreaColor(Color whiteAreaColor) {
+		this.whiteAreaColor = whiteAreaColor;
+	}
+
+	/**
+	 * @return the selectedNumber
+	 */
+	public int getSelectedNumber() {
+		return selectedNumber;
+	}
+
+	/**
+	 * @param selectedNumber the selectedNumber to set
+	 */
+	public void setSelectedNumber(int selectedNumber) {
+		this.selectedNumber = selectedNumber;
+	}
+
 }
 

@@ -15,47 +15,17 @@ public class Panel extends PanelBase {
 
 	private Board board;
 
-	private Color inputColor = new Color(0x000099);
-	private Color paintColor = new Color(0xFFFFFF);
-
 	/**
 	 * 
 	 */
 	public Panel() {
 		setGridColor(Color.GRAY);
 		setGridStyle(1);
+		setPaintColor(Color.WHITE);
 	}
 
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard;
-	}
-
-	/**
-	 * @return Returns the inputColor.
-	 */
-	public Color getInputColor() {
-		return inputColor;
-	}
-
-	/**
-	 * @param inputColor The inputColor to set.
-	 */
-	public void setInputColor(Color inputColor) {
-		this.inputColor = inputColor;
-	}
-
-	/**
-	 * @return Returns the paintColor.
-	 */
-	public Color getPaintColor() {
-		return paintColor;
-	}
-
-	/**
-	 * @param paintColor The paintColor to set.
-	 */
-	public void setPaintColor(Color paintColor) {
-		this.paintColor = paintColor;
 	}
 
 	public void drawBoard(Graphics2D g) {

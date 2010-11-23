@@ -15,12 +15,6 @@ public class Panel extends PanelBase {
 
 	private Board board;
 
-	private boolean indicateErrorMode = false;
-
-	private Color paintColor = new Color(0x0099FF);
-	private Color circleColor = new Color(0xFF9999);
-//	private Color successColor = new Color(0x00FF00);
-
 	public Panel() {
 		setGridColor(Color.BLACK);
 		setMarkStyle(3);
@@ -28,43 +22,6 @@ public class Panel extends PanelBase {
 
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard;
-	}
-
-	/**
-	 * @return Returns the circleColor.
-	 */
-	public Color getCircleColor() {
-		return circleColor;
-	}
-	/**
-	 * @param circleColor The circleColor to set.
-	 */
-	public void setCircleColor(Color circleColor) {
-		this.circleColor = circleColor;
-	}
-	/**
-	 * @return Returns the paintColor.
-	 */
-	public Color getPaintColor() {
-		return paintColor;
-	}
-	/**
-	 * @param paintColor The paintColor to set.
-	 */
-	public void setPaintColor(Color paintColor) {
-		this.paintColor = paintColor;
-	}
-	/**
-	 * @return Returns the indicateErrorMode.
-	 */
-	public boolean isIndicateErrorMode() {
-		return indicateErrorMode;
-	}
-	/**
-	 * @param indicateErrorMode The indicateErrorMode to set.
-	 */
-	public void setIndicateErrorMode(boolean indicateErrorMode) {
-		this.indicateErrorMode = indicateErrorMode;
 	}
 
 	public void drawBoard(Graphics2D g) {

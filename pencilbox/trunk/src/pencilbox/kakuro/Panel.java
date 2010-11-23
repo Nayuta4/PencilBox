@@ -19,12 +19,6 @@ public class Panel extends PanelBase {
 
 	private Board board;
 
-	private boolean indicateErrorMode = false;
-	private boolean dotHintMode = false;
-
-	private Color inputColor = new Color(0x000099);
-	private Color wallColor = new Color(0xC0C0C0);
-
 	private Font smallFont = new Font("SansSerif", Font.PLAIN, 13);
 
 	private HintDot hintDot = new HintDot();
@@ -34,62 +28,13 @@ public class Panel extends PanelBase {
 	 */
 	public Panel() {
 		setGridColor(Color.BLACK);
+		setWallColor(new Color(0xC0C0C0));
 		setCursorMode(true);
 	}
 
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard;
 		hintDot.setDot(this, 3, getCellSize());
-	}
-	/**
-	 * @return Returns the inputColor.
-	 */
-	public Color getInputColor() {
-		return inputColor;
-	}
-	/**
-	 * @param inputColor The inputColor to set.
-	 */
-	public void setInputColor(Color inputColor) {
-		this.inputColor = inputColor;
-	}
-	/**
-	 * @param wallColor the wallColor to set
-	 */
-	public void setWallColor(Color wallColor) {
-		this.wallColor = wallColor;
-	}
-
-	/**
-	 * @return the wallColor
-	 */
-	public Color getWallColor() {
-		return wallColor;
-	}
-
-	/**
-	 * @return the dotHintMode
-	 */
-	public boolean isDotHintMode() {
-		return dotHintMode;
-	}
-	/**
-	 * @param dotHintMode The dotHintMode to set.
-	 */
-	public void setDotHintMode(boolean dotHintMode) {
-		this.dotHintMode = dotHintMode;
-	}
-	/**
-	 * @return the indicateErrorMode
-	 */
-	public boolean isIndicateErrorMode() {
-		return indicateErrorMode;
-	}
-	/**
-	 * @param indicateErrorMode The indicateErrorMode to set.
-	 */
-	public void setIndicateErrorMode(boolean indicateErrorMode) {
-		this.indicateErrorMode = indicateErrorMode;
 	}
 	
 	public void setDisplaySize(int size) {

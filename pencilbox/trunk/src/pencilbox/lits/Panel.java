@@ -18,17 +18,10 @@ public class Panel extends PanelBase {
 	
 	private Board board;
 
-	private Color paintColor = new Color(0x0099FF);
-	private Color circleColor = new Color(0xFF9999);
-	private Color areaBorderColor = Color.BLACK;
-	private Color noAreaColor = new Color(0xC0C0C0);
 	private Color tetrominoLColor = new Color(0xCCCC00);
 	private Color tetrominoIColor = new Color(0xCC00CC);
 	private Color tetrominoTColor = new Color(0x00CCCC);
 	private Color tetrominoSColor = new Color(0x00CC00);
-	private Color draggingAreaColor = new Color(0xCCFFFF);
-	
-	private boolean separateTetrominoColorMode = false;
 	
 	private Area draggingArea;
 
@@ -56,59 +49,6 @@ public class Panel extends PanelBase {
 	 */
 	void setDraggingArea(Area draggingArea) {
 		this.draggingArea = draggingArea;
-	}
-
-	/**
-	 * @param paintColor The paintColor to set.
-	 */
-	public void setPaintColor(Color paintColor) {
-		this.paintColor = paintColor;
-	}
-	/**
-	 * @return Returns the paintColor.
-	 */
-	public Color getPaintColor() {
-		return paintColor;
-	}
-	/**
-	 * @param circleColor The circleColor to set.
-	 */
-	public void setCircleColor(Color circleColor) {
-		this.circleColor = circleColor;
-	}
-	/**
-	 * @return Returns the circleColor.
-	 */
-	public Color getCircleColor() {
-		return circleColor;
-	}
-
-	/**
-	 * @param areaBorderColor the areaBorderColor to set
-	 */
-	public void setAreaBorderColor(Color areaBorderColor) {
-		this.areaBorderColor = areaBorderColor;
-	}
-
-	/**
-	 * @return the areaBorderColor
-	 */
-	public Color getAreaBorderColor() {
-		return areaBorderColor;
-	}
-
-	/**
-	 * @return the separateTetrominoColorMode
-	 */
-	public boolean isSeparateTetrominoColorMode() {
-		return separateTetrominoColorMode;
-	}
-
-	/**
-	 * @param separateTetrominoColorMode the separateTetrominoColorMode to set
-	 */
-	public void setSeparateTetrominoColorMode(boolean separateTetrominoColorMode) {
-		this.separateTetrominoColorMode = separateTetrominoColorMode;
 	}
 
 	public void drawBoard(Graphics2D g) {
