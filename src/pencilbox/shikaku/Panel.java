@@ -18,98 +18,21 @@ public class Panel extends PanelBase {
 
 	private Board board;
 
-	private Color areaBorderColor = new Color(0x000099);
 	private Color smallSizeColor = new Color(0xFFFF99); // 面積小さい
-	private Color areaPaintColor   = new Color(0xAAFFFF); // 標準色
-	private Color draggingAreaColor = new Color(0xCCFFFF);
-	private Color borderColor = new Color(0xFF0099);
-
 	private Square draggingSquare; // ドラッグして今まさに描こうとしている四角
-
-	private boolean separateAreaColorMode = false;
-	private boolean indicateErrorMode = false;
 
 	/**
 	 * パネルを生成する
 	 */
 	public Panel() {
 		setGridColor(Color.GRAY);
+		setAreaBorderColor(new Color(0x000099));
 	}
 	
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard;
 	}
 	
-	/**
-	 * @return Returns the areaBorderColor.
-	 */
-	public Color getAreaBorderColor() {
-		return areaBorderColor;
-	}
-
-	/**
-	 * @param areaBorderColor The areaBorderColor to set.
-	 */
-	public void setAreaBorderColor(Color areaBorderColor) {
-		this.areaBorderColor = areaBorderColor;
-	}
-
-	/**
-	 * @return Returns the areaPaintColor.
-	 */
-	public Color getAreaPaintColor() {
-		return areaPaintColor;
-	}
-
-	/**
-	 * @param areaPaintColor The areaPaintColor to set.
-	 */
-	public void setAreaPaintColor(Color areaPaintColor) {
-		this.areaPaintColor = areaPaintColor;
-	}
-
-	/**
-	 * @return Returns the borderColor.
-	 */
-	public Color getBorderColor() {
-		return borderColor;
-	}
-
-	/**
-	 * @param borderColor The borderColor to set.
-	 */
-	public void setBorderColor(Color borderColor) {
-		this.borderColor = borderColor;
-	}
-
-	/**
-	 * @return the separateAreaColorMode
-	 */
-	public boolean isSeparateAreaColorMode() {
-		return separateAreaColorMode;
-	}
-
-	/**
-	 * @param separateAreaColorMode The separateAreaColorMode to set.
-	 */
-	public void setSeparateAreaColorMode(boolean separateAreaColorMode) {
-		this.separateAreaColorMode = separateAreaColorMode;
-	}
-
-	/**
-	 * @return the indicateErrorMode
-	 */
-	public boolean isIndicateErrorMode() {
-		return indicateErrorMode;
-	}
-
-	/**
-	 * @param indicateErrorMode The indicateErrorMode to set.
-	 */
-	public void setIndicateErrorMode(boolean indicateErrorMode) {
-		this.indicateErrorMode = indicateErrorMode;
-	}
-
 	public void drawBoard(Graphics2D g) {
 		paintAreas(g);
 		drawNumbers(g);

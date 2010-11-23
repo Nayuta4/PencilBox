@@ -17,14 +17,7 @@ public class Panel extends PanelBase {
 
 	private Board board;
 
-	private Color paintColor = new Color(0x0099FF);
-	private Color circleColor = new Color(0xFF9999);
-
 	private Font countFont = new Font("SansSerif", Font.ITALIC, 13);
-
-	private boolean separateAreaColorMode = false;
-//	private boolean indicateErrorMode = false;
-	private boolean countAreaSizeMode = false;
 
 	public Panel() {
 		setGridColor(Color.BLACK);
@@ -33,66 +26,6 @@ public class Panel extends PanelBase {
 
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard;
-	}
-	/**
-	 * @return the countAreaSizeMode
-	 */
-	public boolean isCountAreaSizeMode() {
-		return countAreaSizeMode;
-	}
-	/**
-	 * @param countAreaSizeMode The countAreaSizeMode to set.
-	 */
-	public void setCountAreaSizeMode(boolean countAreaSizeMode) {
-		this.countAreaSizeMode = countAreaSizeMode;
-	}
-//	/**
-//	 * @return the indicateErrorMode
-//	 */
-//	public boolean isIndicateError() {
-//		return indicateErrorMode;
-//	}
-//	/**
-//	 * @param indicateErrorMode The indicateErrorMode to set.
-//	 */
-//	public void setIndicateError(boolean indicateErrorMode) {
-//		this.indicateErrorMode = indicateErrorMode;
-//	}
-	/**
-	 * @return the separateAreaColorMode
-	 */
-	public boolean isSeparateAreaColorMode() {
-		return separateAreaColorMode;
-	}
-	/**
-	 * @param separateAreaColorMode The separateAreaColorMode to set.
-	 */
-	public void setSeparateAreaColorMode(boolean separateAreaColorMode) {
-		this.separateAreaColorMode = separateAreaColorMode;
-	}
-	/**
-	 * @param paintColor The paintColor to set.
-	 */
-	public void setPaintColor(Color paintColor) {
-		this.paintColor = paintColor;
-	}
-	/**
-	 * @return Returns the paintColor.
-	 */
-	public Color getPaintColor() {
-		return paintColor;
-	}
-	/**
-	 * @param circleColor The circleColor to set.
-	 */
-	public void setCircleColor(Color circleColor) {
-		this.circleColor = circleColor;
-	}
-	/**
-	 * @return Returns the circleColor.
-	 */
-	public Color getCircleColor() {
-		return circleColor;
 	}
 
 	public void setDisplaySize(int size) {

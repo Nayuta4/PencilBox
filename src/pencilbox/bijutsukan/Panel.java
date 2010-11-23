@@ -16,15 +16,6 @@ public class Panel extends PanelBase {
 
 	private Board board;
 	
-	private boolean indicateErrorMode = false;
-	private boolean showBeamMode = false;
-	private boolean paintIlluminatedCellMode = true;
-
-	private Color wallColor = Color.BLACK;
-	private Color bulbColor = new Color(0x000099);
-	private Color illuminatedCellColor = new Color(0xAAFFFF);
-	private Color noBulbColor = new Color(0xFF9999);
-
 	/**
 	 * Panel ‚ð¶¬‚·‚é
 	 */
@@ -35,104 +26,6 @@ public class Panel extends PanelBase {
 
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard;
-	}
-
-	/**
-	 * @return Returns the indicateErrorMode.
-	 */
-	public boolean isIndicateErrorMode() {
-		return indicateErrorMode;
-	}
-
-	/**
-	 * @param indicateErrorMode The indicateErrorMode to set.
-	 */
-	public void setIndicateErrorMode(boolean indicateErrorMode) {
-		this.indicateErrorMode = indicateErrorMode;
-	}
-
-	/**
-	 * @return the paintIlluminatedCellMode
-	 */
-	public boolean isPaintIlluminatedCellMode() {
-		return paintIlluminatedCellMode;
-	}
-
-	/**
-	 * @param paintIlluminatedCellMode the paintIlluminatedCellMode to set
-	 */
-	public void setPaintIlluminatedCellMode(boolean paintIlluminatedCellMode) {
-		this.paintIlluminatedCellMode = paintIlluminatedCellMode;
-	}
-
-	/**
-	 * @return the showRayMode
-	 */
-	public boolean isShowBeamMode() {
-		return showBeamMode;
-	}
-
-	/**
-	 * @param showRayMode the showRayMode to set
-	 */
-	public void setShowBeamMode(boolean showRayMode) {
-		this.showBeamMode = showRayMode;
-	}
-
-	/**
-	 * @return Returns the illuminatedCellColor.
-	 */
-	public Color getIlluminatedCellColor() {
-		return illuminatedCellColor;
-	}
-
-	/**
-	 * @param illuminatedCellColor The illuminatedCellColor to set.
-	 */
-	public void setIlluminatedCellColor(Color illuminatedCellColor) {
-		this.illuminatedCellColor = illuminatedCellColor;
-	}
-
-	/**
-	 * @return Returns the bulbColor.
-	 */
-	public Color getBulbColor() {
-		return bulbColor;
-	}
-
-	/**
-	 * @param bulbColor The bulbColor to set.
-	 */
-	public void setBulbColor(Color bulbColor) {
-		this.bulbColor = bulbColor;
-	}
-
-	/**
-	 * @return Returns the noBulbColor.
-	 */
-	public Color getNoBulbColor() {
-		return noBulbColor;
-	}
-
-	/**
-	 * @param noBulbColor The noBulbColor to set.
-	 */
-	public void setNoBulbColor(Color noBulbColor) {
-		this.noBulbColor = noBulbColor;
-	}
-
-	/**
-	 * @param wallColor the wallColor to set
-	 */
-	public void setWallColor(Color wallColor) {
-		this.wallColor = wallColor;
-	}
-
-	/**
-	 * @return the wallColor
-	 */
-	public Color getWallColor() {
-		return wallColor;
 	}
 
 	public void drawBoard(Graphics2D g) {
@@ -149,7 +42,7 @@ public class Panel extends PanelBase {
 			int m = board.getVertIlluminated(p);
 			if (isPaintIlluminatedCellMode()) {
 				if (l>0 || m>0) {
-					g.setColor(illuminatedCellColor);
+					g.setColor(getIlluminatedCellColor());
 					paintCell(g,p);
 				}
 			}

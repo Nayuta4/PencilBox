@@ -15,13 +15,7 @@ public class Panel extends PanelBase {
 
 	private Board board;
 
-	private Color paintColor = new Color(0x0099FF);
-	private Color circleColor = new Color(0xFF9999);
 	private Color soleNumberColor = new Color(0xC0C0C0);
-
-	private boolean hideSoleNumberMode = false;
-//	private boolean indicateRedundantNumberMode = false;
-	private boolean indicateErrorMode = false;
 
 	private char[] letters = {
 	};
@@ -37,48 +31,6 @@ public class Panel extends PanelBase {
 		board = (Board) aBoard;
 	}
 	
-	/**
-	 * @return Returns the circleColor.
-	 */
-	public Color getCircleColor() {
-		return circleColor;
-	}
-
-	/**
-	 * @param circleColor The circleColor to set.
-	 */
-	public void setCircleColor(Color circleColor) {
-		this.circleColor = circleColor;
-	}
-
-	/**
-	 * @return Returns the paintColor.
-	 */
-	public Color getPaintColor() {
-		return paintColor;
-	}
-
-	/**
-	 * @param paintColor The paintColor to set.
-	 */
-	public void setPaintColor(Color paintColor) {
-		this.paintColor = paintColor;
-	}
-
-	/**
-	 * @return the indicateErrorMode
-	 */
-	public boolean isIndicateErrorMode() {
-		return indicateErrorMode;
-	}
-
-	/**
-	 * @param indicateErrorMode The indicateErrorMode to set.
-	 */
-	public void setIndicateErrorMode(boolean indicateErrorMode) {
-		this.indicateErrorMode = indicateErrorMode;
-	}
-
 //	/**
 //	 * @return the indicateRedundantNumberMode
 //	 */
@@ -92,20 +44,6 @@ public class Panel extends PanelBase {
 //	public void setIndicateRedundantNumberMode(boolean indicateRedundantNumberMode) {
 //		this.indicateRedundantNumberMode = indicateRedundantNumberMode;
 //	}
-
-	/**
-	 * @return the hideSoleNumberMode
-	 */
-	public boolean isHideSoleNumberMode() {
-		return hideSoleNumberMode;
-	}
-
-	/**
-	 * @param hideSoleNumberMode The hideSoleNumberMode to set.
-	 */
-	public void setHideSoleNumberMode(boolean hideSoleNumberMode) {
-		this.hideSoleNumberMode = hideSoleNumberMode;
-	}
 
 	/**
 	 * 数字の代わりに使用する現在の文字集合を取得する。Stringで返す。

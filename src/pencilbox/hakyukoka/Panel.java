@@ -19,21 +19,8 @@ public class Panel extends PanelBase {
 	
 	private Board board;
 
-	private boolean indicateErrorMode = false;
-	private boolean highlightSelectionMode = false;
-
-	private Color inputColor = new Color(0x000099);
-	private Color areaBorderColor = Color.BLACK;
-	private Color noAreaColor = new Color(0xC0C0C0);
-
-	private int selectedNumber = 0;
-	private Color highlightColor = new Color(0x00FF00);
-//	private Color highlight2Color = new Color(0xFFFF80);
-	private Color beamColor = new Color(0x800000);
-	private Color draggingAreaColor = new Color(0xCCFFFF);
 	private Area draggingArea;
 
-	private boolean dotHintMode = false;
 	private HintDot hintDot = new HintDot();
 
 	/**
@@ -50,20 +37,6 @@ public class Panel extends PanelBase {
 	}
 
 	/**
-	 * @return the selectedNumber
-	 */
-	public int getSelectedNumber() {
-		return selectedNumber;
-	}
-
-	/**
-	 * @param selectedNumber the selectedNumber to set
-	 */
-	public void setSelectedNumber(int selectedNumber) {
-		this.selectedNumber = selectedNumber;
-	}
-
-	/**
 	 * @return the draggingArea
 	 */
 	Area getDraggingArea() {
@@ -75,76 +48,6 @@ public class Panel extends PanelBase {
 	 */
 	void setDraggingArea(Area draggingArea) {
 		this.draggingArea = draggingArea;
-	}
-
-	/**
-	 * @return Returns the inputColor.
-	 */
-	public Color getInputColor() {
-		return inputColor;
-	}
-
-	/**
-	 * @param inputColor The inputColor to set.
-	 */
-	public void setInputColor(Color inputColor) {
-		this.inputColor = inputColor;
-	}
-
-	/**
-	 * @param areaBorderColor the areaBorderColor to set
-	 */
-	public void setAreaBorderColor(Color areaBorderColor) {
-		this.areaBorderColor = areaBorderColor;
-	}
-
-	/**
-	 * @return the areaBorderColor
-	 */
-	public Color getAreaBorderColor() {
-		return areaBorderColor;
-	}
-
-	/**
-	 * @return the highlightSelectionMode
-	 */
-	public boolean isHighlightSelectionMode() {
-		return highlightSelectionMode;
-	}
-
-	/**
-	 * @param highlightSelectionMode The highlightSelectionMode to set.
-	 */
-	public void setHighlightSelectionMode(boolean highlightSelectionMode) {
-		this.highlightSelectionMode = highlightSelectionMode;
-	}
-
-	/**
-	 * @return the dotHintMode
-	 */
-	public boolean isDotHintMode() {
-		return dotHintMode;
-	}
-
-	/**
-	 * @param dotHintMode The dotHintMode to set.
-	 */
-	public void setDotHintMode(boolean dotHintMode) {
-		this.dotHintMode = dotHintMode;
-	}
-
-	/**
-	 * @return the indicateErrorMode
-	 */
-	public boolean isIndicateErrorMode() {
-		return indicateErrorMode;
-	}
-
-	/**
-	 * @param indicateErrorMode The indicateErrorMode to set.
-	 */
-	public void setIndicateErrorMode(boolean indicateErrorMode) {
-		this.indicateErrorMode = indicateErrorMode;
 	}
 
 	public void setDisplaySize(int cellSize) {

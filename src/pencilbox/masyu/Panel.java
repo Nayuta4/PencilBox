@@ -17,11 +17,6 @@ public class Panel extends PanelBase {
 
 	private Board board;
 
-	private boolean separateLinkColorMode = false;
-	private boolean indicateErrorMode = false;
-
-	private Color lineColor = new Color(0x000099);
-	private Color crossColor = new Color(0xFF0099);
 	private Color grayPearlColor = Color.GRAY;
 
 	/**
@@ -33,55 +28,6 @@ public class Panel extends PanelBase {
 	
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard;
-	}
-
-	/**
-	 * @return Returns the lineColor.
-	 */
-	public Color getLineColor() {
-		return lineColor;
-	}
-	/**
-	 * @param lineColor The lineColor to set.
-	 */
-	public void setLineColor(Color lineColor) {
-		this.lineColor = lineColor;
-	}
-	/**
-	 * @return Returns the crossColor.
-	 */
-	public Color getCrossColor() {
-		return crossColor;
-	}
-	/**
-	 * @param crossColor The crossColor to set.
-	 */
-	public void setCrossColor(Color crossColor) {
-		this.crossColor = crossColor;
-	}
-	/**
-	 * @return the separateLinkColorMode
-	 */
-	public boolean isSeparateLinkColorMode() {
-		return separateLinkColorMode;
-	}
-	/**
-	 * @param separateLinkColorMode The separateLinkColorMode to set.
-	 */
-	public void setSeparateLinkColorMode(boolean separateLinkColorMode) {
-		this.separateLinkColorMode = separateLinkColorMode;
-	}
-	/**
-	 * @return the indicateErrorMode
-	 */
-	public boolean isIndicateErrorMode() {
-		return indicateErrorMode;
-	}
-	/**
-	 * @param indicateErrorMode The indicateErrorMode to set.
-	 */
-	public void setIndicateErrorMode(boolean indicateErrorMode) {
-		this.indicateErrorMode = indicateErrorMode;
 	}
 
 	public void drawBoard(Graphics2D g) {

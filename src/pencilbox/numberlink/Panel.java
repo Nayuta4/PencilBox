@@ -17,19 +17,7 @@ public class Panel extends PanelBase {
 
 	private Board board;
 
-	private Color lineColor = new Color(0x0000999);
-	private Color crossColor = new Color(0xFF0099);
-
-//	private boolean indicateErrorMode = false;
-	private boolean separateLinkColorMode = false;
-	private boolean highlightSelectionMode = false;
-
 	private Link selectedLink = null;
-	private int selectedNumber = 0;  // ‘I‘ð‚³‚ê‚Ä‚¢‚È‚¢‚Æ‚«‚Í 0
-
-//	private Color numberlessLinkColor = Color.CYAN;
-	private Color highlightColor = Color.GREEN;
-
 	/**
 	 * 
 	 */
@@ -42,76 +30,6 @@ public class Panel extends PanelBase {
 	}
 	
 	/**
-	 * @return Returns the crossColor.
-	 */
-	public Color getCrossColor() {
-		return crossColor;
-	}
-
-	/**
-	 * @param crossColor The crossColor to set.
-	 */
-	public void setCrossColor(Color crossColor) {
-		this.crossColor = crossColor;
-	}
-
-	/**
-	 * @return Returns the lineColor.
-	 */
-	public Color getLineColor() {
-		return lineColor;
-	}
-
-	/**
-	 * @param lineColor The lineColor to set.
-	 */
-	public void setLineColor(Color lineColor) {
-		this.lineColor = lineColor;
-	}
-
-	/**
-	 * @return the separateLinkColorMode
-	 */
-	public boolean isSeparateLinkColorMode() {
-		return separateLinkColorMode;
-	}
-
-	/**
-	 * @param separateLinkColorMode The separateLinkColorMode to set.
-	 */
-	public void setSeparateLinkColorMode(boolean separateLinkColorMode) {
-		this.separateLinkColorMode = separateLinkColorMode;
-	}
-
-	/**
-	 * @return the highlightSelectionMode
-	 */
-	public boolean isHighlightSelectionMode() {
-		return highlightSelectionMode;
-	}
-
-	/**
-	 * @param highlightSelectionMode The highlightSelectionMode to set.
-	 */
-	public void setHighlightSelectionMode(boolean highlightSelectionMode) {
-		this.highlightSelectionMode = highlightSelectionMode;
-	}
-
-//	/**
-//	 * @return the indicateErrorMode
-//	 */
-//	public boolean isIndicateErrorMode() {
-//		return indicateErrorMode;
-//	}
-//
-//	/**
-//	 * @param indicateErrorMode The indicateErrorMode to set.
-//	 */
-//	public void setIndicateErrorMode(boolean indicateErrorMode) {
-//		this.indicateErrorMode = indicateErrorMode;
-//	}
-
-	/**
 	 * @return the selectedLink
 	 */
 	protected Link getSelectedLink() {
@@ -123,20 +41,6 @@ public class Panel extends PanelBase {
 	 */
 	protected void setSelectedLink(Link selectedLink) {
 		this.selectedLink = selectedLink;
-	}
-
-	/**
-	 * @return the selectedNumber
-	 */
-	protected int getSelectedNumber() {
-		return selectedNumber;
-	}
-
-	/**
-	 * @param selectedNumber the selectedNumber to set
-	 */
-	protected void setSelectedNumber(int selectedNumber) {
-		this.selectedNumber = selectedNumber;
 	}
 
 	public void drawBoard(Graphics2D g) {

@@ -16,16 +16,7 @@ public class Panel extends PanelBase {
 
 	private Board board;
 
-	private boolean indicateErrorMode = false;
-//	private boolean indicateContinuousRoomMode = false;
-
-	private Color paintColor = new Color(0x0099FF);
-	private Color circleColor = new Color(0xFF9999);
-	private Color noAreaColor = new Color(0xC0C0C0);
-	private Color areaBorderColor = Color.BLACK;
 	private Color continuousRoomColor = new Color(0x800000);
-	private Color draggingAreaColor = new Color(0xCCFFFF);
-
 	private Square draggingSquare;
 
 	/**
@@ -37,76 +28,6 @@ public class Panel extends PanelBase {
 
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard;
-	}
-
-	/**
-	 * @return the indicateErrorMode
-	 */
-	public boolean isIndicateErrorMode() {
-		return indicateErrorMode;
-	}
-
-	/**
-	 * @param indicateErrorMode The indicateErrorMode to set.
-	 */
-	public void setIndicateErrorMode(boolean indicateErrorMode) {
-		this.indicateErrorMode = indicateErrorMode;
-	}
-
-//	/**
-//	 * @return the indicateContinuousRoomMode
-//	 */
-//	public boolean isIndicateContinuousRoomMode() {
-//		return indicateContinuousRoomMode;
-//	}
-//
-//	/**
-//	 * @param indicateContinuousRoomMode The indicateContinuousRoomMode to set.
-//	 */
-//	public void setIndicateContinuousRoomMode(boolean indicateContinuousRoomMode) {
-//		this.indicateContinuousRoomMode = indicateContinuousRoomMode;
-//	}
-
-	/**
-	 * @return Returns the circleColor.
-	 */
-	public Color getCircleColor() {
-		return circleColor;
-	}
-
-	/**
-	 * @param circleColor The circleColor to set.
-	 */
-	public void setCircleColor(Color circleColor) {
-		this.circleColor = circleColor;
-	}
-
-	/**
-	 * @return Returns the paintColor.
-	 */
-	public Color getPaintColor() {
-		return paintColor;
-	}
-
-	/**
-	 * @param paintColor The paintColor to set.
-	 */
-	public void setPaintColor(Color paintColor) {
-		this.paintColor = paintColor;
-	}
-
-	/**
-	 * @param areaBorderColor the areaBorderColor to set
-	 */
-	public void setAreaBorderColor(Color areaBorderColor) {
-		this.areaBorderColor = areaBorderColor;
-	}
-
-	/**
-	 * @return the areaBorderColor
-	 */
-	public Color getAreaBorderColor() {
-		return areaBorderColor;
 	}
 
 	public void drawBoard(Graphics2D g) {

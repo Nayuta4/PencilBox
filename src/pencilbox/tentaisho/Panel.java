@@ -17,19 +17,6 @@ public class Panel extends PanelBase {
 
 	private Board board;
 
-	private boolean hideStarMode = false;
-	private boolean showAreaBorderMode = true;
-	private boolean indicateErrorMode = false;
-	private boolean separateAreaColorMode = false;
-
-	private Color areaBorderColor = new Color(0x000099);
-	private Color noStarAreaColor = new Color(0xFFFF99);
-	private Color whiteAreaColor = new Color(0xAAFFFF);
-	private Color blackAreaColor = new Color(0xFFAAFF);
-	private Color draggingAreaColor = new Color(0xCCFFFF);
-	private Color starColor = Color.BLACK;
-	private Color borderColor = new Color(0xFF0099);
-
 	private int halfStarSize = 3;
 
 	private Area draggingArea;
@@ -39,6 +26,7 @@ public class Panel extends PanelBase {
 	 */
 	public Panel() {
 		setGridColor(Color.GRAY);
+		setAreaBorderColor(new Color(0x000099));
 	}
 
 	protected void setBoard(BoardBase aBoard) {
@@ -70,118 +58,6 @@ public class Panel extends PanelBase {
 	 */
 	public void setHalfStarSize(int halfStarSize) {
 		this.halfStarSize = halfStarSize;
-	}
-
-	/**
-	 * @return Returns the areaBorderColor.
-	 */
-	public Color getAreaBorderColor() {
-		return areaBorderColor;
-	}
-
-	/**
-	 * @param areaBorderColor The areaBorderColor to set.
-	 */
-	public void setAreaBorderColor(Color areaBorderColor) {
-		this.areaBorderColor = areaBorderColor;
-	}
-
-	/**
-	 * @return Returns the borderColor.
-	 */
-	public Color getBorderColor() {
-		return borderColor;
-	}
-
-	/**
-	 * @param borderColor The borderColor to set.
-	 */
-	public void setBorderColor(Color borderColor) {
-		this.borderColor = borderColor;
-	}
-
-	/**
-	 * @return Returns the blackAreaColor.
-	 */
-	public Color getBlackAreaColor() {
-		return blackAreaColor;
-	}
-
-	/**
-	 * @param blackAreaColor The blackAreaColor to set.
-	 */
-	public void setBlackAreaColor(Color blackAreaColor) {
-		this.blackAreaColor = blackAreaColor;
-	}
-
-	/**
-	 * @return Returns the whiteAreaColor.
-	 */
-	public Color getWhiteAreaColor() {
-		return whiteAreaColor;
-	}
-
-	/**
-	 * @param whiteAreaColor The whiteAreaColor to set.
-	 */
-	public void setWhiteAreaColor(Color whiteAreaColor) {
-		this.whiteAreaColor = whiteAreaColor;
-	}
-
-	/**
-	 * @return the showAreaBorderMode
-	 */
-	public boolean isShowAreaBorderMode() {
-		return showAreaBorderMode;
-	}
-
-	/**
-	 * @param showAreaBorderMode The showAreaBorderMode to set.
-	 */
-	public void setShowAreaBorderMode(boolean showAreaBorderMode) {
-		this.showAreaBorderMode = showAreaBorderMode;
-	}
-
-	/**
-	 * @return the hideStarMode
-	 */
-	public boolean isHideStarMode() {
-		return hideStarMode;
-	}
-
-	/**
-	 * @param hideStarMode The hideStarMode to set.
-	 */
-	public void setHideStarMode(boolean hideStarMode) {
-		this.hideStarMode = hideStarMode;
-	}
-
-	/**
-	 * @return the indicateErrorMode
-	 */
-	public boolean isIndicateErrorMode() {
-		return indicateErrorMode;
-	}
-
-	/**
-	 * @param indicateErrorMode the indicateErrorMode to set.
-	 */
-	public void setIndicateErrorMode(boolean indicateErrorMode) {
-		this.indicateErrorMode = indicateErrorMode;
-	}
-
-	/**
-	 * @return Returns the separateAreaColorMode.
-	 */
-	public boolean isSeparateAreaColorMode() {
-		return separateAreaColorMode;
-	}
-
-	/**
-	 * @param separateAreaColorMode The separateAreaColorMode to set.
-	 */
-	public void setSeparateAreaColorMode(boolean separateAreaColorMode) {
-		this.separateAreaColorMode = separateAreaColorMode;
 	}
 
 	public void setDisplaySize(int cellSize) {
