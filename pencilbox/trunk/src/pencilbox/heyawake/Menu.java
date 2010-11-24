@@ -34,10 +34,4 @@ public class Menu extends MenuBase {
 //		addToViewMenu(indicateContinuousRoomItem = makeCheckBoxCommandMenuItem("‚R•”‰®˜A‘±Œx(C)", 'C', false));
 	}
 
-	public void updateCurrentMenuSelection() {
-		super.updateCurrentMenuSelection();
-		indicateErrorItem.setSelected(getPanel().isIndicateErrorMode());
-//		indicateContinuousRoomItem.setSelected(getPanel().isIndicateContinuousRoomMode());
-	}
-
 }

@@ -959,7 +959,23 @@ public class MenuBase {
 	}
 
 	public void updateCurrentMenuSelection() {
+		setItemSelected(countAreaSizeItem, getPanel().isCountAreaSizeMode());
+		setItemSelected(dotHintItem, getPanel().isDotHintMode());
+		setItemSelected(hideSoleNumberItem, getPanel().isHideSoleNumberMode());
+		setItemSelected(hideStarItem, getPanel().isHideStarMode());
+		setItemSelected(highlightSelectionItem, getPanel().isHighlightSelectionMode());
+		setItemSelected(indicateErrorItem, getPanel().isIndicateErrorMode());
+		setItemSelected(paintIlluminatedCellItem, getPanel().isPaintIlluminatedCellMode());
+		setItemSelected(separateAreaColorItem, getPanel().isSeparateAreaColorMode());
+		setItemSelected(separateLinkColorItem, getPanel().isSeparateLinkColorMode());
+		setItemSelected(separateTetrominoColorItem, getPanel().isSeparateTetrominoColorMode());
+		setItemSelected(showAreaBorderItem, getPanel().isShowAreaBorderMode());
+		setItemSelected(showBeamItem, getPanel().isShowBeamMode());
 		updateCurrentMenuSelection1();
 	}
 
+	public void setItemSelected(JMenuItem item, boolean b) {
+		if (item != null)
+			item.setSelected(b);
+	}
 }

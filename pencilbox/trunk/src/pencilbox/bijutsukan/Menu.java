@@ -33,11 +33,4 @@ public class Menu extends MenuBase {
 		addToViewMenu(showBeamItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.showBeamItem"), 'B', false)); //$NON-NLS-1$
 	}
 
-	public void updateCurrentMenuSelection() {
-		super.updateCurrentMenuSelection();
-		indicateErrorItem.setSelected(getPanel().isIndicateErrorMode());
-		paintIlluminatedCellItem.setSelected(getPanel().isPaintIlluminatedCellMode());
-		showBeamItem.setSelected(getPanel().isShowBeamMode());
-	}
-
 }

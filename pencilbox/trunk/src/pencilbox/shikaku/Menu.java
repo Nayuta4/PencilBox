@@ -29,10 +29,4 @@ public class Menu extends MenuBase {
 		addRenewColorMenuItem();
 	}
 
-	public void updateCurrentMenuSelection() {
-		super.updateCurrentMenuSelection();
-		indicateErrorItem.setSelected(getPanel().isIndicateErrorMode());
-		separateAreaColorItem.setSelected(getPanel().isSeparateAreaColorMode());
-	}
-
 }

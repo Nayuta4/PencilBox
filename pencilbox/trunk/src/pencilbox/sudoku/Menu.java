@@ -33,11 +33,4 @@ public class Menu extends MenuBase {
 		addToViewMenu(dotHintItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.dotHintItem"), 'D', false)); //$NON-NLS-1$
 	}
 
-	public void updateCurrentMenuSelection() {
-		super.updateCurrentMenuSelection();
-		indicateErrorItem.setSelected(getPanel().isIndicateErrorMode());
-		highlightSelectionItem.setSelected(getPanel().isHighlightSelectionMode());
-		dotHintItem.setSelected(getPanel().isDotHintMode());
-	}
-
 }

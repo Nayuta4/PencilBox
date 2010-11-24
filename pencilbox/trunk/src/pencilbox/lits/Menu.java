@@ -26,9 +26,4 @@ public class Menu extends MenuBase {
 		addToViewMenu(separateTetrominoColorItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.separateTetrominoColorItem"), 'D', false)); //$NON-NLS-1$
 	}
 
-	public void updateCurrentMenuSelection() {
-		super.updateCurrentMenuSelection();
-		separateTetrominoColorItem.setSelected(getPanel().isSeparateTetrominoColorMode());
-	}
-
 }
