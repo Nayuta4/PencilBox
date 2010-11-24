@@ -1,9 +1,5 @@
 package pencilbox.hakyukoka;
 
-import java.awt.Color;
-
-import javax.swing.JMenuItem;
-
 import pencilbox.common.gui.MenuBase;
 import pencilbox.resource.Messages;
 
@@ -30,37 +26,6 @@ public class Menu extends MenuBase {
 		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.indicateErrorItem"), 'E', false)); //$NON-NLS-1$
 		addToViewMenu(highlightSelectionItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.highlightSelectionItem"), 'H', false)); //$NON-NLS-1$
 		addToViewMenu(dotHintItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.dotHintItem"), 'D', false)); //$NON-NLS-1$
-	}
-
-	public void executeCommand2(JMenuItem target) {
-		if (target == indicateErrorItem)
-			getPanel().setIndicateErrorMode(target.isSelected());
-		else if (target == highlightSelectionItem)
-			getPanel().setHighlightSelectionMode(target.isSelected());
-		else if (target == dotHintItem)
-			getPanel().setDotHintMode(target.isSelected());
-	}
-
-	public Color getColor(JMenuItem target) {
-		if (target == inputColorItem)
-			return getPanel().getInputColor();
-		else if (target == numberColorItem)
-			return getPanel().getNumberColor();
-		else if (target == areaBorderColorItem)
-			return getPanel().getAreaBorderColor();
-		else
-			return super.getColor(target);
-	}
-
-	public void setColor(JMenuItem target, Color color) {
-		if (target == inputColorItem)
-			getPanel().setInputColor(color);
-		else if (target == numberColorItem)
-			getPanel().setNumberColor(color);
-		else if (target == areaBorderColorItem)
-			getPanel().setAreaBorderColor(color);
-		else
-			super.setColor(target, color);
 	}
 
 	public void updateCurrentMenuSelection() {
