@@ -23,8 +23,4 @@ public class Menu extends MenuBase {
 		inputColorItem = addColorMenuItem(Messages.getString("Menu.inputColorItem")); //$NON-NLS-1$
 	}
 
-	public void updateCurrentMenuSelection() {
-		super.updateCurrentMenuSelection();
-	}
-
 }

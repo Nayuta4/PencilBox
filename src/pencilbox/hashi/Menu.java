@@ -27,10 +27,4 @@ public class Menu extends MenuBase {
 		addRenewColorMenuItem();
 	}
 
-	public void updateCurrentMenuSelection() {
-		super.updateCurrentMenuSelection();
-		indicateErrorItem.setSelected(getPanel().isIndicateErrorMode());
-		separateLinkColorItem.setSelected(getPanel().isSeparateLinkColorMode());
-	}
-
 }

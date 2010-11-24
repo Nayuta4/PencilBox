@@ -61,11 +61,4 @@ public class Menu extends MenuBase {
 		getPanel().setLetters(Letters.getLetterSeries(selection));
 	}
 
-	public void updateCurrentMenuSelection() {
-		super.updateCurrentMenuSelection();
-		indicateErrorItem.setSelected(getPanel().isIndicateErrorMode());
-		hideSoleNumberItem.setSelected(getPanel().isHideSoleNumberMode());
-//		indicateRedundantNumberItem.setSelected(getPanel().isIndicateRedundantNumberMode());
-	}
-
 }

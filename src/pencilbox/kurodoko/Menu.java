@@ -27,9 +27,4 @@ public class Menu extends MenuBase {
 		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.indicateErrorItem"), 'E', false)); //$NON-NLS-1$
 	}
 
-	public void updateCurrentMenuSelection() {
-		super.updateCurrentMenuSelection();
-		indicateErrorItem.setSelected(getPanel().isIndicateErrorMode());
-	}
-
 }
