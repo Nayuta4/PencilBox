@@ -137,6 +137,10 @@ public class MenuBase {
 		return panel;
 	}
 
+	protected PanelBase getPanel() {
+		return panel;
+	}
+
 	protected EventHandlerManager getEventHandlerManager() {
 		return command.getEventHandlerManager();
 	}
@@ -607,7 +611,7 @@ public class MenuBase {
 	 * @param target 選択されたメニュー
 	 * @return 取得した色
 	 */
-	public Color getColor(JMenuItem target) {
+	public Color getColor1(JMenuItem target) {
 		if (target == backgroundColorItem)
 			return getPanelBase().getBackgroundColor();
 		else if (target == gridColorItem)
@@ -621,7 +625,7 @@ public class MenuBase {
 	 * @param target 選択されたメニュー
 	 * @param color 設定する色
 	 */
-	public void setColor(JMenuItem target, Color color) {
+	public void setColor1(JMenuItem target, Color color) {
 		if (target == backgroundColorItem)
 			getPanelBase().setBackgroundColor(color);
 		else if (target == gridColorItem)
@@ -723,13 +727,13 @@ public class MenuBase {
 			executeCommand2(target);
 		panel.repaint();
 	}
-	/**
-	 * どのメニューが選択されたか調べて，対応するコマンドを起動する。
-	 * 各サブクラスでオーバーライドする。
-	 * @param target 選択されたメニュー項目
-	 */
-	public void executeCommand2(JMenuItem target) {
-	}
+//	/**
+//	 * どのメニューが選択されたか調べて，対応するコマンドを起動する。
+//	 * 各サブクラスでオーバーライドする。
+//	 * @param target 選択されたメニュー項目
+//	 */
+//	public void executeCommand2(JMenuItem target) {
+//	}
 
 	/**
 	 * CommandActionを備えたメニュー項目を作成する
@@ -773,7 +777,7 @@ public class MenuBase {
 	/**
 	 * 現在の設定に合わせてメニュー項目の選択状態を更新する。
 	 */
-	public void updateCurrentMenuSelection() {
+	public void updateCurrentMenuSelection1() {
 		indexItem.setSelected(getPanelBase().isIndexMode());
 		gridStyleItem.setSelected(getPanelBase().getGridStyle() > 0);
 		if (cursorItem != null)
@@ -845,6 +849,117 @@ public class MenuBase {
 		item.setMnemonic(mnemonic);
 		item.setSelected(initial);
 		return item;
+	}
+
+	public void executeCommand2(JMenuItem target) {
+		if (false)
+			;
+		else if (target == countAreaSizeItem)
+			getPanel().setCountAreaSizeMode(target.isSelected());
+		else if (target == dotHintItem)
+			getPanel().setDotHintMode(target.isSelected());
+		else if (target == hideSoleNumberItem)
+			getPanel().setHideSoleNumberMode(target.isSelected());
+		else if (target == hideStarItem)
+			getPanel().setHideStarMode(target.isSelected());
+		else if (target == highlightSelectionItem)
+			getPanel().setHighlightSelectionMode(target.isSelected());
+		else if (target == indicateErrorItem)
+			getPanel().setIndicateErrorMode(target.isSelected());
+		else if (target == paintIlluminatedCellItem)
+			getPanel().setPaintIlluminatedCellMode(target.isSelected());
+		else if (target == showAreaBorderItem)
+			getPanel().setShowAreaBorderMode(target.isSelected());
+		else if (target == showBeamItem)
+			getPanel().setShowBeamMode(target.isSelected());
+		else if (target == separateAreaColorItem)
+			getPanel().setSeparateAreaColorMode(target.isSelected());
+		else if (target == separateLinkColorItem)
+			getPanel().setSeparateLinkColorMode(target.isSelected());
+		else if (target == separateTetrominoColorItem)
+			getPanel().setSeparateTetrominoColorMode(target.isSelected());
+	}
+
+	public Color getColor(JMenuItem target) {
+		if (false)
+			return null;
+		else if (target == areaBorderColorItem)
+			return getPanel().getAreaBorderColor();
+		else if (target == areaPaintColorItem)
+			return getPanel().getAreaPaintColor();
+		else if (target == blackAreaColorItem)
+			return getPanel().getBlackAreaColor();
+		else if (target == borderColorItem)
+			return getPanel().getBorderColor();
+		else if (target == bulbColorItem)
+			return getPanel().getBulbColor();
+		else if (target == circleColorItem)
+			return getPanel().getCircleColor();
+		else if (target == crossColorItem)
+			return getPanel().getCrossColor();
+		else if (target == gateColorItem)
+			return getPanel().getGateColor();
+		else if (target == illuminatedCellColorItem)
+			return getPanel().getIlluminatedCellColor();
+		else if (target == inputColorItem)
+			return getPanel().getInputColor();
+		else if (target == lineColorItem)
+			return getPanel().getLineColor();
+		else if (target == noBulbColorItem)
+			return getPanel().getNoBulbColor();
+		else if (target == numberColorItem)
+			return getPanel().getNumberColor();
+		else if (target == paintColorItem)
+			return getPanel().getPaintColor();
+		else if (target == wallColorItem)
+			return getPanel().getWallColor();
+		else if (target == whiteAreaColorItem)
+			return getPanel().getWhiteAreaColor();
+		else
+			return getColor1(target);
+	}
+
+	public void setColor(JMenuItem target, Color color) {
+		if (false)
+			;
+		else if (target == areaBorderColorItem)
+			getPanel().setAreaBorderColor(color);
+		else if (target == areaPaintColorItem)
+			getPanel().setAreaPaintColor(color);
+		else if (target == blackAreaColorItem)
+			getPanel().setBlackAreaColor(color);
+		else if (target == borderColorItem)
+			getPanel().setBorderColor(color);
+		else if (target == bulbColorItem)
+			getPanel().setBulbColor(color);
+		else if (target == circleColorItem)
+			getPanel().setCircleColor(color);
+		else if (target == crossColorItem)
+			getPanel().setCrossColor(color);
+		else if (target == gateColorItem)
+			getPanel().setGateColor(color);
+		else if (target == illuminatedCellColorItem)
+			getPanel().setIlluminatedCellColor(color);
+		else if (target == inputColorItem)
+			getPanel().setInputColor(color);
+		else if (target == lineColorItem)
+			getPanel().setLineColor(color);
+		else if (target == noBulbColorItem)
+			getPanel().setNoBulbColor(color);
+		else if (target == numberColorItem)
+			getPanel().setNumberColor(color);
+		else if (target == paintColorItem)
+			getPanel().setPaintColor(color);
+		else if (target == wallColorItem)
+			getPanel().setWallColor(color);
+		else if (target == whiteAreaColorItem)
+			getPanel().setWhiteAreaColor(color);
+		else
+			setColor1(target, color);
+	}
+
+	public void updateCurrentMenuSelection() {
+		updateCurrentMenuSelection1();
 	}
 
 }

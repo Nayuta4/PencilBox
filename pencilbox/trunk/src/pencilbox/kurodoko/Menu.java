@@ -1,9 +1,5 @@
 package pencilbox.kurodoko;
 
-import java.awt.Color;
-
-import javax.swing.JMenuItem;
-
 import pencilbox.common.gui.MenuBase;
 import pencilbox.resource.Messages;
 
@@ -29,33 +25,6 @@ public class Menu extends MenuBase {
 		paintColorItem = addColorMenuItem(Messages.getString("Menu.paintColorItem")); //$NON-NLS-1$
 		circleColorItem = addColorMenuItem(Messages.getString("Menu.noPaintColorItem")); //$NON-NLS-1$
 		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.indicateErrorItem"), 'E', false)); //$NON-NLS-1$
-	}
-
-	public void executeCommand2(JMenuItem target) {
-		if (target == indicateErrorItem)
-			getPanel().setIndicateErrorMode(target.isSelected());
-	}
-	
-	public Color getColor(JMenuItem target) {
-		if (target == paintColorItem)
-			return getPanel().getPaintColor();
-		else if (target == circleColorItem)
-			return getPanel().getCircleColor();
-		else if (target == numberColorItem)
-			return getPanel().getNumberColor();
-		else
-			return super.getColor(target);
-	}
-
-	public void setColor(JMenuItem target, Color color) {
-		if (target == paintColorItem)
-			getPanel().setPaintColor(color);
-		else if (target == circleColorItem)
-			getPanel().setCircleColor(color);
-		else if (target == numberColorItem)
-			getPanel().setNumberColor(color);
-		else
-			super.setColor(target, color);
 	}
 
 	public void updateCurrentMenuSelection() {

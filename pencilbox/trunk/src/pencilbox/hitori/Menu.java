@@ -1,7 +1,5 @@
 package pencilbox.hitori;
 
-import java.awt.Color;
-
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
@@ -36,38 +34,11 @@ public class Menu extends MenuBase {
 	}
 
 	public void executeCommand2(JMenuItem target) {
-		if (target == indicateErrorItem)
-			getPanel().setIndicateErrorMode(target.isSelected());
-		else if (target == hideSoleNumberItem)
-			getPanel().setHideSoleNumberMode(target.isSelected());
-//		else if (target == indicateRedundantNumberItem)
-//			getPanel().setIndicateRedundantNumberMode(target.isSelected());
-		else if (target == selectLetterItem)
+		if (target == selectLetterItem)
 			selectLetter();
+		super.executeCommand2(target);
 	}
 
-	public Color getColor(JMenuItem target) {
-		if (target == paintColorItem)
-			return getPanel().getPaintColor();
-		else if (target == circleColorItem)
-			return getPanel().getCircleColor();
-		else if (target == numberColorItem)
-			return getPanel().getNumberColor();
-		else
-			return super.getColor(target);
-	}
-
-	public void setColor(JMenuItem target, Color color) {
-		if (target == paintColorItem)
-			getPanel().setPaintColor(color);
-		else if (target == circleColorItem)
-			getPanel().setCircleColor(color);
-		else if (target == numberColorItem)
-			getPanel().setNumberColor(color);
-		else
-			super.setColor(target, color);
-	}
-	
 	/**
 	 * 「文字種類の設定」メニュー項目を処理する
 	 */
