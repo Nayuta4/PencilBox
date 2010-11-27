@@ -5,7 +5,6 @@ import javax.swing.JOptionPane;
 
 import pencilbox.common.gui.Letters;
 import pencilbox.common.gui.MenuBase;
-import pencilbox.common.gui.PanelBase;
 import pencilbox.resource.Messages;
 
 
@@ -13,10 +12,6 @@ import pencilbox.resource.Messages;
  * 「ひとりにしてくれ」メニュークラス
  */
 public class Menu extends MenuBase {
-
-	public PanelBase getPanel() {
-		return (PanelBase) getPanelBase();
-	}
 
 	protected void buildEditMenu() {
 		addTrimAnswerMenuItem();

@@ -8,15 +8,6 @@ import pencilbox.resource.Messages;
  */
 public class Menu extends MenuBase {
 
-	public Panel getPanel() {
-		return (Panel)getPanelBase();
-	}
-	
-//	protected void buildFileMenu() {
-//		super.buildFileMenu();
-//		removeChangeBoardSizeMenuItem();
-//	}
-
 	protected void buildEditMenu() {
 		addSymmetricPlacementMenuItem();
 		super.buildEditMenu();
