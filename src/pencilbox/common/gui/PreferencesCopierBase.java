@@ -29,6 +29,8 @@ public class PreferencesCopierBase {
 	private String pencilName;
 	private Properties properties = new Properties();
 	
+	protected static List<PreferenceKey> usedKeys; // 各種類ごとに使用するPreferenceKey。個別クラスで初期化時に設定する。
+
 	/**
 	 * PreferencesCopier のインスタンスを作成する。
 	 * @param pencilType 種類
@@ -49,7 +51,7 @@ public class PreferencesCopierBase {
 	 * 現在の properties に格納されている設定をアプリケーションに適用する。
 	 * @param command
 	 */
-	public void applyCurrentPreferences1(MenuCommand command) {
+	public void applyCurrentPreferences(MenuCommand command) {
 		PanelBase panel = command.getPanelBase();
 		EventHandlerManager handler = command.getEventHandlerManager();
 		handler.setEditMode(getIntProperty(PreferenceKey.EDIT_MODE));
@@ -62,13 +64,78 @@ public class PreferencesCopierBase {
 		panel.setCursorMode(getBooleanProperty(PreferenceKey.CURSOR_MODE));
 		panel.setBackgroundColor(getColorProperty(PreferenceKey.BACKGROUND_COLOR));
 		panel.setGridColor(getColorProperty(PreferenceKey.GRID_COLOR));
-	}
 	
+		for (PreferenceKey key : usedKeys) {
+			if (false)
+				;
+			else if (key == PreferenceKey.LINK_WIDTH)
+				panel.setLinkWidth(getIntProperty(key));
+			else if (key == PreferenceKey.COUNT_AREA_SIZE_MODE)
+				panel.setCountAreaSizeMode(getBooleanProperty(key));
+			else if (key == PreferenceKey.DOT_HINT_MODE)
+				panel.setDotHintMode(getBooleanProperty(key));
+			else if (key == PreferenceKey.HIDE_SOLE_NUMBER_MODE)
+				panel.setHideSoleNumberMode(getBooleanProperty(key));
+			else if (key == PreferenceKey.HIDE_STAR_MODE)
+				panel.setHideStarMode(getBooleanProperty(key));
+			else if (key == PreferenceKey.HIGHLIGHT_SELECTION_MODE)
+				panel.setHighlightSelectionMode(getBooleanProperty(key));
+			else if (key == PreferenceKey.INDICATE_ERROR_MODE)
+				panel.setIndicateErrorMode(getBooleanProperty(key));
+			else if (key == PreferenceKey.PAINT_ILLUMINATED_CELL_MODE)
+				panel.setPaintIlluminatedCellMode(getBooleanProperty(key));
+			else if (key == PreferenceKey.SEPARATE_AREA_COLOR_MODE)
+				panel.setSeparateAreaColorMode(getBooleanProperty(key));
+			else if (key == PreferenceKey.SEPARATE_LINK_COLOR_MODE)
+				panel.setSeparateLinkColorMode(getBooleanProperty(key));
+			else if (key == PreferenceKey.SEPARATE_TETROMINO_COLOR_MODE)
+				panel.setSeparateTetrominoColorMode(getBooleanProperty(key));
+			else if (key == PreferenceKey.SHOW_AREA_BORDER_MODE)
+				panel.setShowAreaBorderMode(getBooleanProperty(key));
+			else if (key == PreferenceKey.SHOW_BEAM_MODE)
+				panel.setShowBeamMode(getBooleanProperty(key));
+			else if (key == PreferenceKey.AREA_BORDER_COLOR)
+				panel.setAreaBorderColor(getColorProperty(key));
+			else if (key == PreferenceKey.AREA_PAINT_COLOR)
+				panel.setAreaPaintColor(getColorProperty(key));
+			else if (key == PreferenceKey.BLACK_AREA_COLOR)
+				panel.setBlackAreaColor(getColorProperty(key));
+			else if (key == PreferenceKey.BORDER_COLOR)
+				panel.setBorderColor(getColorProperty(key));
+			else if (key == PreferenceKey.BULB_COLOR)
+				panel.setBulbColor(getColorProperty(key));
+			else if (key == PreferenceKey.CROSS_COLOR)
+				panel.setCrossColor(getColorProperty(key));
+			else if (key == PreferenceKey.GATE_COLOR)
+				panel.setGateColor(getColorProperty(key));
+			else if (key == PreferenceKey.ILLUMINATED_CELL_COLOR)
+				panel.setIlluminatedCellColor(getColorProperty(key));
+			else if (key == PreferenceKey.INPUT_COLOR)
+				panel.setInputColor(getColorProperty(key));
+			else if (key == PreferenceKey.LINE_COLOR)
+				panel.setLineColor(getColorProperty(key));
+			else if (key == PreferenceKey.NO_BULB_COLOR)
+				panel.setNoBulbColor(getColorProperty(key));
+			else if (key == PreferenceKey.NO_PAINT_COLOR)
+				panel.setCircleColor(getColorProperty(key));
+			else if (key == PreferenceKey.NUMBER_COLOR)
+				panel.setNumberColor(getColorProperty(key));
+			else if (key == PreferenceKey.PAINT_COLOR)
+				panel.setPaintColor(getColorProperty(key));
+			else if (key == PreferenceKey.WALL_COLOR)
+				panel.setWallColor(getColorProperty(key));
+			else if (key == PreferenceKey.WHITE_AREA_COLOR)
+				panel.setWhiteAreaColor(getColorProperty(key));
+			else if (key == PreferenceKey.LETTERS)
+				panel.setLetters(getStringProperty(key));
+		}
+	}
+
 	/**
 	 * 現在のアプリケーションの設定を取得して properties に格納する。 
 	 * @param command
 	 */
-	public void acquireCurrentPreferences1(MenuCommand command) {
+	public void acquireCurrentPreferences(MenuCommand command) {
 		PanelBase panel = command.getPanelBase();
 		EventHandlerManager handler = command.getEventHandlerManager();
 		setIntProperty(PreferenceKey.EDIT_MODE, panel.getEditMode());
@@ -81,8 +148,71 @@ public class PreferencesCopierBase {
 		setBooleanProperty(PreferenceKey.CURSOR_MODE, panel.isCursorMode());
 		setColorProperty(PreferenceKey.BACKGROUND_COLOR, panel.getBackgroundColor());
 		setColorProperty(PreferenceKey.GRID_COLOR, panel.getGridColor());
-	}
 	
+		for (PreferenceKey key : usedKeys) {
+			if (false)
+				;
+			else if (key == PreferenceKey.LINK_WIDTH)
+				setIntProperty(key, panel.getLinkWidth());
+			else if (key == PreferenceKey.COUNT_AREA_SIZE_MODE)
+				setBooleanProperty(key, panel.isCountAreaSizeMode());
+			else if (key == PreferenceKey.DOT_HINT_MODE)
+				setBooleanProperty(key, panel.isDotHintMode());
+			else if (key == PreferenceKey.HIGHLIGHT_SELECTION_MODE)
+				setBooleanProperty(key, panel.isHighlightSelectionMode());
+			else if (key == PreferenceKey.HIDE_SOLE_NUMBER_MODE)
+				setBooleanProperty(key, panel.isHideSoleNumberMode());
+			else if (key == PreferenceKey.HIDE_STAR_MODE)
+				setBooleanProperty(key, panel.isHideStarMode());
+			else if (key == PreferenceKey.INDICATE_ERROR_MODE)
+				setBooleanProperty(key, panel.isIndicateErrorMode());
+			else if (key == PreferenceKey.PAINT_ILLUMINATED_CELL_MODE)
+				setBooleanProperty(key, panel.isPaintIlluminatedCellMode());
+			else if (key == PreferenceKey.SEPARATE_AREA_COLOR_MODE)
+				setBooleanProperty(key, panel.isSeparateAreaColorMode());
+			else if (key == PreferenceKey.SEPARATE_LINK_COLOR_MODE)
+				setBooleanProperty(key, panel.isSeparateLinkColorMode());
+			else if (key == PreferenceKey.SEPARATE_TETROMINO_COLOR_MODE)
+				setBooleanProperty(key, panel.isSeparateTetrominoColorMode());
+			else if (key == PreferenceKey.SHOW_AREA_BORDER_MODE)
+				setBooleanProperty(key, panel.isShowAreaBorderMode());
+			else if (key == PreferenceKey.SHOW_BEAM_MODE)
+				setBooleanProperty(key, panel.isShowBeamMode());
+			else if (key == PreferenceKey.AREA_BORDER_COLOR)
+				setColorProperty(key, panel.getAreaBorderColor());
+			else if (key == PreferenceKey.AREA_PAINT_COLOR)
+				setColorProperty(key, panel.getAreaPaintColor());
+			else if (key == PreferenceKey.BLACK_AREA_COLOR)
+				setColorProperty(key, panel.getBlackAreaColor());
+			else if (key == PreferenceKey.BORDER_COLOR)
+				setColorProperty(key, panel.getBorderColor());
+			else if (key == PreferenceKey.BULB_COLOR)
+				setColorProperty(key, panel.getBulbColor());
+			else if (key == PreferenceKey.CROSS_COLOR)
+				setColorProperty(key, panel.getCrossColor());
+			else if (key == PreferenceKey.PAINT_COLOR)
+				setColorProperty(key, panel.getPaintColor());
+			else if (key == PreferenceKey.ILLUMINATED_CELL_COLOR)
+				setColorProperty(key, panel.getIlluminatedCellColor());
+			else if (key == PreferenceKey.INPUT_COLOR)
+				setColorProperty(key, panel.getInputColor());
+			else if (key == PreferenceKey.LINE_COLOR)
+				setColorProperty(key, panel.getLineColor());
+			else if (key == PreferenceKey.NO_BULB_COLOR)
+				setColorProperty(key, panel.getNoBulbColor());
+			else if (key == PreferenceKey.NO_PAINT_COLOR)
+				setColorProperty(key, panel.getCircleColor());
+			else if (key == PreferenceKey.NUMBER_COLOR)
+				setColorProperty(key, panel.getNumberColor());
+			else if (key == PreferenceKey.WALL_COLOR)
+				setColorProperty(key, panel.getWallColor());
+			else if (key == PreferenceKey.WHITE_AREA_COLOR)
+				setColorProperty(key, panel.getWhiteAreaColor());
+			else if (key == PreferenceKey.LETTERS)
+				setStringProperty(key, panel.getLetters());
+		}
+	}
+
 	/**
 	 * メニュー選択をコピーする
 	 * @param src コピー元フレームの MenuCommand インスタンス
@@ -177,144 +307,6 @@ public class PreferencesCopierBase {
 	public String getColorString(Color color) {
 //		return Integer.toString(color.getRGB() & 0xFFFFFF);
 		return String.format("0x%06X", new Object[] {Integer.valueOf(color.getRGB() & 0xFFFFFF)});
-	}
-
-	protected static List<PreferenceKey> usedKeys; // = Arrays.asList(new Preference[] {});
-
-	public void applyCurrentPreferences(MenuCommand command) {
-		applyCurrentPreferences1(command);
-		PanelBase panel = command.getPanelBase();
-		for (PreferenceKey key : usedKeys) {
-			if (false)
-				;
-			else if (key == PreferenceKey.LINK_WIDTH)
-				panel.setLinkWidth(getIntProperty(key));
-			else if (key == PreferenceKey.COUNT_AREA_SIZE_MODE)
-				panel.setCountAreaSizeMode(getBooleanProperty(key));
-			else if (key == PreferenceKey.DOT_HINT_MODE)
-				panel.setDotHintMode(getBooleanProperty(key));
-			else if (key == PreferenceKey.HIDE_SOLE_NUMBER_MODE)
-				panel.setHideSoleNumberMode(getBooleanProperty(key));
-			else if (key == PreferenceKey.HIDE_STAR_MODE)
-				panel.setHideStarMode(getBooleanProperty(key));
-			else if (key == PreferenceKey.HIGHLIGHT_SELECTION_MODE)
-				panel.setHighlightSelectionMode(getBooleanProperty(key));
-			else if (key == PreferenceKey.INDICATE_ERROR_MODE)
-				panel.setIndicateErrorMode(getBooleanProperty(key));
-			else if (key == PreferenceKey.PAINT_ILLUMINATED_CELL_MODE)
-				panel.setPaintIlluminatedCellMode(getBooleanProperty(key));
-			else if (key == PreferenceKey.SEPARATE_AREA_COLOR_MODE)
-				panel.setSeparateAreaColorMode(getBooleanProperty(key));
-			else if (key == PreferenceKey.SEPARATE_LINK_COLOR_MODE)
-				panel.setSeparateLinkColorMode(getBooleanProperty(key));
-			else if (key == PreferenceKey.SEPARATE_TETROMINO_COLOR_MODE)
-				panel.setSeparateTetrominoColorMode(getBooleanProperty(key));
-			else if (key == PreferenceKey.SHOW_AREA_BORDER_MODE)
-				panel.setShowAreaBorderMode(getBooleanProperty(key));
-			else if (key == PreferenceKey.SHOW_BEAM_MODE)
-				panel.setShowBeamMode(getBooleanProperty(key));
-			else if (key == PreferenceKey.AREA_BORDER_COLOR)
-				panel.setAreaBorderColor(getColorProperty(key));
-			else if (key == PreferenceKey.AREA_PAINT_COLOR)
-				panel.setAreaPaintColor(getColorProperty(key));
-			else if (key == PreferenceKey.BLACK_AREA_COLOR)
-				panel.setBlackAreaColor(getColorProperty(key));
-			else if (key == PreferenceKey.BORDER_COLOR)
-				panel.setBorderColor(getColorProperty(key));
-			else if (key == PreferenceKey.BULB_COLOR)
-				panel.setBulbColor(getColorProperty(key));
-			else if (key == PreferenceKey.CROSS_COLOR)
-				panel.setCrossColor(getColorProperty(key));
-			else if (key == PreferenceKey.GATE_COLOR)
-				panel.setGateColor(getColorProperty(key));
-			else if (key == PreferenceKey.ILLUMINATED_CELL_COLOR)
-				panel.setIlluminatedCellColor(getColorProperty(key));
-			else if (key == PreferenceKey.INPUT_COLOR)
-				panel.setInputColor(getColorProperty(key));
-			else if (key == PreferenceKey.LINE_COLOR)
-				panel.setLineColor(getColorProperty(key));
-			else if (key == PreferenceKey.NO_BULB_COLOR)
-				panel.setNoBulbColor(getColorProperty(key));
-			else if (key == PreferenceKey.NO_PAINT_COLOR)
-				panel.setCircleColor(getColorProperty(key));
-			else if (key == PreferenceKey.NUMBER_COLOR)
-				panel.setNumberColor(getColorProperty(key));
-			else if (key == PreferenceKey.PAINT_COLOR)
-				panel.setPaintColor(getColorProperty(key));
-			else if (key == PreferenceKey.WALL_COLOR)
-				panel.setWallColor(getColorProperty(key));
-			else if (key == PreferenceKey.WHITE_AREA_COLOR)
-				panel.setWhiteAreaColor(getColorProperty(key));
-			else if (key == PreferenceKey.LETTERS)
-				panel.setLetters(getStringProperty(key));
-		}
-	}
-	
-	public void acquireCurrentPreferences(MenuCommand command) {
-		acquireCurrentPreferences1(command);
-		PanelBase panel = command.getPanelBase();
-		for (PreferenceKey key : usedKeys) {
-			if (false)
-				;
-			else if (key == PreferenceKey.LINK_WIDTH)
-				setIntProperty(key, panel.getLinkWidth());
-			else if (key == PreferenceKey.COUNT_AREA_SIZE_MODE)
-				setBooleanProperty(key, panel.isCountAreaSizeMode());
-			else if (key == PreferenceKey.DOT_HINT_MODE)
-				setBooleanProperty(key, panel.isDotHintMode());
-			else if (key == PreferenceKey.HIGHLIGHT_SELECTION_MODE)
-				setBooleanProperty(key, panel.isHighlightSelectionMode());
-			else if (key == PreferenceKey.HIDE_SOLE_NUMBER_MODE)
-				setBooleanProperty(key, panel.isHideSoleNumberMode());
-			else if (key == PreferenceKey.HIDE_STAR_MODE)
-				setBooleanProperty(key, panel.isHideStarMode());
-			else if (key == PreferenceKey.INDICATE_ERROR_MODE)
-				setBooleanProperty(key, panel.isIndicateErrorMode());
-			else if (key == PreferenceKey.PAINT_ILLUMINATED_CELL_MODE)
-				setBooleanProperty(key, panel.isPaintIlluminatedCellMode());
-			else if (key == PreferenceKey.SEPARATE_AREA_COLOR_MODE)
-				setBooleanProperty(key, panel.isSeparateAreaColorMode());
-			else if (key == PreferenceKey.SEPARATE_LINK_COLOR_MODE)
-				setBooleanProperty(key, panel.isSeparateLinkColorMode());
-			else if (key == PreferenceKey.SEPARATE_TETROMINO_COLOR_MODE)
-				setBooleanProperty(key, panel.isSeparateTetrominoColorMode());
-			else if (key == PreferenceKey.SHOW_AREA_BORDER_MODE)
-				setBooleanProperty(key, panel.isShowAreaBorderMode());
-			else if (key == PreferenceKey.SHOW_BEAM_MODE)
-				setBooleanProperty(key, panel.isShowBeamMode());
-			else if (key == PreferenceKey.AREA_BORDER_COLOR)
-				setColorProperty(key, panel.getAreaBorderColor());
-			else if (key == PreferenceKey.AREA_PAINT_COLOR)
-				setColorProperty(key, panel.getAreaPaintColor());
-			else if (key == PreferenceKey.BLACK_AREA_COLOR)
-				setColorProperty(key, panel.getBlackAreaColor());
-			else if (key == PreferenceKey.BORDER_COLOR)
-				setColorProperty(key, panel.getBorderColor());
-			else if (key == PreferenceKey.BULB_COLOR)
-				setColorProperty(key, panel.getBulbColor());
-			else if (key == PreferenceKey.CROSS_COLOR)
-				setColorProperty(key, panel.getCrossColor());
-			else if (key == PreferenceKey.PAINT_COLOR)
-				setColorProperty(key, panel.getPaintColor());
-			else if (key == PreferenceKey.ILLUMINATED_CELL_COLOR)
-				setColorProperty(key, panel.getIlluminatedCellColor());
-			else if (key == PreferenceKey.INPUT_COLOR)
-				setColorProperty(key, panel.getInputColor());
-			else if (key == PreferenceKey.LINE_COLOR)
-				setColorProperty(key, panel.getLineColor());
-			else if (key == PreferenceKey.NO_BULB_COLOR)
-				setColorProperty(key, panel.getNoBulbColor());
-			else if (key == PreferenceKey.NO_PAINT_COLOR)
-				setColorProperty(key, panel.getCircleColor());
-			else if (key == PreferenceKey.NUMBER_COLOR)
-				setColorProperty(key, panel.getNumberColor());
-			else if (key == PreferenceKey.WALL_COLOR)
-				setColorProperty(key, panel.getWallColor());
-			else if (key == PreferenceKey.WHITE_AREA_COLOR)
-				setColorProperty(key, panel.getWhiteAreaColor());
-			else if (key == PreferenceKey.LETTERS)
-				setStringProperty(key, panel.getLetters());
-		}
 	}
 
 }
