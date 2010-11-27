@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -48,38 +49,38 @@ public class PreferencesCopierBase {
 	 * 現在の properties に格納されている設定をアプリケーションに適用する。
 	 * @param command
 	 */
-	public void applyCurrentPreferences(MenuCommand command) {
+	public void applyCurrentPreferences1(MenuCommand command) {
 		PanelBase panel = command.getPanelBase();
 		EventHandlerManager handler = command.getEventHandlerManager();
-		handler.setEditMode(getIntProperty(PreferencesKeys.EDIT_MODE));
-		handler.setSymmetricPlacementMode(getBooleanProperty(PreferencesKeys.SYMMETRIC_PLACEMENT_MODE));
-		handler.setImmediateAnswerCheckMode(getBooleanProperty(PreferencesKeys.IMMEDIATE_ANSWER_CHECK_MODE));
-		panel.setDisplaySize(getIntProperty(PreferencesKeys.CELL_SIZE));
-		panel.changeIndexMode(getBooleanProperty(PreferencesKeys.INDEX_MODE));
-		panel.setGridStyle(getIntProperty(PreferencesKeys.GRID_STYLE));
-		panel.setMarkStyle(getIntProperty(PreferencesKeys.MARK_STYLE));
-		panel.setCursorMode(getBooleanProperty(PreferencesKeys.CURSOR_MODE));
-		panel.setBackgroundColor(getColorProperty(PreferencesKeys.BACKGROUND_COLOR));
-		panel.setGridColor(getColorProperty(PreferencesKeys.GRID_COLOR));
+		handler.setEditMode(getIntProperty(PreferenceKey.EDIT_MODE));
+		handler.setSymmetricPlacementMode(getBooleanProperty(PreferenceKey.SYMMETRIC_PLACEMENT_MODE));
+		handler.setImmediateAnswerCheckMode(getBooleanProperty(PreferenceKey.IMMEDIATE_ANSWER_CHECK_MODE));
+		panel.setDisplaySize(getIntProperty(PreferenceKey.CELL_SIZE));
+		panel.changeIndexMode(getBooleanProperty(PreferenceKey.INDEX_MODE));
+		panel.setGridStyle(getIntProperty(PreferenceKey.GRID_STYLE));
+		panel.setMarkStyle(getIntProperty(PreferenceKey.MARK_STYLE));
+		panel.setCursorMode(getBooleanProperty(PreferenceKey.CURSOR_MODE));
+		panel.setBackgroundColor(getColorProperty(PreferenceKey.BACKGROUND_COLOR));
+		panel.setGridColor(getColorProperty(PreferenceKey.GRID_COLOR));
 	}
 	
 	/**
 	 * 現在のアプリケーションの設定を取得して properties に格納する。 
 	 * @param command
 	 */
-	public void acquireCurrentPreferences(MenuCommand command) {
+	public void acquireCurrentPreferences1(MenuCommand command) {
 		PanelBase panel = command.getPanelBase();
 		EventHandlerManager handler = command.getEventHandlerManager();
-		setIntProperty(PreferencesKeys.EDIT_MODE, panel.getEditMode());
-		setBooleanProperty(PreferencesKeys.SYMMETRIC_PLACEMENT_MODE, handler.isSymmetricPlacementMode());
-		setBooleanProperty(PreferencesKeys.IMMEDIATE_ANSWER_CHECK_MODE, handler.isImmediateAnswerCheckMode());
-		setIntProperty(PreferencesKeys.CELL_SIZE, panel.getCellSize());
-		setBooleanProperty(PreferencesKeys.INDEX_MODE, panel.isIndexMode());
-		setIntProperty(PreferencesKeys.GRID_STYLE, panel.getGridStyle());
-		setIntProperty(PreferencesKeys.MARK_STYLE, panel.getMarkStyle());
-		setBooleanProperty(PreferencesKeys.CURSOR_MODE, panel.isCursorMode());
-		setColorProperty(PreferencesKeys.BACKGROUND_COLOR, panel.getBackgroundColor());
-		setColorProperty(PreferencesKeys.GRID_COLOR, panel.getGridColor());
+		setIntProperty(PreferenceKey.EDIT_MODE, panel.getEditMode());
+		setBooleanProperty(PreferenceKey.SYMMETRIC_PLACEMENT_MODE, handler.isSymmetricPlacementMode());
+		setBooleanProperty(PreferenceKey.IMMEDIATE_ANSWER_CHECK_MODE, handler.isImmediateAnswerCheckMode());
+		setIntProperty(PreferenceKey.CELL_SIZE, panel.getCellSize());
+		setBooleanProperty(PreferenceKey.INDEX_MODE, panel.isIndexMode());
+		setIntProperty(PreferenceKey.GRID_STYLE, panel.getGridStyle());
+		setIntProperty(PreferenceKey.MARK_STYLE, panel.getMarkStyle());
+		setBooleanProperty(PreferenceKey.CURSOR_MODE, panel.isCursorMode());
+		setColorProperty(PreferenceKey.BACKGROUND_COLOR, panel.getBackgroundColor());
+		setColorProperty(PreferenceKey.GRID_COLOR, panel.getGridColor());
 	}
 	
 	/**
@@ -138,44 +139,178 @@ public class PreferencesCopierBase {
 		}
 	}
 
-	protected String getStringProperty(String key) {
-		return properties.getProperty(pencilName + key);
+	protected String getStringProperty(PreferenceKey key) {
+		return properties.getProperty(pencilName + key.getKey());
 	}
 	
-	protected boolean getBooleanProperty(String key) {
-		return Integer.parseInt(properties.getProperty(pencilName + key)) > 0;
-//		return Boolean.parseBoolean(properties.getProperty(pencilName + key));
+	protected boolean getBooleanProperty(PreferenceKey key) {
+		return Integer.parseInt(properties.getProperty(pencilName + key.getKey())) > 0;
+//		return Boolean.parseBoolean(properties.getProperty(pencilName + key.getKey()));
 	}
 	
-	protected int getIntProperty(String key) {
-		return Integer.parseInt(properties.getProperty(pencilName + key));
+	protected int getIntProperty(PreferenceKey key) {
+		return Integer.parseInt(properties.getProperty(pencilName + key.getKey()));
 	}
 	
-	protected Color getColorProperty(String key) {
-		return Color.decode(properties.getProperty(pencilName + key));
+	protected Color getColorProperty(PreferenceKey key) {
+		return Color.decode(properties.getProperty(pencilName + key.getKey()));
 	}
 	
-	protected void setStringProperty(String key, String value) {
-		properties.setProperty(pencilName + key, value);
+	protected void setStringProperty(PreferenceKey key, String value) {
+		properties.setProperty(pencilName + key.getKey(), value);
 	}
 
-	protected void setBooleanProperty(String key, boolean value) {
+	protected void setBooleanProperty(PreferenceKey key, boolean value) {
 		int i = value ? 1 : 0;
-		properties.setProperty(pencilName + key, Integer.toString(i));
-//		properties.setProperty(pencilName + key, Boolean.toString(value));
+		properties.setProperty(pencilName + key.getKey(), Integer.toString(i));
+//		properties.setProperty(pencilName + key.getKey(), Boolean.toString(value));
 	}
 	
-	protected void setIntProperty(String key, int value) {
-		properties.setProperty(pencilName + key, Integer.toString(value));
+	protected void setIntProperty(PreferenceKey key, int value) {
+		properties.setProperty(pencilName + key.getKey(), Integer.toString(value));
 	}
 	
-	protected void setColorProperty(String key, Color value) {
-		properties.setProperty(pencilName + key, getColorString(value));
+	protected void setColorProperty(PreferenceKey key, Color value) {
+		properties.setProperty(pencilName + key.getKey(), getColorString(value));
 	}
 
 	public String getColorString(Color color) {
 //		return Integer.toString(color.getRGB() & 0xFFFFFF);
 		return String.format("0x%06X", new Object[] {Integer.valueOf(color.getRGB() & 0xFFFFFF)});
+	}
+
+	protected static List<PreferenceKey> usedKeys; // = Arrays.asList(new Preference[] {});
+
+	public void applyCurrentPreferences(MenuCommand command) {
+		applyCurrentPreferences1(command);
+		PanelBase panel = command.getPanelBase();
+		for (PreferenceKey key : usedKeys) {
+			if (false)
+				;
+			else if (key == PreferenceKey.LINK_WIDTH)
+				panel.setLinkWidth(getIntProperty(key));
+			else if (key == PreferenceKey.COUNT_AREA_SIZE_MODE)
+				panel.setCountAreaSizeMode(getBooleanProperty(key));
+			else if (key == PreferenceKey.DOT_HINT_MODE)
+				panel.setDotHintMode(getBooleanProperty(key));
+			else if (key == PreferenceKey.HIDE_SOLE_NUMBER_MODE)
+				panel.setHideSoleNumberMode(getBooleanProperty(key));
+			else if (key == PreferenceKey.HIDE_STAR_MODE)
+				panel.setHideStarMode(getBooleanProperty(key));
+			else if (key == PreferenceKey.HIGHLIGHT_SELECTION_MODE)
+				panel.setHighlightSelectionMode(getBooleanProperty(key));
+			else if (key == PreferenceKey.INDICATE_ERROR_MODE)
+				panel.setIndicateErrorMode(getBooleanProperty(key));
+			else if (key == PreferenceKey.PAINT_ILLUMINATED_CELL_MODE)
+				panel.setPaintIlluminatedCellMode(getBooleanProperty(key));
+			else if (key == PreferenceKey.SEPARATE_AREA_COLOR_MODE)
+				panel.setSeparateAreaColorMode(getBooleanProperty(key));
+			else if (key == PreferenceKey.SEPARATE_LINK_COLOR_MODE)
+				panel.setSeparateLinkColorMode(getBooleanProperty(key));
+			else if (key == PreferenceKey.SEPARATE_TETROMINO_COLOR_MODE)
+				panel.setSeparateTetrominoColorMode(getBooleanProperty(key));
+			else if (key == PreferenceKey.SHOW_AREA_BORDER_MODE)
+				panel.setShowAreaBorderMode(getBooleanProperty(key));
+			else if (key == PreferenceKey.SHOW_BEAM_MODE)
+				panel.setShowBeamMode(getBooleanProperty(key));
+			else if (key == PreferenceKey.AREA_BORDER_COLOR)
+				panel.setAreaBorderColor(getColorProperty(key));
+			else if (key == PreferenceKey.AREA_PAINT_COLOR)
+				panel.setAreaPaintColor(getColorProperty(key));
+			else if (key == PreferenceKey.BLACK_AREA_COLOR)
+				panel.setBlackAreaColor(getColorProperty(key));
+			else if (key == PreferenceKey.BORDER_COLOR)
+				panel.setBorderColor(getColorProperty(key));
+			else if (key == PreferenceKey.BULB_COLOR)
+				panel.setBulbColor(getColorProperty(key));
+			else if (key == PreferenceKey.CROSS_COLOR)
+				panel.setCrossColor(getColorProperty(key));
+			else if (key == PreferenceKey.GATE_COLOR)
+				panel.setGateColor(getColorProperty(key));
+			else if (key == PreferenceKey.ILLUMINATED_CELL_COLOR)
+				panel.setIlluminatedCellColor(getColorProperty(key));
+			else if (key == PreferenceKey.INPUT_COLOR)
+				panel.setInputColor(getColorProperty(key));
+			else if (key == PreferenceKey.LINE_COLOR)
+				panel.setLineColor(getColorProperty(key));
+			else if (key == PreferenceKey.NO_BULB_COLOR)
+				panel.setNoBulbColor(getColorProperty(key));
+			else if (key == PreferenceKey.NO_PAINT_COLOR)
+				panel.setCircleColor(getColorProperty(key));
+			else if (key == PreferenceKey.NUMBER_COLOR)
+				panel.setNumberColor(getColorProperty(key));
+			else if (key == PreferenceKey.PAINT_COLOR)
+				panel.setPaintColor(getColorProperty(key));
+			else if (key == PreferenceKey.WALL_COLOR)
+				panel.setWallColor(getColorProperty(key));
+			else if (key == PreferenceKey.WHITE_AREA_COLOR)
+				panel.setWhiteAreaColor(getColorProperty(key));
+		}
+	}
+	
+	public void acquireCurrentPreferences(MenuCommand command) {
+		acquireCurrentPreferences1(command);
+		PanelBase panel = command.getPanelBase();
+		for (PreferenceKey key : usedKeys) {
+			if (false)
+				;
+			else if (key == PreferenceKey.LINK_WIDTH)
+				setIntProperty(key, panel.getLinkWidth());
+			else if (key == PreferenceKey.COUNT_AREA_SIZE_MODE)
+				setBooleanProperty(key, panel.isCountAreaSizeMode());
+			else if (key == PreferenceKey.DOT_HINT_MODE)
+				setBooleanProperty(key, panel.isDotHintMode());
+			else if (key == PreferenceKey.HIGHLIGHT_SELECTION_MODE)
+				setBooleanProperty(key, panel.isHighlightSelectionMode());
+			else if (key == PreferenceKey.HIDE_SOLE_NUMBER_MODE)
+				setBooleanProperty(key, panel.isHideSoleNumberMode());
+			else if (key == PreferenceKey.HIDE_STAR_MODE)
+				setBooleanProperty(key, panel.isHideStarMode());
+			else if (key == PreferenceKey.INDICATE_ERROR_MODE)
+				setBooleanProperty(key, panel.isIndicateErrorMode());
+			else if (key == PreferenceKey.PAINT_ILLUMINATED_CELL_MODE)
+				setBooleanProperty(key, panel.isPaintIlluminatedCellMode());
+			else if (key == PreferenceKey.SEPARATE_AREA_COLOR_MODE)
+				setBooleanProperty(key, panel.isSeparateAreaColorMode());
+			else if (key == PreferenceKey.SEPARATE_LINK_COLOR_MODE)
+				setBooleanProperty(key, panel.isSeparateLinkColorMode());
+			else if (key == PreferenceKey.SEPARATE_TETROMINO_COLOR_MODE)
+				setBooleanProperty(key, panel.isSeparateTetrominoColorMode());
+			else if (key == PreferenceKey.SHOW_AREA_BORDER_MODE)
+				setBooleanProperty(key, panel.isShowAreaBorderMode());
+			else if (key == PreferenceKey.SHOW_BEAM_MODE)
+				setBooleanProperty(key, panel.isShowBeamMode());
+			else if (key == PreferenceKey.AREA_BORDER_COLOR)
+				setColorProperty(key, panel.getAreaBorderColor());
+			else if (key == PreferenceKey.AREA_PAINT_COLOR)
+				setColorProperty(key, panel.getAreaPaintColor());
+			else if (key == PreferenceKey.BLACK_AREA_COLOR)
+				setColorProperty(key, panel.getBlackAreaColor());
+			else if (key == PreferenceKey.BORDER_COLOR)
+				setColorProperty(key, panel.getBorderColor());
+			else if (key == PreferenceKey.BULB_COLOR)
+				setColorProperty(key, panel.getBulbColor());
+			else if (key == PreferenceKey.CROSS_COLOR)
+				setColorProperty(key, panel.getCrossColor());
+			else if (key == PreferenceKey.PAINT_COLOR)
+				setColorProperty(key, panel.getPaintColor());
+			else if (key == PreferenceKey.ILLUMINATED_CELL_COLOR)
+				setColorProperty(key, panel.getIlluminatedCellColor());
+			else if (key == PreferenceKey.INPUT_COLOR)
+				setColorProperty(key, panel.getInputColor());
+			else if (key == PreferenceKey.LINE_COLOR)
+				setColorProperty(key, panel.getLineColor());
+			else if (key == PreferenceKey.NO_BULB_COLOR)
+				setColorProperty(key, panel.getNoBulbColor());
+			else if (key == PreferenceKey.NO_PAINT_COLOR)
+				setColorProperty(key, panel.getCircleColor());
+			else if (key == PreferenceKey.NUMBER_COLOR)
+				setColorProperty(key, panel.getNumberColor());
+			else if (key == PreferenceKey.WALL_COLOR)
+				setColorProperty(key, panel.getWallColor());
+			else if (key == PreferenceKey.WHITE_AREA_COLOR)
+				setColorProperty(key, panel.getWhiteAreaColor());
+		}
 	}
 
 }
@@ -296,5 +431,5 @@ class TreeMapA extends java.util.TreeMap<Object, Object> {
     private static final char[] hexDigit = {
 	'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'
     };
-	
+
 }
