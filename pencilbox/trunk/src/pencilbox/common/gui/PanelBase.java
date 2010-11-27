@@ -106,6 +106,8 @@ public class PanelBase extends JPanel implements Printable {
 	private Area pasteRegion = new Area();
 	private Color copyRegionColor = new Color(0xFF0000);
 	private Color pasteRegionColor = new Color(0xFFAAAA);
+
+	protected char[] letters = {};
 	
 	/**
 	 * 編集モード	 
@@ -1419,6 +1421,20 @@ public class PanelBase extends JPanel implements Printable {
 	 */
 	public void setSelectedNumber(int selectedNumber) {
 		this.selectedNumber = selectedNumber;
+	}
+	/**
+	 * 数字の代わりに使用する現在の文字集合を取得する。Stringで返す。
+	 * @return the letter
+	 */
+	public String getLetters() {
+		return new String(letters);
+	}
+	/**
+	 * 数字の代わりに使用する文字集合を設定する。Stringで設定する。
+	 * @param letters the letter to set
+	 */
+	public void setLetters(String string) {
+		this.letters = string.toCharArray();
 	}
 
 }
