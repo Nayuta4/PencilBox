@@ -1,11 +1,11 @@
-package pencilbox.hitori;
+package pencilbox.common.gui;
 
 /**
  * ”š‚Ì‘ã‘Ö•¶š‚ÌW‡
  */
-class Letters {
+public class Letters {
 
-	static String getLetterSeries(int option) {
+	public static String getLetterSeries(int option) {
 		String letters;
 
 		switch (option) {

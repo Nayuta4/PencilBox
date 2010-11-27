@@ -17,9 +17,6 @@ public class Panel extends PanelBase {
 
 	private Color soleNumberColor = new Color(0xC0C0C0);
 
-	private char[] letters = {
-	};
-
 	/**
 	 * 
 	 */
@@ -44,22 +41,6 @@ public class Panel extends PanelBase {
 //	public void setIndicateRedundantNumberMode(boolean indicateRedundantNumberMode) {
 //		this.indicateRedundantNumberMode = indicateRedundantNumberMode;
 //	}
-
-	/**
-	 * 数字の代わりに使用する現在の文字集合を取得する。Stringで返す。
-	 * @return the letter
-	 */
-	String getLetters() {
-		return new String(letters);
-	}
-
-	/**
-	 * 数字の代わりに使用する文字集合を設定する。Stringで設定する。
-	 * @param letters the letter to set
-	 */
-	void setLetters(String string) {
-		this.letters = string.toCharArray();
-	}
 
 	public void drawBoard(Graphics2D g) {
 		drawCells(g);

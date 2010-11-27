@@ -245,6 +245,8 @@ public class PreferencesCopierBase {
 				panel.setWallColor(getColorProperty(key));
 			else if (key == PreferenceKey.WHITE_AREA_COLOR)
 				panel.setWhiteAreaColor(getColorProperty(key));
+			else if (key == PreferenceKey.LETTERS)
+				panel.setLetters(getStringProperty(key));
 		}
 	}
 	
@@ -310,6 +312,8 @@ public class PreferencesCopierBase {
 				setColorProperty(key, panel.getWallColor());
 			else if (key == PreferenceKey.WHITE_AREA_COLOR)
 				setColorProperty(key, panel.getWhiteAreaColor());
+			else if (key == PreferenceKey.LETTERS)
+				setStringProperty(key, panel.getLetters());
 		}
 	}
 
