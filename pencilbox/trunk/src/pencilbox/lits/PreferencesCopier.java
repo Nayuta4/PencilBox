@@ -1,30 +1,22 @@
 package pencilbox.lits;
 
-import pencilbox.common.gui.MenuCommand;
+import java.util.Arrays;
+
+import pencilbox.common.gui.PreferenceKey;
 import pencilbox.common.gui.PreferencesCopierBase;
-import pencilbox.common.gui.PreferencesKeys;
 
 /**
  * 
  */
 public class PreferencesCopier extends PreferencesCopierBase {
 
-	public void applyCurrentPreferences(MenuCommand command) {
-		super.applyCurrentPreferences(command);
-		Panel panel = (Panel) command.getPanelBase();
-		panel.setPaintColor(getColorProperty(PreferencesKeys.PAINT_COLOR));
-		panel.setCircleColor(getColorProperty(PreferencesKeys.NO_PAINT_COLOR));
-		panel.setAreaBorderColor(getColorProperty(PreferencesKeys.AREA_BORDER_COLOR));
-		panel.setSeparateTetrominoColorMode(getBooleanProperty(PreferencesKeys.SEPARATE_TETROMINO_COLOR_MODE));
+	static {
+		usedKeys = Arrays.asList(new PreferenceKey[] {
+			PreferenceKey.SEPARATE_TETROMINO_COLOR_MODE,
+			PreferenceKey.PAINT_COLOR,
+			PreferenceKey.NO_PAINT_COLOR,
+			PreferenceKey.AREA_BORDER_COLOR,
+		});
 	}
-	
-	public void acquireCurrentPreferences(MenuCommand command) {
-		super.acquireCurrentPreferences(command);
-		Panel panel = (Panel) command.getPanelBase();
-		setColorProperty(PreferencesKeys.PAINT_COLOR, panel.getPaintColor());
-		setColorProperty(PreferencesKeys.NO_PAINT_COLOR, panel.getCircleColor());
-		setColorProperty(PreferencesKeys.AREA_BORDER_COLOR, panel.getAreaBorderColor());
-		setBooleanProperty(PreferencesKeys.SEPARATE_TETROMINO_COLOR_MODE, panel.isSeparateTetrominoColorMode());
-	}
-	
+
 }
