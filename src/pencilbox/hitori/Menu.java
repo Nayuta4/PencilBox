@@ -1,6 +1,8 @@
 package pencilbox.hitori;
 
-import javax.swing.JMenuItem;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JOptionPane;
 
 import pencilbox.common.gui.Letters;
@@ -24,16 +26,16 @@ public class Menu extends MenuBase {
 		numberColorItem = addColorMenuItem(Messages.getString("Menu.numberColorItem")); //$NON-NLS-1$
 		paintColorItem = addColorMenuItem(Messages.getString("Menu.paintColorItem")); //$NON-NLS-1$
 		circleColorItem = addColorMenuItem(Messages.getString("Menu.noPaintColorItem")); //$NON-NLS-1$
-		addToViewMenu(selectLetterItem = makeCommandMenuItem(Messages.getString("Menu.selectLetterItem"), 'T')); //$NON-NLS-1$
+		addToViewMenu(selectLetterItem = makeJMenuItem(Messages.getString("Menu.selectLetterItem"), 'T')); //$NON-NLS-1$
+		selectLetterItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectLetter();
+				getPanel().repaint();
+			}
+		});
 		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.indicateErrorItem"), 'E', false)); //$NON-NLS-1$
 		addToViewMenu(hideSoleNumberItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.hideSoleNumberItem"), 'H', false)); //$NON-NLS-1$
 //		addToViewMenu(indicateRedundantNumberItem = makeCheckBoxCommandMenuItem("èdï°Ç∑ÇÈêîéöÇê‘Ç≈é¶Ç∑(R)", 'R', false));
-	}
-
-	public void executeCommand2(JMenuItem target) {
-		if (target == selectLetterItem)
-			selectLetter();
-		super.executeCommand2(target);
 	}
 
 	/**
