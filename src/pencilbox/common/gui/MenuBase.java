@@ -730,13 +730,6 @@ public class MenuBase {
 		else if (target == separateTetrominoColorItem)
 			getPanel().setSeparateTetrominoColorMode(target.isSelected());
 	}
-//	/**
-//	 * どのメニューが選択されたか調べて，対応するコマンドを起動する。
-//	 * 各サブクラスでオーバーライドする。
-//	 * @param target 選択されたメニュー項目
-//	 */
-//	public void executeCommand2(JMenuItem target) {
-//	}
 
 	/**
 	 * CommandActionを備えたメニュー項目を作成する
