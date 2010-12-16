@@ -770,31 +770,6 @@ public class MenuBase {
 		return item;
 	}
 
-	/**
-	 * 現在の設定に合わせてメニュー項目の選択状態を更新する。
-	 */
-	public void updateCurrentMenuSelection1() {
-		indexItem.setSelected(getPanelBase().isIndexMode());
-		gridStyleItem.setSelected(getPanelBase().getGridStyle() > 0);
-		if (cursorItem != null)
-			cursorItem.setSelected(getPanelBase().isCursorMode());
-		if (symmetricPlacementItem != null)
-			symmetricPlacementItem.setSelected(getEventHandlerManager().isSymmetricPlacementMode());
-		if (immediateAnswerCheckItem != null)
-			immediateAnswerCheckItem.setSelected(getEventHandlerManager().isImmediateAnswerCheckMode());
-		if (markStyleMenu != null) {
-			int s = getPanelBase().getMarkStyle();
-			for (int i = 0, count = markStyleMenu.getItemCount(); i < count; i++) {
-				JRadioButtonMenuItem item = (JRadioButtonMenuItem) markStyleMenu.getItem(i);
-				if (Integer.parseInt(item.getActionCommand()) == s) {
-					item.setSelected(true);
-					break;
-				}
-			}
-		}
-		buildColorMenuIcon();
-	}
-
 	/*
 	 * 以下，メニュー作成用補助メソッド
 	 */
@@ -942,6 +917,22 @@ public class MenuBase {
 	}
 
 	public void updateCurrentMenuSelection() {
+		indexItem.setSelected(getPanelBase().isIndexMode());
+		gridStyleItem.setSelected(getPanelBase().getGridStyle() > 0);
+		setItemSelected(cursorItem, getPanelBase().isCursorMode());
+		setItemSelected(symmetricPlacementItem, getEventHandlerManager().isSymmetricPlacementMode());
+		setItemSelected(immediateAnswerCheckItem, getEventHandlerManager().isImmediateAnswerCheckMode());
+		if (markStyleMenu != null) {
+			int s = getPanelBase().getMarkStyle();
+			for (int i = 0, count = markStyleMenu.getItemCount(); i < count; i++) {
+				JRadioButtonMenuItem item = (JRadioButtonMenuItem) markStyleMenu.getItem(i);
+				if (Integer.parseInt(item.getActionCommand()) == s) {
+					item.setSelected(true);
+					break;
+				}
+			}
+		}
+
 		setItemSelected(countAreaSizeItem, getPanel().isCountAreaSizeMode());
 		setItemSelected(dotHintItem, getPanel().isDotHintMode());
 		setItemSelected(hideSoleNumberItem, getPanel().isHideSoleNumberMode());
@@ -954,7 +945,8 @@ public class MenuBase {
 		setItemSelected(separateTetrominoColorItem, getPanel().isSeparateTetrominoColorMode());
 		setItemSelected(showAreaBorderItem, getPanel().isShowAreaBorderMode());
 		setItemSelected(showBeamItem, getPanel().isShowBeamMode());
-		updateCurrentMenuSelection1();
+
+		buildColorMenuIcon();
 	}
 
 	public void setItemSelected(JMenuItem item, boolean b) {
