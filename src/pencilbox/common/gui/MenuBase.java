@@ -607,32 +607,6 @@ public class MenuBase {
 	};
 
 	/**
-	 * メニュー項目に対応した色を取得する 中身は各サブクラスごとに実装する。
-	 * @param target 選択されたメニュー
-	 * @return 取得した色
-	 */
-	public Color getColor1(JMenuItem target) {
-		if (target == backgroundColorItem)
-			return getPanelBase().getBackgroundColor();
-		else if (target == gridColorItem)
-			return getPanelBase().getGridColor();
-		else
-			return null;
-	}
-
-	/**
-	 * メニュー項目に対応した色を取得する 中身は各サブクラスごとに実装する。
-	 * @param target 選択されたメニュー
-	 * @param color 設定する色
-	 */
-	public void setColor1(JMenuItem target, Color color) {
-		if (target == backgroundColorItem)
-			getPanelBase().setBackgroundColor(color);
-		else if (target == gridColorItem)
-			getPanelBase().setGridColor(color);
-	}
-
-	/**
 	 * メニューから実行されるコマンド。 
 	 */
 	private ActionListener commandAction = new ActionListener() {
@@ -726,6 +700,35 @@ public class MenuBase {
 		else
 			executeCommand2(target);
 		panel.repaint();
+	}
+
+	public void executeCommand2(JMenuItem target) {
+		if (false)
+			;
+		else if (target == countAreaSizeItem)
+			getPanel().setCountAreaSizeMode(target.isSelected());
+		else if (target == dotHintItem)
+			getPanel().setDotHintMode(target.isSelected());
+		else if (target == hideSoleNumberItem)
+			getPanel().setHideSoleNumberMode(target.isSelected());
+		else if (target == hideStarItem)
+			getPanel().setHideStarMode(target.isSelected());
+		else if (target == highlightSelectionItem)
+			getPanel().setHighlightSelectionMode(target.isSelected());
+		else if (target == indicateErrorItem)
+			getPanel().setIndicateErrorMode(target.isSelected());
+		else if (target == paintIlluminatedCellItem)
+			getPanel().setPaintIlluminatedCellMode(target.isSelected());
+		else if (target == showAreaBorderItem)
+			getPanel().setShowAreaBorderMode(target.isSelected());
+		else if (target == showBeamItem)
+			getPanel().setShowBeamMode(target.isSelected());
+		else if (target == separateAreaColorItem)
+			getPanel().setSeparateAreaColorMode(target.isSelected());
+		else if (target == separateLinkColorItem)
+			getPanel().setSeparateLinkColorMode(target.isSelected());
+		else if (target == separateTetrominoColorItem)
+			getPanel().setSeparateTetrominoColorMode(target.isSelected());
 	}
 //	/**
 //	 * どのメニューが選択されたか調べて，対応するコマンドを起動する。
@@ -851,38 +854,18 @@ public class MenuBase {
 		return item;
 	}
 
-	public void executeCommand2(JMenuItem target) {
-		if (false)
-			;
-		else if (target == countAreaSizeItem)
-			getPanel().setCountAreaSizeMode(target.isSelected());
-		else if (target == dotHintItem)
-			getPanel().setDotHintMode(target.isSelected());
-		else if (target == hideSoleNumberItem)
-			getPanel().setHideSoleNumberMode(target.isSelected());
-		else if (target == hideStarItem)
-			getPanel().setHideStarMode(target.isSelected());
-		else if (target == highlightSelectionItem)
-			getPanel().setHighlightSelectionMode(target.isSelected());
-		else if (target == indicateErrorItem)
-			getPanel().setIndicateErrorMode(target.isSelected());
-		else if (target == paintIlluminatedCellItem)
-			getPanel().setPaintIlluminatedCellMode(target.isSelected());
-		else if (target == showAreaBorderItem)
-			getPanel().setShowAreaBorderMode(target.isSelected());
-		else if (target == showBeamItem)
-			getPanel().setShowBeamMode(target.isSelected());
-		else if (target == separateAreaColorItem)
-			getPanel().setSeparateAreaColorMode(target.isSelected());
-		else if (target == separateLinkColorItem)
-			getPanel().setSeparateLinkColorMode(target.isSelected());
-		else if (target == separateTetrominoColorItem)
-			getPanel().setSeparateTetrominoColorMode(target.isSelected());
-	}
-
+	/**
+	 * メニュー項目に対応した色を取得する
+	 * @param target 選択されたメニュー
+	 * @return 取得した色
+	 */
 	public Color getColor(JMenuItem target) {
 		if (false)
 			return null;
+		else if (target == backgroundColorItem)
+			return getPanelBase().getBackgroundColor();
+		else if (target == gridColorItem)
+			return getPanelBase().getGridColor();
 		else if (target == areaBorderColorItem)
 			return getPanel().getAreaBorderColor();
 		else if (target == areaPaintColorItem)
@@ -916,12 +899,21 @@ public class MenuBase {
 		else if (target == whiteAreaColorItem)
 			return getPanel().getWhiteAreaColor();
 		else
-			return getColor1(target);
+			return null;
 	}
 
+	/**
+	 * メニュー項目に対応した色を取得する
+	 * @param target 選択されたメニュー
+	 * @param color 設定する色
+	 */
 	public void setColor(JMenuItem target, Color color) {
 		if (false)
 			;
+		if (target == backgroundColorItem)
+			getPanelBase().setBackgroundColor(color);
+		else if (target == gridColorItem)
+			getPanelBase().setGridColor(color);
 		else if (target == areaBorderColorItem)
 			getPanel().setAreaBorderColor(color);
 		else if (target == areaPaintColorItem)
@@ -954,8 +946,6 @@ public class MenuBase {
 			getPanel().setWallColor(color);
 		else if (target == whiteAreaColorItem)
 			getPanel().setWhiteAreaColor(color);
-		else
-			setColor1(target, color);
 	}
 
 	public void updateCurrentMenuSelection() {
