@@ -9,7 +9,7 @@ import pencilbox.common.gui.PreferencesCopierBase;
  * 
  */
 public class PreferencesCopier extends PreferencesCopierBase {
-	
+
 	static {
 		usedKeys = Arrays.asList(new PreferenceKey[] {
 			PreferenceKey.INDICATE_ERROR_MODE,
