@@ -219,7 +219,7 @@ public class IOController {
 	}
 
 	public String pzprv3Url() {
-		return "http://indi.s58.xrea.com/pzpr/v3/p.html?";
+		return "http://pzv.jp/p.html?";
 	}
 	
 	public String kanpenUrl() {
