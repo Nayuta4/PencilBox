@@ -497,40 +497,12 @@ public class MenuBase {
 		viewMenu.add(item);
 	}
 
-//	/**
-//	 * 「回転・反転」メニューのサブメニュー項目を作成し，グループに追加する。
-//	 * 回転番号をパラメータとしてメニュー項目の action command に設定する。
-//	 * @param text メニュー表示文字列
-//	 * @param mnemonic
-//	 * @param n 設定する回転番号
-//	 * @return 作成したメニュー項目
-//	 */
-//	protected JMenuItem makeRotationItem(String text, char mnemonic, int n) {
-//		JMenuItem rotationItem = new JMenuItem(text, mnemonic);
-//		rotationItem.addActionListener(rotationCommandAction);
-//		rotationItem.setActionCommand(Integer.toString(n));
-//		rotationMenu.add(rotationItem);
-//		return rotationItem;
-//	}
-
-//	/**
-//	 * 回転コマンド。 
-//	 * メニュー項目の action command から回転番号を読み取って実行する。
-//	 */
-//	private ActionListener rotationCommandAction = new ActionListener() {
-//		public void actionPerformed(ActionEvent e) {
-//			JMenuItem target = (JMenuItem) e.getSource();
-//			command.rotateBoard(Integer.parseInt(target.getActionCommand()));
-//			panel.repaint();
-//		}
-//	};
-
 	/**
-	 * 「回転・反転」メニューのサブメニュー項目を作成し，グループに追加する。
-	 * 回転番号をパラメータとしてメニュー項目の action command に設定する。
+	 * 「エクスポート／インポート」メニューのサブメニュー項目を作成し，グループに追加する。
+	 * データフォーマットをパラメータとしてメニュー項目の action command に設定する。
 	 * @param text メニュー表示文字列
 	 * @param mnemonic
-	 * @param n 設定する回転番号
+	 * @param f データフォーマット
 	 * @return 作成したメニュー項目
 	 */
 	protected JMenuItem makeDataExportItem(String text, char mnemonic, DataFormat f) {
@@ -541,10 +513,6 @@ public class MenuBase {
 		return item;
 	}
 
-	/**
-	 * 回転コマンド。 
-	 * メニュー項目の action command から回転番号を読み取って実行する。
-	 */
 	private ActionListener exportCommandAction = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			JMenuItem target = (JMenuItem) e.getSource();
