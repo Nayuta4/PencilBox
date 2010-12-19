@@ -293,26 +293,6 @@ public class MenuBase {
 		helpMenu.add(aboutItem = makeCommandMenuItem(Messages.getString("MenuBase.aboutDialog"), 'A')); //$NON-NLS-1$
 	}
 
-//	/**
-//	 * [回転・反転]メニュー作成
-//	 */
-//	protected void buildRotationMenu() {
-//		makeRotationItem(Messages.getString("MenuBase.rotationItem1"), '1', 1); //$NON-NLS-1$
-//		makeRotationItem(Messages.getString("MenuBase.rotationItem2"), '2', 2); //$NON-NLS-1$
-//		makeRotationItem(Messages.getString("MenuBase.rotationItem3"), '3', 3); //$NON-NLS-1$
-//		makeRotationItem(Messages.getString("MenuBase.rotationItem4"), '4', 4); //$NON-NLS-1$
-//		makeRotationItem(Messages.getString("MenuBase.rotationItem5"), '5', 5); //$NON-NLS-1$
-//		makeRotationItem(Messages.getString("MenuBase.rotationItem6"), '6', 6); //$NON-NLS-1$
-//		makeRotationItem(Messages.getString("MenuBase.rotationItem7"), '7', 7); //$NON-NLS-1$
-//	}
-//	/**
-//	 * [回転・反転]メニュー作成
-//	 * （カックロ用）
-//	 */
-//	protected void buildRotationMenu2() {
-//		makeRotationItem(Messages.getString("MenuBase.rotationItem4"), '4', 4); //$NON-NLS-1$
-//	}
-
 	/**
 	 * 「エクスポート／インポート」サブメニューを作成する。
 	 * 選択可能なフォーマットが標準と異なる場合などは必要に応じてサブクラスで上書きすること。
