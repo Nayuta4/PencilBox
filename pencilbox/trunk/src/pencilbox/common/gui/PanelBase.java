@@ -14,12 +14,12 @@ import java.awt.print.PrinterException;
 import javax.swing.JPanel;
 
 import pencilbox.common.core.Address;
-import pencilbox.common.core.Area;
+import pencilbox.common.core.AreaBase;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.Direction;
 import pencilbox.common.core.SideAddress;
 import pencilbox.common.core.Size;
-import pencilbox.common.core.Square;
+import pencilbox.common.core.SquareBase;
 
 
 /**
@@ -102,8 +102,8 @@ public class PanelBase extends JPanel implements Printable {
 
 	protected int selectedNumber = 0;
 
-	private Area copyRegion = new Area();
-	private Area pasteRegion = new Area();
+	private AreaBase copyRegion = new AreaBase();
+	private AreaBase pasteRegion = new AreaBase();
 	private Color copyRegionColor = new Color(0xFF0000);
 	private Color pasteRegionColor = new Color(0xFFAAAA);
 
@@ -767,7 +767,7 @@ public class PanelBase extends JPanel implements Printable {
 				getCellSize() * ((r0 < r1) ? r1-r0+1 : r0-r1+1) - i*2);
 	}
 
-	public void placeSquare(Graphics2D g, Square sq) {
+	public void placeSquare(Graphics2D g, SquareBase sq) {
 		placeSquare(g, sq.r0(), sq.c0(), sq.r1(), sq.c1());
 	}
 
@@ -798,7 +798,7 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param g
 	 * @param area —Ìˆæ
 	 */
-	public void edgeArea(Graphics2D g, Area area) {
+	public void edgeArea(Graphics2D g, AreaBase area) {
 		Address neighbor;
 		for (Address pos : area) {
 			for (int dir = 0; dir < 4; dir++) {
@@ -1062,13 +1062,13 @@ public class PanelBase extends JPanel implements Printable {
 	/**
 	 * @return the copyRegion
 	 */
-	Area getCopyRegion() {
+	AreaBase getCopyRegion() {
 		return copyRegion;
 	}
 	/**
 	 * @return the pasteRegion
 	 */
-	Area getPasteRegion() {
+	AreaBase getPasteRegion() {
 		return pasteRegion;
 	}
 	

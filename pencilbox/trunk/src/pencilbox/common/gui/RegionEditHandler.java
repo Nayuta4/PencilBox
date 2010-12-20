@@ -8,7 +8,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import pencilbox.common.core.Address;
-import pencilbox.common.core.Area;
+import pencilbox.common.core.AreaBase;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.BoardCopierBase;
 import pencilbox.common.core.Rotator2;
@@ -28,8 +28,8 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 
 	private Address oldPos = Address.address(-1, -1);
 
-	private Area copyRegion;
-	private Area pasteRegion;
+	private AreaBase copyRegion;
+	private AreaBase pasteRegion;
 	private Address copyRegionOrigin;
 	private Address pasteRegionOrigin;
 	private Address pivot = Address.address();
@@ -379,7 +379,7 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	/**
 	 * óÃàÊÇï°é Ç∑ÇÈÅB
 	 */
-	private void copyArea(Area src, Area dst) {
+	private void copyArea(AreaBase src, AreaBase dst) {
 		dst.clear();
 		for (Address p : src) {
 			if (isOn(p)) {

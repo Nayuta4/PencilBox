@@ -5,7 +5,7 @@ import pencilbox.common.core.Address;
 /**
  * 「四角に切れ」四角クラス
  */
-public class Square extends pencilbox.common.core.Square {
+public class Square extends pencilbox.common.core.SquareBase {
 	
 	static final int NO_NUMBER = 0;
 	static final int MULTIPLE_NUMBER = -2;

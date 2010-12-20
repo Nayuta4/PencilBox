@@ -58,7 +58,7 @@ public class BoardCopierBase {
 	public void copyBoardStates(BoardBase src, BoardBase dst, int n) {
 		Address from = Address.address(0, 0);
 		Address to = this.rotateCornerAddress(src.rows(), src.cols(), n);
-		Area region = src.getWholeBoardArea();
+		AreaBase region = src.getWholeBoardArea();
 		copyRegion(src, dst, region, from, to, n);
 	}
 
@@ -114,7 +114,7 @@ public class BoardCopierBase {
 	 * @param board 編集する盤面
 	 * @param region 消去領域
 	 */
-	public void eraseRegion(BoardBase board, Area region) {
+	public void eraseRegion(BoardBase board, AreaBase region) {
 	}
 	/**
 	 * 領域複写。
@@ -126,14 +126,14 @@ public class BoardCopierBase {
 	 * @param to 原点の複写先
 	 * @param rotation 回転
 	 */
-	public void copyRegion(BoardBase srcBoard, BoardBase board, Area region, Address from, Address to, int rotation) {
+	public void copyRegion(BoardBase srcBoard, BoardBase board, AreaBase region, Address from, Address to, int rotation) {
 	}
 	/**
 	 * 領域消去。
 	 * @param board 編集する盤面
 	 * @param region 消去領域
 	 */
-	public void eraseRegion2(BoardBase board, Area region) {
+	public void eraseRegion2(BoardBase board, AreaBase region) {
 		board.startCompoundUndo();
 		eraseRegion(board, region);
 		board.stopCompoundUndo();
@@ -148,7 +148,7 @@ public class BoardCopierBase {
 	 * @param to 原点の複写先
 	 * @param rotation 回転
 	 */
-	public void copyRegion2(BoardBase board, Area region, Address from, Address to, int rotation) {
+	public void copyRegion2(BoardBase board, AreaBase region, Address from, Address to, int rotation) {
 		try {
 			BoardBase srcBoard = duplicateBoard(board);
 			board.startCompoundUndo();
@@ -168,7 +168,7 @@ public class BoardCopierBase {
 	 * @param to 原点の移動先
 	 * @param rotation 回転
 	 */
-	public void moveRegion(BoardBase board, Area region, Address from, Address to, int rotation) {
+	public void moveRegion(BoardBase board, AreaBase region, Address from, Address to, int rotation) {
 		try {
 			BoardBase srcBoard = duplicateBoard(board);
 			board.startCompoundUndo();

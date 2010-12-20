@@ -6,7 +6,7 @@ import pencilbox.common.core.Address;
 /**
  * 「天体ショー」領域クラス
  */
-public class Area extends pencilbox.common.core.Area {
+public class Area extends pencilbox.common.core.AreaBase {
 	/**
 	 * 領域に含まれる星の種類
 	 * なし 0;  白星 1; 黒星 2; 複数星 -1:

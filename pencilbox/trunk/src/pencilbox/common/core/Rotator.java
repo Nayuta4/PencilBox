@@ -151,7 +151,7 @@ public class Rotator {
 	 * @param dst •¡»æArea
 	 * @return dst‚Æ“¯‚¶
 	 */
-	public Area rotateArea(Area src, Area dst) {
+	public AreaBase rotateArea(AreaBase src, AreaBase dst) {
 		for (Address p : src) {
 			dst.add(rotateAddress(p));
 		}

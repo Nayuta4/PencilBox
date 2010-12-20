@@ -1,7 +1,7 @@
 package pencilbox.kakuro;
 
 import pencilbox.common.core.Address;
-import pencilbox.common.core.Area;
+import pencilbox.common.core.AreaBase;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.BoardCopierBase;
 import pencilbox.common.core.Direction;
@@ -68,7 +68,7 @@ public class BoardCopier extends BoardCopierBase {
 		}
 	}
 
-	public void copyRegion(BoardBase srcBoardBase, BoardBase boardBase, Area region, Address from, Address to, int rotation) {
+	public void copyRegion(BoardBase srcBoardBase, BoardBase boardBase, AreaBase region, Address from, Address to, int rotation) {
 		Board srcBoard = (Board) srcBoardBase;
 		Board board = (Board) boardBase;
 		for (Address s : region) {
@@ -95,7 +95,7 @@ public class BoardCopier extends BoardCopierBase {
 		}
 	}
 
-	public void eraseRegion(BoardBase boardBase, Area region) {
+	public void eraseRegion(BoardBase boardBase, AreaBase region) {
 		Board board = (Board) boardBase;
 		for (Address s : region) {
 			if (board.isWall(s)) {

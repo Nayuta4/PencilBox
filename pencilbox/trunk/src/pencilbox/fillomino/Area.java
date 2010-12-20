@@ -3,7 +3,7 @@ package pencilbox.fillomino;
 /**
  * 「フィルオミノ」領域クラス
  */
-public class Area extends pencilbox.common.core.Area {
+public class Area extends pencilbox.common.core.AreaBase {
 	
 	private int number; // 領域の数字
 	
