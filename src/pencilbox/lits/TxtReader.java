@@ -71,16 +71,6 @@ public class TxtReader extends TxtReaderBase {
 				j++;
 			}
 		}
-//		for (Iterator itr = areaList.iterator(); itr.hasNext(); ) {
-//		Area area = (Area) itr.next();
-//		System.out.println(area.toString());
-//		count ++;
-//	}
-//	for (int r = 0; r < board.rows(); r++) {
-//		for (int c = 0; c < board.cols(); c++) {
-//			System.out.println(board.getArea(r, c).toString());
-//		}
-//	}
 		return board;
 	}
 
