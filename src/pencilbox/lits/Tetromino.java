@@ -6,7 +6,7 @@ import pencilbox.common.core.Address;
 /**
  * u‚k‚h‚s‚rv—ÌˆæƒNƒ‰ƒX
  */
-public class Tetromino extends pencilbox.common.core.Area {
+public class Tetromino extends pencilbox.common.core.AreaBase {
 	
 	public static final int NOT_TETROMINO = 0;
 	public static final int TYPE_L = 1;

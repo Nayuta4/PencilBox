@@ -29,7 +29,7 @@ public class BoardCopier extends BoardCopierBase {
 //		rotator2.rotateArrayInt2(s.getStar(), d.getStar());
 //	}
 
-	public void copyRegion(BoardBase srcBoardBase, BoardBase boardBase, pencilbox.common.core.Area region, Address from, Address to, int rotation) {
+	public void copyRegion(BoardBase srcBoardBase, BoardBase boardBase, pencilbox.common.core.AreaBase region, Address from, Address to, int rotation) {
 		Board srcBoard = (Board) srcBoardBase;
 		Board board = (Board) boardBase;
 		ArrayList<Area> srcAreaList = new ArrayList<Area>();
@@ -61,7 +61,7 @@ public class BoardCopier extends BoardCopierBase {
 				}
 			}
 		}
-		pencilbox.common.core.Area region2 = makeStarRegion(region);
+		pencilbox.common.core.AreaBase region2 = makeStarRegion(region);
 		for (Address ss : region2) {
 			Address dd = translateAndRotateStarAddress(ss, from, to, rotation);
 			if (board.isOnStar(dd)) {
@@ -83,7 +83,7 @@ public class BoardCopier extends BoardCopierBase {
 		return Rotator2.translateAndRotateAddress(ss, from2, to2, rotation);
 	}
 
-	public void eraseRegion(BoardBase boardBase, pencilbox.common.core.Area region) {
+	public void eraseRegion(BoardBase boardBase, pencilbox.common.core.AreaBase region) {
 		Board board = (Board) boardBase;
 		for (Address s : region) {
 			Area srcArea = board.getArea(s);
@@ -93,7 +93,7 @@ public class BoardCopier extends BoardCopierBase {
 				board.removeWholeArea(srcArea); // óÃàÊÇ≤Ç∆è¡ãéÇ∑ÇÈÅB
 			}
 		}
-		pencilbox.common.core.Area region2 = makeStarRegion(region);
+		pencilbox.common.core.AreaBase region2 = makeStarRegion(region);
 		for (Address ss : region2) {
 			board.changeStar(ss, Board.NOSTAR);
 		}
@@ -103,8 +103,8 @@ public class BoardCopier extends BoardCopierBase {
 		}
 	}
 	
-	private pencilbox.common.core.Area makeStarRegion(pencilbox.common.core.Area region) {
-		pencilbox.common.core.Area region2 = new pencilbox.common.core.Area();
+	private pencilbox.common.core.AreaBase makeStarRegion(pencilbox.common.core.AreaBase region) {
+		pencilbox.common.core.AreaBase region2 = new pencilbox.common.core.AreaBase();
 		for (Address s : region) {
 			region2.add(Address.address(s.r()*2, s.c()*2));
 			if (region.contains(Address.address(s.r(), s.c()+1)))

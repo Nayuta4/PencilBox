@@ -1,7 +1,7 @@
 package pencilbox.heyawake;
 
 import pencilbox.common.core.Address;
-import pencilbox.common.core.Area;
+import pencilbox.common.core.AreaBase;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.io.PzprReaderBase;
 
@@ -13,7 +13,7 @@ public class PzprReader extends PzprReaderBase {
 	
 	private Board bd;
 
-	private Area[] areaArray;
+	private AreaBase[] areaArray;
 	private Square[] squareArray;
 	int nSquare;
 	
@@ -43,9 +43,9 @@ public class PzprReader extends PzprReaderBase {
 	}
 
 	private void makeAreas() {
-		areaArray = new Area[nArea];
+		areaArray = new AreaBase[nArea];
 		for (int k=0; k<nArea; k++) {
-			areaArray[k] = new Area();
+			areaArray[k] = new AreaBase();
 		}
 		for (int i = 0; i < bd.rows()*bd.cols(); i++) {
 			int k = areaIds[i]-1;
@@ -75,7 +75,7 @@ public class PzprReader extends PzprReaderBase {
 	/**
 	 * 領域に外接する四角形領域を作成する。
 	 */
-	public Square makeCircumscribedSquare(Area area) {
+	public Square makeCircumscribedSquare(AreaBase area) {
 		int r1 = bd.cols();
 		int r2 = -1;
 		int c1 = bd.rows();

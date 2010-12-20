@@ -5,7 +5,7 @@ import pencilbox.common.core.Address;
 /**
  * 「へやわけ」部屋クラス
  */
-public class Square extends pencilbox.common.core.Square {
+public class Square extends pencilbox.common.core.SquareBase {
 
 	static final int ANY = -1;
 

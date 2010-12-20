@@ -206,7 +206,7 @@ public class BoardBase {
 	 * @param area 領域
 	 * @return 領域全体が盤内にあれば true, そうでなければ false を返す。
 	 */
-	public boolean isAreaOn(Area area) {
+	public boolean isAreaOn(AreaBase area) {
 		for (Address pos : area) {
 			if (!isOn(pos))
 				return false;
@@ -218,8 +218,8 @@ public class BoardBase {
 	 * 盤面全体を含む領域を作成して返す。
 	 * @return 盤面全体を含む領域。
 	 */
-	public Area getWholeBoardArea() {
-		Area area = new Area();
+	public AreaBase getWholeBoardArea() {
+		AreaBase area = new AreaBase();
 		for (int r = 0; r < rows(); r++) {
 			for (int c = 0; c < cols(); c++) {
 				area.add(Address.address(r, c));

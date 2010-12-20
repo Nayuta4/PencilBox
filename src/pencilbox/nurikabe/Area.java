@@ -4,7 +4,7 @@ package pencilbox.nurikabe;
 /**
  * 「ぬりかべ」領域クラス
  */
-public class Area extends pencilbox.common.core.Area {
+public class Area extends pencilbox.common.core.AreaBase {
 
 	static int NEXT_ID = 1;
 	static int MULTIPLE_NUMBER = -1;

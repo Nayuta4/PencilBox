@@ -3,7 +3,7 @@ package pencilbox.slalom;
 import java.util.ArrayList;
 
 import pencilbox.common.core.Address;
-import pencilbox.common.core.Area;
+import pencilbox.common.core.AreaBase;
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.BoardCopierBase;
 import pencilbox.common.core.Rotator2;
@@ -14,7 +14,7 @@ import pencilbox.common.core.SideAddress;
  */
 public class BoardCopier extends BoardCopierBase {
 
-	public void copyRegion(BoardBase srcBoardBase, BoardBase boardBase, Area region, Address from, Address to, int rotation) {
+	public void copyRegion(BoardBase srcBoardBase, BoardBase boardBase, AreaBase region, Address from, Address to, int rotation) {
 		Board srcBoard = (Board) srcBoardBase;
 		Board board = (Board) boardBase;
 		for (Address s : region) {
@@ -45,7 +45,7 @@ public class BoardCopier extends BoardCopierBase {
 		}
 	}
 
-	public void eraseRegion(BoardBase srcBoardBase, Area region) {
+	public void eraseRegion(BoardBase srcBoardBase, AreaBase region) {
 		Board board = (Board) srcBoardBase;
 		ArrayList<SideAddress> list = region.innerBorders();
 		for (SideAddress s : list) {

@@ -12,14 +12,14 @@ import java.util.TreeSet;
  * 領域クラス
  * 複数のアドレスの集合
  */
-public class Area implements Set<Address> {
+public class AreaBase implements Set<Address> {
 	
 	private Set<Address> cellList;
 	
 	/**
 	 * コンストラクタ
 	 */
-	public Area() {
+	public AreaBase() {
 		cellList = new TreeSet<Address>();
 	}
 	public String toString() {

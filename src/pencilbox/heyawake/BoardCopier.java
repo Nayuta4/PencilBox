@@ -26,7 +26,7 @@ public class BoardCopier extends BoardCopierBase {
 		}
 	}
 
-	public void copyRegion(BoardBase srcBoardBase, BoardBase boardBase, pencilbox.common.core.Area region, Address from, Address to, int rotation) {
+	public void copyRegion(BoardBase srcBoardBase, BoardBase boardBase, pencilbox.common.core.AreaBase region, Address from, Address to, int rotation) {
 		Board srcBoard = (Board) srcBoardBase;
 		Board board = (Board) boardBase;
 		for (Address s : region) {
@@ -54,7 +54,7 @@ public class BoardCopier extends BoardCopierBase {
 		}
 	}
 
-	public void eraseRegion(BoardBase boardBase, pencilbox.common.core.Area region) {
+	public void eraseRegion(BoardBase boardBase, pencilbox.common.core.AreaBase region) {
 		Board board = (Board) boardBase;
 		for (Address s : region) {
 			board.changeState(s, Board.UNKNOWN);

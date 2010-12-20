@@ -6,7 +6,7 @@ import java.util.TreeSet;
 /**
  * ‹¤’ÊlŠpƒNƒ‰ƒX
  */
-public class Square {
+public class SquareBase {
 	
 	private int r0;
 	private int c0;
@@ -20,7 +20,7 @@ public class Square {
 	 * @param rb ‘¼•û‚ÌŠp‚ÌsÀ•W
 	 * @param cb ‘¼•û‚ÌŠp‚Ì—ñÀ•W
 	 */
-	public Square(int ra, int ca, int rb, int cb) {
+	public SquareBase(int ra, int ca, int rb, int cb) {
 		this.r0 = ra<rb?ra:rb;
 		this.c0 = ca<cb?ca:cb;
 		this.r1 = ra<rb?rb:ra;
@@ -31,7 +31,7 @@ public class Square {
 	 * @param posA ˆê•û‚ÌŠp‚ÌÀ•W
 	 * @param posB ‘¼•û‚ÌŠp‚ÌÀ•W
 	 */
-	public Square(Address posA, Address posB) {
+	public SquareBase(Address posA, Address posB) {
 		this(posA.r(), posA.c(), posB.r(), posB.c());
 	}
 	/**
@@ -39,7 +39,7 @@ public class Square {
 	 * ˆø”‚ÌlŠp‚Æ“¯‚¶À•W‚ÌlŠp‚ğì¬‚·‚éB
 	 * @param s lŠp
 	 */
-	public Square(Square s) {
+	public SquareBase(SquareBase s) {
 		this(s.r0, s.c0, s.r1, s.c1);
 	}
 
@@ -101,7 +101,7 @@ public class Square {
 		set(p0.r(), p0.c(), p1.r(), p1.c());
 	}
 
-	public void set(Square a) {
+	public void set(SquareBase a) {
 		set(a.r0(), a.c0(), a.r1(), a.c1());
 	}
 
@@ -156,7 +156,7 @@ public class Square {
 	 * @param o ”äŠr‘ÎÛ‚ÌlŠp
 	 * @return lŠp‚ÌŠp‚ÌÀ•W‚ªˆê’v‚·‚ê‚Î true
 	 */
-	public boolean equals(Square o) {
+	public boolean equals(SquareBase o) {
 		if (this == o) 
 			return true;
 		if (this.r0 == o.r0 && this.c0 == o.c0 && this.r1 == o.r1 && this.c1 == o.c1)
