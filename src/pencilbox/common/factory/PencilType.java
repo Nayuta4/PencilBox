@@ -21,12 +21,14 @@ public final class PencilType {
 	public static final PencilType KURODOKO    = new PencilType("kurodoko",    Messages.getString("PencilType.kurodoko"),     9); //$NON-NLS-1$ //$NON-NLS-2$
 	public static final PencilType GOISHI      = new PencilType("goishi",      Messages.getString("PencilType.goishi"),       8); //$NON-NLS-1$ //$NON-NLS-2$
 	public static final PencilType SHIKAKU     = new PencilType("shikaku",     Messages.getString("PencilType.shikaku"),     10); //$NON-NLS-1$ //$NON-NLS-2$
+	public static final PencilType SHAKASHAKA  = new PencilType("shakashaka",  Messages.getString("PencilType.shakashaka"),  10); //$NON-NLS-1$ //$NON-NLS-2$
 	public static final PencilType SUDOKU      = new PencilType("sudoku",      Messages.getString("PencilType.sudoku"),       9); //$NON-NLS-1$ //$NON-NLS-2$
 	public static final PencilType SLALOM      = new PencilType("slalom",      Messages.getString("PencilType.slalom"),      10); //$NON-NLS-1$ //$NON-NLS-2$
 	public static final PencilType SLITHERLINK = new PencilType("slitherlink", Messages.getString("PencilType.slitherlink"), 11); //$NON-NLS-1$ //$NON-NLS-2$
 	public static final PencilType TENTAISHO   = new PencilType("tentaisho",   Messages.getString("PencilType.tentaisho"),   10); //$NON-NLS-1$ //$NON-NLS-2$
 	public static final PencilType NUMBERLINK  = new PencilType("numberlink",  Messages.getString("PencilType.numberlink"),  10); //$NON-NLS-1$ //$NON-NLS-2$
 	public static final PencilType NURIKABE    = new PencilType("nurikabe",    Messages.getString("PencilType.nurikabe"),    10); //$NON-NLS-1$ //$NON-NLS-2$
+	public static final PencilType NORINORI    = new PencilType("norinori",    Messages.getString("PencilType.norinori"),    10); //$NON-NLS-1$ //$NON-NLS-2$
 	public static final PencilType HAKYUKOKA   = new PencilType("hakyukoka",   Messages.getString("PencilType.hakyukoka"),   10); //$NON-NLS-1$ //$NON-NLS-2$
 	public static final PencilType HASHI       = new PencilType("hashi",       Messages.getString("PencilType.hashi"),        9); //$NON-NLS-1$ //$NON-NLS-2$
 	public static final PencilType BIJUTSUKAN  = new PencilType("bijutsukan",  Messages.getString("PencilType.bijutsukan"),  10); //$NON-NLS-1$ //$NON-NLS-2$
@@ -45,12 +47,14 @@ public final class PencilType {
 		KURODOKO,
 		GOISHI,
 		SHIKAKU,
+		SHAKASHAKA,
 		SUDOKU,
 		SLALOM,
 		SLITHERLINK,
 		TENTAISHO,
 		NUMBERLINK,
 		NURIKABE,
+		NORINORI,
 		HAKYUKOKA,
 		HASHI,
 		BIJUTSUKAN,
