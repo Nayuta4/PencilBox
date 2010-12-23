@@ -108,7 +108,6 @@ public class Board extends BoardBase {
 	public void setWall(Address p, Wall a) {
 		wall[p.r()][p.c()] = a;
 	}
-	
 	/**
 	 * そのマスの所属する領域を取得する
 	 * そのマスが領域に属していない場合は null を返す
@@ -298,7 +297,7 @@ public class Board extends BoardBase {
 	int[][] getState() {
 		return state;
 	}
-	
+
 	public void initBoard() {
 		initTetrominos();
 	}
@@ -396,7 +395,7 @@ public class Board extends BoardBase {
 		}
 		return result;
 	}
-	
+
 	private int checkConnection() {
 		ArrayUtil.initArrayObject2(wall, null);
 		wallList.clear();
@@ -443,7 +442,7 @@ public class Board extends BoardBase {
 		}
 		return result;
 	}
-	
+
 	public String checkAnswerString() {
 		int result = checkAnswerCode();
 		if (result==0)
