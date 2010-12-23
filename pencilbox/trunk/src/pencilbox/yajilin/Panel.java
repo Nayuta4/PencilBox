@@ -19,7 +19,7 @@ public class Panel extends PanelBase {
 	private Board board;
 
 	/**
-	 * 
+	 *
 	 */
 	public Panel() {
 		super();
@@ -107,7 +107,7 @@ public class Panel extends PanelBase {
 			drawString(g, toX(c) + getHalfCellSize(), toY(r) + getHalfCellSize() + getCellSize()*1/12, numberS);
 		}
 	}
-	
+
 	private String getArrowString(int direction) {
 		switch (direction) {
 		case Direction.UP:

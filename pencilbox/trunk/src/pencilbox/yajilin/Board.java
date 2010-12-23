@@ -16,7 +16,7 @@ import pencilbox.util.ArrayUtil;
  * 「ヤジリン」盤面クラス
  */
 public class Board extends BoardBase {
-	
+
 	static final int UNKNOWN = 0;
 	static final int LINE = 1;
 	static final int NOLINE = -1; // GUIでは不使用
@@ -73,7 +73,7 @@ public class Board extends BoardBase {
 	 * @param c 列座標
 	 */
 	public int getNumber(int r, int c) {
-		return number[r][c]; 
+		return number[r][c];
 	}
 
 	public int getNumber(Address pos) {
@@ -88,7 +88,7 @@ public class Board extends BoardBase {
 		int n = getNumber(p);
 		return n >=0 ? n&15 : -1; 
 	}
-	
+
 	/**
 	 * 指定したマスに上向き矢印の数字を設定する。
 	 * @param p 座標
@@ -137,7 +137,7 @@ public class Board extends BoardBase {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * 空白マスにする
 	 * @param p 座標
@@ -326,7 +326,7 @@ public class Board extends BoardBase {
 		}
 		initBoard();
 	}
-	
+
 	public void trimAnswer() {
 		for (Address p : cellAddrs()) {
 			if (getNumber(p) == WHITE) {
@@ -338,7 +338,7 @@ public class Board extends BoardBase {
 	public void initBoard() {
 		initLinks();
 	}
-	
+
 	void initLinks() {
 		Link.resetId();
 		linkList.clear();
@@ -348,7 +348,7 @@ public class Board extends BoardBase {
 			initLink(p);
 		}
 	}
-	
+
 	/**
 	 * そのマスの上下左右の隣接４マスに黒マスがあるかどうかを調べる
 	 * @param p
@@ -392,7 +392,7 @@ public class Board extends BoardBase {
 	}
 	/**
 	 * Link 併合
-	 */	
+	 */
 	void connectLink(SideAddress p) {
 		Link newLink = new Link();
 		for (int d = 0; d < 2; d++) {
@@ -468,7 +468,7 @@ public class Board extends BoardBase {
 			result |= 4;
 		return result;
 	}
-	
+
 	private int checkArrows() {
 		int result = 0;
 		for (Address p : cellAddrs()) {
@@ -483,7 +483,7 @@ public class Board extends BoardBase {
 		}
 		return result;
 	}
-	
+
 	int checkArrow(Address p0) {
 		int result = 0;
 		int blackCount = 0;
@@ -512,7 +512,7 @@ public class Board extends BoardBase {
 	public String checkAnswerString() {
 		int result = checkAnswerCode();
 		if (result == 0)
-			return COMPLETE_MESSAGE; 
+			return COMPLETE_MESSAGE;
 		StringBuffer message = new StringBuffer();
 		if ((result & 1) == 1)
 			message.append(Messages.getString("yajilin.AnswerCheckMessage1")); //$NON-NLS-1$
