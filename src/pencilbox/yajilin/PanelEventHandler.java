@@ -17,7 +17,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	private static final int PRE_BLACK = -19;
 
 	/**
-	 * 
+	 *
 	 */
 	public PanelEventHandler() {
 		setMaxInputNumber(9);
