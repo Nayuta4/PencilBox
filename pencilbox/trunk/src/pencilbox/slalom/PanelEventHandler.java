@@ -19,13 +19,19 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 * 
 	 */
 	public PanelEventHandler() {
-		setMaxInputNumber(999);
 	}
 
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard;
 	}
 
+	protected int getMaxInputNumber() {
+		int n = board.getNGate();
+		if (n >= 99)
+			return 999;
+		else
+			return 99;
+	}
 	/*
 	 * 「スラローム」マウス操作
 	 */
