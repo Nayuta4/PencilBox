@@ -26,6 +26,9 @@ public class Board extends BoardBase {
 	static final int OUTER = -9;
 	static final int UNDECIDED_NUMBER = -4;
 
+	private static final int ARROW_SHIFT = 4;
+	private static final int NUMBER_MASK = (1 << ARROW_SHIFT) - 1;
+
 	private int[][] number;  // マスの状態
 	private int[][][] state; // 辺の状態
 
@@ -86,7 +89,7 @@ public class Board extends BoardBase {
 	 */
 	public int getArrowNumber(Address p) {
 		int n = getNumber(p);
-		return n >=0 ? n&15 : -1; 
+		return n >=0 ? n&NUMBER_MASK : -1;
 	}
 
 	/**
@@ -103,7 +106,7 @@ public class Board extends BoardBase {
 	 */
 	public int getArrowDirection(Address p) {
 		int n = getNumber(p);
-		return n >= 0 ? (n>>4) & 3 : -1; 
+		return n >= 0 ? (n>>ARROW_SHIFT) & 3 : -1;
 	}
 	/**
 	 * 指定したマスの矢印の方角を設定する。数字マスに対して使用する。
@@ -111,7 +114,7 @@ public class Board extends BoardBase {
 	 */
 	public void setArrowDirection(Address p, int dir) {
 		if (dir < 0 || dir > 3) return;
-		int n = (getNumber(p) & ~(3 << 4)) | (dir << 4); 
+		int n = (getNumber(p) & ~(3 << ARROW_SHIFT)) | (dir << ARROW_SHIFT);
 		setNumber(p, n);
 	}
 	/**
@@ -183,8 +186,8 @@ public class Board extends BoardBase {
 	 */
 	static int getNumberValue(int n, int d) {
 		if (d >= 0 && d <= 3) {
-			n &= ~(3 << 4);
-			n |= (d << 4); 
+			n &= ~(3 << ARROW_SHIFT);
+			n |= (d << ARROW_SHIFT);
 		}
 		return n;
 	}
@@ -457,7 +460,7 @@ public class Board extends BoardBase {
 			if (l > 2) {
 				result |= 1;
 			} else if ( l == 1 ) {
-				result |= 2; 
+				result |= 2;
 			}
 			if (isBlack(p) && (l > 0))
 				result |= 64;
