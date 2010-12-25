@@ -15,7 +15,7 @@ import pencilbox.common.gui.PanelBase;
 public class Panel extends PanelBase {
 
 	private Board board;
-	
+
 	/**
 	 * Panel ‚ğ¶¬‚·‚é
 	 */
