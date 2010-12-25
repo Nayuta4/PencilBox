@@ -17,9 +17,7 @@ public class BoardCopier extends BoardCopierBase {
 			if (board.isOn(d)) {
 				int st = srcBoard.getState(s);
 				if (Board.isTriangle(st)) {
-//					System.out.print(s.toString() + " : " + st+ " -> ");
 					st = rotateDirection(st, rotation);
-//					System.out.println(" -> " + st);
 				}
 				board.changeNumber(d, srcBoard.getNumber(s));
 				board.changeState(d, st);
@@ -35,28 +33,30 @@ public class BoardCopier extends BoardCopierBase {
 		}
 	}
 
+	/**
+	 * Î‚ß‚S•ûŒü‚ğ‰ñ“]‚·‚é
+	 * @param direction •ûŒü
+	 * @param rotation ‰ñ“]”Ô†
+	 * @return ‰ñ“]Œã‚Ì”Ô†
+	 */
 	public static int rotateDirection(int direction, int rotation) {
-		if (Board.isTriangle(direction)) {
-			switch (rotation) {
-				case 0 :
-				case 1 :
-				case 2 :
-				case 3 :
-					direction = (direction + rotation) % 4 + 4;
-					break;
-				case 4 :
-				case 5 :
-				case 6 :
-				case 7 :
-					direction = (direction + rotation) % 4 + 4;
-					if ((direction&1)==1)
-						direction = (direction^2);
-					break;
-			}
-			return direction;
-		} else {
-			return direction;
+		switch (rotation) {
+			case 0 :
+			case 1 :
+			case 2 :
+			case 3 :
+				direction = (direction + rotation) % 4 + 4; // ”Ô†‚ğ1‚Â‚¸‚ç‚·
+				break;
+			case 4 :
+			case 5 :
+			case 6 :
+			case 7 :
+				direction = (direction + rotation) % 4 + 4;  // ”Ô†‚ğ1‚Â‚¸‚ç‚µ‚Ä
+				if ((direction&1)==1)                        // 5(LD)‚Æ7(RU)‚ğ“ü‚ê‘Ö‚¦‚é
+					direction = (direction^2);
+				break;
 		}
+		return direction;
 	}
 	
 }
