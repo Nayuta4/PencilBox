@@ -162,6 +162,7 @@ public class ResourceBundle_ja extends ListResourceBundle {
     { "Menu.illuminatedCellColorItem"               , "照らされたマス"                                             } ,
     { "Menu.stoneOutlineColorItem"                  , "石の縁"                                                     } ,
     { "Menu.stoneColorItem"                         , "石"                                                         } ,
+    { "Menu.triangleColorItem"                      , "三角形"                                                     } ,
 
     { "bijutsukan.AnswerCheckMessage1"              , "複数の照明のある列がある\n"                                 } ,
     { "bijutsukan.AnswerCheckMessage2"              , "照らされていないマスがある\n"                               } ,
@@ -220,6 +221,8 @@ public class ResourceBundle_ja extends ListResourceBundle {
     { "nurikabe.AnswerCheckMessage5"                , "数字を含まないシマがある\n"                                 } ,
     { "nurikabe.AnswerCheckMessage6"                , "黒マスが複数に分断されている\n"                             } ,
     { "nurikabe.AnswerCheckMessage7"                , "黒マスが２ｘ２マスのかたまりになっている\n"                 } ,
+    { "shakashaka.AnswerCheckMessage1"              , "三角形の個数の合っていない数字がある\n"                               } ,
+    { "shakashaka.AnswerCheckMessage2"              , "長方形でない領域がある\n"                                 } ,
     { "shikaku.AnswerCheckMessage1"                 , "複数の数字を含む四角がある\n"                               } ,
     { "shikaku.AnswerCheckMessage2"                 , "数字を含まない四角がある\n"                                 } ,
     { "shikaku.AnswerCheckMessage3"                 , "面積が数字を超える四角がある\n"                             } ,
