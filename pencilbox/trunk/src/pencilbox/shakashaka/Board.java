@@ -162,7 +162,7 @@ public class Board extends BoardBase {
 		if (st == prev)
 			return;
 		if (isRecordUndo())
-			fireUndoableEditUpdate(new CellEditStep(EditType.NUMBER, p, prev, st));
+			fireUndoableEditUpdate(new CellEditStep(EditType.STATE, p, prev, st));
 		setState(p, st);
 		initAreas();
 	}
@@ -180,7 +180,7 @@ public class Board extends BoardBase {
 	public void undo(AbstractStep step) {
 		if (step instanceof CellEditStep) {
 			CellEditStep s = (CellEditStep) step;
-			if (step.getType() == EditType.NUMBER) {
+			if (step.getType() == EditType.STATE) {
 				changeState(s.getPos(), s.getBefore());
 			} else if (step.getType() == EditType.FIXED) {
 				changeNumber(s.getPos(), s.getBefore());
@@ -191,7 +191,7 @@ public class Board extends BoardBase {
 	public void redo(AbstractStep step) {
 		if (step instanceof CellEditStep) {
 			CellEditStep s = (CellEditStep) step;
-			if (step.getType() == EditType.NUMBER) {
+			if (step.getType() == EditType.STATE) {
 				changeState(s.getPos(), s.getAfter());
 			} else if (step.getType() == EditType.FIXED) {
 				changeNumber(s.getPos(), s.getAfter());
