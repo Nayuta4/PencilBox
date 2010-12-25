@@ -162,6 +162,7 @@ public class ResourceBundle extends ListResourceBundle {
     { "Menu.illuminatedCellColorItem"               , "Illuminated Cell"                                           } ,
     { "Menu.stoneOutlineColorItem"                  , "Stone Outline"                                              } ,
     { "Menu.stoneColorItem"                         , "Stone"                                                      } ,
+    { "Menu.triangleColorItem"                      , "Triangle"                                                   } ,
 
     { "bijutsukan.AnswerCheckMessage1"              , "Two or more bulbs placed in a same line.\n"                 } ,
     { "bijutsukan.AnswerCheckMessage2"              , "There are cells not illuminated.\n"                         } ,
@@ -220,6 +221,8 @@ public class ResourceBundle extends ListResourceBundle {
     { "nurikabe.AnswerCheckMessage5"                , "There is an area with no figure.\n"                         } ,
     { "nurikabe.AnswerCheckMessage6"                , "Black areas are divided.\n"                                 } ,
     { "nurikabe.AnswerCheckMessage7"                , "There are black cells that forms a 2x2 square.\n"           } ,
+    { "shakashaka.AnswerCheckMessage1"              , "There is a black cel with wrong number of triangles.\n"     } ,
+    { "shakashaka.AnswerCheckMessage2"              , "There is an area which is not recutangular.\n"              } ,
     { "shikaku.AnswerCheckMessage1"                 , "There is an area with two or more figures.\n"               } ,
     { "shikaku.AnswerCheckMessage2"                 , "There is an area with no figure.\n"                         } ,
     { "shikaku.AnswerCheckMessage3"                 , "There is an area with too large size.\n"                    } ,
