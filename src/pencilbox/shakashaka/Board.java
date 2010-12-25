@@ -168,9 +168,7 @@ public class Board extends BoardBase {
 	}
 
 	public void changeNumber(Address p, int n) {
-		if (getState(p) != UNKNOWN) {
-			changeState(p, UNKNOWN);
-		}
+		changeState(p, UNKNOWN);
 		int prev = getNumber(p);
 		if (n == prev)
 			return;

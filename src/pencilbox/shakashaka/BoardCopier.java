@@ -21,8 +21,8 @@ public class BoardCopier extends BoardCopierBase {
 					st = rotateDirection(st, rotation);
 //					System.out.println(" -> " + st);
 				}
-				board.changeState(d, st);
 				board.changeNumber(d, srcBoard.getNumber(s));
+				board.changeState(d, st);
 			}
 		}
 	}
@@ -30,8 +30,8 @@ public class BoardCopier extends BoardCopierBase {
 	public void eraseRegion(BoardBase boardBase, pencilbox.common.core.AreaBase region) {
 		Board board = (Board) boardBase;
 		for (Address s : region) {
-			board.changeNumber(s, Board.BLANK);
 			board.changeState(s, Board.UNKNOWN);
+			board.changeNumber(s, Board.BLANK);
 		}
 	}
 
