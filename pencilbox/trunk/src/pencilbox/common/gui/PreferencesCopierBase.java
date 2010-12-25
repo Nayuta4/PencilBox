@@ -190,6 +190,8 @@ public class PreferencesCopierBase {
 				setColorProperty(key, panel.getBulbColor());
 			else if (key == PreferenceKey.CROSS_COLOR)
 				setColorProperty(key, panel.getCrossColor());
+			else if (key == PreferenceKey.GATE_COLOR)
+				setColorProperty(key, panel.getGateColor());
 			else if (key == PreferenceKey.PAINT_COLOR)
 				setColorProperty(key, panel.getPaintColor());
 			else if (key == PreferenceKey.ILLUMINATED_CELL_COLOR)
