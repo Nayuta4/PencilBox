@@ -8,7 +8,6 @@ import pencilbox.common.core.Direction;
 import pencilbox.resource.Messages;
 import pencilbox.util.ArrayUtil;
 
-
 /**
  * 「美術館」盤面クラス
  */
