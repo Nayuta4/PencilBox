@@ -1,6 +1,6 @@
 package pencilbox.shakashaka;
 
-import java.util.Arrays;
+import java.awt.event.MouseEvent;
 
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
@@ -14,10 +14,7 @@ import pencilbox.common.gui.PanelEventHandlerBase;
 public class PanelEventHandler extends PanelEventHandlerBase {
 
 	private Board board;
-	
-	/**
-	 * Panel を生成する
-	 */
+
 	public PanelEventHandler() {
 		setMaxInputNumber(5);
 	}
@@ -31,12 +28,52 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 */
 	private int currentState = Board.UNKNOWN;
 
-	protected void leftPressed(Address pos) {
-		toggleState(pos, +1);
+	public void mousePressed(MouseEvent e) {
+		Address newPos = pointToAddress(e);
+		int corner;
+		if (!isOn(newPos))
+			return;
+		int yy = (e.getY() - getPanel().getOffsety()) % getPanel().getCellSize();
+		int xx = (e.getX() - getPanel().getOffsetx()) % getPanel().getCellSize();
+		if (xx < getPanel().getHalfCellSize())
+			if (yy < getPanel().getHalfCellSize())
+				corner = Board.LTUP;
+			else
+				corner = Board.LTDN;
+		else
+			if (yy < getPanel().getHalfCellSize())
+				corner = Board.RTUP;
+			else
+				corner = Board.RTDN;
+		int button = getMouseButton(e);
+		if (button == 1) {
+			leftPressed(newPos, corner);
+		} else if (button == 3) {
+			rightPressed(newPos);
+		}
+		moveCursor(newPos);
+		repaint();
+	}
+
+	protected void leftPressed(Address pos, int corner) {
+		toggleStateCorner(pos, corner);
 	}
 
 	protected void rightPressed(Address pos) {
-		toggleState(pos, -1);
+		toggleStateCorner(pos, Board.WHITE);
+	}
+
+	protected void toggleStateCorner(Address pos, int st) {
+		if (Board.isNumber(board.getNumber(pos)))
+			return;
+		int st0 = board.getState(pos);
+		if (st == st0) {
+			board.changeState(pos, Board.UNKNOWN);
+			currentState = Board.UNKNOWN;
+		} else {
+			board.changeState(pos, st);
+			currentState = st;
+		}
 	}
 
 	protected void leftDragged(Address pos) {
@@ -45,22 +82,6 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 
 	protected void rightDragged(Address pos) {
 		sweepState(pos);
-	}
-
-	private static int[] cycle = {Board.UNKNOWN, Board.LTUP, Board.LTDN, Board.RTDN, Board.RTUP, Board.WHITE};
-	/**
-	 * マスの状態を 三角形を順番に切り替える
-	 * @param pos マス座標
-	 * @param b 切り替える順番
-	 */
-	private void toggleState(Address pos, int b) {
-		if (Board.isNumber(board.getNumber(pos)))
-			return;
-		int st0 = board.getState(pos);
-		int i = Arrays.binarySearch(cycle, st0);
-		int st = cycle[(i + b + 6) % 6];
-		currentState = st;
-		board.changeState(pos, st);
 	}
 
 	private void sweepState(Address pos) {
