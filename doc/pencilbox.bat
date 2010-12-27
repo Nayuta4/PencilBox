@@ -6,6 +6,9 @@ javaw -cp pencilbox.jar pencilbox.common.factory.PencilBoxLauncher
 
 exit
 
+rem スリザーリンクなどの巨大サイズの盤面などでStackOverflowErrorが発生する場合は，
+rem javaw -Xss1m などと指定してみてください。
+
 rem パズルの種類ごとに問題ファイルを指定して実行する
 
 javaw -cp bijutsukan.jar  pencilbox.bijutsukan.Main  sample/bijutsukan/BJ_sample02.txt 
