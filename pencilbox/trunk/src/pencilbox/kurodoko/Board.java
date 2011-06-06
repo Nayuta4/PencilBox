@@ -76,11 +76,9 @@ public class Board extends BoardBase {
 	/**
 	 * 引数のマスが数字かどうか
 	 */
-	public boolean isNumber(int r, int c) {
-		return state[r][c] > 0;
-	}
 	public boolean isNumber(Address pos) {
-		return isNumber(pos.r(), pos.c());
+		int n = getState(pos);
+		return n > 0 || n == Board.UNDECIDED_NUMBER;
 	}
 	/**
 	 * 引数の座標が黒マスかどうか。
@@ -182,10 +180,10 @@ public class Board extends BoardBase {
 		} else if (prev == BLACK) {
 			cutChain(p);
 		}
-		if (st > 0) {
+		if (st > 0 || st == Board.UNDECIDED_NUMBER) {
 			setNumber(p, new Number(st));
 			initNumber(p);
-		} else if (prev > 0) {
+		} else if (prev > 0 || prev == Board.UNDECIDED_NUMBER) {
 			setNumber(p, null);
 		}
 		if (st == BLACK || prev == BLACK)
@@ -365,7 +363,7 @@ public class Board extends BoardBase {
 				if (getChain(p) == -1)
 					result |= (1<<1);
 			}
-			if (isNumber(p)) {
+			if (getState(p) > 0) {
 				int remainder = getNumber(p).getNSpace() - getNumber(p).getNumber();
 				if (remainder < 0)
 					result |= (1<<2);
