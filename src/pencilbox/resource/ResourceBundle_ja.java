@@ -104,6 +104,7 @@ public class ResourceBundle_ja extends ListResourceBundle {
     { "MenuCommand.dataExportDialog"                , "問題データ出力"                                             } ,
     { "MenuCommand.checkAnswerDialog"               , "正解判定"                                                   } ,
     { "MenuCommand.historyDialog"                   , "履歴"                                                       } ,
+    { "MenuCommand.indexLettersDialog"              , "行列番号表示"                                                 } ,
     { "MenuCommand.cellSizeDialog"                  , "表示サイズ"                                                 } ,
     { "MenuCommand.linkWidthDialog"                 , "線の太さ"                                                   } ,
     { "MenuCommand.aboutDialog"                     , "PencilBox について"                                         } ,
@@ -123,6 +124,9 @@ public class ResourceBundle_ja extends ListResourceBundle {
     { "PropertyDialog.labelDifficulty"              , "難易度"                                                     } ,
     { "PropertyDialog.labelSource"                  , "出典"                                                       } ,
     { "PanelEventHandlerBase.checkAnswerDialog"     , "正解判定"                                                   } ,
+    { "IndexLettersDialog.checkBox"                 , "座標表示"                                                     } ,
+    { "IndexLettersDialog.labelCols"                , "ヨコ："                                                     } ,
+    { "IndexLettersDialog.labelRows"                , "タテ："                                                     } ,
 
     { "Menu.countAreaSizeItem"                      , "シマのマス数を数える(C)"                                    } ,
     { "Menu.dotHintItem"                            , "可能な数字をドットで示す(D)"                                } ,

@@ -63,6 +63,7 @@ public class PanelBase extends JPanel implements Printable {
 	private boolean indexMode = false;
 	private boolean cursorMode = false;
 	private CellCursor cellCursor;
+	private int indexStyle[] = new int[] {1, 1};
 
 	private boolean indicateErrorMode = false;
 	private boolean showBeamMode = false;
@@ -393,16 +394,27 @@ public class PanelBase extends JPanel implements Printable {
 	 * @param g
 	 */
 	public void drawIndex(Graphics2D g) {
+		if (isIndexMode() == false)
+			return;
 		int firstIndex = 1;
 		g.setFont(indexFont);
 		g.setColor(indexColor);
-		if (isIndexMode() == false)
-			return;
-		for (int r = 0; r < rows(); r++) {
-			placeIndexNumber(g, r, -1, r + firstIndex);
-		}
+		String letter;
+		String[] indexLettersC = IndexLetters.getIndexLetters(this.indexStyle[0]).getLetters();
 		for (int c = 0; c < cols(); c++) {
-			placeIndexNumber(g, -1, c, c + firstIndex);
+			if (c < indexLettersC.length) 
+				letter = indexLettersC[c];
+			else 
+				letter = Integer.toString(c + firstIndex);
+			placeString(g, -1, c, letter);
+		}
+		String[] indexLettersR = IndexLetters.getIndexLetters(this.indexStyle[1]).getLetters();
+		for (int r = 0; r < rows(); r++) {
+			if (r < indexLettersR.length) 
+				letter = indexLettersR[r];
+			else 
+				letter = Integer.toString(r + firstIndex);
+			placeString(g, r, -1, letter);
 		}
 	}
 	/**
@@ -558,16 +570,6 @@ public class PanelBase extends JPanel implements Printable {
 		placeNumber(g, p.r(), p.c(), number);
 	}
 
-	/**
-	 * マスに数字を配置する
-	 * @param g
-	 * @param r 盤面上の行座標
-	 * @param c 盤面上の列座標
-	 * @param number 描く数字
-	 */
-	public void placeIndexNumber(Graphics2D g, int r, int c, int number) {
-		placeString(g, r, c, Integer.toString(number));
-	}
 	/**
 	 * マスを塗りつぶす
 	 * @param g
@@ -1058,7 +1060,23 @@ public class PanelBase extends JPanel implements Printable {
 		}
 		updatePreferredSize();
 	}
-	
+	/**
+	 * @param dir
+	 * @return
+	 */
+	public int getIndexStyle(int dir) {
+		if (dir >=0 && dir<=1)
+			return indexStyle[dir];
+		return 0;
+	}
+	/**
+	 * @param dir
+	 * @param i
+	 */
+	public void setIndexStyle(int dir, int i) {
+		if (dir >=0 && dir<=1)
+			this.indexStyle[dir] = i;
+	}
 	/**
 	 * @return the copyRegion
 	 */
