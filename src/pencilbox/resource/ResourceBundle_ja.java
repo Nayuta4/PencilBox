@@ -124,7 +124,7 @@ public class ResourceBundle_ja extends ListResourceBundle {
     { "PropertyDialog.labelDifficulty"              , "難易度"                                                     } ,
     { "PropertyDialog.labelSource"                  , "出典"                                                       } ,
     { "PanelEventHandlerBase.checkAnswerDialog"     , "正解判定"                                                   } ,
-    { "IndexLettersDialog.checkBox"                 , "座標表示"                                                     } ,
+    { "IndexLettersDialog.checkBox"                 , "番号表示"                                                     } ,
     { "IndexLettersDialog.labelCols"                , "ヨコ："                                                     } ,
     { "IndexLettersDialog.labelRows"                , "タテ："                                                     } ,
 
