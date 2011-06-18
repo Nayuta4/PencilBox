@@ -564,6 +564,19 @@ public class MenuCommand {
 		frame.resize();
 	}
 	/**
+	 *  [表示]-[行列番号表示]
+	 */
+	public void selectIndexLetters() {
+		boolean currentValue = getPanelBase().isIndexMode();
+		IndexLettersDialog indexLettersDialog = IndexLettersDialog.getInstance();
+		indexLettersDialog.setPanel(getPanelBase());
+		int result = indexLettersDialog.showDialog(frame, Messages.getString("MenuCommand.indexLettersDialog")); //$NON-NLS-1$
+		if (result == PencilBoxDialog.OK_OPTION) {
+			if (getPanelBase().isIndexMode() != currentValue)
+				getFrame().resize();
+		}
+	}
+	/**
 	 *  [表示]-[罫線表示]
 	 */
 	public void setGridStyle(boolean b) {

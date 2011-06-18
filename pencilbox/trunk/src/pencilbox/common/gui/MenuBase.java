@@ -238,7 +238,8 @@ public class MenuBase {
 		backgroundColorItem = addColorMenuItem(Messages.getString("MenuBase.backgroundColorItem")); //$NON-NLS-1$
 		gridColorItem = addColorMenuItem(Messages.getString("MenuBase.gridColorItem")); //$NON-NLS-1$
 		viewMenu.add(cellSizeItem = makeCommandMenuItem(Messages.getString("MenuBase.cellSizeItem"), 'S')); //$NON-NLS-1$
-		viewMenu.add(indexItem = makeCheckBoxCommandMenuItem(Messages.getString("MenuBase.indexItem"), 'I', false)); //$NON-NLS-1$
+//		viewMenu.add(indexItem = makeCheckBoxCommandMenuItem(Messages.getString("MenuBase.indexItem"), 'I', false)); //$NON-NLS-1$
+		viewMenu.add(indexItem = makeCommandMenuItem(Messages.getString("MenuBase.indexItem"), 'I')); //$NON-NLS-1$
 		viewMenu.add(gridStyleItem = makeCheckBoxCommandMenuItem(Messages.getString("MenuBase.gridStyleItem"), 'G', true)); //$NON-NLS-1$
 		if (linkWidthItem != null)
 			viewMenu.add(linkWidthItem);
@@ -638,7 +639,8 @@ public class MenuBase {
 		else if (target == regionEditModeItem)
 			command.setEditMode(PanelBase.REGION_EDIT_MODE);
 		else if (target == indexItem)
-			command.setIndexMode(target.isSelected());
+//			command.setIndexMode(target.isSelected());
+			command.selectIndexLetters();
 		else if (target == gridStyleItem)
 			command.setGridStyle(target.isSelected());
 		else if (target == cellSizeItem)
@@ -865,7 +867,7 @@ public class MenuBase {
 	}
 
 	public void updateCurrentMenuSelection() {
-		indexItem.setSelected(getPanelBase().isIndexMode());
+//		indexItem.setSelected(getPanelBase().isIndexMode());
 		gridStyleItem.setSelected(getPanelBase().getGridStyle() > 0);
 		setItemSelected(cursorItem, getPanelBase().isCursorMode());
 		setItemSelected(symmetricPlacementItem, getEventHandlerManager().isSymmetricPlacementMode());

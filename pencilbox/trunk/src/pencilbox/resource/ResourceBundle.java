@@ -104,6 +104,7 @@ public class ResourceBundle extends ListResourceBundle {
     { "MenuCommand.dataExportDialog"                , "Export Problem Data"                                        } ,
     { "MenuCommand.checkAnswerDialog"               , "Check Answer"                                               } ,
     { "MenuCommand.historyDialog"                   , "History"                                                    } ,
+    { "MenuCommand.indexLettersDialog"              , "Show Coordinates"                                           } ,
     { "MenuCommand.cellSizeDialog"                  , "Cell Size"                                                  } ,
     { "MenuCommand.linkWidthDialog"                 , "Link Width"                                                 } ,
     { "MenuCommand.aboutDialog"                     , "About PencilBox"                                            } ,
@@ -123,6 +124,9 @@ public class ResourceBundle extends ListResourceBundle {
     { "PropertyDialog.labelDifficulty"              , "Difficulty"                                                 } ,
     { "PropertyDialog.labelSource"                  , "Source"                                                     } ,
     { "PanelEventHandlerBase.checkAnswerDialog"     , "Check Answer"                                               } ,
+    { "IndexLettersDialog.checkBox"                 , "Show Index"                                                 } ,
+    { "IndexLettersDialog.labelCols"                , "Cols:"                                                      } ,
+    { "IndexLettersDialog.labelRows"                , "Rows:"                                                      } ,
 
     { "Menu.countAreaSizeItem"                      , "Count Area Size"                                            } ,
     { "Menu.dotHintItem"                            , "Dot Hint"                                                   } ,
