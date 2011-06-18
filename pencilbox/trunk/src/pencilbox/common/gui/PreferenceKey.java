@@ -15,6 +15,8 @@ public class PreferenceKey {
 
 	public static final PreferenceKey CELL_SIZE = new PreferenceKey("CellSize");
 	public static final PreferenceKey INDEX_MODE = new PreferenceKey("IndexMode");
+	public static final PreferenceKey INDEX_STYLE_0 = new PreferenceKey("IndexStyle0");
+	public static final PreferenceKey INDEX_STYLE_1 = new PreferenceKey("IndexStyle1");
 	public static final PreferenceKey GRID_STYLE = new PreferenceKey("GridStyle");
 	public static final PreferenceKey CURSOR_MODE = new PreferenceKey("CursorMode");
 	public static final PreferenceKey MARK_STYLE = new PreferenceKey("MarkStyle");

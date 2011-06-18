@@ -59,6 +59,8 @@ public class PreferencesCopierBase {
 		handler.setImmediateAnswerCheckMode(getBooleanProperty(PreferenceKey.IMMEDIATE_ANSWER_CHECK_MODE));
 		panel.setDisplaySize(getIntProperty(PreferenceKey.CELL_SIZE));
 		panel.changeIndexMode(getBooleanProperty(PreferenceKey.INDEX_MODE));
+		panel.setIndexStyle(0, getIntProperty(PreferenceKey.INDEX_STYLE_0));
+		panel.setIndexStyle(1, getIntProperty(PreferenceKey.INDEX_STYLE_1));
 		panel.setGridStyle(getIntProperty(PreferenceKey.GRID_STYLE));
 		panel.setMarkStyle(getIntProperty(PreferenceKey.MARK_STYLE));
 		panel.setCursorMode(getBooleanProperty(PreferenceKey.CURSOR_MODE));
@@ -143,6 +145,8 @@ public class PreferencesCopierBase {
 		setBooleanProperty(PreferenceKey.IMMEDIATE_ANSWER_CHECK_MODE, handler.isImmediateAnswerCheckMode());
 		setIntProperty(PreferenceKey.CELL_SIZE, panel.getCellSize());
 		setBooleanProperty(PreferenceKey.INDEX_MODE, panel.isIndexMode());
+		setIntProperty(PreferenceKey.INDEX_STYLE_0, panel.getIndexStyle(0));
+		setIntProperty(PreferenceKey.INDEX_STYLE_1, panel.getIndexStyle(1));
 		setIntProperty(PreferenceKey.GRID_STYLE, panel.getGridStyle());
 		setIntProperty(PreferenceKey.MARK_STYLE, panel.getMarkStyle());
 		setBooleanProperty(PreferenceKey.CURSOR_MODE, panel.isCursorMode());
