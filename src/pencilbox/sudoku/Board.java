@@ -55,6 +55,10 @@ public class Board extends BoardBase {
 		hint.initHint();
 	}
 
+	public int getMaxNumber() {
+		return maxNumber;
+	}
+
 	/**
 	 * @return Returns the number.
 	 */
@@ -336,4 +340,34 @@ public class Board extends BoardBase {
 		else
 			return ""; //$NON-NLS-1$
 	}
+
+	public void exchangeNumbers(int v1, int v2) {
+		exchangeNumbers(new int[] {v1, v2}, new int[] {v2, v1});
+	}
+
+	public void exchangeNumbers(int[] a, int[] b) {
+		Board board = this;
+		board.startCompoundUndo();
+		for (Address p : board.cellAddrs()) {
+			if (board.isStable(p)) {
+				int n = board.getNumber(p);
+				for (int k = 0; k < a.length; k++) {
+					if (n == a[k]) {
+						board.changeFixedNumber(p, b[k]);
+						break;
+					}
+				}
+			} else {
+				int n = board.getState(p);
+				for (int k = 0; k < a.length; k++) {
+					if (n == a[k]) {
+						board.changeAnswerNumber(p, b[k]);
+						break;
+					}
+				}
+			}
+		}
+		board.stopCompoundUndo();
+	}
+
 }

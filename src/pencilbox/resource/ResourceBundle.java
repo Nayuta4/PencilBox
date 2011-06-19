@@ -59,6 +59,7 @@ public class ResourceBundle extends ListResourceBundle {
     { "MenuBase.regionEditModeItem"                 , "Region Edit Mode"                                           } ,
     { "MenuBase.clearItem"                          , "Clear Answer"                                               } ,
     { "MenuBase.trimAnswerItem"                     , "Trim Answer"                                                } ,
+    { "MenuBase.exchangeNumbersItem"                , "Exchange Nubmers"                                           } ,
     { "MenuBase.symmetricPlacementItem"             , "Symmetric Placement"                                        } ,
     { "MenuBase.undoItem"                           , "Undo"                                                       } ,
     { "MenuBase.redoItem"                           , "Redo"                                                       } ,
@@ -127,6 +128,10 @@ public class ResourceBundle extends ListResourceBundle {
     { "IndexLettersDialog.checkBox"                 , "Show Index"                                                 } ,
     { "IndexLettersDialog.labelCols"                , "Cols:"                                                      } ,
     { "IndexLettersDialog.labelRows"                , "Rows:"                                                      } ,
+    { "ExchangeNumbersDialog.title"                 , "Exchange Numbers"                                                     } ,
+    { "ExchangeNumbersDialog.label1"                , "A NumberÅF"                                                     } ,
+    { "ExchangeNumbersDialog.label2"                , "Another Number"                                                     } ,
+    { "ExchangeNumbersDialog.buttonUpdate"          , "Exchange"                                                     } ,
 
     { "Menu.countAreaSizeItem"                      , "Count Area Size"                                            } ,
     { "Menu.dotHintItem"                            , "Dot Hint"                                                   } ,

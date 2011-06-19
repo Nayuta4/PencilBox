@@ -11,6 +11,8 @@ public class Menu extends MenuBase {
 	protected void buildEditMenu() {
 		addSymmetricPlacementMenuItem();
 		super.buildEditMenu();
+		editMenu.addSeparator();
+		editMenu.add(exchangeNumbersItem = makeCommandMenuItem(Messages.getString("MenuBase.exchangeNumbersItem"), 'X')); //$NON-NLS-1$
 	}
 
 	protected void buildViewMenu() {
