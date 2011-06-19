@@ -58,6 +58,7 @@ public class ResourceBundle_ja extends ListResourceBundle {
     { "MenuBase.problemEditModeItem"                , "問題入力モード(E)"                                          } ,
     { "MenuBase.regionEditModeItem"                 , "領域編集モード(G)"                                          } ,
     { "MenuBase.clearItem"                          , "解答消去(C)"                                                } ,
+    { "MenuBase.exchangeNumbersItem"                , "数字の交換(X)"                                             } ,
     { "MenuBase.trimAnswerItem"                     , "補助記号消去(T)"                                            } ,
     { "MenuBase.symmetricPlacementItem"             , "対称配置(S)"                                                } ,
     { "MenuBase.undoItem"                           , "元に戻す(U)"                                                } ,
@@ -127,6 +128,10 @@ public class ResourceBundle_ja extends ListResourceBundle {
     { "IndexLettersDialog.checkBox"                 , "番号表示"                                                     } ,
     { "IndexLettersDialog.labelCols"                , "ヨコ："                                                     } ,
     { "IndexLettersDialog.labelRows"                , "タテ："                                                     } ,
+    { "ExchangeNumbersDialog.title"                 , "数字の交換"                                                     } ,
+    { "ExchangeNumbersDialog.label1"                , "1つめの数字"                                                     } ,
+    { "ExchangeNumbersDialog.label2"                , "2つめの数字"                                                     } ,
+    { "ExchangeNumbersDialog.buttonUpdate"          , "交換"                                                     } ,
 
     { "Menu.countAreaSizeItem"                      , "シマのマス数を数える(C)"                                    } ,
     { "Menu.dotHintItem"                            , "可能な数字をドットで示す(D)"                                } ,

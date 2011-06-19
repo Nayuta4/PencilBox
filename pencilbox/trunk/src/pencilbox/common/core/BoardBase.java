@@ -100,13 +100,13 @@ public class BoardBase {
 	/**
 	 * 以降のアンドゥ操作を一つにまとめる
 	 */
-	protected void startCompoundUndo() {
+	public void startCompoundUndo() {
 		getUndoManager().startCompoundUndo();
 	}
 	/**
 	 * ここまでのアンドゥ操作を一つにまとめる
 	 */
-	protected void stopCompoundUndo() {
+	public void stopCompoundUndo() {
 		getUndoManager().stopCompoundUndo();
 	}
 
@@ -253,6 +253,9 @@ public class BoardBase {
 	 * 各サブクラスで実装する
 	 */
 	public void trimAnswer() {
+	}
+
+	public void exchangeNumbers(int v0, int v1) {
 	}
 	/**
 	 * 解答から盤面から白マスや×印などの補助的入力を消去する

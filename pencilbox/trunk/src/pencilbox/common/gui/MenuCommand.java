@@ -531,6 +531,17 @@ public class MenuCommand {
 	}
 	
 	/**
+	 *  [編集]-[数字の交換]
+	 */
+	public void exchangeNumbers() {
+		ExchangeNumbersDialog dialog = ExchangeNumbersDialog.getInstance();
+		dialog.setup(board, panel);
+		if (pencilType == PencilType.SUDOKU) {
+			dialog.setRange(1, ((pencilbox.sudoku.Board)board).getMaxNumber());
+		}
+		dialog.showDialog(frame, Messages.getString("ExchangeNumbersDialog.title")); //$NON-NLS-1$
+	}
+	/**
 	 *  [表示]-[カーソル]
 	 */
 	public void setCursorMode(boolean b) {

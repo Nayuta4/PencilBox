@@ -28,7 +28,7 @@ import pencilbox.resource.Messages;
 public class MenuBase {
 
 	private JMenu fileMenu;
-	private JMenu editMenu;
+	protected JMenu editMenu;
 	private JMenu viewMenu;
 	private JMenu helpMenu;
 	
@@ -49,6 +49,7 @@ public class MenuBase {
 	private JMenuItem aboutItem;
 	private JMenuItem clearItem;
 	private JMenuItem trimAnswerItem;
+	protected JMenuItem exchangeNumbersItem;
 	private JMenuItem symmetricPlacementItem;
 	private JMenuItem undoItem;
 	private JMenuItem redoItem;
@@ -207,6 +208,8 @@ public class MenuBase {
 		editMenu.add(clearItem = makeCommandMenuItem(Messages.getString("MenuBase.clearItem"), 'C')); //$NON-NLS-1$
 		if (trimAnswerItem != null) 
 			editMenu.add(trimAnswerItem);  // ("•â•‹L†Á‹(T)", 'T')
+		if (exchangeNumbersItem != null) 
+			editMenu.add(exchangeNumbersItem);  // "”šŒğŠ·(X)", 'X')
 		if (symmetricPlacementItem != null) {
 			editMenu.addSeparator();
 			editMenu.add(symmetricPlacementItem); // ("‘ÎÌ”z’u(S)", 'S')
@@ -610,6 +613,8 @@ public class MenuBase {
 			command.clear();
 		else if (target == trimAnswerItem)
 			command.trimAnswer();
+		else if (target == exchangeNumbersItem)
+			command.exchangeNumbers();
 		else if (target == symmetricPlacementItem)
 			command.setSymmetricPlacementMode(target.isSelected());
 		else if (target == undoItem)
