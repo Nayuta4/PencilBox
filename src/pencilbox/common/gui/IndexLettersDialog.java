@@ -56,6 +56,7 @@ public class IndexLettersDialog extends PencilBoxDialog {
     	checkBox.setSelected(p.isIndexMode());
 		for (int i=0; i<2; i++) {
 			comboBox[i].setSelectedItem(IndexLetters.getIndexLetters(p.getIndexStyle(i)));
+			comboBox[i].setEnabled(checkBox.isSelected());
 		}
     }
 
@@ -74,8 +75,9 @@ public class IndexLettersDialog extends PencilBoxDialog {
 			public void itemStateChanged(ItemEvent e) {
 				panel.changeIndexMode(checkBox.isSelected());
 				panel.repaint();
-//				comboBox[0].setEnabled(checkBox.isSelected());
-//				comboBox[1].setEnabled(checkBox.isSelected());
+				for (int i=0; i<2; i++) {
+					comboBox[i].setEnabled(checkBox.isSelected());
+				}
 			}
 		});
 
