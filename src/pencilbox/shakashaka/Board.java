@@ -50,12 +50,12 @@ public class Board extends BoardBase {
 	private int[] state;
 	private Area initializingArea; // initArea() ‚Å‚Ì—Ìˆæì¬’†‚É—p‚¢‚é‰¼‚Ì—Ìˆæ
 	private Area[] areas;
-	
+
 	private List<Area> areaList = new LinkedList<Area>();
 
 	protected void setup() {
 		super.setup();
-		state = new int[rows()*cols()]; 
+		state = new int[rows()*cols()];
 		number = new int[rows()*cols()];
 //		error = new int[rows()*cols()];
 //		flag = new int[rows()*cols()];
@@ -91,7 +91,7 @@ public class Board extends BoardBase {
 	public int getState(int r, int c) {
 		return getState(cell(r, c));
 	}
-	
+
 	public int getState(Address pos) {
 		return getState(a2i(pos));
 	}
@@ -111,7 +111,7 @@ public class Board extends BoardBase {
 	public void setState(int r, int c, int st) {
 		setState(cell(r, c), st);
 	}
-	
+
 	public void setState(Address pos, int st) {
 		setState(a2i(pos), st);
 	}
@@ -185,7 +185,7 @@ public class Board extends BoardBase {
 			} else if (step.getType() == EditType.FIXED) {
 				changeNumber(s.getPos(), s.getBefore());
 			}
-		} 
+		}
 	}
 
 	public void redo(AbstractStep step) {
@@ -282,7 +282,7 @@ public class Board extends BoardBase {
 		//		System.out.println(i2a(pp).toString()+"‚Í‚·‚Å‚É–K‚ê‚Ä‚¢‚é‚Ì‚Å‹A‚é");
 				continue;
 			}
-			
+
 			n += visit(pp, dd);
 		}
 		return n;
