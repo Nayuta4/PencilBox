@@ -4,9 +4,7 @@ import java.awt.event.MouseEvent;
 
 import pencilbox.common.core.Address;
 import pencilbox.common.core.BoardBase;
-import pencilbox.common.core.Direction;
 import pencilbox.common.gui.PanelEventHandlerBase;
-
 
 /**
  * 「シャカシャカ」マウス／キー操作処理クラス
@@ -27,27 +25,18 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 * 「シャカシャカ」マウス操作
 	 */
 	private int currentState = Board.UNKNOWN;
+	private Address currentStatePos = null;
+	private int oldCorner = 0;
 
 	public void mousePressed(MouseEvent e) {
 		Address newPos = pointToAddress(e);
-		int corner;
-		if (!isOn(newPos))
+		if (!isOn(newPos)) {
+			currentState = Board.UNKNOWN;
 			return;
-		int yy = (e.getY() - getPanel().getOffsety()) % getPanel().getCellSize();
-		int xx = (e.getX() - getPanel().getOffsetx()) % getPanel().getCellSize();
-		if (xx < getPanel().getHalfCellSize())
-			if (yy < getPanel().getHalfCellSize())
-				corner = Board.LTUP;
-			else
-				corner = Board.LTDN;
-		else
-			if (yy < getPanel().getHalfCellSize())
-				corner = Board.RTUP;
-			else
-				corner = Board.RTDN;
+		}
 		int button = getMouseButton(e);
 		if (button == 1) {
-			leftPressed(newPos, corner);
+			leftPressed(newPos, getCorner(e));
 		} else if (button == 3) {
 			rightPressed(newPos);
 		}
@@ -70,36 +59,100 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		if (st == st0) {
 			board.changeState(pos, Board.UNKNOWN);
 			currentState = Board.UNKNOWN;
+			currentStatePos = pos;
 		} else {
 			board.changeState(pos, st);
 			currentState = st;
+			currentStatePos = pos;
 		}
 	}
 
-	protected void leftDragged(Address pos) {
-		sweepState(pos);
+	public void mouseDragged(MouseEvent e) {
+		mouseDragged3(e);
+		Address newPos = pointToAddress(e);
+		if (!isOn(newPos)) {
+			oldPos = Address.nowhere();
+			return;
+		}
+
+		int button = getMouseButton(e);
+		if (button == 1 || button == 3) {
+			if (Board.LTUP <= currentState && currentState <= Board.RTUP) {
+				int corner = getCorner(e);
+
+				if (newPos.equals(oldPos)) {
+					// この場合のみ、同じマス内に止まるイベントを無視しない
+					if (corner == oldCorner)
+						// でも同じ角の領域から出ない場合にはイベントを無視する
+						return;
+
+					sweepState(newPos, corner);
+					oldCorner = corner;
+					// この場合のみ、同じマス内なので現在位置を更新しない
+				} else {
+					sweepState(newPos, corner);
+					oldCorner = corner;
+
+					moveCursor(newPos);
+					oldPos = newPos; // 現在位置を更新
+				}
+			} else {
+				if (newPos.equals(oldPos))
+					return; // 同じマス内に止まるイベントは無視
+
+				sweepState(newPos, currentState);
+
+				moveCursor(newPos);
+				oldPos = newPos; // 現在位置を更新
+			}
+		} else {
+			if (newPos.equals(oldPos))
+				return; // 同じマス内に止まるイベントは無視
+
+			moveCursor(newPos);
+			oldPos = newPos; // 現在位置を更新
+		}
+
+		repaint();
 	}
 
-	protected void rightDragged(Address pos) {
-		sweepState(pos);
+	private int getCorner(MouseEvent e) {
+		int corner;
+		int yy = (e.getY() - getPanel().getOffsety()) % getPanel().getCellSize();
+		int xx = (e.getX() - getPanel().getOffsetx()) % getPanel().getCellSize();
+		if (xx < getPanel().getHalfCellSize())
+			if (yy < getPanel().getHalfCellSize())
+				corner = Board.LTUP;
+			else
+				corner = Board.LTDN;
+		else
+			if (yy < getPanel().getHalfCellSize())
+				corner = Board.RTUP;
+			else
+				corner = Board.RTDN;
+		return corner;
 	}
 
-	private void sweepState(Address pos) {
+	private void sweepState(Address pos, int corner) {
 		if (Board.isNumber(board.getNumber(pos)))
 			return;
-		if (currentState == board.getState(pos))
-			return;
-		if (currentState == Board.LTUP || currentState == Board.RTDN) {
-			if (board.getState(Address.nextCell(pos, Direction.LTDN)) == currentState || board.getState(Address.nextCell(pos, Direction.RTUP)) == currentState) {
-			} else {
-				return;
-			}
-		} else if (currentState == Board.LTDN || currentState == Board.RTUP) {
-			if (board.getState(Address.nextCell(pos, Direction.LTUP)) == currentState || board.getState(Address.nextCell(pos, Direction.RTDN)) == currentState) {
+
+		if (Board.LTUP <= currentState && currentState <= Board.RTUP) {
+			int dX = currentStatePos.c() - pos.c();
+			int dY = currentStatePos.r() - pos.r();
+			int cX = 1 - (corner & 2);
+			int cY = 1 - ((corner + 1) & 0x2);
+
+			if ((corner == currentState && ((dX == cX && dY + cY == 0) || (dX + cX == 0 && dY == cY))) ||
+					(dX == 0 && dY == cY && corner == (currentState ^ 0x1)) ||
+					(dY == 0 && dX == cX && corner == (currentState ^ 0x3))) {
+				currentStatePos = pos;
+				currentState = corner;
 			} else {
 				return;
 			}
 		}
+
 		board.changeState(pos, currentState);
 	}
 
@@ -120,7 +173,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	protected void starEntered(Address pos) {
 		keyEntered(pos, Board.WHITE);
 	}
-	
+
 	protected void keyEntered(Address pos, int key) {
 		int n = 0;
 		if (isProblemEditMode()) {
