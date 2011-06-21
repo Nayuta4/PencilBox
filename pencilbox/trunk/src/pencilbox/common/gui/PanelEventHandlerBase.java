@@ -28,7 +28,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	private int symmetricPlacementMode = 0;
 	private int immediateAnswerCheckMode = -1; // -1:OFF, 0:ON, 1:ALREADY_CHECKED
 
-	private Address oldPos = Address.NOWHERE;
+	protected Address oldPos = Address.NOWHERE;
 //	private Address newPos = Address.NOWHERE;
 
 	/**
@@ -257,7 +257,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 		}
 	}
 	/**
-	 * 数字キー入力を処理する。 
+	 * 数字キー入力を処理する。
 	 * 0-9 の数字キーが入力されたときに，状況に応じて2桁の数字にして numberEnteredメソッドに渡す
 	 */
 	protected void numberKeyEntered(int number) {
@@ -491,7 +491,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	}
 
 	/**
-	 * 右ドラッグしたままた新しいマスに移動したときに呼ばれる。 
+	 * 右ドラッグしたままた新しいマスに移動したときに呼ばれる。
 	 * サブクラスで操作をオーバーライドする．
 	 * @param position
 	 */
@@ -575,7 +575,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 ├╂┼───┼╂┤
 │┗┿━━━┿┛│2
 └─┴───┴─┘
-  0   1       2   	 * 
+  0   1       2   	 *
 	 * @param e
 	 * @param rc 判定しきい値
 	 * @return
@@ -602,7 +602,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 			} else {
 				return SideAddress.sideAddress(Direction.HORIZ, r/2-1, c/2);
 			}
-		} else { 
+		} else {
 			if (c%2 == 0) {
 				return SideAddress.sideAddress(Direction.VERT, r/2, c/2-1);
 			} else {
