@@ -1,6 +1,8 @@
 package pencilbox.common.factory;
 
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import pencilbox.common.core.BoardBase;
 import pencilbox.common.core.PencilBoxException;
@@ -81,6 +83,20 @@ public class PencilFactory {
 	public void createNewFrame(File file) throws PencilBoxException {
 		Problem problem = IOController.getInstance(pencilType).openFile(file);
 		createNewFrame(problem);
+	}
+	/**
+	 * 文字列を与えてアプリケーションフレームを作る。
+	 * @param file
+	 * @throws PencilBoxException
+	 */
+	public boolean createNewFrame(String string) throws PencilBoxException {
+		Problem problem = IOController.getInstance(pencilType).openFile(string);
+		if (problem != null) {
+			createNewFrame(problem);
+			return true;
+		}
+		
+		return false;
 	}
 	/**
 	 * Problem を与えてアプリケーションフレームを作る。
