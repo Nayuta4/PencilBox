@@ -1,6 +1,6 @@
 ------------------------------------------------------------------------
-  PencilBox version 1.6.0
-                                                      2010-12-27 Nayuta
+  PencilBox version 1.6.1
+                                                      2011-06-22 Nayuta
 ------------------------------------------------------------------------
 
 ■概要
@@ -73,8 +73,8 @@ kakuro.jar など各パズルの名前のついたjarファイルは，個々の種類でのみ使用する
 PencilBoxに関する情報やダウンロード先については以下のURLを参照ください。
   http://pencilbox.sourceforge.jp/
 
-作者e-mail
-  nayuta@kanpen.net
+e-mail:    nayuta@kanpen.net
+twitterID: knayuta
 
 ■謝辞
 Heyawake Applet Developer 様作成の HeyawakeBox 
@@ -122,7 +122,7 @@ Heyawake Applet Developer 様作成の HeyawakeBox
 
 /*
  PencilBox : a pencil puzzle editor
- Copyright (C) 2006-2010 Nayuta
+ Copyright (C) 2006-2011 Nayuta
  
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
