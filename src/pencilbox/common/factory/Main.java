@@ -1,7 +1,5 @@
 package pencilbox.common.factory;
 
-import java.io.File;
-
 import javax.swing.UIManager;
 
 import pencilbox.common.core.PencilBoxException;
@@ -39,12 +37,8 @@ public abstract class Main {
 			} else {
 				int success = 0;
 				for (int i = 0; i < args.length; i++) {
-					File file = new File(args[i]);
-					if (file.isFile()) {
-						factory.createNewFrame(file);
-						success ++;
-					} else {
-						System.out.println("Cannot read file : " + file.toString());
+					if (factory.createNewFrame(args[i])) {
+						success++;
 					}
 				}
 				if (success == 0)

@@ -4,10 +4,14 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -53,6 +57,39 @@ public class IOController {
 		this.pencilType = pencilType;
 	}
 
+	/**
+	 * 引数の文字列のURLまたはファイル名から問題を読み込む
+	 * @param string URLまたはファイル名
+	 * @return 読み込んだ問題
+	 * @throws PencilBoxException
+	 */
+	public Problem openFile(String string) throws PencilBoxException {
+		File file = new File(string);
+		if (file.isFile()) {
+			return openFile(file);
+		}
+		InputStream in = null;
+		try {
+			in = new URL(string).openStream();
+			if (in != null) {
+				return new Problem(createTxtReader().readProblem(new InputStreamReader(in)));
+			}
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (in != null) {
+				try {
+					in.close();
+				} catch (IOException e) {
+				}
+			}
+		}
+		
+		return null;
+	}
+	
 	/**
 	 * 新規の問題をファイルから読み込む
 	 * @param file 問題ファイル
