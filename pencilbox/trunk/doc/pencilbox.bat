@@ -22,11 +22,13 @@ javaw -cp kakuro.jar      pencilbox.kakuro.Main      sample/kakuro/KK_sample02.t
 javaw -cp kurodoko.jar    pencilbox.kurodoko.Main    sample/kurodoko/KD_sample01.txt 
 javaw -cp lits.jar        pencilbox.lits.Main        sample/lits/LI_sample01.txt 
 javaw -cp masyu.jar       pencilbox.masyu.Main       sample/masyu/MS_sample01.txt 
+javaw -cp norinori.jar    pencilbox.norinori.Main    sample/norinori/NN_sample01.txt 
 javaw -cp numberlink.jar  pencilbox.numberlink.Main  sample/numberlink/NL_sample02.txt 
 javaw -cp nurikabe.jar    pencilbox.nurikabe.Main    sample/nurikabe/NK_sample01.txt 
+javaw -cp shakashaka.jar  pencilbox.shakashaka.Main  sample/shakashaka/SS_sample01.txt 
 javaw -cp shikaku.jar     pencilbox.shikaku.Main     sample/shikaku/SK_sample01.txt 
 javaw -cp slalom.jar      pencilbox.slalom.Main      sample/slalom/SM-sample01.txt 
-javaw -cp slitherlink.jar pencilbox.slitherlink.Main sample/ slitherlink/SL_sample01.txt 
+javaw -cp slitherlink.jar pencilbox.slitherlink.Main sample/slitherlink/SL_sample01.txt 
 javaw -cp sudoku.jar      pencilbox.sudoku.Main      sample/sudoku/SD_sample01.txt 
 javaw -cp tentaisho.jar   pencilbox.tentaisho.Main   sample/tentaisho/TS_sample01.txt 
 javaw -cp yajilin.jar     pencilbox.yajilin.Main     sample/yajilin/YLsample01.txt 
@@ -44,8 +46,10 @@ javaw -cp pencilbox.jar  pencilbox.tool.PngExport kakuro      sample/kakuro/KK_s
 javaw -cp pencilbox.jar  pencilbox.tool.PngExport kurodoko    sample/kurodoko/KD_sample01.txt 
 javaw -cp pencilbox.jar  pencilbox.tool.PngExport lits        sample/lits/LI_sample01.txt 
 javaw -cp pencilbox.jar  pencilbox.tool.PngExport masyu       sample/masyu/MS_sample01.txt 
+javaw -cp pencilbox.jar  pencilbox.tool.PngExport norinori    sample/norinori/NN_sample01.txt 
 javaw -cp pencilbox.jar  pencilbox.tool.PngExport numberlink  sample/numberlink/NL_sample02.txt 
 javaw -cp pencilbox.jar  pencilbox.tool.PngExport nurikabe    sample/nurikabe/NK_sample01.txt 
+javaw -cp pencilbox.jar  pencilbox.tool.PngExport shakashaka  sample/shakashaka/SS_sample01.txt 
 javaw -cp pencilbox.jar  pencilbox.tool.PngExport shikaku     sample/shikaku/SK_sample01.txt 
 javaw -cp pencilbox.jar  pencilbox.tool.PngExport slalom      sample/slalom/SM-sample01.txt 
 javaw -cp pencilbox.jar  pencilbox.tool.PngExport slitherlink sample/slitherlink/SL_sample01.txt 
