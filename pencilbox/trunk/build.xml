@@ -9,7 +9,7 @@
 	<property name="sample" value="sample"/>
 
 	<property name="project" value="pencilbox" />
-	<property name="version" value="1.6.0" />
+	<property name="version" value="1.6.1" />
 
 	<!-- コンパイル -->
 	<target name="compile">
