@@ -28,20 +28,6 @@ public class Panel extends PanelBase {
 		board = (Board) aBoard;
 	}
 	
-//	/**
-//	 * @return the indicateRedundantNumberMode
-//	 */
-//	public boolean isIndicateRedundantNumberMode() {
-//		return indicateRedundantNumberMode;
-//	}
-//
-//	/**
-//	 * @param indicateRedundantNumberMode The indicateRedundantNumberMode to set.
-//	 */
-//	public void setIndicateRedundantNumberMode(boolean indicateRedundantNumberMode) {
-//		this.indicateRedundantNumberMode = indicateRedundantNumberMode;
-//	}
-
 	public void drawBoard(Graphics2D g) {
 		drawCells(g);
 		drawGrid(g);
