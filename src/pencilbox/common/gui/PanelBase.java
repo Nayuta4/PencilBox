@@ -402,17 +402,17 @@ public class PanelBase extends JPanel implements Printable {
 		String letter;
 		String[] indexLettersC = IndexLetters.getIndexLetters(this.indexStyle[0]).getLetters();
 		for (int c = 0; c < cols(); c++) {
-			if (c < indexLettersC.length) 
+			if (c < indexLettersC.length)
 				letter = indexLettersC[c];
-			else 
+			else
 				letter = Integer.toString(c + firstIndex);
 			placeString(g, -1, c, letter);
 		}
 		String[] indexLettersR = IndexLetters.getIndexLetters(this.indexStyle[1]).getLetters();
 		for (int r = 0; r < rows(); r++) {
-			if (r < indexLettersR.length) 
+			if (r < indexLettersR.length)
 				letter = indexLettersR[r];
-			else 
+			else
 				letter = Integer.toString(r + firstIndex);
 			placeString(g, r, -1, letter);
 		}
@@ -775,18 +775,8 @@ public class PanelBase extends JPanel implements Printable {
 
 	/**
 	 * マスの縁取り 
-	 * @param g 
-	 * @param p マス座標
-	 */
-	public void edgeCell(Graphics2D g, Address p, int w) {
-		g.drawRect(toX(p), toY(p), getCellSize(), getCellSize());
-	}
-
-	/**
-	 * マスの縁取り 
 	 * @param g
 	 * @param p マス座標
-	 * @param w　線幅
 	 */
 	public void edgeCell(Graphics2D g, Address p) {
 		int w = 1;
