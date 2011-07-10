@@ -31,7 +31,7 @@ public class MenuBase {
 	protected JMenu editMenu;
 	private JMenu viewMenu;
 	private JMenu helpMenu;
-	
+
 	private JMenuItem newBoardItem;
 	private JMenuItem openItem;
 	private JMenuItem closeAndOpenItem;
@@ -261,9 +261,8 @@ public class MenuBase {
 		int count = colorMenu.getMenuComponentCount();
 		for (int i = 0; i < count; ++i) {
 			Component component = colorMenu.getMenuComponent(i);
-			
 			if (component instanceof JMenuItem) {
-				JMenuItem item = (JMenuItem)component;
+				JMenuItem item = (JMenuItem) component;
 				Color color = getColor(item);
 				if (color != null) {
 					setColorIcon(item, color);
@@ -520,7 +519,7 @@ public class MenuBase {
 		markStyleMenu.add(markStyleItem);
 		return markStyleItem;
 	}
-	
+
 	private ActionListener markStyleAction = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			JMenuItem target = (JMenuItem) e.getSource();
@@ -528,7 +527,7 @@ public class MenuBase {
 			panel.repaint();
 		}
 	};
-	
+
 	/**
 	 * 色選択メニュー作成用補助メソッド
 	 * メニュー項目を作成して，[色の選択]メニューに追加する。
@@ -559,7 +558,7 @@ public class MenuBase {
 	};
 
 	/**
-	 * メニューから実行されるコマンド。 
+	 * メニューから実行されるコマンド。
 	 */
 	private ActionListener commandAction = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
