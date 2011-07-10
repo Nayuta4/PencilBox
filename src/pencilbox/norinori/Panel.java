@@ -20,14 +20,13 @@ public class Panel extends PanelBase {
 
 	private Area draggingArea;
 
-	private Color successColor = new Color(0xCCEECC); // Š®¬‚µ‚½—Ìˆæ‚ÌF
-
 	/**
 	 * 
 	 */
 	public Panel() {
 		setGridColor(Color.BLACK);
 		setMarkStyle(3);
+		successColor = new Color(0xCCEECC); // Š®¬‚µ‚½—Ìˆæ‚ÌF
 	}
 
 	protected void setBoard(BoardBase aBoard) {
