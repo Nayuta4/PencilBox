@@ -176,9 +176,7 @@ public class MenuBase {
 		fileMenu.addSeparator();
 		fileMenu.add(duplicateItem = makeCommandMenuItem(Messages.getString("MenuBase.duplicateItem"), 'D')); //$NON-NLS-1$
 		fileMenu.add(rotationItem = makeCommandMenuItem(Messages.getString("MenuBase.rotationItem"), 'R')); //$NON-NLS-1$
-//		fileMenu.add(rotationMenu = makeJMenu(Messages.getString("MenuBase.rotationItem"), 'R')); //$NON-NLS-1$
 		fileMenu.add(changeBoardSizeItem = makeCommandMenuItem(Messages.getString("MenuBase.changeBoardSizeItem"), 'Z')); //$NON-NLS-1$
-//		buildRotationMenu();
 		fileMenu.addSeparator();
 		fileMenu.add(exportDataMenu = makeJMenu(Messages.getString("MenuBase.exportMenu"), 'X')); //$NON-NLS-1$
 		buildExportDataMenu();
@@ -241,7 +239,6 @@ public class MenuBase {
 		backgroundColorItem = addColorMenuItem(Messages.getString("MenuBase.backgroundColorItem")); //$NON-NLS-1$
 		gridColorItem = addColorMenuItem(Messages.getString("MenuBase.gridColorItem")); //$NON-NLS-1$
 		viewMenu.add(cellSizeItem = makeCommandMenuItem(Messages.getString("MenuBase.cellSizeItem"), 'S')); //$NON-NLS-1$
-//		viewMenu.add(indexItem = makeCheckBoxCommandMenuItem(Messages.getString("MenuBase.indexItem"), 'I', false)); //$NON-NLS-1$
 		viewMenu.add(indexItem = makeCommandMenuItem(Messages.getString("MenuBase.indexItem"), 'I')); //$NON-NLS-1$
 		viewMenu.add(gridStyleItem = makeCheckBoxCommandMenuItem(Messages.getString("MenuBase.gridStyleItem"), 'G', true)); //$NON-NLS-1$
 		if (linkWidthItem != null)
@@ -643,7 +640,6 @@ public class MenuBase {
 		else if (target == regionEditModeItem)
 			command.setEditMode(PanelBase.REGION_EDIT_MODE);
 		else if (target == indexItem)
-//			command.setIndexMode(target.isSelected());
 			command.selectIndexLetters();
 		else if (target == gridStyleItem)
 			command.setGridStyle(target.isSelected());
