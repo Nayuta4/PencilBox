@@ -57,9 +57,8 @@ public class CellEditStep extends AbstractStep {
 		}
 		return false;
 	}
-  
+
 	public String toString() {
 		return pos.toString() + getBefore() + "->" + getAfter() + " " + getType();
 	}
-	
 }
