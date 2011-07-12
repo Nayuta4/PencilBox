@@ -6,7 +6,6 @@ import java.io.Reader;
 import java.util.StringTokenizer;
 
 import pencilbox.common.core.BoardBase;
-import pencilbox.common.core.Direction;
 import pencilbox.common.core.SideAddress;
 import pencilbox.common.core.Size;
 import pencilbox.common.io.TxtReaderBase;
