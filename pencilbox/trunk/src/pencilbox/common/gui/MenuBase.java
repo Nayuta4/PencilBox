@@ -49,6 +49,8 @@ public class MenuBase {
 	private JMenuItem aboutItem;
 	private JMenuItem clearItem;
 	private JMenuItem trimAnswerItem;
+	private JMenuItem clearQuestionItem;
+	private JMenuItem reconstructQuestionItem;
 	protected JMenuItem exchangeNumbersItem;
 	private JMenuItem symmetricPlacementItem;
 	private JMenuItem undoItem;
@@ -73,7 +75,6 @@ public class MenuBase {
 	private JMenuItem storePreferencesItem;
 
 	private JMenu colorMenu;
-//	private JMenu rotationMenu;
 	private JMenu markStyleMenu;
 	private JMenu exportDataMenu;
 	private ButtonGroup markStyleGroup;
@@ -206,6 +207,10 @@ public class MenuBase {
 		editMenu.add(clearItem = makeCommandMenuItem(Messages.getString("MenuBase.clearItem"), 'C')); //$NON-NLS-1$
 		if (trimAnswerItem != null) 
 			editMenu.add(trimAnswerItem);  // ("補助記号消去(T)", 'T')
+		if (clearQuestionItem != null)
+			editMenu.add(clearQuestionItem); // "問題復元(X)", 'X')
+		if (reconstructQuestionItem != null)
+			editMenu.add(reconstructQuestionItem); // "問題復元(X)", 'X')
 		if (exchangeNumbersItem != null) 
 			editMenu.add(exchangeNumbersItem);  // "数字交換(X)", 'X')
 		if (symmetricPlacementItem != null) {
@@ -353,6 +358,14 @@ public class MenuBase {
 
 			int m = getPanelBase().getEditMode();
 			if (m == PanelBase.ANSWER_INPUT_MODE) {
+				if (symmetricPlacementItem != null)
+					symmetricPlacementItem.setEnabled(false);
+				if (clearQuestionItem != null)
+					clearQuestionItem.setEnabled(false);
+				if (reconstructQuestionItem != null)
+					reconstructQuestionItem.setEnabled(false);
+			}
+			if (m == PanelBase.ANSWER_INPUT_MODE) {
 				answerModeItem.setSelected(true);
 			} else if (m == PanelBase.PROBLEM_INPUT_MODE) {
 				problemEditModeItem.setSelected(true);
@@ -370,6 +383,12 @@ public class MenuBase {
 			// undoAllItem.setEnabled(true);
 			// redoAllItem.setEnabled(true);
 			playbackItem.setEnabled(true);
+			if (symmetricPlacementItem != null)
+				symmetricPlacementItem.setEnabled(true);
+			if (clearQuestionItem != null)
+				clearQuestionItem.setEnabled(true);
+			if (reconstructQuestionItem != null)
+				reconstructQuestionItem.setEnabled(true);
 		}
 
 		public void menuCanceled(MenuEvent evt) {
@@ -442,6 +461,18 @@ public class MenuBase {
 	 */
 	protected void addTrimAnswerMenuItem() {
 		trimAnswerItem = makeCommandMenuItem(Messages.getString("MenuBase.trimAnswerItem"), 'T'); //$NON-NLS-1$
+	}
+	/**
+	 * [問題数字消去]メニュー項目を作成する。
+	 */
+	protected void addClearQuestionMenuItem() {
+		clearQuestionItem = makeCommandMenuItem(Messages.getString("MenuBase.clearQuestionItem"), 'L'); //$NON-NLS-1$
+	}
+	/**
+	 * [問題数字復元]メニュー項目を作成する。
+	 */
+	protected void addReconstructQuestionMenuItem() {
+		reconstructQuestionItem = makeCommandMenuItem(Messages.getString("MenuBase.reconstructQuestionItem"), 'T'); //$NON-NLS-1$
 	}
 	/**
 	 * [対称配置]メニュー項目を作成する。
@@ -609,6 +640,10 @@ public class MenuBase {
 			command.clear();
 		else if (target == trimAnswerItem)
 			command.trimAnswer();
+		else if (target == clearQuestionItem)
+			command.clearQuestion();
+		else if (target == reconstructQuestionItem)
+			command.reconstructQuestion();
 		else if (target == exchangeNumbersItem)
 			command.exchangeNumbers();
 		else if (target == symmetricPlacementItem)

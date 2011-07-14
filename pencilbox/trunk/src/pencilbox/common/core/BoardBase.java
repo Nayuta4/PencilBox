@@ -254,6 +254,18 @@ public class BoardBase {
 	 */
 	public void trimAnswer() {
 	}
+	/**
+	 * 盤面の問題数字を未定数字に変更する
+	 * 各サブクラスで実装する
+	 */
+	public void clearQuestion() {
+	}
+	/**
+	 * 盤面の回答数字などから問題数字を復元する
+	 * 各サブクラスで実装する
+	 */
+	public void reconstructQuestion() {
+	}
 
 	public void exchangeNumbers(int v0, int v1) {
 	}

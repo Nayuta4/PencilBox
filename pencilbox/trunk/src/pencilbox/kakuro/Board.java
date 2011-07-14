@@ -67,6 +67,34 @@ public class Board extends BoardBase {
 		initHint();
 	}
 
+	public void clearQuestion() {
+		for (Address p : cellAddrs()) {
+			if (isWall(p)) {
+				for (int d = 0; d < 2; d++) {
+					Address pp = Address.nextCell(p, d|2);
+					if (isOn(pp) && !isWall(pp)) {
+						setSum(p, d, 0);
+					}
+				}
+			}
+		}
+		initBoard();
+	}
+
+	public void reconstructQuestion() {
+		for (Address p : cellAddrs()) {
+			if (isWall(p)) {
+				for (int d = 0; d < 2; d++) {
+					Address pp = Address.nextCell(p, d|2);
+					if (isOn(pp) && !isWall(pp)) {
+						setSum(p, d, getWord(pp, d).extractSum());
+					}
+				}
+			}
+		}
+		initBoard();
+	}
+
 	/**
 	 * @return the sumH
 	 */

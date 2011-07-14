@@ -80,4 +80,14 @@ public class Word {
 	 	} 
 	 	return status;
 	 }
+	/**
+	 * 問題数字復元用。和が確定していればその和を，確定していなければ0を返す。
+	 * @return
+	 */
+	public int extractSum() {
+		 if (filledSize == size)
+			  return this.filledSum;
+		 else
+			 return 0;
+	 }
 }

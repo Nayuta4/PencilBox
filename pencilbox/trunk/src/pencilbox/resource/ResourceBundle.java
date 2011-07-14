@@ -59,6 +59,8 @@ public class ResourceBundle extends ListResourceBundle {
     { "MenuBase.regionEditModeItem"                 , "Region Edit Mode"                                           } ,
     { "MenuBase.clearItem"                          , "Clear Answer"                                               } ,
     { "MenuBase.trimAnswerItem"                     , "Trim Answer"                                                } ,
+    { "MenuBase.clearQuestionItem"                  , "Clear Question"                                             } ,
+    { "MenuBase.reconstructQuestionItem"            , "Reconstruct Question"                                       } ,
     { "MenuBase.exchangeNumbersItem"                , "Exchange Nubmers"                                           } ,
     { "MenuBase.symmetricPlacementItem"             , "Symmetric Placement"                                        } ,
     { "MenuBase.undoItem"                           , "Undo"                                                       } ,
