@@ -10,6 +10,8 @@ public class Menu extends MenuBase {
 
 	protected void buildEditMenu() {
 		addSymmetricPlacementMenuItem();
+		addClearQuestionMenuItem();
+		addReconstructQuestionMenuItem();
 		super.buildEditMenu();
 	}
 

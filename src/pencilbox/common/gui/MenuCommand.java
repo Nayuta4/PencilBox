@@ -409,6 +409,20 @@ public class MenuCommand {
 		panel.repaint();
 	}
 	/**
+	 *  [編集]-[問題数字消去]
+	 */
+	public void clearQuestion() {
+		board.clearQuestion();
+		panel.repaint();
+	}
+	/**
+	 *  [編集]-[問題数字復元]
+	 */
+	public void reconstructQuestion() {
+		board.reconstructQuestion();
+		panel.repaint();
+	}
+	/**
 	 *  [編集]-[対称配置]
 	 */
 	public void setSymmetricPlacementMode(boolean b) {
@@ -529,7 +543,7 @@ public class MenuCommand {
 		handler.setEditMode(mode);
 		board.initBoard();
 	}
-	
+
 	/**
 	 *  [編集]-[数字の交換]
 	 */
