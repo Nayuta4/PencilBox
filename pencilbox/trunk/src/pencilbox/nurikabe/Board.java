@@ -157,8 +157,7 @@ public class Board extends BoardBase {
 	/**
 	 * そのマスの所属する領域を取得する
 	 * そのマスが領域に属していない場合は null を返す
-	 * @param r Row coordinate of the cell.
-	 * @param c Column coordinate of the cell.
+	 * @param p coordinate of the cell.
 	 * @return Returns the area.
 	 */
 	public Area getArea(Address p) {
@@ -169,8 +168,7 @@ public class Board extends BoardBase {
 	}
 	/**
 	 * 盤上のマスに，そのマスの所属する領域を設定する
-	 * @param r Row coordinate of the cell.
-	 * @param c Column coordinate of the cell.
+	 * @param p coordinate of the cell.
 	 * @param a The area to set.
 	 */
 	public void setArea(Address p, Area a) {
@@ -218,6 +216,7 @@ public class Board extends BoardBase {
 
 	/**
 	 * マスの状態を変更したときの Area 併合処理を行う
+	 * 上下左右４マスの属するブロックのうち最も大きいブロックに他を追加する。なければ新しくブロックを作る。
 	 * @param p 変更したマスの座標
 	 * @param type 変更後の領域の種類
 	 */
@@ -251,7 +250,6 @@ public class Board extends BoardBase {
 			mergedArea.addNumber(getState(p));
 		setArea(p, mergedArea);
 	}
-
 	/**
 	 * マスの状態を変更，消去したときの Areaの分割処理を行う
 	 * @param r 変更したマスの行座標
@@ -299,9 +297,9 @@ public class Board extends BoardBase {
 
 	private void removeAreaFromList(Area a) {
 		int type = a.getAreaType();
-		if (type == WALL)
+		if (type == WALL) {
 			wallAreaList.remove(a);
-		else if (type == SPACE) {
+		} else if (type == SPACE) {
 			spaceAreaList.remove(a);
 		}
 	}
