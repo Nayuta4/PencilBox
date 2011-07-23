@@ -224,23 +224,19 @@ public class Board extends BoardBase {
 	void mergeArea(Address p, int type) {
 		Area mergedArea = null;
 		for (int d=0; d<4; d++) {
-			Address p1 = p.nextCell(d);
-			mergedArea = mergeArea1(getArea(p1), mergedArea, type);
+			Area a = getArea(p.nextCell(d));
+			if (a != null && a.getAreaType() == type) {
+				if (mergedArea == null || a.size() > mergedArea.size()) {
+					mergedArea = a;
+				}
+			}
 		}
 		if (mergedArea == null) {
 			mergedArea = makeNewArea(p);
 		}
-		mergedArea.add(p);
-		if (isNumber(p))
-			mergedArea.addNumber(getState(p));
-		setArea(p, mergedArea);
-	}
-
-	private Area mergeArea1(Area a, Area mergedArea, int type) {
-		if (a != null && a.getAreaType() == type) {
-			if (mergedArea == null){
-				mergedArea = a;
-			} else if (mergedArea != a) {
+		for (int d=0; d<4; d++) {
+			Area a = getArea(p.nextCell(d));
+			if (a != null && a != mergedArea && a.getAreaType() == type) {
 				mergedArea.addAll(a);
 				for (Address pos : a) {
 					setArea(pos, mergedArea);
@@ -250,8 +246,12 @@ public class Board extends BoardBase {
 				removeAreaFromList(a);
 			}
 		}
-		return mergedArea;
+		mergedArea.add(p);
+		if (isNumber(p))
+			mergedArea.addNumber(getState(p));
+		setArea(p, mergedArea);
 	}
+
 	/**
 	 * マスの状態を変更，消去したときの Areaの分割処理を行う
 	 * @param r 変更したマスの行座標
