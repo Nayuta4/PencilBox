@@ -191,10 +191,8 @@ public class Board extends BoardBase {
 		initializingArea.add(p);
 		setArea(p, initializingArea);
 		for (int d=0; d<4; d++) {
-			Address p1 = Address.nextCell(p, d);
-			initArea1(p1);
+			initArea1(p.nextCell(d));
 		}
-		return;
 	}
 	/**
 	 * そのマスの所属する領域を取得する
@@ -311,7 +309,18 @@ public class Board extends BoardBase {
 	void mergeArea(Address p, int number) {
 		Area mergedArea = null;
 		for (int d=0; d<4; d++) {
-			mergedArea = mergeArea1(getArea(Address.nextCell(p, d)), mergedArea, number);
+			Area a = getArea(p.nextCell(d));
+			if (a != null && a.getNumber() == number) {
+				if (mergedArea == null){
+					mergedArea = a;
+				} else if (mergedArea != a) {
+					mergedArea.addAll(a);
+					for (Address pos : a) {
+						setArea(pos, mergedArea);
+					}
+					areaList.remove(area);
+				}
+			}
 		}
 		if (mergedArea == null) {
 			mergedArea = new Area(number);
@@ -319,20 +328,6 @@ public class Board extends BoardBase {
 		}
 		mergedArea.add(p);
 		setArea(p, mergedArea);
-	}
-	private Area mergeArea1(Area area, Area mergedArea, int number) {
-		if (area != null && area.getNumber() == number) {
-			if (mergedArea == null){
-				mergedArea = area;
-			} else if (mergedArea != area) {
-				mergedArea.addAll(area);
-				for (Address p : area) {
-					setArea(p, mergedArea);
-				}
-				areaList.remove(area);
-			}
-		}
-		return mergedArea;
 	}
 	/**
 	 * 数字を変更，消去したときの Area 分割処理を行う
@@ -350,7 +345,7 @@ public class Board extends BoardBase {
 				initArea(p);
 		}
 	}
-	
+
 	public int checkAnswerCode() {
 		int result = 0;
 		for (Address p : cellAddrs()) {
