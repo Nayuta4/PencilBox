@@ -81,7 +81,7 @@ public class Board extends BoardBase {
 	public boolean isNumber(int r, int c) {
 		return number[r][c] >=0 && number[r][c] <= 5;
 	}
-	
+
 	public boolean isNumber(Address pos) {
 		return isNumber(pos.r(), pos.c());
 	}
@@ -140,13 +140,6 @@ public class Board extends BoardBase {
 
 	public void setState(SideAddress pos, int st) {
 		setState(pos.d(), pos.r(), pos.c(), st);
-	}
-
-	public boolean isLine(int d, int r, int c) {
-		if (isSideOn(d, r, c))
-			return state[d][r][c] == LINE;
-		else 
-			return false;
 	}
 
 	public Link getLink(SideAddress pos) {
