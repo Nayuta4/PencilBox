@@ -88,7 +88,7 @@ public class UndoManager {
 		// Œ»İˆÊ’u‚æ‚èŒã‚ë‚ğíœ
         trimEdits(indexOfNextAdd, edits.size()-1);
 		if (isCompoundUndo()) {
-			currentCompoundEdit.attachEdit(edit);
+			currentCompoundEdit.addEdit(edit);
 			return true;
 		} else {
         	// V‚µ‚¢‘€ì‚ªÅ‰‚Ì‘€ì‚È‚çC’Ç‰Á‚·‚é
@@ -124,7 +124,7 @@ public class UndoManager {
 			AbstractStep edit = edits.elementAt(indexOfNextAdd - 1);
 //			System.out.println("undo : "+ edit);
 			if (edit instanceof CompoundStep) {
-				Vector<AbstractStep> edits = ((CompoundStep)edit).edits;;
+				Vector<AbstractStep> edits = ((CompoundStep)edit).edits;
 				for (int i = edits.size()-1; i >= 0; i--) {
 					board.undo(edits.get(i));
 				}
@@ -155,7 +155,7 @@ public class UndoManager {
 			AbstractStep edit = edits.elementAt(indexOfNextAdd);
 //			System.out.println("redo " + edit);
 			if (edit instanceof CompoundStep) {
-				Vector<AbstractStep> edits = ((CompoundStep)edit).edits;;
+				Vector<AbstractStep> edits = ((CompoundStep)edit).edits;
 				for (int i = 0; i < edits.size(); i++) {
 					board.redo(edits.get(i));
 				}
