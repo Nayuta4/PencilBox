@@ -21,27 +21,13 @@ public class CompoundStep extends AbstractStep {
     	edits = new Vector<AbstractStep>();
    }
 
-	/* (non-Javadoc)
-	 * @see pencilbox.common.core.StepCommand#addEdit(pencilbox.common.core.StepCommand)
+	/**
+	 * @param edit
+	 * @return
 	 */
-	public boolean attachEdit(AbstractStep edit) {
+	public boolean addEdit(AbstractStep edit) {
 		edits.add(edit);
-		return false;
-	}
-
-	/* (non-Javadoc)
-	 * @see pencilbox.common.core.StepCommand#replaceEdit(pencilbox.common.core.StepCommand)
-	 */
-	public boolean replaceEdit(AbstractStep last) {
-		return false;
-	}
-
-	/* (non-Javadoc)
-	 * @see pencilbox.common.core.StepCommand#isNullEdit()
-	 */
-	public boolean isNullEdit() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	public String toString() {
