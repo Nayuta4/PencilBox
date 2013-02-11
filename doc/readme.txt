@@ -1,6 +1,6 @@
 ------------------------------------------------------------------------
-  PencilBox version 1.6.1
-                                                      2011-06-22 Nayuta
+  PencilBox version 1.6.2
+                                                      2013-02-11 Nayuta
 ------------------------------------------------------------------------
 
 Å°äTóv
@@ -122,7 +122,7 @@ Heyawake Applet Developer ólçÏê¨ÇÃ HeyawakeBox
 
 /*
  PencilBox : a pencil puzzle editor
- Copyright (C) 2006-2011 Nayuta
+ Copyright (C) 2006-2013 Nayuta
  
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
