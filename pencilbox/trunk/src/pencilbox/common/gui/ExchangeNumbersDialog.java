@@ -83,14 +83,14 @@ public class ExchangeNumbersDialog extends PencilBoxDialog {
 		constraints.insets.bottom = 2;
 		constraints.insets.left = 0;
 		constraints.insets.right = 0;
-		constraints.fill = GridBagConstraints.BOTH; 
+		constraints.fill = GridBagConstraints.BOTH;
 		
 		addComponent(label1,   constraints, 0, 0, 1, 1);
 		addComponent(spinner[0], constraints, 1, 0, 1, 1);
 		addComponent(label2,   constraints, 0, 1, 1, 1);
 		addComponent(spinner[1], constraints, 1, 1, 1, 1);
 		addComponent(buttonUpdate,    constraints, 1, 2, 1, 1);
-		this.add(mainPanel, BorderLayout.CENTER); 
+		this.add(mainPanel, BorderLayout.CENTER);
 	}
 
 	private void addComponent(Component c, GridBagConstraints constraints, int x, int y, int w, int h) {

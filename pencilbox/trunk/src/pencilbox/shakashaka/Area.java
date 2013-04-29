@@ -40,7 +40,7 @@ public class Area extends pencilbox.common.core.AreaBase {
 	int countStraightBorder() {
 		int ret = 0;
 		for (int i = 0; i < 4; i++) {
-			ret += nAreaBorder[i]; 
+			ret += nAreaBorder[i];
 		}
 		return ret;
 	}
@@ -48,7 +48,7 @@ public class Area extends pencilbox.common.core.AreaBase {
 	int countDiagonalBorder() {
 		int ret = 0;
 		for (int i = 4; i < 8; i++) {
-			ret += nAreaBorder[i]; 
+			ret += nAreaBorder[i];
 		}
 		return ret;
 	}

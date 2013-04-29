@@ -15,7 +15,7 @@ public class XmlWriter extends XmlWriterBase {
 			for (int c = 0; c < cols; c++) {
 				int n = board.getState(r, c);
 				if (n > 0 || n == Board.UNDECIDED_NUMBER);
-					outNumber(r,c,n); 
+					outNumber(r,c,n);
 			}
 		}
 	}

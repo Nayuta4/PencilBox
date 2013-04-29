@@ -70,7 +70,7 @@ public class TxtReader extends TxtReaderBase {
 				else {
 					int n = Integer.parseInt(str);
 					areas[n].add(i, j);
-					board.setArea(i,j,areas[n]); 
+					board.setArea(i,j,areas[n]);
 				}
 				j++;
 			}

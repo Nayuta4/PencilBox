@@ -372,7 +372,7 @@ public class Board extends BoardBase {
 					if (nline > number)
 						result |= 4;
 					else if (nline < number)
-						result |= 32;   
+						result |= 32;
 				}
 			}
 		}
@@ -386,7 +386,7 @@ public class Board extends BoardBase {
 	public String checkAnswerString() {
 		int result = checkAnswerCode();
 		if (result == 0)
-			return COMPLETE_MESSAGE; 
+			return COMPLETE_MESSAGE;
 		StringBuffer message = new StringBuffer();
 		if ((result & 1) == 1)
 			message.append(Messages.getString("slitherlink.AnswerCheckMessage1")); //$NON-NLS-1$

@@ -413,9 +413,9 @@ public class Board extends BoardBase {
 			return Messages.getString("nurikabe.AnswerCheckMessage1"); //$NON-NLS-1$
 		StringBuffer message = new StringBuffer();
 //		if ((result & 2) == 2)
-//			message.append("数字より面積の大きいシマがある\n"); 
+//			message.append("数字より面積の大きいシマがある\n");
 //		if ((result & 4) == 4)
-//			message.append("数字より面積の小さいシマがある\n"); 
+//			message.append("数字より面積の小さいシマがある\n");
 		if ((result & 2) == 2 || (result & 4) == 4)
 			message.append(Messages.getString("nurikabe.AnswerCheckMessage2"));  //$NON-NLS-1$
 		if ((result & 8) == 8)

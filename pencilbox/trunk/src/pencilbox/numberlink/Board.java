@@ -361,7 +361,7 @@ public class Board extends BoardBase {
 	public String checkAnswerString() {
 		int result = checkAnswerCode();
 		if (result == 0)
-			return BoardBase.COMPLETE_MESSAGE; 
+			return BoardBase.COMPLETE_MESSAGE;
 		StringBuffer message = new StringBuffer();
 		if ((result & 4) == 4)
 			message.append(Messages.getString("numberlink.AnswerCheckMessage1")); //$NON-NLS-1$

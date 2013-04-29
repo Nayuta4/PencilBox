@@ -64,7 +64,7 @@ public class Panel extends PanelBase {
 				g.setColor(draggingAreaColor);
 				paintCell(g, p);
 			} else if (isIndicateErrorMode()) {
-				int s = board.getArea(p).getBlock().size(); 
+				int s = board.getArea(p).getBlock().size();
 				if (s == 2) { // 完成した領域の黒マス以外のマスを塗る
 					g.setColor(successColor);
 //				} else if (s > 2) {
@@ -90,7 +90,7 @@ public class Panel extends PanelBase {
 				g.setColor(getPaintColor());
 				if (isIndicateErrorMode()) {
 					if (board.getArea(p) != null) {
-						int s = board.getArea(p).getBlock().size(); 
+						int s = board.getArea(p).getBlock().size();
 						if (s > 2) {
 							g.setColor(getErrorColor());
 //						} else if (s < 2) {

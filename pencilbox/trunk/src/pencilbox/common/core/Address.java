@@ -194,7 +194,7 @@ public class Address implements Comparable<Address> {
 		else {
 			if (this.c < o.c) return -1;
 			else if (this.c > o.c) return 1;
-			else return 0; 
+			else return 0;
 		}
 	}
 	

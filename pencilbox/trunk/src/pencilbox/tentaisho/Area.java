@@ -56,7 +56,7 @@ public class Area extends pencilbox.common.core.AreaBase {
 		for (Address pos : this) {
 			posb = getPointSymmericAddress(pos, starPos);
 			if (!contains(posb)) { 
-				return false;  
+				return false;
 			}
 		}
 		return true;
@@ -69,7 +69,7 @@ public class Area extends pencilbox.common.core.AreaBase {
 //		for (Address pos : this) {
 //			posb = getPointSymmericAddress(pos, center);
 //			if (!contains(posb)) { 
-//				return false;  
+//				return false;
 //			}
 //		}
 //		return true;

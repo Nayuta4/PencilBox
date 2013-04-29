@@ -57,7 +57,7 @@ public class PzprWriter extends PzprWriterBase {
 			count++;
 		}
 		if(count==0){return new BoardSize(0, 0, 1, 1);}
-		int e = (bdpadding>0) ? bdpadding : 0; 
+		int e = (bdpadding>0) ? bdpadding : 0;
 		return new BoardSize(x1-e, y1-e, x2+e, y2+e);
 	}
 

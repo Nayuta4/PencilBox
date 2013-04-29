@@ -13,7 +13,7 @@ public class KakuroCursor extends CellCursor {
 	 * •ƒ}ƒX‚ÌÎü‚Ìã‚©‰º‚©
 	 * 0 ‚Í‰º 1 ‚Íã
 	 */
-	private int stair; 
+	private int stair;
 	/**
 	 * @return Returns the stair.
 	 */

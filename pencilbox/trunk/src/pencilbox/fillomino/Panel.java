@@ -50,7 +50,7 @@ public class Panel extends PanelBase {
 						g.setColor(getErrorColor());
 						paintCell(g, p);
 					} else if (status == 1) {
-						g.setColor(successColor); 
+						g.setColor(successColor);
 						paintCell(g, p);
 					}
 				} else if (isSeparateAreaColorMode()) {

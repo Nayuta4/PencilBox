@@ -200,7 +200,7 @@ public abstract class PzprWriterBase {
 		outbstr(cm);
 	}
 
-	protected int[] borders; 
+	protected int[] borders;
 
 	/**
 	 * 領域データから境界線ありなしデータを作成する。

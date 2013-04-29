@@ -29,7 +29,7 @@ public class Board extends BoardBase {
 
 	protected void setup() {
 		super.setup();
-		state = new int[rows()][cols()]; 
+		state = new int[rows()][cols()];
 		illuminatedV = new int[rows()][cols()];
 		illuminatedH = new int[rows()][cols()];
 		ArrayUtil.initArrayInt2(state, UNKNOWN);
