@@ -7,9 +7,9 @@ import pencilbox.common.core.Address;
  * ¡‚Ì‚Æ‚±‚ë‚½‚¾‚Ì–Úˆó
  */
 public class StarAddress extends Address {
-	
+
 	public static StarAddress NOWHERE = new StarAddress(-1, -1);
-	
+
 	protected StarAddress(int r, int c) {
 		super(r, c);
 	}

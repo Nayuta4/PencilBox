@@ -11,7 +11,7 @@ import pencilbox.common.gui.PanelEventHandlerBase;
 public class PanelEventHandler extends PanelEventHandlerBase {
 
 	private Board board;
-	
+
 	/**
 	 * Panel ‚ğ¶¬‚·‚é
 	 */

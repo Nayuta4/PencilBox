@@ -8,7 +8,7 @@ import pencilbox.common.io.XmlReaderBase;
  * 
  */
 public class XmlReader extends XmlReaderBase {
-	
+
 	private Board board;
 
 	protected BoardBase makeBoard() {

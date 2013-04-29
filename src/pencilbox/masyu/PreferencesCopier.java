@@ -20,5 +20,5 @@ public class PreferencesCopier extends PreferencesCopierBase {
 			PreferenceKey.CROSS_COLOR,
 		});
 	}
-	
+
 }

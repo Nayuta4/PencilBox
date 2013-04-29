@@ -49,7 +49,7 @@ public class Board extends BoardBase {
 	public void setNumber(int r, int c, int n) {
 		setNumber(Address.address(r, c), n);
 	}
-	
+
 	public void setNumber(Address p, int n) {
 		if (n == NO_NUMBER) {
 			if (isPier(p)) {
@@ -85,7 +85,7 @@ public class Board extends BoardBase {
 	public int getNumber(int r, int c) {
 		return getNumber(Address.address(r, c));
 	}
-	
+
 	public int getNumber(Address p) {
 		if (isPier(p))
 			return getPier(p).getNumber();
@@ -100,7 +100,7 @@ public class Board extends BoardBase {
 	public boolean isPier(Address p) {
 		return pier[p.r()][p.c()] != null;
 	}
-	
+
 	/**
 	 * マスの状態を取得する
 	 * @param r 行座標
@@ -158,7 +158,7 @@ public class Board extends BoardBase {
 		int h = getLine(p, Direction.HORIZ);
 		return (v>0 && h>0);
 	}
-	
+
 	/**
 	 * @param r 行座標
 	 * @param c 列座標
@@ -506,7 +506,7 @@ public class Board extends BoardBase {
 		}
 		return true;
 	}
-	
+
 	private boolean checkConnection() {
 		int n = 0;
 		for (Address p : cellAddrs()) {
@@ -522,7 +522,7 @@ public class Board extends BoardBase {
 		}
 		return true;
 	}
-	
+
 	private boolean checkCross() {
 		for (Address p : cellAddrs()) {
 			if (hasCrossedBridge(p)) {
@@ -531,11 +531,11 @@ public class Board extends BoardBase {
 		}
 		return true;
 	}
-	
+
 	static final String ERR_CROSS_BRIDGE = Messages.getString("hashi.AnswerCheckMessage1"); //$NON-NLS-1$
 	static final String YET_MULTIPLE_LINE = Messages.getString("hashi.AnswerCheckMessage2"); //$NON-NLS-1$
 	static final String ERR_WRONG_NUMBER = Messages.getString("hashi.AnswerCheckMessage3"); //$NON-NLS-1$
 //	static final String ERR_TOO_MANY_LINE = "橋の数が多すぎる数字がある\n";
 //	static final String YET_TOO_FEW_LINE= "橋の数が足りない数字がある\n";
-	
+
 }

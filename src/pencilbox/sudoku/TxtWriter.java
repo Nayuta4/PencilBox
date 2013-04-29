@@ -14,7 +14,7 @@ public class TxtWriter extends TxtWriterBase {
 
 	public void writeProblem(PrintWriter out, BoardBase puzzleBoard, int mode) {
 		Board board = (Board) puzzleBoard;
-		
+
 		out.println(board.rows());
 		for(int r=0; r<board.rows(); r++){
 			for(int c=0; c<board.cols(); c++){

@@ -10,7 +10,7 @@ import pencilbox.common.core.BoardBase;
  * テキスト形式の盤面読込用クラス
  */
 public abstract class TxtReaderBase {
-	
+
 	/**
 	 * テキスト形式の盤面を読み込む
 	 * @param in 入力

@@ -55,7 +55,7 @@ public class Square extends pencilbox.common.core.SquareBase {
 	public Square(Square s) {
 		this(s.r0(), s.c0(), s.r1(), s.c1());
 	}
-	
+
 	/**
 	 * @param number The number to set.
 	 */
@@ -99,7 +99,7 @@ public class Square extends pencilbox.common.core.SquareBase {
 		setNBlack(0);
 		setNWhite(0);
 	}
-	
+
 	public String toString() {
 		return super.toString() + ","+getNumber();
 	}

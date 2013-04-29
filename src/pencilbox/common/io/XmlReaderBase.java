@@ -37,7 +37,7 @@ public abstract class XmlReaderBase extends DefaultHandler implements
 //		return (PuzzleBoard) ClassUtil.createInstance(type, "Board");
 		return null;
 	}
-	
+
 	public void setPuzzleType(String s) {
 		this.puzzleType = s;
 	}

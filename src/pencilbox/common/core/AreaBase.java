@@ -13,9 +13,9 @@ import java.util.TreeSet;
  * 複数のアドレスの集合
  */
 public class AreaBase implements Set<Address> {
-	
+
 	private Set<Address> cellList;
-	
+
 	/**
 	 * コンストラクタ
 	 */
@@ -57,7 +57,7 @@ public class AreaBase implements Set<Address> {
 	public boolean remove(Object o) {
 		return cellList.remove(o);
 	}
-	
+
 	/**
 	 * セルを領域から取り除く
 	 * @param r

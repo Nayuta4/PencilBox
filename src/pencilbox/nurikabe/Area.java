@@ -12,7 +12,7 @@ public class Area extends pencilbox.common.core.AreaBase {
 	private int id;
 	private int areaType = 0;
 	private int number = 0; // •”‰®‚Ì”š
-	
+
 
 	/**
 	 * —Ìˆæ‚ğì¬‚·‚é
@@ -24,7 +24,7 @@ public class Area extends pencilbox.common.core.AreaBase {
 		if (NEXT_ID == Integer.MAX_VALUE) NEXT_ID = 1;
 		this.areaType = areaType;
 	}
-	
+
 	/**
 	 * —Ìˆæ‚É”š‚ğİ’è‚·‚é
 	 * ‚»‚Ì—Ìˆæ‚ÉˆÈ‘O‚É”š‚ªŠÜ‚Ü‚ê‚Ä‚¢‚È‚©‚Á‚½ê‡‚ÍC‚»‚Ì”š‚ğİ’è‚·‚é
@@ -38,7 +38,7 @@ public class Area extends pencilbox.common.core.AreaBase {
 			number = MULTIPLE_NUMBER;
 		}
 	}
-	
+
 	/**
 	 * @return Returns the number.
 	 */
@@ -75,5 +75,5 @@ public class Area extends pencilbox.common.core.AreaBase {
 		NEXT_ID = 1;
 	}
 
-	
+
 }

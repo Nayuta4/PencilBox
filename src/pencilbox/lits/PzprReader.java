@@ -8,7 +8,7 @@ import pencilbox.common.io.PzprReaderBase;
  * 参考：pzprv3 lits.js
  */
 public class PzprReader extends PzprReaderBase {
-	
+
 	private Board bd;
 
 	protected BoardBase makeBoard() {
@@ -28,7 +28,7 @@ public class PzprReader extends PzprReaderBase {
 			makeAreas();
 		}
 	}
-	
+
 	/**
 	 * 境界線データから領域番号データを作成する。
 	 */

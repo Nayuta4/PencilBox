@@ -70,7 +70,7 @@ public class Panel extends PanelBase {
 			}
 		}
 	}
-	
+
 	private void drawLinks(Graphics2D g) {
 		for (SideAddress p : board.borderAddrs()) {
 			int state = board.getState(p);

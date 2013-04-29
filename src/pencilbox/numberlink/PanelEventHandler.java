@@ -22,11 +22,11 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	 */
 	public PanelEventHandler() {
 	}
-	
+
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard;
 	}
-	
+
 	/*
 	 * 「ナンバーリンク」マウス操作
 	 */
@@ -133,11 +133,11 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	private void setSelectedLink(Link l) {
 		((Panel) getPanel()).setSelectedLink(l);
 	}
-	
+
 	private int getSelectedNumber() {
 		return ((Panel) getPanel()).getSelectedNumber();
 	}
-	
+
 	private void setSelectedNumber(int n) {
 		((Panel) getPanel()).setSelectedNumber(n);
 	}

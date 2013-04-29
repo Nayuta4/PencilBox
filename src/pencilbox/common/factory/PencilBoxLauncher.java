@@ -33,7 +33,7 @@ public class PencilBoxLauncher {
 		new PencilBoxLauncher();
 		FileChooser.getProblemFileChooser(); // FileChooser作成は時間がかかるので，このタイミングで作っておく
 	}
-	
+
 	/**
 	 * ランチャーを作成する
 	 */
@@ -53,7 +53,7 @@ public class PencilBoxLauncher {
 		frame.pack();
 		frame.setVisible(true);
 	}
-	
+
 	private JButton makeButton(final PencilType pencilType) {
 		JButton button = new JButton(pencilType.getTitle());
 		button.addActionListener(new ActionListener() {
@@ -67,7 +67,7 @@ public class PencilBoxLauncher {
 		});
 		return button;
 	}
-	
+
 	private JButton makeExitButton() {
 		JButton button = new JButton(Messages.getString("PencilBoxLauncher.quit")); //$NON-NLS-1$
 		button.addActionListener(new ActionListener() {
@@ -77,5 +77,5 @@ public class PencilBoxLauncher {
 		});
 		return button;
 	}
-	
+
 }

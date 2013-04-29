@@ -2,7 +2,7 @@ package pencilbox.common.core;
 
 
 public class CellEditStep extends AbstractStep {
-	
+
 	private Address pos;
 	private int before;
 	private int after;
@@ -40,7 +40,7 @@ public class CellEditStep extends AbstractStep {
 	public int getAfter() {
 		return after;
 	}
-	
+
 	protected void setAfter(int a) {
 		this.after = a;
 	}

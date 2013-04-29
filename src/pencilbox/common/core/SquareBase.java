@@ -7,7 +7,7 @@ import java.util.TreeSet;
  * 共通四角クラス
  */
 public class SquareBase {
-	
+
 	private int r0;
 	private int c0;
 	private int r1;
@@ -80,7 +80,7 @@ public class SquareBase {
 		this.r1 = ra<rb?rb:ra;
 		this.c1 = ca<cb?cb:ca;
 	}
-	
+
 	/**
 	 * 四角の４隅のマス座標を左上，右上，左下，右下の順の長さ4の配列に入れて返す。
 	 * @return
@@ -150,7 +150,7 @@ public class SquareBase {
 	public int getSquareSize() {
 		return (r1-r0+1) * (c1-c0+1);
 	}
-	
+
 	/**
 	 * 四角の形状が等しいか
 	 * @param o 比較対象の四角
@@ -163,7 +163,7 @@ public class SquareBase {
 			return true;
 		return false;
 	}
-	
+
 	/**
 	 * 長方形領域に含まれるマス座標の集合
 	 * @return マス座標の集合

@@ -15,7 +15,7 @@ import pencilbox.common.gui.PanelBase;
  * 「のりのり」パネルクラス
  */
 public class Panel extends PanelBase {
-	
+
 	private Board board;
 
 	private Area draggingArea;
@@ -54,7 +54,7 @@ public class Panel extends PanelBase {
 		drawAreaBorders(g);
 		drawBoardBorder(g);
 	}
-	
+
 	private void paintAreas(Graphics2D g) {
 		for (Address p : board.cellAddrs()) {
 			if (board.getArea(p) == null) {
@@ -105,7 +105,7 @@ public class Panel extends PanelBase {
 			}
 		}
 	}
-	
+
 	private void drawAreaBorders(Graphics2D g) {
 		g.setColor(areaBorderColor);
 		for (Address p : board.cellAddrs()) {

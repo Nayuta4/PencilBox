@@ -38,7 +38,7 @@ public class TxtReader extends TxtReaderBase {
 				break;
 //			t = new StringTokenizer(line);
 			t = line.split("[ \t]");
-			
+
 //			while (t.hasMoreTokens()) {
 //			str = t.nextToken();
 			for (int s = 0; s < t.length; s++) {

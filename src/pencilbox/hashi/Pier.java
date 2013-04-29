@@ -55,7 +55,7 @@ public class Pier {
 	void setChain(int i) {
 		chain = i;
 	}
-	
+
 	void clear() {
 		chain = 0;
 		for (int d=0; d<4; d++) 

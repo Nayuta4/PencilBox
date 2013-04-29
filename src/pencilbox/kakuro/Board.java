@@ -131,7 +131,7 @@ public class Board extends BoardBase {
 	public int getNumber(int r, int c) {
 		return number[r][c];
 	}
-	
+
 	public int getNumber(Address pos) {
 		return getNumber(pos.r(), pos.c());
 	}
@@ -144,7 +144,7 @@ public class Board extends BoardBase {
 	public void setNumber(int r, int c, int n) {
 		number[r][c] = n;
 	}
-	
+
 	public void setNumber(Address pos, int n) {
 		setNumber(pos.r(), pos.c(), n);
 	}
@@ -154,7 +154,7 @@ public class Board extends BoardBase {
 			return true;
 		return number[r][c] == WALL;
 	}
-	
+
 	public boolean isWall(Address pos) {
 		return isWall(pos.r(), pos.c());
 	}

@@ -20,7 +20,7 @@ public class Board extends BoardBase {
 	static final int WALL = -2;
 	static final int UNKNOWN = 0;
 	static final int UNDECIDED_NUMBER = -3;
-	
+
 	private int[][] state;
 
 	private Area[][] area; // 黒マスまたは確定白マス領域用
@@ -90,7 +90,7 @@ public class Board extends BoardBase {
 	public boolean isNumber(Address p) {
 		return isOn(p) && (getState(p) > 0 || getState(p) == UNDECIDED_NUMBER);
 	}
-	
+
 	public boolean isWall(Address pos) {
 		return isOn(pos) && (getState(pos) == WALL);
 	}

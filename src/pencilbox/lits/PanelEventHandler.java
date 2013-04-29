@@ -137,7 +137,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			st = Board.UNKNOWN;
 		board.changeState(pos, st);
 	}
-	
+
 	private void sweepState(Address pos) {
 		int st = board.getState(pos);
 		if (st == currentState)

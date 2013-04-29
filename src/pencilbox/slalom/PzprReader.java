@@ -47,12 +47,12 @@ public class PzprReader extends PzprReaderBase {
 
 		if (ver==0) {
 			int[] gateNumbers = new int[nGate]; // 門番号を順番に記録するローカル変数配列。
-	
+
 			int i0 = i+1, r = 0;
 			for(i=i0;i<array[0].length();i++){
 				char ca = array[0].charAt(i);
 				System.out.println("ca: " + ca);
-	
+
 				if(include(ca,'0','f')){
 					gateNumbers[r] = parseInt(array[0].substring(i, i+1), 16); r++;
 				}
@@ -66,7 +66,7 @@ public class PzprReader extends PzprReaderBase {
 				System.out.println((r-1) + " : " + gateNumbers[(r-1)]);
 				if(r > nGate){ break;}
 			}
-	
+
 			this.setGateNumbers(gateNumbers); // ローカル変数に記録した門番号を盤面に設定する.
 		}
 		else if(ver==1) { // pflag == "p"

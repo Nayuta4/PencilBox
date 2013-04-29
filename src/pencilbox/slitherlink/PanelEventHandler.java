@@ -24,7 +24,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard;
 	}
-	
+
 	public boolean isCursorOnBoard(Address pos) {
 		return board.isNumberOn(pos);
 	}

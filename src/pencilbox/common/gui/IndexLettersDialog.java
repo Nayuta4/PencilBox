@@ -61,7 +61,7 @@ public class IndexLettersDialog extends PencilBoxDialog {
     }
 
 	private void makeMainPanel() {
-		
+
 		mainPanel = new JPanel(new GridBagLayout());
 		mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
@@ -102,7 +102,7 @@ public class IndexLettersDialog extends PencilBoxDialog {
 		constraints.insets.left = 0;
 		constraints.insets.right = 0;
 		constraints.fill = GridBagConstraints.BOTH;
-		
+
 		addComponent(checkBox,    constraints, 1, 0, 1, 1);
 		addComponent(labelCols,   constraints, 0, 1, 1, 1);
 		addComponent(comboBox[0], constraints, 1, 1, 1, 1);

@@ -36,13 +36,13 @@ public class Panel extends PanelBase {
 		board = (Board) aBoard;
 		hintDot.setDot(this, 3, getCellSize());
 	}
-	
+
 	public void setDisplaySize(int size) {
 		super.setDisplaySize(size);
 		smallFont = new Font("SansSerif", Font.PLAIN, getCellSize() / 2);
 		hintDot.setDotSize(getCellSize());
 	}
-	
+
 	public CellCursor createCursor() {
 		return new KakuroCursor();
 	}
@@ -127,7 +127,7 @@ public class Panel extends PanelBase {
 				getHalfCellSize());
 		}
 	}
-	
+
 	void placeHintDot(Graphics2D g, Address p) {
 		int pattern = board.getPattern(p);
 		if (pattern == 0) {

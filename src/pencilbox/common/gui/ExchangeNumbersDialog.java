@@ -50,7 +50,7 @@ public class ExchangeNumbersDialog extends PencilBoxDialog {
 		super.makeDialog();
 		makeMainPanel();
 	}
-	
+
 	private void makeMainPanel() {
 
 		mainPanel = new JPanel(new GridBagLayout());
@@ -84,7 +84,7 @@ public class ExchangeNumbersDialog extends PencilBoxDialog {
 		constraints.insets.left = 0;
 		constraints.insets.right = 0;
 		constraints.fill = GridBagConstraints.BOTH;
-		
+
 		addComponent(label1,   constraints, 0, 0, 1, 1);
 		addComponent(spinner[0], constraints, 1, 0, 1, 1);
 		addComponent(label2,   constraints, 0, 1, 1, 1);

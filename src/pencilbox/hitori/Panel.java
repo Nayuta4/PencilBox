@@ -23,11 +23,11 @@ public class Panel extends PanelBase {
 	public Panel() {
 		setMarkStyle(2);
 	}
-	
+
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard;
 	}
-	
+
 	public void drawBoard(Graphics2D g) {
 		drawCells(g);
 		drawGrid(g);

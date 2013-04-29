@@ -9,7 +9,7 @@ import pencilbox.common.core.Rotator;
  * 
  */
 public class BoardCopier extends BoardCopierBase {
-	
+
 	public void copyBoardStates(BoardBase src, BoardBase dst, int n) {
 		Board s = (Board) src;
 		Board d = (Board) dst;

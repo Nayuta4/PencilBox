@@ -17,7 +17,7 @@ public class Size {
 		this.rows = r;
 		this.cols = c;
 	}
-	
+
 	/**
 	 * サイズオブジェクトを複製する 
 	 * @param size コピー元のサイズ

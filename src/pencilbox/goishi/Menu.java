@@ -7,7 +7,7 @@ import pencilbox.resource.Messages;
  * 「碁石ひろい」メニュークラス
  */
 public class Menu extends MenuBase {
-	
+
 	protected void buildEditMenu() {
 		super.buildEditMenu();
 	}

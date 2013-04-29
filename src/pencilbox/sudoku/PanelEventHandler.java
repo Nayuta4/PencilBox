@@ -21,7 +21,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		board = (Board) aBoard;
 		setMaxInputNumber(board.rows());
 	}
-	
+
 	private void setSelectedNumber(int n) {
 		((Panel) getPanel()).setSelectedNumber(n);
 	}

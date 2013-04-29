@@ -6,15 +6,15 @@ import pencilbox.common.core.Address;
  * 「四角に切れ」四角クラス
  */
 public class Square extends pencilbox.common.core.SquareBase {
-	
+
 	static final int NO_NUMBER = 0;
 	static final int MULTIPLE_NUMBER = -2;
 	private static int NEXT_ID = 1;
-	
+
 	private int id;  // 領域番号
-	
+
 	private int number; // 四角の数字
-	
+
 	/**
 	 * コンストラクタ
 	 * @param ra 一方の角の行座標

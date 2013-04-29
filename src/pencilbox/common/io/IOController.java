@@ -32,7 +32,7 @@ import pencilbox.heyawake.HeyawakeWriter;
  * GUIとは関係なく使用できるようにする。
  */
 public class IOController {
-	
+
 	public enum DataFormat {
 		TXT,
 		XML,
@@ -86,10 +86,10 @@ public class IOController {
 				}
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	/**
 	 * 新規の問題をファイルから読み込む
 	 * @param file 問題ファイル
@@ -227,7 +227,7 @@ public class IOController {
 		}
 		problem.setFile(file); // セーブできたら，問題にそのファイル名を関連付ける。
 	}
-	
+
 	/**
 	 * 各種フォーマットの問題データを出力する。
 	 * @param board 盤面
@@ -258,11 +258,11 @@ public class IOController {
 	public String pzprv3Url() {
 		return "http://pzv.jp/p.html?";
 	}
-	
+
 	public String kanpenUrl() {
 		return "http://www.kanpen.net/";
 	}
-	
+
 	private DataFormat checkFileExt(File file) {
 		String filename = file.getName();
 		int len = filename.length();

@@ -102,7 +102,7 @@ public class BoardCopier extends BoardCopierBase {
 			board.changeEdge(s, Board.NOLINE);
 		}
 	}
-	
+
 	private pencilbox.common.core.AreaBase makeStarRegion(pencilbox.common.core.AreaBase region) {
 		pencilbox.common.core.AreaBase region2 = new pencilbox.common.core.AreaBase();
 		for (Address s : region) {

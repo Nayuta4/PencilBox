@@ -16,11 +16,11 @@ import pencilbox.util.ArrayUtil;
  * 「のりのり」盤面クラス
  */
 public class Board extends BoardBase {
-	
+
 	static final int WHITE = -1;
 	static final int BLACK = -2;
 	static final int UNKNOWN = 0;
-	
+
 	private List<Area> areaList;
 	private Area[][] area;
 	private int[][] state;
@@ -74,7 +74,7 @@ public class Board extends BoardBase {
 	public void setState(int r, int c, int st) {
 		state[r][c] = st;
 	}
-	
+
 	public void setState(Address p, int st) {
 		setState(p.r(), p.c(), st);
 	}
@@ -133,7 +133,7 @@ public class Board extends BoardBase {
 	public void setArea(int r, int c, Area a) {
 		area[r][c] = a;
 	}
-	
+
 	public void setArea(Address p, Area a) {
 		setArea(p.r(), p.c(), a);
 	}
@@ -335,7 +335,7 @@ public class Board extends BoardBase {
 		result |= checkWalls();
 		return result;
 	}
-	
+
 	/**
 	 * 現在の盤面状態に基づいて，領域の設定を行う
 	 */
@@ -400,7 +400,7 @@ public class Board extends BoardBase {
 		}
 		return true;
 	}
-	
+
 	public String checkAnswerString() {
 		int result = checkAnswerCode();
 		if (result==0)

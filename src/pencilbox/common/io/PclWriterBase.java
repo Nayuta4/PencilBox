@@ -30,7 +30,7 @@ public abstract class PclWriterBase {
 	private DocumentBuilder builder;
 	private BoardBase board;
 	private PencilType pencilType;
-	
+
 	/**
 	 * @param puzzleType The puzzleType to set.
 	 */
@@ -86,7 +86,7 @@ public abstract class PclWriterBase {
 		Element answerElement = doc.createElement("answer");
 		answerElement.setTextContent(makeAnswerText());
 		puzzleElement.appendChild(answerElement);
-		
+
 		String str = property.getAuthor();
 		if (str.trim().length() > 0) {
 			Element element = doc.createElement("author");

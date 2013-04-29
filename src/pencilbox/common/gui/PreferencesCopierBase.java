@@ -25,10 +25,10 @@ import pencilbox.common.factory.PencilType;
  * アプリケーションの設定の保存，読込，複写を行うためのクラス
  */
 public class PreferencesCopierBase {
-	
+
 	private String pencilName;
 	private Properties properties = new Properties();
-	
+
 	protected static List<PreferenceKey> usedKeys; // 各種類ごとに使用するPreferenceKey。個別クラスで初期化時に設定する。
 
 	/**
@@ -46,7 +46,7 @@ public class PreferencesCopierBase {
 		copier.pencilName = pencilType.getPencilName() + '.';
 		return copier;
 	}
-	
+
 	/**
 	 * 現在の properties に格納されている設定をアプリケーションに適用する。
 	 * @param command
@@ -66,7 +66,7 @@ public class PreferencesCopierBase {
 		panel.setCursorMode(getBooleanProperty(PreferenceKey.CURSOR_MODE));
 		panel.setBackgroundColor(getColorProperty(PreferenceKey.BACKGROUND_COLOR));
 		panel.setGridColor(getColorProperty(PreferenceKey.GRID_COLOR));
-	
+
 		for (PreferenceKey key : usedKeys) {
 			if (false)
 				;
@@ -152,7 +152,7 @@ public class PreferencesCopierBase {
 		setBooleanProperty(PreferenceKey.CURSOR_MODE, panel.isCursorMode());
 		setColorProperty(PreferenceKey.BACKGROUND_COLOR, panel.getBackgroundColor());
 		setColorProperty(PreferenceKey.GRID_COLOR, panel.getGridColor());
-	
+
 		for (PreferenceKey key : usedKeys) {
 			if (false)
 				;
@@ -278,20 +278,20 @@ public class PreferencesCopierBase {
 	protected String getStringProperty(PreferenceKey key) {
 		return properties.getProperty(pencilName + key.getKey());
 	}
-	
+
 	protected boolean getBooleanProperty(PreferenceKey key) {
 		return Integer.parseInt(properties.getProperty(pencilName + key.getKey())) > 0;
 //		return Boolean.parseBoolean(properties.getProperty(pencilName + key.getKey()));
 	}
-	
+
 	protected int getIntProperty(PreferenceKey key) {
 		return Integer.parseInt(properties.getProperty(pencilName + key.getKey()));
 	}
-	
+
 	protected Color getColorProperty(PreferenceKey key) {
 		return Color.decode(properties.getProperty(pencilName + key.getKey()));
 	}
-	
+
 	protected void setStringProperty(PreferenceKey key, String value) {
 		properties.setProperty(pencilName + key.getKey(), value);
 	}
@@ -301,11 +301,11 @@ public class PreferencesCopierBase {
 		properties.setProperty(pencilName + key.getKey(), Integer.toString(i));
 //		properties.setProperty(pencilName + key.getKey(), Boolean.toString(value));
 	}
-	
+
 	protected void setIntProperty(PreferenceKey key, int value) {
 		properties.setProperty(pencilName + key.getKey(), Integer.toString(value));
 	}
-	
+
 	protected void setColorProperty(PreferenceKey key, Color value) {
 		properties.setProperty(pencilName + key.getKey(), getColorString(value));
 	}

@@ -25,7 +25,7 @@ public class Panel extends PanelBase {
 	public Panel() {
 		setGridColor(Color.GRAY);
 	}
-	
+
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard;
 	}
@@ -64,7 +64,7 @@ public class Panel extends PanelBase {
 			}
 		}
 	}
-	
+
 	private void placeBlackPearl(Graphics2D g, Address p) {
 		g.setColor(getNumberColor());
 		if (isIndicateErrorMode()) {
@@ -80,7 +80,7 @@ public class Panel extends PanelBase {
 		}
 		placeFilledCircle(g, p);
 	}
-	
+
 	private void placeWhitePearl(Graphics2D g, Address p) {
 		g.setColor(getNumberColor());
 		if (isIndicateErrorMode()) {
@@ -96,7 +96,7 @@ public class Panel extends PanelBase {
 		}
 		placeBoldCircle(g, p);
 	}
-	
+
 	private void placeGrayPearl(Graphics2D g, Address p) {
 		g.setColor(grayPearlColor);
 		placeFilledCircle(g, p);

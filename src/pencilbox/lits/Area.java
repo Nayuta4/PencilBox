@@ -17,5 +17,5 @@ public class Area extends pencilbox.common.core.AreaBase {
 	public int getTetrominoType() {
 		return tetromino.getTetrominoType();
 	}
-	
+
 }

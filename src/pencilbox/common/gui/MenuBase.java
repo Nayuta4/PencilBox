@@ -78,7 +78,7 @@ public class MenuBase {
 	private JMenu markStyleMenu;
 	private JMenu exportDataMenu;
 	private ButtonGroup markStyleGroup;
-	
+
 	private JMenuItem backgroundColorItem;
 	private JMenuItem gridColorItem;
 
@@ -272,7 +272,7 @@ public class MenuBase {
 			}
 		}
 	}
-	
+
 	/**
 	 * メニューにカラーアイコンを設定します
 	 * 
@@ -282,11 +282,11 @@ public class MenuBase {
 	protected void setColorIcon(JMenuItem item, Color color) {
 
 		Icon icon = item.getIcon();
-		
+
 		if (icon != null && icon instanceof ColorIcon && ((ColorIcon)icon).getColor().equals(color)) {
 			return;
 		}
-		
+
 		item.setIcon(new ColorIcon(color, Color.BLACK, item.getFont().getSize(), item.getFont().getSize()));
 	}
 

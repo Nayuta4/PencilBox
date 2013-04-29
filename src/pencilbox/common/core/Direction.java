@@ -7,7 +7,7 @@ package pencilbox.common.core;
  */
 
 public class Direction {
-	
+
 	private Direction(){};
 
 	public static final int VERT = 0;
@@ -35,4 +35,4 @@ public class Direction {
 	UP <-> DN, LT <-> RT ‚ğ•ÏŠ·‚·‚é‚É‚ÍC ^2 ‚·‚é
  */
 
-	
+

@@ -12,7 +12,7 @@ import pencilbox.common.io.PzprReaderBase;
  * –îˆó‚Ì‚ ‚é–¢’è”š‚Í–îˆó‚È‚µ‚É•ÏX‚³‚ê‚é
  */
 public class PzprReader extends PzprReaderBase {
-	
+
 	private Board bd;
 
 	protected BoardBase makeBoard() {

@@ -23,10 +23,10 @@ import pencilbox.common.io.IOController;
  * PencilBox ファクトリークラス
  */
 public class PencilFactory {
-	
+
 	private PencilType pencilType;
 	private MenuCommand caller; // 呼び出し元メニューコマンド
-	
+
 	/**
 	 * @param pencilType
 	 */
@@ -95,7 +95,7 @@ public class PencilFactory {
 			createNewFrame(problem);
 			return true;
 		}
-		
+
 		return false;
 	}
 	/**
@@ -150,7 +150,7 @@ public class PencilFactory {
 		frame.resize();
 		frame.locateAtSamePosition();
 	}
-	
+
 	/**
 	 * 同じ盤面のフレームを複製する
 	 * @throws PencilBoxClassException
@@ -164,7 +164,7 @@ public class PencilFactory {
 		problem.getBoard().setUndoManager(um);
 		createNewFrame(problem);
 	}
-	
+
 	/**
 	 * 盤面を回転する
 	 * @param n 回転番号

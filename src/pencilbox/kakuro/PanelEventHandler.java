@@ -48,7 +48,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			}
 		}
 	}
-	
+
 	protected void rightPressed(Address pos) {
 		if (!isCursorOn() || getCellCursor().isAt(pos)) {
 			if (!board.isWall(pos)) {
@@ -70,7 +70,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		else if (direction == Direction.UP)
 			getKKCursor().setStair(KakuroCursor.LOWER);
 	}
-	
+
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {
 			if (getKKCursor().getStair() == KakuroCursor.LOWER)
@@ -88,7 +88,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 				board.changeAnswerNumber(pos, num);
 		}
 	}
-	
+
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode()) {
 			if (pos.r() ==0 || pos.c() == 0)
@@ -105,7 +105,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 				board.changeAnswerNumber(pos, 0);
 		}
 	}
-	
+
 	protected void minusEntered(Address pos) {
 		if (isProblemEditMode()) {
 			if (getKKCursor().getStair() == KakuroCursor.LOWER)

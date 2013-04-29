@@ -87,7 +87,7 @@ public class Board extends BoardBase {
 	public boolean isStable(int r, int c) {
 		return number[r][c] != Board.BLANK;
 	}
-	
+
 	public boolean isStable(Address p) {
 		return isStable(p.r(), p.c());
 	}
@@ -359,7 +359,7 @@ public class Board extends BoardBase {
 		}
 		return result;
 	}
-	
+
 	public String checkAnswerString() {
 		int result = checkAnswerCode();
 		if (result == 0)

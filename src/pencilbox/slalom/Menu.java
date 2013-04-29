@@ -7,7 +7,7 @@ import pencilbox.resource.Messages;
  * 「スラローム」メニュークラス
  */
 public class Menu extends MenuBase {
-	
+
 	protected void buildEditMenu() {
 		addSymmetricPlacementMenuItem();
 		addTrimAnswerMenuItem();

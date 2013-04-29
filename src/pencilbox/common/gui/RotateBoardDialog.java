@@ -17,7 +17,7 @@ import pencilbox.resource.Messages;
  */
 
 public class RotateBoardDialog extends PencilBoxDialog {
-	
+
 	private static RotateBoardDialog instance = new RotateBoardDialog();
 	/**
 	 * RotateBoardDialog のインスタンスを取得する
@@ -39,7 +39,7 @@ public class RotateBoardDialog extends PencilBoxDialog {
 		super.makeDialog();
 		makeMainPanel();
 	}
-	
+
 	private void makeMainPanel() {
 		mainPanel = new JPanel(new FlowLayout());
 		mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -74,14 +74,14 @@ public class RotateBoardDialog extends PencilBoxDialog {
  * 参考：core Java 2 Vol.1 リスト 9-16
  */
 class ButtonPanel extends JPanel {
-	
+
 	private ButtonGroup group;
-	
+
 	public ButtonPanel(String title, String[] name, String[] command, char[] mnumonic) {
 		setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), title));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		group = new ButtonGroup();
-		
+
 		for (int i = 0; i < command.length; i++) {
 			JRadioButton b = new JRadioButton(name[i]);
 			b.setActionCommand(command[i]);
@@ -91,7 +91,7 @@ class ButtonPanel extends JPanel {
 			b.setSelected(i == 0);
 		}
 	}
-	
+
 	public String getSelection() {
 		return group.getSelection().getActionCommand();
 	}

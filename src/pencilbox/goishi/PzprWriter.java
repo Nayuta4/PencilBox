@@ -7,9 +7,9 @@ import pencilbox.common.io.PzprWriterBase;
  * 参考：pzprv3 goishi.js
  */
 public class PzprWriter extends PzprWriterBase {
-	
+
 	private Board bd;
-	
+
 	private boolean fitsize = false; // 盤面サイズをデータに合わせるか
 	private int bdpadding = 1; // 盤面サイズをデータに合わせるときの余白数
 

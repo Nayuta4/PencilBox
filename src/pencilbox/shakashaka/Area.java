@@ -11,7 +11,7 @@ import pencilbox.common.core.Direction;
  * 「シャカシャカ」領域クラス
  */
 public class Area extends pencilbox.common.core.AreaBase {
-	
+
 	int[] nAreaBorder = new int[8]; // 領域の境界の辺の数を形状ごとに数える。
 
 	private int cmin = Integer.MAX_VALUE;
@@ -27,7 +27,7 @@ public class Area extends pencilbox.common.core.AreaBase {
 		rmax = -1;
 		Arrays.fill(nAreaBorder, 0);
 	}
-	
+
 	void updateMinMax(Address p) {
 		int x = p.c();
 		if (cmin > x) cmin = x;

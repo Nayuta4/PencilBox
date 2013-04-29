@@ -60,7 +60,7 @@ public class Board extends BoardBase {
 		initMulti();
 		initChain();
 	}
-	
+
 	/**
 	 * マスの状態を取得する
 	 * @param r マスの行座標
@@ -70,7 +70,7 @@ public class Board extends BoardBase {
 	public int getState(int r, int c) {
 		return state[r][c];
 	}
-	
+
 	public int getState(Address pos) {
 		return getState(pos.r(), pos.c());
 	}
@@ -83,7 +83,7 @@ public class Board extends BoardBase {
 	public void setState(int r, int c, int st) {
 		state[r][c] = st;
 	}
-	
+
 	public void setState(Address pos, int st) {
 		setState(pos.r(), pos.c(), st);
 	}
@@ -96,7 +96,7 @@ public class Board extends BoardBase {
 	public int getNumber(int r, int c) {
 		return number[r][c];
 	}
-	
+
 	public int getNumber(Address pos) {
 		return getNumber(pos.r(), pos.c());
 	}
@@ -373,7 +373,7 @@ public class Board extends BoardBase {
 		}
 		return true;
 	}
-	
+
 	public int checkAnswerCode() {
 		int result = 0;
 		if (!checkContinuousBlack())

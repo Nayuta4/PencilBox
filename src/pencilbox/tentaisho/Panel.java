@@ -64,7 +64,7 @@ public class Panel extends PanelBase {
 		halfStarSize = (int) (cellSize * 0.15);
 		super.setDisplaySize(cellSize);
 	}
-	
+
 	public void drawBoard(Graphics2D g) {
 		paintAreas(g);
 		drawGrid(g);
@@ -111,7 +111,7 @@ public class Panel extends PanelBase {
 			}
 		}
 	}
-	
+
 	private void drawStars(Graphics2D g) {
 		for (int r = 0; r < board.rows() * 2 - 1; r++) {
 			for (int c = 0; c < board.cols() * 2 - 1; c++) {

@@ -34,7 +34,7 @@ public class Board extends BoardBase {
 		illuminatedH = new int[rows()][cols()];
 		ArrayUtil.initArrayInt2(state, UNKNOWN);
 	}
-	
+
 	public void clearBoard() {
 		super.clearBoard();
 		for (Address p : cellAddrs()) {
@@ -84,7 +84,7 @@ public class Board extends BoardBase {
 		if (isOn(r,c)) return state[r][c];
 		else return OUTER;
 	}
-	
+
 	public int getState(Address pos) {
 		return getState(pos.r(), pos.c());
 	}
@@ -97,7 +97,7 @@ public class Board extends BoardBase {
 	public void setState(int r, int c, int st) {
 		state[r][c] = st;
 	}
-	
+
 	public void setState(Address pos, int st) {
 		setState(pos.r(), pos.c(), st);
 	}

@@ -5,7 +5,7 @@ import pencilbox.common.io.PzprReaderBase;
 
 
 public class PzprReader extends PzprReaderBase {
-	
+
 	private Board bd;
 
 	protected BoardBase makeBoard() {
@@ -19,7 +19,7 @@ public class PzprReader extends PzprReaderBase {
 		makeAreaIDsFromBorders();
 		makeAreas();
 	}
-	
+
 	/**
 	 * 境界線データから領域番号データを作成する。
 	 */

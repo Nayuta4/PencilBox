@@ -6,7 +6,7 @@ import pencilbox.common.gui.CellCursor;
  * 「カックロ」問題入力用カーソルクラス
  */
 public class KakuroCursor extends CellCursor {
-	
+
 	static final int UPPER = 1;
 	static final int LOWER = 0;
 	/**

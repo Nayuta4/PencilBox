@@ -53,7 +53,7 @@ public class DigitPatternHint {
 	private static int getAllDigitPattern(int number) {
 		return ~((-1 << (number+1))+1);
 	}
-	
+
 	/**
 	 * 指定した座標に指定した数字を配置してもルールに違反しないかどうか
 	 * @param p 座標

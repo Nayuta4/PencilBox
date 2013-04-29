@@ -17,7 +17,7 @@ import pencilbox.common.core.SideAddress;
  * //               qdata -> [(pflag)/](cols)/(rows)/(bstr)
  */
 public abstract class PzprReaderBase {
-	
+
 	private BoardBase bd;
 //	String pid;
 	private String pflag = "";	// 入力されたURLのフラグ部分
@@ -73,7 +73,7 @@ public abstract class PzprReaderBase {
 	protected BoardBase makeBoard() {
 		return null;
 	}
-	
+
 	/**
 	 * 各パズルのURL入力用(オーバーライド用)
 	 * @return

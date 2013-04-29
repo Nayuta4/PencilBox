@@ -8,7 +8,7 @@ import pencilbox.common.core.PencilBoxException;
  *
  */
 public abstract class Main {
-	
+
 	/**
 	 * 
 	 */
