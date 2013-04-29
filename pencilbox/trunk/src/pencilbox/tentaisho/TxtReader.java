@@ -27,7 +27,7 @@ public class TxtReader extends TxtReaderBase {
 		int col = Integer.parseInt(line);
 		Board board = new Board();
 		board.setSize(new Size(row,col));
-	
+
 		for (int i = 0; i < row * 2 - 1; i++) {
 			line = reader.readLine();
 			if (line == null)
@@ -53,13 +53,13 @@ public class TxtReader extends TxtReaderBase {
 		}
 		line = reader.readLine();
 		if (line == null)	return board;
-		
+
 		int nArea = Integer.parseInt(line);
 		Area[] areas = new Area[nArea];
 		for (int n=0; n<nArea; n++) areas[n] = new Area();
 		StringTokenizer t;
 		String str;
-	
+
 		for (int i = 0; i < row; i++) {
 			j = 0;
 			line = reader.readLine();

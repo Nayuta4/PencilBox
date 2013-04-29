@@ -5,7 +5,7 @@ package pencilbox.common.core;
  * 整数値の座標を表すクラス
  */
 public class Address implements Comparable<Address> {
-	
+
 	private static int MAX = -2;
 	private static Address[][] ADDRESS; // = new Address[MAX+2][MAX+2];
 
@@ -38,7 +38,7 @@ public class Address implements Comparable<Address> {
 	 *  盤外座標
 	 */
 	public static final Address NOWHERE = address(-1, -1);
-	
+
 	/**
 	 *  行座標
 	 */
@@ -47,7 +47,7 @@ public class Address implements Comparable<Address> {
 	 *  列座標
 	 */
 	private final int c;
-	
+
 	/**
 	 * コンストラクタ
 	 */
@@ -197,7 +197,7 @@ public class Address implements Comparable<Address> {
 			else return 0;
 		}
 	}
-	
+
 	/**
 	 * マスからマスへの向きを取得する
 	 * @param pos0 始点マス座標

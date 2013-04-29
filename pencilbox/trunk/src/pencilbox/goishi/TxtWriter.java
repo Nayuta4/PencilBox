@@ -11,7 +11,7 @@ import pencilbox.common.io.TxtWriterBase;
  * 
  */
 public class TxtWriter extends TxtWriterBase {
-	
+
 	public void writeProblem(PrintWriter out, BoardBase puzzleBoard, int mode) {
 		Board board = (Board) puzzleBoard;
 		out.println(board.rows());

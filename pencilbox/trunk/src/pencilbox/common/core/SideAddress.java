@@ -5,7 +5,7 @@ package pencilbox.common.core;
  * 盤上の辺の整数値の座標を表すクラス
  */
 public class SideAddress implements Comparable<SideAddress> {
-	
+
 	private static int MAX = -2;
 	private static SideAddress[][][] ADDRESS; // = new SideAddress[2][MAX][MAX];
 
@@ -34,7 +34,7 @@ public class SideAddress implements Comparable<SideAddress> {
 		int m = size.getCols() > size.getCols() ? size.getRows() : size.getCols();
 		createSideAddressInstances(m);
 	}
-	
+
 	/**
 	 *  盤外座標
 	 */
@@ -47,7 +47,7 @@ public class SideAddress implements Comparable<SideAddress> {
 	private final int d;
 	private final int r;
 	private final int c;
-	
+
 	/**
 	 * ファクトリメソッド。引数と同じ辺座標を取得する。
 	 * @param d
@@ -127,7 +127,7 @@ public class SideAddress implements Comparable<SideAddress> {
 		else
 			return false;
 	}
-	
+
 	public int hashCode() {
 		return ((d * 1000) + r) * 1000 + c;
 	}
@@ -152,7 +152,7 @@ public class SideAddress implements Comparable<SideAddress> {
 			}
 		}
 	}
-	
+
 	/**
 	 * 境界の両隣の境界
 	 * @param border 境界の座標

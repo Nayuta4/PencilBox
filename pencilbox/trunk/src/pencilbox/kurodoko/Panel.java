@@ -44,7 +44,7 @@ public class Panel extends PanelBase {
 			}
 		}
 	}
-	
+
 	private void paintCell1(Graphics2D g, Address p) {
 		g.setColor(getPaintColor());	
 		if (isIndicateErrorMode()) {

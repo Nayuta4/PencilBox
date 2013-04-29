@@ -7,9 +7,9 @@ import pencilbox.common.io.PzprWriterBase;
  * éQçlÅFpzprv3 shakashaka.js
  */
 public class PzprWriter extends PzprWriterBase {
-	
+
 	private Board bd;
-	
+
 	protected String getPzprName() {
 		return "shakashaka";
 	}

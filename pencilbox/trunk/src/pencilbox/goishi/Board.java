@@ -17,11 +17,11 @@ public class Board extends BoardBase {
 
 	static final int BLANK = 0;
 	static final int STONE = -1;
-	
+
 	private int[][] state;
 	private int[][] number;
 	ArrayList<Address> pickedList;
-	
+
 	protected void setup(){
 		super.setup();
 		state = new int[rows()][cols()];

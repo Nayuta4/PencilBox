@@ -18,7 +18,7 @@ import pencilbox.common.io.IOController;
  *
  */
 public class PngExport {
-	
+
 	public static void main(String args[]) {
 		if (args.length < 2) {
 			printUsage();

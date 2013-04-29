@@ -353,7 +353,7 @@ public class Board extends BoardBase {
 			}
 		}
 	}
-	
+
 	public int checkAnswerCode() {
 		int result = 0;
 		for (Address p : cellAddrs()) {

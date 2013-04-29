@@ -86,19 +86,19 @@ public class Board extends BoardBase {
 	public Square getSquare(int r, int c) {
 		return square[r][c];
 	}
-	
+
 	public Square getSquare(Address pos) {
 		return square[pos.r()][pos.c()];
 	}
-	
+
 	public void setSquare(int r, int c, Square sq) {
 		square[r][c] = sq;
 	}
-	
+
 	public void setSquare(Address pos, Square sq) {
 		square[pos.r()][pos.c()] = sq;
 	}
-	
+
 	List<Square> getSquareList() {
 		return squareList;
 	}
@@ -238,7 +238,7 @@ public class Board extends BoardBase {
 			}
 		}
 	}
-	
+
 	/**
 	 * マスの状態を指定した状態に変更し，変更をアンドゥリスナーに通知する
 	 * @param p マスの座標

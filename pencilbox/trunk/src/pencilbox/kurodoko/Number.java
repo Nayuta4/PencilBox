@@ -4,11 +4,11 @@ package pencilbox.kurodoko;
  * 「黒マスはどこだ」数字クラス
  */
 class Number {
-	
+
 	private int number;
 	private int nSpace;
 	private int nWhite;
-	
+
 	/**
 	 * @return Returns the number.
 	 */

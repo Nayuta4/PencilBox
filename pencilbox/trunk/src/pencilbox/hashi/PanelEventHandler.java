@@ -74,7 +74,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			}
 		}
 	}
-	
+
 	protected void minusEntered(Address pos) {
 		if (isProblemEditMode()) {
 			board.changeNumber(pos, Board.UNDECIDED_NUMBER);

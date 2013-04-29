@@ -31,7 +31,7 @@ import pencilbox.resource.Messages;
  * 
  */
 public class DataExportDialog extends JPanel {
-	
+
 	private JTextArea textArea;
 
 	/**
@@ -59,13 +59,13 @@ public class DataExportDialog extends JPanel {
 		JScrollPane jScrollPane = new JScrollPane(textArea);
 		this.add(jScrollPane, BorderLayout.NORTH);
 	}
-	
+
 	public void setText(String s) {
 		textArea.append(s);
 		textArea.setSelectionStart(0);
 		textArea.setSelectionEnd(s.length());
 	}
-	
+
 	public String getText() {
 		return textArea.getText();
 	}
@@ -103,7 +103,7 @@ public class DataExportDialog extends JPanel {
 		buttonPanel.add(buttonCopy);
 		this.add(buttonPanel, BorderLayout.SOUTH);
 	}
-	
+
 	/**
 	 * ESC キーでダイアログを閉じる
 	 */
@@ -130,13 +130,13 @@ public class DataExportDialog extends JPanel {
 		ret = PencilBoxDialog.CANCEL_OPTION;
 		dialog.setVisible(false);
 	}
-	
+
 	protected void copyToClipboard() {
 		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 		StringSelection str = new StringSelection(getText());
 		clipboard.setContents(str , null);
 	}
-	
+
 	/**
 	 * ダイアログを表示する。
 	 * 毎回JDialogを作り直して，PencilBoxPaneをJDialogの中に入れて表示する。

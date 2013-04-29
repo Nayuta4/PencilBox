@@ -49,7 +49,7 @@ public class NewBoardDialog extends PencilBoxDialog {
 		super.makeDialog();
 		makeMainPanel();
 	}
-	
+
 	private void makeMainPanel() {
 		mainPanel = new JPanel(new GridBagLayout());
 		mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -85,7 +85,7 @@ public class NewBoardDialog extends PencilBoxDialog {
 		constraints.insets.left = 0;
 		constraints.insets.right = 0;
 		constraints.fill = GridBagConstraints.BOTH;
-		
+
 		addComponent(labelCols,   constraints, 0, 0, 1, 1);
 		addComponent(spinnerCols, constraints, 1, 0, 1, 1);
 		addComponent(labelRows,   constraints, 0, 1, 1, 1);

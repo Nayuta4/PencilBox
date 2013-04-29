@@ -12,7 +12,7 @@ import pencilbox.resource.Messages;
  * JDialogを作成してその中に入れて表示し，閉じられたときに選択された結果を返す。
  */
 public class PencilBoxDialog extends JPanel {
-	
+
     /** Return value from class method if CANCEL is chosen. */
     public static final int         CANCEL_OPTION = 2;
     /** Return value form class method if OK is chosen. */
@@ -21,12 +21,12 @@ public class PencilBoxDialog extends JPanel {
      * anything, more than likely this should be treated as
      * <code>CANCEL_OPTION</code>. */
     public static final int         CLOSED_OPTION = -1;
-	
+
     /** [了解]ボタンを備えたダイアログ，今のところない */
     public static final int OK_ONLY = 0;
     /** [了解][取消]ボタンを備えたダイアログ */
 	public static final int OK_CANCEL = 1;
-	
+
 	private int dialogType = OK_CANCEL;
 	private JPanel buttonPanel;
 	private JButton	buttonOk;
@@ -48,7 +48,7 @@ public class PencilBoxDialog extends JPanel {
 		makeButtonPanel();
 		assignKeys();
 	}
-	
+
 	private void makeButtonPanel() {
 		buttonPanel = new JPanel();
 		buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
@@ -108,7 +108,7 @@ public class PencilBoxDialog extends JPanel {
 		ret = CANCEL_OPTION;
 		dialog.setVisible(false);
 	}
-	
+
 	/**
 	 * ダイアログを表示する。
 	 * 毎回JDialogを作り直して，このクラスのPanelをJDialogの中に入れて表示する。
@@ -135,11 +135,11 @@ public class PencilBoxDialog extends JPanel {
 		dialog.setVisible(true);
 		return ret;
 	}
-	
+
 	/**
 	 * 各Dialog種類ごとに，初期フォーカスを設定する。
 	 */
 	protected void setInitialFocus() {
 	}
 }
-	
+

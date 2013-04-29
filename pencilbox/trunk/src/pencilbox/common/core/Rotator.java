@@ -8,7 +8,7 @@ package pencilbox.common.core;
  * 座標回転計算用補助クラス
  */
 public class Rotator {
-	
+
 	/**
 	 * 引数で与えた回転番号は，盤面サイズの縦横交換に該当するか否かを答える
 	 * @param n　回転番号
@@ -30,7 +30,7 @@ public class Rotator {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * 回転・反転番号
 	 * 0　回転なし
@@ -45,7 +45,7 @@ public class Rotator {
 	private int rotation = 0;
 	private int rows; // 全体の行数
 	private int cols; // 全体の列数
-	
+
 	/**
 	 * コンストラクタ
 	 * @param rows 行数
@@ -57,7 +57,7 @@ public class Rotator {
 		this.cols = cols;
 		this.rotation = rotation;
 	}
-	
+
 	/**
 	 * コンストラクタ
 	 * @param size 盤面サイズ
@@ -66,7 +66,7 @@ public class Rotator {
 	public Rotator(Size size, int rotation) {
 		this(size.getRows(), size.getCols(), rotation);
 	}
-	
+
 	/**
 	 * 盤面サイズの縦横が交換されるかどうか
 	 * @return 縦横交換されるならば true
@@ -144,7 +144,7 @@ public class Rotator {
 		}
 		return direction;
 	}
-	
+
 	/**
 	 * Areaを回転して複製する
 	 * @param src 複製元Area
@@ -173,7 +173,7 @@ public class Rotator {
 			}
 		}
 	}
-	
+
 	/**
 	 * 辺座標型の３次元int型配列を回転して複製する
 	 * 複製先配列はあらかじめ作っておかないといけない
@@ -203,5 +203,5 @@ public class Rotator {
 			break;
 		}
 	}
-	
+
 }

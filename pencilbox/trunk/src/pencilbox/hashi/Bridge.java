@@ -5,12 +5,12 @@ package pencilbox.hashi;
  * ２つの数字に挟まれた橋をかけることのできるものを表す
  */
 class Bridge {
-	
+
 	private int line = 0;
-	
+
 	private Pier pier0; // Solverのみで使用
 	private Pier pier1; // Solverのみで使用
-	
+
 	Bridge(Pier p0, Pier p1) {
 		pier0 = p0;
 		pier1 = p1;

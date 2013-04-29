@@ -14,7 +14,7 @@ public class TxtWriter extends TxtWriterBase {
 
 	public void writeProblem(PrintWriter out, BoardBase puzzleBoard, int mode) {
 		Board board = (Board) puzzleBoard;
-		
+
 		int st;
 		out.println(board.rows()-1);
 		out.println(board.cols()-1);
@@ -44,6 +44,6 @@ public class TxtWriter extends TxtWriterBase {
 			}
 			out.println();
 		}
-	
+
 	}
 }

@@ -16,7 +16,7 @@ import pencilbox.common.gui.PanelBase;
  * 「波及効果」パネルクラス
  */
 public class Panel extends PanelBase {
-	
+
 	private Board board;
 
 	private Area draggingArea;
@@ -110,7 +110,7 @@ public class Panel extends PanelBase {
 			}
 		}
 	}
-	
+
 	private void drawNumbers(Graphics2D g) {
 		g.setFont(getNumberFont());
 		for (Address p : board.cellAddrs()) {

@@ -114,7 +114,7 @@ public class MenuCommand {
 	public void showErrorMessage(String s) {
 		JOptionPane.showMessageDialog(frame,s,Messages.getString("MenuCommand.Message_Error"),JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
 	}
-	
+
 	/*
 	 * 以下，各メニュー選択時の処理
 	 */
@@ -358,7 +358,7 @@ public class MenuCommand {
 			copier.storePreferences(this, file);
 		}
 	}
-	
+
 	/**
 	 *  [ファイル]-[閉じる]
 	 */

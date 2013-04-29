@@ -12,7 +12,7 @@ import java.util.TreeSet;
  * ひとつながりの線がひとつのLinkインスタンスとなる
  */
 public class Link implements Set<SideAddress> {
-	
+
 	private static int NEXT_ID = 1;
 	private Set<SideAddress> jointSet;
 	private int id;
@@ -113,4 +113,4 @@ public class Link implements Set<SideAddress> {
 
 
 }
-	
+

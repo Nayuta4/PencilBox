@@ -4,11 +4,11 @@ package pencilbox.common.core;
  * 問題付属情報クラス
  */
 public class Property {
-	
+
 	private String author = "";
 	private String source = "";
 	private String difficulty = "";
-	
+
 	/**
 	 * デフォルトコンストラクタ
 	 */
@@ -24,7 +24,7 @@ public class Property {
 		this.source = p.source;
 		this.difficulty = p.difficulty;
 	}
-	
+
 	/**
 	 * @return 作者名
 	 */

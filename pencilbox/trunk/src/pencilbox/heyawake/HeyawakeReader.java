@@ -39,7 +39,7 @@ public class HeyawakeReader {
 		}
 		return board;
 	}
-	
+
 	private void addNewRoom(Board board, int row, int col, int num) {
 		for (int r = 0; r < board.rows(); r++) {
 			for (int c = 0; c < board.cols(); c++) {

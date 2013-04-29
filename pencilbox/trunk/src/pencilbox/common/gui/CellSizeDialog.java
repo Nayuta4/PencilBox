@@ -63,7 +63,7 @@ public class CellSizeDialog extends PencilBoxDialog implements MouseWheelListene
 		this.add(mainPanel, BorderLayout.NORTH);
 		addMouseWheelListener(this);
 	}
-	
+
 	private void makeSlider() {
 		slider = new JSlider(SwingConstants.HORIZONTAL, VALUE_MIN, VALUE_MAX, VALUE_INIT);
 		slider.setMajorTickSpacing(12);
@@ -84,7 +84,7 @@ public class CellSizeDialog extends PencilBoxDialog implements MouseWheelListene
 			}
 		});
 	}
-	
+
 	private void makeSpinner() {
         SpinnerModel numberModel = new SpinnerNumberModel(VALUE_INIT, VALUE_MIN, VALUE_MAX, 1);
 		spinner = new JSpinner(numberModel);
@@ -110,7 +110,7 @@ public class CellSizeDialog extends PencilBoxDialog implements MouseWheelListene
 	public void setCellSize(int cellSize) {
 		slider.setValue(cellSize);
 	}
-	
+
 	/**
 	 * マウスホイールが回転すると呼び出されます。
 	 * 
@@ -118,7 +118,7 @@ public class CellSizeDialog extends PencilBoxDialog implements MouseWheelListene
 	 * @see java.awt.event.MouseWheelListener#mouseWheelMoved(java.awt.event.MouseWheelEvent)
 	 */
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		
+
 		setCellSize(getCellSize() - e.getWheelRotation());
 	}
 }

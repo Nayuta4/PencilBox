@@ -58,5 +58,5 @@ public class BoardCopier extends BoardCopierBase {
 		}
 		return direction;
 	}
-	
+
 }

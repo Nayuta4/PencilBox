@@ -26,7 +26,7 @@ public class Board extends BoardBase {
 
 	private int[][] number;
 	private int[][][] state;
-	
+
 	private List<Link> linkList;
 	private Link[][][] link;
 	private Link initializingLink;
@@ -42,7 +42,7 @@ public class Board extends BoardBase {
 		link[0] = new Link[rows()][cols() - 1];
 		link[1] = new Link[rows() - 1][cols()];
 	}
-	
+
 	public void clearBoard() {
 		super.clearBoard();
 		ArrayUtil.initArrayInt3(state, UNKNOWN);
@@ -73,14 +73,14 @@ public class Board extends BoardBase {
 	public boolean isNumber(int r, int c) {
 		return (number[r][c] > 0 || number[r][c] == UNDECIDED_NUMBER);
 	}
-	
+
 	public boolean isNumber(Address pos) {
 		return isNumber(pos.r(), pos.c());
 	}
 	public int getNumber(int r, int c) {
 		return number[r][c];
 	}
-	
+
 	public int getNumber(Address pos) {
 		return getNumber(pos.r(), pos.c());
 	}
@@ -89,7 +89,7 @@ public class Board extends BoardBase {
 		if (isOn(r, c))
 			number[r][c] = n;
 	}
-	
+
 	public void setNumber(Address pos, int n) {
 		setNumber(pos.r(), pos.c(), n);
 	}
@@ -215,7 +215,7 @@ public class Board extends BoardBase {
 			initLink(p);
 		}
 	}
-	
+
 	private void addNumberToLink(Link link, SideAddress b) {
 		for (int d = 0; d < 2; d++) {
 			Address p = SideAddress.nextCellFromBorder(b, d);
@@ -224,7 +224,7 @@ public class Board extends BoardBase {
 			}
 		}
 	}
-	
+
 	/**
 	 * あるマスを含む Link の初期化
 	 * link[][][] は消去されているものとする
@@ -321,7 +321,7 @@ public class Board extends BoardBase {
 		result |= checkConnection();
 		return result;
 	}
-	
+
 	/**
 	 * 正答判定の分岐チェック部分
 	 */

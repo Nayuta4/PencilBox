@@ -17,11 +17,11 @@ import pencilbox.util.ArrayUtil;
  * u‚k‚h‚s‚rv”Õ–ÊƒNƒ‰ƒX
  */
 public class Board extends BoardBase {
-	
+
 	static final int WHITE = -1;
 	static final int BLACK = -2;
 	static final int UNKNOWN = 0;
-	
+
 	private List<Area> areaList;
 	private Area[][] area;
 	private int[][] state;
@@ -75,7 +75,7 @@ public class Board extends BoardBase {
 	public void setState(int r, int c, int st) {
 		state[r][c] = st;
 	}
-	
+
 	public void setState(Address p, int st) {
 		setState(p.r(), p.c(), st);
 	}
@@ -134,7 +134,7 @@ public class Board extends BoardBase {
 	public void setArea(int r, int c, Area a) {
 		area[r][c] = a;
 	}
-	
+
 	public void setArea(Address p, Area a) {
 		setArea(p.r(), p.c(), a);
 	}
@@ -341,7 +341,7 @@ public class Board extends BoardBase {
 		result |= check2x2s();
 		return result;
 	}
-	
+
 	public int checkTetrominos() {
 		int result = 0;
 		int[] count = new int[6];
@@ -356,7 +356,7 @@ public class Board extends BoardBase {
 			result = 8;
 		return result;
 	}
-	
+
 	/**
 	 * Œ»İ‚Ì”Õ–Êó‘Ô‚ÉŠî‚Ã‚¢‚ÄC—Ìˆæ‚Ìİ’è‚ğs‚¤
 	 */
@@ -432,7 +432,7 @@ public class Board extends BoardBase {
 		}
 		return true;
 	}
-	
+
 	private int check2x2s() {
 		int result = 0;
 		for (Address p : cellAddrs()) {

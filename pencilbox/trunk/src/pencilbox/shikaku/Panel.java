@@ -28,11 +28,11 @@ public class Panel extends PanelBase {
 		setGridColor(Color.GRAY);
 		setAreaBorderColor(new Color(0x000099));
 	}
-	
+
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard;
 	}
-	
+
 	public void drawBoard(Graphics2D g) {
 		paintAreas(g);
 		drawNumbers(g);

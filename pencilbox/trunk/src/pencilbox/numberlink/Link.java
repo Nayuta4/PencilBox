@@ -5,9 +5,9 @@ package pencilbox.numberlink;
  * 「ナンバーリンク」リンククラス
  */
 public class Link extends pencilbox.common.core.Link {
-	
+
 	private int number;
-	
+
 	/**
 	 * リンクを作成する
 	 * 数字の初期値は 0

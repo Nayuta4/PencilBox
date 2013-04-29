@@ -11,7 +11,7 @@ import pencilbox.common.core.Rotator;
  * 
  */
 public class BoardCopier extends BoardCopierBase {
-	
+
 	/*
 	 * 最上段および最左列は除いた部分を回転，複写する。
 	 * 黒マスの数字もコピーするが，その際白マスに接していない数字はコピーしない。

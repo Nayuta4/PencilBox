@@ -4,9 +4,9 @@ package pencilbox.fillomino;
  * 「フィルオミノ」領域クラス
  */
 public class Area extends pencilbox.common.core.AreaBase {
-	
+
 	private int number; // 領域の数字
-	
+
 	/**
 	 * コンストラクタ
 	 * @param number 領域の数字

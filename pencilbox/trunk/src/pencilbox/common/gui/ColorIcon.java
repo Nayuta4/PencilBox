@@ -10,7 +10,7 @@ import javax.swing.Icon;
  * 色のアイコン
  */
 public class ColorIcon implements Icon {
-	
+
 	/** アイコンとして表示する色 */
 	private Color color;
 	/** 枠の色 */
@@ -19,8 +19,8 @@ public class ColorIcon implements Icon {
 	private int width;
 	/** アイコンの高さ */
 	private int height;
-	
-	
+
+
 	/**
 	 * 色のアイコンのコンストラクタ
 	 * 
@@ -31,7 +31,7 @@ public class ColorIcon implements Icon {
 	public ColorIcon(Color color, int width, int height) {
 		this(color, color, width, height);
 	}
-	
+
 	/**
 	 * 色のアイコンのコンストラクタ
 	 * 
@@ -47,7 +47,7 @@ public class ColorIcon implements Icon {
 		if (borderColor == null) {
 			throw new NullPointerException();
 		}
-		
+
 		this.color = color;
 		this.borderColor = borderColor;
 		this.width = width;
@@ -62,7 +62,7 @@ public class ColorIcon implements Icon {
 	 * @see javax.swing.Icon#paintIcon(java.awt.Component, java.awt.Graphics, int, int)
 	 */
 	public void paintIcon(Component c, Graphics g, int x, int y) {
-		
+
 		g.setColor(color);
 		g.fillRect(x, y, width, height);
 		if (!color.equals(borderColor)) {
@@ -90,7 +90,7 @@ public class ColorIcon implements Icon {
 	public int getIconHeight() {
 		return height;
 	}
-	
+
 	/**
 	 * アイコンとして表示する色を取得する
 	 * 

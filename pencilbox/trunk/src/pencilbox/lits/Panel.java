@@ -15,14 +15,14 @@ import pencilbox.common.gui.PanelBase;
  * u‚k‚h‚s‚rvƒpƒlƒ‹ƒNƒ‰ƒX
  */
 public class Panel extends PanelBase {
-	
+
 	private Board board;
 
 	private Color tetrominoLColor = new Color(0xCCCC00);
 	private Color tetrominoIColor = new Color(0xCC00CC);
 	private Color tetrominoTColor = new Color(0x00CCCC);
 	private Color tetrominoSColor = new Color(0x00CC00);
-	
+
 	private Area draggingArea;
 
 	/**
@@ -58,7 +58,7 @@ public class Panel extends PanelBase {
 		drawAreaBorders(g);
 		drawBoardBorder(g);
 	}
-	
+
 	private void paintAreas(Graphics2D g) {
 		for (Address p : board.cellAddrs()) {
 			if (board.getArea(p) == null) {
@@ -93,7 +93,7 @@ public class Panel extends PanelBase {
 			}
 		}
 	}
-	
+
 	private Color getTetrominoColor(int type) {
 		switch (type) {
 		case Tetromino.TYPE_L :

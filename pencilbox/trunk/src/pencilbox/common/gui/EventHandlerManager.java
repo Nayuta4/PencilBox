@@ -20,7 +20,7 @@ public class EventHandlerManager {
 
 	private PanelEventHandlerBase handler;
 	private RegionEditHandler regionEditHandler;
-	
+
 	/**
 	 * PanelEventHandler‚ğ¶¬‚·‚é
 	 */

@@ -70,7 +70,7 @@ public class TxtReader extends TxtReaderBase {
 				j++;
 			}
 		}
-	
+
 		return board;
 	}
 

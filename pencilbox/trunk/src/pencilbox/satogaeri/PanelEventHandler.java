@@ -24,7 +24,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	private static final int DRAG_ADD = 3;       // —ÌˆæŠg‘å‘€ì 
 	private static final int DRAG_REMOVE = 4;   // —Ìˆæk¬‘€ì 
 
-	
+
 	/**
 	 * 
 	 */

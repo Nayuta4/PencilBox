@@ -138,7 +138,7 @@ public class Board extends BoardBase {
 	public void setNumber(int r, int c, int n) {
 		number[r][c] = n;
 	}
-	
+
 	public void setNumber(Address pos, int n) {
 		setNumber(pos.r(), pos.c(), n);
 	}
@@ -317,7 +317,7 @@ public class Board extends BoardBase {
 			}
 		}
 	}
-	
+
 	public int checkAnswerCode() {
 		int result = 0;
 		for (Address p : cellAddrs()) {

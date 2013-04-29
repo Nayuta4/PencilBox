@@ -18,7 +18,7 @@ import pencilbox.util.ArrayUtil;
  *  「天体ショー」盤面クラス
  */
 public class Board extends BoardBase {
-	
+
 	/** 星がないこと */
 	static final int NOSTAR = 0;
 	/** 白い星 */
@@ -102,7 +102,7 @@ public class Board extends BoardBase {
 	public void setStar(int r, int c, int st) {
 		star[r][c] = st;
 	}
-	
+
 	public void setStar(Address pos, int st) {
 		setStar(pos.r(), pos.c(), st);
 	}
@@ -336,7 +336,7 @@ public class Board extends BoardBase {
 		newArea.setStarType(nStar);
 		newArea.setStarPos(starPos);
 	}
-	
+
 	public int checkAnswerCode() {
 		int result = 0;
 		for (Area a : areaList) {

@@ -23,7 +23,7 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	private PanelBase panel;
 	private BoardBase board;
 	private BoardCopierBase boardCopier;
-	
+
 	private EventHandlerManager eventHandlerManager;
 
 	private Address oldPos = Address.address(-1, -1);
@@ -387,7 +387,7 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 			}
 		}
 	}
-	
+
 	/**
 	 * Œ»“_‚Ì•¡Êæ—Ìˆæ‚ğì¬‚·‚é
 	 */

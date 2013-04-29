@@ -9,12 +9,12 @@ import pencilbox.common.core.Size;
  * QlFHeyawakeBox 1.1.3
  */
 public final class HeyawakeWriter {
-	
+
 	/** URL‚ÌÅ‘å’· */
 	public static final int MAX_URL_LENGTH = 2083;
 
 	private static String targetUrl = "http://www.geocities.jp/heyawake/";
-	
+
 	/**
 	 * URL‚ğ¶¬‚·‚é
 	 */

@@ -6,7 +6,7 @@ import pencilbox.common.core.Address;
  * ”Õ–Ê‚Ì“ü—Í‘ÎÛ‚Æ‚È‚Á‚Ä‚¢‚éƒ}ƒX‚ğ¦‚·‚Ì‚É—p‚¢‚é
  */
 public class CellCursor {
-	
+
 	private Address pos;
 
 	/**

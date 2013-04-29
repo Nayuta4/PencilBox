@@ -8,7 +8,7 @@ import pencilbox.common.io.PzprReaderBase;
  * QlFpzprv3 shakashaka.js
  */
 public class PzprReader extends PzprReaderBase {
-	
+
 	private Board bd;
 
 	protected BoardBase makeBoard() {

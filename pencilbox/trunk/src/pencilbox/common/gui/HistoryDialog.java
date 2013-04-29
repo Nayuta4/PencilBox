@@ -49,7 +49,7 @@ public class HistoryDialog extends PencilBoxDialog {
 		mainPanel.add(slider);
 		this.add(mainPanel, BorderLayout.NORTH);
 	}
-	
+
 	private void makeSlider() {
 		slider = new JSlider(SwingConstants.HORIZONTAL);
 		slider.setPaintTicks(true);

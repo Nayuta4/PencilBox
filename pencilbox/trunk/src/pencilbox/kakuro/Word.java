@@ -6,7 +6,7 @@ import pencilbox.common.core.Address;
  * カックロの縦または横の白マスつながりを表すクラス
  */
 public class Word {
-	
+
 	private Address head;  // 数字マスの座標
 	private int size;    // マス数
 	private int sum;  // 合計の数字
@@ -37,11 +37,11 @@ public class Word {
 	 * @param number
 	 */
 	public Word(Address p, int count, int number) {
-		
+
 		this.head = p;
 		this.size = count;
 		this.sum = number;
-		
+
 	}
 	public void clear() {
 		filledSize = 0;

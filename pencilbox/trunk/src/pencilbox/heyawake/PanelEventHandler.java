@@ -180,7 +180,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			board.changeNumber(pos, num);
 		}
 	}
-	
+
 	protected void spaceEntered(Address pos) {
 		if (isProblemEditMode()) {
 			board.changeNumber(pos, Square.ANY);

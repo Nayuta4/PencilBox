@@ -9,7 +9,7 @@ public class AreaEditStep extends AbstractStep {
 	public static final int ADDED = 1;
 	public static final int REMOVED = 0;
 	public static final int CHANGED = 2;
-	
+
 	private Address pos;
 	private Address p0;
 	private int operation;
@@ -41,9 +41,9 @@ public class AreaEditStep extends AbstractStep {
 	public int getOperation() {
 		return operation;
 	}
-	
+
 	public String toString() {
 		return pos.toString() + " from " + p0 + " changed " + getOperation() + " " + getType();
 	}
-	
+
 }

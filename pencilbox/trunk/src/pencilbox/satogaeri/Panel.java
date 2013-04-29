@@ -15,7 +15,7 @@ import pencilbox.common.gui.PanelBase;
  * 「さとがえり」パネルクラス
  */
 public class Panel extends PanelBase {
-	
+
 	private Board board;
 
 	private Area draggingArea;
@@ -93,7 +93,7 @@ public class Panel extends PanelBase {
 			}
 		}
 	}
-	
+
 	private void drawNumbers(Graphics2D g) {
 		g.setFont(getNumberFont());
 		for (Address p : board.cellAddrs()) {
@@ -143,7 +143,7 @@ public class Panel extends PanelBase {
 			}
 		}
 	}
-	
+
 	/**
 	 * そのマスから出る線を描く。
 	 * @param g

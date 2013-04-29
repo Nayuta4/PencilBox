@@ -8,7 +8,7 @@ package pencilbox.common.core;
  * 座標回転計算用補助クラス
  */
 public class Rotator2 {
-	
+
     private Rotator2() {}
 
 	/**
@@ -32,7 +32,7 @@ public class Rotator2 {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * 回転変換の結合
 	 * @param a　1つめの回転番号
@@ -48,7 +48,7 @@ public class Rotator2 {
 		}
 		return r;
 	}
-	
+
 	/**
 	 * 与えられた座標posに，
 	 * 座標fromから座標toへの移動と同じ平行移動したのちに，
@@ -235,5 +235,5 @@ public class Rotator2 {
 		}
 		return direction;
 	}
-	
+
 }

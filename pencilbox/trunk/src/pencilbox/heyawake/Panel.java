@@ -38,7 +38,7 @@ public class Panel extends PanelBase {
 		drawAreaBorders(g);
 		drawBoardBorder(g);
 	}
-	
+
 	private void paintAreas(Graphics2D g) {
 		g.setColor(noAreaColor);
 		for (Address p : board.cellAddrs()) {

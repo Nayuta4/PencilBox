@@ -7,7 +7,7 @@ import pencilbox.common.core.Address;
  * 「ＬＩＴＳ」領域クラス
  */
 public class Tetromino extends pencilbox.common.core.AreaBase {
-	
+
 	public static final int NOT_TETROMINO = 0;
 	public static final int TYPE_L = 1;
 	public static final int TYPE_I = 2;
@@ -23,7 +23,7 @@ public class Tetromino extends pencilbox.common.core.AreaBase {
 		else 
 			return '?';
 	}
-	
+
 	/**
 	 * テトロミノのタイプを判別する。
 	 * @return テトロミノの場合はタイプに応じた定数を返す。テトロミノでなければ 0 を返す。
@@ -78,7 +78,7 @@ public class Tetromino extends pencilbox.common.core.AreaBase {
 			return 0;
 		}
 	}
-	
+
 	/*
 	 *  |-3-2-1 0 1 2 3 
 	 *--+---------------x

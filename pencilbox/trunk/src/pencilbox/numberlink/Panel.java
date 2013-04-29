@@ -24,11 +24,11 @@ public class Panel extends PanelBase {
 	public Panel() {
 		setGridColor(Color.GRAY);
 	}
-	
+
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard;
 	}
-	
+
 	/**
 	 * @return the selectedLink
 	 */
@@ -121,5 +121,5 @@ public class Panel extends PanelBase {
 //		}
 		super.placeNumber(g, p, n);
 	}
-	
+
 }

@@ -8,7 +8,7 @@ import pencilbox.common.factory.PencilBoxClassException;
  * 盤面複製クラスの親クラス
  */
 public class BoardCopierBase {
-	
+
 	/**
 	 * 盤面を複製する。
 	 * @param src 複製元の盤面
@@ -32,7 +32,7 @@ public class BoardCopierBase {
 		copyBoardStates(src, dst, n);
 		return dst;
 	}
-	
+
 	/**
 	 * 盤面をサイズ変更して複製する。
 	 * @param src 複製元の盤面
@@ -46,7 +46,7 @@ public class BoardCopierBase {
 		copyBoardStates(src, dst, 0);
 		return dst;
 	}
-	
+
 	/**
 	 * 盤面状態を回転して複製する。
 	 * 盤面全領域を対象とした複写を行う。

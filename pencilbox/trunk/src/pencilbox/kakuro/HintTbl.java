@@ -20,7 +20,7 @@ public class HintTbl {
 	static final int MIN[] = {1, 3, 6, 10, 15, 21, 28, 36, 45 };
 	static final int MAX[] = {9, 17, 24, 30, 35, 39, 42, 44, 45};
 	//  9876543210
-	
+
 	static ArrayList<ArrayList<ArrayList<Integer>>> wk;
 	static int[][][] pattern; // [Œ…”][‡Œv][index]
 	static{

@@ -17,11 +17,11 @@ import pencilbox.resource.Messages;
  * ƒqƒ“ƒg‹@”\‚Â‚«
  */
 public class Board extends BoardBase {
-	
+
 	static final int BLANK = 0;
 	static final int UNKNOWN = 0;
 	static final int UNDETERMINED = -2;
-	
+
 	private List<Area> areaList;
 //	private int maxNumber = 9; // Å‘å”š9‚Æ‚·‚é
 	private int[][] state; // ‰ğ“š‚Ì”š
@@ -111,7 +111,7 @@ public class Board extends BoardBase {
 	public void setNumber(int r, int c, int n) {
 		number[r][c] = n;
 	}
-	
+
 	public void setNumber(Address pos, int n) {
 		setNumber(pos.r(), pos.c(), n);
 	}
@@ -129,7 +129,7 @@ public class Board extends BoardBase {
 	public Area getArea(int r, int c) {
 		return area[r][c];
 	}
-	
+
 	public Area getArea(Address pos) {
 		return getArea(pos.r(), pos.c());
 	}

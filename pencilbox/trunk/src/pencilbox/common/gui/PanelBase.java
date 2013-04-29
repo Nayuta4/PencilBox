@@ -109,7 +109,7 @@ public class PanelBase extends JPanel implements Printable {
 	private Color pasteRegionColor = new Color(0xFFAAAA);
 
 	protected char[] letters = {};
-	
+
 	/**
 	 * 編集モード	 
 	 */
@@ -262,7 +262,7 @@ public class PanelBase extends JPanel implements Printable {
 			drawCursor(g);
 		drawIndex(g);
 	}
-	
+
 	/**
 	 * パネルに盤面を描画する
 	 * 個々のサブクラスで実装する。
@@ -706,7 +706,7 @@ public class PanelBase extends JPanel implements Printable {
 	public void placeSideLine(Graphics2D g, SideAddress p) {
 		placeSideLine(g, p, 3);
 	}
-	
+
 	/**
 	 * 辺と交差する線を配置する
 	 * @param g
@@ -1079,7 +1079,7 @@ public class PanelBase extends JPanel implements Printable {
 	AreaBase getPasteRegion() {
 		return pasteRegion;
 	}
-	
+
 	/**
 	 * 「領域編集モード」での編集領域を表示する。
 	 * @param g

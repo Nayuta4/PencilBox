@@ -67,7 +67,7 @@ public class TxtReader extends TxtReaderBase {
 				j++;
 			}
 		}
-		
+
 		// 辺データの読み込み，なければここで終わり
 		line = reader.readLine();
 		if (line != null) {

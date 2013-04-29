@@ -10,13 +10,13 @@ import pencilbox.common.io.PzprReaderBase;
  * éQçlÅFpzprv3 heyawake.js
  */
 public class PzprReader extends PzprReaderBase {
-	
+
 	private Board bd;
 
 	private AreaBase[] areaArray;
 	private Square[] squareArray;
 	int nSquare;
-	
+
 	protected BoardBase makeBoard() {
 		bd = new Board();
 		bd.setSize(rows, cols);
@@ -37,7 +37,7 @@ public class PzprReader extends PzprReaderBase {
 				squareArray[l].setNumber(roomNumbers[l]);
 		}
 	}
-	
+
 	protected void sQnC(int id, int num) {
 		bd.getSquare(i2a(id)).setNumber(num);
 	}

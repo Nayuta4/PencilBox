@@ -10,7 +10,7 @@ public class IndexLetters {
 
 	public static final ArrayList<IndexLetters> INDEX_LETTERS_LIST = new ArrayList<IndexLetters>();
 	public static final int MAX = 200;
-	
+
 	static {
 		String[] letters;
 		/* 1 2 3 ... */

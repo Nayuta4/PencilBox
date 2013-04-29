@@ -35,7 +35,7 @@ public abstract class PclReaderBase {
 	private Property property;
 	private Size size;
 	private Problem problem;
-	
+
 	/**
 	 * ファイルからPCL形式の問題データを読んで問題を作成する。
 	 * @param file 問題データファイル
@@ -92,7 +92,7 @@ public abstract class PclReaderBase {
 		problem.setProperty(property);
 		return problem;
 	}
-	
+
 	protected void readSize (String text) {
 		StringTokenizer t = new StringTokenizer(text);
 		int col = Integer.parseInt(t.nextToken());

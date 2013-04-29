@@ -8,7 +8,7 @@ import pencilbox.common.io.PzprReaderBase;
  * éQçlÅFpzprv3 kudodoko.js
  */
 public class PzprReader extends PzprReaderBase {
-	
+
 	private Board bd;
 
 	protected BoardBase makeBoard() {

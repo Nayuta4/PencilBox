@@ -8,7 +8,7 @@ import pencilbox.resource.Messages;
  *@Bord, Propety, File ‚ğW‚ß‚½‚à‚Ì
  */
 public class Problem {
-	
+
 	private BoardBase board;
 	private Property property;
 	private File file;

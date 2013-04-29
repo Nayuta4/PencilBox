@@ -10,14 +10,14 @@ import javax.swing.filechooser.FileFilter;
  * 用途ごとに１つずつのインスタンスを生成して使い回す
  */
 public class FileChooser extends JFileChooser {
-	
+
 	private static FileChooser problemFileChooser = null;
 	private static FileChooser imageFileChooser = null;
 	private static FileChooser preferenceFileChooser = null;
 
 	private FileChooser() {
 	}
-	
+
 	public static FileChooser getProblemFileChooser() {
 		if (problemFileChooser == null) {
 			problemFileChooser = new FileChooser();

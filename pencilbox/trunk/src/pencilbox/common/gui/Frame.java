@@ -36,7 +36,7 @@ public class Frame extends JFrame {
 		jScrollPane.getViewport().add(panel, null);
 		setJMenuBar(new JMenuBar());
 	}
-	
+
 	/**
 	 * 現在の状態に合わせてフレームの大きさを変える。
 	 * このとき，フレームが画面内に入るようにする。
@@ -65,7 +65,7 @@ public class Frame extends JFrame {
 		point.y = (screenSize.height - frameSize.height) / 2;
 		this.setLocation(point);
 	}
-	
+
 	/**
 	 * 現在と同じ位置にする。
 	 * ただし，その結果画面からはみ出す場合はその辺が画面端に接するようにずらす。

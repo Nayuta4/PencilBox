@@ -44,5 +44,5 @@ class BridgeEditStep extends AbstractStep {
 	public String toString() {
 		return pos.toString() + getDirection() + " "+ getBefore() + "->" + getAfter() + " " + getType();
 	}
-	
+
 }

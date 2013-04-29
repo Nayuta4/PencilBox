@@ -6,9 +6,9 @@ import pencilbox.common.io.PzprWriterBase;
 
 
 public class PzprWriter extends PzprWriterBase {
-	
+
 	private Board bd;
-	
+
 	protected String getPzprName() {
 		return "norinori";
 	}

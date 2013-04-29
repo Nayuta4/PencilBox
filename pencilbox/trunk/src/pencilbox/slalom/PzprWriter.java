@@ -10,7 +10,7 @@ import pencilbox.common.io.PzprWriterBase;
  * 参考：pzprv3 slalom.js
  */
 public class PzprWriter extends PzprWriterBase {
-	
+
 	private Board bd;
 
 	protected String getPzprName() {
@@ -46,14 +46,14 @@ public class PzprWriter extends PzprWriterBase {
 		count=0;
 		if (ver==0) { // 旧形式
 			ArrayList<Address> gateList = makeGateList();
-	
+
 			for (int r=0; r<bd.getNGate(); r++) {
 				String pstr = "";
 				int val = bd.getGateNumber(gateList.get(r));
 				if     (val>= 1 && val< 16){ pstr =       toString(val,16);}
 				else if(val>=16 && val<256){ pstr = "-" + toString(val,16);}
 				else{ count++;}
-	
+
 				if(count==0){ cm += pstr;}
 				else if(pstr.length()>0 || count==20){ cm+=(toString((15+count),36)+pstr); count=0;}
 			}

@@ -43,7 +43,7 @@ public class DigitPatternHint {
 				checkUsedNumber(p, n);
 		}
 	}
-	
+
 	boolean canPlace(Address p, int n) {
 		return (pattern[p.r()][p.c()] & (1<<n)) > 0;
 	}

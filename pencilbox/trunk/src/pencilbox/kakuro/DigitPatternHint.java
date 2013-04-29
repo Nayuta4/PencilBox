@@ -25,7 +25,7 @@ public class DigitPatternHint {
 			return 1;
 		return pat;
 	}
-	
+
 	void setupHint(Board board) {
 		this.board = board;
 		horizPattern = new int[board.rows()][board.cols()];
@@ -40,7 +40,7 @@ public class DigitPatternHint {
 		updatePattern(p, Direction.HORIZ);
 		updatePattern(p, Direction.VERT);
 	}
-	
+
 	/**
 	 * 引数座標のマスを含むヨコまたはタテのワードの配置可能パターンを求める。
 	 * @param p0

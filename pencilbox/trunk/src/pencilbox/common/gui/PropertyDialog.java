@@ -13,7 +13,7 @@ import pencilbox.resource.Messages;
  * モーダルダイアログなので，1つのインスタンスのみを生成して使い回す
  */
 public class PropertyDialog extends PencilBoxDialog {
-	
+
 	private static PropertyDialog instance = new PropertyDialog();
 
 	/**
@@ -28,7 +28,7 @@ public class PropertyDialog extends PencilBoxDialog {
 	private JTextField fieldAuthor;
 	private JTextField fieldDifficulty;
 	private JTextField fieldSource;
-	
+
 	private PropertyDialog() {
 		super();
 	}
@@ -57,7 +57,7 @@ public class PropertyDialog extends PencilBoxDialog {
 		constraints.insets.bottom = 2;
 		constraints.insets.left = 2;
 		constraints.insets.right = 2;
-		
+
 		addComponent(labelAuthor, constraints, 0, 0, 1, 1);
 		addComponent(fieldAuthor, constraints, 1, 0, 3, 1);
 		addComponent(labelDifficulty, constraints, 0, 1, 1, 1);
@@ -98,7 +98,7 @@ public class PropertyDialog extends PencilBoxDialog {
 	protected void setInitialFocus() {
 		fieldAuthor.requestFocusInWindow();
 	}
-	
+
 	protected void accept(){
 		super.accept();
 	}

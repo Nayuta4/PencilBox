@@ -50,13 +50,13 @@ public class Board extends BoardBase {
 		link[Direction.VERT] = new Link[rows()][cols() - 1];
 		link[Direction.HORIZ] = new Link[rows() - 1][cols()];
 	}
-	
+
 	public void clearBoard() {
 		super.clearBoard();
 		ArrayUtil.initArrayInt3(state, UNKNOWN);
 		initBoard();
 	}
-	
+
 	public void trimAnswer() {
 		for (SideAddress p : borderAddrs()) {
 			if (getState(p) == NOLINE) {
@@ -86,7 +86,7 @@ public class Board extends BoardBase {
 	public void setNumber(int r, int c, int st) {
 		number[r][c] = st;
 	}
-	
+
 	public void setNumber(Address pos, int st) {
 		setNumber(pos.r(), pos.c(), st);
 	}
@@ -99,7 +99,7 @@ public class Board extends BoardBase {
 	public int getNumber(int r, int c) {
 		return number[r][c];
 	}
-	
+
 	public int getNumber(Address pos) {
 		return getNumber(pos.r(), pos.c());
 	}
@@ -136,7 +136,7 @@ public class Board extends BoardBase {
 //		if (isSideOn(d,r,c))
 			state[d][r][c] = st;
 	}
-	
+
 	public void setState(SideAddress pos, int st) {
 		setState(pos.d(), pos.r(), pos.c(), st);
 	}
@@ -229,7 +229,7 @@ public class Board extends BoardBase {
 	public void initBoard() {
 		initLinks();
 	}
-	
+
 	void initLinks() {
 		Link.resetId();
 		linkList.clear();
@@ -239,7 +239,7 @@ public class Board extends BoardBase {
 			initLink(p);
 		}
 	}
-	
+
 	/**
 	 * あるマスを含む Link の初期化
 	 * link[][][] は消去されているものとする
@@ -371,7 +371,7 @@ public class Board extends BoardBase {
 		}
 		return -9;
 	}
-	
+
 	/**
 	 * 黒真珠マス上の線の状態を調べる
 	 * 次の２種類を間違いと判定する

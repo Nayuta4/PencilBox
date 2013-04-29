@@ -1,11 +1,11 @@
 package pencilbox.common.core;
 
 public class SquareEditStep extends AbstractStep {
-	
+
 	public static final int ADDED = 1;
 	public static final int REMOVED = 0;
 	public static final int CHANGED = 2;
-	
+
 	private Address p0 = Address.NOWHERE;
 	private Address p1 = Address.NOWHERE;
 	private Address q0 = Address.NOWHERE;
@@ -65,5 +65,5 @@ public class SquareEditStep extends AbstractStep {
 	public int getOperation() {
 		return operation;
 	}
-	
+
 }
