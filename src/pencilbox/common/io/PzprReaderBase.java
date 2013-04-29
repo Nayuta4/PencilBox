@@ -229,7 +229,7 @@ public abstract class PzprReaderBase {
 		this.outbstr(bstr, pos2);
 	}
 
-	protected int[] borders; 
+	protected int[] borders;
 	protected int[] areaIds;
 	protected int nArea;
 

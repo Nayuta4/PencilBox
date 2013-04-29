@@ -342,9 +342,9 @@ public class Board extends BoardBase {
 	int checkWhitePearl(Address p) {
 		int l = countLine(p);
 		if (l > 2)
-			return -1; 
+			return -1;
 		else if (l < 2)
-			return 0; 
+			return 0;
 		if (isLineJ(p,UP) && isLineJ(p,RT)) return -1;
 		if (isLineJ(p,UP) && isLineJ(p,LT)) return -1;
 		if (isLineJ(p,DN) && isLineJ(p,RT)) return -1;
@@ -389,9 +389,9 @@ public class Board extends BoardBase {
 
 		int l = countLine(p);
 		if (l > 2)
-			return -1; 
+			return -1;
 		else if (l < 2)
-			return 0; 
+			return 0;
 
 		if (isLineJ(p,UP) && isLineJ(p,DN)) return -1;
 		if (isLineJ(p,RT) && isLineJ(p,LT)) return -1;
@@ -437,7 +437,7 @@ public class Board extends BoardBase {
 			if (l > 2) {
 				result |= 1;
 			} else if ( l == 1 ) {
-				result |= 2; 
+				result |= 2;
 			}
 			int pearl = getNumber(p);
 			if (pearl == WHITE_PEARL) {
@@ -445,14 +445,14 @@ public class Board extends BoardBase {
 					if (n == -1)
 						result |= 4;
 					else if (n == 0)
-						result |= 32;   
+						result |= 32;
 			}
 			if (pearl == BLACK_PEARL) {
 				n = checkBlackPearl(p);
 				if (n == -1)
-					result |= 8; 
+					result |= 8;
 				else if (n == 0)
-					result |= 64;   
+					result |= 64;
 			}
 		}
 		if (linkList.size() > 1)
@@ -465,7 +465,7 @@ public class Board extends BoardBase {
 	public String checkAnswerString() {
 		int result = checkAnswerCode();
 		if (result == 0)
-			return BoardBase.COMPLETE_MESSAGE; 
+			return BoardBase.COMPLETE_MESSAGE;
 		StringBuffer message = new StringBuffer();
 		if ((result & 1) == 1)
 			message.append(Messages.getString("masyu.AnswerCheckMessage1")); //$NON-NLS-1$

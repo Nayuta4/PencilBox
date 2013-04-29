@@ -50,7 +50,7 @@ public class PrintPreviewDialog extends JDialog {
 		return instance;
 	}
 
-	private PrintPreviewCanvas pcanvas; 
+	private PrintPreviewCanvas pcanvas;
 
 	private PrintPreviewDialog() {
 		super((Frame)null, true);

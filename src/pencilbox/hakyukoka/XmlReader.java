@@ -20,7 +20,7 @@ public class XmlReader extends XmlReaderBase {
 	protected void start() {
 		if (node=="areas") {
 			int nArea = Integer.parseInt(attributes.getValue("N"));
-			areas = new Area[nArea]; 
+			areas = new Area[nArea];
 			for (int i=0; i<nArea; i++) areas[i] = new Area();
 		}
 	}

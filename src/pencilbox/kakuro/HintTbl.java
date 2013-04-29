@@ -132,6 +132,6 @@ public class HintTbl {
 //		String str = "";
 //		for (int l=1; l<=9; l++)
 //			if ((ptn & (1<<l)) > 0) str += l;
-//		return str; 
+//		return str;
 //	}
 }

@@ -42,7 +42,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			if (!board.isWall(pos)) {
 				int n = board.getNumber(pos);
 				if (n >= board.getMaxNumber())
-					board.changeAnswerNumber(pos, 0); 
+					board.changeAnswerNumber(pos, 0);
 				else if (n >= 0)
 					board.changeAnswerNumber(pos, n + 1);
 			}
@@ -54,7 +54,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			if (!board.isWall(pos)) {
 				int n = board.getNumber(pos);
 				if (n == 0) 
-					board.changeAnswerNumber(pos, board.getMaxNumber()); 
+					board.changeAnswerNumber(pos, board.getMaxNumber());
 				else if (n > 0)
 					board.changeAnswerNumber(pos, n - 1);
 			}

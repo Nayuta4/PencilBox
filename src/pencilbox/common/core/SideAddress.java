@@ -148,7 +148,7 @@ public class SideAddress implements Comparable<SideAddress> {
 				if (this.r < o.r) return -1;
 				if (this.c < o.c) return -1;
 				else if (this.c > o.c) return 1;
-				else return 0; 
+				else return 0;
 			}
 		}
 	}

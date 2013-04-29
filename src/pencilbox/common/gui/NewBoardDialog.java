@@ -84,14 +84,14 @@ public class NewBoardDialog extends PencilBoxDialog {
 		constraints.insets.bottom = 2;
 		constraints.insets.left = 0;
 		constraints.insets.right = 0;
-		constraints.fill = GridBagConstraints.BOTH; 
+		constraints.fill = GridBagConstraints.BOTH;
 		
 		addComponent(labelCols,   constraints, 0, 0, 1, 1);
 		addComponent(spinnerCols, constraints, 1, 0, 1, 1);
 		addComponent(labelRows,   constraints, 0, 1, 1, 1);
 		addComponent(spinnerRows, constraints, 1, 1, 1, 1);
 		addComponent(checkBox,    constraints, 1, 2, 1, 1);
-		this.add(mainPanel, BorderLayout.CENTER); 
+		this.add(mainPanel, BorderLayout.CENTER);
 	}
 
 	private void addComponent(Component c, GridBagConstraints constraints, int x, int y, int w, int h) {

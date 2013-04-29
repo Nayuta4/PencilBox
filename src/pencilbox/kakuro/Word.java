@@ -40,7 +40,7 @@ public class Word {
 		
 		this.head = p;
 		this.size = count;
-		this.sum = number; 
+		this.sum = number;
 		
 	}
 	public void clear() {

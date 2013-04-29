@@ -45,10 +45,10 @@ public class AreaBase implements Set<Address> {
 	}
 
 	public int size() {
-		return cellList.size(); 
+		return cellList.size();
 	}
 	public Iterator<Address> iterator() {
-		return cellList.iterator(); 
+		return cellList.iterator();
 	}
 	public boolean contains(Object o) {
 		return cellList.contains(o);

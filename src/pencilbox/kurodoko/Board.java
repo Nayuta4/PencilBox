@@ -12,7 +12,7 @@ import pencilbox.resource.Messages;
  */
 public class Board extends BoardBase {
 
-	static final int HORIZ = Direction.HORIZ; 
+	static final int HORIZ = Direction.HORIZ;
 	static final int VERT = Direction.VERT;
 
 	static final int WHITE = -1;

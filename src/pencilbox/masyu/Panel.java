@@ -70,11 +70,11 @@ public class Panel extends PanelBase {
 		if (isIndicateErrorMode()) {
 			int n = board.checkBlackPearl(p);
 			if (n==-1)
-				g.setColor(getErrorColor()); 
+				g.setColor(getErrorColor());
 			else if (n==0)
-				g.setColor(getErrorColor()); 
+				g.setColor(getErrorColor());
 //			else if (n==1)
-//				g.setColor(getErrorColor()); 
+//				g.setColor(getErrorColor());
 //			else if (n==2)
 //				g.setColor(getNumberColor());
 		}
@@ -86,11 +86,11 @@ public class Panel extends PanelBase {
 		if (isIndicateErrorMode()) {
 			int n = board.checkWhitePearl(p);
 			if (n==-1)
-				g.setColor(getErrorColor()); 
+				g.setColor(getErrorColor());
 			else if (n==0)
-				g.setColor(getErrorColor()); 
+				g.setColor(getErrorColor());
 //			else if (n==1)
-//				g.setColor(getErrorColor()); 
+//				g.setColor(getErrorColor());
 //			else if (n==2)
 //				g.setColor(getNumberColor());
 		}

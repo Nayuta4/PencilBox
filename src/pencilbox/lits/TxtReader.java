@@ -30,7 +30,7 @@ public class TxtReader extends TxtReaderBase {
 		Board board = new Board();
 		board.setSize(new Size(row, col));
 		line = reader.readLine();
-		int nArea = Integer.parseInt(line); 
+		int nArea = Integer.parseInt(line);
 		Area[] areaArray = new Area[nArea];
 		for (int k=0; k<nArea; k++) {
 			areaArray[k] = new Area();

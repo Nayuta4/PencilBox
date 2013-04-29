@@ -61,7 +61,7 @@ public class PencilBoxLauncher {
 				try {
 					PencilFactory.getInstance(pencilType).createNewFrame();
 				} catch (PencilBoxClassException e) {
-					JOptionPane.showMessageDialog(null,e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE); 
+					JOptionPane.showMessageDialog(null,e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
