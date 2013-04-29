@@ -9,7 +9,7 @@
 	<property name="sample" value="sample"/>
 
 	<property name="project" value="pencilbox" />
-	<property name="version" value="1.6.2" />
+	<property name="version" value="1.6.3" />
 
 	<!-- コンパイル -->
 	<target name="compile">
@@ -34,7 +34,7 @@
 		<jar jarfile="${jar}/pencilbox.jar" basedir="${bin}" includes="pencilbox/common/**/*, pencilbox/util/**/*, pencilbox/resource/**/*, pencilbox/tool/**/*">
 			<manifest>
 				<attribute name="Main-Class" value="pencilbox.common.factory.PencilBoxLauncher"/>
-				<attribute name="Class-Path" value="bijutsukan.jar fillomino.jar goishi.jar hakyukoka.jar hashi.jar heyawake.jar hitori.jar kakuro.jar kurodoko.jar masyu.jar norinori.jar numberlink.jar nurikabe.jar shakashaka.jar shikaku.jar slalom.jar slitherlink.jar sudoku.jar tentaisho.jar yajilin.jar lits.jar"/>
+				<attribute name="Class-Path" value="bijutsukan.jar fillomino.jar goishi.jar hakyukoka.jar hashi.jar heyawake.jar hitori.jar kakuro.jar kurodoko.jar masyu.jar norinori.jar numberlink.jar nurikabe.jar satogaeri.jar shakashaka.jar shikaku.jar slalom.jar slitherlink.jar sudoku.jar tentaisho.jar yajilin.jar lits.jar"/>
 			</manifest>
 		</jar>
 		<jar jarfile="${jar}/bijutsukan.jar" basedir="${bin}" includes="pencilbox/bijutsukan/*">
@@ -118,6 +118,12 @@
 		<jar jarfile="${jar}/nurikabe.jar" basedir="${bin}" includes="pencilbox/nurikabe/*">
 			<manifest>
 				<attribute name="Main-Class" value="pencilbox.nurikabe.Main"/>
+				<attribute name="Class-Path" value="pencilbox.jar"/>
+			</manifest>
+		</jar>
+		<jar jarfile="${jar}/satogaeri.jar" basedir="${bin}" includes="pencilbox/satogaeri/*">
+			<manifest>
+				<attribute name="Main-Class" value="pencilbox.satogaeri.Main"/>
 				<attribute name="Class-Path" value="pencilbox.jar"/>
 			</manifest>
 		</jar>
