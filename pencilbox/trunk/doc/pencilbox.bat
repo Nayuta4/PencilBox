@@ -25,6 +25,7 @@ javaw -cp masyu.jar       pencilbox.masyu.Main       sample/masyu/MS_sample01.tx
 javaw -cp norinori.jar    pencilbox.norinori.Main    sample/norinori/NN_sample01.txt 
 javaw -cp numberlink.jar  pencilbox.numberlink.Main  sample/numberlink/NL_sample02.txt 
 javaw -cp nurikabe.jar    pencilbox.nurikabe.Main    sample/nurikabe/NK_sample01.txt 
+javaw -cp satogaeri.jar   pencilbox.satogaeri.Main   sample/satogaeri/satogaeri_sample01.txt 
 javaw -cp shakashaka.jar  pencilbox.shakashaka.Main  sample/shakashaka/SS_sample01.txt 
 javaw -cp shikaku.jar     pencilbox.shikaku.Main     sample/shikaku/SK_sample01.txt 
 javaw -cp slalom.jar      pencilbox.slalom.Main      sample/slalom/SM-sample01.txt 
@@ -49,6 +50,7 @@ javaw -cp pencilbox.jar  pencilbox.tool.PngExport masyu       sample/masyu/MS_sa
 javaw -cp pencilbox.jar  pencilbox.tool.PngExport norinori    sample/norinori/NN_sample01.txt 
 javaw -cp pencilbox.jar  pencilbox.tool.PngExport numberlink  sample/numberlink/NL_sample02.txt 
 javaw -cp pencilbox.jar  pencilbox.tool.PngExport nurikabe    sample/nurikabe/NK_sample01.txt 
+javaw -cp pencilbox.jar  pencilbox.tool.PngExport satogaeri   sample/satogaeri/satogaeri_sample01.txt 
 javaw -cp pencilbox.jar  pencilbox.tool.PngExport shakashaka  sample/shakashaka/SS_sample01.txt 
 javaw -cp pencilbox.jar  pencilbox.tool.PngExport shikaku     sample/shikaku/SK_sample01.txt 
 javaw -cp pencilbox.jar  pencilbox.tool.PngExport slalom      sample/slalom/SM-sample01.txt 
