@@ -50,7 +50,7 @@ public class TxtReader extends TxtReaderBase {
 					if (!board.isWall(i,j)) {
 						if (str.equals(".")) {
 							 board.setNumber(i,j,0);
-						} 
+						}
 						else {
 							board.setNumber(i,j,Integer.parseInt(str));
 						}

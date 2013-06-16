@@ -159,7 +159,7 @@ public class UndoManager {
 				for (int i = 0; i < edits.size(); i++) {
 					board.redo(edits.get(i));
 				}
-			} else { 
+			} else {
 				board.redo(edit);
 			}
 			indexOfNextAdd++;

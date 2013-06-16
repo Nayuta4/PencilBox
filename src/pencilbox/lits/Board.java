@@ -235,7 +235,7 @@ public class Board extends BoardBase {
 	 * @param p
 	 */
 	void addCell(Address p0, Address p) {
-		if (Address.NOWHERE.equals(p0)) { 
+		if (Address.NOWHERE.equals(p0)) {
 			Area a = new Area();
 			addCellToArea(p, a);
 		} else {

@@ -170,7 +170,7 @@ public class PrintPreviewDialog extends JDialog {
 		PrinterJob job = PrinterJob.getPrinterJob();
 		try {
 			job.setPrintable(pcanvas);
-            if (job.printDialog(attributes)) {  
+            if (job.printDialog(attributes)) {
                job.print(attributes);
             }
 		} catch (PrinterException e) {

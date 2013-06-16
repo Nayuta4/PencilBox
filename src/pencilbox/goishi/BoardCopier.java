@@ -46,7 +46,7 @@ public class BoardCopier extends BoardCopierBase {
 					if (board.canPick(d)) {
 						board.pickUp(d);
 					}
-				} 
+				}
 			}
 		}
 //		System.out.println();

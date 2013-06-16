@@ -44,7 +44,7 @@ public class TxtReader extends TxtReaderBase {
 			while (t.hasMoreTokens()) {
 				str = t.nextToken();
 				int k = Integer.parseInt(str);
-				if(k>=0) { 
+				if(k>=0) {
 					areaArray[k].add(i,j);
 					board.setArea(i,j,areaArray[k]);
 				}

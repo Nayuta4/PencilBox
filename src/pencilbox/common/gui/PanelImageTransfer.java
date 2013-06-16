@@ -18,7 +18,7 @@ import java.awt.image.BufferedImage;
 /*
  * 参考：core JAVA2 Vol.2 7.13 
  */
-public class PanelImageTransfer {  
+public class PanelImageTransfer {
 
 	/**
 	 * パネルの表示内容を クリップボードにコピーする一連の処理を行う
@@ -45,7 +45,7 @@ public class PanelImageTransfer {
 /**
    This class is a wrapper for the data transfer of image objects.
 */
-class ImageSelection implements Transferable {  
+class ImageSelection implements Transferable {
 
 	private Image theImage;
 
@@ -53,22 +53,22 @@ class ImageSelection implements Transferable {
 	  Constructs the selection.
 	  @param image an image
    */
-   public ImageSelection(Image image) {  
+   public ImageSelection(Image image) {
 	  theImage = image;
    }
 
-   public DataFlavor[] getTransferDataFlavors() {  
+   public DataFlavor[] getTransferDataFlavors() {
 	  return new DataFlavor[] { DataFlavor.imageFlavor };
    }
 
-   public boolean isDataFlavorSupported(DataFlavor flavor) {  
+   public boolean isDataFlavorSupported(DataFlavor flavor) {
 	  return flavor.equals(DataFlavor.imageFlavor);
    }
 
-   public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException {  
+   public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException {
 	  if (flavor.equals(DataFlavor.imageFlavor)) {
 		 return theImage;
-	  } else {  
+	  } else {
 		 throw new UnsupportedFlavorException(flavor);
 	  }
    }

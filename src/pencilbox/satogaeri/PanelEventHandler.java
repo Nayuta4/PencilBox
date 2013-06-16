@@ -170,7 +170,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			if (board.getRoute(q) == (d^2)) {
 //				board.changeRoute(p, d);     // Œ³‚Ìƒ}ƒX‚É‘Î‚·‚é‘€ì‚Æ‚µ‚Ä“o˜^‚·‚é‚È‚ç
 				board.changeRoute(q, Board.END);   // —×‚Ìƒ}ƒX‚É‘Î‚·‚é‘€ì‚Æ‚µ‚Ä“o˜^‚·‚é‚È‚ç
-			} else if (board.getRoute(q) == Board.NOROUTE && !board.hasNumber(q)) { 
+			} else if (board.getRoute(q) == Board.NOROUTE && !board.hasNumber(q)) {
 				int d1 = board.getIncomingDirection(p);
 				if (d1 != Board.END && d1 != d) {
 	//				System.out.println(d1 + " " + d + " " + "ü‚Ì“r’†‚ÅŒü‚«‚Í•Ï‚¦‚ç‚ê‚È‚¢");
