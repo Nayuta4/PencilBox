@@ -53,7 +53,7 @@ public class Word {
 			if (after > 0) {
 				filledSize++;
 				filledSum += after;
-			} 
+			}
 		} else if (before > 0 ) {
 			if (after == 0) {
 				filledSize--;
@@ -77,7 +77,7 @@ public class Word {
 	 	else {
 	 		if (filledSum == sum) status = 1;
 	 		else status = -1;
-	 	} 
+	 	}
 	 	return status;
 	 }
 	/**

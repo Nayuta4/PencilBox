@@ -189,7 +189,7 @@ public class Board extends BoardBase {
 			} else if (step.getType() == EditType.FIXED) {
 				changeNumber(s.getPos(), s.getBefore());
 			}
-		} 
+		}
 	}
 
 	public void redo(AbstractStep step) {
@@ -293,7 +293,7 @@ public class Board extends BoardBase {
 			int c1 = getChain(pp);
 			if (isOnPeriphery(p) && c1 == 1) {
 				newChain = -1; // ’[‚Ìƒ}ƒX‚É‚¢‚é‚Æ‚«”Ô†1‚ªŒ©‚Â‚©‚Á‚½‚ç•ª’f‚³‚ê‚½
-			} 
+			}
 			adjacent[k] = c1;
 			for (int l = 0; l < k; l++) {
 				if (adjacent[k] == adjacent[l]) // “¯‚¶”Ô†‚ªŒ©‚Â‚©‚Á‚½‚ç•ª’f‚³‚ê‚½

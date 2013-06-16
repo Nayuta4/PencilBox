@@ -409,7 +409,7 @@ public class Board extends BoardBase {
 			if (isLineJ(pd,RT)) return -1;
 			if (isLineJ(pd,DN)) success |= 2;
 			else success |= 1;
-		} 
+		}
 		if (isLineJ(p,LT)) {
 			Address pl = Address.nextCell(p,LT);
 			if (isLineJ(pl,UP)) return -1;

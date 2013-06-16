@@ -328,7 +328,7 @@ public class Board extends BoardBase {
 								nStar = -1;
 								starPos = StarAddress.NOWHERE;
 							}
-						} 
+						}
 					}
 				}
 			}
@@ -342,7 +342,7 @@ public class Board extends BoardBase {
 		for (Area a : areaList) {
 			if (a.isPointSymmetry() == false) {
 				result |= 1;
-			} 
+			}
 		}
 		for (Address p : cellAddrs()) {
 			if (getArea(p) == null) {

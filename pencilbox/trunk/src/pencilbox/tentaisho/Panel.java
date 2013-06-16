@@ -95,7 +95,7 @@ public class Panel extends PanelBase {
 							g.setColor(blackAreaColor);
 						} else {
 							g.setColor(noStarAreaColor);
-						} 
+						}
 					}
 					if (isIndicateErrorMode()) {
 						if (starType == -1) {

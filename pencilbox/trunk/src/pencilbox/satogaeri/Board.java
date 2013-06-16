@@ -172,7 +172,7 @@ public class Board extends BoardBase {
 		if (isRecordUndo())
 			fireUndoableEditUpdate(new CellEditStep(EditType.STATE, p, prev, st));
 //		System.out.println("record: " + p + " : " + prev + " -> " + st);
-		if (st >= Board.UP && st <= Board.RT){ 
+		if (st >= Board.UP && st <= Board.RT){
 			Address q = p.nextCell(st);
 			if (getRoute(q) == Board.NOROUTE) {
 				setRoute(p, st);
@@ -182,7 +182,7 @@ public class Board extends BoardBase {
 			setRoute(q, Board.END);
 		} else if (st == Board.END) {
 // –ß‚é‚Æ‚«
-			if (prev >= Board.UP && prev <= Board.RT){ 
+			if (prev >= Board.UP && prev <= Board.RT){
 				Address q = p.nextCell(prev);
 				setRoute(q, Board.NOROUTE);
 				setRoute(p, Board.END);
@@ -202,7 +202,7 @@ public class Board extends BoardBase {
 		if (isRecordUndo())
 			fireUndoableEditUpdate(new CellEditStep(EditType.STATE, p, prev, st));
 //		System.out.println("record: " + p + " : " + prev + " -> " + st);
-		if (prev >= Board.UP && prev <= Board.RT){ 
+		if (prev >= Board.UP && prev <= Board.RT){
 			Address q = p.nextCell(prev);
 			setRoute(q, Board.NOROUTE);
 			setRoute(p, Board.END);
@@ -285,7 +285,7 @@ public class Board extends BoardBase {
 				setRoute(p, Board.END);
 				int prev = s.getBefore();
 				int st = s.getAfter();
-				if (st >= Board.UP && st <= Board.RT){ 
+				if (st >= Board.UP && st <= Board.RT){
 					Address q = p.nextCell(st);
 //					if (getRoute(p) == Board.NOROUTE) {
 //						setRoute(q, st^2);
@@ -294,7 +294,7 @@ public class Board extends BoardBase {
 //					}
 					setRoute(p, prev);
 				} else if (st == Board.END) {
-					if (prev >= Board.UP && prev <= Board.RT){ 
+					if (prev >= Board.UP && prev <= Board.RT){
 						Address q = p.nextCell(prev);
 						setRoute(q, Board.END);
 						setRoute(p, prev);
@@ -324,7 +324,7 @@ public class Board extends BoardBase {
 				Address p = s.getPos();
 				int prev = s.getBefore();
 				int st = s.getAfter();
-				if (st >= Board.UP && st <= Board.RT){ 
+				if (st >= Board.UP && st <= Board.RT){
 					Address q = p.nextCell(st);
 //					if (getRoute(q) == Board.NOROUTE) {
 						setRoute(p, st);
@@ -333,7 +333,7 @@ public class Board extends BoardBase {
 //					}
 					setRoute(q, Board.END);
 				} else if (st == Board.END) {
-					if (prev >= Board.UP && prev <= Board.RT){ 
+					if (prev >= Board.UP && prev <= Board.RT){
 						Address q = p.nextCell(prev);
 						setRoute(q, Board.NOROUTE);
 					}
@@ -359,7 +359,7 @@ public class Board extends BoardBase {
 	 * @param p
 	 */
 	void addCell(Address p0, Address p) {
-		if (Address.NOWHERE.equals(p0)) { 
+		if (Address.NOWHERE.equals(p0)) {
 			Area a = new Area();
 			addCellToArea(p, a);
 		} else {
