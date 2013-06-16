@@ -35,7 +35,7 @@ public class LinkWidthDialog extends PencilBoxDialog implements MouseWheelListen
     static final int VALUE_MIN = 1;
     static final int VALUE_MAX = 7;
     static final int VALUE_INIT = 3;
-    
+
     private JSlider slider;
     private JSpinner spinner;
     private PanelBase panel;
@@ -49,7 +49,7 @@ public class LinkWidthDialog extends PencilBoxDialog implements MouseWheelListen
 		super.makeDialog();
 		makeMainPanel();
 	}
-    
+
     public void setPanel(PanelBase p) {
     	panel = p;
     }
