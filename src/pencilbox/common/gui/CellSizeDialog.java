@@ -35,7 +35,7 @@ public class CellSizeDialog extends PencilBoxDialog implements MouseWheelListene
     static final int VALUE_MIN = 8;
     static final int VALUE_MAX = 80;
     static final int VALUE_INIT = 26;
-    
+
     private JSlider slider;
     private JSpinner spinner;
     private PanelBase panel;
@@ -49,7 +49,7 @@ public class CellSizeDialog extends PencilBoxDialog implements MouseWheelListene
 		super.makeDialog();
 		makeMainPanel();
 	}
-    
+
     public void setPanel(PanelBase p) {
     	panel = p;
     }

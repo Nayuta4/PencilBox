@@ -6,7 +6,7 @@ package pencilbox.util;
 public class ArrayUtil {
 
     private ArrayUtil() {}
-    
+
 	/**
 	 * ２次元int型配列をコピーする
 	 * @param from コピー元２次元int型配列

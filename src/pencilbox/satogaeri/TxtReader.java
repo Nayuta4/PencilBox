@@ -95,7 +95,7 @@ public class TxtReader extends TxtReaderBase {
 		board.getAreaList().addAll(Arrays.asList(areaArray));
 		return board;
 	}
-  
+
 
 
 }

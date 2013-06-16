@@ -34,7 +34,7 @@ public class IndexLettersDialog extends PencilBoxDialog {
 	public static IndexLettersDialog getInstance() {
 		return instance;
 	}
-    
+
 	private JPanel mainPanel;
 	private JCheckBox checkBox;
 	private JComboBox[] comboBox;
@@ -50,7 +50,7 @@ public class IndexLettersDialog extends PencilBoxDialog {
 		super.makeDialog();
 		makeMainPanel();
 	}
-    
+
     public void setPanel(PanelBase p) {
     	panel = p;
     	checkBox.setSelected(p.isIndexMode());

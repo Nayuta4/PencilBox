@@ -27,7 +27,7 @@ public class HistoryDialog extends PencilBoxDialog {
 	public static HistoryDialog getInstance() {
 		return instance;
 	}
-    
+
     private JSlider slider;
     private PanelBase panel;
     private UndoManager undoManager;
@@ -42,7 +42,7 @@ public class HistoryDialog extends PencilBoxDialog {
 		super.makeDialog();
 		makeMainPanel();
 	}
-    
+
 	private void makeMainPanel() {
 		JPanel mainPanel = new JPanel();
 		makeSlider();
