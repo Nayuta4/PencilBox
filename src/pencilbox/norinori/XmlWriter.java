@@ -17,7 +17,7 @@ public class XmlWriter extends XmlWriterBase {
 			for (int c = 0; c < cols; c++) {
 				if (board.getArea(r,c) == null)
 					out(UNKNOWN);
-				else 
+				else
 					outN(board.getAreaList().indexOf(board.getArea(r,c)));
 			}
 			endBrow();

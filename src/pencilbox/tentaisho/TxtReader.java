@@ -45,7 +45,7 @@ public class TxtReader extends TxtReaderBase {
 					board.setStar(i,j,Board.WHITESTAR);
 				else if (line.charAt(k) == '2')
 					board.setStar(i,j,Board.BLACKSTAR);
-				else 
+				else
 					board.setStar(i,j,-9);
 				k++;
 				j++;

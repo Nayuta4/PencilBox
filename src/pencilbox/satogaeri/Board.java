@@ -135,7 +135,7 @@ public class Board extends BoardBase {
 			if (getRoute(p) == d) {
 				if (ret == Board.END)
 					ret = d;
-				else 
+				else
 					; // System.out.println("•¡”•ûŒü‚©‚çü‚ª—ˆ‚Ä‚¢‚Ä‚¨‚©‚µ‚¢");
 			}
 		}

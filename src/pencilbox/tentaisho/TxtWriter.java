@@ -38,7 +38,7 @@ public class TxtWriter extends TxtWriterBase {
 			for (int c = 0; c < board.cols(); c++) {
 				if (board.getArea(r,c) == null)
 				out.print('.');
-				else 
+				else
 				out.print(board.getAreaList().indexOf(board.getArea(r,c)));
 				out.print(' ');
 			}
