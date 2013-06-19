@@ -20,7 +20,7 @@ public class Tetromino extends pencilbox.common.core.AreaBase {
 	public static final char getTetrominoTypechar (int i) {
 		if ( i >= 0 && i <= 5 )
 			return TetrominoTypeChar[i];
-		else 
+		else
 			return '?';
 	}
 

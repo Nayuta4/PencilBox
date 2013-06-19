@@ -25,7 +25,7 @@ public class TxtWriter extends TxtWriterBase {
 					out.print(st);
 				else if (st == Board.NONUMBER_WALL)
 					out.print(5);
-				else 
+				else
 					out.print('?');
 				out.print(' ');
 			}

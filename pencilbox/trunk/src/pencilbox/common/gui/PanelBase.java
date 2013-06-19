@@ -258,7 +258,7 @@ public class PanelBase extends JPanel implements Printable {
 		drawBoard(g);
 		if (editMode == REGION_EDIT_MODE)
 			drawCopyPasteRegion(g);
-		else 
+		else
 			drawCursor(g);
 		drawIndex(g);
 	}

@@ -273,7 +273,7 @@ public class Board extends BoardBase {
 			if (p1 != null) {
 				if (p2 != null)
 					p1.setNextPier(d^2, p2);
-				else 
+				else
 					p1.setNextPier(d^2, null);
 			}
 		}
