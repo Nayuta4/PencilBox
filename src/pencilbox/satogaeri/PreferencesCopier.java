@@ -12,6 +12,7 @@ public class PreferencesCopier extends PreferencesCopierBase {
 
 	static {
 		usedKeys = Arrays.asList(new PreferenceKey[] {
+			PreferenceKey.LINK_WIDTH,
 			PreferenceKey.INDICATE_ERROR_MODE,
 			PreferenceKey.NUMBER_COLOR,
 			PreferenceKey.LINE_COLOR,

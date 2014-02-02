@@ -15,6 +15,7 @@ public class Menu extends MenuBase {
 
 	protected void buildViewMenu() {
 		super.buildMarkStyleMenu(Messages.getString("Menu.anyMarkStyleMenu"), 'M', new int[]{2,4});
+		addLinkWidthMenuItem();
 		super.buildViewMenu();
 		areaBorderColorItem = addColorMenuItem(Messages.getString("Menu.areaBorderColorItem")); //$NON-NLS-1$
 		numberColorItem = addColorMenuItem(Messages.getString("Menu.fixedNumberColorItem")); //$NON-NLS-1$
