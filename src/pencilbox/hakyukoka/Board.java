@@ -464,7 +464,7 @@ public class Board extends BoardBase {
 		for (Address p : cellAddrs()) {
 			int n = getNumberOrState(p);
 			if (n>0 && getArea(p)!=null) {
-				multi2[p.r()][p.r()] = 1;
+				multi2[p.r()][p.c()] = 1;
 				updateMulti21(p, n, +1, 0);
 			} else {
 				multi2[p.r()][p.c()] = 0;
