@@ -45,7 +45,7 @@ For example, to run the Kakuro program, use the command: `java -jar kakuro.jar`.
 
 Using `java -jar pencilbox.jar` will display a panel with buttons representing different puzzle types. Select the button corresponding to the puzzle you want to play. 
 
-For detailed instructions on how to use PencilBox, pleas refer to [`pencilbox.html`](doc/pencilbox.html).
+For detailed instructions on how to use PencilBox, pleas refer to [`pencilbox.html`](https://nayuta4.github.io/PencilBox/pencilbox.html).
 
 ## License
 
