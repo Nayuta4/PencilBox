@@ -3,123 +3,123 @@
                                                       2014-02-02 Nayuta
 ------------------------------------------------------------------------
 
-���T�v
-PencilBox�́C(��)�j�R�����s�̎G���u�p�Y���ʐM�j�R���v�Ɍf�ڂ���Ă���
-�e��y���V���p�Y�����C���M���}�E�X�Ɏ����ւ��ăp�\�R����ŗV�񂾂�������
-���邽�߂̃v���O�����ł��B
+■概要
+PencilBoxは，(株)ニコリ発行の雑誌「パズル通信ニコリ」に掲載されている
+各種ペンシルパズルを，鉛筆をマウスに持ち替えてパソコン上で遊んだり作ったり
+するためのプログラムです。
 
-��ȓ����Ƃ��āC�ȉ��̋@�\������܂��B
-  �ETXT�`���ł̖��t�@�C���̓ǂݏ���
-  �E�}�E�X�܂��̓L�[�{�[�h��p�����𓚓���
-  �E�}�E�X�ƃL�[�{�[�h��p����������
-  �E����� UNDO, REDO
-  �E���𔻒�
-  �E�p�Y���̎�ނɉ������e��q���g�\��
+主な特長として，以下の機能があります。
+  ・TXT形式での問題ファイルの読み書き
+  ・マウスまたはキーボードを用いた解答入力
+  ・マウスとキーボードを用いた問題入力
+  ・操作の UNDO, REDO
+  ・正解判定
+  ・パズルの種類に応じた各種ヒント表示
 
-�ȉ���22��ނ̃y���V���p�Y���ɑΉ����Ă��܂��B
-   1. �J�b�N��
-   2. ���ǂ�
-   3. ��΂Ђ낢
-   4. ���Ƃ�����
-   5. �l�p�ɐ؂�
-   6. �V���J�V���J
-   7. ����
-   8. �X�����[��
-   9. �X���U�[�����N
-  10. �V�̃V���[
-  11. �i���o�[�����N
-  12. �ʂ肩��
-  13. �̂�̂�
-  14. �g�y����
-  15. ����������
-  16. ���p��
-  17. �ЂƂ�ɂ��Ă���
-  18. �t�B���I�~�m
-  19. �ւ�킯
-  20. �܂���
-  21. ���W����
-  22. �k�h�s�r
+以下の22種類のペンシルパズルに対応しています。
+   1. カックロ
+   2. 黒どこ
+   3. 碁石ひろい
+   4. さとがえり
+   5. 四角に切れ
+   6. シャカシャカ
+   7. 数独
+   8. スラローム
+   9. スリザーリンク
+  10. 天体ショー
+  11. ナンバーリンク
+  12. ぬりかべ
+  13. のりのり
+  14. 波及効果
+  15. 橋をかけろ
+  16. 美術館
+  17. ひとりにしてくれ
+  18. フィルオミノ
+  19. へやわけ
+  20. ましゅ
+  21. ヤジリン
+  22. ＬＩＴＳ
 
-�������
-PencilBox �̎��s�ɂ� Java Runtime Environment ��version1.5�ȏオ�K�v�ł��B
-Java Runtime Environment �� http://java.com/ ������ł��܂��B
+■動作環境
+PencilBox の実行には Java Runtime Environment のversion1.5以上が必要です。
+Java Runtime Environment は http://java.com/ より入手できます。
 
-��҂� Windows �Ŏg�p���Ă��܂��B���̊��ł����l�ɓ��삷�邱�Ƃ�
-���҂��Ă��܂����C���ɓ���m�F�͍s���Ă��܂���B
+作者は Windows で使用しています。他の環境でも同様に動作することを
+期待していますが，特に動作確認は行っていません。
 
-���g�p����
-PencilBox �̓t���[�\�t�g�ł��BGNU GPL �ɏ]���ύX�C�Ĕz�z���s�����Ƃ��ł��܂��B
-�ڍׂ� LICENSE.txt ���Q�Ɖ������B
+■使用条件
+PencilBox はフリーソフトです。GNU GPL に従い変更，再配布を行うことができます。
+詳細は LICENSE.txt を参照下さい。
 
-PencilBox �̎g�p�ɂ�蔭�����������Ȃ鑹�Q�ɑ΂��Ă��C��҂͐ӔC�𕉂��܂���B
-�]�v�ȃq���g�̂����Ńp�Y�����܂�Ȃ��Ȃ����Ȃǂƌ����Ă��֒m���܂���B
+PencilBox の使用により発生したいかなる損害に対しても，作者は責任を負いません。
+余計なヒントのせいでパズルがつまらなくなったなどと言われても関知しません。
 
-�����s���@
-pencilbox.jar ���S��ނŋ��ʂɎg�p����N���X�t�@�C�����܂Ƃ߂����̂ŁC
-kakuro.jar �ȂǊe�p�Y���̖��O�̂���jar�t�@�C���́C�X�̎�ނł̂ݎg�p����
-�N���X�t�@�C�����܂Ƃ߂����̂ł��B
+■実行方法
+pencilbox.jar が全種類で共通に使用するクラスファイルをまとめたもので，
+kakuro.jar など各パズルの名前のついたjarファイルは，個々の種類でのみ使用する
+クラスファイルをまとめたものです。
 
-�Ⴆ�΃J�b�N���̃v���O���������s����ɂ́Cjava -jar kakuro.jar �Ƃ��܂��B
-���̂Ƃ��Cpencilbox.jar �������f�B���N�g���ɂ���K�v������܂��B
-���ɂ���ẮCjar�t�@�C���̃A�C�R�����_�u���N���b�N���邱�Ƃɂ��
-�v���O���������s�ł��܂��B
+例えばカックロのプログラムを実行するには，java -jar kakuro.jar とします。
+このとき，pencilbox.jar が同じディレクトリにある必要があります。
+環境によっては，jarファイルのアイコンをダブルクリックすることにより
+プログラムを実行できます。
 
-�܂��Cjava -jar pencilbox.jar �Ƃ���ƁC�p�Y���̎�ނ̏����ꂽ�{�^��������
-�p�l���������̂ŁC���s�����ނ̃{�^����I�����Ă��������B
-�I���Ə����ꂽ�{�^����I������ƁC�v���O�������I�����܂��B
+また，java -jar pencilbox.jar とすると，パズルの種類の書かれたボタンが並んだ
+パネルが現れるので，実行する種類のボタンを選択してください。
+終了と書かれたボタンを選択すると，プログラムを終了します。
 
-������@�̏ڍׂɂ��Ă� pencilbox.html ���Q�Ɖ������B
+操作方法の詳細については pencilbox.html を参照下さい。
 
-���A����
-PencilBox�Ɋւ������_�E�����[�h��ɂ��Ă͈ȉ���URL���Q�Ƃ��������B
+■連絡先
+PencilBoxに関する情報やダウンロード先については以下のURLを参照ください。
   http://pencilbox.sourceforge.jp/
 
 e-mail:    nayuta@kanpen.net
 twitterID: knayuta
 
-���ӎ�
-Heyawake Applet Developer �l�쐬�� HeyawakeBox 
- (http://www.geocities.jp/heyawake/box/)�̃\�[�X�R�[�h���ꕔ������Ă��܂��B
-���ӂ������܂��B
+■謝辞
+Heyawake Applet Developer 様作成の HeyawakeBox 
+ (http://www.geocities.jp/heyawake/box/)のソースコードを一部取り入れています。
+感謝いたします。
 
-�͂��� �l�쐬�� �ς��Ղ�v3 
- (http://indi.s58.xrea.com/pzpr/v3/)�̃\�[�X�R�[�h���Q�l�ɂ��Ă��܂��B
-���ӂ������܂��B
+はっぱ 様作成の ぱずぷれv3 
+ (http://indi.s58.xrea.com/pzpr/v3/)のソースコードを参考にしています。
+感謝いたします。
 
 
-�����e��
-�z�z�A�[�J�C�u�ɂ͈ȉ��̃t�@�C�����܂܂�܂��B�i���s���j
- readme.txt       ���̃t�@�C��
- LICENSE.txt      GNU GPL �� 
- index.html       web�̃g�b�v�y�[�W
- pencilbox.html   �}�j���A��
- history.html     ��������
- style.css        html�p�X�^�C���V�[�g
- pencilbox.bat    PencilBox���N������windows�p�o�b�`�t�@�C���̗�
- pencilbox.jar    �S�̂ŋ��ʂɎg�p����N���X�t�@�C��
- bijutsukan.jar   ���p�ٗp�N���X�t�@�C��
- fillomino.jar    �t�B���I�~�m�p�N���X�t�@�C��
- goishi.jar       ��΂Ђ낢�p�N���X�t�@�C��
- hakyukoka.jar    �g�y���ʗp�N���X�t�@�C��
- hashi.jar        ����������p�N���X�t�@�C��
- heyawake.jar     �ւ�킯�p�N���X�t�@�C��
- hitori.jar       �ЂƂ�ɂ��Ă���p�N���X�t�@�C��
- kakuro.jar       �J�b�N���p�N���X�t�@�C��
- kurodoko.jar     ���ǂ��p�N���X�t�@�C��
- masyu.jar        �܂���p�N���X�t�@�C��
- norinori.jar     �̂�̂�p�N���X�t�@�C��
- numberlink.jar   �i���o�[�����N�p�N���X�t�@�C��
- nurikabe.jar     �ʂ肩�חp�N���X�t�@�C��
- satogaeri.jar    ���Ƃ�����p�N���X�t�@�C��
- shakashaka.jar   �V���J�V���J�p�N���X�t�@�C��
- shikaku.jar      �l�p�ɐ؂�p�N���X�t�@�C��
- slalom.jar       �X�����[���p�N���X�t�@�C��
- slitherlink.jar  �X���U�[�����N�p�N���X�t�@�C��
- sudoku.jar       ���Ɨp�N���X�t�@�C��
- tentaisho.jar    �V�̃V���[�p�N���X�t�@�C��
- yajilin.jar      ���W�����p�N���X�t�@�C��
- lits.jar         �k�h�s�r�p�N���X�t�@�C��
- sample/          �T���v�������܂ރf�B���N�g��
+■内容物
+配布アーカイブには以下のファイルが含まれます。（順不同）
+ readme.txt       このファイル
+ LICENSE.txt      GNU GPL 条文 
+ index.html       webのトップページ
+ pencilbox.html   マニュアル
+ history.html     改訂履歴
+ style.css        html用スタイルシート
+ pencilbox.bat    PencilBoxを起動するwindows用バッチファイルの例
+ pencilbox.jar    全体で共通に使用するクラスファイル
+ bijutsukan.jar   美術館用クラスファイル
+ fillomino.jar    フィルオミノ用クラスファイル
+ goishi.jar       碁石ひろい用クラスファイル
+ hakyukoka.jar    波及効果用クラスファイル
+ hashi.jar        橋をかけろ用クラスファイル
+ heyawake.jar     へやわけ用クラスファイル
+ hitori.jar       ひとりにしてくれ用クラスファイル
+ kakuro.jar       カックロ用クラスファイル
+ kurodoko.jar     黒どこ用クラスファイル
+ masyu.jar        ましゅ用クラスファイル
+ norinori.jar     のりのり用クラスファイル
+ numberlink.jar   ナンバーリンク用クラスファイル
+ nurikabe.jar     ぬりかべ用クラスファイル
+ satogaeri.jar    さとがえり用クラスファイル
+ shakashaka.jar   シャカシャカ用クラスファイル
+ shikaku.jar      四角に切れ用クラスファイル
+ slalom.jar       スラローム用クラスファイル
+ slitherlink.jar  スリザーリンク用クラスファイル
+ sudoku.jar       数独用クラスファイル
+ tentaisho.jar    天体ショー用クラスファイル
+ yajilin.jar      ヤジリン用クラスファイル
+ lits.jar         ＬＩＴＳ用クラスファイル
+ sample/          サンプル問題を含むディレクトリ
 
 
 /*
