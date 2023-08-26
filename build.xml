@@ -4,7 +4,7 @@
 	<property name="src" value="src"/>
 	<property name="bin" value="bin"/>
 	<property name="jar" value="jar"/>
-	<property name="doc" value="doc"/>
+	<property name="docs" value="docs"/>
 	<property name="api" value="api"/>
 	<property name="sample" value="sample"/>
 
@@ -176,7 +176,7 @@
 		<zip destfile="${project}-${version}-src.zip">
 			<fileset dir="." includes="${src}/**/*"/>
 			<fileset dir="." includes="build.xml"/>
-			<fileset dir="." includes="${doc}/*"/>
+			<fileset dir="." includes="${docs}/*"/>
 			<fileset dir="." includes="${sample}/**/*"/>
 		</zip>
 	</target>
@@ -186,7 +186,7 @@
 		<zip destfile="${project}-${version}.zip">
 			<fileset dir="." includes="*.jar"/>
 			<fileset dir="${jar}" includes="*.jar"/>
-			<fileset dir="${doc}" includes="readme.txt, LICENSE.txt, index.html, history.html, pencilbox.html, style.css, pencilbox.bat"/>
+			<fileset dir="${docs}" includes="readme.txt, LICENSE.txt, index.html, history.html, pencilbox.html, style.css, pencilbox.bat"/>
 			<fileset dir="." includes="${sample}/**/*"/>
 		</zip>
 	</target>
