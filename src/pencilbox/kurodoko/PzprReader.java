@@ -5,7 +5,7 @@ import pencilbox.common.io.PzprReaderBase;
 
 
 /**
- * QlFpzprv3 kudodoko.js
+ * å‚è€ƒï¼špzprv3 kudodoko.js
  */
 public class PzprReader extends PzprReaderBase {
 

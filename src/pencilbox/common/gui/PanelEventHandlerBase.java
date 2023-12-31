@@ -16,7 +16,7 @@ import pencilbox.common.core.SideAddress;
 import pencilbox.resource.Messages;
 
 /**
- * ƒpƒlƒ‹‚É‘Î‚·‚éƒ}ƒEƒXCƒL[ƒ{[ƒh‚ÌƒCƒxƒ“ƒgˆ—‚ğs‚¤ƒNƒ‰ƒX
+ * ãƒ‘ãƒãƒ«ã«å¯¾ã™ã‚‹ãƒã‚¦ã‚¹ï¼Œã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã®ã‚¤ãƒ™ãƒ³ãƒˆå‡¦ç†ã‚’è¡Œã†ã‚¯ãƒ©ã‚¹
  */
 public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseMotionListener {
 
@@ -32,7 +32,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 //	private Address newPos = Address.NOWHERE;
 
 	/**
-	 * PanelEventHandler‚ğ¶¬‚·‚é
+	 * PanelEventHandlerã‚’ç”Ÿæˆã™ã‚‹
 	 */
 	public PanelEventHandlerBase() {
 	}
@@ -46,9 +46,9 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	}
 
 	/**
-	 * ŒÂ•ÊƒNƒ‰ƒX‚Ìƒpƒlƒ‹‚ÉŒÂ•ÊƒNƒ‰ƒX‚Ì”Õ–Ê‚ğİ’è‚·‚é‚½‚ß‚Ìƒƒ\ƒbƒh
-	 * ŠeŒÂ•ÊƒNƒ‰ƒX‚ÅƒI[ƒo[ƒ‰ƒCƒh‚·‚é
-	 * @param board ”Õ–Ê
+	 * å€‹åˆ¥ã‚¯ãƒ©ã‚¹ã®ãƒ‘ãƒãƒ«ã«å€‹åˆ¥ã‚¯ãƒ©ã‚¹ã®ç›¤é¢ã‚’è¨­å®šã™ã‚‹ãŸã‚ã®ãƒ¡ã‚½ãƒƒãƒ‰
+	 * å„å€‹åˆ¥ã‚¯ãƒ©ã‚¹ã§ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã™ã‚‹
+	 * @param board ç›¤é¢
 	 */
 	protected void setBoard(BoardBase board) {
 	}
@@ -83,27 +83,27 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 		this.immediateAnswerCheckMode = b ? 0 : -1;
 	}
 	/**
-	 * ‘¦³‰ğ”»’èƒ‚[ƒh‚Ìê‡‚ÉC³‰ğÏ‚İó‘Ô‚©‚ç–¢³‰ğó‘Ô‚É–ß‚·B
+	 * å³æ™‚æ­£è§£åˆ¤å®šãƒ¢ãƒ¼ãƒ‰ã®å ´åˆã«ï¼Œæ­£è§£æ¸ˆã¿çŠ¶æ…‹ã‹ã‚‰æœªæ­£è§£çŠ¶æ…‹ã«æˆ»ã™ã€‚
 	 */
 	public void resetImmediateAnswerCheckMode() {
 		if (immediateAnswerCheckMode == 1)
 			immediateAnswerCheckMode = 0;
 	}
 	/**
-	 * “ü—Í‰Â”\‚ÈÅ‘å”š‚ğæ“¾‚·‚éB
+	 * å…¥åŠ›å¯èƒ½ãªæœ€å¤§æ•°å­—ã‚’å–å¾—ã™ã‚‹ã€‚
 	 */
 	protected int getMaxInputNumber() {
 		return maxInputNumber;
 	}
 	/**
-	 * “ü—Í‰Â”\‚ÈÅ‘å”š‚ğİ’è‚·‚é
-	 * @param number İ’è‚·‚é”’l
+	 * å…¥åŠ›å¯èƒ½ãªæœ€å¤§æ•°å­—ã‚’è¨­å®šã™ã‚‹
+	 * @param number è¨­å®šã™ã‚‹æ•°å€¤
 	 */
 	protected void setMaxInputNumber(int number) {
 		maxInputNumber = number;
 	}
 	/**
-	 * “ü—Í”š‚Ìˆê‹L‰¯‚ğƒNƒŠƒA‚·‚é
+	 * å…¥åŠ›æ•°å­—ã®ä¸€æ™‚è¨˜æ†¶ã‚’ã‚¯ãƒªã‚¢ã™ã‚‹
 	 */
 	public void resetPreviousInput() {
 		previousInput = 0;
@@ -134,27 +134,27 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	}
 
 	/**
-	 * ƒJ[ƒ\ƒ‹À•W‚ª”Õ–Êã‚É‚ ‚é‚©B
-	 * ’Êí‚Í #isOn(Address) ‚Æ“¯‚¶Œ‹‰Ê‚ğ•Ô‚·B
-	 * SL, TS “™ƒJ[ƒ\ƒ‹‚ÌÀ•WŒn‚ªˆÙ‚È‚éƒ^ƒCƒv‚Å‚ÍCƒTƒuƒNƒ‰ƒX‚ÅÄ’è‹`‚·‚éB
-	 * @param position ƒJ[ƒ\ƒ‹À•W
-	 * @return ƒJ[ƒ\ƒ‹À•W‚ª”Õ–Êã‚É‚ ‚ê‚Î true
+	 * ã‚«ãƒ¼ã‚½ãƒ«åº§æ¨™ãŒç›¤é¢ä¸Šã«ã‚ã‚‹ã‹ã€‚
+	 * é€šå¸¸ã¯ #isOn(Address) ã¨åŒã˜çµæœã‚’è¿”ã™ã€‚
+	 * SL, TS ç­‰ã‚«ãƒ¼ã‚½ãƒ«ã®åº§æ¨™ç³»ãŒç•°ãªã‚‹ã‚¿ã‚¤ãƒ—ã§ã¯ï¼Œã‚µãƒ–ã‚¯ãƒ©ã‚¹ã§å†å®šç¾©ã™ã‚‹ã€‚
+	 * @param position ã‚«ãƒ¼ã‚½ãƒ«åº§æ¨™
+	 * @return ã‚«ãƒ¼ã‚½ãƒ«åº§æ¨™ãŒç›¤é¢ä¸Šã«ã‚ã‚Œã° true
 	 */
 	public boolean isCursorOnBoard(Address position) {
 		return board.isOn(position);
 	}
 
 	/**
-	 * “_‘ÎÌˆÊ’u‚ÌÀ•W‚ğæ“¾‚·‚éB
-	 * @param pos@Œ³À•W
-	 * @return pos‚Æ“_‘ÎÌ‚ÈˆÊ’u‚ÌÀ•W
+	 * ç‚¹å¯¾ç§°ä½ç½®ã®åº§æ¨™ã‚’å–å¾—ã™ã‚‹ã€‚
+	 * @param posã€€å…ƒåº§æ¨™
+	 * @return posã¨ç‚¹å¯¾ç§°ãªä½ç½®ã®åº§æ¨™
 	 */
 	public Address getSymmetricPosition(Address pos) {
 		return Address.address(board.rows()-1-pos.r(), board.cols()-1-pos.c());
 	}
 
 	/*
-	 * ƒL[ƒŠƒXƒi[
+	 * ã‚­ãƒ¼ãƒªã‚¹ãƒŠãƒ¼
 	 */
 	public void keyPressed(KeyEvent e) {
 		int keyCode = e.getKeyCode();
@@ -244,7 +244,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	}
 
 	/**
-	 * –îˆóƒL[“ü—Í‚ğˆ—‚·‚éB –îˆó‚Ì•ûŒü‚ÉƒJ[ƒ\ƒ‹‚ğˆÚ“®‚·‚éB
+	 * çŸ¢å°ã‚­ãƒ¼å…¥åŠ›ã‚’å‡¦ç†ã™ã‚‹ã€‚ çŸ¢å°ã®æ–¹å‘ã«ã‚«ãƒ¼ã‚½ãƒ«ã‚’ç§»å‹•ã™ã‚‹ã€‚
 	 */
 	protected void arrowKeyEntered(int direction) {
 		if (!isProblemEditMode() && !isCursorOn())
@@ -257,8 +257,8 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 		}
 	}
 	/**
-	 * ”šƒL[“ü—Í‚ğˆ—‚·‚éB
-	 * 0-9 ‚Ì”šƒL[‚ª“ü—Í‚³‚ê‚½‚Æ‚«‚ÉCó‹µ‚É‰‚¶‚Ä2Œ…‚Ì”š‚É‚µ‚Ä numberEnteredƒƒ\ƒbƒh‚É“n‚·
+	 * æ•°å­—ã‚­ãƒ¼å…¥åŠ›ã‚’å‡¦ç†ã™ã‚‹ã€‚
+	 * 0-9 ã®æ•°å­—ã‚­ãƒ¼ãŒå…¥åŠ›ã•ã‚ŒãŸã¨ãã«ï¼ŒçŠ¶æ³ã«å¿œã˜ã¦2æ¡ã®æ•°å­—ã«ã—ã¦ numberEnteredãƒ¡ã‚½ãƒƒãƒ‰ã«æ¸¡ã™
 	 */
 	protected void numberKeyEntered(int number) {
 		int maxInput = getMaxInputNumber();
@@ -272,17 +272,17 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 		}
 	}
 	/**
-	 * ”š“ü—Í‚ğˆ—‚·‚éB
-	 * ŠeƒTƒuƒNƒ‰ƒX‚ÅÀ‘•‚·‚éB
-	 * @param pos ”š‚ğ“ü—Í‚µ‚½ƒ}ƒX‚ÌÀ•W
-	 * @param num “ü—Í‚µ‚½”š
+	 * æ•°å­—å…¥åŠ›ã‚’å‡¦ç†ã™ã‚‹ã€‚
+	 * å„ã‚µãƒ–ã‚¯ãƒ©ã‚¹ã§å®Ÿè£…ã™ã‚‹ã€‚
+	 * @param pos æ•°å­—ã‚’å…¥åŠ›ã—ãŸãƒã‚¹ã®åº§æ¨™
+	 * @param num å…¥åŠ›ã—ãŸæ•°å­—
 	 */
 	protected void numberEntered(Address pos, int num) {
 	}
 	/**
-	 * ƒsƒŠƒIƒhƒL[‚Ì“ü—Í‚ğˆ—‚·‚éB
-	 * ŠeƒTƒuƒNƒ‰ƒX‚ÅÀ‘•‚·‚éB
-	 * @param pos “ü—Íƒ}ƒX‚ÌÀ•W
+	 * ãƒ”ãƒªã‚ªãƒ‰ã‚­ãƒ¼ã®å…¥åŠ›ã‚’å‡¦ç†ã™ã‚‹ã€‚
+	 * å„ã‚µãƒ–ã‚¯ãƒ©ã‚¹ã§å®Ÿè£…ã™ã‚‹ã€‚
+	 * @param pos å…¥åŠ›ãƒã‚¹ã®åº§æ¨™
 	 */
 	protected void spaceEntered(Address pos) {
 	}
@@ -294,9 +294,9 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	}
 
 	/**
-	 * ƒ}ƒCƒiƒXƒL[‚Ì“ü—Í‚ğˆ—‚·‚éB
-	 * ŠeƒTƒuƒNƒ‰ƒX‚ÅÀ‘•‚·‚éB
-	 * @param pos “ü—Íƒ}ƒX‚ÌÀ•W
+	 * ãƒã‚¤ãƒŠã‚¹ã‚­ãƒ¼ã®å…¥åŠ›ã‚’å‡¦ç†ã™ã‚‹ã€‚
+	 * å„ã‚µãƒ–ã‚¯ãƒ©ã‚¹ã§å®Ÿè£…ã™ã‚‹ã€‚
+	 * @param pos å…¥åŠ›ãƒã‚¹ã®åº§æ¨™
 	 */
 	protected void minusEntered(Address pos) {
 	}
@@ -307,9 +307,9 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	}
 
 	/**
-	 * ƒvƒ‰ƒXƒL[‚Ì“ü—Í‚ğˆ—‚·‚éB
-	 * ŠeƒTƒuƒNƒ‰ƒX‚ÅÀ‘•‚·‚éB
-	 * @param pos “ü—Íƒ}ƒX‚ÌÀ•W
+	 * ãƒ—ãƒ©ã‚¹ã‚­ãƒ¼ã®å…¥åŠ›ã‚’å‡¦ç†ã™ã‚‹ã€‚
+	 * å„ã‚µãƒ–ã‚¯ãƒ©ã‚¹ã§å®Ÿè£…ã™ã‚‹ã€‚
+	 * @param pos å…¥åŠ›ãƒã‚¹ã®åº§æ¨™
 	 */
 	protected void plusEntered(Address pos) {
 	}
@@ -320,9 +320,9 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	}
 
 	/**
-	 * ƒAƒXƒ^ƒŠƒXƒNƒL[‚Ì“ü—Í‚ğˆ—‚·‚éB
-	 * ŠeƒTƒuƒNƒ‰ƒX‚ÅÀ‘•‚·‚éB
-	 * @param pos “ü—Íƒ}ƒX‚ÌÀ•W
+	 * ã‚¢ã‚¹ã‚¿ãƒªã‚¹ã‚¯ã‚­ãƒ¼ã®å…¥åŠ›ã‚’å‡¦ç†ã™ã‚‹ã€‚
+	 * å„ã‚µãƒ–ã‚¯ãƒ©ã‚¹ã§å®Ÿè£…ã™ã‚‹ã€‚
+	 * @param pos å…¥åŠ›ãƒã‚¹ã®åº§æ¨™
 	 */
 	protected void starEntered(Address pos) {
 	}
@@ -333,8 +333,8 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	}
 
 	/**
-	 * ƒXƒ‰ƒbƒVƒ…ƒL[‚Ì“ü—Í‚ğˆ—‚·‚éB
-	 * u–â‘è“ü—Íƒ‚[ƒhv‚Æu‰ğ“šƒ‚[ƒhv‚ğØ‚è‘Ö‚¦‚é
+	 * ã‚¹ãƒ©ãƒƒã‚·ãƒ¥ã‚­ãƒ¼ã®å…¥åŠ›ã‚’å‡¦ç†ã™ã‚‹ã€‚
+	 * ã€Œå•é¡Œå…¥åŠ›ãƒ¢ãƒ¼ãƒ‰ã€ã¨ã€Œè§£ç­”ãƒ¢ãƒ¼ãƒ‰ã€ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹
 	 */
 	protected void slashKeyEntered() {
 		if (isProblemEditMode()) {
@@ -348,10 +348,10 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	}
 
 	/**
-	 * ƒ}ƒEƒXƒCƒxƒ“ƒg‚©‚ç‰Ÿ‚³‚ê‚½ƒ{ƒ^ƒ“‚Ì”Ô†‚ğæ“¾‚·‚é•â•ƒƒ\ƒbƒh
-	 * ƒVƒtƒgƒL[‚Å¶‰E‚Ìƒ{ƒ^ƒ“‚ğ“ü‚ê‘Ö‚¦‚é
+	 * ãƒã‚¦ã‚¹ã‚¤ãƒ™ãƒ³ãƒˆã‹ã‚‰æŠ¼ã•ã‚ŒãŸãƒœã‚¿ãƒ³ã®ç•ªå·ã‚’å–å¾—ã™ã‚‹è£œåŠ©ãƒ¡ã‚½ãƒƒãƒ‰
+	 * ã‚·ãƒ•ãƒˆã‚­ãƒ¼ã§å·¦å³ã®ãƒœã‚¿ãƒ³ã‚’å…¥ã‚Œæ›¿ãˆã‚‹
 	 * @param e
-	 * @return ¶ƒ{ƒ^ƒ“‚È‚ç 1 ‰Eƒ{ƒ^ƒ“‚È‚ç 3 ’†ƒ{ƒ^ƒ“‚È‚ç 2 ‚»‚êˆÈŠO‚Í -1
+	 * @return å·¦ãƒœã‚¿ãƒ³ãªã‚‰ 1 å³ãƒœã‚¿ãƒ³ãªã‚‰ 3 ä¸­ãƒœã‚¿ãƒ³ãªã‚‰ 2 ãã‚Œä»¥å¤–ã¯ -1
 	 */
 	public int getMouseButton(MouseEvent e) {
 		int modifier = e.getModifiers();
@@ -372,10 +372,10 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 		}
 	}
 	/*
-	 * ƒ}ƒEƒXƒŠƒXƒi[
+	 * ãƒã‚¦ã‚¹ãƒªã‚¹ãƒŠãƒ¼
 	 */
 	public void mousePressed(MouseEvent e) {
-		mousePressed2(e); // •Ó‚Ì‘€ì
+		mousePressed2(e); // è¾ºã®æ“ä½œ
 		mousePressed3(e);
 		Address newPos = pointToAddress(e);
 		if (!isOn(newPos))
@@ -387,12 +387,12 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 			rightPressed(newPos);
 		}
 		moveCursor(newPos);
-		oldPos = newPos; // Œ»İˆÊ’u‚ğXV
+		oldPos = newPos; // ç¾åœ¨ä½ç½®ã‚’æ›´æ–°
 		repaint();
 	}
 
 	/*
-	 * •Ó‚Ì‘€ì—pB SL, MS ‚Åg—p
+	 * è¾ºã®æ“ä½œç”¨ã€‚ SL, MS ã§ä½¿ç”¨
 	 */
 	private void mousePressed2(MouseEvent e) {
 		SideAddress sidePos = panel.pointToSideAddress(e.getX(), e.getY());
@@ -414,7 +414,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 			return;
 		}
 		if (newPos.equals(oldPos))
-			return; // “¯‚¶ƒ}ƒX“à‚É~‚Ü‚éƒCƒxƒ“ƒg‚Í–³‹
+			return; // åŒã˜ãƒã‚¹å†…ã«æ­¢ã¾ã‚‹ã‚¤ãƒ™ãƒ³ãƒˆã¯ç„¡è¦–
 		int button = getMouseButton(e);
 		if (button == 1) {
 			leftDragged(oldPos, newPos);
@@ -422,7 +422,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 			rightDragged(oldPos, newPos);
 		}
 		moveCursor(newPos);
-		oldPos = newPos; // Œ»İˆÊ’u‚ğXV
+		oldPos = newPos; // ç¾åœ¨ä½ç½®ã‚’æ›´æ–°
 		repaint();
 	}
 
@@ -455,16 +455,16 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	}
 
 	/**
-	 * ¶ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚éB
-	 * ƒTƒuƒNƒ‰ƒX‚Å‘€ì‚ğƒI[ƒo[ƒ‰ƒCƒh‚·‚éD
+	 * å·¦ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã¨ãã«å‘¼ã°ã‚Œã‚‹ã€‚
+	 * ã‚µãƒ–ã‚¯ãƒ©ã‚¹ã§æ“ä½œã‚’ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã™ã‚‹ï¼
 	 * @param position
 	 */
 	protected void leftPressed(Address position) {
 	}
 
 	/**
-	 * ¶ƒhƒ‰ƒbƒO‚µ‚½‚Ü‚Ü‚½V‚µ‚¢ƒ}ƒX‚ÉˆÚ“®‚µ‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚éD
-	 * •K—v‚É‰‚¶‚ÄƒTƒuƒNƒ‰ƒX‚Å‘€ì‚ğƒI[ƒo[ƒ‰ƒCƒh‚·‚éD
+	 * å·¦ãƒ‰ãƒ©ãƒƒã‚°ã—ãŸã¾ã¾ãŸæ–°ã—ã„ãƒã‚¹ã«ç§»å‹•ã—ãŸã¨ãã«å‘¼ã°ã‚Œã‚‹ï¼
+	 * å¿…è¦ã«å¿œã˜ã¦ã‚µãƒ–ã‚¯ãƒ©ã‚¹ã§æ“ä½œã‚’ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã™ã‚‹ï¼
 	 * @param position
 	 */
 	protected void leftDragged(Address position) {
@@ -476,23 +476,23 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	}
 
 	/**
-	 * ¶ƒ}ƒEƒXƒ{ƒ^ƒ“‚ğ—£‚µ‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚éB
-	 * ƒTƒuƒNƒ‰ƒX‚ÅƒI[ƒo[ƒ‰ƒCƒh‚·‚éB
+	 * å·¦ãƒã‚¦ã‚¹ãƒœã‚¿ãƒ³ã‚’é›¢ã—ãŸã¨ãã«å‘¼ã°ã‚Œã‚‹ã€‚
+	 * ã‚µãƒ–ã‚¯ãƒ©ã‚¹ã§ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã™ã‚‹ã€‚
 	 * @param position
 	 */
 	protected void leftReleased(Address position) {
 	}
 	/**
-	 * ‰Eƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚Æ‚«C‰Eƒhƒ‰ƒbƒO‚µ‚½‚Ü‚Ü‚½V‚µ‚¢ƒ}ƒX‚ÉˆÚ“®‚µ‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚éB
-	 * ƒTƒuƒNƒ‰ƒX‚Å‘€ì‚ğƒI[ƒo[ƒ‰ƒCƒh‚·‚éB
+	 * å³ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã¨ãï¼Œå³ãƒ‰ãƒ©ãƒƒã‚°ã—ãŸã¾ã¾ãŸæ–°ã—ã„ãƒã‚¹ã«ç§»å‹•ã—ãŸã¨ãã«å‘¼ã°ã‚Œã‚‹ã€‚
+	 * ã‚µãƒ–ã‚¯ãƒ©ã‚¹ã§æ“ä½œã‚’ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã™ã‚‹ã€‚
 	 * @param position
 	 */
 	protected void rightPressed(Address position) {
 	}
 
 	/**
-	 * ‰Eƒhƒ‰ƒbƒO‚µ‚½‚Ü‚Ü‚½V‚µ‚¢ƒ}ƒX‚ÉˆÚ“®‚µ‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚éB
-	 * ƒTƒuƒNƒ‰ƒX‚Å‘€ì‚ğƒI[ƒo[ƒ‰ƒCƒh‚·‚éD
+	 * å³ãƒ‰ãƒ©ãƒƒã‚°ã—ãŸã¾ã¾ãŸæ–°ã—ã„ãƒã‚¹ã«ç§»å‹•ã—ãŸã¨ãã«å‘¼ã°ã‚Œã‚‹ã€‚
+	 * ã‚µãƒ–ã‚¯ãƒ©ã‚¹ã§æ“ä½œã‚’ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã™ã‚‹ï¼
 	 * @param position
 	 */
 	protected void rightDragged(Address position) {
@@ -503,15 +503,15 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 		rightDragged(position);
 	}
 	/**
-	 * ‰Eƒ}ƒEƒXƒ{ƒ^ƒ“‚ğ—£‚µ‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚éB
-	 * ƒTƒuƒNƒ‰ƒX‚ÅƒI[ƒo[ƒ‰ƒCƒh‚·‚éB
+	 * å³ãƒã‚¦ã‚¹ãƒœã‚¿ãƒ³ã‚’é›¢ã—ãŸã¨ãã«å‘¼ã°ã‚Œã‚‹ã€‚
+	 * ã‚µãƒ–ã‚¯ãƒ©ã‚¹ã§ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã™ã‚‹ã€‚
 	 * @param position
 	 */
 	protected void rightReleased(Address position) {
 	}
 
 	/**
-	 * ƒ}ƒEƒX‘€ì‚ÅƒJ[ƒ\ƒ‹‚ğˆÚ“®‚·‚éB
+	 * ãƒã‚¦ã‚¹æ“ä½œã§ã‚«ãƒ¼ã‚½ãƒ«ã‚’ç§»å‹•ã™ã‚‹ã€‚
 	 * @param position
 	 */
 	protected void moveCursor(Address position) {
@@ -520,14 +520,14 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	}
 
 	/**
-	 * •Ó‚ÌˆÊ’u‚ğ¶ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚Æ‚«‚Ì“®ì‚ğ’è‚ß‚éB
+	 * è¾ºã®ä½ç½®ã‚’å·¦ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã¨ãã®å‹•ä½œã‚’å®šã‚ã‚‹ã€‚
 	 * @param position
 	 */
 	protected void leftPressedEdge(SideAddress position) {
 	}
 
 	/**
-	 * •Ó‚ÌˆÊ’u‚ğ‰Eƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚Æ‚«‚Ì“®ì‚ğ’è‚ß‚éB
+	 * è¾ºã®ä½ç½®ã‚’å³ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã¨ãã®å‹•ä½œã‚’å®šã‚ã‚‹ã€‚
 	 * @param position
 	 */
 	protected void rightPressedEdge(SideAddress position) {
@@ -557,27 +557,27 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 	}
 
 	/**
-	 * ƒ}ƒEƒXƒCƒxƒ“ƒg‚ÌˆÊ’u‚É‘Î‰‚·‚éƒ}ƒXÀ•W‚ğ•Ô‚·
-	 * @param e ƒ}ƒEƒXƒCƒxƒ“ƒg
-	 * @return ƒ}ƒXÀ•W
+	 * ãƒã‚¦ã‚¹ã‚¤ãƒ™ãƒ³ãƒˆã®ä½ç½®ã«å¯¾å¿œã™ã‚‹ãƒã‚¹åº§æ¨™ã‚’è¿”ã™
+	 * @param e ãƒã‚¦ã‚¹ã‚¤ãƒ™ãƒ³ãƒˆ
+	 * @return ãƒã‚¹åº§æ¨™
 	 */
 	public Address pointToAddress(MouseEvent e) {
 		return panel.pointToAddress(e.getX(), e.getY());
 	}
 	/**
-	 * ƒ}ƒEƒXˆÊ’u‚ğ“ˆêÀ•W‚É•ÏŠ·‚·‚é
-„¡„Ÿ„¦„Ÿ„Ÿ„Ÿ„¦„Ÿ„¢
-„ „¬„¹„ª„ª„ª„¹„­„ 0
-„¥„¾„©„Ÿ„Ÿ„Ÿ„©„¾„§
-„ „«„ @@@„ „«„ 1
-„ „«„ @@@„ „«„ 
-„ „«„ @@@„ „«„ 
-„¥„¾„©„Ÿ„Ÿ„Ÿ„©„¾„§
-„ „¯„¹„ª„ª„ª„¹„®„ 2
-„¤„Ÿ„¨„Ÿ„Ÿ„Ÿ„¨„Ÿ„£
+	 * ãƒã‚¦ã‚¹ä½ç½®ã‚’çµ±ä¸€åº§æ¨™ã«å¤‰æ›ã™ã‚‹
+â”Œâ”€â”¬â”€â”€â”€â”¬â”€â”
+â”‚â”â”¿â”â”â”â”¿â”“â”‚0
+â”œâ•‚â”¼â”€â”€â”€â”¼â•‚â”¤
+â”‚â”ƒâ”‚ã€€ã€€ã€€â”‚â”ƒâ”‚1
+â”‚â”ƒâ”‚ã€€ã€€ã€€â”‚â”ƒâ”‚
+â”‚â”ƒâ”‚ã€€ã€€ã€€â”‚â”ƒâ”‚
+â”œâ•‚â”¼â”€â”€â”€â”¼â•‚â”¤
+â”‚â”—â”¿â”â”â”â”¿â”›â”‚2
+â””â”€â”´â”€â”€â”€â”´â”€â”˜
   0   1       2   	 *
 	 * @param e
-	 * @param rc ”»’è‚µ‚«‚¢’l
+	 * @param rc åˆ¤å®šã—ãã„å€¤
 	 * @return
 	 */
 	public Address pointToSuperAddress(MouseEvent e, double rc) {
@@ -611,7 +611,7 @@ public class PanelEventHandlerBase implements KeyListener, MouseListener, MouseM
 		}
 	}
 	/**
-	 * 	‘¦³‰ğ”»’è
+	 * 	å³æ™‚æ­£è§£åˆ¤å®š
 	 */
 	public void checkAnswer() {
 		if (isProblemEditMode())

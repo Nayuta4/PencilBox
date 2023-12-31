@@ -11,7 +11,7 @@ import pencilbox.common.gui.PanelBase;
 import pencilbox.util.Colors;
 
 /**
- * 「スラローム」パネルクラス
+ * 縲後せ繝ｩ繝ｭ繝ｼ繝縲阪ヱ繝阪Ν繧ｯ繝ｩ繧ｹ
  */
 public class Panel extends PanelBase {
 

@@ -8,7 +8,7 @@ import pencilbox.common.io.PzprReaderBase;
 
 
 /**
- * QlFpzprv3 kakuro.js
+ * å‚è€ƒï¼špzprv3 kakuro.js
  */
 public class PzprReader extends PzprReaderBase {
 
@@ -26,7 +26,7 @@ public class PzprReader extends PzprReaderBase {
 	}
 
 	protected void decodeKakuro(){
-		// ”Õ–Ê“à”š‚ÌƒfƒR[ƒh
+		// ç›¤é¢å†…æ•°å­—ã®ãƒ‡ã‚³ãƒ¼ãƒ‰
 		int cell=0, a=0;
 		String bstr = outbstr;
 		for(int i=0;i<bstr.length();i++){
@@ -44,7 +44,7 @@ public class PzprReader extends PzprReaderBase {
 			if(cell>=rows*cols){ a=i+1; break;}
 		}
 
-		// ”Õ–ÊŠO”š‚ÌƒfƒR[ƒh
+		// ç›¤é¢å¤–æ•°å­—ã®ãƒ‡ã‚³ãƒ¼ãƒ‰
 		cell=0;
 		for(int i=a;i<bstr.length();i++){
 			char ca = bstr.charAt(i);

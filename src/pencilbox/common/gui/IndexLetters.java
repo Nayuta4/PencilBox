@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * À•W•\¦•¶š—ñ
+ * åº§æ¨™è¡¨ç¤ºæ–‡å­—åˆ—
  */
 public class IndexLetters {
 
@@ -31,16 +31,16 @@ public class IndexLetters {
 		letters = makeArray2("a b c d e f g h i j k l m n o p q r s t u v w x y z".split(" "), MAX);
 		addIndexLettersToList(4, letters);
 
-		letters = makeArray2("ƒA ƒC ƒE ƒG ƒI ƒJ ƒL ƒN ƒP ƒR ƒT ƒV ƒX ƒZ ƒ\ ƒ^ ƒ` ƒc ƒe ƒg ƒi ƒj ƒk ƒl ƒm ƒn ƒq ƒt ƒw ƒz ƒ} ƒ~ ƒ€ ƒ ƒ‚ ƒ„ ƒ† ƒˆ ƒ‰ ƒŠ ƒ‹ ƒŒ ƒ ƒ ƒ“".split(" "), MAX);
+		letters = makeArray2("ã‚¢ ã‚¤ ã‚¦ ã‚¨ ã‚ª ã‚« ã‚­ ã‚¯ ã‚± ã‚³ ã‚µ ã‚· ã‚¹ ã‚» ã‚½ ã‚¿ ãƒ ãƒ„ ãƒ† ãƒˆ ãƒŠ ãƒ‹ ãƒŒ ãƒ ãƒ ãƒ ãƒ’ ãƒ• ãƒ˜ ãƒ› ãƒ ãƒŸ ãƒ  ãƒ¡ ãƒ¢ ãƒ¤ ãƒ¦ ãƒ¨ ãƒ© ãƒª ãƒ« ãƒ¬ ãƒ­ ãƒ¯ ãƒ³".split(" "), MAX);
 		addIndexLettersToList(5, letters);
 
-		letters = makeArray2("‚¢ ‚ë ‚Í ‚É ‚Ù ‚Ö ‚Æ ‚¿ ‚è ‚Ê ‚é ‚ğ ‚í ‚© ‚æ ‚½ ‚ê ‚» ‚Â ‚Ë ‚È ‚ç ‚Ş ‚¤ ‚î ‚Ì ‚¨ ‚­ ‚â ‚Ü ‚¯ ‚Ó ‚± ‚¦ ‚Ä ‚  ‚³ ‚« ‚ä ‚ß ‚İ ‚µ ‚ï ‚Ğ ‚à ‚¹ ‚·".split(" "), MAX);
+		letters = makeArray2("ã„ ã‚ ã¯ ã« ã» ã¸ ã¨ ã¡ ã‚Š ã¬ ã‚‹ ã‚’ ã‚ ã‹ ã‚ˆ ãŸ ã‚Œ ã ã¤ ã­ ãª ã‚‰ ã‚€ ã† ã‚ ã® ãŠ ã ã‚„ ã¾ ã‘ ãµ ã“ ãˆ ã¦ ã‚ ã• ã ã‚† ã‚ ã¿ ã— ã‚‘ ã² ã‚‚ ã› ã™".split(" "), MAX);
 		addIndexLettersToList(6, letters);
 
-		letters = makeArray1("Z ˆê “ñ O l ŒÜ ˜Z µ ”ª ‹ã".split(" "), MAX);
+		letters = makeArray1("ã€‡ ä¸€ äºŒ ä¸‰ å›› äº” å…­ ä¸ƒ å…« ä¹".split(" "), MAX);
 		addIndexLettersToList(7, letters);
 
-		/* ‹ó•¶š */
+		/* ç©ºæ–‡å­— */
 		letters = new String[MAX];
 		Arrays.fill(letters, "");
 		addIndexLettersToList(9, letters);
@@ -51,11 +51,11 @@ public class IndexLetters {
 	}
 
 	/**
-	 * À•W•\¦‚É—p‚¢‚é•¶š—ñ‚Ì”z—ñ‚ğì¬‚·‚é
-	 * a b c ... z ‚È‚Ç‚Ì”z—ñ‚©‚ç a b c ... z aa ab ac ... zz aaa ... ‚Ì‚æ‚¤‚È”z—ñ‚ğì¬‚µ‚Ä•Ô‚·
-	 * @param array ”š‚Ì‘ã‚í‚è‚É—p‚¢‚é•¶š—ñ‚Ì”z—ñ
-	 * @param max ì¬‚·‚éÅ‘åÀ•W
-	 * @return 0‚©‚çmax‚ÌÀ•W‚É‘Î‰‚µ‚½•¶š—ñ‚Ì”z—ñ
+	 * åº§æ¨™è¡¨ç¤ºã«ç”¨ã„ã‚‹æ–‡å­—åˆ—ã®é…åˆ—ã‚’ä½œæˆã™ã‚‹
+	 * a b c ... z ãªã©ã®é…åˆ—ã‹ã‚‰ a b c ... z aa ab ac ... zz aaa ... ã®ã‚ˆã†ãªé…åˆ—ã‚’ä½œæˆã—ã¦è¿”ã™
+	 * @param array æ•°å­—ã®ä»£ã‚ã‚Šã«ç”¨ã„ã‚‹æ–‡å­—åˆ—ã®é…åˆ—
+	 * @param max ä½œæˆã™ã‚‹æœ€å¤§åº§æ¨™
+	 * @return 0ã‹ã‚‰maxã®åº§æ¨™ã«å¯¾å¿œã—ãŸæ–‡å­—åˆ—ã®é…åˆ—
 	 */
 	private static String[] makeArray2(String[] array, int max) {
 		String[] result = new String[max];
@@ -66,10 +66,10 @@ public class IndexLetters {
 	}
 
 	/**
-	 * ˆø”‚ÌÀ•W‚ğ•\‚·•¶š—ñ‚ğ•Ô‚·
-	 * @param array ”š‚Ì‘ã‚í‚è‚É—p‚¢‚é•¶š—ñ‚Ì”z—ñ
-	 * @param n ”š
-	 * @return ”šn‚É‚ ‚½‚é•¶š—ñ
+	 * å¼•æ•°ã®åº§æ¨™ã‚’è¡¨ã™æ–‡å­—åˆ—ã‚’è¿”ã™
+	 * @param array æ•°å­—ã®ä»£ã‚ã‚Šã«ç”¨ã„ã‚‹æ–‡å­—åˆ—ã®é…åˆ—
+	 * @param n æ•°å­—
+	 * @return æ•°å­—nã«ã‚ãŸã‚‹æ–‡å­—åˆ—
 	 */
 	private static String coordinate2(String[] array, int n) {
 		String a = "";
@@ -82,11 +82,11 @@ public class IndexLetters {
 	}
 
 	/**
-	 * À•W•\¦‚É—p‚¢‚é•¶š—ñ‚Ì”z—ñ‚ğì¬‚·‚é
-	 * 0 1 2 ... 9 ‚Ì”z—ñ‚©‚ç 0 1 2 ... 9 10 11 ... ‚Ì‚æ‚¤‚È”z—ñ‚ğì¬‚µ‚Ä•Ô‚·
-	 * @param array ”š‚Ì‘ã‚í‚è‚É—p‚¢‚é•¶š—ñ‚Ì”z—ñ
-	 * @param max ì¬‚·‚éÅ‘åÀ•W
-	 * @return 0‚©‚çmax‚ÌÀ•W‚É‘Î‰‚µ‚½•¶š—ñ‚Ì”z—ñ
+	 * åº§æ¨™è¡¨ç¤ºã«ç”¨ã„ã‚‹æ–‡å­—åˆ—ã®é…åˆ—ã‚’ä½œæˆã™ã‚‹
+	 * 0 1 2 ... 9 ã®é…åˆ—ã‹ã‚‰ 0 1 2 ... 9 10 11 ... ã®ã‚ˆã†ãªé…åˆ—ã‚’ä½œæˆã—ã¦è¿”ã™
+	 * @param array æ•°å­—ã®ä»£ã‚ã‚Šã«ç”¨ã„ã‚‹æ–‡å­—åˆ—ã®é…åˆ—
+	 * @param max ä½œæˆã™ã‚‹æœ€å¤§åº§æ¨™
+	 * @return 0ã‹ã‚‰maxã®åº§æ¨™ã«å¯¾å¿œã—ãŸæ–‡å­—åˆ—ã®é…åˆ—
 	 */
 	private static String[] makeArray1(String[] array, int max) {
 		String[] result = new String[max];
@@ -97,10 +97,10 @@ public class IndexLetters {
 	}
 
 	/**
-	 * ˆø”‚ÌÀ•W‚ğ•\‚·•¶š—ñ‚ğ•Ô‚·
-	 * @param array ”š‚Ì‘ã‚í‚è‚É—p‚¢‚é•¶š—ñ‚Ì”z—ñ
-	 * @param n ”š
-	 * @return ”šn‚É‚ ‚½‚é•¶š—ñ
+	 * å¼•æ•°ã®åº§æ¨™ã‚’è¡¨ã™æ–‡å­—åˆ—ã‚’è¿”ã™
+	 * @param array æ•°å­—ã®ä»£ã‚ã‚Šã«ç”¨ã„ã‚‹æ–‡å­—åˆ—ã®é…åˆ—
+	 * @param n æ•°å­—
+	 * @return æ•°å­—nã«ã‚ãŸã‚‹æ–‡å­—åˆ—
 	 */
 	private static String coordinate1(String[] array, int n) {
 		String a = "";
@@ -114,7 +114,7 @@ public class IndexLetters {
 	}
 
 	/**
-	 * ”Ô†‚©‚ç•¶šŒQ‚Ö‚Ì‘Î‰
+	 * ç•ªå·ã‹ã‚‰æ–‡å­—ç¾¤ã¸ã®å¯¾å¿œ
 	 * @param s
 	 * @return
 	 */
@@ -126,9 +126,9 @@ public class IndexLetters {
 		return INDEX_LETTERS_LIST.get(0);
 	}
 
-	private int style; // İ’è•Û‘¶‚â‘I‘ğ‚Å—p‚¢‚é”Ô†
-	private String[] letters; // •¶š—ñŒQ
-	private String label; // ComboBox ‚Å—p‚¢‚é•\¦
+	private int style; // è¨­å®šä¿å­˜ã‚„é¸æŠã§ç”¨ã„ã‚‹ç•ªå·
+	private String[] letters; // æ–‡å­—åˆ—ç¾¤
+	private String label; // ComboBox ã§ç”¨ã„ã‚‹è¡¨ç¤º
 
 	/**
 	 * @param makeLetters
@@ -140,7 +140,7 @@ public class IndexLetters {
 	}
 
 	/**
-	 * ComboBox ‚Ìƒ‰ƒxƒ‹‚É‚·‚é‚½‚ß‚Ì•¶š—ñ‚ğì¬‚·‚é
+	 * ComboBox ã®ãƒ©ãƒ™ãƒ«ã«ã™ã‚‹ãŸã‚ã®æ–‡å­—åˆ—ã‚’ä½œæˆã™ã‚‹
 	 * @param l
 	 * @return
 	 */

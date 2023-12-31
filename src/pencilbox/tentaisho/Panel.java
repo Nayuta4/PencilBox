@@ -11,7 +11,7 @@ import pencilbox.common.gui.PanelBase;
 
 
 /**
- * u“V‘ÌƒVƒ‡[vƒpƒlƒ‹ƒNƒ‰ƒX
+ * ã€Œå¤©ä½“ã‚·ãƒ§ãƒ¼ã€ãƒ‘ãƒãƒ«ã‚¯ãƒ©ã‚¹
  */
 public class Panel extends PanelBase {
 
@@ -147,7 +147,7 @@ public class Panel extends PanelBase {
 		}
 	}
 	/**
-	 * ¯‚ğ”z’u‚·‚é
+	 * æ˜Ÿã‚’é…ç½®ã™ã‚‹
 	 * @param g
 	 * @param r
 	 * @param c
@@ -172,7 +172,7 @@ public class Panel extends PanelBase {
 		drawCircle(g, getOffsetx() + getCellSize()*(c+1)/2, getOffsety() + getCellSize()*(r+1)/2, getHalfStarSize());
 	}
 	/**
-	 * “V‘ÌƒVƒ‡[ê—pƒJ[ƒ\ƒ‹‚ğ•`‚­
+	 * å¤©ä½“ã‚·ãƒ§ãƒ¼å°‚ç”¨ã‚«ãƒ¼ã‚½ãƒ«ã‚’æã
 	 * @param g
 	 */
 	public void drawCursor(Graphics2D g) {

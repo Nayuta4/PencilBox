@@ -1,7 +1,7 @@
 package pencilbox.common.gui;
 
 /**
- * ”Žš‚Ì‘ã‘Ö•¶Žš‚ÌW‡
+ * æ•°å­—ã®ä»£æ›¿æ–‡å­—ã®é›†åˆ
  */
 public class Letters {
 
@@ -16,28 +16,28 @@ public class Letters {
 			letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 			break;
 		case 2 :
-			letters = "ƒŸƒ ƒ¡ƒ¢ƒ£ƒ¤ƒ¥ƒ¦ƒ§ƒ¨ƒ©ƒªƒ«ƒ¬ƒ­ƒ®ƒ¯ƒ°ƒ±ƒ²ƒ³ƒ´ƒµƒ¶";
+			letters = "Î‘Î’Î“Î”Î•Î–Î—Î˜Î™ÎšÎ›ÎœÎÎžÎŸÎ Î¡Î£Î¤Î¥Î¦Î§Î¨Î©";
 			break;
 		case 3 :
-			letters = "„@„A„B„C„D„E„F„G„H„I„J„K„L„M„N„O„P„Q„R„S„T„U„V„W„X„Y„Z„[„\„]„^„_„`";
+			letters = "ÐÐ‘Ð’Ð“Ð”Ð•ÐÐ–Ð—Ð˜Ð™ÐšÐ›ÐœÐÐžÐŸÐ Ð¡Ð¢Ð£Ð¤Ð¥Ð¦Ð§Ð¨Ð©ÐªÐ«Ð¬Ð­Ð®Ð¯";
 			break;
 		case 4 :
-			letters = "ƒAƒCƒEƒGƒIƒJƒLƒNƒPƒRƒTƒVƒXƒZƒ\ƒ^ƒ`ƒcƒeƒgƒiƒjƒkƒlƒmƒnƒqƒtƒwƒzƒ}ƒ~ƒ€ƒƒ‚ƒ„ƒ†ƒˆƒ‰ƒŠƒ‹ƒŒƒƒ";
+			letters = "ã‚¢ã‚¤ã‚¦ã‚¨ã‚ªã‚«ã‚­ã‚¯ã‚±ã‚³ã‚µã‚·ã‚¹ã‚»ã‚½ã‚¿ãƒãƒ„ãƒ†ãƒˆãƒŠãƒ‹ãƒŒãƒãƒŽãƒãƒ’ãƒ•ãƒ˜ãƒ›ãƒžãƒŸãƒ ãƒ¡ãƒ¢ãƒ¤ãƒ¦ãƒ¨ãƒ©ãƒªãƒ«ãƒ¬ãƒ­ãƒ¯";
 			break;
 		case 5 :
-			letters = "‚¢‚ë‚Í‚É‚Ù‚Ö‚Æ‚¿‚è‚Ê‚é‚ð‚í‚©‚æ‚½‚ê‚»‚Â‚Ë‚È‚ç‚Þ‚¤‚î‚Ì‚¨‚­‚â‚Ü‚¯‚Ó‚±‚¦‚Ä‚ ‚³‚«‚ä‚ß‚Ý‚µ‚ï‚Ð‚à‚¹‚·";
+			letters = "ã„ã‚ã¯ã«ã»ã¸ã¨ã¡ã‚Šã¬ã‚‹ã‚’ã‚ã‹ã‚ˆãŸã‚Œãã¤ã­ãªã‚‰ã‚€ã†ã‚ã®ãŠãã‚„ã¾ã‘ãµã“ãˆã¦ã‚ã•ãã‚†ã‚ã¿ã—ã‚‘ã²ã‚‚ã›ã™";
 			break;
 		case 6 :
-			letters = "™š›œžŸ ¡¢£¤¥§˜—–•”“’‘";
+			letters = "â˜†â˜…â—‹â—â—Žâ—‡â—†â–¡â– â–³â–²â–½â–¼ã€’Â§ï¼ ï¼Šï¼†ï¼ƒï¼…Â£Â¢ï¼„ï¿¥";
 			break;
 		case 7 :
-			letters = "éçéæéåéäéãéâéáéàéßéÞéÝéÜéÛéÙéØé×éÖéÕéÔéÓéÒéÑéÐéÏéÎéÍéÌéËéÊéÉéÈéÇéÆéÅéÄéÃéÂéÁéÀéÀé¿é¾é½é¼é»éºé¹é¸é·é¶éµ";
+			letters = "é±¸é±¶é±§é± é±šé°¾é±†é°²é±‡é°°é°¡é°¤é°¥é°®é°„é°Šé°’é°ˆé°†é°Œé°“é°‰é°”é°•é¯°é¯±é¯²é°ºé¯¡é¯”é¯¤é¯¢é¯£é¯’é¯‘é¯é¯†é®¹é¯Šé¯Šé¯€é®´é®¨é® é®Ÿé®—é®–é®‘é®ƒé®“é­´";
 			break;
 		default :
 			letters = "";
 			break;
-			//		letter = "ƒ¿ƒÀƒÁƒÂƒÃƒÄƒÅƒÆƒÇƒÈƒÉƒÊƒËƒÌƒÍƒÎƒÏƒÐƒÑƒÒƒÓƒÔƒÕƒÖ";
-			//		letter = "ˆê“ñŽOŽlŒÜ˜ZŽµ”ª‹ã\•Sç–œ‰­’›";
+			//		letter = "Î±Î²Î³Î´ÎµÎ¶Î·Î¸Î¹ÎºÎ»Î¼Î½Î¾Î¿Ï€ÏÏƒÏ„Ï…Ï†Ï‡ÏˆÏ‰";
+			//		letter = "ä¸€äºŒä¸‰å››äº”å…­ä¸ƒå…«ä¹åç™¾åƒä¸‡å„„å…†";
 		}
 		return letters;
 	}

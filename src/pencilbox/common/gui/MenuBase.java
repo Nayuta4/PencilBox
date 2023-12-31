@@ -23,7 +23,7 @@ import pencilbox.common.io.IOController.DataFormat;
 import pencilbox.resource.Messages;
 
 /**
- * ‹¤’Êƒƒjƒ…[ƒNƒ‰ƒX
+ * å…±é€šãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚¯ãƒ©ã‚¹
  */
 public class MenuBase {
 
@@ -119,10 +119,10 @@ public class MenuBase {
 	private PanelBase panel;
 
 	/**
-	 * MenuƒNƒ‰ƒX‚Ì‰Šú‰»ˆ—‚ÅCMenuƒCƒ“ƒXƒ^ƒ“ƒX¶¬’¼Œã‚Ég—p‚³‚ê‚é
-	 * @param command ŠÖ˜A•t‚¯‚éMenuCommand
-	 * @param frame ŠÖ˜A•t‚¯‚éFrame
-	 * @param panel ŠÖ˜A•t‚¯‚éPanel
+	 * Menuã‚¯ãƒ©ã‚¹ã®åˆæœŸåŒ–å‡¦ç†ã§ï¼ŒMenuã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”Ÿæˆç›´å¾Œã«ä½¿ç”¨ã•ã‚Œã‚‹
+	 * @param command é–¢é€£ä»˜ã‘ã‚‹MenuCommand
+	 * @param frame é–¢é€£ä»˜ã‘ã‚‹Frame
+	 * @param panel é–¢é€£ä»˜ã‘ã‚‹Panel
 	 */
 	public void setup(MenuCommand command, Frame frame, PanelBase panel) {
 		this.frame = frame;
@@ -148,7 +148,7 @@ public class MenuBase {
 	}
 
 	/**
-	 * ‹¤’Êƒƒjƒ…[‚ğì¬‚·‚éB
+	 * å…±é€šãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚’ä½œæˆã™ã‚‹ã€‚
 	 */
 	protected void buildCommonMenu() {
 		buildFileMenu();
@@ -166,7 +166,7 @@ public class MenuBase {
 	}
 
 	/**
-	 * [ƒtƒ@ƒCƒ‹]ƒƒjƒ…[ì¬
+	 * [ãƒ•ã‚¡ã‚¤ãƒ«]ãƒ¡ãƒ‹ãƒ¥ãƒ¼ä½œæˆ
 	 */
 	protected void buildFileMenu() {
 		fileMenu = makeJMenu(Messages.getString("MenuBase.fileMenu"), 'F'); //$NON-NLS-1$
@@ -196,7 +196,7 @@ public class MenuBase {
 	}
 
 	/**
-	 * [•ÒW]ƒƒjƒ…[ì¬
+	 * [ç·¨é›†]ãƒ¡ãƒ‹ãƒ¥ãƒ¼ä½œæˆ
 	 */
 	protected void buildEditMenu() {
 		editMenu = makeJMenu(Messages.getString("MenuBase.editMenu"), 'E'); //$NON-NLS-1$
@@ -206,22 +206,22 @@ public class MenuBase {
 		editMenu.addSeparator();
 		editMenu.add(clearItem = makeCommandMenuItem(Messages.getString("MenuBase.clearItem"), 'C')); //$NON-NLS-1$
 		if (trimAnswerItem != null) 
-			editMenu.add(trimAnswerItem);  // ("•â•‹L†Á‹(T)", 'T')
+			editMenu.add(trimAnswerItem);  // ("è£œåŠ©è¨˜å·æ¶ˆå»(T)", 'T')
 		if (clearQuestionItem != null)
-			editMenu.add(clearQuestionItem); // "–â‘è•œŒ³(X)", 'X')
+			editMenu.add(clearQuestionItem); // "å•é¡Œå¾©å…ƒ(X)", 'X')
 		if (reconstructQuestionItem != null)
-			editMenu.add(reconstructQuestionItem); // "–â‘è•œŒ³(X)", 'X')
+			editMenu.add(reconstructQuestionItem); // "å•é¡Œå¾©å…ƒ(X)", 'X')
 		if (exchangeNumbersItem != null) 
-			editMenu.add(exchangeNumbersItem);  // "”šŒğŠ·(X)", 'X')
+			editMenu.add(exchangeNumbersItem);  // "æ•°å­—äº¤æ›(X)", 'X')
 		if (symmetricPlacementItem != null) {
 			editMenu.addSeparator();
-			editMenu.add(symmetricPlacementItem); // ("‘ÎÌ”z’u(S)", 'S')
+			editMenu.add(symmetricPlacementItem); // ("å¯¾ç§°é…ç½®(S)", 'S')
 		}
 		editMenu.addSeparator();
 		editMenu.add(undoItem = makeCommandMenuItem(Messages.getString("MenuBase.undoItem"), 'U')); //$NON-NLS-1$
 		editMenu.add(redoItem = makeCommandMenuItem(Messages.getString("MenuBase.redoItem"), 'R')); //$NON-NLS-1$
-		// editMenu.add(undoAllItem = makeCommandMenuItem("Å‰‚Ü‚Å–ß‚·(F)", 'F'));
-		// editMenu.add(redoAllItem = makeCommandMenuItem("ÅŒã‚Ü‚Åi‚ß‚é(L)", 'L'));
+		// editMenu.add(undoAllItem = makeCommandMenuItem("æœ€åˆã¾ã§æˆ»ã™(F)", 'F'));
+		// editMenu.add(redoAllItem = makeCommandMenuItem("æœ€å¾Œã¾ã§é€²ã‚ã‚‹(L)", 'L'));
 		editMenu.add(playbackItem = makeCommandMenuItem(Messages.getString("MenuBase.playbackItem"), 'P')); //$NON-NLS-1$
 		editMenu.add(historyItem = makeCommandMenuItem(Messages.getString("MenuBase.historyItem"), 'H')); //$NON-NLS-1$
 		editMenu.addSeparator();
@@ -236,7 +236,7 @@ public class MenuBase {
 	}
 
 	/**
-	 * [•\¦]ƒƒjƒ…[ì¬
+	 * [è¡¨ç¤º]ãƒ¡ãƒ‹ãƒ¥ãƒ¼ä½œæˆ
 	 */
 	protected void buildViewMenu() {
 		viewMenu = makeJMenu(Messages.getString("MenuBase.viewMenu"), 'V'); //$NON-NLS-1$
@@ -251,13 +251,13 @@ public class MenuBase {
 		if (markStyleMenu != null)
 			viewMenu.add(markStyleMenu);
 		if (cursorItem != null)
-			viewMenu.add(cursorItem);  // ("ƒJ[ƒ\ƒ‹(C)", 'C')
+			viewMenu.add(cursorItem);  // ("ã‚«ãƒ¼ã‚½ãƒ«(C)", 'C')
 		viewMenu.addSeparator();
 		viewMenu.addMenuListener(new ViewMenuListener());
 	}
 
 	/**
-	 * ƒJƒ‰[ƒƒjƒ…[‚ÌƒAƒCƒRƒ“‚ğİ’è‚µ‚Ü‚·
+	 * ã‚«ãƒ©ãƒ¼ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®ã‚¢ã‚¤ã‚³ãƒ³ã‚’è¨­å®šã—ã¾ã™
 	 */
 	protected void buildColorMenuIcon() {
 		int count = colorMenu.getMenuComponentCount();
@@ -274,10 +274,10 @@ public class MenuBase {
 	}
 
 	/**
-	 * ƒƒjƒ…[‚ÉƒJƒ‰[ƒAƒCƒRƒ“‚ğİ’è‚µ‚Ü‚·
+	 * ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã«ã‚«ãƒ©ãƒ¼ã‚¢ã‚¤ã‚³ãƒ³ã‚’è¨­å®šã—ã¾ã™
 	 * 
-	 * @param item ƒƒjƒ…[
-	 * @param color ƒJƒ‰[
+	 * @param item ãƒ¡ãƒ‹ãƒ¥ãƒ¼
+	 * @param color ã‚«ãƒ©ãƒ¼
 	 */
 	protected void setColorIcon(JMenuItem item, Color color) {
 
@@ -291,7 +291,7 @@ public class MenuBase {
 	}
 
 	/**
-	 * [ƒwƒ‹ƒv]ƒƒjƒ…[ì¬
+	 * [ãƒ˜ãƒ«ãƒ—]ãƒ¡ãƒ‹ãƒ¥ãƒ¼ä½œæˆ
 	 */
 	protected void buildHelpMenu() {
 		helpMenu = makeJMenu(Messages.getString("MenuBase.helpMenu"), 'H'); //$NON-NLS-1$
@@ -299,8 +299,8 @@ public class MenuBase {
 	}
 
 	/**
-	 * uƒGƒNƒXƒ|[ƒg^ƒCƒ“ƒ|[ƒgvƒTƒuƒƒjƒ…[‚ğì¬‚·‚éB
-	 * ‘I‘ğ‰Â”\‚ÈƒtƒH[ƒ}ƒbƒg‚ª•W€‚ÆˆÙ‚È‚éê‡‚È‚Ç‚Í•K—v‚É‰‚¶‚ÄƒTƒuƒNƒ‰ƒX‚Åã‘‚«‚·‚é‚±‚ÆB
+	 * ã€Œã‚¨ã‚¯ã‚¹ãƒãƒ¼ãƒˆï¼ã‚¤ãƒ³ãƒãƒ¼ãƒˆã€ã‚µãƒ–ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚’ä½œæˆã™ã‚‹ã€‚
+	 * é¸æŠå¯èƒ½ãªãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆãŒæ¨™æº–ã¨ç•°ãªã‚‹å ´åˆãªã©ã¯å¿…è¦ã«å¿œã˜ã¦ã‚µãƒ–ã‚¯ãƒ©ã‚¹ã§ä¸Šæ›¸ãã™ã‚‹ã“ã¨ã€‚
 	 */
 	protected void buildExportDataMenu() {
 		makeDataExportItem(Messages.getString("MenuBase.exportItemKanpen"), 'K', DataFormat.KANPEN); //$NON-NLS-1$
@@ -308,7 +308,7 @@ public class MenuBase {
 	}
 
 	/**
-	 * ”’ƒ}ƒXŠm’è‹L†ƒXƒ^ƒCƒ‹ƒƒjƒ…[‚ğì¬‚·‚éB
+	 * ç™½ãƒã‚¹ç¢ºå®šè¨˜å·ã‚¹ã‚¿ã‚¤ãƒ«ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚’ä½œæˆã™ã‚‹ã€‚
 	 */
 	protected void buildMarkStyleMenu(String text, char mnemonic, int[] styles) {
 		markStyleMenu = makeJMenu(text, mnemonic);
@@ -342,12 +342,12 @@ public class MenuBase {
 	}
 
 	/**
-	 * [•ÒW]ƒƒjƒ…[ƒŠƒXƒi[ƒNƒ‰ƒX
+	 * [ç·¨é›†]ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãƒªã‚¹ãƒŠãƒ¼ã‚¯ãƒ©ã‚¹
 	 */
 	protected class EditMenuListener implements MenuListener {
 		/*
-		 * •ÒWƒƒjƒ…[‚ğŠJ‚¢‚½ƒ^ƒCƒ~ƒ“ƒO‚ÅC •K—v‚É‰‚¶‚ÄƒAƒ“ƒhƒDCƒŠƒhƒDƒƒjƒ…[‚ğ—LŒø^–³Œø‚É‚·‚é
-		 * –â‘è“ü—Íƒ‚[ƒh‚Í'/'ƒL[‚É‚æ‚èCƒƒjƒ…[‚ğ—p‚¢‚¸‚É•ÏX‚Å‚«‚é‚Ì‚ÅCƒƒjƒ…[‚ğŠJ‚­‚Æ‚«‚ÉŒ»İ‚Ìó‘Ô‚ğ’²‚×‚ÄXV‚·‚éB
+		 * ç·¨é›†ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚’é–‹ã„ãŸã‚¿ã‚¤ãƒŸãƒ³ã‚°ã§ï¼Œ å¿…è¦ã«å¿œã˜ã¦ã‚¢ãƒ³ãƒ‰ã‚¥ï¼Œãƒªãƒ‰ã‚¥ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚’æœ‰åŠ¹ï¼ç„¡åŠ¹ã«ã™ã‚‹
+		 * å•é¡Œå…¥åŠ›ãƒ¢ãƒ¼ãƒ‰ã¯'/'ã‚­ãƒ¼ã«ã‚ˆã‚Šï¼Œãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚’ç”¨ã„ãšã«å¤‰æ›´ã§ãã‚‹ã®ã§ï¼Œãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚’é–‹ãã¨ãã«ç¾åœ¨ã®çŠ¶æ…‹ã‚’èª¿ã¹ã¦æ›´æ–°ã™ã‚‹ã€‚
 		 */
 		public void menuSelected(MenuEvent evt) {
 			undoItem.setEnabled(command.canUndo());
@@ -375,7 +375,7 @@ public class MenuBase {
 		}
 
 		/*
-		 * ƒƒjƒ…[‚ª•Â‚¶‚½‚ç‚·‚×‚Ä—LŒø‚É–ß‚·
+		 * ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãŒé–‰ã˜ãŸã‚‰ã™ã¹ã¦æœ‰åŠ¹ã«æˆ»ã™
 		 */
 		public void menuDeselected(MenuEvent evt) {
 			undoItem.setEnabled(true);
@@ -396,7 +396,7 @@ public class MenuBase {
 	}
 
 	/**
-	 * ƒVƒ‡[ƒgƒJƒbƒgƒL[‚ÌˆêŠ‡İ’è
+	 * ã‚·ãƒ§ãƒ¼ãƒˆã‚«ãƒƒãƒˆã‚­ãƒ¼ã®ä¸€æ‹¬è¨­å®š
 	 */
 	private void setAccelerators() {
 		newBoardItem.setAccelerator(
@@ -429,7 +429,7 @@ public class MenuBase {
 	}
 
 	/**
-	 * [•\¦]ƒƒjƒ…[ƒŠƒXƒi[ƒNƒ‰ƒX
+	 * [è¡¨ç¤º]ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãƒªã‚¹ãƒŠãƒ¼ã‚¯ãƒ©ã‚¹
 	 */
 	protected class ViewMenuListener implements MenuListener {
 
@@ -444,56 +444,56 @@ public class MenuBase {
 	}
 
 	/*
-	 * ‰½í—Ş‚©‚ÌƒpƒYƒ‹‚É•s“K—p‚Ìƒƒjƒ…[‚Ìíœ‚ğs‚¤B
+	 * ä½•ç¨®é¡ã‹ã®ãƒ‘ã‚ºãƒ«ã«ä¸é©ç”¨ã®ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®å‰Šé™¤ã‚’è¡Œã†ã€‚
 	 */
 	/**
-	 * [”Õ–ÊƒTƒCƒY•ÏX]ƒƒjƒ…[€–Ú‚ğíœ‚·‚éB
+	 * [ç›¤é¢ã‚µã‚¤ã‚ºå¤‰æ›´]ãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®ã‚’å‰Šé™¤ã™ã‚‹ã€‚
 	 */
 	protected void removeChangeBoardSizeMenuItem() {
 		fileMenu.remove(changeBoardSizeItem);
 	}
 	/*
-	 * ‰½í—Ş‚©‚ÌƒpƒYƒ‹‚É‹¤’Ê‚Èƒƒjƒ…[‚Ìì¬‚Ì‚İ‚ğs‚¤B
-	 * ì¬‚µ‚½€–Ú‚Íƒƒjƒ…[ì¬‚É’Ç‰Á‚³‚ê‚éB
+	 * ä½•ç¨®é¡ã‹ã®ãƒ‘ã‚ºãƒ«ã«å…±é€šãªãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®ä½œæˆã®ã¿ã‚’è¡Œã†ã€‚
+	 * ä½œæˆã—ãŸé …ç›®ã¯ãƒ¡ãƒ‹ãƒ¥ãƒ¼ä½œæˆæ™‚ã«è¿½åŠ ã•ã‚Œã‚‹ã€‚
 	 */
 	/**
-	 * [•â•‹L†Á‹]ƒƒjƒ…[€–Ú‚ğì¬‚·‚éB
+	 * [è£œåŠ©è¨˜å·æ¶ˆå»]ãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®ã‚’ä½œæˆã™ã‚‹ã€‚
 	 */
 	protected void addTrimAnswerMenuItem() {
 		trimAnswerItem = makeCommandMenuItem(Messages.getString("MenuBase.trimAnswerItem"), 'T'); //$NON-NLS-1$
 	}
 	/**
-	 * [–â‘è”šÁ‹]ƒƒjƒ…[€–Ú‚ğì¬‚·‚éB
+	 * [å•é¡Œæ•°å­—æ¶ˆå»]ãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®ã‚’ä½œæˆã™ã‚‹ã€‚
 	 */
 	protected void addClearQuestionMenuItem() {
 		clearQuestionItem = makeCommandMenuItem(Messages.getString("MenuBase.clearQuestionItem"), 'L'); //$NON-NLS-1$
 	}
 	/**
-	 * [–â‘è”š•œŒ³]ƒƒjƒ…[€–Ú‚ğì¬‚·‚éB
+	 * [å•é¡Œæ•°å­—å¾©å…ƒ]ãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®ã‚’ä½œæˆã™ã‚‹ã€‚
 	 */
 	protected void addReconstructQuestionMenuItem() {
 		reconstructQuestionItem = makeCommandMenuItem(Messages.getString("MenuBase.reconstructQuestionItem"), 'T'); //$NON-NLS-1$
 	}
 	/**
-	 * [‘ÎÌ”z’u]ƒƒjƒ…[€–Ú‚ğì¬‚·‚éB
+	 * [å¯¾ç§°é…ç½®]ãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®ã‚’ä½œæˆã™ã‚‹ã€‚
 	 */
 	protected void addSymmetricPlacementMenuItem() {
 		symmetricPlacementItem = makeCheckBoxCommandMenuItem(Messages.getString("MenuBase.symmetricPlacementItem"), 'S', false); //$NON-NLS-1$
 	}
 	/**
-	 * [ƒJ[ƒ\ƒ‹]ƒƒjƒ…[€–Ú‚ğì¬‚·‚éB
+	 * [ã‚«ãƒ¼ã‚½ãƒ«]ãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®ã‚’ä½œæˆã™ã‚‹ã€‚
 	 */
 	protected void addCursorMenuItem() {
 		cursorItem = makeCheckBoxCommandMenuItem(Messages.getString("MenuBase.cursorItem"), 'C', panel.isCursorMode()); //$NON-NLS-1$
 	}
 	/**
-	 * [ü‚Ì•]ƒƒjƒ…[€–Ú‚ğì¬‚·‚éB
+	 * [ç·šã®å¹…]ãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®ã‚’ä½œæˆã™ã‚‹ã€‚
 	 */
 	protected void addLinkWidthMenuItem() {
-		linkWidthItem = makeCommandMenuItem(Messages.getString("MenuBase.linkWidthItem"), 'W'); // "F‚ÌXV(U)"
+		linkWidthItem = makeCommandMenuItem(Messages.getString("MenuBase.linkWidthItem"), 'W'); // "è‰²ã®æ›´æ–°(U)"
 	}
 	/**
-	 * [F‚ÌXV]ƒƒjƒ…[€–Ú‚ğì¬‚µC[F‚Ìİ’è]ƒƒjƒ…[‚É’Ç‰Á‚·‚éB
+	 * [è‰²ã®æ›´æ–°]ãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®ã‚’ä½œæˆã—ï¼Œ[è‰²ã®è¨­å®š]ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã«è¿½åŠ ã™ã‚‹ã€‚
 	 */
 	protected void addRenewColorMenuItem() {
 		renewColorItem = makeCommandMenuItem(Messages.getString("MenuBase.renewColorItem"), 'U'); //$NON-NLS-1$
@@ -501,20 +501,20 @@ public class MenuBase {
 	}
 
 	/**
-	 * w’è‚µ‚½ƒƒjƒ…[€–Ú‚ğ[•\¦]ƒƒjƒ…[‚É’Ç‰Á‚·‚éB
-	 * @param item ’Ç‰Á‚·‚éƒƒjƒ…[€–Ú
+	 * æŒ‡å®šã—ãŸãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®ã‚’[è¡¨ç¤º]ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã«è¿½åŠ ã™ã‚‹ã€‚
+	 * @param item è¿½åŠ ã™ã‚‹ãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®
 	 */
 	protected void addToViewMenu(JMenuItem item) {
 		viewMenu.add(item);
 	}
 
 	/**
-	 * uƒGƒNƒXƒ|[ƒg^ƒCƒ“ƒ|[ƒgvƒƒjƒ…[‚ÌƒTƒuƒƒjƒ…[€–Ú‚ğì¬‚µCƒOƒ‹[ƒv‚É’Ç‰Á‚·‚éB
-	 * ƒf[ƒ^ƒtƒH[ƒ}ƒbƒg‚ğƒpƒ‰ƒ[ƒ^‚Æ‚µ‚Äƒƒjƒ…[€–Ú‚Ì action command ‚Éİ’è‚·‚éB
-	 * @param text ƒƒjƒ…[•\¦•¶š—ñ
+	 * ã€Œã‚¨ã‚¯ã‚¹ãƒãƒ¼ãƒˆï¼ã‚¤ãƒ³ãƒãƒ¼ãƒˆã€ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®ã‚µãƒ–ãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®ã‚’ä½œæˆã—ï¼Œã‚°ãƒ«ãƒ¼ãƒ—ã«è¿½åŠ ã™ã‚‹ã€‚
+	 * ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã‚’ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã¨ã—ã¦ãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®ã® action command ã«è¨­å®šã™ã‚‹ã€‚
+	 * @param text ãƒ¡ãƒ‹ãƒ¥ãƒ¼è¡¨ç¤ºæ–‡å­—åˆ—
 	 * @param mnemonic
-	 * @param f ƒf[ƒ^ƒtƒH[ƒ}ƒbƒg
-	 * @return ì¬‚µ‚½ƒƒjƒ…[€–Ú
+	 * @param f ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
+	 * @return ä½œæˆã—ãŸãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®
 	 */
 	protected JMenuItem makeDataExportItem(String text, char mnemonic, DataFormat f) {
 		JMenuItem item = new JMenuItem(text, mnemonic);
@@ -533,10 +533,10 @@ public class MenuBase {
 	};
 
 	/**
-	 * u”’ƒ}ƒXŠm’è‹L†ƒXƒ^ƒCƒ‹‘I‘ğv‚ÌƒTƒuƒƒjƒ…[€–Ú‚ğì¬‚µCƒOƒ‹[ƒv‚É’Ç‰Á‚·‚éB
-	 * @param text ƒƒjƒ…[•\¦•¶š—ñ
-	 * @param n ƒXƒ^ƒCƒ‹”Ô†
-	 * @return ì¬‚µ‚½ƒƒjƒ…[€–Ú
+	 * ã€Œç™½ãƒã‚¹ç¢ºå®šè¨˜å·ã‚¹ã‚¿ã‚¤ãƒ«é¸æŠã€ã®ã‚µãƒ–ãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®ã‚’ä½œæˆã—ï¼Œã‚°ãƒ«ãƒ¼ãƒ—ã«è¿½åŠ ã™ã‚‹ã€‚
+	 * @param text ãƒ¡ãƒ‹ãƒ¥ãƒ¼è¡¨ç¤ºæ–‡å­—åˆ—
+	 * @param n ã‚¹ã‚¿ã‚¤ãƒ«ç•ªå·
+	 * @return ä½œæˆã—ãŸãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®
 	 */
 	protected JRadioButtonMenuItem makeMarkStyleItem(String text, char mnemonic, int n) {
 		JRadioButtonMenuItem markStyleItem = new JRadioButtonMenuItem(text);
@@ -557,10 +557,10 @@ public class MenuBase {
 	};
 
 	/**
-	 * F‘I‘ğƒƒjƒ…[ì¬—p•â•ƒƒ\ƒbƒh
-	 * ƒƒjƒ…[€–Ú‚ğì¬‚µ‚ÄC[F‚Ì‘I‘ğ]ƒƒjƒ…[‚É’Ç‰Á‚·‚éB
-	 * @param text ƒƒjƒ…[•\¦•¶š—ñ
-	 * @return ì¬‚µ‚½F‘I‘ğ—pƒƒjƒ…[€–Ú
+	 * è‰²é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼ä½œæˆç”¨è£œåŠ©ãƒ¡ã‚½ãƒƒãƒ‰
+	 * ãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®ã‚’ä½œæˆã—ã¦ï¼Œ[è‰²ã®é¸æŠ]ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã«è¿½åŠ ã™ã‚‹ã€‚
+	 * @param text ãƒ¡ãƒ‹ãƒ¥ãƒ¼è¡¨ç¤ºæ–‡å­—åˆ—
+	 * @return ä½œæˆã—ãŸè‰²é¸æŠç”¨ãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®
 	 */
 	protected JMenuItem addColorMenuItem(final String text) {
 		JMenuItem item = new JMenuItem(text);
@@ -570,12 +570,12 @@ public class MenuBase {
 	}
 
 	/**
-	 * Fİ’èƒRƒ}ƒ“ƒhB 
+	 * è‰²è¨­å®šã‚³ãƒãƒ³ãƒ‰ã€‚ 
 	 */
 	private ActionListener changeColorAction = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			JMenuItem item = (JMenuItem) e.getSource();
-			// ‚Ç‚Ìƒƒjƒ…[€–Ú‚ª‘I‘ğ‚³‚ê‚½‚©‚É‚æ‚Á‚ÄC‚Ç‚ÌF‚ğ•ÏX‚·‚é‚©‚ğ‚»‚Ìê‚ÅŒˆ’è‚·‚éB
+			// ã©ã®ãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®ãŒé¸æŠã•ã‚ŒãŸã‹ã«ã‚ˆã£ã¦ï¼Œã©ã®è‰²ã‚’å¤‰æ›´ã™ã‚‹ã‹ã‚’ãã®å ´ã§æ±ºå®šã™ã‚‹ã€‚
 			Color color = JColorChooser.showDialog(panel, e.getActionCommand(), getColor(item));
 			if (color != null) {
 				setColor(item, color);
@@ -586,7 +586,7 @@ public class MenuBase {
 	};
 
 	/**
-	 * ƒƒjƒ…[‚©‚çÀs‚³‚ê‚éƒRƒ}ƒ“ƒhB
+	 * ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‹ã‚‰å®Ÿè¡Œã•ã‚Œã‚‹ã‚³ãƒãƒ³ãƒ‰ã€‚
 	 */
 	private ActionListener commandAction = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
@@ -595,9 +595,9 @@ public class MenuBase {
 	};
 
 	/**
-	 * ‚Ç‚Ìƒƒjƒ…[‚ª‘I‘ğ‚³‚ê‚½‚©’²‚×‚ÄC‘Î‰‚·‚éƒRƒ}ƒ“ƒh‚ğ‹N“®‚·‚éB
-	 * ÀsŒãCPanel‚ğÄ•`‰æ‚·‚éB
-	 * @param target ‘I‘ğ‚³‚ê‚½ƒƒjƒ…[€–Ú
+	 * ã©ã®ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãŒé¸æŠã•ã‚ŒãŸã‹èª¿ã¹ã¦ï¼Œå¯¾å¿œã™ã‚‹ã‚³ãƒãƒ³ãƒ‰ã‚’èµ·å‹•ã™ã‚‹ã€‚
+	 * å®Ÿè¡Œå¾Œï¼ŒPanelã‚’å†æç”»ã™ã‚‹ã€‚
+	 * @param target é¸æŠã•ã‚ŒãŸãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®
 	 */
 	public void executeCommand(JMenuItem target) {
 		if (target == newBoardItem)
@@ -717,10 +717,10 @@ public class MenuBase {
 	}
 
 	/**
-	 * CommandAction‚ğ”õ‚¦‚½ƒƒjƒ…[€–Ú‚ğì¬‚·‚é
-	 * @param title ƒƒjƒ…[€–Ú•\¦ƒeƒLƒXƒg
-	 * @param mnumonic ƒVƒ‡[ƒgƒJƒbƒg
-	 * @return ì¬‚µ‚½ƒƒjƒ…[€–Ú
+	 * CommandActionã‚’å‚™ãˆãŸãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®ã‚’ä½œæˆã™ã‚‹
+	 * @param title ãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®è¡¨ç¤ºãƒ†ã‚­ã‚¹ãƒˆ
+	 * @param mnumonic ã‚·ãƒ§ãƒ¼ãƒˆã‚«ãƒƒãƒˆ
+	 * @return ä½œæˆã—ãŸãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®
 	 */
 	protected JMenuItem makeCommandMenuItem(String title, char mnumonic) {
 		JMenuItem item = makeJMenuItem(title, mnumonic);
@@ -729,10 +729,10 @@ public class MenuBase {
 	}
 
 	/**
-	 * CommandAction‚ğ”õ‚¦‚½ƒ‰ƒWƒIƒ{ƒ^ƒ“ƒƒjƒ…[€–Ú‚ğì¬‚·‚é
-	 * @param title ƒƒjƒ…[€–Ú•\¦ƒeƒLƒXƒg
-	 * @param mnumonic ƒVƒ‡[ƒgƒJƒbƒg
-	 * @return ì¬‚µ‚½ƒƒjƒ…[€–Ú
+	 * CommandActionã‚’å‚™ãˆãŸãƒ©ã‚¸ã‚ªãƒœã‚¿ãƒ³ãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®ã‚’ä½œæˆã™ã‚‹
+	 * @param title ãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®è¡¨ç¤ºãƒ†ã‚­ã‚¹ãƒˆ
+	 * @param mnumonic ã‚·ãƒ§ãƒ¼ãƒˆã‚«ãƒƒãƒˆ
+	 * @return ä½œæˆã—ãŸãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®
 	 */
 	protected JMenuItem makeCommandRadioButtonMenuItem(String title,
 			char mnumonic) {
@@ -742,11 +742,11 @@ public class MenuBase {
 	}
 
 	/**
-	 * CommandAction‚ğ”õ‚¦‚½ƒ`ƒFƒbƒNƒ{ƒbƒNƒXƒƒjƒ…[€–Ú‚ğì¬‚·‚é
-	 * @param title ƒƒjƒ…[€–Ú•\¦ƒeƒLƒXƒg
-	 * @param mnumonic ƒVƒ‡[ƒgƒJƒbƒg
-	 * @param initial ‰Šú‘I‘ğ
-	 * @return ì¬‚µ‚½ƒƒjƒ…[€–Ú
+	 * CommandActionã‚’å‚™ãˆãŸãƒã‚§ãƒƒã‚¯ãƒœãƒƒã‚¯ã‚¹ãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®ã‚’ä½œæˆã™ã‚‹
+	 * @param title ãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®è¡¨ç¤ºãƒ†ã‚­ã‚¹ãƒˆ
+	 * @param mnumonic ã‚·ãƒ§ãƒ¼ãƒˆã‚«ãƒƒãƒˆ
+	 * @param initial åˆæœŸé¸æŠ
+	 * @return ä½œæˆã—ãŸãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®
 	 */
 	protected JCheckBoxMenuItem makeCheckBoxCommandMenuItem(String title,
 			char mnumonic, boolean initial) {
@@ -756,13 +756,13 @@ public class MenuBase {
 	}
 
 	/*
-	 * ˆÈ‰ºCƒƒjƒ…[ì¬—p•â•ƒƒ\ƒbƒh
+	 * ä»¥ä¸‹ï¼Œãƒ¡ãƒ‹ãƒ¥ãƒ¼ä½œæˆç”¨è£œåŠ©ãƒ¡ã‚½ãƒƒãƒ‰
 	 */
 	/**
-	 * JMenu ì¬—pƒƒ\ƒbƒh
-	 * @param text ƒƒjƒ…[‚Ì•¶š—ñ
+	 * JMenu ä½œæˆç”¨ãƒ¡ã‚½ãƒƒãƒ‰
+	 * @param text ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®æ–‡å­—åˆ—
 	 * @param mnemonic
-	 * @return ì¬‚µ‚½JMenuItem
+	 * @return ä½œæˆã—ãŸJMenuItem
 	 */
 	public JMenu makeJMenu(String text, char mnemonic) {
 		JMenu menu = new JMenu(text);
@@ -771,20 +771,20 @@ public class MenuBase {
 	}
 
 	/**
-	 * JMenuItem ì¬—pƒƒ\ƒbƒh
-	 * @param text ƒƒjƒ…[‚Ì•¶š—ñ
+	 * JMenuItem ä½œæˆç”¨ãƒ¡ã‚½ãƒƒãƒ‰
+	 * @param text ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®æ–‡å­—åˆ—
 	 * @param mnemonic
-	 * @return ì¬‚µ‚½JMenuItem
+	 * @return ä½œæˆã—ãŸJMenuItem
 	 */
 	public JMenuItem makeJMenuItem(String text, char mnemonic) {
 		return new JMenuItem(text, mnemonic);
 	}
 
 	/**
-	 * JRadioButtonMenuItem ì¬—pƒƒ\ƒbƒh
-	 * @param text ƒƒjƒ…[‚Ì•¶š—ñ
+	 * JRadioButtonMenuItem ä½œæˆç”¨ãƒ¡ã‚½ãƒƒãƒ‰
+	 * @param text ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®æ–‡å­—åˆ—
 	 * @param mnemonic
-	 * @return ì¬‚µ‚½ƒƒjƒ…[€–Ú
+	 * @return ä½œæˆã—ãŸãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®
 	 */
 	public JMenuItem makeJRadioButtonMenuItem(String text, char mnemonic) {
 		JMenuItem item = new JRadioButtonMenuItem(text);
@@ -793,11 +793,11 @@ public class MenuBase {
 	}
 
 	/**
-	 * JCheckBoxMenuItem ì¬—pƒƒ\ƒbƒh
-	 * @param text ƒƒjƒ…[‚Ì•¶š—ñ
-	 * @param mnemonic ƒVƒ‡[ƒgƒJƒbƒgƒL[
-	 * @param initial ‰Šú’l
-	 * @return ì¬‚µ‚½JMenuItem
+	 * JCheckBoxMenuItem ä½œæˆç”¨ãƒ¡ã‚½ãƒƒãƒ‰
+	 * @param text ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®æ–‡å­—åˆ—
+	 * @param mnemonic ã‚·ãƒ§ãƒ¼ãƒˆã‚«ãƒƒãƒˆã‚­ãƒ¼
+	 * @param initial åˆæœŸå€¤
+	 * @return ä½œæˆã—ãŸJMenuItem
 	 */
 	public JCheckBoxMenuItem makeJCheckBoxMenuItem(String text, char mnemonic,
 			boolean initial) {
@@ -808,9 +808,9 @@ public class MenuBase {
 	}
 
 	/**
-	 * ƒƒjƒ…[€–Ú‚É‘Î‰‚µ‚½F‚ğæ“¾‚·‚é
-	 * @param target ‘I‘ğ‚³‚ê‚½ƒƒjƒ…[
-	 * @return æ“¾‚µ‚½F
+	 * ãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®ã«å¯¾å¿œã—ãŸè‰²ã‚’å–å¾—ã™ã‚‹
+	 * @param target é¸æŠã•ã‚ŒãŸãƒ¡ãƒ‹ãƒ¥ãƒ¼
+	 * @return å–å¾—ã—ãŸè‰²
 	 */
 	public Color getColor(JMenuItem target) {
 		if (false)
@@ -856,9 +856,9 @@ public class MenuBase {
 	}
 
 	/**
-	 * ƒƒjƒ…[€–Ú‚É‘Î‰‚µ‚½F‚ğæ“¾‚·‚é
-	 * @param target ‘I‘ğ‚³‚ê‚½ƒƒjƒ…[
-	 * @param color İ’è‚·‚éF
+	 * ãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®ã«å¯¾å¿œã—ãŸè‰²ã‚’å–å¾—ã™ã‚‹
+	 * @param target é¸æŠã•ã‚ŒãŸãƒ¡ãƒ‹ãƒ¥ãƒ¼
+	 * @param color è¨­å®šã™ã‚‹è‰²
 	 */
 	public void setColor(JMenuItem target, Color color) {
 		if (false)

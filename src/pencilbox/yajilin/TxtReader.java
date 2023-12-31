@@ -58,8 +58,8 @@ public class TxtReader extends TxtReaderBase {
 			while (t.hasMoreTokens()) {
 				str = t.nextToken();
 				int s = Integer.parseInt(str);
-				// version 1.0.2ˆÈ‘O‚ÍC•Ó‚Ì–¢’èó‘Ô‚Ìƒf[ƒ^‚Æ‚µ‚Ä 0 ‚Æ -3 ‚ª¬İ‚µ‚Ä‚¢‚½‚½‚ßCB
-				// -3‚ğ0‚É•ÏX‚µ‚Ä“Ç‚İ‚ŞB
+				// version 1.0.2ä»¥å‰ã¯ï¼Œè¾ºã®æœªå®šçŠ¶æ…‹ã®ãƒ‡ãƒ¼ã‚¿ã¨ã—ã¦ 0 ã¨ -3 ãŒæ··åœ¨ã—ã¦ã„ãŸãŸã‚ï¼Œã€‚
+				// -3ã‚’0ã«å¤‰æ›´ã—ã¦èª­ã¿è¾¼ã‚€ã€‚
 				if (s == -3) 
 					s = 0;
 				board.setState(Direction.VERT, i, j, s);
@@ -75,8 +75,8 @@ public class TxtReader extends TxtReaderBase {
 			while (t.hasMoreTokens()) {
 				str = t.nextToken();
 				int s = Integer.parseInt(str);
-				// version 1.0.2ˆÈ‘O‚ÍC•Ó‚Ì–¢’èó‘Ô‚Ìƒf[ƒ^‚Æ‚µ‚Ä 0 ‚Æ -3 ‚ª¬İ‚µ‚Ä‚¢‚½‚½‚ßCB
-				// -3‚ğ0‚É•ÏX‚µ‚Ä“Ç‚İ‚ŞB
+				// version 1.0.2ä»¥å‰ã¯ï¼Œè¾ºã®æœªå®šçŠ¶æ…‹ã®ãƒ‡ãƒ¼ã‚¿ã¨ã—ã¦ 0 ã¨ -3 ãŒæ··åœ¨ã—ã¦ã„ãŸãŸã‚ï¼Œã€‚
+				// -3ã‚’0ã«å¤‰æ›´ã—ã¦èª­ã¿è¾¼ã‚€ã€‚
 				if (s == -3) 
 					s = 0;
 				board.setState(Direction.HORIZ, i, j, s);

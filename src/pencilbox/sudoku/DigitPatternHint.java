@@ -3,7 +3,7 @@ package pencilbox.sudoku;
 import pencilbox.common.core.Address;
 
 /**
- * ‰Â”\”š‚ğƒrƒbƒgƒpƒ^[ƒ“‚Å•\Œ»‚·‚éƒqƒ“ƒg‹@”\
+ * å¯èƒ½æ•°å­—ã‚’ãƒ“ãƒƒãƒˆãƒ‘ã‚¿ãƒ¼ãƒ³ã§è¡¨ç¾ã™ã‚‹ãƒ’ãƒ³ãƒˆæ©Ÿèƒ½
  */
 public class DigitPatternHint {
 
@@ -20,9 +20,9 @@ public class DigitPatternHint {
 	}
 
 	/**
-	 * ƒNƒ‰ƒX‚Ì‰Šú‰»ˆ—‚ğs‚¤
-	 * ”Õ–Ê¶¬‚ÉŒÄ‚Î‚ê‚é
-	 * @param board ŠÖ˜A•t‚¯‚é”Õ–Ê
+	 * ã‚¯ãƒ©ã‚¹ã®åˆæœŸåŒ–å‡¦ç†ã‚’è¡Œã†
+	 * ç›¤é¢ç”Ÿæˆæ™‚ã«å‘¼ã°ã‚Œã‚‹
+	 * @param board é–¢é€£ä»˜ã‘ã‚‹ç›¤é¢
 	 */
 	void setupHint(Board board) {
 		this.board = board;
@@ -31,7 +31,7 @@ public class DigitPatternHint {
 		allDigitPattern = ~((-1 << (maxNumber+1))+1);
 	}
 	/**
-	 * ”Õ–Ê‘S‘Ì‚Ì‰Â”\ƒpƒ^[ƒ“‚ğÄŒvZ‚·‚é
+	 * ç›¤é¢å…¨ä½“ã®å¯èƒ½ãƒ‘ã‚¿ãƒ¼ãƒ³ã‚’å†è¨ˆç®—ã™ã‚‹
 	 */
 	void initHint() {
 		for (Address p : board.cellAddrs()) {
@@ -48,7 +48,7 @@ public class DigitPatternHint {
 		return (pattern[p.r()][p.c()] & (1<<n)) > 0;
 	}
 	/**
-	 * p0‚Æ“¯‚¶sC—ñCƒ{ƒbƒNƒX‚É‚Â‚¢‚ÄC”šn‚ğg—pÏ‚İ‚Æ‚·‚é
+	 * p0ã¨åŒã˜è¡Œï¼Œåˆ—ï¼Œãƒœãƒƒã‚¯ã‚¹ã«ã¤ã„ã¦ï¼Œæ•°å­—nã‚’ä½¿ç”¨æ¸ˆã¿ã¨ã™ã‚‹
 	 * @param p0
 	 * @param n
 	 */
@@ -70,7 +70,7 @@ public class DigitPatternHint {
 		}
 	}
 	/**
-	 *	p0‚Én‚ğ“ü‚ê‚é‚Æ‚«‚É•Ï‰»‚ª‚ ‚Á‚½‚Æ‚«‚Éhint‚ğXV‚·‚é
+	 *	p0ã«nã‚’å…¥ã‚Œã‚‹ã¨ãã«å¤‰åŒ–ãŒã‚ã£ãŸã¨ãã«hintã‚’æ›´æ–°ã™ã‚‹
 	 * @param p0
 	 * @param n
 	 */
@@ -84,8 +84,8 @@ public class DigitPatternHint {
 		}
 	}
 	/**
-	 *	p0‚É“ü‚Á‚Ä‚¢‚½”šn0‚ğÁ‚·‚Æ‚«‚ÉC
-	 * ”Õ–Ê‘S‘Ì‚Ì‰Â”\ƒpƒ^[ƒ“‚É‚Â‚¢‚ÄC”š n ‚ÉŠÖ‚·‚é•”•ª‚Ì‚İ‚ğÄŒvZ‚·‚é
+	 *	p0ã«å…¥ã£ã¦ã„ãŸæ•°å­—n0ã‚’æ¶ˆã™ã¨ãã«ï¼Œ
+	 * ç›¤é¢å…¨ä½“ã®å¯èƒ½ãƒ‘ã‚¿ãƒ¼ãƒ³ã«ã¤ã„ã¦ï¼Œæ•°å­— n ã«é–¢ã™ã‚‹éƒ¨åˆ†ã®ã¿ã‚’å†è¨ˆç®—ã™ã‚‹
 	 * @param p0
 	 * @param n0
 	 */
@@ -97,7 +97,7 @@ public class DigitPatternHint {
 		for (Address p : board.cellAddrs()) {
 			int n = board.getNumberOrState(p);
 			if (n == n0) {
-				if (p.equals(p0)) continue; // ‚±‚Ìƒ}ƒX‚Ín0‚¾‚ª¡‚©‚çÁ‚·‚Æ‚±‚ë
+				if (p.equals(p0)) continue; // ã“ã®ãƒã‚¹ã¯n0ã ãŒä»Šã‹ã‚‰æ¶ˆã™ã¨ã“ã‚
 				checkUsedNumber(p, n);
 			}
 		}

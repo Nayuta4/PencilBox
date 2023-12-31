@@ -9,14 +9,14 @@ import pencilbox.common.gui.PanelBase;
 
 
 /**
- * uƒVƒƒƒJƒVƒƒƒJvƒpƒlƒ‹ƒNƒ‰ƒX
+ * ã€Œã‚·ãƒ£ã‚«ã‚·ãƒ£ã‚«ã€ãƒ‘ãƒãƒ«ã‚¯ãƒ©ã‚¹
  */
 public class Panel extends PanelBase {
 
 	private Board board;
 
 	/**
-	 * Panel ‚ğ¶¬‚·‚é
+	 * Panel ã‚’ç”Ÿæˆã™ã‚‹
 	 */
 	public Panel() {
 		setMarkStyle(3);
@@ -72,10 +72,10 @@ public class Panel extends PanelBase {
 	}
 
 	/**
-	 * OŠpŒ`‚ğ“h‚é
+	 * ä¸‰è§’å½¢ã‚’å¡—ã‚‹
 	 * @param g
-	 * @param p@ƒ}ƒX‚ÌÀ•W
-	 * @param state “h‚éOŠpŒ`‚Ìƒ^ƒCƒv
+	 * @param pã€€ãƒã‚¹ã®åº§æ¨™
+	 * @param state å¡—ã‚‹ä¸‰è§’å½¢ã®ã‚¿ã‚¤ãƒ—
 	 */
 	public void paintTriangle(Graphics2D g, Address p, int state) {
 		int x0 = toX(p.c());

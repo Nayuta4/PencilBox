@@ -7,38 +7,38 @@ import java.awt.Graphics;
 import javax.swing.Icon;
 
 /**
- * F‚ÌƒAƒCƒRƒ“
+ * è‰²ã®ã‚¢ã‚¤ã‚³ãƒ³
  */
 public class ColorIcon implements Icon {
 
-	/** ƒAƒCƒRƒ“‚Æ‚µ‚Ä•\¦‚·‚éF */
+	/** ã‚¢ã‚¤ã‚³ãƒ³ã¨ã—ã¦è¡¨ç¤ºã™ã‚‹è‰² */
 	private Color color;
-	/** ˜g‚ÌF */
+	/** æ ã®è‰² */
 	private Color borderColor;
-	/** ƒAƒCƒRƒ“‚Ì• */
+	/** ã‚¢ã‚¤ã‚³ãƒ³ã®å¹… */
 	private int width;
-	/** ƒAƒCƒRƒ“‚Ì‚‚³ */
+	/** ã‚¢ã‚¤ã‚³ãƒ³ã®é«˜ã• */
 	private int height;
 
 
 	/**
-	 * F‚ÌƒAƒCƒRƒ“‚ÌƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	 * è‰²ã®ã‚¢ã‚¤ã‚³ãƒ³ã®ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	 * 
-	 * @param color ƒAƒCƒRƒ“‚Æ‚µ‚Ä•\¦‚·‚éF
-	 * @param width ƒAƒCƒRƒ“‚Ì•
-	 * @param height ƒAƒCƒRƒ“‚Ì‚‚³
+	 * @param color ã‚¢ã‚¤ã‚³ãƒ³ã¨ã—ã¦è¡¨ç¤ºã™ã‚‹è‰²
+	 * @param width ã‚¢ã‚¤ã‚³ãƒ³ã®å¹…
+	 * @param height ã‚¢ã‚¤ã‚³ãƒ³ã®é«˜ã•
 	 */
 	public ColorIcon(Color color, int width, int height) {
 		this(color, color, width, height);
 	}
 
 	/**
-	 * F‚ÌƒAƒCƒRƒ“‚ÌƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	 * è‰²ã®ã‚¢ã‚¤ã‚³ãƒ³ã®ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	 * 
-	 * @param color ƒAƒCƒRƒ“‚Æ‚µ‚Ä•\¦‚·‚éF
-	 * @param borderColor ˜g‚ÌF
-	 * @param width ƒAƒCƒRƒ“‚Ì•
-	 * @param height ƒAƒCƒRƒ“‚Ì‚‚³
+	 * @param color ã‚¢ã‚¤ã‚³ãƒ³ã¨ã—ã¦è¡¨ç¤ºã™ã‚‹è‰²
+	 * @param borderColor æ ã®è‰²
+	 * @param width ã‚¢ã‚¤ã‚³ãƒ³ã®å¹…
+	 * @param height ã‚¢ã‚¤ã‚³ãƒ³ã®é«˜ã•
 	 */
 	public ColorIcon(Color color, Color borderColor, int width, int height) {
 		if (color == null) {
@@ -55,10 +55,10 @@ public class ColorIcon implements Icon {
 	}
 
 	/**
-	 * @param c ƒRƒ“ƒ|[ƒlƒ“ƒg
-	 * @param g ƒOƒ‰ƒtƒBƒbƒN
-	 * @param x ƒAƒCƒRƒ“‚ğ•`‰æ‚·‚éxÀ•W
-	 * @param y ƒAƒCƒRƒ“‚ğ•`‰æ‚·‚éyÀ•W
+	 * @param c ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
+	 * @param g ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯
+	 * @param x ã‚¢ã‚¤ã‚³ãƒ³ã‚’æç”»ã™ã‚‹xåº§æ¨™
+	 * @param y ã‚¢ã‚¤ã‚³ãƒ³ã‚’æç”»ã™ã‚‹yåº§æ¨™
 	 * @see javax.swing.Icon#paintIcon(java.awt.Component, java.awt.Graphics, int, int)
 	 */
 	public void paintIcon(Component c, Graphics g, int x, int y) {
@@ -72,9 +72,9 @@ public class ColorIcon implements Icon {
 	}
 
 	/**
-	 * ƒAƒCƒRƒ“‚Ì•‚ğæ“¾‚·‚é
+	 * ã‚¢ã‚¤ã‚³ãƒ³ã®å¹…ã‚’å–å¾—ã™ã‚‹
 	 * 
-	 * @return ƒAƒCƒRƒ“‚Ì•
+	 * @return ã‚¢ã‚¤ã‚³ãƒ³ã®å¹…
 	 * @see javax.swing.Icon#getIconWidth()
 	 */
 	public int getIconWidth() {
@@ -82,9 +82,9 @@ public class ColorIcon implements Icon {
 	}
 
 	/**
-	 * ƒAƒCƒRƒ“‚Ì‚‚³‚ğæ“¾‚·‚é
+	 * ã‚¢ã‚¤ã‚³ãƒ³ã®é«˜ã•ã‚’å–å¾—ã™ã‚‹
 	 * 
-	 * @return ƒAƒCƒRƒ“‚Ì‚‚³
+	 * @return ã‚¢ã‚¤ã‚³ãƒ³ã®é«˜ã•
 	 * @see javax.swing.Icon#getIconHeight()
 	 */
 	public int getIconHeight() {
@@ -92,9 +92,9 @@ public class ColorIcon implements Icon {
 	}
 
 	/**
-	 * ƒAƒCƒRƒ“‚Æ‚µ‚Ä•\¦‚·‚éF‚ğæ“¾‚·‚é
+	 * ã‚¢ã‚¤ã‚³ãƒ³ã¨ã—ã¦è¡¨ç¤ºã™ã‚‹è‰²ã‚’å–å¾—ã™ã‚‹
 	 * 
-	 * @return ƒAƒCƒRƒ“‚Æ‚µ‚Ä•\¦‚·‚éF
+	 * @return ã‚¢ã‚¤ã‚³ãƒ³ã¨ã—ã¦è¡¨ç¤ºã™ã‚‹è‰²
 	 */
 	public Color getColor() {
 		return color;

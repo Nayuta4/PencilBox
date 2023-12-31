@@ -12,7 +12,7 @@ import pencilbox.util.Colors;
 
 
 /**
- * uƒ„ƒWƒŠƒ“vƒpƒlƒ‹ƒNƒ‰ƒX
+ * ã€Œãƒ¤ã‚¸ãƒªãƒ³ã€ãƒ‘ãƒãƒ«ã‚¯ãƒ©ã‚¹
  */
 public class Panel extends PanelBase {
 
@@ -77,7 +77,7 @@ public class Panel extends PanelBase {
 		}
 	}
 	/**
-	 * ƒ}ƒX‚É–îˆó•t‚«”š‚ğ”z’u‚·‚éB
+	 * ãƒã‚¹ã«çŸ¢å°ä»˜ãæ•°å­—ã‚’é…ç½®ã™ã‚‹ã€‚
 	 * @param g
 	 * @param p
 	 * @param arrow
@@ -111,13 +111,13 @@ public class Panel extends PanelBase {
 	private String getArrowString(int direction) {
 		switch (direction) {
 		case Direction.UP:
-			return "ª";
+			return "â†‘";
 		case Direction.DN:
-			return "«";
+			return "â†“";
 		case Direction.LT:
-			return "©";
+			return "â†";
 		case Direction.RT:
-			return "¨";
+			return "â†’";
 		default:
 			return "";
 		}

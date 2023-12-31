@@ -7,13 +7,13 @@ import pencilbox.common.gui.PanelEventHandlerBase;
 
 
 /**
- * u‚Ü‚µ‚ãvƒ}ƒEƒX^ƒL[‘€ìˆ—ƒNƒ‰ƒX
+ * ã€Œã¾ã—ã‚…ã€ãƒã‚¦ã‚¹ï¼ã‚­ãƒ¼æ“ä½œå‡¦ç†ã‚¯ãƒ©ã‚¹
  */
 public class PanelEventHandler extends PanelEventHandlerBase {
 
 	private Board board;
 
-	private int currentState = Board.OUTER; // ƒhƒ‰ƒbƒO’†‚Ì•Ó‚Ìó‘Ô‚ğ•\‚·
+	private int currentState = Board.OUTER; // ãƒ‰ãƒ©ãƒƒã‚°ä¸­ã®è¾ºã®çŠ¶æ…‹ã‚’è¡¨ã™
 
 	/**
 	 * 
@@ -27,7 +27,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/*
-	 * ‚Ü‚µ‚ã •Ó‚É‘Î‚·‚éƒ}ƒEƒX‘€ì
+	 * ã¾ã—ã‚… è¾ºã«å¯¾ã™ã‚‹ãƒã‚¦ã‚¹æ“ä½œ
 	 */
 	protected void leftPressedEdge(SideAddress side) {
 //		toggleState(side, Board.LINE);
@@ -38,7 +38,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/*
-	 * ‚Ü‚µ‚ã ƒ}ƒX‚É‘Î‚·‚éƒ}ƒEƒX‘€ì
+	 * ã¾ã—ã‚… ãƒã‚¹ã«å¯¾ã™ã‚‹ãƒã‚¦ã‚¹æ“ä½œ
 	 */
 	protected void leftDragged(Address dragStart, Address dragEnd) {
 		changeLineState(dragStart, dragEnd, Board.LINE);
@@ -49,9 +49,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/**
-	 * •Ó‚Ìó‘Ô‚ğ –¢’èÌst ‚ÅØ‚è‘Ö‚¦‚é
-	 * @param pos •ÓÀ•W
-	 * @param st Ø‚è‘Ö‚¦‚éó‘Ô
+	 * è¾ºã®çŠ¶æ…‹ã‚’ æœªå®šâ‡”st ã§åˆ‡ã‚Šæ›¿ãˆã‚‹
+	 * @param pos è¾ºåº§æ¨™
+	 * @param st åˆ‡ã‚Šæ›¿ãˆã‚‹çŠ¶æ…‹
 	 */
 	private void toggleState(SideAddress pos, int st) {
 		if (st == board.getState(pos))
@@ -60,11 +60,11 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/**
-	 * n“_ƒ}ƒX‚ÆI“_ƒ}ƒX‚ğŒ‹‚ñ‚¾üã‚Ìó‘Ô‚ğw’è‚Ìó‘Ô‚É•ÏX‚·‚é
-	 * n“_‚Ì•Ó‚ÌŒ»İ‚Ìó‘Ô‚ªw’è‚Ìó‘Ô‚Å‚ ‚ê‚ÎC–¢’è‚É•ÏX‚·‚é
-	 * @param pos0 n“_ƒ}ƒX‚ÌÀ•W
-	 * @param pos1 I“_ƒ}ƒX‚ÌÀ•W
-	 * @param st •ÏXŒã‚Ìó‘Ô
+	 * å§‹ç‚¹ãƒã‚¹ã¨çµ‚ç‚¹ãƒã‚¹ã‚’çµã‚“ã ç·šä¸Šã®çŠ¶æ…‹ã‚’æŒ‡å®šã®çŠ¶æ…‹ã«å¤‰æ›´ã™ã‚‹
+	 * å§‹ç‚¹ã®è¾ºã®ç¾åœ¨ã®çŠ¶æ…‹ãŒæŒ‡å®šã®çŠ¶æ…‹ã§ã‚ã‚Œã°ï¼Œæœªå®šã«å¤‰æ›´ã™ã‚‹
+	 * @param pos0 å§‹ç‚¹ãƒã‚¹ã®åº§æ¨™
+	 * @param pos1 çµ‚ç‚¹ãƒã‚¹ã®åº§æ¨™
+	 * @param st å¤‰æ›´å¾Œã®çŠ¶æ…‹
 	 */
 	private void changeLineState(Address pos0, Address pos1, int st) {
 		int direction = pos0.getDirectionTo(pos1);
@@ -86,7 +86,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/*
-	 * u‚Ü‚µ‚ãvƒL[‘€ì 
+	 * ã€Œã¾ã—ã‚…ã€ã‚­ãƒ¼æ“ä½œ 
 	 */
 	protected void numberEntered(Address pos, int n) {
 		if (isProblemEditMode()) {

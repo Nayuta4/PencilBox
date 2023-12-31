@@ -2,7 +2,7 @@ package pencilbox.yajilin;
 
 
 /**
- * 「ヤジリン」リンククラス
+ * 縲後Ζ繧ｸ繝ｪ繝ｳ縲阪Μ繝ｳ繧ｯ繧ｯ繝ｩ繧ｹ
  */
 public class Link extends pencilbox.common.core.Link {
 }

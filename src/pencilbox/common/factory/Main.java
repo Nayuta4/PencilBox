@@ -16,9 +16,9 @@ public abstract class Main {
 	}
 
 	/**
-	 * �A�v���P�[�V���������s����
-	 * �����̕����񂪃t�@�C�����̏ꍇ�͂��̃t�@�C�����J���B�����\�B
-	 * ��L�ɓ��Ă͂܂�Ȃ��ꍇ��C��������z��܂��͋󕶎���̏ꍇ�́C��̔Ֆʂ̃t���[�����J���B
+	 * アプリケーションを実行する
+	 * 引数の文字列がファイル名の場合はそのファイルを開く。複数可能。
+	 * 上記に当てはまらない場合や，引数が空配列または空文字列の場合は，空の盤面のフレームを開く。
 	 * @param args
 	 */
 	public void run(String[] args) {

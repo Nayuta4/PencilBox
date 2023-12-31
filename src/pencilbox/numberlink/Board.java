@@ -13,7 +13,7 @@ import pencilbox.resource.Messages;
 import pencilbox.util.ArrayUtil;
 
 /**
- * uƒiƒ“ƒo[ƒŠƒ“ƒNvƒqƒ“ƒg•t‚«”Õ–ÊƒNƒ‰ƒX
+ * ã€ŒãƒŠãƒ³ãƒãƒ¼ãƒªãƒ³ã‚¯ã€ãƒ’ãƒ³ãƒˆä»˜ãç›¤é¢ã‚¯ãƒ©ã‚¹
  */
 public class Board extends BoardBase {
 
@@ -94,11 +94,11 @@ public class Board extends BoardBase {
 		setNumber(pos.r(), pos.c(), n);
 	}
 	/**
-	 * •Óó‘Ô‚Ìæ“¾
+	 * è¾ºçŠ¶æ…‹ã®å–å¾—
 	 * @param d
 	 * @param r
 	 * @param c
-	 * @return •Ó‚Ìó‘Ô‚ğ•Ô‚·
+	 * @return è¾ºã®çŠ¶æ…‹ã‚’è¿”ã™
 	 */
 	public int getState(int d, int r, int c) {
 		if (isSideOn(d,r,c))
@@ -111,7 +111,7 @@ public class Board extends BoardBase {
 		return getState(pos.d(), pos.r(), pos.c());
 	}
 	/**
-	 * •Óó‘Ô‚Ìİ’è
+	 * è¾ºçŠ¶æ…‹ã®è¨­å®š
 	 * @param d
 	 * @param r
 	 * @param c
@@ -132,7 +132,7 @@ public class Board extends BoardBase {
 			return null;
 	}
 	/**
-	 * ‚»‚Ìƒ}ƒX‚ğŠÜ‚Ş Link ‚ğ•Ô‚·
+	 * ãã®ãƒã‚¹ã‚’å«ã‚€ Link ã‚’è¿”ã™
 	 */
 	public Link getLink(Address p) {
 		for (int d = 0; d < 4; d++) {
@@ -148,9 +148,9 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ƒ}ƒX‚Ìó‘Ô‚ğw’è‚µ‚½ó‘Ô‚É•ÏX‚·‚é
-	 * @param p •ÓÀ•W
-	 * @param n •ÏXŒã‚Ìó‘Ô
+	 * ãƒã‚¹ã®çŠ¶æ…‹ã‚’æŒ‡å®šã—ãŸçŠ¶æ…‹ã«å¤‰æ›´ã™ã‚‹
+	 * @param p è¾ºåº§æ¨™
+	 * @param n å¤‰æ›´å¾Œã®çŠ¶æ…‹
 	 */
 	public void changeNumber(Address p, int n) {
 		int prev = getNumber(p);
@@ -162,10 +162,10 @@ public class Board extends BoardBase {
 		setNumber(p, n);
 	}
 	/**
-	 * •Ó‚Ìó‘Ô‚ğw’è‚µ‚½ó‘Ô‚É•ÏX‚·‚é
-	 * ƒAƒ“ƒhƒDƒŠƒXƒi[‚É•ÏX‚ğ’Ê’m‚·‚é
-	 * @param p •ÓÀ•W
-	 * @param st •ÏXŒã‚Ìó‘Ô
+	 * è¾ºã®çŠ¶æ…‹ã‚’æŒ‡å®šã—ãŸçŠ¶æ…‹ã«å¤‰æ›´ã™ã‚‹
+	 * ã‚¢ãƒ³ãƒ‰ã‚¥ãƒªã‚¹ãƒŠãƒ¼ã«å¤‰æ›´ã‚’é€šçŸ¥ã™ã‚‹
+	 * @param p è¾ºåº§æ¨™
+	 * @param st å¤‰æ›´å¾Œã®çŠ¶æ…‹
 	 */
 	public void changeState(SideAddress p, int st) {
 		int prev = getState(p);
@@ -226,9 +226,9 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ‚ ‚éƒ}ƒX‚ğŠÜ‚Ş Link ‚Ì‰Šú‰»
-	 * link[][][] ‚ÍÁ‹‚³‚ê‚Ä‚¢‚é‚à‚Ì‚Æ‚·‚é
-	 * @param p Link‰Šú‰»‚Ì‹N“_ƒ}ƒX‚ÌÀ•W
+	 * ã‚ã‚‹ãƒã‚¹ã‚’å«ã‚€ Link ã®åˆæœŸåŒ–
+	 * link[][][] ã¯æ¶ˆå»ã•ã‚Œã¦ã„ã‚‹ã‚‚ã®ã¨ã™ã‚‹
+	 * @param p LinkåˆæœŸåŒ–ã®èµ·ç‚¹ãƒã‚¹ã®åº§æ¨™
 	 */
 	void initLink(Address p) {
 		initializingLink = new Link();
@@ -254,7 +254,7 @@ public class Board extends BoardBase {
 		addNumberToLink(initializingLink, p);
 	}
 	/**
-	 * Link •¹‡
+	 * Link ä½µåˆ
 	 */	
 	void connectLink(SideAddress p) {
 		Link newLink = new Link();
@@ -282,7 +282,7 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * Link Ø’f
+	 * Link åˆ‡æ–­
 	 */
 	void cutLink(SideAddress p) {
 		Link oldLink = getLink(p);
@@ -301,9 +301,9 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ƒ}ƒX‚Ìã‰º¶‰E4•ûŒü‚Ì‚¤‚¿CŒ»İü‚ªˆø‚©‚ê‚Ä‚¢‚é”‚ğ•Ô‚·
-	 * @param p ƒ}ƒX‚ÌÀ•W
-	 * @return ƒ}ƒX‚Ìã‰º¶‰E‚Éˆø‚©‚ê‚Ä‚¢‚éü‚Ì”
+	 * ãƒã‚¹ã®ä¸Šä¸‹å·¦å³4æ–¹å‘ã®ã†ã¡ï¼Œç¾åœ¨ç·šãŒå¼•ã‹ã‚Œã¦ã„ã‚‹æ•°ã‚’è¿”ã™
+	 * @param p ãƒã‚¹ã®åº§æ¨™
+	 * @return ãƒã‚¹ã®ä¸Šä¸‹å·¦å³ã«å¼•ã‹ã‚Œã¦ã„ã‚‹ç·šã®æ•°
 	 */
 	public int countLine(Address p) {
 		int no = 0;
@@ -323,7 +323,7 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ³“š”»’è‚Ì•ªŠòƒ`ƒFƒbƒN•”•ª
+	 * æ­£ç­”åˆ¤å®šã®åˆ†å²ãƒã‚§ãƒƒã‚¯éƒ¨åˆ†
 	 */
 	private int checkBranch() {
 		int result= 0;
@@ -344,7 +344,7 @@ public class Board extends BoardBase {
 		return result;
 	}
 	/**
-	 * ³“š”»’è‚Ì”š˜AŒ‹ƒ`ƒFƒbƒN•”•ª
+	 * æ­£ç­”åˆ¤å®šã®æ•°å­—é€£çµãƒã‚§ãƒƒã‚¯éƒ¨åˆ†
 	 */
 	private int checkConnection() {
 		int result = 0;

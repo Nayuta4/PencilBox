@@ -12,7 +12,7 @@ import pencilbox.common.gui.PanelBase;
 
 
 /**
- * u‚³‚Æ‚ª‚¦‚èvƒpƒlƒ‹ƒNƒ‰ƒX
+ * ã€Œã•ã¨ãŒãˆã‚Šã€ãƒ‘ãƒãƒ«ã‚¯ãƒ©ã‚¹
  */
 public class Panel extends PanelBase {
 
@@ -29,7 +29,7 @@ public class Panel extends PanelBase {
 		setCursorMode(false);
 		setLineColor(new Color(0x0099FF));
 		setMarkStyle(2);
-		successColor = new Color(0xCCFFFF); // Š®¬‚µ‚½—Ìˆæ‚ÌF
+		successColor = new Color(0xCCFFFF); // å®Œæˆã—ãŸé ˜åŸŸã®è‰²
 		errorColor2   = new Color(0xFFCCCC); // 
 	}
 
@@ -76,8 +76,8 @@ public class Panel extends PanelBase {
 		}
 		if (isIndicateErrorMode()) {
 			for (Area a : board.getAreaList()) {
-				int n = board.checkArea(a, false); // ˆÚ“®Œã‚Ì”š‚Ì‚İ”‚¦‚éê‡
-//				int n = board.checkArea(a, true); // ˆÚ“®‘O‚Ì”š‚à”‚¦‚éê‡
+				int n = board.checkArea(a, false); // ç§»å‹•å¾Œã®æ•°å­—ã®ã¿æ•°ãˆã‚‹å ´åˆ
+//				int n = board.checkArea(a, true); // ç§»å‹•å‰ã®æ•°å­—ã‚‚æ•°ãˆã‚‹å ´åˆ
 				if (n == 1) {
 //					g.setColor(areaPaintColor);
 					g.setColor(successColor);
@@ -145,7 +145,7 @@ public class Panel extends PanelBase {
 	}
 
 	/**
-	 * ‚»‚Ìƒ}ƒX‚©‚ço‚éü‚ğ•`‚­B
+	 * ãã®ãƒã‚¹ã‹ã‚‰å‡ºã‚‹ç·šã‚’æãã€‚
 	 * @param g
 	 * @param p
 	 * @param st

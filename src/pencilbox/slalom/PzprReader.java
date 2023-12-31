@@ -7,7 +7,7 @@ import pencilbox.common.io.PzprReaderBase;
 
 
 /**
- * QlFpzprv3 slalom.js
+ * å‚è€ƒï¼špzprv3 slalom.js
  */
 public class PzprReader extends PzprReaderBase {
 
@@ -41,12 +41,12 @@ public class PzprReader extends PzprReaderBase {
 
 			if(c >= bd.rows() * bd.cols()){ break;}
 		}
-		bd.initGates(); // –å‚Ì”‚ğ”‚¦‚é‚½‚ß‚É‚¢‚Á‚½‚ñ–å‚ğ’²‚×‚é
+		bd.initGates(); // é–€ã®æ•°ã‚’æ•°ãˆã‚‹ãŸã‚ã«ã„ã£ãŸã‚“é–€ã‚’èª¿ã¹ã‚‹
 		int nGate = bd.getNGate();
 		System.out.println(nGate);
 
 		if (ver==0) {
-			int[] gateNumbers = new int[nGate]; // –å”Ô†‚ğ‡”Ô‚É‹L˜^‚·‚éƒ[ƒJƒ‹•Ï””z—ñB
+			int[] gateNumbers = new int[nGate]; // é–€ç•ªå·ã‚’é †ç•ªã«è¨˜éŒ²ã™ã‚‹ãƒ­ãƒ¼ã‚«ãƒ«å¤‰æ•°é…åˆ—ã€‚
 
 			int i0 = i+1, r = 0;
 			for(i=i0;i<array[0].length();i++){
@@ -59,7 +59,7 @@ public class PzprReader extends PzprReaderBase {
 				else if(ca == '-'){
 					gateNumbers[r] = parseInt(array[0].substring(i+1, i+3), 16); r++; i+=2;
 				}
-				else if(include(ca,'g','z')){				// ”Ô†‚È‚µ‚Ì–å‚Ì” g‚È‚ç1‚Â
+				else if(include(ca,'g','z')){				// ç•ªå·ãªã—ã®é–€ã®æ•° gãªã‚‰1ã¤
 					r += parseInt(ca,36)-15;
 				}
 				else{ r++;}
@@ -67,7 +67,7 @@ public class PzprReader extends PzprReaderBase {
 				if(r > nGate){ break;}
 			}
 
-			this.setGateNumbers(gateNumbers); // ƒ[ƒJƒ‹•Ï”‚É‹L˜^‚µ‚½–å”Ô†‚ğ”Õ–Ê‚Éİ’è‚·‚é.
+			this.setGateNumbers(gateNumbers); // ãƒ­ãƒ¼ã‚«ãƒ«å¤‰æ•°ã«è¨˜éŒ²ã—ãŸé–€ç•ªå·ã‚’ç›¤é¢ã«è¨­å®šã™ã‚‹.
 		}
 		else if(ver==1) { // pflag == "p"
 			c=0;
@@ -96,10 +96,10 @@ public class PzprReader extends PzprReaderBase {
 	}
 
 	/**
-	 * –å‚É”Ô†‚ğİ’è‚·‚éB
-	 * –å‚ÉID‚ª‚Â‚¢‚Ä‚¢‚È‚¢‚Ì‚ÅA‚Ü‚Æ‚ß‚Äˆ—‚·‚é‚±‚Æ‚É‚·‚éB
-	 * ˆø”‚É—^‚¦‚½”z—ñ‚Ì”š‚ğC¶ã‚É‚ ‚é–å‚©‚ç‡”Ô‚É‚í‚è‚ ‚Ä‚éB
-	 * @param gateNumbers –å”Ô†‚Ì”z—ñ
+	 * é–€ã«ç•ªå·ã‚’è¨­å®šã™ã‚‹ã€‚
+	 * é–€ã«IDãŒã¤ã„ã¦ã„ãªã„ã®ã§ã€ã¾ã¨ã‚ã¦å‡¦ç†ã™ã‚‹ã“ã¨ã«ã™ã‚‹ã€‚
+	 * å¼•æ•°ã«ä¸ãˆãŸé…åˆ—ã®æ•°å­—ã‚’ï¼Œå·¦ä¸Šã«ã‚ã‚‹é–€ã‹ã‚‰é †ç•ªã«ã‚ã‚Šã‚ã¦ã‚‹ã€‚
+	 * @param gateNumbers é–€ç•ªå·ã®é…åˆ—
 	 */
 	private void setGateNumbers(int[] gateNumbers) {
 		int k = 0;
@@ -126,11 +126,11 @@ public class PzprReader extends PzprReaderBase {
 	}
 
 	/**
-	 * ‹N“_ƒ}ƒX‚©‚ç—^‚¦‚ç‚ê‚½•ûŒü‚Ìæ‚Ì–å‚Ìã‚É”Ô†‚ğ‘‚­B
-	 * •¡”‚Ì”š‚ªŠY“–‚·‚éê‡‚Í¬‚³‚¢”š‚ğ—Dæ‚·‚éB
-	 * @param p@À•W
-	 * @param direction Œ©‚é•ûŒü
-	 * @param v ’l
+	 * èµ·ç‚¹ãƒã‚¹ã‹ã‚‰ä¸ãˆã‚‰ã‚ŒãŸæ–¹å‘ã®å…ˆã®é–€ã®ä¸Šã«ç•ªå·ã‚’æ›¸ãã€‚
+	 * è¤‡æ•°ã®æ•°å­—ãŒè©²å½“ã™ã‚‹å ´åˆã¯å°ã•ã„æ•°å­—ã‚’å„ªå…ˆã™ã‚‹ã€‚
+	 * @param pã€€åº§æ¨™
+	 * @param direction è¦‹ã‚‹æ–¹å‘
+	 * @param v å€¤
 	 */
 	private void setGateNumber(Address p, int d, int v) {
 		Address pole = bd.getAnotherPole(p, d);
@@ -145,7 +145,7 @@ public class PzprReader extends PzprReaderBase {
 	protected void sQuC(int id, int num) {
 		Address a = i2a(id);
 		if (num == 1) {
-			bd.setNumber(a, 0); // ‰¼‚É”Ô†‚È‚µ‚Ì•ƒ}ƒX‚Æ‚·‚é
+			bd.setNumber(a, 0); // ä»®ã«ç•ªå·ãªã—ã®é»’ãƒã‚¹ã¨ã™ã‚‹
 		} else if (num == 21) {
 			bd.setNumber(a, Board.GATE_VERT);
 		} else if (num == 22) {

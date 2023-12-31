@@ -5,24 +5,24 @@ import pencilbox.common.core.BoardBase;
 import pencilbox.common.gui.PanelEventHandlerBase;
 
 /**
- * u‚³‚Æ‚ª‚¦‚èvƒ}ƒEƒX^ƒL[‘€ìˆ—ƒNƒ‰ƒX
+ * ã€Œã•ã¨ãŒãˆã‚Šã€ãƒã‚¦ã‚¹ï¼ã‚­ãƒ¼æ“ä½œå‡¦ç†ã‚¯ãƒ©ã‚¹
  */
 public class PanelEventHandler extends PanelEventHandlerBase {
 
 	private Board board;
 
-	private int currentState = NULLSTATE; // ƒhƒ‰ƒbƒO’†‚Ì•Ó‚Ìó‘Ô‚ğ•\‚·
+	private int currentState = NULLSTATE; // ãƒ‰ãƒ©ãƒƒã‚°ä¸­ã®è¾ºã®çŠ¶æ…‹ã‚’è¡¨ã™
 	private static final int NULLSTATE  = -9;
 	private static final int BALL = -19;
 	private static final int NUMBER = -20;
 	private static final int MOVE = -21;
 
 	private int dragState = 0;
-	private static final int INIT = 0;           // ‰Šúó‘Ô
-	private static final int PRESS_NEW = 1;      // V—Ìˆæì¬
-	private static final int PRESS_EXISTING = 2; // Šù‘¶—Ìˆæ‘I‘ğ
-	private static final int DRAG_ADD = 3;       // —ÌˆæŠg‘å‘€ì 
-	private static final int DRAG_REMOVE = 4;   // —Ìˆæk¬‘€ì 
+	private static final int INIT = 0;           // åˆæœŸçŠ¶æ…‹
+	private static final int PRESS_NEW = 1;      // æ–°é ˜åŸŸä½œæˆ
+	private static final int PRESS_EXISTING = 2; // æ—¢å­˜é ˜åŸŸé¸æŠ
+	private static final int DRAG_ADD = 3;       // é ˜åŸŸæ‹¡å¤§æ“ä½œ 
+	private static final int DRAG_REMOVE = 4;   // é ˜åŸŸç¸®å°æ“ä½œ 
 
 
 	/**
@@ -33,7 +33,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard;
-		setMaxInputNumber(9);   // b’è“I
+		setMaxInputNumber(9);   // æš«å®šçš„
 	}
 
 	/**
@@ -50,9 +50,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/*
-	 * u‚³‚Æ‚ª‚¦‚èvƒ}ƒEƒX‘€ì
-	 * ƒ{[ƒ‹‚ğn“_‚Éƒhƒ‰ƒbƒO‚·‚é‚Æü‚ğL‚Î‚·Aƒ}ƒX‚ğˆÚ“®‚µ‚È‚¯‚ê‚Îü‚ğÁ‚·
-	 * ”šƒ}ƒX‚ğn“_‚Éƒhƒ‰ƒbƒO‚·‚é‚Æü‚ğì‚Á‚ÄL‚Î‚·AˆÚ“®‚µ‚È‚¯‚ê‚Î‚»‚Ìƒ}ƒXI“_A‚»‚Ì‚Æ‚«‘¼‚Ìü‚ÍÁ‚·
+	 * ã€Œã•ã¨ãŒãˆã‚Šã€ãƒã‚¦ã‚¹æ“ä½œ
+	 * ãƒœãƒ¼ãƒ«ã‚’å§‹ç‚¹ã«ãƒ‰ãƒ©ãƒƒã‚°ã™ã‚‹ã¨ç·šã‚’ä¼¸ã°ã™ã€ãƒã‚¹ã‚’ç§»å‹•ã—ãªã‘ã‚Œã°ç·šã‚’æ¶ˆã™
+	 * æ•°å­—ãƒã‚¹ã‚’å§‹ç‚¹ã«ãƒ‰ãƒ©ãƒƒã‚°ã™ã‚‹ã¨ç·šã‚’ä½œã£ã¦ä¼¸ã°ã™ã€ç§»å‹•ã—ãªã‘ã‚Œã°ãã®ãƒã‚¹çµ‚ç‚¹ã€ãã®ã¨ãä»–ã®ç·šã¯æ¶ˆã™
 	 */
 	protected void leftPressed(Address pos) {
 		if (isProblemEditMode()) {
@@ -84,9 +84,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			Area oldArea = board.getArea(pos);
 			if (dragState == PRESS_NEW || dragState == PRESS_EXISTING) {
 				if (oldArea == null || oldArea != draggingArea) {
-					dragState = DRAG_ADD; // —ÌˆæŠg‘å‘€ì
+					dragState = DRAG_ADD; // é ˜åŸŸæ‹¡å¤§æ“ä½œ
 				} else {
-					dragState = DRAG_REMOVE; // —Ìˆæk¬‘€ì
+					dragState = DRAG_REMOVE; // é ˜åŸŸç¸®å°æ“ä½œ
 				}
 			}
 			if (dragState == DRAG_ADD) {
@@ -155,7 +155,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		}
 	}
 	private void changeRoute1(Address p, int d) {
-		// ›‚ğ‹N“_‚Éü‚ğˆø‚­‚Æ‚«‚ÍC‘O‚É‚ ‚Á‚½ü‚ÍÁ‚·B
+		// â—‹ã‚’èµ·ç‚¹ã«ç·šã‚’å¼•ãã¨ãã¯ï¼Œå‰ã«ã‚ã£ãŸç·šã¯æ¶ˆã™ã€‚
 		if (board.hasNumber(p) && board.getRoute(p) != Board.END) {
 //		if (board.hasNumber(p)) {
 			board.eraseRoute(p);
@@ -166,14 +166,14 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			Address q = p.nextCell(d);
 			if (!board.isOn(q))
 				return;
-			// ü‚ğŒ³‚É–ß‚é‚Æ‚«
+			// ç·šã‚’å…ƒã«æˆ»ã‚‹ã¨ã
 			if (board.getRoute(q) == (d^2)) {
-//				board.changeRoute(p, d);     // Œ³‚Ìƒ}ƒX‚É‘Î‚·‚é‘€ì‚Æ‚µ‚Ä“o˜^‚·‚é‚È‚ç
-				board.changeRoute(q, Board.END);   // —×‚Ìƒ}ƒX‚É‘Î‚·‚é‘€ì‚Æ‚µ‚Ä“o˜^‚·‚é‚È‚ç
+//				board.changeRoute(p, d);     // å…ƒã®ãƒã‚¹ã«å¯¾ã™ã‚‹æ“ä½œã¨ã—ã¦ç™»éŒ²ã™ã‚‹ãªã‚‰
+				board.changeRoute(q, Board.END);   // éš£ã®ãƒã‚¹ã«å¯¾ã™ã‚‹æ“ä½œã¨ã—ã¦ç™»éŒ²ã™ã‚‹ãªã‚‰
 			} else if (board.getRoute(q) == Board.NOROUTE && !board.hasNumber(q)) {
 				int d1 = board.getIncomingDirection(p);
 				if (d1 != Board.END && d1 != d) {
-	//				System.out.println(d1 + " " + d + " " + "ü‚Ì“r’†‚ÅŒü‚«‚Í•Ï‚¦‚ç‚ê‚È‚¢");
+	//				System.out.println(d1 + " " + d + " " + "ç·šã®é€”ä¸­ã§å‘ãã¯å¤‰ãˆã‚‰ã‚Œãªã„");
 					return;
 				}
 				board.changeRoute(p, d);
@@ -185,7 +185,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 //		currentState = d;
 	}
 	/*
-	 * u‚³‚Æ‚ª‚¦‚èvƒL[‘€ì
+	 * ã€Œã•ã¨ãŒãˆã‚Šã€ã‚­ãƒ¼æ“ä½œ
 	 */
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {

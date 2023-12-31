@@ -10,7 +10,7 @@ import pencilbox.common.io.TxtReaderBase;
 
 
 /**
- * 「シャカシャカ」txt形式ファイル読み込みクラス
+ * 縲後す繝｣繧ｫ繧ｷ繝｣繧ｫ縲衡xt蠖｢蠑上ヵ繧｡繧､繝ｫ隱ｭ縺ｿ霎ｼ縺ｿ繧ｯ繝ｩ繧ｹ
  */
 public class TxtReader extends TxtReaderBase {
 

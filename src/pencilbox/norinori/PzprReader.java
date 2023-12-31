@@ -21,7 +21,7 @@ public class PzprReader extends PzprReaderBase {
 	}
 
 	/**
-	 * ‹«ŠEüƒf[ƒ^‚©‚ç—Ìˆæ”Ô†ƒf[ƒ^‚ğì¬‚·‚éB
+	 * å¢ƒç•Œç·šãƒ‡ãƒ¼ã‚¿ã‹ã‚‰é ˜åŸŸç•ªå·ãƒ‡ãƒ¼ã‚¿ã‚’ä½œæˆã™ã‚‹ã€‚
 	 */
 	private void makeAreas() {
 		Area[] areaArray = new pencilbox.norinori.Area[nArea];

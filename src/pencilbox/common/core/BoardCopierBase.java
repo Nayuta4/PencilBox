@@ -5,22 +5,22 @@ import pencilbox.common.factory.PencilBoxClassException;
 
 
 /**
- * ”Õ–Ê•¡»ƒNƒ‰ƒX‚ÌeƒNƒ‰ƒX
+ * ç›¤é¢è¤‡è£½ã‚¯ãƒ©ã‚¹ã®è¦ªã‚¯ãƒ©ã‚¹
  */
 public class BoardCopierBase {
 
 	/**
-	 * ”Õ–Ê‚ğ•¡»‚·‚éB
-	 * @param src •¡»Œ³‚Ì”Õ–Ê
-	 * @return •¡»‚µ‚½”Õ–Ê
+	 * ç›¤é¢ã‚’è¤‡è£½ã™ã‚‹ã€‚
+	 * @param src è¤‡è£½å…ƒã®ç›¤é¢
+	 * @return è¤‡è£½ã—ãŸç›¤é¢
 	 */
 	public BoardBase duplicateBoard(BoardBase src) throws PencilBoxClassException {
 		return duplicateBoard(src, 0);
 	}
 	/**
-	 * ”Õ–Ê‚ğ‰ñ“]‚µ‚Ä•¡»‚·‚éB
-	 * @param src •¡»Œ³‚Ì”Õ–Ê
-	 * @return •¡»‚µ‚½”Õ–Ê
+	 * ç›¤é¢ã‚’å›è»¢ã—ã¦è¤‡è£½ã™ã‚‹ã€‚
+	 * @param src è¤‡è£½å…ƒã®ç›¤é¢
+	 * @return è¤‡è£½ã—ãŸç›¤é¢
 	 */
 	public BoardBase duplicateBoard(BoardBase src, int n) throws PencilBoxClassException {
 		BoardBase dst = (BoardBase) ClassUtil.createInstance(this.getClass(), ClassUtil.BOARD_CLASS);
@@ -34,10 +34,10 @@ public class BoardCopierBase {
 	}
 
 	/**
-	 * ”Õ–Ê‚ğƒTƒCƒY•ÏX‚µ‚Ä•¡»‚·‚éB
-	 * @param src •¡»Œ³‚Ì”Õ–Ê
-	 * @param size •ÏXŒã‚ÌƒTƒCƒY
-	 * @return •¡»‚µ‚½”Õ–Ê
+	 * ç›¤é¢ã‚’ã‚µã‚¤ã‚ºå¤‰æ›´ã—ã¦è¤‡è£½ã™ã‚‹ã€‚
+	 * @param src è¤‡è£½å…ƒã®ç›¤é¢
+	 * @param size å¤‰æ›´å¾Œã®ã‚µã‚¤ã‚º
+	 * @return è¤‡è£½ã—ãŸç›¤é¢
 	 * @throws PencilBoxClassException
 	 */
 	public BoardBase duplicateBoard(BoardBase src, Size size) throws PencilBoxClassException {
@@ -48,12 +48,12 @@ public class BoardCopierBase {
 	}
 
 	/**
-	 * ”Õ–Êó‘Ô‚ğ‰ñ“]‚µ‚Ä•¡»‚·‚éB
-	 * ”Õ–Ê‘S—Ìˆæ‚ğ‘ÎÛ‚Æ‚µ‚½•¡Ê‚ğs‚¤B
-	 * ‚»‚Ì‚æ‚¤‚Éˆµ‚¦‚È‚¢“Áê‚Èê‡iƒJƒbƒNƒ‚È‚Çj‚É‚Â‚¢‚Ä‚ÍCŠeƒTƒuƒNƒ‰ƒX‚ÅÀ‘•‚·‚éB
-	 * @param src •¡»Œ³‚Ì”Õ–Ê
-	 * @param dst •¡»æ‚Ì”Õ–Ê
-	 * @param n ‰ñ“]”Ô†
+	 * ç›¤é¢çŠ¶æ…‹ã‚’å›è»¢ã—ã¦è¤‡è£½ã™ã‚‹ã€‚
+	 * ç›¤é¢å…¨é ˜åŸŸã‚’å¯¾è±¡ã¨ã—ãŸè¤‡å†™ã‚’è¡Œã†ã€‚
+	 * ãã®ã‚ˆã†ã«æ‰±ãˆãªã„ç‰¹æ®Šãªå ´åˆï¼ˆã‚«ãƒƒã‚¯ãƒ­ãªã©ï¼‰ã«ã¤ã„ã¦ã¯ï¼Œå„ã‚µãƒ–ã‚¯ãƒ©ã‚¹ã§å®Ÿè£…ã™ã‚‹ã€‚
+	 * @param src è¤‡è£½å…ƒã®ç›¤é¢
+	 * @param dst è¤‡è£½å…ˆã®ç›¤é¢
+	 * @param n å›è»¢ç•ªå·
 	 */
 	public void copyBoardStates(BoardBase src, BoardBase dst, int n) {
 		Address from = Address.address(0, 0);
@@ -63,10 +63,10 @@ public class BoardCopierBase {
 	}
 
 	/**
-	 * ”Õ–Ê‰ñ“]‚Ì¶ãŠpÀ•W‚Ìs‚«æ‚ÌÀ•W‚ğ‹‚ß‚é
-	 * @param rows Œ³”Õ–Ê‚Ìs”
-	 * @param cols Œ³”Õ–Ê‚Ì—ñ”
-	 * @param rotation ‰ñ“]”Ô†
+	 * ç›¤é¢å›è»¢æ™‚ã®å·¦ä¸Šè§’åº§æ¨™ã®è¡Œãå…ˆã®åº§æ¨™ã‚’æ±‚ã‚ã‚‹
+	 * @param rows å…ƒç›¤é¢ã®è¡Œæ•°
+	 * @param cols å…ƒç›¤é¢ã®åˆ—æ•°
+	 * @param rotation å›è»¢ç•ªå·
 	 * @return
 	 */
 	private Address rotateCornerAddress(int rows, int cols, int rotation) {
@@ -109,29 +109,29 @@ public class BoardCopierBase {
 		return Address.address(R, C);
 	}
 	/**
-	 * —ÌˆæÁ‹B
-	 * ‹ï‘Ì“I‚Èˆ—‚ÍƒTƒuƒNƒ‰ƒX‚Å‹Lq‚·‚éB
-	 * @param board •ÒW‚·‚é”Õ–Ê
-	 * @param region Á‹—Ìˆæ
+	 * é ˜åŸŸæ¶ˆå»ã€‚
+	 * å…·ä½“çš„ãªå‡¦ç†ã¯ã‚µãƒ–ã‚¯ãƒ©ã‚¹ã§è¨˜è¿°ã™ã‚‹ã€‚
+	 * @param board ç·¨é›†ã™ã‚‹ç›¤é¢
+	 * @param region æ¶ˆå»é ˜åŸŸ
 	 */
 	public void eraseRegion(BoardBase board, AreaBase region) {
 	}
 	/**
-	 * —Ìˆæ•¡ÊB
-	 * ‹ï‘Ì“I‚Èˆ—‚ÍƒTƒuƒNƒ‰ƒX‚Å‹Lq‚·‚éB
-	 * @param srcBoard •¡ÊŒ³”Õ–Ê
-	 * @param board •¡Êæ”Õ–Ê
-	 * @param region •¡ÊŒ³—Ìˆæ
-	 * @param from •¡ÊŒ³—ÌˆæŒ´“_
-	 * @param to Œ´“_‚Ì•¡Êæ
-	 * @param rotation ‰ñ“]
+	 * é ˜åŸŸè¤‡å†™ã€‚
+	 * å…·ä½“çš„ãªå‡¦ç†ã¯ã‚µãƒ–ã‚¯ãƒ©ã‚¹ã§è¨˜è¿°ã™ã‚‹ã€‚
+	 * @param srcBoard è¤‡å†™å…ƒç›¤é¢
+	 * @param board è¤‡å†™å…ˆç›¤é¢
+	 * @param region è¤‡å†™å…ƒé ˜åŸŸ
+	 * @param from è¤‡å†™å…ƒé ˜åŸŸåŸç‚¹
+	 * @param to åŸç‚¹ã®è¤‡å†™å…ˆ
+	 * @param rotation å›è»¢
 	 */
 	public void copyRegion(BoardBase srcBoard, BoardBase board, AreaBase region, Address from, Address to, int rotation) {
 	}
 	/**
-	 * —ÌˆæÁ‹B
-	 * @param board •ÒW‚·‚é”Õ–Ê
-	 * @param region Á‹—Ìˆæ
+	 * é ˜åŸŸæ¶ˆå»ã€‚
+	 * @param board ç·¨é›†ã™ã‚‹ç›¤é¢
+	 * @param region æ¶ˆå»é ˜åŸŸ
 	 */
 	public void eraseRegion2(BoardBase board, AreaBase region) {
 		board.startCompoundUndo();
@@ -140,13 +140,13 @@ public class BoardCopierBase {
 		board.initBoard();
 	}
 	/**
-	 * —Ìˆæ•¡ÊB
-	 * ‰‚ß‚É”Õ–Ê‘S‘Ì‚ğ•¡»‚µ‚Ä‚©‚ç•¡Êˆ—‚ğs‚¤B
-	 * @param board •ÒW‚·‚é”Õ–Ê
-	 * @param region •¡ÊŒ³—Ìˆæ
-	 * @param from •¡ÊŒ³—ÌˆæŒ´“_
-	 * @param to Œ´“_‚Ì•¡Êæ
-	 * @param rotation ‰ñ“]
+	 * é ˜åŸŸè¤‡å†™ã€‚
+	 * åˆã‚ã«ç›¤é¢å…¨ä½“ã‚’è¤‡è£½ã—ã¦ã‹ã‚‰è¤‡å†™å‡¦ç†ã‚’è¡Œã†ã€‚
+	 * @param board ç·¨é›†ã™ã‚‹ç›¤é¢
+	 * @param region è¤‡å†™å…ƒé ˜åŸŸ
+	 * @param from è¤‡å†™å…ƒé ˜åŸŸåŸç‚¹
+	 * @param to åŸç‚¹ã®è¤‡å†™å…ˆ
+	 * @param rotation å›è»¢
 	 */
 	public void copyRegion2(BoardBase board, AreaBase region, Address from, Address to, int rotation) {
 		try {
@@ -160,13 +160,13 @@ public class BoardCopierBase {
 		}
 	}
 	/**
-	 * —ÌˆæˆÚ“®B
-	 * ‰‚ß‚É”Õ–Ê‘S‘Ì‚ğ•¡»‚µ‚Ä‚©‚ç•¡Êˆ—‚ğs‚¢CˆÚ“®Œã‚Ì—Ìˆæ‚ğÁ‹‚·‚éB
-	 * @param board •ÒW‚·‚é”Õ–Ê
-	 * @param region ˆÚ“®Œ³—Ìˆæ
-	 * @param from ˆÚ“®Œ³—ÌˆæŒ´“_
-	 * @param to Œ´“_‚ÌˆÚ“®æ
-	 * @param rotation ‰ñ“]
+	 * é ˜åŸŸç§»å‹•ã€‚
+	 * åˆã‚ã«ç›¤é¢å…¨ä½“ã‚’è¤‡è£½ã—ã¦ã‹ã‚‰è¤‡å†™å‡¦ç†ã‚’è¡Œã„ï¼Œç§»å‹•å¾Œã®é ˜åŸŸã‚’æ¶ˆå»ã™ã‚‹ã€‚
+	 * @param board ç·¨é›†ã™ã‚‹ç›¤é¢
+	 * @param region ç§»å‹•å…ƒé ˜åŸŸ
+	 * @param from ç§»å‹•å…ƒé ˜åŸŸåŸç‚¹
+	 * @param to åŸç‚¹ã®ç§»å‹•å…ˆ
+	 * @param rotation å›è»¢
 	 */
 	public void moveRegion(BoardBase board, AreaBase region, Address from, Address to, int rotation) {
 		try {

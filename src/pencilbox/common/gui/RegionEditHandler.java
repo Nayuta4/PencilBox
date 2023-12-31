@@ -16,7 +16,7 @@ import pencilbox.common.factory.ClassUtil;
 import pencilbox.common.factory.PencilBoxClassException;
 
 /**
- * —Ìˆæ•ÒWƒ‚[ƒh‚Å‚Ìƒpƒlƒ‹‚É‘Î‚·‚éƒ}ƒEƒXCƒL[ƒ{[ƒh‚ÌƒCƒxƒ“ƒgˆ—‚ğs‚¤ƒNƒ‰ƒX
+ * é ˜åŸŸç·¨é›†ãƒ¢ãƒ¼ãƒ‰ã§ã®ãƒ‘ãƒãƒ«ã«å¯¾ã™ã‚‹ãƒã‚¦ã‚¹ï¼Œã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã®ã‚¤ãƒ™ãƒ³ãƒˆå‡¦ç†ã‚’è¡Œã†ã‚¯ãƒ©ã‚¹
  */
 public class RegionEditHandler implements KeyListener, MouseListener, MouseMotionListener {
 
@@ -36,7 +36,7 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	private int pasteRotation;
 
 	/**
-	 * RegionEditHandler‚ğ¶¬‚·‚é
+	 * RegionEditHandlerã‚’ç”Ÿæˆã™ã‚‹
 	 */
 	public RegionEditHandler() {
 	}
@@ -66,7 +66,7 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	}
 
 	/**
-	 * ƒhƒ‰ƒbƒO‚É‚æ‚é—ÌˆæˆÚ“®Å’†‚©‚Ç‚¤‚©B
+	 * ãƒ‰ãƒ©ãƒƒã‚°ã«ã‚ˆã‚‹é ˜åŸŸç§»å‹•æœ€ä¸­ã‹ã©ã†ã‹ã€‚
 	 * @return
 	 */
 	private boolean isMovingRegion() {
@@ -82,7 +82,7 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	}
 
 	/*
-	 * ƒL[ƒŠƒXƒi[
+	 * ã‚­ãƒ¼ãƒªã‚¹ãƒŠãƒ¼
 	 */
 	public void keyPressed(KeyEvent e) {
 		int keyCode = e.getKeyCode();
@@ -169,14 +169,14 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	}
 
 //	/**
-//	 * –îˆóƒL[“ü—Í‚ğˆ—‚·‚éB 
+//	 * çŸ¢å°ã‚­ãƒ¼å…¥åŠ›ã‚’å‡¦ç†ã™ã‚‹ã€‚ 
 //	 */
 //	protected void arrowKeyEntered(int direction) {
 //	}
 
 	/**
-	 * ”šƒL[“ü—Í‚ğˆ—‚·‚éB 
-	 * ‘I‘ğ—Ìˆæ‚ğ‰ñ“]‚·‚éB
+	 * æ•°å­—ã‚­ãƒ¼å…¥åŠ›ã‚’å‡¦ç†ã™ã‚‹ã€‚ 
+	 * é¸æŠé ˜åŸŸã‚’å›è»¢ã™ã‚‹ã€‚
 	 */
 	protected void numberKeyEntered(int number) {
 		if (number >= 8)
@@ -188,7 +188,7 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	}
 
 	/**
-	 * ƒsƒŠƒIƒhƒL[‚Ì“ü—Í‚ğˆ—‚·‚éB
+	 * ãƒ”ãƒªã‚ªãƒ‰ã‚­ãƒ¼ã®å…¥åŠ›ã‚’å‡¦ç†ã™ã‚‹ã€‚
 	 */
 	protected void spaceKeyEntered() {
 		boardCopier.eraseRegion2(board, copyRegion);
@@ -196,21 +196,21 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	}
 
 //	/**
-//	 * ƒ}ƒCƒiƒXƒL[‚Ì“ü—Í‚ğˆ—‚·‚éB
+//	 * ãƒã‚¤ãƒŠã‚¹ã‚­ãƒ¼ã®å…¥åŠ›ã‚’å‡¦ç†ã™ã‚‹ã€‚
 //	 */
 //	protected void minusKeyEntered() {
 //	}
 
 	/**
-	 * ƒXƒ‰ƒbƒVƒ…ƒL[‚Ì“ü—Í‚ğˆ—‚·‚éB 
-	 * u–â‘è“ü—Íƒ‚[ƒhv‚ÉØ‚è‘Ö‚¦‚é
+	 * ã‚¹ãƒ©ãƒƒã‚·ãƒ¥ã‚­ãƒ¼ã®å…¥åŠ›ã‚’å‡¦ç†ã™ã‚‹ã€‚ 
+	 * ã€Œå•é¡Œå…¥åŠ›ãƒ¢ãƒ¼ãƒ‰ã€ã«åˆ‡ã‚Šæ›¿ãˆã‚‹
 	 */
 	protected void slashKeyEntered() {
 		eventHandlerManager.setEditMode(PanelBase.PROBLEM_INPUT_MODE);
 	}
 
 	/*
-	 * ƒ}ƒEƒXƒŠƒXƒi[
+	 * ãƒã‚¦ã‚¹ãƒªã‚¹ãƒŠãƒ¼
 	 */
 	public void mousePressed(MouseEvent e) {
 		Address newPos = panel.pointToAddress(e.getX(), e.getY());
@@ -223,7 +223,7 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 		} else if ((e.getButton() == MouseEvent.BUTTON3)) {
 			rightPressed(newPos, shift, ctrl);
 		}
-		oldPos = newPos; // Œ»İˆÊ’u‚ğXV
+		oldPos = newPos; // ç¾åœ¨ä½ç½®ã‚’æ›´æ–°
 		repaint();
 	}
 
@@ -233,7 +233,7 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 			return;
 		}
 		if (newPos.equals(oldPos))
-			return; // “¯‚¶ƒ}ƒX“à‚É~‚Ü‚éƒCƒxƒ“ƒg‚Í–³‹
+			return; // åŒã˜ãƒã‚¹å†…ã«æ­¢ã¾ã‚‹ã‚¤ãƒ™ãƒ³ãƒˆã¯ç„¡è¦–
 		boolean shift = e.isShiftDown();
 //		boolean ctrl = e.isControlDown();
 		if ((e.getModifiers() & InputEvent.BUTTON1_MASK) != 0) {
@@ -241,7 +241,7 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 		} else if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
 			rightDragged(newPos);
 		}
-		oldPos = newPos; // Œ»İˆÊ’u‚ğXV
+		oldPos = newPos; // ç¾åœ¨ä½ç½®ã‚’æ›´æ–°
 		repaint();
 	}
 
@@ -267,9 +267,9 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	}
 
 	/**
-	 * ¶ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚éB
-	 * ‘I‘ğÏ‚İ—Ìˆæã‚ğ‘I‘ğ‚µ‚½ê‡‚ÍC‚»‚Ì—Ìˆæ‚ğˆÚ“®‘ÎÛ‚Æ‚·‚éB
-	 * ‚»‚êˆÈŠO‚Ìê‡‚Í—Ìˆæ‘I‘ğ‚ğ‚Ìn“_‚Æ‚·‚éB
+	 * å·¦ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã¨ãã«å‘¼ã°ã‚Œã‚‹ã€‚
+	 * é¸æŠæ¸ˆã¿é ˜åŸŸä¸Šã‚’é¸æŠã—ãŸå ´åˆã¯ï¼Œãã®é ˜åŸŸã‚’ç§»å‹•å¯¾è±¡ã¨ã™ã‚‹ã€‚
+	 * ãã‚Œä»¥å¤–ã®å ´åˆã¯é ˜åŸŸé¸æŠã‚’ã®å§‹ç‚¹ã¨ã™ã‚‹ã€‚
 	 * @param position
 	 * @param shift
 	 * @param ctrl
@@ -289,9 +289,9 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	}
 
 	/**
-	 * ¶ƒhƒ‰ƒbƒO‚µ‚½‚Ü‚Ü‚½V‚µ‚¢ƒ}ƒX‚ÉˆÚ“®‚µ‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚éD
-	 * —ÌˆæˆÚ“®’†‚ÍCˆÚ“®‚·‚éB
-	 * —Ìˆæ‘I‘ğ’†‚ÍCƒ}ƒX‚ğ—Ìˆæ‚É‰Á‚¦‚éB
+	 * å·¦ãƒ‰ãƒ©ãƒƒã‚°ã—ãŸã¾ã¾ãŸæ–°ã—ã„ãƒã‚¹ã«ç§»å‹•ã—ãŸã¨ãã«å‘¼ã°ã‚Œã‚‹ï¼
+	 * é ˜åŸŸç§»å‹•ä¸­ã¯ï¼Œç§»å‹•ã™ã‚‹ã€‚
+	 * é ˜åŸŸé¸æŠä¸­ã¯ï¼Œãƒã‚¹ã‚’é ˜åŸŸã«åŠ ãˆã‚‹ã€‚
 	 * @param position
 	 * @param shift
 	 */
@@ -310,7 +310,7 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	}
 
 	/**
-	 * ‹éŒ`‘I‘ğ
+	 * çŸ©å½¢é¸æŠ
 	 * @param position
 	 */
 	private void selectRectangularArea(Address position) {
@@ -326,9 +326,9 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	}
 
 	/**
-	 * ¶ƒ}ƒEƒXƒ{ƒ^ƒ“‚ğ—£‚µ‚Ä¶ƒhƒ‰ƒbƒO‚ªŠm’è‚µ‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚éB 
-	 * —ÌˆæˆÚ“®’†‚ÍCˆÚ“®‚ğŠm’è‚·‚éB
-	 * CTRLƒL[‚ğ‰Ÿ‚µ‚È‚ª‚çƒ{ƒ^ƒ“‚ğ—£‚·‚ÆƒRƒs[‚ÉC‚»‚êˆÈŠO‚ÍˆÚ“®‚É‚È‚éB
+	 * å·¦ãƒã‚¦ã‚¹ãƒœã‚¿ãƒ³ã‚’é›¢ã—ã¦å·¦ãƒ‰ãƒ©ãƒƒã‚°ãŒç¢ºå®šã—ãŸã¨ãã«å‘¼ã°ã‚Œã‚‹ã€‚ 
+	 * é ˜åŸŸç§»å‹•ä¸­ã¯ï¼Œç§»å‹•ã‚’ç¢ºå®šã™ã‚‹ã€‚
+	 * CTRLã‚­ãƒ¼ã‚’æŠ¼ã—ãªãŒã‚‰ãƒœã‚¿ãƒ³ã‚’é›¢ã™ã¨ã‚³ãƒ”ãƒ¼ã«ï¼Œãã‚Œä»¥å¤–ã¯ç§»å‹•ã«ãªã‚‹ã€‚
 	 * @param shift
 	 * @param ctrl
 	 */
@@ -349,9 +349,9 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	}
 
 	/**
-	 * ‰Eƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚éB 
-	 * ‘I‘ğ—Ìˆæ‘S‘Ì‚ğÁ‹‚·‚éB
-	 * CTRL‚ğ‰Ÿ‚µ‚È‚ª‚ç‚Ìê‡‚ÍC‚»‚Ìƒ}ƒX‚Ì‚İ—Ìˆæ‚©‚çœ‹‚·‚éB
+	 * å³ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã¨ãã«å‘¼ã°ã‚Œã‚‹ã€‚ 
+	 * é¸æŠé ˜åŸŸå…¨ä½“ã‚’æ¶ˆå»ã™ã‚‹ã€‚
+	 * CTRLã‚’æŠ¼ã—ãªãŒã‚‰ã®å ´åˆã¯ï¼Œãã®ãƒã‚¹ã®ã¿é ˜åŸŸã‹ã‚‰é™¤å»ã™ã‚‹ã€‚
 	 * @param position
 	 * @param shift
 	 * @param ctrl
@@ -369,7 +369,7 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	}
 
 	/**
-	 * ‰Eƒhƒ‰ƒbƒO‚µ‚½‚Ü‚Ü‚½V‚µ‚¢ƒ}ƒX‚ÉˆÚ“®‚µ‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚éB
+	 * å³ãƒ‰ãƒ©ãƒƒã‚°ã—ãŸã¾ã¾ãŸæ–°ã—ã„ãƒã‚¹ã«ç§»å‹•ã—ãŸã¨ãã«å‘¼ã°ã‚Œã‚‹ã€‚
 	 * @param position
 	 */
 	protected void rightDragged(Address position) {
@@ -377,7 +377,7 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	}
 
 	/**
-	 * —Ìˆæ‚ğ•¡Ê‚·‚éB
+	 * é ˜åŸŸã‚’è¤‡å†™ã™ã‚‹ã€‚
 	 */
 	private void copyArea(AreaBase src, AreaBase dst) {
 		dst.clear();
@@ -389,7 +389,7 @@ public class RegionEditHandler implements KeyListener, MouseListener, MouseMotio
 	}
 
 	/**
-	 * Œ»“_‚Ì•¡Êæ—Ìˆæ‚ğì¬‚·‚é
+	 * ç¾æ™‚ç‚¹ã®è¤‡å†™å…ˆé ˜åŸŸã‚’ä½œæˆã™ã‚‹
 	 */
 	private void updatePasteRegion() {
 		pasteRegion.clear();

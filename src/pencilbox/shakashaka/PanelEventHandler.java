@@ -7,7 +7,7 @@ import pencilbox.common.core.BoardBase;
 import pencilbox.common.gui.PanelEventHandlerBase;
 
 /**
- * uƒVƒƒƒJƒVƒƒƒJvƒ}ƒEƒX^ƒL[‘€ìˆ—ƒNƒ‰ƒX
+ * ã€Œã‚·ãƒ£ã‚«ã‚·ãƒ£ã‚«ã€ãƒã‚¦ã‚¹ï¼ã‚­ãƒ¼æ“ä½œå‡¦ç†ã‚¯ãƒ©ã‚¹
  */
 public class PanelEventHandler extends PanelEventHandlerBase {
 
@@ -22,7 +22,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/*
-	 * uƒVƒƒƒJƒVƒƒƒJvƒ}ƒEƒX‘€ì
+	 * ã€Œã‚·ãƒ£ã‚«ã‚·ãƒ£ã‚«ã€ãƒã‚¦ã‚¹æ“ä½œ
 	 */
 	private int currentState = Board.UNKNOWN;
 	private Address currentStatePos = null;
@@ -81,36 +81,36 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 				int corner = getCorner(e);
 
 				if (newPos.equals(oldPos)) {
-					// ‚±‚Ìê‡‚Ì‚İA“¯‚¶ƒ}ƒX“à‚É~‚Ü‚éƒCƒxƒ“ƒg‚ğ–³‹‚µ‚È‚¢
+					// ã“ã®å ´åˆã®ã¿ã€åŒã˜ãƒã‚¹å†…ã«æ­¢ã¾ã‚‹ã‚¤ãƒ™ãƒ³ãƒˆã‚’ç„¡è¦–ã—ãªã„
 					if (corner == oldCorner)
-						// ‚Å‚à“¯‚¶Šp‚Ì—Ìˆæ‚©‚ço‚È‚¢ê‡‚É‚ÍƒCƒxƒ“ƒg‚ğ–³‹‚·‚é
+						// ã§ã‚‚åŒã˜è§’ã®é ˜åŸŸã‹ã‚‰å‡ºãªã„å ´åˆã«ã¯ã‚¤ãƒ™ãƒ³ãƒˆã‚’ç„¡è¦–ã™ã‚‹
 						return;
 
 					sweepState(newPos, corner);
 					oldCorner = corner;
-					// ‚±‚Ìê‡‚Ì‚İA“¯‚¶ƒ}ƒX“à‚È‚Ì‚ÅŒ»İˆÊ’u‚ğXV‚µ‚È‚¢
+					// ã“ã®å ´åˆã®ã¿ã€åŒã˜ãƒã‚¹å†…ãªã®ã§ç¾åœ¨ä½ç½®ã‚’æ›´æ–°ã—ãªã„
 				} else {
 					sweepState(newPos, corner);
 					oldCorner = corner;
 
 					moveCursor(newPos);
-					oldPos = newPos; // Œ»İˆÊ’u‚ğXV
+					oldPos = newPos; // ç¾åœ¨ä½ç½®ã‚’æ›´æ–°
 				}
 			} else {
 				if (newPos.equals(oldPos))
-					return; // “¯‚¶ƒ}ƒX“à‚É~‚Ü‚éƒCƒxƒ“ƒg‚Í–³‹
+					return; // åŒã˜ãƒã‚¹å†…ã«æ­¢ã¾ã‚‹ã‚¤ãƒ™ãƒ³ãƒˆã¯ç„¡è¦–
 
 				sweepState(newPos, currentState);
 
 				moveCursor(newPos);
-				oldPos = newPos; // Œ»İˆÊ’u‚ğXV
+				oldPos = newPos; // ç¾åœ¨ä½ç½®ã‚’æ›´æ–°
 			}
 		} else {
 			if (newPos.equals(oldPos))
-				return; // “¯‚¶ƒ}ƒX“à‚É~‚Ü‚éƒCƒxƒ“ƒg‚Í–³‹
+				return; // åŒã˜ãƒã‚¹å†…ã«æ­¢ã¾ã‚‹ã‚¤ãƒ™ãƒ³ãƒˆã¯ç„¡è¦–
 
 			moveCursor(newPos);
-			oldPos = newPos; // Œ»İˆÊ’u‚ğXV
+			oldPos = newPos; // ç¾åœ¨ä½ç½®ã‚’æ›´æ–°
 		}
 
 		repaint();
@@ -157,7 +157,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/*
-	 * uƒVƒƒƒJƒVƒƒƒJvƒL[‘€ì
+	 * ã€Œã‚·ãƒ£ã‚«ã‚·ãƒ£ã‚«ã€ã‚­ãƒ¼æ“ä½œ
 	 */
 	protected void numberEntered(Address pos, int num) {
 		keyEntered(pos, num);

@@ -33,7 +33,7 @@ public class XmlWriter extends XmlWriterBase {
 				if (!board.isStable(r, c))
 					outN(board.getState(r, c));
 				else
-					outN(0);// StABLE‚Ì‚Æ‚±‚ë‚Í‚O‚ğo‚·
+					outN(0);// StABLEã®ã¨ã“ã‚ã¯ï¼ã‚’å‡ºã™
 			}
 			endArow();
 		}

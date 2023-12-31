@@ -1,8 +1,8 @@
 package pencilbox.common.core;
 
 /**
- * ‚Pè‚Ì‘€ì‚ğ•\‚·ƒNƒ‰ƒX
- * UNDO, REDO ‚Å‚Ì•ÒW‚Ì’PˆÊ‚Æ‚È‚é
+ * ï¼‘æ‰‹ã®æ“ä½œã‚’è¡¨ã™ã‚¯ãƒ©ã‚¹
+ * UNDO, REDO ã§ã®ç·¨é›†ã®å˜ä½ã¨ãªã‚‹
  */
 public class AreaEditStep extends AbstractStep {
 
@@ -15,9 +15,9 @@ public class AreaEditStep extends AbstractStep {
 	private int operation;
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param r •ÏX‚³‚ê‚½ƒ}ƒX‚ÌÀ•W
-	 * @param r0 •ÏX‚³‚ê‚½—Ìˆæ‚Ì‘ã•\ƒ}ƒX‚ÌÀ•W
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param r å¤‰æ›´ã•ã‚ŒãŸãƒã‚¹ã®åº§æ¨™
+	 * @param r0 å¤‰æ›´ã•ã‚ŒãŸé ˜åŸŸã®ä»£è¡¨ãƒã‚¹ã®åº§æ¨™
 	 */
 	public AreaEditStep(Address p, Address p0, int operation) {
 		super();

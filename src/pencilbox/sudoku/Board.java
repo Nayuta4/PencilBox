@@ -9,20 +9,20 @@ import pencilbox.resource.Messages;
 
 
 /**
- * u”“Æv”Õ–ÊƒNƒ‰ƒX
+ * ã€Œæ•°ç‹¬ã€ç›¤é¢ã‚¯ãƒ©ã‚¹
  */
 public class Board extends BoardBase {
 
-	static final int UNKNOWN = 0; // ‰ğ“š”š‚ª‚È‚¢ó‘Ô
-	static final int BLANK = 0; // –â‘è”š‚ª‚È‚¢ó‘Ô
-	static final int UNDETERMINED = -2; // –â‘è”š‚ª–¢’è”š‚Ìó‘Ô
+	static final int UNKNOWN = 0; // è§£ç­”æ•°å­—ãŒãªã„çŠ¶æ…‹
+	static final int BLANK = 0; // å•é¡Œæ•°å­—ãŒãªã„çŠ¶æ…‹
+	static final int UNDETERMINED = -2; // å•é¡Œæ•°å­—ãŒæœªå®šæ•°å­—ã®çŠ¶æ…‹
 
-	private int maxNumber; // –â‘è‚ÌÅ‘å”š
-	private int[][] state; // ‰ğ“š‚Ì”š
-	private int[][] number; // –â‘è‚Ì”š
+	private int maxNumber; // å•é¡Œã®æœ€å¤§æ•°å­—
+	private int[][] state; // è§£ç­”ã®æ•°å­—
+	private int[][] number; // å•é¡Œã®æ•°å­—
 	private int unit = 0;
 
-	private int[][] multi; // d•¡”
+	private int[][] multi; // é‡è¤‡æ•°
 
 	private DigitPatternHint hint;
 
@@ -36,7 +36,7 @@ public class Board extends BoardBase {
 			}
 		}
 		if (unit == 0)
-			throw new RuntimeException("•s³‚È‘å‚«‚³"); //$NON-NLS-1$
+			throw new RuntimeException("ä¸æ­£ãªå¤§ãã•"); //$NON-NLS-1$
 		state = new int[maxNumber][maxNumber];
 		number = new int[maxNumber][maxNumber];
 		multi = new int[maxNumber][maxNumber];
@@ -72,17 +72,17 @@ public class Board extends BoardBase {
 		return state;
 	}
 	/**
-	 * @return ƒ{ƒbƒNƒX‚Ì1•Ó‚Ìƒ}ƒX”B’Êí‚Ì”“Æ‚Å‚Í3
+	 * @return ãƒœãƒƒã‚¯ã‚¹ã®1è¾ºã®ãƒã‚¹æ•°ã€‚é€šå¸¸ã®æ•°ç‹¬ã§ã¯3
 	 */
 	public int getUnit() {
 		return unit;
 	}
 
 	/**
-	 * ‚»‚Ìƒ}ƒX‚Í–â‘è‚Æ‚µ‚Ä”š‚ğ—^‚¦‚ç‚ê‚½ƒ}ƒX‚©‚Ç‚¤‚©
-	 * @param r ƒ}ƒX‚ÌsÀ•W
-	 * @param c ƒ}ƒX‚Ì—ñÀ•W
-	 * @return –â‘è”š‚Ìƒ}ƒX‚È‚ç true, ‰ğ“š‚·‚×‚«ƒ}ƒX‚È‚ç false
+	 * ãã®ãƒã‚¹ã¯å•é¡Œã¨ã—ã¦æ•°å­—ã‚’ä¸ãˆã‚‰ã‚ŒãŸãƒã‚¹ã‹ã©ã†ã‹
+	 * @param r ãƒã‚¹ã®è¡Œåº§æ¨™
+	 * @param c ãƒã‚¹ã®åˆ—åº§æ¨™
+	 * @return å•é¡Œæ•°å­—ã®ãƒã‚¹ãªã‚‰ true, è§£ç­”ã™ã¹ããƒã‚¹ãªã‚‰ false
 	 */
 	public boolean isStable(int r, int c) {
 		return number[r][c] != Board.BLANK;
@@ -156,7 +156,7 @@ public class Board extends BoardBase {
 		hint.initHint();
 	}
 	/**
-	 * ˆø”‚ÌÀ•W‚Ì‰Â”\”š‚Ìƒrƒbƒgƒpƒ^[ƒ“‚ğæ“¾
+	 * å¼•æ•°ã®åº§æ¨™ã®å¯èƒ½æ•°å­—ã®ãƒ“ãƒƒãƒˆãƒ‘ã‚¿ãƒ¼ãƒ³ã‚’å–å¾—
 	 * @param r row coordinate
 	 * @param c column coordinate
 	 * @return Returns the pattern.
@@ -165,7 +165,7 @@ public class Board extends BoardBase {
 		return hint.getPattern(p);
 	}
 	/**
-	 * [r,c] ‚É n ‚ğ”z’u‰Â”\‚©‚Ç‚¤‚©
+	 * [r,c] ã« n ã‚’é…ç½®å¯èƒ½ã‹ã©ã†ã‹
 	 * @param r row coordinate
 	 * @param c column coordinate
 	 * @param n number to check
@@ -175,9 +175,9 @@ public class Board extends BoardBase {
 		return getNumber(p) == 0 && hint.canPlace(p, n);
 	}
 	/**
-	 * ƒ}ƒX‚É‰ğ“š”š‚ğ“ü—Í‚µCƒAƒhƒDƒŠƒXƒi[‚É’Ê’m‚·‚é
-	 * @param p ƒ}ƒXÀ•W
-	 * @param n “ü—Í‚·‚é”š
+	 * ãƒã‚¹ã«è§£ç­”æ•°å­—ã‚’å…¥åŠ›ã—ï¼Œã‚¢ãƒ‰ã‚¥ãƒªã‚¹ãƒŠãƒ¼ã«é€šçŸ¥ã™ã‚‹
+	 * @param p ãƒã‚¹åº§æ¨™
+	 * @param n å…¥åŠ›ã™ã‚‹æ•°å­—
 	 */
 	public void changeAnswerNumber(Address p, int n) {
 		int prev = getState(p);
@@ -192,9 +192,9 @@ public class Board extends BoardBase {
 		setState(p, n);
 	}
 	/**
-	 * ƒ}ƒX‚É–â‘è”š‚ğ“ü—Í‚µCƒAƒhƒDƒŠƒXƒi[‚É’Ê’m‚·‚é
-	 * @param p ƒ}ƒXÀ•W
-	 * @param n “ü—Í‚·‚é”š
+	 * ãƒã‚¹ã«å•é¡Œæ•°å­—ã‚’å…¥åŠ›ã—ï¼Œã‚¢ãƒ‰ã‚¥ãƒªã‚¹ãƒŠãƒ¼ã«é€šçŸ¥ã™ã‚‹
+	 * @param p ãƒã‚¹åº§æ¨™
+	 * @param n å…¥åŠ›ã™ã‚‹æ•°å­—
 	 */
 	public void changeFixedNumber(Address p, int n) {
 		int prev = getNumber(p);
@@ -237,16 +237,16 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ƒ}ƒX‚Æ“¯‚¶sC—ñCƒ{ƒbƒNƒX‚ÉC‚»‚Ìƒ}ƒX‚Ì”š‚Æd•¡‚·‚é”š‚ª‚ ‚é‚©‚Ç‚¤‚©‚ğ’²‚×‚é
-	 * @param p À•W
-	 * @return@d•¡”š‚ª‚ ‚ê‚Î true
+	 * ãƒã‚¹ã¨åŒã˜è¡Œï¼Œåˆ—ï¼Œãƒœãƒƒã‚¯ã‚¹ã«ï¼Œãã®ãƒã‚¹ã®æ•°å­—ã¨é‡è¤‡ã™ã‚‹æ•°å­—ãŒã‚ã‚‹ã‹ã©ã†ã‹ã‚’èª¿ã¹ã‚‹
+	 * @param p åº§æ¨™
+	 * @returnã€€é‡è¤‡æ•°å­—ãŒã‚ã‚Œã° true
 	 */
 	public boolean isMultipleNumber(Address p) {
 		return multi[p.r()][p.c()]>1;
 	}
 
 	/**
-	 * Œ»İ‚Ì”Õ–Êó‘Ô‚©‚çCmulti[][] ”z—ñ‚ğ‰Šú‰»‚·‚é
+	 * ç¾åœ¨ã®ç›¤é¢çŠ¶æ…‹ã‹ã‚‰ï¼Œmulti[][] é…åˆ—ã‚’åˆæœŸåŒ–ã™ã‚‹
 	 */
 	void initMulti() {
 		for (Address p : cellAddrs()) {
@@ -259,18 +259,18 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 *	p0‚É•Ï‰»‚ª‚ ‚Á‚½‚Æ‚«‚Émulti”z—ñ‚ğXV‚·‚é
-	 * @param p0 ó‘Ô‚ğ•ÏX‚µ‚½ƒ}ƒX‚ÌÀ•W
-	 * @param prev •ÏX‘O‚Ì”š
-	 * @param n •ÏXŒã‚Ì”š
+	 *	p0ã«å¤‰åŒ–ãŒã‚ã£ãŸã¨ãã«multié…åˆ—ã‚’æ›´æ–°ã™ã‚‹
+	 * @param p0 çŠ¶æ…‹ã‚’å¤‰æ›´ã—ãŸãƒã‚¹ã®åº§æ¨™
+	 * @param prev å¤‰æ›´å‰ã®æ•°å­—
+	 * @param n å¤‰æ›´å¾Œã®æ•°å­—
 	 */
 	void updateMulti(Address p0, int prev, int n) {
 		int r0=p0.r(), c0=p0.c();
-		// prev‚Æ“¯‚¶”š‚ğ’T‚µ‚Äd•¡”‚ğ-1‚·‚é
+		// prevã¨åŒã˜æ•°å­—ã‚’æ¢ã—ã¦é‡è¤‡æ•°ã‚’-1ã™ã‚‹
 		if (multi[r0][c0]>1) {
 			updateMulti1(p0, prev, 0, -1);
 		}
-		// n‚Æ“¯‚¶”š‚ğ’T‚µ‚Äd•¡”‚ğ+1‚·‚éCƒ}ƒX©g‚Ìd•¡”‚à+1‚·‚é
+		// nã¨åŒã˜æ•°å­—ã‚’æ¢ã—ã¦é‡è¤‡æ•°ã‚’+1ã™ã‚‹ï¼Œãƒã‚¹è‡ªèº«ã®é‡è¤‡æ•°ã‚‚+1ã™ã‚‹
 		if (n>0) {
 			multi[r0][c0] = 1;
 			updateMulti1(p0, n, +1, +1);
@@ -280,12 +280,12 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * p0‚Ì”š‚Ì•ÏX‚É‰‚¶‚Äd•¡”‚ğ”‚¦‚émulti[][]”z—ñ‚ğXV‚·‚é
-	 * ”ÍˆÍ‚Ì”š‚ğŒ©‚ÄCnum ‚Æ“¯‚¶”š‚Ìƒ}ƒX‚ª‚ ‚Á‚½‚çp0‚Ì’´•¡”‚ğm, ‚»‚Ìƒ}ƒX‚Ì’´•¡”‚ğk•ÏX‚·‚éB
-	 * @param p0 ó‘Ô‚ğ•ÏX‚µ‚½ƒ}ƒX‚ÌÀ•W
-	 * @param num ’²‚×‚é”š
-	 * @param m ©•ª‚Ìd•¡”XV”
-	 * @param k ‘Šè‚Ìd•¡”XV”
+	 * p0ã®æ•°å­—ã®å¤‰æ›´ã«å¿œã˜ã¦é‡è¤‡æ•°ã‚’æ•°ãˆã‚‹multi[][]é…åˆ—ã‚’æ›´æ–°ã™ã‚‹
+	 * ç¯„å›²ã®æ•°å­—ã‚’è¦‹ã¦ï¼Œnum ã¨åŒã˜æ•°å­—ã®ãƒã‚¹ãŒã‚ã£ãŸã‚‰p0ã®è¶…è¤‡æ•°ã‚’m, ãã®ãƒã‚¹ã®è¶…è¤‡æ•°ã‚’kå¤‰æ›´ã™ã‚‹ã€‚
+	 * @param p0 çŠ¶æ…‹ã‚’å¤‰æ›´ã—ãŸãƒã‚¹ã®åº§æ¨™
+	 * @param num èª¿ã¹ã‚‹æ•°å­—
+	 * @param m è‡ªåˆ†ã®é‡è¤‡æ•°æ›´æ–°æ•°
+	 * @param k ç›¸æ‰‹ã®é‡è¤‡æ•°æ›´æ–°æ•°
 	 */
 	private void updateMulti1(Address p0, int num, int m, int k) {
 		int r0=p0.r(), c0=p0.c();

@@ -10,19 +10,19 @@ import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 
 /**
- * ƒpƒlƒ‹‚Ì•\¦“à—e‚ğ pngŒ`®‚Ì‰æ‘œ‚Æ‚µ‚Äƒtƒ@ƒCƒ‹‚É‘‚«‚Şˆ—‚ğs‚¤ƒNƒ‰ƒX
+ * ãƒ‘ãƒãƒ«ã®è¡¨ç¤ºå†…å®¹ã‚’ pngå½¢å¼ã®ç”»åƒã¨ã—ã¦ãƒ•ã‚¡ã‚¤ãƒ«ã«æ›¸ãè¾¼ã‚€å‡¦ç†ã‚’è¡Œã†ã‚¯ãƒ©ã‚¹
  */
 /*
- * QlFcore JAVA2 Vol.2 7.10 
+ * å‚è€ƒï¼šcore JAVA2 Vol.2 7.10 
  */
 public class PanelImageWriter {
 
 	private static final String formatName = "png";
 
 	/**
-	 * ƒpƒlƒ‹‚Ì•\¦“à—e‚ğ pngŒ`®‚Ì‰æ‘œ‚Æ‚µ‚Äƒtƒ@ƒCƒ‹‚É‘‚«‚Şˆê˜A‚Ìˆ—‚ğÀs‚·‚é
-	 * @param panel ‰æ‘œ‚Æ‚µ‚Ä•Û‘¶‚·‚éƒpƒlƒ‹
-	 * @param file •Û‘¶æƒtƒ@ƒCƒ‹
+	 * ãƒ‘ãƒãƒ«ã®è¡¨ç¤ºå†…å®¹ã‚’ pngå½¢å¼ã®ç”»åƒã¨ã—ã¦ãƒ•ã‚¡ã‚¤ãƒ«ã«æ›¸ãè¾¼ã‚€ä¸€é€£ã®å‡¦ç†ã‚’å®Ÿè¡Œã™ã‚‹
+	 * @param panel ç”»åƒã¨ã—ã¦ä¿å­˜ã™ã‚‹ãƒ‘ãƒãƒ«
+	 * @param file ä¿å­˜å…ˆãƒ•ã‚¡ã‚¤ãƒ«
 	 */
 	public void saveImageToFile(PanelBase panel, File file) {
 		BufferedImage image = makePanelImage(panel);
@@ -36,7 +36,7 @@ public class PanelImageWriter {
 	public BufferedImage makePanelImage(PanelBase panel) {
 		BufferedImage image = new BufferedImage(panel.getBoardRegionSize().width, panel.getBoardRegionSize().height, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2 = image.createGraphics();
-	 	// ”wŒi‚ğ”’‚Å“h‚éB
+	 	// èƒŒæ™¯ã‚’ç™½ã§å¡—ã‚‹ã€‚
 		g2.setColor(Color.WHITE);
 		g2.fillRect(0, 0, image.getWidth(), image.getHeight());
 		panel.drawPanel(g2);

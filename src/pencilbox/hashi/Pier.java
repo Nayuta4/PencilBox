@@ -3,7 +3,7 @@ package pencilbox.hashi;
 import pencilbox.common.core.Address;
 
 /**
- * u‹´‚ğ‚©‚¯‚ëv‹´‹r
+ * ã€Œæ©‹ã‚’ã‹ã‘ã‚ã€æ©‹è„š
  */
 public class Pier {
 	private Address pos ;
@@ -13,10 +13,10 @@ public class Pier {
 	private int chain;
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param r sÀ•W
-	 * @param c —ñÀ•W
-	 * @param n ”š
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param r è¡Œåº§æ¨™
+	 * @param c åˆ—åº§æ¨™
+	 * @param n æ•°å­—
 	 */
 	public Pier(Address p, int n) {
 		pos = p;

@@ -4,7 +4,7 @@ import pencilbox.common.gui.MenuBase;
 import pencilbox.resource.Messages;
 
 /**
- * 「四角に切れ」メニュークラス
+ * 縲悟屁隗偵↓蛻�繧後阪Γ繝九Η繝ｼ繧ｯ繝ｩ繧ｹ
  */
 public class Menu extends MenuBase {
 

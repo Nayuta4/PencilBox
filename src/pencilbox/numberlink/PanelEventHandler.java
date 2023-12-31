@@ -7,13 +7,13 @@ import pencilbox.common.gui.PanelEventHandlerBase;
 
 
 /**
- * uƒiƒ“ƒo[ƒŠƒ“ƒNvƒ}ƒEƒX^ƒL[‘€ìˆ—ƒNƒ‰ƒX
+ * ã€ŒãƒŠãƒ³ãƒãƒ¼ãƒªãƒ³ã‚¯ã€ãƒã‚¦ã‚¹ï¼ã‚­ãƒ¼æ“ä½œå‡¦ç†ã‚¯ãƒ©ã‚¹
  */
 public class PanelEventHandler extends PanelEventHandlerBase {
 
 	private Board board;
 
-	private int currentState = INITAL; // ƒhƒ‰ƒbƒO’†‚Ì•Ó‚Ìó‘Ô‚ğ•\‚·
+	private int currentState = INITAL; // ãƒ‰ãƒ©ãƒƒã‚°ä¸­ã®è¾ºã®çŠ¶æ…‹ã‚’è¡¨ã™
 	private static final int INITAL  = -9;
 	private static final int PRESSED = -19;
 
@@ -28,7 +28,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/*
-	 * uƒiƒ“ƒo[ƒŠƒ“ƒNvƒ}ƒEƒX‘€ì
+	 * ã€ŒãƒŠãƒ³ãƒãƒ¼ãƒªãƒ³ã‚¯ã€ãƒã‚¦ã‚¹æ“ä½œ
 	 */
 	protected void leftPressed(Address pos) {
 		currentState = PRESSED;
@@ -39,7 +39,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/*
-	 * ƒNƒŠƒbƒN‚µ‚½ƒ}ƒX‚Ìü‚ªƒnƒCƒ‰ƒCƒg‚³‚ê‚é ‚à‚¤‚P“xƒNƒŠƒbƒN‚·‚é‚ÆƒnƒCƒ‰ƒCƒgæ‚èÁ‚µ
+	 * ã‚¯ãƒªãƒƒã‚¯ã—ãŸãƒã‚¹ã®ç·šãŒãƒã‚¤ãƒ©ã‚¤ãƒˆã•ã‚Œã‚‹ ã‚‚ã†ï¼‘åº¦ã‚¯ãƒªãƒƒã‚¯ã™ã‚‹ã¨ãƒã‚¤ãƒ©ã‚¤ãƒˆå–ã‚Šæ¶ˆã—
 	 */
 	protected void leftReleased(Address pos) {
 		if (currentState == PRESSED && isOn(pos)) {
@@ -63,11 +63,11 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/**
-	 * n“_ƒ}ƒX‚ÆI“_ƒ}ƒX‚ğŒ‹‚ñ‚¾üã‚Ìó‘Ô‚ğw’è‚Ìó‘Ô‚É•ÏX‚·‚é
-	 * n“_‚Ì•Ó‚ÌŒ»İ‚Ìó‘Ô‚ªw’è‚Ìó‘Ô‚Å‚ ‚ê‚ÎC–¢’è‚É•ÏX‚·‚é
-	 * @param pos0 n“_ƒ}ƒX‚ÌÀ•W
-	 * @param pos1 I“_ƒ}ƒX‚ÌÀ•W
-	 * @param st •ÏXŒã‚Ìó‘Ô
+	 * å§‹ç‚¹ãƒã‚¹ã¨çµ‚ç‚¹ãƒã‚¹ã‚’çµã‚“ã ç·šä¸Šã®çŠ¶æ…‹ã‚’æŒ‡å®šã®çŠ¶æ…‹ã«å¤‰æ›´ã™ã‚‹
+	 * å§‹ç‚¹ã®è¾ºã®ç¾åœ¨ã®çŠ¶æ…‹ãŒæŒ‡å®šã®çŠ¶æ…‹ã§ã‚ã‚Œã°ï¼Œæœªå®šã«å¤‰æ›´ã™ã‚‹
+	 * @param pos0 å§‹ç‚¹ãƒã‚¹ã®åº§æ¨™
+	 * @param pos1 çµ‚ç‚¹ãƒã‚¹ã®åº§æ¨™
+	 * @param st å¤‰æ›´å¾Œã®çŠ¶æ…‹
 	 */
 	private void changeLineState(Address pos0, Address pos1, int st) {
 		int direction = pos0.getDirectionTo(pos1);
@@ -89,7 +89,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/*
-	 * uƒiƒ“ƒo[ƒŠƒ“ƒNvƒL[‘€ì
+	 * ã€ŒãƒŠãƒ³ãƒãƒ¼ãƒªãƒ³ã‚¯ã€ã‚­ãƒ¼æ“ä½œ
 	 */
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {

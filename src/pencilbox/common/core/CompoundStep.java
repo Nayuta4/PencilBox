@@ -7,7 +7,7 @@ import java.util.Vector;
 
 
 /**
- * �����̃A���h�D�P�ʑ�������̃A���h�D����ő��삳���P�ʂɂ܂Ƃ߂����̂�\���N���X
+ * 複数のアンドゥ単位操作を一回のアンドゥ操作で操作される単位にまとめたものを表すクラス
  *
  */
 public class CompoundStep extends AbstractStep {

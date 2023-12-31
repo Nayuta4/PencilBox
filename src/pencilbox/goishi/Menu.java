@@ -4,7 +4,7 @@ import pencilbox.common.gui.MenuBase;
 import pencilbox.resource.Messages;
 
 /**
- * 「碁石ひろい」メニュークラス
+ * 縲檎｢∫浹縺ｲ繧阪＞縲阪Γ繝九Η繝ｼ繧ｯ繝ｩ繧ｹ
  */
 public class Menu extends MenuBase {
 

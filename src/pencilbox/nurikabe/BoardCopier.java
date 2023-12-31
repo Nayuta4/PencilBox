@@ -17,9 +17,9 @@ public class BoardCopier extends BoardCopierBase {
 		rotator.rotateArrayInt2(s.getState(), d.getState());
 	}
 
-	public void copyRegion(BoardBase srcBoardBase, BoardBase ‚‚oardBase, pencilbox.common.core.AreaBase region, Address from, Address to, int rotation) {
+	public void copyRegion(BoardBase srcBoardBase, BoardBase ï½‚oardBase, pencilbox.common.core.AreaBase region, Address from, Address to, int rotation) {
 		Board srcBoard = (Board) srcBoardBase;
-		Board board = (Board) ‚‚oardBase;
+		Board board = (Board) ï½‚oardBase;
 		for (Address s : region) {
 			Address d = translateAndRotateAddress(s, from, to, rotation);
 			if (board.isOn(d)) {

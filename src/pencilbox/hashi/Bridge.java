@@ -1,15 +1,15 @@
 package pencilbox.hashi;
 
 /**
- * ‹´ƒNƒ‰ƒX
- * ‚Q‚Â‚Ì”š‚É‹²‚Ü‚ê‚½‹´‚ğ‚©‚¯‚é‚±‚Æ‚Ì‚Å‚«‚é‚à‚Ì‚ğ•\‚·
+ * æ©‹ã‚¯ãƒ©ã‚¹
+ * ï¼’ã¤ã®æ•°å­—ã«æŒŸã¾ã‚ŒãŸæ©‹ã‚’ã‹ã‘ã‚‹ã“ã¨ã®ã§ãã‚‹ã‚‚ã®ã‚’è¡¨ã™
  */
 class Bridge {
 
 	private int line = 0;
 
-	private Pier pier0; // Solver‚Ì‚İ‚Åg—p
-	private Pier pier1; // Solver‚Ì‚İ‚Åg—p
+	private Pier pier0; // Solverã®ã¿ã§ä½¿ç”¨
+	private Pier pier1; // Solverã®ã¿ã§ä½¿ç”¨
 
 	Bridge(Pier p0, Pier p1) {
 		pier0 = p0;

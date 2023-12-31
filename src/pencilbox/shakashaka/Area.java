@@ -8,11 +8,11 @@ import pencilbox.common.core.Direction;
 
 
 /**
- * uƒVƒƒƒJƒVƒƒƒJv—ÌˆæƒNƒ‰ƒX
+ * ã€Œã‚·ãƒ£ã‚«ã‚·ãƒ£ã‚«ã€é ˜åŸŸã‚¯ãƒ©ã‚¹
  */
 public class Area extends pencilbox.common.core.AreaBase {
 
-	int[] nAreaBorder = new int[8]; // —Ìˆæ‚Ì‹«ŠE‚Ì•Ó‚Ì”‚ğŒ`ó‚²‚Æ‚É”‚¦‚éB
+	int[] nAreaBorder = new int[8]; // é ˜åŸŸã®å¢ƒç•Œã®è¾ºã®æ•°ã‚’å½¢çŠ¶ã”ã¨ã«æ•°ãˆã‚‹ã€‚
 
 	private int cmin = Integer.MAX_VALUE;
 	private int cmax = -1;
@@ -62,39 +62,39 @@ public class Area extends pencilbox.common.core.AreaBase {
 	}
 
 	int checkRectangleArea() {
-//		System.out.println("—Ìˆæ"+toString()+"‚Ì’·•ûŒ`”»’è");
-//		System.out.println("‘ƒ}ƒX”" + this.size() + " c‰¡‚Ì‹«ŠE " + this.countStraightBorder() + " Î‚ß‚Ì‹«ŠE " + this.countDiagonalBorder() + " s”ÍˆÍ " + this.rmin + " ~ " + this.rmax + " —ñ”ÍˆÍ " + this.cmin + " ~ " + this.cmax);
-//		System.out.print(" ‚»‚ê‚¼‚ê‚Ì‹«ŠE‚Ì”‚Í ");
+//		System.out.println("é ˜åŸŸ"+toString()+"ã®é•·æ–¹å½¢åˆ¤å®š");
+//		System.out.println("ç·ãƒã‚¹æ•°" + this.size() + " ç¸¦æ¨ªã®å¢ƒç•Œ " + this.countStraightBorder() + " æ–œã‚ã®å¢ƒç•Œ " + this.countDiagonalBorder() + " è¡Œç¯„å›² " + this.rmin + " ~ " + this.rmax + " åˆ—ç¯„å›² " + this.cmin + " ~ " + this.cmax);
+//		System.out.print(" ãã‚Œãã‚Œã®å¢ƒç•Œã®æ•°ã¯ ");
 //		for (int i = 0; i < 8; i++ ) System.out.print(i + ":" +this.nAreaBorder[i] + ", ");
 //		System.out.println();	
 		if (this.countDiagonalBorder() == 0) {
 			int rectArea = this.rsize() * this.csize();
 			if (this.size() == rectArea) {
-//				System.out.println("—Ìˆæ‚Íc‰¡‚Ì•Ó‚©‚ç‚È‚é–ÊÏ " + this.size() + " ‚Ì’·•ûŒ`‚¾");
+//				System.out.println("é ˜åŸŸã¯ç¸¦æ¨ªã®è¾ºã‹ã‚‰ãªã‚‹é¢ç© " + this.size() + " ã®é•·æ–¹å½¢ã ");
 				return 1;
 			} else {
-//				System.out.println("—Ìˆæ‚Íc‰¡‚Ì•Ó‚©‚ç‚È‚é‚ªC–ÊÏ " + this.size() + " ‚È‚Ì‚Å’·•ûŒ`‚Å‚Í‚È‚¢");
+//				System.out.println("é ˜åŸŸã¯ç¸¦æ¨ªã®è¾ºã‹ã‚‰ãªã‚‹ãŒï¼Œé¢ç© " + this.size() + " ãªã®ã§é•·æ–¹å½¢ã§ã¯ãªã„");
 				return -1;
 			}
-//			System.out.println("—Ìˆæ‚Íc‰¡‚Ì•Ó‚©‚ç‚È‚é’·•ûŒ`‚¾");
+//			System.out.println("é ˜åŸŸã¯ç¸¦æ¨ªã®è¾ºã‹ã‚‰ãªã‚‹é•·æ–¹å½¢ã ");
 //			return 1;
 		}
 		if (this.countStraightBorder() == 0) {
 			int nn = this.nAreaBorder[Direction.RTUP] + this.nAreaBorder[Direction.LTUP];
-//			System.out.print(",ã‘¤‚Ì•Ó‚Ì”‚Ì˜a‚Í " + nn);
+//			System.out.print(",ä¸Šå´ã®è¾ºã®æ•°ã®å’Œã¯ " + nn);
 			if (nn != this.csize()) {
-//				System.out.println(" ‘S‘Ì‚ÌƒTƒCƒY‚Æ‡‚í‚È‚¢‚Ì‚Å’·•ûŒ`‚Å‚Í‚È‚¢");
+//				System.out.println(" å…¨ä½“ã®ã‚µã‚¤ã‚ºã¨åˆã‚ãªã„ã®ã§é•·æ–¹å½¢ã§ã¯ãªã„");
 				return -1;
 			}
 //			System.out.println();
 			nn = this.nAreaBorder[Direction.LTUP] + this.nAreaBorder[Direction.LTDN];
-//			System.out.print(",¶‘¤‚Ì•Ó‚Ì”‚Ì˜a‚Í " + nn);
+//			System.out.print(",å·¦å´ã®è¾ºã®æ•°ã®å’Œã¯ " + nn);
 			if (nn != this.rsize()) {
-//				System.out.println(" ‘S‘Ì‚ÌƒTƒCƒY‚Æ‡‚í‚È‚¢‚Ì‚Å’·•ûŒ`‚Å‚Í‚È‚¢");
+//				System.out.println(" å…¨ä½“ã®ã‚µã‚¤ã‚ºã¨åˆã‚ãªã„ã®ã§é•·æ–¹å½¢ã§ã¯ãªã„");
 				return -1;
 			}
 //			System.out.println();
-//			System.out.println("Î‚ß‚Ì’·•ûŒ`‚¾");
+//			System.out.println("æ–œã‚ã®é•·æ–¹å½¢ã ");
 			return 1;
 		}
 		return -2;

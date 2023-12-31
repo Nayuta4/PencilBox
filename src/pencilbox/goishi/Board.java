@@ -11,7 +11,7 @@ import pencilbox.resource.Messages;
 
 
 /**
- *  uŒéÎ‚Ð‚ë‚¢v”Õ–ÊƒNƒ‰ƒX
+ *  ã€Œç¢çŸ³ã²ã‚ã„ã€ç›¤é¢ã‚¯ãƒ©ã‚¹
  */
 public class Board extends BoardBase {
 
@@ -40,10 +40,10 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ‚»‚Ìƒ}ƒX‚ÍŒéÎ‚ª‚ ‚é‚©
-	 * @param r ƒ}ƒX‚ÌsÀ•W
-	 * @param c ƒ}ƒX‚Ì—ñÀ•W
-	 * @return Î‚ª‚ ‚éƒ}ƒX‚È‚ç true, ‚È‚¢ƒ}ƒX‚È‚ç false
+	 * ãã®ãƒžã‚¹ã¯ç¢çŸ³ãŒã‚ã‚‹ã‹
+	 * @param r ãƒžã‚¹ã®è¡Œåº§æ¨™
+	 * @param c ãƒžã‚¹ã®åˆ—åº§æ¨™
+	 * @return çŸ³ãŒã‚ã‚‹ãƒžã‚¹ãªã‚‰ true, ãªã„ãƒžã‚¹ãªã‚‰ false
 	 */
 	public boolean isStone(Address pos) {
 		return getState(pos) == STONE;
@@ -82,9 +82,9 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * Î‚ð’u‚­‚©Žæ‚èœ‚­B
-	 * @param p À•W
-	 * @param st •ÏXŒã‚Ìó‘Ô ’u‚¢‚½‚©CŽæ‚èœ‚¢‚½‚©
+	 * çŸ³ã‚’ç½®ãã‹å–ã‚Šé™¤ãã€‚
+	 * @param p åº§æ¨™
+	 * @param st å¤‰æ›´å¾Œã®çŠ¶æ…‹ ç½®ã„ãŸã‹ï¼Œå–ã‚Šé™¤ã„ãŸã‹
 	 */
 	public void changeState(Address p, int st) {
 		int prev = getState(p);
@@ -113,7 +113,7 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * E‚¤BUndoManger‚É’Ê’m‚·‚éB
+	 * æ‹¾ã†ã€‚UndoMangerã«é€šçŸ¥ã™ã‚‹ã€‚
 	 * @param p
 	 */
 	public void pickUp(Address p) {
@@ -126,7 +126,7 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * –ß‚·BUndoManger‚É’Ê’m‚·‚éB
+	 * æˆ»ã™ã€‚UndoMangerã«é€šçŸ¥ã™ã‚‹ã€‚
 	 */
 	public void placeBack() {
 		int n = pickedList.size();
@@ -139,13 +139,13 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * E‚¦‚é‚©
-	 * E‚¦‚È‚¢‚Ì‚ÍˆÈ‰º‚Ìê‡
-	 * Î‚ª‚È‚¢
-	 * Î‚ð‚·‚Å‚ÉE‚Á‚Ä‚¢‚é
-	 * ‘O‚ÉE‚Á‚½Î‚Æˆê’¼üã‚É‚È‚¢
-	 * ‘O‚ÉE‚Á‚½Î‚Æ‚ÌŠÔ‚ÉE‚Á‚Ä‚¢‚È‚¢Î‚ª‚ ‚é
-	 * ‘O‚ÉE‚Á‚½Î‚Æ‚»‚Ì‘O‚ÉE‚Á‚½Î‚Æ‚É‚Í‚³‚Ü‚ê‚Ä‚¢‚é
+	 * æ‹¾ãˆã‚‹ã‹
+	 * æ‹¾ãˆãªã„ã®ã¯ä»¥ä¸‹ã®å ´åˆ
+	 * çŸ³ãŒãªã„
+	 * çŸ³ã‚’ã™ã§ã«æ‹¾ã£ã¦ã„ã‚‹
+	 * å‰ã«æ‹¾ã£ãŸçŸ³ã¨ä¸€ç›´ç·šä¸Šã«ãªã„
+	 * å‰ã«æ‹¾ã£ãŸçŸ³ã¨ã®é–“ã«æ‹¾ã£ã¦ã„ãªã„çŸ³ãŒã‚ã‚‹
+	 * å‰ã«æ‹¾ã£ãŸçŸ³ã¨ãã®å‰ã«æ‹¾ã£ãŸçŸ³ã¨ã«ã¯ã•ã¾ã‚Œã¦ã„ã‚‹
 	 * @param pos
 	 * @return
 	 */
@@ -174,8 +174,8 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ã‰º¶‰E‚ðŒ©‚ÄE‚¦‚È‚­‚È‚é‚æ‚¤‚ÈÅ¬‚Ì”Ô†‚ð•Ô‚·
-	 * E‚¦‚È‚­‚È‚é‚±‚Æ‚ª‚È‚¯‚ê‚Î0‚ð•Ô‚·
+	 * ä¸Šä¸‹å·¦å³ã‚’è¦‹ã¦æ‹¾ãˆãªããªã‚‹ã‚ˆã†ãªæœ€å°ã®ç•ªå·ã‚’è¿”ã™
+	 * æ‹¾ãˆãªããªã‚‹ã“ã¨ãŒãªã‘ã‚Œã°0ã‚’è¿”ã™
 	 */
 	private int checkRoute(Address p0) {
 		int[] next4 = new int[4];
@@ -197,7 +197,7 @@ public class Board extends BoardBase {
 		return mm;
 	}
 	/**
-	 * 2‚Â‚Ì³”‚Ì·‚ª1‚Ìê‡C‚»‚Ì‘å‚«‚¢•û‚Ì’l‚ð•Ô‚·
+	 * 2ã¤ã®æ­£æ•°ã®å·®ãŒ1ã®å ´åˆï¼Œãã®å¤§ãã„æ–¹ã®å€¤ã‚’è¿”ã™
 	 */
 	private int diff1(int a, int b) {
 		if (a > 0 && b > 0) {
@@ -209,7 +209,7 @@ public class Board extends BoardBase {
 		return 0;
 	}
 	/**
-	 * 2‚Â‚Ì³”‚Ì‚¤‚¿‚æ‚è¬‚³‚¢•û‚Ì’l‚ð•Ô‚·B•Ð•û‚Ì‚Ý‚ª³”‚È‚ç‚»‚Ì’l‚ð•Ô‚·
+	 * 2ã¤ã®æ­£æ•°ã®ã†ã¡ã‚ˆã‚Šå°ã•ã„æ–¹ã®å€¤ã‚’è¿”ã™ã€‚ç‰‡æ–¹ã®ã¿ãŒæ­£æ•°ãªã‚‰ãã®å€¤ã‚’è¿”ã™
 	 */
 	private int min2(int a, int b) {
 		if (a > 0 && b > 0) {

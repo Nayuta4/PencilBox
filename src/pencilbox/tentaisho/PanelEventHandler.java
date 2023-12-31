@@ -8,7 +8,7 @@ import pencilbox.common.core.SideAddress;
 import pencilbox.common.gui.PanelEventHandlerBase;
 
 /**
- * u“V‘ÌƒVƒ‡[vƒ}ƒEƒX^ƒL[‘€ìˆ—ƒNƒ‰ƒX
+ * ã€Œå¤©ä½“ã‚·ãƒ§ãƒ¼ã€ãƒã‚¦ã‚¹ï¼ã‚­ãƒ¼æ“ä½œå‡¦ç†ã‚¯ãƒ©ã‚¹
  */
 public class PanelEventHandler extends PanelEventHandlerBase {
 
@@ -18,11 +18,11 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	private int currentState = -1;
 	private Address pos3 = Address.NOWHERE;
 
-	private static final int INIT = 0;           // ‰Šúó‘Ô
-	private static final int PRESS_NEW = 1;      // V—Ìˆæì¬
-	private static final int PRESS_EXISTING = 2; // Šù‘¶—Ìˆæ‘I‘ğ
-	private static final int DRAG_ADD = 3;       // —ÌˆæŠg‘å‘€ì 
-	private static final int DRAG_REMOVE = 4;   // —Ìˆæk¬‘€ì 
+	private static final int INIT = 0;           // åˆæœŸçŠ¶æ…‹
+	private static final int PRESS_NEW = 1;      // æ–°é ˜åŸŸä½œæˆ
+	private static final int PRESS_EXISTING = 2; // æ—¢å­˜é ˜åŸŸé¸æŠ
+	private static final int DRAG_ADD = 3;       // é ˜åŸŸæ‹¡å¤§æ“ä½œ 
+	private static final int DRAG_REMOVE = 4;   // é ˜åŸŸç¸®å°æ“ä½œ 
 
 	/**
 	 * 
@@ -53,7 +53,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/*
-	 * u“V‘ÌƒVƒ‡[vƒ}ƒEƒX‘€ì
+	 * ã€Œå¤©ä½“ã‚·ãƒ§ãƒ¼ã€ãƒã‚¦ã‚¹æ“ä½œ
 	 */
 	protected void leftPressed(Address pos) {
 		Area area = board.getArea(pos);
@@ -74,9 +74,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		Area oldArea = board.getArea(pos);
 		if (dragState == PRESS_NEW || dragState == PRESS_EXISTING) {
 			if (oldArea == null || oldArea != draggingArea) {
-				dragState = DRAG_ADD; // —ÌˆæŠg‘å‘€ì
+				dragState = DRAG_ADD; // é ˜åŸŸæ‹¡å¤§æ“ä½œ
 			} else {
-				dragState = DRAG_REMOVE; // —Ìˆæk¬‘€ì
+				dragState = DRAG_REMOVE; // é ˜åŸŸç¸®å°æ“ä½œ
 			}
 		}
 		if (dragState == DRAG_ADD) {
@@ -152,13 +152,13 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/*
-	 * ƒ}ƒEƒX‚Å‚ÍƒJ[ƒ\ƒ‹ˆÚ“®‚µ‚È‚¢
+	 * ãƒã‚¦ã‚¹ã§ã¯ã‚«ãƒ¼ã‚½ãƒ«ç§»å‹•ã—ãªã„
 	 */
 	protected void moveCursor(Address pos) {
 	}
 
 	/*
-	 * u“V‘ÌƒVƒ‡[vƒL[‘€ì
+	 * ã€Œå¤©ä½“ã‚·ãƒ§ãƒ¼ã€ã‚­ãƒ¼æ“ä½œ
 	 */
 	protected void numberEntered(Address pos, int n) {
 		if (isProblemEditMode())

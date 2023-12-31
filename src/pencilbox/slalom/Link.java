@@ -2,7 +2,7 @@ package pencilbox.slalom;
 
 
 /**
- * 「スラローム」リンククラス
+ * 縲後せ繝ｩ繝ｭ繝ｼ繝縲阪Μ繝ｳ繧ｯ繧ｯ繝ｩ繧ｹ
  */
 public class Link extends pencilbox.common.core.Link {
 }

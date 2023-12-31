@@ -28,8 +28,8 @@ import pencilbox.heyawake.HeyawakeReader;
 import pencilbox.heyawake.HeyawakeWriter;
 
 /**
- * –â‘èƒf[ƒ^‚Ìƒtƒ@ƒCƒ‹“üo—Íˆ—‚ğs‚¤ƒNƒ‰ƒXB
- * GUI‚Æ‚ÍŠÖŒW‚È‚­g—p‚Å‚«‚é‚æ‚¤‚É‚·‚éB
+ * å•é¡Œãƒ‡ãƒ¼ã‚¿ã®ãƒ•ã‚¡ã‚¤ãƒ«å…¥å‡ºåŠ›å‡¦ç†ã‚’è¡Œã†ã‚¯ãƒ©ã‚¹ã€‚
+ * GUIã¨ã¯é–¢ä¿‚ãªãä½¿ç”¨ã§ãã‚‹ã‚ˆã†ã«ã™ã‚‹ã€‚
  */
 public class IOController {
 
@@ -46,9 +46,9 @@ public class IOController {
 	private PencilType pencilType;
 
 	/**
-	 * IOController‚ğæ“¾‚·‚é
-	 * @param pencilType ƒpƒYƒ‹‚Ìí—Ş
-	 * @return IOController IOControllerƒCƒ“ƒXƒ^ƒ“ƒX
+	 * IOControllerã‚’å–å¾—ã™ã‚‹
+	 * @param pencilType ãƒ‘ã‚ºãƒ«ã®ç¨®é¡
+	 * @return IOController IOControllerã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 	 */
 	public static IOController getInstance(PencilType pencilType) {
 		return new IOController(pencilType);
@@ -58,9 +58,9 @@ public class IOController {
 	}
 
 	/**
-	 * ˆø”‚Ì•¶š—ñ‚ÌURL‚Ü‚½‚Íƒtƒ@ƒCƒ‹–¼‚©‚ç–â‘è‚ğ“Ç‚İ‚Ş
-	 * @param string URL‚Ü‚½‚Íƒtƒ@ƒCƒ‹–¼
-	 * @return “Ç‚İ‚ñ‚¾–â‘è
+	 * å¼•æ•°ã®æ–‡å­—åˆ—ã®URLã¾ãŸã¯ãƒ•ã‚¡ã‚¤ãƒ«åã‹ã‚‰å•é¡Œã‚’èª­ã¿è¾¼ã‚€
+	 * @param string URLã¾ãŸã¯ãƒ•ã‚¡ã‚¤ãƒ«å
+	 * @return èª­ã¿è¾¼ã‚“ã å•é¡Œ
 	 * @throws PencilBoxException
 	 */
 	public Problem openFile(String string) throws PencilBoxException {
@@ -91,9 +91,9 @@ public class IOController {
 	}
 
 	/**
-	 * V‹K‚Ì–â‘è‚ğƒtƒ@ƒCƒ‹‚©‚ç“Ç‚İ‚Ş
-	 * @param file –â‘èƒtƒ@ƒCƒ‹
-	 * @return “Ç‚İ‚ñ‚¾–â‘è
+	 * æ–°è¦ã®å•é¡Œã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰èª­ã¿è¾¼ã‚€
+	 * @param file å•é¡Œãƒ•ã‚¡ã‚¤ãƒ«
+	 * @return èª­ã¿è¾¼ã‚“ã å•é¡Œ
 	 * @throws PencilBoxException
 	 */
 	public Problem openFile(File file) throws PencilBoxException {
@@ -121,15 +121,15 @@ public class IOController {
 		} catch (IOException e) {
 			throw new PencilBoxException(e);
 		} catch (RuntimeException e) {
-			// txtReader ‚Í‚Ü‚Æ‚à‚ÈƒGƒ‰[ˆ—‚ğ‚µ‚Ä‚¢‚È‚¢‚Ì‚ÅC–â‘èƒf[ƒ^‚ª‚¨‚©‚µ‚¢‚Æ‚¢‚ë‚¢‚ëRunTimeException‚ª“Š‚°‚ç‚ê‚é
-			// ‚»‚ê‚ç‚ÌRunTimeException‚ğ‚±‚±‚Åó‚¯‚ÄPencilboxException‚É•ÏŠ·‚·‚é
+			// txtReader ã¯ã¾ã¨ã‚‚ãªã‚¨ãƒ©ãƒ¼å‡¦ç†ã‚’ã—ã¦ã„ãªã„ã®ã§ï¼Œå•é¡Œãƒ‡ãƒ¼ã‚¿ãŒãŠã‹ã—ã„ã¨ã„ã‚ã„ã‚RunTimeExceptionãŒæŠ•ã’ã‚‰ã‚Œã‚‹
+			// ãã‚Œã‚‰ã®RunTimeExceptionã‚’ã“ã“ã§å—ã‘ã¦PencilboxExceptionã«å¤‰æ›ã™ã‚‹
 			throw new PencilBoxException(e);
 		} finally {
 			try {
 				if (in != null)
 					in.close();
 			} catch (IOException ec) {
-				// close()‚É‚æ‚é—áŠO‚ğó‚¯‚é
+				// close()ã«ã‚ˆã‚‹ä¾‹å¤–ã‚’å—ã‘ã‚‹
 			}
 		}
 		problem.setFile(file);
@@ -137,9 +137,9 @@ public class IOController {
 	}
 
 	/**
-	 * ŠeíƒtƒH[ƒ}ƒbƒg‚Ì•¶š—ñƒf[ƒ^‚©‚ç–â‘è‚ğì¬‚·‚é
-	 * @param problemData –â‘è•¶š—ñƒf[ƒ^
-	 * @return “Ç‚İ‚ñ‚¾–â‘è
+	 * å„ç¨®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã®æ–‡å­—åˆ—ãƒ‡ãƒ¼ã‚¿ã‹ã‚‰å•é¡Œã‚’ä½œæˆã™ã‚‹
+	 * @param problemData å•é¡Œæ–‡å­—åˆ—ãƒ‡ãƒ¼ã‚¿
+	 * @return èª­ã¿è¾¼ã‚“ã å•é¡Œ
 	 * @throws PencilBoxException
 	 */
 	public Problem importProblemData(String string, DataFormat format) throws PencilBoxException {
@@ -176,15 +176,15 @@ public class IOController {
 		} catch (IOException e) {
 			throw new PencilBoxException(e);
 		} catch (RuntimeException e) {
-			// txtReader ‚Í‚Ü‚Æ‚à‚ÈƒGƒ‰[ˆ—‚ğ‚µ‚Ä‚¢‚È‚¢‚Ì‚ÅC–â‘èƒf[ƒ^‚ª‚¨‚©‚µ‚¢‚Æ‚¢‚ë‚¢‚ëRunTimeException‚ª“Š‚°‚ç‚ê‚é
-			// ‚»‚ê‚ç‚ÌRunTimeException‚ğ‚±‚±‚Åó‚¯‚ÄPencilboxException‚É•ÏŠ·‚·‚é
+			// txtReader ã¯ã¾ã¨ã‚‚ãªã‚¨ãƒ©ãƒ¼å‡¦ç†ã‚’ã—ã¦ã„ãªã„ã®ã§ï¼Œå•é¡Œãƒ‡ãƒ¼ã‚¿ãŒãŠã‹ã—ã„ã¨ã„ã‚ã„ã‚RunTimeExceptionãŒæŠ•ã’ã‚‰ã‚Œã‚‹
+			// ãã‚Œã‚‰ã®RunTimeExceptionã‚’ã“ã“ã§å—ã‘ã¦PencilboxExceptionã«å¤‰æ›ã™ã‚‹
 			throw new PencilBoxException(e);
 		} finally {
 			try {
 				if (in != null)
 					in.close();
 			} catch (IOException ec) {
-				// close()‚É‚æ‚é—áŠO‚ğó‚¯‚é
+				// close()ã«ã‚ˆã‚‹ä¾‹å¤–ã‚’å—ã‘ã‚‹
 			}
 		}
 		problem = new Problem(board);
@@ -193,9 +193,9 @@ public class IOController {
 	}
 
 	/**
-	 * –â‘è‚ğƒtƒ@ƒCƒ‹‚É•Û‘¶‚·‚é
-	 * @param problem •Û‘¶‚·‚é–â‘è
-	 * @param file •Û‘¶æ‚Ìƒtƒ@ƒCƒ‹
+	 * å•é¡Œã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã«ä¿å­˜ã™ã‚‹
+	 * @param problem ä¿å­˜ã™ã‚‹å•é¡Œ
+	 * @param file ä¿å­˜å…ˆã®ãƒ•ã‚¡ã‚¤ãƒ«
 	 * @throws PencilBoxException
 	 */
 	public void saveFile(Problem problem, File file) throws PencilBoxException{
@@ -225,13 +225,13 @@ public class IOController {
 //				}
 			}
 		}
-		problem.setFile(file); // ƒZ[ƒu‚Å‚«‚½‚çC–â‘è‚É‚»‚Ìƒtƒ@ƒCƒ‹–¼‚ğŠÖ˜A•t‚¯‚éB
+		problem.setFile(file); // ã‚»ãƒ¼ãƒ–ã§ããŸã‚‰ï¼Œå•é¡Œã«ãã®ãƒ•ã‚¡ã‚¤ãƒ«åã‚’é–¢é€£ä»˜ã‘ã‚‹ã€‚
 	}
 
 	/**
-	 * ŠeíƒtƒH[ƒ}ƒbƒg‚Ì–â‘èƒf[ƒ^‚ğo—Í‚·‚éB
-	 * @param board ”Õ–Ê
-	 * @return –â‘èƒf[ƒ^•¶š—ñ
+	 * å„ç¨®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã®å•é¡Œãƒ‡ãƒ¼ã‚¿ã‚’å‡ºåŠ›ã™ã‚‹ã€‚
+	 * @param board ç›¤é¢
+	 * @return å•é¡Œãƒ‡ãƒ¼ã‚¿æ–‡å­—åˆ—
 	 * @throws PencilBoxClassException
 	 */
 	public String exportProblemData(BoardBase board, DataFormat format) throws PencilBoxClassException {
@@ -282,7 +282,7 @@ public class IOController {
 	public XmlReaderBase createXmlReader() throws PencilBoxClassException {
 		XmlReaderBase xmlReader = (XmlReaderBase) ClassUtil.createInstance(
 				pencilType, ClassUtil.XMLREADER_CLASS);
-		xmlReader.setPuzzleType(this.pencilType.getPencilName()); // ‚Ç‚ÌƒpƒYƒ‹‚©’Ê’m‚µ‚È‚¯‚ê‚Î‚È‚ç‚È‚¢
+		xmlReader.setPuzzleType(this.pencilType.getPencilName()); // ã©ã®ãƒ‘ã‚ºãƒ«ã‹é€šçŸ¥ã—ãªã‘ã‚Œã°ãªã‚‰ãªã„
 		return xmlReader;
 	}
 
@@ -293,7 +293,7 @@ public class IOController {
 	public XmlWriterBase createXmlWriter() throws PencilBoxClassException {
 		XmlWriterBase xmlWriter = (XmlWriterBase) ClassUtil.createInstance(
 				pencilType, ClassUtil.XMLWRITER_CLASS);
-		xmlWriter.setPuzzleType(this.pencilType.getPencilName()); // ‚Ç‚ÌƒpƒYƒ‹‚©’Ê’m‚µ‚È‚¯‚ê‚Î‚È‚ç‚È‚¢
+		xmlWriter.setPuzzleType(this.pencilType.getPencilName()); // ã©ã®ãƒ‘ã‚ºãƒ«ã‹é€šçŸ¥ã—ãªã‘ã‚Œã°ãªã‚‰ãªã„
 		return xmlWriter;
 	}
 

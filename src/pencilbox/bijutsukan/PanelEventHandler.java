@@ -6,14 +6,14 @@ import pencilbox.common.gui.PanelEventHandlerBase;
 
 
 /**
- * u”üpŠÙvƒ}ƒEƒX^ƒL[‘€ìˆ—ƒNƒ‰ƒX
+ * ã€Œç¾è¡“é¤¨ã€ãƒã‚¦ã‚¹ï¼ã‚­ãƒ¼æ“ä½œå‡¦ç†ã‚¯ãƒ©ã‚¹
  */
 public class PanelEventHandler extends PanelEventHandlerBase {
 
 	private Board board;
 
 	/**
-	 * Panel ‚ğ¶¬‚·‚é
+	 * Panel ã‚’ç”Ÿæˆã™ã‚‹
 	 */
 	public PanelEventHandler() {
 		setMaxInputNumber(5);
@@ -24,7 +24,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/*
-	 * u”üpŠÙvƒ}ƒEƒX‘€ì
+	 * ã€Œç¾è¡“é¤¨ã€ãƒã‚¦ã‚¹æ“ä½œ
 	 */
 	private int currentState = Board.UNKNOWN;
 
@@ -48,9 +48,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/**
-	 * ƒ}ƒX‚Ìó‘Ô‚ğ –¢’è Ì st ‚ÆØ‚è‘Ö‚¦‚é
-	 * @param pos ƒ}ƒXÀ•W
-	 * @param st Ø‚è‘Ö‚¦‚éó‘Ô
+	 * ãƒã‚¹ã®çŠ¶æ…‹ã‚’ æœªå®š â‡” st ã¨åˆ‡ã‚Šæ›¿ãˆã‚‹
+	 * @param pos ãƒã‚¹åº§æ¨™
+	 * @param st åˆ‡ã‚Šæ›¿ãˆã‚‹çŠ¶æ…‹
 	 */
 	private void toggleState(Address pos, int st) {
 		if (board.isWall(pos))
@@ -70,7 +70,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/*
-	 * u”üpŠÙvƒL[‘€ì
+	 * ã€Œç¾è¡“é¤¨ã€ã‚­ãƒ¼æ“ä½œ
 	 */
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {

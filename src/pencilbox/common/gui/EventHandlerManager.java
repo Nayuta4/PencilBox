@@ -11,7 +11,7 @@ import pencilbox.common.factory.PencilBoxClassException;
 import pencilbox.common.factory.PencilType;
 
 /**
- * ƒpƒlƒ‹‚É‘Î‚·‚éƒ}ƒEƒXCƒL[ƒ{[ƒh‚ÌƒCƒxƒ“ƒgˆ—‚ğs‚¤ƒNƒ‰ƒX
+ * ãƒ‘ãƒãƒ«ã«å¯¾ã™ã‚‹ãƒã‚¦ã‚¹ï¼Œã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã®ã‚¤ãƒ™ãƒ³ãƒˆå‡¦ç†ã‚’è¡Œã†ã‚¯ãƒ©ã‚¹
  */
 public class EventHandlerManager {
 
@@ -22,7 +22,7 @@ public class EventHandlerManager {
 	private RegionEditHandler regionEditHandler;
 
 	/**
-	 * PanelEventHandler‚ğ¶¬‚·‚é
+	 * PanelEventHandlerã‚’ç”Ÿæˆã™ã‚‹
 	 */
 	public EventHandlerManager(PencilType pencilType) throws PencilBoxClassException {
 		this.handler = (PanelEventHandlerBase) ClassUtil.createInstance(pencilType, ClassUtil.PANEL_EVENT_HANDLER_CLASS);
@@ -63,14 +63,14 @@ public class EventHandlerManager {
 		handler.setImmediateAnswerCheckMode(b);
 	}
 	/**
-	 * ‘¦³‰ğ”»’èƒ‚[ƒh‚Ìê‡‚ÉC³‰ğÏ‚İó‘Ô‚©‚ç–¢³‰ğó‘Ô‚É–ß‚·B
+	 * å³æ™‚æ­£è§£åˆ¤å®šãƒ¢ãƒ¼ãƒ‰ã®å ´åˆã«ï¼Œæ­£è§£æ¸ˆã¿çŠ¶æ…‹ã‹ã‚‰æœªæ­£è§£çŠ¶æ…‹ã«æˆ»ã™ã€‚
 	 */
 	public void resetImmediateAnswerCheckMode() {
 		handler.resetImmediateAnswerCheckMode();
 	}
 
 	/**
-	 * 	‘¦³‰ğ”»’è
+	 * 	å³æ™‚æ­£è§£åˆ¤å®š
 	 */
 	public void checkAnswer() {
 		handler.checkAnswer();
@@ -95,7 +95,7 @@ public class EventHandlerManager {
 	}
 
 	/**
-	 * ƒ}ƒEƒXƒŠƒXƒi[CƒL[ƒŠƒXƒi[‚ğƒpƒlƒ‹‚É“o˜^‚·‚éB
+	 * ãƒã‚¦ã‚¹ãƒªã‚¹ãƒŠãƒ¼ï¼Œã‚­ãƒ¼ãƒªã‚¹ãƒŠãƒ¼ã‚’ãƒ‘ãƒãƒ«ã«ç™»éŒ²ã™ã‚‹ã€‚
 	 * @param l
 	 */
 	private void addListenerToPanel(EventListener l) {
@@ -108,7 +108,7 @@ public class EventHandlerManager {
 	}
 
 	/**
-	 * ƒ}ƒEƒXƒŠƒXƒi[CƒL[ƒŠƒXƒi[‚ğƒpƒlƒ‹‚©‚çŠO‚·B
+	 * ãƒã‚¦ã‚¹ãƒªã‚¹ãƒŠãƒ¼ï¼Œã‚­ãƒ¼ãƒªã‚¹ãƒŠãƒ¼ã‚’ãƒ‘ãƒãƒ«ã‹ã‚‰å¤–ã™ã€‚
 	 * @param l
 	 */
 	private void removeListenerFromPanel(EventListener l) {

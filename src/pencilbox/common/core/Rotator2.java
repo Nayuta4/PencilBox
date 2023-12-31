@@ -5,16 +5,16 @@ package pencilbox.common.core;
 
 
 /**
- * À•W‰ñ“]ŒvZ—p•â•ƒNƒ‰ƒX
+ * åº§æ¨™å›è»¢è¨ˆç®—ç”¨è£œåŠ©ã‚¯ãƒ©ã‚¹
  */
 public class Rotator2 {
 
     private Rotator2() {}
 
 	/**
-	 * ˆø”‚Å—^‚¦‚½‰ñ“]”Ô†‚ÍC”Õ–ÊƒTƒCƒY‚Ìc‰¡ŒğŠ·‚ÉŠY“–‚·‚é‚©”Û‚©‚ğ“š‚¦‚é
-	 * @param n@‰ñ“]”Ô†
-	 * @return c‰¡ŒğŠ·‚³‚ê‚é‚È‚ç true, ‚³‚ê‚È‚¢‚È‚ç false
+	 * å¼•æ•°ã§ä¸ãˆãŸå›è»¢ç•ªå·ã¯ï¼Œç›¤é¢ã‚µã‚¤ã‚ºã®ç¸¦æ¨ªäº¤æ›ã«è©²å½“ã™ã‚‹ã‹å¦ã‹ã‚’ç­”ãˆã‚‹
+	 * @param nã€€å›è»¢ç•ªå·
+	 * @return ç¸¦æ¨ªäº¤æ›ã•ã‚Œã‚‹ãªã‚‰ true, ã•ã‚Œãªã„ãªã‚‰ false
 	 */
 	public static boolean isTransposed(int n) {
 		switch (n) {
@@ -34,10 +34,10 @@ public class Rotator2 {
 	}
 
 	/**
-	 * ‰ñ“]•ÏŠ·‚ÌŒ‹‡
-	 * @param a@1‚Â‚ß‚Ì‰ñ“]”Ô†
-	 * @param b@2‚Â‚ß‚Ì‰ñ“]”Ô†
-	 * @return@‰ñ“]”Ô†‚ÌÏ
+	 * å›è»¢å¤‰æ›ã®çµåˆ
+	 * @param aã€€1ã¤ã‚ã®å›è»¢ç•ªå·
+	 * @param bã€€2ã¤ã‚ã®å›è»¢ç•ªå·
+	 * @returnã€€å›è»¢ç•ªå·ã®ç©
 	 */
 	public static int combine(int a, int b) {
 		int r = a;
@@ -50,14 +50,14 @@ public class Rotator2 {
 	}
 
 	/**
-	 * —^‚¦‚ç‚ê‚½À•Wpos‚ÉC
-	 * À•Wfrom‚©‚çÀ•Wto‚Ö‚ÌˆÚ“®‚Æ“¯‚¶•½sˆÚ“®‚µ‚½‚Ì‚¿‚ÉC
-	 * to‚ğ’†S‚Æ‚µ‚½‰ñ“]”Ô†rotation‚Ì‰ñ“]‚ğ{‚µ‚½À•W‚ğ•Ô‚·
-	 * @param pos •ÏŠ·Œ³À•W
-	 * @param from •½sˆÚ“®‚Ì‹N“_
-	 * @param to •½sˆÚ“®‚ÌI“_
-	 * @param rotation ‰ñ“]”Ô†
-	 * @return •ÏŠ·Œã‚ÌÀ•W
+	 * ä¸ãˆã‚‰ã‚ŒãŸåº§æ¨™posã«ï¼Œ
+	 * åº§æ¨™fromã‹ã‚‰åº§æ¨™toã¸ã®ç§»å‹•ã¨åŒã˜å¹³è¡Œç§»å‹•ã—ãŸã®ã¡ã«ï¼Œ
+	 * toã‚’ä¸­å¿ƒã¨ã—ãŸå›è»¢ç•ªå·rotationã®å›è»¢ã‚’æ–½ã—ãŸåº§æ¨™ã‚’è¿”ã™
+	 * @param pos å¤‰æ›å…ƒåº§æ¨™
+	 * @param from å¹³è¡Œç§»å‹•ã®èµ·ç‚¹
+	 * @param to å¹³è¡Œç§»å‹•ã®çµ‚ç‚¹
+	 * @param rotation å›è»¢ç•ªå·
+	 * @return å¤‰æ›å¾Œã®åº§æ¨™
 	 */
 	public static Address translateAndRotateAddress(Address pos, Address from, Address to, int rotation) {
 		int a = to.r();
@@ -104,14 +104,14 @@ public class Rotator2 {
 	}
 
 	/**
-	 * —^‚¦‚ç‚ê‚½•ÓÀ•Wpos‚ÉC
-	 * À•Wfrom‚©‚çÀ•Wto‚Ö‚ÌˆÚ“®‚Æ“¯‚¶•½sˆÚ“®‚µ‚½‚Ì‚¿‚ÉC
-	 * to‚ğ’†S‚Æ‚µ‚½‰ñ“]”Ô†rotation‚Ì‰ñ“]‚ğ{‚µ‚½•ÓÀ•W‚ğ•Ô‚·
-	 * @param pos •ÏŠ·Œ³‚Ì•ÓÀ•W
-	 * @param from •½sˆÚ“®‚Ì‹N“_
-	 * @param to •½sˆÚ“®‚ÌI“_
-	 * @param rotation ‰ñ“]”Ô†
-	 * @return •ÏŠ·Œã‚Ì•ÓÀ•W
+	 * ä¸ãˆã‚‰ã‚ŒãŸè¾ºåº§æ¨™posã«ï¼Œ
+	 * åº§æ¨™fromã‹ã‚‰åº§æ¨™toã¸ã®ç§»å‹•ã¨åŒã˜å¹³è¡Œç§»å‹•ã—ãŸã®ã¡ã«ï¼Œ
+	 * toã‚’ä¸­å¿ƒã¨ã—ãŸå›è»¢ç•ªå·rotationã®å›è»¢ã‚’æ–½ã—ãŸè¾ºåº§æ¨™ã‚’è¿”ã™
+	 * @param pos å¤‰æ›å…ƒã®è¾ºåº§æ¨™
+	 * @param from å¹³è¡Œç§»å‹•ã®èµ·ç‚¹
+	 * @param to å¹³è¡Œç§»å‹•ã®çµ‚ç‚¹
+	 * @param rotation å›è»¢ç•ªå·
+	 * @return å¤‰æ›å¾Œã®è¾ºåº§æ¨™
 	 */
 	public static SideAddress translateAndRotateSideAddress(SideAddress pos, Address from, Address to, int rotation) {
 		int a = to.r();
@@ -213,9 +213,9 @@ public class Rotator2 {
 	}
 
 	/**
-	 * ”Õã‚Ì•ûŒü‚ğƒpƒlƒ‹ã‚Ì•ûŒü‚É•ÏŠ·‚·‚é
-	 * @param direction •ÏŠ·Œ³‚Ì•ûŒü‚ğ•\‚·”’l
-	 * @return •ÏŠ·Œã‚Ì•ûŒü‚ğ•\‚·”’l
+	 * ç›¤ä¸Šã®æ–¹å‘ã‚’ãƒ‘ãƒãƒ«ä¸Šã®æ–¹å‘ã«å¤‰æ›ã™ã‚‹
+	 * @param direction å¤‰æ›å…ƒã®æ–¹å‘ã‚’è¡¨ã™æ•°å€¤
+	 * @return å¤‰æ›å¾Œã®æ–¹å‘ã‚’è¡¨ã™æ•°å€¤
 	 */
 	public static int rotateDirection(int direction, int rotation) {
 		switch (rotation) {

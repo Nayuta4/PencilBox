@@ -5,7 +5,7 @@ import pencilbox.resource.Messages;
 
 
 /**
- * u‚Ê‚è‚©‚×vƒƒjƒ…[ƒNƒ‰ƒX
+ * ã€Œã¬ã‚Šã‹ã¹ã€ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚¯ãƒ©ã‚¹
  */
 public class Menu extends MenuBase {
 
@@ -21,7 +21,7 @@ public class Menu extends MenuBase {
 		numberColorItem = addColorMenuItem(Messages.getString("Menu.numberColorItem")); //$NON-NLS-1$
 		paintColorItem = addColorMenuItem(Messages.getString("Menu.paintColorItem")); //$NON-NLS-1$
 		circleColorItem = addColorMenuItem(Messages.getString("Menu.noPaintColorItem")); //$NON-NLS-1$
-//		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("Œë‚è‚ğÔ‚Å¦‚·(E)", 'E', false));
+//		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem("èª¤ã‚Šã‚’èµ¤ã§ç¤ºã™(E)", 'E', false));
 		addToViewMenu(separateAreaColorItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.separateWallColorItem"), 'R', false)); //$NON-NLS-1$
 		addToViewMenu(countAreaSizeItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.countAreaSizeItem"),'C', false)); //$NON-NLS-1$
 		addRenewColorMenuItem();	

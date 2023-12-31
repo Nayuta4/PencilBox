@@ -10,7 +10,7 @@ import pencilbox.common.gui.PanelBase;
 
 
 /**
- * u”“Ævƒpƒlƒ‹ƒNƒ‰ƒX
+ * ã€Œæ•°ç‹¬ã€ãƒ‘ãƒãƒ«ã‚¯ãƒ©ã‚¹
  */
 public class Panel extends PanelBase {
 
@@ -31,7 +31,7 @@ public class Panel extends PanelBase {
 	protected void setBoard(BoardBase aBoard) {
 		board = (Board) aBoard;
 		unit = board.getUnit();
-		// ƒhƒbƒgƒqƒ“ƒg•\Ž¦‰Â”\‚È‚Ì‚ÍCƒTƒCƒY3,4,5‚Ì‚Ý
+		// ãƒ‰ãƒƒãƒˆãƒ’ãƒ³ãƒˆè¡¨ç¤ºå¯èƒ½ãªã®ã¯ï¼Œã‚µã‚¤ã‚º3,4,5ã®ã¿
 		if (unit>=3 && unit<=5)
 			hintDot.setDot(this, unit, getCellSize());
 	}
@@ -48,7 +48,7 @@ public class Panel extends PanelBase {
 	}
 
 	/**
-	 * ƒuƒƒbƒN‚Ì‘¾˜gü‚ð•`‰æ‚·‚éB
+	 * ãƒ–ãƒ­ãƒƒã‚¯ã®å¤ªæž ç·šã‚’æç”»ã™ã‚‹ã€‚
 	 */
 	public void drawAreaBorders(Graphics2D g) {
 		g.setColor(getAreaBorderColor());
@@ -100,7 +100,7 @@ public class Panel extends PanelBase {
 			}
 		}
 	}
-	// ‘I‘ð”Žš‚Æ“¯‚¶sC—ñCƒ{ƒbƒNƒX‚ðF“h‚è 
+	// é¸æŠžæ•°å­—ã¨åŒã˜è¡Œï¼Œåˆ—ï¼Œãƒœãƒƒã‚¯ã‚¹ã‚’è‰²å¡—ã‚Š 
 	private void paintCell1(Graphics2D g, Address p, int num) {
 		if (isHighlightSelectionMode() && getSelectedNumber() > 0) {
 			if (getSelectedNumber() == num) {

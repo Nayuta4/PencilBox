@@ -9,16 +9,16 @@ import pencilbox.resource.Messages;
 
 
 /**
- * ƒvƒƒpƒeƒB•\¦C•ÒW—pƒ_ƒCƒAƒƒO
- * ƒ‚[ƒ_ƒ‹ƒ_ƒCƒAƒƒO‚È‚Ì‚ÅC1‚Â‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚Ì‚İ‚ğ¶¬‚µ‚Äg‚¢‰ñ‚·
+ * ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£è¡¨ç¤ºï¼Œç·¨é›†ç”¨ãƒ€ã‚¤ã‚¢ãƒ­ã‚°
+ * ãƒ¢ãƒ¼ãƒ€ãƒ«ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ãªã®ã§ï¼Œ1ã¤ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ã¿ã‚’ç”Ÿæˆã—ã¦ä½¿ã„å›ã™
  */
 public class PropertyDialog extends PencilBoxDialog {
 
 	private static PropertyDialog instance = new PropertyDialog();
 
 	/**
-	 * PropertyDialog ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾‚·‚é
-	 * @return PropertyDialog ƒCƒ“ƒXƒ^ƒ“ƒX
+	 * PropertyDialog ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å–å¾—ã™ã‚‹
+	 * @return PropertyDialog ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 	 */
 	public static PropertyDialog getInstance() {
 		return instance;
@@ -76,7 +76,7 @@ public class PropertyDialog extends PencilBoxDialog {
 		mainPanel.add(c, constraints);
 	}
 	/**
-	 * ƒ_ƒCƒAƒƒO‚ÌŠeTextField‚ÉŒ»İ‚ÌProperty‚Ì“à—e‚ğİ’è‚·‚éB
+	 * ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã®å„TextFieldã«ç¾åœ¨ã®Propertyã®å†…å®¹ã‚’è¨­å®šã™ã‚‹ã€‚
 	 * @param p Property
 	 */
 	public void setPropertyToDialog(Property p) {
@@ -86,7 +86,7 @@ public class PropertyDialog extends PencilBoxDialog {
 	}
 
 	/**
-	 * ƒ_ƒCƒAƒƒO‚ÌŠeTextField‚©‚çProperty‚ğ“Ç‚İæ‚é
+	 * ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã®å„TextFieldã‹ã‚‰Propertyã‚’èª­ã¿å–ã‚‹
 	 * @param p Property
 	 */
 	public void getPropertyFromDialog(Property p) {

@@ -5,7 +5,7 @@ import pencilbox.common.io.PzprWriterBase;
 
 
 /**
- * QlFpzprv3 kudodoko.js
+ * å‚è€ƒï¼špzprv3 kudodoko.js
  */
 public class PzprWriter extends PzprWriterBase {
 

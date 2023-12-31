@@ -22,7 +22,7 @@ import pencilbox.common.factory.PencilType;
 
 
 /**
- * pclŒ`®ƒtƒ@ƒCƒ‹‘‚«o‚µ‚ÌŠî‘bƒNƒ‰ƒX
+ * pclå½¢å¼ãƒ•ã‚¡ã‚¤ãƒ«æ›¸ãå‡ºã—ã®åŸºç¤ã‚¯ãƒ©ã‚¹
  */
 public abstract class PclWriterBase {
 
@@ -38,9 +38,9 @@ public abstract class PclWriterBase {
 		this.pencilType = pt;
 	}
 	/**
-	 * –â‘èƒf[ƒ^‚ğ.pclŒ`®‚Åƒtƒ@ƒCƒ‹‚É‘‚«o‚·
-	 * @param file ƒtƒ@ƒCƒ‹ 
-	 * @param problem –â‘è
+	 * å•é¡Œãƒ‡ãƒ¼ã‚¿ã‚’.pclå½¢å¼ã§ãƒ•ã‚¡ã‚¤ãƒ«ã«æ›¸ãå‡ºã™
+	 * @param file ãƒ•ã‚¡ã‚¤ãƒ« 
+	 * @param problem å•é¡Œ
 	 * @throws TransformerFactoryConfigurationError 
 	 * @throws TransformerException 
 	 * @throws FileNotFoundException 
@@ -53,9 +53,9 @@ public abstract class PclWriterBase {
 		t.transform(new DOMSource(doc), new StreamResult(file));
 	}
 	/**
-	 * –â‘è‚ğDOMƒhƒLƒ…ƒƒ“ƒg‚É•ÏŠ·‚·‚é
-	 * @param problem “ü—Í‚·‚é–â‘è
-	 * @return o—Í‚µ‚½‚µ‚½Document
+	 * å•é¡Œã‚’DOMãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã«å¤‰æ›ã™ã‚‹
+	 * @param problem å…¥åŠ›ã™ã‚‹å•é¡Œ
+	 * @return å‡ºåŠ›ã—ãŸã—ãŸDocument
 	 */
 	public Document buildDocument(Problem problem) {
 		this.board = problem.getBoard();
@@ -65,7 +65,7 @@ public abstract class PclWriterBase {
 			builder = builderFactory.newDocumentBuilder();
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
-			// ‚æ‚­•ª‚©‚ç‚È‚¢‚Ì‚Å‚Æ‚è‚ ‚¦‚¸“K“–‚Éˆ—‚·‚é
+			// ã‚ˆãåˆ†ã‹ã‚‰ãªã„ã®ã§ã¨ã‚Šã‚ãˆãšé©å½“ã«å‡¦ç†ã™ã‚‹
 		}
 		doc = builder.newDocument();
 		Element puzzleElement = doc.createElement("puzzle");
@@ -117,8 +117,8 @@ public abstract class PclWriterBase {
 		return "";
 	}
 	/**
-	 * Board ‚ğæ“¾‚·‚é
- 	 * @return@board
+	 * Board ã‚’å–å¾—ã™ã‚‹
+ 	 * @returnã€€board
 	 */
 	protected BoardBase getBoard() {
 		return board;

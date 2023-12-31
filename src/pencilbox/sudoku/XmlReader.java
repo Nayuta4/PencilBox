@@ -20,7 +20,7 @@ public class XmlReader extends XmlReaderBase {
 		board.setNumber(r, c, n);
 	}
 	protected void setAN(int r, int c, int n) {
-		// ‰Šú‰»‚Å0‚É‚È‚Á‚Ä‚¢‚éASTABLE‚ÌŠ‚Í‚O‚É‚È‚Á‚Ä‚¢‚é
+		// åˆæœŸåŒ–ã§0ã«ãªã£ã¦ã„ã‚‹ã€STABLEã®æ‰€ã¯ï¼ã«ãªã£ã¦ã„ã‚‹
 		if (n != 0)
 			board.setState(r, c, n);
 	}

@@ -1,7 +1,7 @@
 package pencilbox.common.core;
 
 /**
- * –â‘è•t‘®î•ñƒNƒ‰ƒX
+ * å•é¡Œä»˜å±æƒ…å ±ã‚¯ãƒ©ã‚¹
  */
 public class Property {
 
@@ -10,14 +10,14 @@ public class Property {
 	private String difficulty = "";
 
 	/**
-	 * ƒfƒtƒHƒ‹ƒgƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	 * ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	 */
 	public Property () {
 	}
 
 	/**
-	 * ƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param p ƒRƒs[Œ³Property
+	 * ã‚³ãƒ”ãƒ¼ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param p ã‚³ãƒ”ãƒ¼å…ƒProperty
 	 */
 	public Property (Property p) {
 		this.author = p.author;
@@ -26,42 +26,42 @@ public class Property {
 	}
 
 	/**
-	 * @return ìÒ–¼
+	 * @return ä½œè€…å
 	 */
 	public String getAuthor() {
 		return author;
 	}
 
 	/**
-	 * @return “ïˆÕ“x
+	 * @return é›£æ˜“åº¦
 	 */
 	public String getDifficulty() {
 		return difficulty;
 	}
 
 	/**
-	 * @return@o“T
+	 * @returnã€€å‡ºå…¸
 	 */
 	public String getSource() {
 		return source;
 	}
 
 	/**
-	 * @param string ìÒ–¼
+	 * @param string ä½œè€…å
 	 */
 	public void setAuthor(String string) {
 		author = string;
 	}
 
 	/**
-	 * @param string “ïˆÕ“x
+	 * @param string é›£æ˜“åº¦
 	 */
 	public void setDifficulty(String string) {
 		difficulty = string;
 	}
 
 	/**
-	 * @param string o“T
+	 * @param string å‡ºå…¸
 	 */
 	public void setSource(String string) {
 		source = string;

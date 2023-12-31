@@ -6,13 +6,13 @@ import pencilbox.common.core.SideAddress;
 import pencilbox.common.gui.PanelEventHandlerBase;
 
 /**
- * uƒ„ƒWƒŠƒ“vƒ}ƒEƒX^ƒL[‘€ìˆ—ƒNƒ‰ƒX
+ * ã€Œãƒ¤ã‚¸ãƒªãƒ³ã€ãƒã‚¦ã‚¹ï¼ã‚­ãƒ¼æ“ä½œå‡¦ç†ã‚¯ãƒ©ã‚¹
  */
 public class PanelEventHandler extends PanelEventHandlerBase {
 
 	private Board board;
 
-	private int currentState = NULLSTATE; // ƒhƒ‰ƒbƒO’†‚Ì•Ó‚Ìó‘Ô‚ğ•\‚·
+	private int currentState = NULLSTATE; // ãƒ‰ãƒ©ãƒƒã‚°ä¸­ã®è¾ºã®çŠ¶æ…‹ã‚’è¡¨ã™
 	private static final int NULLSTATE  = -9;
 	private static final int PRE_BLACK = -19;
 
@@ -28,7 +28,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/*
-	 * uƒ„ƒWƒŠƒ“vƒ}ƒEƒX‘€ì
+	 * ã€Œãƒ¤ã‚¸ãƒªãƒ³ã€ãƒã‚¦ã‚¹æ“ä½œ
 	 */
 	protected void leftPressed(Address pos) {
 		if (board.getNumber(pos) == Board.BLACK)
@@ -70,9 +70,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/**
-	 * ƒ}ƒX‚Ìó‘Ô‚ğ –¢’èÌst ‚ÅØ‚è‘Ö‚¦‚é
-	 * @param pos ƒ}ƒXÀ•W
-	 * @param st Ø‚è‘Ö‚¦‚éó‘Ô
+	 * ãƒã‚¹ã®çŠ¶æ…‹ã‚’ æœªå®šâ‡”st ã§åˆ‡ã‚Šæ›¿ãˆã‚‹
+	 * @param pos ãƒã‚¹åº§æ¨™
+	 * @param st åˆ‡ã‚Šæ›¿ãˆã‚‹çŠ¶æ…‹
 	 */
 	private void toggleState(Address pos, int st) {
 		if (board.isNumber(pos))
@@ -88,10 +88,10 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/**
-	 * ƒ}ƒX‚Ìó‘Ô‚ğ currentState ‚Éİ’è‚·‚éB‚½‚¾‚µA
-	 * E”šƒ}ƒX‚Í•ÏX‚µ‚È‚¢B
-	 * EŠm’è”’ƒ}ƒX‚Í•ƒ}ƒX‚ğã‘‚«‚µ‚È‚¢B
-	 * E•ƒ}ƒX‚ÍŠm’è”’ƒ}ƒX‚¨‚æ‚Ñü‚ğã‘‚«‚¹‚¸Aƒ^ƒeƒˆƒR‚É˜A‘±‚µ‚È‚¢B
+	 * ãƒã‚¹ã®çŠ¶æ…‹ã‚’ currentState ã«è¨­å®šã™ã‚‹ã€‚ãŸã ã—ã€
+	 * ãƒ»æ•°å­—ãƒã‚¹ã¯å¤‰æ›´ã—ãªã„ã€‚
+	 * ãƒ»ç¢ºå®šç™½ãƒã‚¹ã¯é»’ãƒã‚¹ã‚’ä¸Šæ›¸ãã—ãªã„ã€‚
+	 * ãƒ»é»’ãƒã‚¹ã¯ç¢ºå®šç™½ãƒã‚¹ãŠã‚ˆã³ç·šã‚’ä¸Šæ›¸ãã›ãšã€ã‚¿ãƒ†ãƒ¨ã‚³ã«é€£ç¶šã—ãªã„ã€‚
 	 * @param pos
 	 */
 	private void sweepState(Address pos) {
@@ -114,11 +114,11 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		board.changeNumber(pos, currentState);
 	}
 	/**
-	 * n“_ƒ}ƒX‚ÆI“_ƒ}ƒX‚ğŒ‹‚ñ‚¾üã‚Ìó‘Ô‚ğw’è‚Ìó‘Ô‚É•ÏX‚·‚é
-	 * n“_‚Ì•Ó‚ÌŒ»İ‚Ìó‘Ô‚ªw’è‚Ìó‘Ô‚Å‚ ‚ê‚ÎC–¢’è‚É•ÏX‚·‚é
-	 * @param pos0 n“_ƒ}ƒX‚ÌÀ•W
-	 * @param pos1 I“_ƒ}ƒX‚ÌÀ•W
-	 * @param st •ÏXŒã‚Ìó‘Ô
+	 * å§‹ç‚¹ãƒã‚¹ã¨çµ‚ç‚¹ãƒã‚¹ã‚’çµã‚“ã ç·šä¸Šã®çŠ¶æ…‹ã‚’æŒ‡å®šã®çŠ¶æ…‹ã«å¤‰æ›´ã™ã‚‹
+	 * å§‹ç‚¹ã®è¾ºã®ç¾åœ¨ã®çŠ¶æ…‹ãŒæŒ‡å®šã®çŠ¶æ…‹ã§ã‚ã‚Œã°ï¼Œæœªå®šã«å¤‰æ›´ã™ã‚‹
+	 * @param pos0 å§‹ç‚¹ãƒã‚¹ã®åº§æ¨™
+	 * @param pos1 çµ‚ç‚¹ãƒã‚¹ã®åº§æ¨™
+	 * @param st å¤‰æ›´å¾Œã®çŠ¶æ…‹
 	 */
 	private void changeLineState(Address pos0, Address pos1, int st) {
 		int direction = Address.getDirectionTo(pos0, pos1);
@@ -142,7 +142,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		}
 	}
 	/*
-	 * uƒ„ƒWƒŠƒ“vƒL[‘€ì
+	 * ã€Œãƒ¤ã‚¸ãƒªãƒ³ã€ã‚­ãƒ¼æ“ä½œ
 	 */
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {

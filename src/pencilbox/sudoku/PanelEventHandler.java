@@ -5,7 +5,7 @@ import pencilbox.common.core.BoardBase;
 import pencilbox.common.gui.PanelEventHandlerBase;
 
 /**
- * u”“Ævƒ}ƒEƒX^ƒL[‘€ìˆ—ƒNƒ‰ƒX
+ * ã€Œæ•°ç‹¬ã€ãƒã‚¦ã‚¹ï¼ã‚­ãƒ¼æ“ä½œå‡¦ç†ã‚¯ãƒ©ã‚¹
  */
 public class PanelEventHandler extends PanelEventHandlerBase {
 
@@ -27,7 +27,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/*
-	 * u”“Ævƒ}ƒEƒX‘€ì
+	 * ã€Œæ•°ç‹¬ã€ãƒã‚¦ã‚¹æ“ä½œ
 	 */
 	protected void leftPressed(Address pos) {
 		if (!isCursorOn() || getCellCursor().isAt(pos)) {
@@ -55,7 +55,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		setSelectedNumber(board.getNumberOrState(pos));
 	}
 	/*
-	 * u”“ÆvƒL[‘€ì
+	 * ã€Œæ•°ç‹¬ã€ã‚­ãƒ¼æ“ä½œ
 	 */
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {

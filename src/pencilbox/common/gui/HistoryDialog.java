@@ -11,18 +11,18 @@ import javax.swing.event.ChangeListener;
 import pencilbox.common.core.UndoManager;
 
 /**
- * —š—ğ‘€ìƒ_ƒCƒAƒƒOB
- * ƒ‚[ƒ_ƒ‹ƒ_ƒCƒAƒƒO‚È‚Ì‚ÅC1‚Â‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚Ì‚İ‚ğ¶¬‚µ‚Äg‚¢‰ñ‚·B
- * ƒXƒ‰ƒCƒ_[‚Å‘I‘ğ‚µ‚½—š—ğ“_‚Ü‚ÅƒAƒ“ƒhƒD‚Ü‚½‚ÍƒŠƒhƒD‚ğÀs‚·‚éB
+ * å±¥æ­´æ“ä½œãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã€‚
+ * ãƒ¢ãƒ¼ãƒ€ãƒ«ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ãªã®ã§ï¼Œ1ã¤ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ã¿ã‚’ç”Ÿæˆã—ã¦ä½¿ã„å›ã™ã€‚
+ * ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã§é¸æŠã—ãŸå±¥æ­´ç‚¹ã¾ã§ã‚¢ãƒ³ãƒ‰ã‚¥ã¾ãŸã¯ãƒªãƒ‰ã‚¥ã‚’å®Ÿè¡Œã™ã‚‹ã€‚
  */
 public class HistoryDialog extends PencilBoxDialog {
 
 	private static HistoryDialog instance = new HistoryDialog();
 
 	/**
-	 * HistoryDialog ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾‚·‚é
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Íg—p•s‰Â‚ÅCƒCƒ“ƒXƒ^ƒ“ƒX‚Í‚±‚Ìƒƒ\ƒbƒh‚É‚æ‚èæ“¾‚·‚é
-	 * @return HistoryDialog ƒCƒ“ƒXƒ^ƒ“ƒX
+	 * HistoryDialog ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å–å¾—ã™ã‚‹
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã¯ä½¿ç”¨ä¸å¯ã§ï¼Œã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã¯ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã«ã‚ˆã‚Šå–å¾—ã™ã‚‹
+	 * @return HistoryDialog ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 	 */
 	public static HistoryDialog getInstance() {
 		return instance;
@@ -62,12 +62,12 @@ public class HistoryDialog extends PencilBoxDialog {
 	}
 
 	/**
-	 * ƒ_ƒCƒAƒƒO‚ªŒÄ‚Î‚ê‚½‚Æ‚«‚Ì‰Šúİ’è
-	 * @param p ƒpƒlƒ‹
-	 * @param um ƒAƒ“ƒhƒDƒ}ƒl[ƒWƒƒ[
+	 * ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ãŒå‘¼ã°ã‚ŒãŸã¨ãã®åˆæœŸè¨­å®š
+	 * @param p ãƒ‘ãƒãƒ«
+	 * @param um ã‚¢ãƒ³ãƒ‰ã‚¥ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
 	 */
 	public void init(PanelBase p, UndoManager um) {
-		slider.removeChangeListener(changeListener); // ‰Šúİ’è‚É”½‰‚µ‚È‚¢‚æ‚¤‚É‚¢‚Á‚½‚ñØ‚éB
+		slider.removeChangeListener(changeListener); // åˆæœŸè¨­å®šæ™‚ã«åå¿œã—ãªã„ã‚ˆã†ã«ã„ã£ãŸã‚“åˆ‡ã‚‹ã€‚
      	panel = p;
     	undoManager = um;
     	int m = um.getEditsSize();
@@ -83,7 +83,7 @@ public class HistoryDialog extends PencilBoxDialog {
     }
 
 	/**
-	 * ƒXƒ‰ƒCƒ_[‚Å‘I‘ğ‚µ‚½—š—ğ‚Ü‚Å”ò‚Ô
+	 * ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã§é¸æŠã—ãŸå±¥æ­´ã¾ã§é£›ã¶
 	 * @param n
 	 */
 	public void jumpTo(int n) {

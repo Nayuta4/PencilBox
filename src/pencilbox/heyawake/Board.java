@@ -14,7 +14,7 @@ import pencilbox.resource.Messages;
 import pencilbox.util.ArrayUtil;
 
 /**
- * u‚Ö‚â‚í‚¯v”Õ–Ê
+ * ã€Œã¸ã‚„ã‚ã‘ã€ç›¤é¢
  */
 public class Board extends BoardBase {
 
@@ -24,7 +24,7 @@ public class Board extends BoardBase {
 
 	private int[][] state;
 	private Square[][] square;
-	private List<Square> squareList;  // •”‰®
+	private List<Square> squareList;  // éƒ¨å±‹
 
 	int[][] chain;
 	int maxChain;
@@ -103,10 +103,10 @@ public class Board extends BoardBase {
 		return squareList;
 	}
 	/**
-	 * ƒ}ƒX‚Ìó‘Ô‚ğæ“¾
+	 * ãƒã‚¹ã®çŠ¶æ…‹ã‚’å–å¾—
 	 * @param r
 	 * @param c
-	 * @return ƒ}ƒX‚Ìó‘Ô
+	 * @return ãƒã‚¹ã®çŠ¶æ…‹
 	 */
 	public int getState(int r, int c) {
 		return state[r][c];
@@ -116,7 +116,7 @@ public class Board extends BoardBase {
 		return getState(pos.r(), pos.c());
 	}
 	/**
-	 * ƒ}ƒX‚Ìó‘Ô‚ğİ’è
+	 * ãƒã‚¹ã®çŠ¶æ…‹ã‚’è¨­å®š
 	 * @param r
 	 * @param c
 	 * @param st
@@ -129,9 +129,9 @@ public class Board extends BoardBase {
 		setState(pos.r(), pos.c(), st);
 	}
 	/**
-	 * ˆø”‚ÌÀ•W‚ª•ƒ}ƒX‚©‚Ç‚¤‚©B
-	 * @param p À•W
-	 * @return •ƒ}ƒX‚È‚ç true ‚ğ•Ô‚·B
+	 * å¼•æ•°ã®åº§æ¨™ãŒé»’ãƒã‚¹ã‹ã©ã†ã‹ã€‚
+	 * @param p åº§æ¨™
+	 * @return é»’ãƒã‚¹ãªã‚‰ true ã‚’è¿”ã™ã€‚
 	 */
 	public boolean isBlack(Address p) {
 		return isOn(p) && getState(p) == BLACK;
@@ -240,9 +240,9 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ƒ}ƒX‚Ìó‘Ô‚ğw’è‚µ‚½ó‘Ô‚É•ÏX‚µC•ÏX‚ğƒAƒ“ƒhƒDƒŠƒXƒi[‚É’Ê’m‚·‚é
-	 * @param p ƒ}ƒX‚ÌÀ•W
-	 * @param st •ÏXŒã‚Ìó‘Ô
+	 * ãƒã‚¹ã®çŠ¶æ…‹ã‚’æŒ‡å®šã—ãŸçŠ¶æ…‹ã«å¤‰æ›´ã—ï¼Œå¤‰æ›´ã‚’ã‚¢ãƒ³ãƒ‰ã‚¥ãƒªã‚¹ãƒŠãƒ¼ã«é€šçŸ¥ã™ã‚‹
+	 * @param p ãƒã‚¹ã®åº§æ¨™
+	 * @param st å¤‰æ›´å¾Œã®çŠ¶æ…‹
 	 */
 	public void changeState(Address p, int st) {
 		int prev = getState(p);
@@ -337,9 +337,9 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * lŠp‚ğ’Ç‰ÁC•ÏX‚µ‚½‚Æ‚«‚É‚·‚Å‚É‚ ‚é‘¼‚ÌlŠp‚Æd‚È‚éê‡C‚»‚ÌlŠp‚ğœ‹‚·‚éB
-	 * @param sq ’Ç‰Á,•ÏX‚·‚élŠp
-	 * @param org •ÏX‚·‚éê‡‚Ì‚à‚Æ‚ÌlŠp
+	 * å››è§’ã‚’è¿½åŠ ï¼Œå¤‰æ›´ã—ãŸã¨ãã«ã™ã§ã«ã‚ã‚‹ä»–ã®å››è§’ã¨é‡ãªã‚‹å ´åˆï¼Œãã®å››è§’ã‚’é™¤å»ã™ã‚‹ã€‚
+	 * @param sq è¿½åŠ ,å¤‰æ›´ã™ã‚‹å››è§’
+	 * @param org å¤‰æ›´ã™ã‚‹å ´åˆã®ã‚‚ã¨ã®å››è§’
 	 */
 	public void removeOverlappedSquares(Square sq, Square org) {
 		for (Address p : sq.cellSet()) {
@@ -351,9 +351,9 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * lŠpŒ`‚Ì”ÍˆÍ‚ÉŠÜ‚Ü‚ê‚éƒ}ƒX‚ÉSquareƒIƒuƒWƒFƒNƒg‚ğİ’è‚·‚é
-	 * @param region İ’è‚·‚élŠpŒ`‚Ì”ÍˆÍ
-	 * @param sq İ’è‚·‚éSquareƒIƒuƒWƒFƒNƒg
+	 * å››è§’å½¢ã®ç¯„å›²ã«å«ã¾ã‚Œã‚‹ãƒã‚¹ã«Squareã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¨­å®šã™ã‚‹
+	 * @param region è¨­å®šã™ã‚‹å››è§’å½¢ã®ç¯„å›²
+	 * @param sq è¨­å®šã™ã‚‹Squareã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 	 */
 	public void setSquare(Square region, Square sq) {
 		for (Address p : region.cellSet()) {
@@ -361,8 +361,8 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * lŠp‚ğ’Ç‰Á‚·‚é
-	 * @param sq ’Ç‰Á‚·‚élŠp
+	 * å››è§’ã‚’è¿½åŠ ã™ã‚‹
+	 * @param sq è¿½åŠ ã™ã‚‹å››è§’
 	 */
 	public void addSquare(Square sq) {
 		if (isRecordUndo())
@@ -371,10 +371,10 @@ public class Board extends BoardBase {
 		squareList.add(sq);
 	}
 	/**
-	 * lŠp‚ğ•ÏX‚·‚é
-	 * @param sq •ÏX‚³‚ê‚élŠp
-	 * @param q0 •ÏXŒã‚ÌlŠp‚ÌŠp‚ÌÀ•W
-	 * @param q1 •ÏXŒã‚ÌlŠp‚ÌŠp‚ÌÀ•W
+	 * å››è§’ã‚’å¤‰æ›´ã™ã‚‹
+	 * @param sq å¤‰æ›´ã•ã‚Œã‚‹å››è§’
+	 * @param q0 å¤‰æ›´å¾Œã®å››è§’ã®è§’ã®åº§æ¨™
+	 * @param q1 å¤‰æ›´å¾Œã®å››è§’ã®è§’ã®åº§æ¨™
 	 */
 	public void changeSquare(Square sq, Address q0, Address q1) {
 		if (isRecordUndo())
@@ -384,8 +384,8 @@ public class Board extends BoardBase {
 		setSquare(sq, sq);
 	}
 	/**
-	 * lŠp‚ğÁ‹‚·‚é
-	 * @param sq Á‹‚·‚élŠp
+	 * å››è§’ã‚’æ¶ˆå»ã™ã‚‹
+	 * @param sq æ¶ˆå»ã™ã‚‹å››è§’
 	 */
 	public void removeSquare(Square sq) {
 		changeNumber(sq.p0(), Square.ANY);
@@ -395,7 +395,7 @@ public class Board extends BoardBase {
 		squareList.remove(sq);
 	}
 	/**
-	 * •”‰®‚Ì”š‚ğ•ÏX‚·‚éB
+	 * éƒ¨å±‹ã®æ•°å­—ã‚’å¤‰æ›´ã™ã‚‹ã€‚
 	 * @param p
 	 * @param n
 	 */
@@ -412,9 +412,9 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * ‚»‚Ìƒ}ƒX‚Ìã‰º¶‰E‚Ì—×Ú‚Sƒ}ƒX‚É•ƒ}ƒX‚ª‚ ‚é‚©‚Ç‚¤‚©‚ğ’²‚×‚é
+	 * ãã®ãƒã‚¹ã®ä¸Šä¸‹å·¦å³ã®éš£æ¥ï¼”ãƒã‚¹ã«é»’ãƒã‚¹ãŒã‚ã‚‹ã‹ã©ã†ã‹ã‚’èª¿ã¹ã‚‹
 	 * @param p
-	 * @return ã‰º¶‰E‚É•ƒ}ƒX‚ª‚Ğ‚Æ‚Â‚Å‚à‚ ‚ê‚Î true
+	 * @return ä¸Šä¸‹å·¦å³ã«é»’ãƒã‚¹ãŒã²ã¨ã¤ã§ã‚‚ã‚ã‚Œã° true
 	 */
 	boolean isBlock(Address p) {
 		for (int d=0; d<4; d++) {
@@ -424,9 +424,9 @@ public class Board extends BoardBase {
 		return false;
 	}
 	/**
-	 * ˆø”‚Ìƒ}ƒX‚©‚çc‰¡‚É˜A‘±‚·‚é•”‰®‚ÌŒÂ”‚ğ”‚¦‚Äİ’è‚·‚é
-	 * @param p0 ‹N“_ƒ}ƒX
-	 * @param dir c‚©‰¡‚©
+	 * å¼•æ•°ã®ãƒã‚¹ã‹ã‚‰ç¸¦æ¨ªã«é€£ç¶šã™ã‚‹éƒ¨å±‹ã®å€‹æ•°ã‚’æ•°ãˆã¦è¨­å®šã™ã‚‹
+	 * @param p0 èµ·ç‚¹ãƒã‚¹
+	 * @param dir ç¸¦ã‹æ¨ªã‹
 	 */
 	void countContinuousRoom(Address p0, int dir) {
 		int count = 0;
@@ -451,9 +451,9 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * ˆø”‚Ìƒ}ƒX‚©‚çc‰¡‚É˜A‘±‚·‚é•”‰®‚ÌŒÂ”‚ğ”‚¦‚Äİ’è‚·‚é
-	 * @param p0 ‹N“_ƒ}ƒX
-	 * @param dir c‚©‰¡‚©
+	 * å¼•æ•°ã®ãƒã‚¹ã‹ã‚‰ç¸¦æ¨ªã«é€£ç¶šã™ã‚‹éƒ¨å±‹ã®å€‹æ•°ã‚’æ•°ãˆã¦è¨­å®šã™ã‚‹
+	 * @param p0 èµ·ç‚¹ãƒã‚¹
+	 * @param dir ç¸¦ã‹æ¨ªã‹
 	 */
 	void countContinuousRoomW(Address p0, int dir) {
 		int count = 0;
@@ -479,7 +479,7 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * 	chain”z—ñ‚ğ‰Šú‰»‚·‚é
+	 * 	chainé…åˆ—ã‚’åˆæœŸåŒ–ã™ã‚‹
 	 */
 	void initChain() {
 		maxChain = 1;
@@ -506,15 +506,15 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * Î‚ß‚É‚Â‚È‚ª‚é•ƒ}ƒX‚ğ‚½‚Ç‚èCchain ‚É”Ô† n ‚ğİ’è‚·‚é
-	 * •ª’f‚ğ”­Œ©‚µ‚½‚çC‚»‚Ì“_‚Å -1 ‚ğ•Ô‚µ‚Ä–ß‚é
-	 * @param p ¡‚Ìƒ}ƒX
-	 * @param d ŒÄ‚Ño‚µŒ³‚Ìƒ}ƒX‚©‚ç¡‚Ìƒ}ƒX‚ğŒ©‚½Œü‚«C‚±‚Ìƒ}ƒX‚ª‰‚ß‚È‚ç -1
-	 * @param n İ’è‚·‚é’l
-	 * @return ”Õ–Ê‚Ì•ª’f‚ğ”­Œ©‚µ‚½‚ç -1 , ‚»‚¤‚Å‚È‚¯‚ê‚Î n ‚Æ“¯‚¶’l
+	 * æ–œã‚ã«ã¤ãªãŒã‚‹é»’ãƒã‚¹ã‚’ãŸã©ã‚Šï¼Œchain ã«ç•ªå· n ã‚’è¨­å®šã™ã‚‹
+	 * åˆ†æ–­ã‚’ç™ºè¦‹ã—ãŸã‚‰ï¼Œãã®æ™‚ç‚¹ã§ -1 ã‚’è¿”ã—ã¦æˆ»ã‚‹
+	 * @param p ä»Šã®ãƒã‚¹
+	 * @param d å‘¼ã³å‡ºã—å…ƒã®ãƒã‚¹ã‹ã‚‰ä»Šã®ãƒã‚¹ã‚’è¦‹ãŸå‘ãï¼Œã“ã®ãƒã‚¹ãŒåˆã‚ãªã‚‰ -1
+	 * @param n è¨­å®šã™ã‚‹å€¤
+	 * @return ç›¤é¢ã®åˆ†æ–­ã‚’ç™ºè¦‹ã—ãŸã‚‰ -1 , ãã†ã§ãªã‘ã‚Œã° n ã¨åŒã˜å€¤
 	 */
 	int initChain1(Address p, int d, int n) {
-		if (n == 1 && d != -1 && isOnPeriphery(p)) { // —Ö‚ªŠOü‚É’B‚µ‚½
+		if (n == 1 && d != -1 && isOnPeriphery(p)) { // è¼ªãŒå¤–å‘¨ã«é”ã—ãŸ
 			return -1;
 		}
 		if (n >= 0 && isOnPeriphery(p)) {
@@ -525,10 +525,10 @@ public class Board extends BoardBase {
 		for (int dd : Direction.DIAGONAL4) {
 			Address pp = Address.nextCell(p, dd);
 			if (dd == (d^2))
-				continue; // ¡—ˆ‚½‚Æ‚±‚ë‚Í‚Æ‚Î‚·
+				continue; // ä»Šæ¥ãŸã¨ã“ã‚ã¯ã¨ã°ã™
 			if (!isBlack(pp))
-				continue; // •ƒ}ƒXˆÈŠO‚Í‚Æ‚Î‚·
-			if (getChain(pp) == n) // —Ö‚ª•Â‚¶‚½
+				continue; // é»’ãƒã‚¹ä»¥å¤–ã¯ã¨ã°ã™
+			if (getChain(pp) == n) // è¼ªãŒé–‰ã˜ãŸ
 				return -1;
 			if (initChain1(pp, dd, n) == -1)
 				return -1;
@@ -537,12 +537,12 @@ public class Board extends BoardBase {
 	}
 	private int[] adjacentChain = new int[4];
 	/**
-	 * 	•‚ÅŠm’è‚µ‚½‚Æ‚«‚ÉC‚»‚Ìƒ}ƒX‚ğŠî“_‚Æ‚µ‚Ächain‚ğXV‚·‚éD
-	 * 	‚»‚Ìƒ}ƒX‚ğŠm’è‚µ‚½‚±‚Æ‚É‚æ‚èCV‹K‚É•ª’f‚ª”­¶‚·‚é‚©‚ğ’²‚×C
-	 * 	”­¶‚·‚é‚È‚ç chain ‘S‘Ì‚ğ -1 ‚ÅXV‚·‚éD
-	 * 	”­¶‚µ‚È‚¢‚È‚çCÎ‚ß—×Ú4ƒ}ƒX‚ÌÅ¬’l‚É‚ ‚í‚¹‚éD
-	 * 	Î‚ß—×‚É•ƒ}ƒX‚ª‚È‚¯‚ê‚ÎCV‚µ‚¢”Ô†‚ğ‚Â‚¯‚éD
-	 * @param p ƒ}ƒX‚ÌÀ•W
+	 * 	é»’ã§ç¢ºå®šã—ãŸã¨ãã«ï¼Œãã®ãƒã‚¹ã‚’åŸºç‚¹ã¨ã—ã¦chainã‚’æ›´æ–°ã™ã‚‹ï¼
+	 * 	ãã®ãƒã‚¹ã‚’ç¢ºå®šã—ãŸã“ã¨ã«ã‚ˆã‚Šï¼Œæ–°è¦ã«åˆ†æ–­ãŒç™ºç”Ÿã™ã‚‹ã‹ã‚’èª¿ã¹ï¼Œ
+	 * 	ç™ºç”Ÿã™ã‚‹ãªã‚‰ chain å…¨ä½“ã‚’ -1 ã§æ›´æ–°ã™ã‚‹ï¼
+	 * 	ç™ºç”Ÿã—ãªã„ãªã‚‰ï¼Œæ–œã‚éš£æ¥4ãƒã‚¹ã®æœ€å°å€¤ã«ã‚ã‚ã›ã‚‹ï¼
+	 * 	æ–œã‚éš£ã«é»’ãƒã‚¹ãŒãªã‘ã‚Œã°ï¼Œæ–°ã—ã„ç•ªå·ã‚’ã¤ã‘ã‚‹ï¼
+	 * @param p ãƒã‚¹ã®åº§æ¨™
 	 */
 	void connectChain(Address p) {
 		int[] adjacent = adjacentChain;
@@ -553,14 +553,14 @@ public class Board extends BoardBase {
 		for (int dd : Direction.DIAGONAL4) {
 			Address pp = Address.nextCell(p, dd);
 			if (!isBlack(pp))
-				continue; // •ƒ}ƒXˆÈŠO‚Í‚Æ‚Î‚·
+				continue; // é»’ãƒã‚¹ä»¥å¤–ã¯ã¨ã°ã™
 			int c1 = getChain(pp);
 			if (isOnPeriphery(p) && c1 == 1) {
-				newChain = -1; // ’[‚Ìƒ}ƒX‚É‚¢‚é‚Æ‚«”Ô†1‚ªŒ©‚Â‚©‚Á‚½‚ç•ª’f‚³‚ê‚½
+				newChain = -1; // ç«¯ã®ãƒã‚¹ã«ã„ã‚‹ã¨ãç•ªå·1ãŒè¦‹ã¤ã‹ã£ãŸã‚‰åˆ†æ–­ã•ã‚ŒãŸ
 			}
 			adjacent[k] = c1;
 			for (int l = 0; l < k; l++) {
-				if (adjacent[k] == adjacent[l]) // “¯‚¶”Ô†‚ªŒ©‚Â‚©‚Á‚½‚ç•ª’f‚³‚ê‚½
+				if (adjacent[k] == adjacent[l]) // åŒã˜ç•ªå·ãŒè¦‹ã¤ã‹ã£ãŸã‚‰åˆ†æ–­ã•ã‚ŒãŸ
 					newChain = -1;
 			}
 			k++;
@@ -568,32 +568,32 @@ public class Board extends BoardBase {
 				newChain = c1;
 		}
 		if (newChain == Integer.MAX_VALUE)
-			setChain(p, ++maxChain); // üˆÍ‚É•ƒ}ƒX‚ª‚È‚¢‚Æ‚«CV‚µ‚¢”Ô†‚ğ‚Â‚¯‚é
+			setChain(p, ++maxChain); // å‘¨å›²ã«é»’ãƒã‚¹ãŒãªã„ã¨ãï¼Œæ–°ã—ã„ç•ªå·ã‚’ã¤ã‘ã‚‹
 		else
-			updateChain(p, newChain); // üˆÍ‚É•ƒ}ƒX‚ª‚ ‚é‚Æ‚«C‚»‚ÌÅ¬”Ô†‚ğ‚Â‚¯‚é
+			updateChain(p, newChain); // å‘¨å›²ã«é»’ãƒã‚¹ãŒã‚ã‚‹ã¨ãï¼Œãã®æœ€å°ç•ªå·ã‚’ã¤ã‘ã‚‹
 	}
 	/**
-	 * •ƒ}ƒX‚ğæ‚èÁ‚µ‚½‚Æ‚«‚ÉCchain‚ğXV‚·‚é
-	 * ‘S•”ŒvZ‚µ‚È‚¨‚·‚±‚Æ‚É‚·‚é
+	 * é»’ãƒã‚¹ã‚’å–ã‚Šæ¶ˆã—ãŸã¨ãã«ï¼Œchainã‚’æ›´æ–°ã™ã‚‹
+	 * å…¨éƒ¨è¨ˆç®—ã—ãªãŠã™ã“ã¨ã«ã™ã‚‹
 	 * @param p
 	 */
 	void cutChain(Address p) {
 		initChain();
 	}
 	/**
-	 * 	ƒ}ƒX‚É chain”Ô†‚ğİ’è‚·‚é
-	 * 	Î‚ß—×‚É•ƒ}ƒX‚ª‚ ‚ê‚Î“¯‚¶”Ô†‚ğİ’è‚·‚é
-	 * @param p ƒ}ƒX‚ÌÀ•W
-	 * @param n İ’è‚·‚é’l
+	 * 	ãƒã‚¹ã« chainç•ªå·ã‚’è¨­å®šã™ã‚‹
+	 * 	æ–œã‚éš£ã«é»’ãƒã‚¹ãŒã‚ã‚Œã°åŒã˜ç•ªå·ã‚’è¨­å®šã™ã‚‹
+	 * @param p ãƒã‚¹ã®åº§æ¨™
+	 * @param n è¨­å®šã™ã‚‹å€¤
 	 */
 	void updateChain(Address p, int n) {
 		setChain(p, n);
 		for (int dd : Direction.DIAGONAL4) {
 			Address pp = Address.nextCell(p, dd);
 			if (!isBlack(pp))
-				continue; // •ƒ}ƒXˆÈŠO‚Í‚Æ‚Î‚·
+				continue; // é»’ãƒã‚¹ä»¥å¤–ã¯ã¨ã°ã™
 			if (getChain(pp) == n)
-				continue; // “¯‚¶”Ô†‚ª‚ ‚Á‚½‚ç‚»‚Ì‚Ü‚Ü
+				continue; // åŒã˜ç•ªå·ãŒã‚ã£ãŸã‚‰ãã®ã¾ã¾
 			updateChain(pp, n);
 		}
 	}

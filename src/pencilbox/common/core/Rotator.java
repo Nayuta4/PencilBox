@@ -5,14 +5,14 @@ package pencilbox.common.core;
 
 
 /**
- * À•W‰ñ“]ŒvZ—p•â•ƒNƒ‰ƒX
+ * åº§æ¨™å›è»¢è¨ˆç®—ç”¨è£œåŠ©ã‚¯ãƒ©ã‚¹
  */
 public class Rotator {
 
 	/**
-	 * ˆø”‚Å—^‚¦‚½‰ñ“]”Ô†‚ÍC”Õ–ÊƒTƒCƒY‚Ìc‰¡ŒğŠ·‚ÉŠY“–‚·‚é‚©”Û‚©‚ğ“š‚¦‚é
-	 * @param n@‰ñ“]”Ô†
-	 * @return c‰¡ŒğŠ·‚³‚ê‚é‚È‚ç true, ‚³‚ê‚È‚¢‚È‚ç false
+	 * å¼•æ•°ã§ä¸ãˆãŸå›è»¢ç•ªå·ã¯ï¼Œç›¤é¢ã‚µã‚¤ã‚ºã®ç¸¦æ¨ªäº¤æ›ã«è©²å½“ã™ã‚‹ã‹å¦ã‹ã‚’ç­”ãˆã‚‹
+	 * @param nã€€å›è»¢ç•ªå·
+	 * @return ç¸¦æ¨ªäº¤æ›ã•ã‚Œã‚‹ãªã‚‰ true, ã•ã‚Œãªã„ãªã‚‰ false
 	 */
 	public static boolean isTransposed(int n) {
 		switch (n) {
@@ -32,25 +32,25 @@ public class Rotator {
 	}
 
 	/**
-	 * ‰ñ“]E”½“]”Ô†
-	 * 0@‰ñ“]‚È‚µ
-	 * 1 ¶90‹‰ñ“]
-	 * 2@¶180‹‰ñ“]
-	 * 3 ¶270‹‰ñ“]
-	 * 4 c‚Æ‰¡‚ğŒğŠ·
-	 * 5 ¶90‹‰ñ“]‚µC‚»‚ÌŒãc‚Æ‰¡‚ğŒğŠ·‚µ
-	 * 6 ¶180‹‰ñ“]‚µC‚»‚ÌŒãc‚Æ‰¡‚ğŒğŠ·
-	 * 7 ¶270‹‰ñ“]‚µC‚»‚ÌŒãc‚Æ‰¡‚ğŒğŠ·
+	 * å›è»¢ãƒ»åè»¢ç•ªå·
+	 * 0ã€€å›è»¢ãªã—
+	 * 1 å·¦90Â°å›è»¢
+	 * 2ã€€å·¦180Â°å›è»¢
+	 * 3 å·¦270Â°å›è»¢
+	 * 4 ç¸¦ã¨æ¨ªã‚’äº¤æ›
+	 * 5 å·¦90Â°å›è»¢ã—ï¼Œãã®å¾Œç¸¦ã¨æ¨ªã‚’äº¤æ›ã—
+	 * 6 å·¦180Â°å›è»¢ã—ï¼Œãã®å¾Œç¸¦ã¨æ¨ªã‚’äº¤æ›
+	 * 7 å·¦270Â°å›è»¢ã—ï¼Œãã®å¾Œç¸¦ã¨æ¨ªã‚’äº¤æ›
 	 */
 	private int rotation = 0;
-	private int rows; // ‘S‘Ì‚Ìs”
-	private int cols; // ‘S‘Ì‚Ì—ñ”
+	private int rows; // å…¨ä½“ã®è¡Œæ•°
+	private int cols; // å…¨ä½“ã®åˆ—æ•°
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param rows s”
-	 * @param cols —ñ”
-	 * @param rotation ‰ñ“]E”½“]”Ô†
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param rows è¡Œæ•°
+	 * @param cols åˆ—æ•°
+	 * @param rotation å›è»¢ãƒ»åè»¢ç•ªå·
 	 */
 	public Rotator(int rows, int cols, int rotation) {
 		this.rows = rows;
@@ -59,24 +59,24 @@ public class Rotator {
 	}
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param size ”Õ–ÊƒTƒCƒY
-	 * @param rotation ‰ñ“]E”½“]”Ô†
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param size ç›¤é¢ã‚µã‚¤ã‚º
+	 * @param rotation å›è»¢ãƒ»åè»¢ç•ªå·
 	 */
 	public Rotator(Size size, int rotation) {
 		this(size.getRows(), size.getCols(), rotation);
 	}
 
 	/**
-	 * ”Õ–ÊƒTƒCƒY‚Ìc‰¡‚ªŒğŠ·‚³‚ê‚é‚©‚Ç‚¤‚©
-	 * @return c‰¡ŒğŠ·‚³‚ê‚é‚È‚ç‚Î true
+	 * ç›¤é¢ã‚µã‚¤ã‚ºã®ç¸¦æ¨ªãŒäº¤æ›ã•ã‚Œã‚‹ã‹ã©ã†ã‹
+	 * @return ç¸¦æ¨ªäº¤æ›ã•ã‚Œã‚‹ãªã‚‰ã° true
 	 */
 	public boolean isTransposed() {
 		return isTransposed(rotation);
 	}
 
 	/**
-	 * •ÏŠ·‚µ‚½À•W‚ğ•Ô‚·
+	 * å¤‰æ›ã—ãŸåº§æ¨™ã‚’è¿”ã™
 	 * @param pos
 	 */
 	public Address rotateAddress(Address pos) {
@@ -122,9 +122,9 @@ public class Rotator {
 	}
 
 	/**
-	 * ”Õã‚Ì•ûŒü‚ğƒpƒlƒ‹ã‚Ì•ûŒü‚É•ÏŠ·‚·‚é
-	 * @param direction •ÏŠ·Œ³‚Ì•ûŒü‚ğ•\‚·”’l
-	 * @return •ÏŠ·Œã‚Ì•ûŒü‚ğ•\‚·”’l
+	 * ç›¤ä¸Šã®æ–¹å‘ã‚’ãƒ‘ãƒãƒ«ä¸Šã®æ–¹å‘ã«å¤‰æ›ã™ã‚‹
+	 * @param direction å¤‰æ›å…ƒã®æ–¹å‘ã‚’è¡¨ã™æ•°å€¤
+	 * @return å¤‰æ›å¾Œã®æ–¹å‘ã‚’è¡¨ã™æ•°å€¤
 	 */
 	public int rotateDirection(int direction) {
 		switch (rotation) {
@@ -146,10 +146,10 @@ public class Rotator {
 	}
 
 	/**
-	 * Area‚ğ‰ñ“]‚µ‚Ä•¡»‚·‚é
-	 * @param src •¡»Œ³Area
-	 * @param dst •¡»æArea
-	 * @return dst‚Æ“¯‚¶
+	 * Areaã‚’å›è»¢ã—ã¦è¤‡è£½ã™ã‚‹
+	 * @param src è¤‡è£½å…ƒArea
+	 * @param dst è¤‡è£½å…ˆArea
+	 * @return dstã¨åŒã˜
 	 */
 	public AreaBase rotateArea(AreaBase src, AreaBase dst) {
 		for (Address p : src) {
@@ -159,10 +159,10 @@ public class Rotator {
 	}
 
 	/**
-	 * ‚QŸŒ³intŒ^”z—ñ‚ğ‰ñ“]‚µ‚Ä•¡»‚·‚é
-	 * •¡»æ”z—ñ‚Í‚ ‚ç‚©‚¶‚ßì‚Á‚Ä‚¨‚©‚È‚¢‚Æ‚¢‚¯‚È‚¢
-	 * @param src •¡»Œ³‚QŸŒ³intŒ^”z—ñ
-	 * @param dst •¡»æ‚QŸŒ³intŒ^”z—ñ
+	 * ï¼’æ¬¡å…ƒintå‹é…åˆ—ã‚’å›è»¢ã—ã¦è¤‡è£½ã™ã‚‹
+	 * è¤‡è£½å…ˆé…åˆ—ã¯ã‚ã‚‰ã‹ã˜ã‚ä½œã£ã¦ãŠã‹ãªã„ã¨ã„ã‘ãªã„
+	 * @param src è¤‡è£½å…ƒï¼’æ¬¡å…ƒintå‹é…åˆ—
+	 * @param dst è¤‡è£½å…ˆï¼’æ¬¡å…ƒintå‹é…åˆ—
 	 */
 	public void rotateArrayInt2(int[][] src, int[][] dst) {
 		for (int r = 0; r < rows; r++) {
@@ -175,10 +175,10 @@ public class Rotator {
 	}
 
 	/**
-	 * •ÓÀ•WŒ^‚Ì‚RŸŒ³intŒ^”z—ñ‚ğ‰ñ“]‚µ‚Ä•¡»‚·‚é
-	 * •¡»æ”z—ñ‚Í‚ ‚ç‚©‚¶‚ßì‚Á‚Ä‚¨‚©‚È‚¢‚Æ‚¢‚¯‚È‚¢
-	 * @param src •¡»Œ³‚RŸŒ³intŒ^”z—ñ
-	 * @param dst •¡»æ‚RŸŒ³intŒ^”z—ñ
+	 * è¾ºåº§æ¨™å‹ã®ï¼“æ¬¡å…ƒintå‹é…åˆ—ã‚’å›è»¢ã—ã¦è¤‡è£½ã™ã‚‹
+	 * è¤‡è£½å…ˆé…åˆ—ã¯ã‚ã‚‰ã‹ã˜ã‚ä½œã£ã¦ãŠã‹ãªã„ã¨ã„ã‘ãªã„
+	 * @param src è¤‡è£½å…ƒï¼“æ¬¡å…ƒintå‹é…åˆ—
+	 * @param dst è¤‡è£½å…ˆï¼“æ¬¡å…ƒintå‹é…åˆ—
 	 */
 	public void rotateArrayInt3(int[][][] src, int[][][] dst) {
 		Rotator rotator2;

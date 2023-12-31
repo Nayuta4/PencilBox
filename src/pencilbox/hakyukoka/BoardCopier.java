@@ -35,23 +35,23 @@ public class BoardCopier extends BoardCopierBase {
 		for (Address s : region) {
 			Area srcArea = srcBoard.getArea(s);
 			if (srcArea != null) {
-				if (srcAreaList.contains(srcArea)) // ì‹ÆÏ‚İ
+				if (srcAreaList.contains(srcArea)) // ä½œæ¥­æ¸ˆã¿
 					continue;
-				srcAreaList.add(srcArea); //@ì‹ÆÏ‚İƒŠƒXƒg‚É‹L˜^‚·‚é
-				if (! region.containsAll(srcArea)) // —Ìˆæ‘S‘Ì‚ªŠÜ‚Ü‚ê‚È‚¢ê‡‚Í‚Æ‚Î‚·
+				srcAreaList.add(srcArea); //ã€€ä½œæ¥­æ¸ˆã¿ãƒªã‚¹ãƒˆã«è¨˜éŒ²ã™ã‚‹
+				if (! region.containsAll(srcArea)) // é ˜åŸŸå…¨ä½“ãŒå«ã¾ã‚Œãªã„å ´åˆã¯ã¨ã°ã™
 					continue;
 				Area dstArea = new Area();
 				for (Address ss : srcArea) {
 					Address dd = translateAndRotateAddress(ss, from, to, rotation);
 					if (! board.isOn(dd)) {
-						continue label; // ˆÚ“®æ‚ª”ÕŠO‚É‚Í‚İo‚éê‡‚Í’†~
+						continue label; // ç§»å‹•å…ˆãŒç›¤å¤–ã«ã¯ã¿å‡ºã‚‹å ´åˆã¯ä¸­æ­¢
 					}
 				}
 				for (Address ss : srcArea) {
 					Address dd = translateAndRotateAddress(ss, from, to, rotation);
 					if (board.isOn(dd)) {
 						Area oldArea = board.getArea(dd);
-						if (oldArea != null) { // ˆÚ“®æ‚ÉŠù‘¶‚Ì—Ìˆæ‚ª‚ ‚Á‚½‚çC—Ìˆæ‘S‘Ì‚ğÁ‹‚·‚éB
+						if (oldArea != null) { // ç§»å‹•å…ˆã«æ—¢å­˜ã®é ˜åŸŸãŒã‚ã£ãŸã‚‰ï¼Œé ˜åŸŸå…¨ä½“ã‚’æ¶ˆå»ã™ã‚‹ã€‚
 							board.removeWholeArea(oldArea);
 						}
 						board.addCellToArea(dd, dstArea);
@@ -83,9 +83,9 @@ public class BoardCopier extends BoardCopierBase {
 		for (Address s : region) {
 			Area srcArea = board.getArea(s);
 			if (srcArea != null) {
-				if (! region.containsAll(srcArea)) // ƒuƒƒbƒN‘S‘Ì‚ª‘I‘ğ‚³‚ê‚½ê‡‚ÉÁ‹‚·‚éB
+				if (! region.containsAll(srcArea)) // ãƒ–ãƒ­ãƒƒã‚¯å…¨ä½“ãŒé¸æŠã•ã‚ŒãŸå ´åˆã«æ¶ˆå»ã™ã‚‹ã€‚
 					continue;
-				board.removeWholeArea(srcArea); // —Ìˆæ‚²‚ÆÁ‹‚·‚éB
+				board.removeWholeArea(srcArea); // é ˜åŸŸã”ã¨æ¶ˆå»ã™ã‚‹ã€‚
 			}
 		}
 	}

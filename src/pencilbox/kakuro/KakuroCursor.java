@@ -3,15 +3,15 @@ package pencilbox.kakuro;
 import pencilbox.common.gui.CellCursor;
 
 /**
- * uƒJƒbƒNƒv–â‘è“ü—Í—pƒJ[ƒ\ƒ‹ƒNƒ‰ƒX
+ * ã€Œã‚«ãƒƒã‚¯ãƒ­ã€å•é¡Œå…¥åŠ›ç”¨ã‚«ãƒ¼ã‚½ãƒ«ã‚¯ãƒ©ã‚¹
  */
 public class KakuroCursor extends CellCursor {
 
 	static final int UPPER = 1;
 	static final int LOWER = 0;
 	/**
-	 * •ƒ}ƒX‚ÌÎü‚Ìã‚©‰º‚©
-	 * 0 ‚Í‰º 1 ‚Íã
+	 * é»’ãƒã‚¹ã®æ–œç·šã®ä¸Šã‹ä¸‹ã‹
+	 * 0 ã¯ä¸‹ 1 ã¯ä¸Š
 	 */
 	private int stair;
 	/**
@@ -27,7 +27,7 @@ public class KakuroCursor extends CellCursor {
 		this.stair = stair;
 	}
 	/**
-	 * uƒJƒbƒNƒv–â‘è“ü—Í—pƒJ[ƒ\ƒ‹‚ğì¬‚·‚é
+	 * ã€Œã‚«ãƒƒã‚¯ãƒ­ã€å•é¡Œå…¥åŠ›ç”¨ã‚«ãƒ¼ã‚½ãƒ«ã‚’ä½œæˆã™ã‚‹
 	 */
 	public KakuroCursor() {
 		super();

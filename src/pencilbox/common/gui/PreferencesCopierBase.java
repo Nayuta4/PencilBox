@@ -22,19 +22,19 @@ import pencilbox.common.factory.PencilBoxClassException;
 import pencilbox.common.factory.PencilType;
 
 /**
- * ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚Ìİ’è‚Ì•Û‘¶C“ÇC•¡Ê‚ğs‚¤‚½‚ß‚ÌƒNƒ‰ƒX
+ * ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã®è¨­å®šã®ä¿å­˜ï¼Œèª­è¾¼ï¼Œè¤‡å†™ã‚’è¡Œã†ãŸã‚ã®ã‚¯ãƒ©ã‚¹
  */
 public class PreferencesCopierBase {
 
 	private String pencilName;
 	private Properties properties = new Properties();
 
-	protected static List<PreferenceKey> usedKeys; // Šeí—Ş‚²‚Æ‚Ég—p‚·‚éPreferenceKeyBŒÂ•ÊƒNƒ‰ƒX‚Å‰Šú‰»‚Éİ’è‚·‚éB
+	protected static List<PreferenceKey> usedKeys; // å„ç¨®é¡ã”ã¨ã«ä½¿ç”¨ã™ã‚‹PreferenceKeyã€‚å€‹åˆ¥ã‚¯ãƒ©ã‚¹ã§åˆæœŸåŒ–æ™‚ã«è¨­å®šã™ã‚‹ã€‚
 
 	/**
-	 * PreferencesCopier ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğì¬‚·‚éB
-	 * @param pencilType í—Ş
-	 * @return ì¬‚µ‚½ PreferencesCopier ƒCƒ“ƒXƒ^ƒ“ƒX
+	 * PreferencesCopier ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ä½œæˆã™ã‚‹ã€‚
+	 * @param pencilType ç¨®é¡
+	 * @return ä½œæˆã—ãŸ PreferencesCopier ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 	 */
 	public static PreferencesCopierBase createInstance(PencilType pencilType) {
 		PreferencesCopierBase copier;
@@ -48,7 +48,7 @@ public class PreferencesCopierBase {
 	}
 
 	/**
-	 * Œ»İ‚Ì properties ‚ÉŠi”[‚³‚ê‚Ä‚¢‚éİ’è‚ğƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚É“K—p‚·‚éB
+	 * ç¾åœ¨ã® properties ã«æ ¼ç´ã•ã‚Œã¦ã„ã‚‹è¨­å®šã‚’ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã«é©ç”¨ã™ã‚‹ã€‚
 	 * @param command
 	 */
 	public void applyCurrentPreferences(MenuCommand command) {
@@ -134,7 +134,7 @@ public class PreferencesCopierBase {
 	}
 
 	/**
-	 * Œ»İ‚ÌƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚Ìİ’è‚ğæ“¾‚µ‚Ä properties ‚ÉŠi”[‚·‚éB 
+	 * ç¾åœ¨ã®ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã®è¨­å®šã‚’å–å¾—ã—ã¦ properties ã«æ ¼ç´ã™ã‚‹ã€‚ 
 	 * @param command
 	 */
 	public void acquireCurrentPreferences(MenuCommand command) {
@@ -220,9 +220,9 @@ public class PreferencesCopierBase {
 	}
 
 	/**
-	 * ƒƒjƒ…[‘I‘ğ‚ğƒRƒs[‚·‚é
-	 * @param src ƒRƒs[Œ³ƒtƒŒ[ƒ€‚Ì MenuCommand ƒCƒ“ƒXƒ^ƒ“ƒX
-	 * @param dst ƒRƒs[æƒtƒŒ[ƒ€‚Ì MenuCommand ƒCƒ“ƒXƒ^ƒ“ƒX
+	 * ãƒ¡ãƒ‹ãƒ¥ãƒ¼é¸æŠã‚’ã‚³ãƒ”ãƒ¼ã™ã‚‹
+	 * @param src ã‚³ãƒ”ãƒ¼å…ƒãƒ•ãƒ¬ãƒ¼ãƒ ã® MenuCommand ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
+	 * @param dst ã‚³ãƒ”ãƒ¼å…ˆãƒ•ãƒ¬ãƒ¼ãƒ ã® MenuCommand ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 	 */
 	public void copyPreferences(MenuCommand src, MenuCommand dst) {
 		acquireCurrentPreferences(src);
@@ -230,10 +230,10 @@ public class PreferencesCopierBase {
 	}
 
 	/**
-	 * İ’è‚ğƒtƒ@ƒCƒ‹‚©‚ç“Ç‚İ‚ñ‚ÅƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚É“K—p‚·‚éB
-	 * ƒtƒ@ƒCƒ‹‚É‚È‚¢€–Ú‚ÍŒ»İ‚Ìİ’è‚Ì‚Ü‚ÜB
+	 * è¨­å®šã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰èª­ã¿è¾¼ã‚“ã§ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã«é©ç”¨ã™ã‚‹ã€‚
+	 * ãƒ•ã‚¡ã‚¤ãƒ«ã«ãªã„é …ç›®ã¯ç¾åœ¨ã®è¨­å®šã®ã¾ã¾ã€‚
 	 * @param command
-	 * @param file “Ç‚İ‚Şƒtƒ@ƒCƒ‹
+	 * @param file èª­ã¿è¾¼ã‚€ãƒ•ã‚¡ã‚¤ãƒ«
 	 */
 	public void loadPreferences(MenuCommand command, File file) {
 		acquireCurrentPreferences(command);
@@ -251,11 +251,11 @@ public class PreferencesCopierBase {
 	}
 
 	/**
-	 * ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚Ìİ’è‚ğƒtƒ@ƒCƒ‹‚É•Û‘¶‚·‚éB
-	 * •Û‘¶‚·‚éƒtƒ@ƒCƒ‹‚ª‚·‚Å‚É‘¶İ‚·‚éê‡‚ÍC
-	 * “¯‚¶í—Ş‚Ì€–Ú‚É‚Â‚¢‚Ä‚Íã‘‚«‚µC‚»‚êˆÈŠO‚Ì€–Ú‚É‚Â‚¢‚Ä‚ÍŒ³‚Ìƒtƒ@ƒCƒ‹‚Ì’l‚ğ•Û‚·‚éB
+	 * ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã®è¨­å®šã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã«ä¿å­˜ã™ã‚‹ã€‚
+	 * ä¿å­˜ã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«ãŒã™ã§ã«å­˜åœ¨ã™ã‚‹å ´åˆã¯ï¼Œ
+	 * åŒã˜ç¨®é¡ã®é …ç›®ã«ã¤ã„ã¦ã¯ä¸Šæ›¸ãã—ï¼Œãã‚Œä»¥å¤–ã®é …ç›®ã«ã¤ã„ã¦ã¯å…ƒã®ãƒ•ã‚¡ã‚¤ãƒ«ã®å€¤ã‚’ä¿æŒã™ã‚‹ã€‚
 	 * @param command
-	 * @param file •Û‘¶‚·‚éƒtƒ@ƒCƒ‹
+	 * @param file ä¿å­˜ã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«
 	 */
 	public void storePreferences(MenuCommand command, File file) {
 		try {
@@ -265,7 +265,7 @@ public class PreferencesCopierBase {
 			acquireCurrentPreferences(command);
 //			properties.list(System.out);
 //			properties.store(new FileOutputStream(file), "PencilBox preferences");
-			// ƒL[‚Å®—ñ‚·‚é‚½‚ß‚ÉCProperties ‚ğ@TreeMap@‚É•ÏŠ·‚µ‚Ä‚©‚ç•Û‘¶‚·‚éB
+			// ã‚­ãƒ¼ã§æ•´åˆ—ã™ã‚‹ãŸã‚ã«ï¼ŒProperties ã‚’ã€€TreeMapã€€ã«å¤‰æ›ã—ã¦ã‹ã‚‰ä¿å­˜ã™ã‚‹ã€‚
 			TreeMapA map = new TreeMapA(properties);
 			map.store(new FileOutputStream(file), "PencilBox preferences");
 		} catch (FileNotFoundException e) {
@@ -318,7 +318,7 @@ public class PreferencesCopierBase {
 }
 
 /**
- * java.util.TreeMap ƒNƒ‰ƒX‚É java.util.Properties ƒNƒ‰ƒX‚Æ“¯—l‚Ì store() ƒƒ\ƒbƒh‚ğ’Ç‰Á‚µ‚½‚à‚ÌB
+ * java.util.TreeMap ã‚¯ãƒ©ã‚¹ã« java.util.Properties ã‚¯ãƒ©ã‚¹ã¨åŒæ§˜ã® store() ãƒ¡ã‚½ãƒƒãƒ‰ã‚’è¿½åŠ ã—ãŸã‚‚ã®ã€‚
  */
 class TreeMapA extends java.util.TreeMap<Object, Object> {
 
@@ -330,8 +330,8 @@ class TreeMapA extends java.util.TreeMap<Object, Object> {
     }
 
 	/**
-	 * Map ‚ğ ƒtƒ@ƒCƒ‹‚É‘‚«o‚·B
-	 * java.util.Properties ƒNƒ‰ƒX‚Ì@store()‚ğ^—‚½B
+	 * Map ã‚’ ãƒ•ã‚¡ã‚¤ãƒ«ã«æ›¸ãå‡ºã™ã€‚
+	 * java.util.Properties ã‚¯ãƒ©ã‚¹ã®ã€€store()ã‚’çœŸä¼¼ãŸã€‚
 	 * @param out
 	 * @param comments
 	 * @throws IOException

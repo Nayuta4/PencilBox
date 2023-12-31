@@ -7,7 +7,7 @@ import pencilbox.common.core.Direction;
 import pencilbox.common.io.PzprWriterBase;
 
 /**
- * QlFpzprv3 slalom.js
+ * å‚è€ƒï¼špzprv3 slalom.js
  */
 public class PzprWriter extends PzprWriterBase {
 
@@ -44,7 +44,7 @@ public class PzprWriter extends PzprWriterBase {
 		bd.initBoard();
 
 		count=0;
-		if (ver==0) { // ‹ŒŒ`®
+		if (ver==0) { // æ—§å½¢å¼
 			ArrayList<Address> gateList = makeGateList();
 
 			for (int r=0; r<bd.getNGate(); r++) {

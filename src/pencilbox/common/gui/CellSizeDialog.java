@@ -14,19 +14,19 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 /**
- * ƒ}ƒX‚Ì‘å‚«‚³‚ğİ’è‚·‚éƒ_ƒCƒAƒƒOB
- * ƒ‚[ƒ_ƒ‹ƒ_ƒCƒAƒƒO‚È‚Ì‚ÅC1‚Â‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚Ì‚İ‚ğ¶¬‚µ‚Äg‚¢‰ñ‚·B
- * Œİ‚¢‚É˜A“®‚µ‚½ƒXƒ‰ƒCƒ_[‚Ü‚½‚ÍƒXƒsƒi[‚Åƒ}ƒX‚Ì‘å‚«‚³‚ğİ’è‚·‚éB
- * ’l‚Íƒ}ƒX‚Ìƒsƒbƒ`‚ÌƒsƒNƒZƒ‹”B
+ * ãƒã‚¹ã®å¤§ãã•ã‚’è¨­å®šã™ã‚‹ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã€‚
+ * ãƒ¢ãƒ¼ãƒ€ãƒ«ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ãªã®ã§ï¼Œ1ã¤ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ã¿ã‚’ç”Ÿæˆã—ã¦ä½¿ã„å›ã™ã€‚
+ * äº’ã„ã«é€£å‹•ã—ãŸã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã¾ãŸã¯ã‚¹ãƒ”ãƒŠãƒ¼ã§ãƒã‚¹ã®å¤§ãã•ã‚’è¨­å®šã™ã‚‹ã€‚
+ * å€¤ã¯ãƒã‚¹ã®ãƒ”ãƒƒãƒã®ãƒ”ã‚¯ã‚»ãƒ«æ•°ã€‚
  */
 public class CellSizeDialog extends PencilBoxDialog implements MouseWheelListener {
 
 	private static CellSizeDialog instance = new CellSizeDialog();
 
 	/**
-	 * CellSizeDialog ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾‚·‚é
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Íg—p•s‰Â‚ÅCƒCƒ“ƒXƒ^ƒ“ƒX‚Í‚±‚Ìƒƒ\ƒbƒh‚É‚æ‚èæ“¾‚·‚é
-	 * @return CellSizeDialog ƒCƒ“ƒXƒ^ƒ“ƒX
+	 * CellSizeDialog ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å–å¾—ã™ã‚‹
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã¯ä½¿ç”¨ä¸å¯ã§ï¼Œã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã¯ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã«ã‚ˆã‚Šå–å¾—ã™ã‚‹
+	 * @return CellSizeDialog ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 	 */
 	public static CellSizeDialog getInstance() {
 		return instance;
@@ -70,7 +70,7 @@ public class CellSizeDialog extends PencilBoxDialog implements MouseWheelListene
 		slider.setMinorTickSpacing(2);
 		slider.setPaintTicks(true);
 		slider.setPaintLabels(true);
-//		slider.setSnapToTicks(true); // ƒL[ƒ{[ƒh‘€ì“™‚É‘Î‚µ‚ÄŠú‘Ò’Ê‚è‚É“®ì‚µ‚È‚¢‚Ì‚Å•sÌ—p
+//		slider.setSnapToTicks(true); // ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰æ“ä½œç­‰ã«å¯¾ã—ã¦æœŸå¾…é€šã‚Šã«å‹•ä½œã—ãªã„ã®ã§ä¸æ¡ç”¨
 		slider.addChangeListener(new ChangeListener() {
 	       public void stateChanged(ChangeEvent e) {
 				int value = slider.getValue();
@@ -112,9 +112,9 @@ public class CellSizeDialog extends PencilBoxDialog implements MouseWheelListene
 	}
 
 	/**
-	 * ƒ}ƒEƒXƒzƒC[ƒ‹‚ª‰ñ“]‚·‚é‚ÆŒÄ‚Ño‚³‚ê‚Ü‚·B
+	 * ãƒã‚¦ã‚¹ãƒ›ã‚¤ãƒ¼ãƒ«ãŒå›è»¢ã™ã‚‹ã¨å‘¼ã³å‡ºã•ã‚Œã¾ã™ã€‚
 	 * 
-	 * @param e ƒ}ƒEƒXƒzƒC[ƒ‹‚ÌƒCƒxƒ“ƒg
+	 * @param e ãƒã‚¦ã‚¹ãƒ›ã‚¤ãƒ¼ãƒ«ã®ã‚¤ãƒ™ãƒ³ãƒˆ
 	 * @see java.awt.event.MouseWheelListener#mouseWheelMoved(java.awt.event.MouseWheelEvent)
 	 */
 	public void mouseWheelMoved(MouseWheelEvent e) {

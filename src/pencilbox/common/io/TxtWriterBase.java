@@ -6,7 +6,7 @@ import pencilbox.common.core.BoardBase;
 
 
 /**
- * ƒeƒLƒXƒgŒ`®‚Ì”Õ–Ê‘‚«o‚µ‘€ì—pƒNƒ‰ƒX
+ * ãƒ†ã‚­ã‚¹ãƒˆå½¢å¼ã®ç›¤é¢æ›¸ãå‡ºã—æ“ä½œç”¨ã‚¯ãƒ©ã‚¹
  */
 public abstract class TxtWriterBase {
 
@@ -14,27 +14,27 @@ public abstract class TxtWriterBase {
 	public static int QUESTION_ONLY = 1;
 
 	/**
-	 * ƒeƒLƒXƒgŒ`®‚Å”Õ–Ê‚ğ‘‚«o‚·
-	 * @param out o—Í
-	 * @param board ‘‚«o‚·”Õ–Ê
+	 * ãƒ†ã‚­ã‚¹ãƒˆå½¢å¼ã§ç›¤é¢ã‚’æ›¸ãå‡ºã™
+	 * @param out å‡ºåŠ›
+	 * @param board æ›¸ãå‡ºã™ç›¤é¢
 	 */
 	public void writeProblem(PrintWriter out, BoardBase board) {
 		writeProblem(out, board, ALL);
 	}
 	/**
-	 * ƒeƒLƒXƒgŒ`®‚Å”Õ–Ê‚ğ‘‚«o‚·B
-	 * ‰ñ“šó‘Ô‚Í–³‹‚µ‚ÄC–â‘èƒf[ƒ^‚Ì‚İ‘‚«o‚·
-	 * @param out o—Í
-	 * @param board ‘‚«o‚·”Õ–Ê
+	 * ãƒ†ã‚­ã‚¹ãƒˆå½¢å¼ã§ç›¤é¢ã‚’æ›¸ãå‡ºã™ã€‚
+	 * å›ç­”çŠ¶æ…‹ã¯ç„¡è¦–ã—ã¦ï¼Œå•é¡Œãƒ‡ãƒ¼ã‚¿ã®ã¿æ›¸ãå‡ºã™
+	 * @param out å‡ºåŠ›
+	 * @param board æ›¸ãå‡ºã™ç›¤é¢
 	 */
 	public void writeQuestion(PrintWriter out, BoardBase board) {
 		writeProblem(out, board, QUESTION_ONLY);
 	}
 	/**
-	 * ƒeƒLƒXƒgŒ`®‚Å”Õ–Ê‚ğ‘‚«o‚·
-	 * @param out o—Í
-	 * @param board ‘‚«o‚·”Õ–Ê
-	 * @param mode ‘‚«o‚µƒ‚[ƒhi–â‘èƒf[ƒ^‚Ì‚İ‚©C‰ñ“šƒf[ƒ^‚àŠÜ‚Ş‚©j
+	 * ãƒ†ã‚­ã‚¹ãƒˆå½¢å¼ã§ç›¤é¢ã‚’æ›¸ãå‡ºã™
+	 * @param out å‡ºåŠ›
+	 * @param board æ›¸ãå‡ºã™ç›¤é¢
+	 * @param mode æ›¸ãå‡ºã—ãƒ¢ãƒ¼ãƒ‰ï¼ˆå•é¡Œãƒ‡ãƒ¼ã‚¿ã®ã¿ã‹ï¼Œå›ç­”ãƒ‡ãƒ¼ã‚¿ã‚‚å«ã‚€ã‹ï¼‰
 	 */
 	public abstract void writeProblem(PrintWriter out, BoardBase board, int mode);
 

@@ -13,7 +13,7 @@ import pencilbox.util.ArrayUtil;
 
 
 /**
- * u‚Ì‚è‚Ì‚èv”Õ–ÊƒNƒ‰ƒX
+ * ã€Œã®ã‚Šã®ã‚Šã€ç›¤é¢ã‚¯ãƒ©ã‚¹
  */
 public class Board extends BoardBase {
 
@@ -79,10 +79,10 @@ public class Board extends BoardBase {
 		setState(p.r(), p.c(), st);
 	}
 	/**
-	 * ˆø”‚ÌÀ•W‚ª•ƒ}ƒX‚©‚Ç‚¤‚©B
-	 * @param r sÀ•W
-	 * @param c —ñÀ•W
-	 * @return •ƒ}ƒX‚È‚ç true ‚ğ•Ô‚·B
+	 * å¼•æ•°ã®åº§æ¨™ãŒé»’ãƒã‚¹ã‹ã©ã†ã‹ã€‚
+	 * @param r è¡Œåº§æ¨™
+	 * @param c åˆ—åº§æ¨™
+	 * @return é»’ãƒã‚¹ãªã‚‰ true ã‚’è¿”ã™ã€‚
 	 */
 	public boolean isBlack(int r, int c) {
 		return isOn(r, c) && (state[r][c] == BLACK);
@@ -91,8 +91,8 @@ public class Board extends BoardBase {
 		return isOn(p) && getState(p) == BLACK;
 	}
 	/**
-	 * ‚»‚Ìƒ}ƒX‚ÌŠ‘®‚·‚é—Ìˆæ‚ğæ“¾‚·‚é
-	 * ‚»‚Ìƒ}ƒX‚ª—Ìˆæ‚É‘®‚µ‚Ä‚¢‚È‚¢ê‡‚Í null ‚ğ•Ô‚·
+	 * ãã®ãƒã‚¹ã®æ‰€å±ã™ã‚‹é ˜åŸŸã‚’å–å¾—ã™ã‚‹
+	 * ãã®ãƒã‚¹ãŒé ˜åŸŸã«å±ã—ã¦ã„ãªã„å ´åˆã¯ null ã‚’è¿”ã™
 	 * @param p coordinate of the cell.
 	 * @return Returns the area.
 	 */
@@ -100,7 +100,7 @@ public class Board extends BoardBase {
 		return wall[p.r()][p.c()];
 	}
 	/**
-	 * ”Õã‚Ìƒ}ƒX‚ÉC‚»‚Ìƒ}ƒX‚ÌŠ‘®‚·‚é—Ìˆæ‚ğİ’è‚·‚é
+	 * ç›¤ä¸Šã®ãƒã‚¹ã«ï¼Œãã®ãƒã‚¹ã®æ‰€å±ã™ã‚‹é ˜åŸŸã‚’è¨­å®šã™ã‚‹
 	 * @param p coordinate of the cell.
 	 * @param a The area to set.
 	 */
@@ -108,8 +108,8 @@ public class Board extends BoardBase {
 		wall[p.r()][p.c()] = a;
 	}
 	/**
-	 * ‚»‚Ìƒ}ƒX‚ÌŠ‘®‚·‚é—Ìˆæ‚ğæ“¾‚·‚é
-	 * ‚»‚Ìƒ}ƒX‚ª—Ìˆæ‚É‘®‚µ‚Ä‚¢‚È‚¢ê‡‚Í null ‚ğ•Ô‚·
+	 * ãã®ãƒã‚¹ã®æ‰€å±ã™ã‚‹é ˜åŸŸã‚’å–å¾—ã™ã‚‹
+	 * ãã®ãƒã‚¹ãŒé ˜åŸŸã«å±ã—ã¦ã„ãªã„å ´åˆã¯ null ã‚’è¿”ã™
 	 * @param r Row coordinate of the cell.
 	 * @param c Column coordinate of the cell.
 	 * @return Returns the area.
@@ -125,7 +125,7 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ”Õã‚Ìƒ}ƒX‚ÉC‚»‚Ìƒ}ƒX‚ÌŠ‘®‚·‚é—Ìˆæ‚ğİ’è‚·‚é
+	 * ç›¤ä¸Šã®ãƒã‚¹ã«ï¼Œãã®ãƒã‚¹ã®æ‰€å±ã™ã‚‹é ˜åŸŸã‚’è¨­å®šã™ã‚‹
 	 * @param r Row coordinate of the cell.
 	 * @param c Column coordinate of the cell.
 	 * @param a The area to set.
@@ -139,9 +139,9 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ƒ}ƒX‚Ìó‘Ô‚ğw’è‚µ‚½ó‘Ô‚É•ÏX‚µC•ÏX‚ğƒAƒ“ƒhƒDƒŠƒXƒi[‚É’Ê’m‚·‚é
-	 * @param p ƒ}ƒXÀ•W
-	 * @param st •ÏXŒã‚Ìó‘Ô
+	 * ãƒã‚¹ã®çŠ¶æ…‹ã‚’æŒ‡å®šã—ãŸçŠ¶æ…‹ã«å¤‰æ›´ã—ï¼Œå¤‰æ›´ã‚’ã‚¢ãƒ³ãƒ‰ã‚¥ãƒªã‚¹ãƒŠãƒ¼ã«é€šçŸ¥ã™ã‚‹
+	 * @param p ãƒã‚¹åº§æ¨™
+	 * @param st å¤‰æ›´å¾Œã®çŠ¶æ…‹
 	 */
 	public void changeState(Address p, int st) {
 		int prev = getState(p);
@@ -162,7 +162,7 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * V‚µ‚¢—Ìˆæ‚ğ’Ç‰Á‚·‚é
+	 * æ–°ã—ã„é ˜åŸŸã‚’è¿½åŠ ã™ã‚‹
 	 * @param newArea
 	 */
 	public void addArea(Area newArea) {
@@ -172,7 +172,7 @@ public class Board extends BoardBase {
 		areaList.add(newArea);
 	}
 	/**
-	 * —Ìˆæ‚Ì‚·‚×‚Ä‚Ìƒ}ƒX‚ğ—Ìˆæ‚©‚çœ‚¢‚Ä—Ìˆæ‚ğíœ‚·‚é
+	 * é ˜åŸŸã®ã™ã¹ã¦ã®ãƒã‚¹ã‚’é ˜åŸŸã‹ã‚‰é™¤ã„ã¦é ˜åŸŸã‚’å‰Šé™¤ã™ã‚‹
 	 * @param oldArea
 	 */
 	public void removeWholeArea(Area oldArea) {
@@ -182,9 +182,9 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * ƒ}ƒX‚ğ—Ìˆæ‚É’Ç‰Á‚·‚é
-	 * @param p ’Ç‰Á‚·‚éƒ}ƒX‚ÌÀ•W
-	 * @param a ’Ç‰Á‚³‚ê‚é—Ìˆæ
+	 * ãƒã‚¹ã‚’é ˜åŸŸã«è¿½åŠ ã™ã‚‹
+	 * @param p è¿½åŠ ã™ã‚‹ãƒã‚¹ã®åº§æ¨™
+	 * @param a è¿½åŠ ã•ã‚Œã‚‹é ˜åŸŸ
 	 */
 	public void addCellToArea(Address p, Area a) {
 		if (isRecordUndo()) {
@@ -205,9 +205,9 @@ public class Board extends BoardBase {
 //		initArea(a);
 	}
 	/**
-	 * ƒ}ƒX‚ğ—Ìˆæ‚©‚çæ‚èœ‚­
-	 * @param p æ‚èœ‚­ƒ}ƒX‚ÌÀ•W
-	 * @param a æ‚èœ‚©‚ê‚é—Ìˆæ
+	 * ãƒã‚¹ã‚’é ˜åŸŸã‹ã‚‰å–ã‚Šé™¤ã
+	 * @param p å–ã‚Šé™¤ããƒã‚¹ã®åº§æ¨™
+	 * @param a å–ã‚Šé™¤ã‹ã‚Œã‚‹é ˜åŸŸ
 	 */
 	public void removeCellFromArea(Address p, Area a) {
 		if (isRecordUndo()) {
@@ -229,7 +229,7 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * ƒ}ƒXp ‚ğ p0 ‚Æ“¯‚¶—Ìˆæ‚É‚·‚éB‚½‚¾‚µ p0‚ª NOWHWER‚È‚ç‚ÎV‚µ‚¢—Ìˆæ‚ğì‚é
+	 * ãƒã‚¹p ã‚’ p0 ã¨åŒã˜é ˜åŸŸã«ã™ã‚‹ã€‚ãŸã ã— p0ãŒ NOWHWERãªã‚‰ã°æ–°ã—ã„é ˜åŸŸã‚’ä½œã‚‹
 	 * @param p0
 	 * @param p
 	 */
@@ -245,7 +245,7 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * ƒ}ƒX p ‚ğ—Ìˆæ‚©‚çæ‚èœ‚­B
+	 * ãƒã‚¹ p ã‚’é ˜åŸŸã‹ã‚‰å–ã‚Šé™¤ãã€‚
 	 * @param p
 	 */
 	void removeCell(Address p) {
@@ -302,10 +302,10 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ‚»‚Ìƒ}ƒX‚ª2‚˜2‚Ì•ƒ}ƒXƒuƒƒbƒN‚ÌˆêŠp‚©‚Ç‚¤‚©‚ğ’²‚×‚é
+	 * ãã®ãƒã‚¹ãŒ2ï½˜2ã®é»’ãƒã‚¹ãƒ–ãƒ­ãƒƒã‚¯ã®ä¸€è§’ã‹ã©ã†ã‹ã‚’èª¿ã¹ã‚‹
 	 * @param r
 	 * @param c
-	 * @return 2x2ƒuƒƒbƒN‚È‚ç‚Î true
+	 * @return 2x2ãƒ–ãƒ­ãƒƒã‚¯ãªã‚‰ã° true
 	 */
 	boolean is2x2Block(Address p) {
 		if (isBlack(p)) {
@@ -329,15 +329,15 @@ public class Board extends BoardBase {
 		int result = 0;
 		if (areaList.size() == 0)
 			result |= 1;
-		// ƒuƒƒbƒN‚²‚Æ‚É‚Qƒ}ƒX‚Ì•ƒ}ƒX‚ª‚ ‚é‚©‚Ìƒ`ƒFƒbƒN
+		// ãƒ–ãƒ­ãƒƒã‚¯ã”ã¨ã«ï¼’ãƒã‚¹ã®é»’ãƒã‚¹ãŒã‚ã‚‹ã‹ã®ãƒã‚§ãƒƒã‚¯
 		result |= checkBlocks();
-		// •ƒ}ƒX‚Qƒ}ƒX‚Â‚È‚ª‚è‚Ìƒ`ƒFƒbƒN
+		// é»’ãƒã‚¹ï¼’ãƒã‚¹ã¤ãªãŒã‚Šã®ãƒã‚§ãƒƒã‚¯
 		result |= checkWalls();
 		return result;
 	}
 
 	/**
-	 * Œ»İ‚Ì”Õ–Êó‘Ô‚ÉŠî‚Ã‚¢‚ÄC—Ìˆæ‚Ìİ’è‚ğs‚¤
+	 * ç¾åœ¨ã®ç›¤é¢çŠ¶æ…‹ã«åŸºã¥ã„ã¦ï¼Œé ˜åŸŸã®è¨­å®šã‚’è¡Œã†
 	 */
 	public void initBlocks() {
 		for (Area a : areaList) {
@@ -377,7 +377,7 @@ public class Board extends BoardBase {
 		return 0;
 	}
 	/**
-	 * ‚ ‚éƒ}ƒX‚ğ‹N“_‚Æ‚·‚é•ƒ}ƒX‚Ì‚Â‚È‚ª‚è‚ğ’²‚×‚ÄWall‚ğì¬‚·‚é
+	 * ã‚ã‚‹ãƒã‚¹ã‚’èµ·ç‚¹ã¨ã™ã‚‹é»’ãƒã‚¹ã®ã¤ãªãŒã‚Šã‚’èª¿ã¹ã¦Wallã‚’ä½œæˆã™ã‚‹
 	 * @param p
 	 */
 	private void initWall(Address p) {

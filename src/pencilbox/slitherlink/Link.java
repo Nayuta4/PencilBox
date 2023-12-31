@@ -2,7 +2,7 @@ package pencilbox.slitherlink;
 
 
 /**
- * 「スリザーリンク」リンククラス
+ * 縲後せ繝ｪ繧ｶ繝ｼ繝ｪ繝ｳ繧ｯ縲阪Μ繝ｳ繧ｯ繧ｯ繝ｩ繧ｹ
  */
 public class Link extends pencilbox.common.core.Link {
 }

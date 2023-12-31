@@ -75,7 +75,7 @@ public class DataExportDialog extends JPanel {
 	private JButton buttonCancel;
 	private JButton buttonCopy;
 	private JDialog dialog;
-	private int ret = PencilBoxDialog.CLOSED_OPTION; // ƒ_ƒCƒAƒƒO‚Ì•Ô‚è’l
+	private int ret = PencilBoxDialog.CLOSED_OPTION; // ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã®è¿”ã‚Šå€¤
 
 	private void makeButtonPanel() {
 		buttonPanel = new JPanel();
@@ -105,7 +105,7 @@ public class DataExportDialog extends JPanel {
 	}
 
 	/**
-	 * ESC ƒL[‚Åƒ_ƒCƒAƒƒO‚ğ•Â‚¶‚é
+	 * ESC ã‚­ãƒ¼ã§ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚’é–‰ã˜ã‚‹
 	 */
 	private void assignKeys() {
 		InputMap imap = this.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
@@ -113,7 +113,7 @@ public class DataExportDialog extends JPanel {
 		ActionMap amap = this.getActionMap();
 		amap.put("close", new AbstractAction() {	 //$NON-NLS-1$
 			public void actionPerformed(ActionEvent e) {
-				if (dialog != null) { // ”O‚Ì‚½‚ß
+				if (dialog != null) { // å¿µã®ãŸã‚
 					ret = PencilBoxDialog.CLOSED_OPTION;
 					dialog.setVisible(false);	
 				}
@@ -138,20 +138,20 @@ public class DataExportDialog extends JPanel {
 	}
 
 	/**
-	 * ƒ_ƒCƒAƒƒO‚ğ•\¦‚·‚éB
-	 * –ˆ‰ñJDialog‚ğì‚è’¼‚µ‚ÄCPencilBoxPane‚ğJDialog‚Ì’†‚É“ü‚ê‚Ä•\¦‚·‚éB
-	 * @param parent eƒtƒŒ[ƒ€
-	 * @param title ƒ^ƒCƒgƒ‹•¶š—ñ
-	 * @return ƒ†[ƒU[‚Ì‘I‘ğ‚µ‚½Œ‹‰Ê
+	 * ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚’è¡¨ç¤ºã™ã‚‹ã€‚
+	 * æ¯å›JDialogã‚’ä½œã‚Šç›´ã—ã¦ï¼ŒPencilBoxPaneã‚’JDialogã®ä¸­ã«å…¥ã‚Œã¦è¡¨ç¤ºã™ã‚‹ã€‚
+	 * @param parent è¦ªãƒ•ãƒ¬ãƒ¼ãƒ 
+	 * @param title ã‚¿ã‚¤ãƒˆãƒ«æ–‡å­—åˆ—
+	 * @return ãƒ¦ãƒ¼ã‚¶ãƒ¼ã®é¸æŠã—ãŸçµæœ
 	 */
-//	Ql Core JAVA Vol.1 list 9-18
+//	å‚è€ƒ Core JAVA Vol.1 list 9-18
 	public int showDialog(Component parent, String title) {
 		Frame owner = null;
 		if (parent instanceof Frame)
 			owner = (Frame)parent;
 		else
 			owner = (Frame)SwingUtilities.getAncestorOfClass(Frame.class, parent);
-//      •K—v‚É‰‚¶‚Äì‚è’¼‚·•û®‚ÅƒtƒH[ƒJƒX‚ğ–ˆ‰ñİ’è‚µ’¼‚·‚â‚è•û‚ª•ª‚©‚ç‚È‚¢‚Ì‚ÅC–ˆ‰ñì‚è’¼‚·
+//      å¿…è¦ã«å¿œã˜ã¦ä½œã‚Šç›´ã™æ–¹å¼ã§ãƒ•ã‚©ãƒ¼ã‚«ã‚¹ã‚’æ¯å›è¨­å®šã—ç›´ã™ã‚„ã‚Šæ–¹ãŒåˆ†ã‹ã‚‰ãªã„ã®ã§ï¼Œæ¯å›ä½œã‚Šç›´ã™
 //		if (dialog == null || dialog.getOwner() != owner) {
 			dialog = new JDialog(owner, true);
 			dialog.getContentPane().add(this);

@@ -1,7 +1,7 @@
 package pencilbox.satogaeri;
 
 /**
- * 「さとがえり」領域クラス
+ * 縲後＆縺ｨ縺後∴繧翫埼伜沺繧ｯ繝ｩ繧ｹ
  */
 public class Area extends pencilbox.common.core.AreaBase {
 

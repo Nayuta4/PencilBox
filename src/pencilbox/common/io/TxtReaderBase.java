@@ -7,14 +7,14 @@ import pencilbox.common.core.BoardBase;
 
 
 /**
- * ƒeƒLƒXƒgŒ`®‚Ì”Õ–Ê“Ç—pƒNƒ‰ƒX
+ * ãƒ†ã‚­ã‚¹ãƒˆå½¢å¼ã®ç›¤é¢èª­è¾¼ç”¨ã‚¯ãƒ©ã‚¹
  */
 public abstract class TxtReaderBase {
 
 	/**
-	 * ƒeƒLƒXƒgŒ`®‚Ì”Õ–Ê‚ğ“Ç‚İ‚Ş
-	 * @param in “ü—Í
-	 * @return “Ç‚İ‚ñ‚Åì¬‚µ‚½”Õ–Ê
+	 * ãƒ†ã‚­ã‚¹ãƒˆå½¢å¼ã®ç›¤é¢ã‚’èª­ã¿è¾¼ã‚€
+	 * @param in å…¥åŠ›
+	 * @return èª­ã¿è¾¼ã‚“ã§ä½œæˆã—ãŸç›¤é¢
 	 * @throws IOException
 	 */
 	public abstract BoardBase readProblem(Reader in) throws IOException;

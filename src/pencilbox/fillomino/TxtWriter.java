@@ -44,7 +44,7 @@ public class TxtWriter extends TxtWriterBase {
 			out.println();
 		}
 
-		// •Óƒf[ƒ^‚Ì‘‚«o‚µCü‚ª‘S‚­‚È‚¯‚ê‚Î‰½‚à‘‚©‚È‚¢
+		// è¾ºãƒ‡ãƒ¼ã‚¿ã®æ›¸ãå‡ºã—ï¼Œç·šãŒå…¨ããªã‘ã‚Œã°ä½•ã‚‚æ›¸ã‹ãªã„
 		boolean useEdgeData = false;
 		for (SideAddress pp : board.borderAddrs()) {
 			if (board.getEdge(pp) == Board.LINE) {

@@ -3,7 +3,7 @@ package pencilbox.norinori;
 import pencilbox.common.core.AreaBase;
 
 /**
- * 「のりのり」領域クラス
+ * 縲後�ｮ繧翫�ｮ繧翫埼伜沺繧ｯ繝ｩ繧ｹ
  */
 public class Area extends pencilbox.common.core.AreaBase {
 

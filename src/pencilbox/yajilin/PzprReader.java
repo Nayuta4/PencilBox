@@ -6,10 +6,10 @@ import pencilbox.common.io.PzprReaderBase;
 
 
 /**
- * QlFpzprv3 yajilin.js
+ * å‚è€ƒï¼špzprv3 yajilin.js
  * 
- * –îˆó‚Ì‚È‚¢”š‚ÍãŒü‚«–îˆó‚Ì”š‚É•ÏX‚³‚ê‚é
- * –îˆó‚Ì‚ ‚é–¢’è”š‚Í–îˆó‚È‚µ‚É•ÏX‚³‚ê‚é
+ * çŸ¢å°ã®ãªã„æ•°å­—ã¯ä¸Šå‘ãçŸ¢å°ã®æ•°å­—ã«å¤‰æ›´ã•ã‚Œã‚‹
+ * çŸ¢å°ã®ã‚ã‚‹æœªå®šæ•°å­—ã¯çŸ¢å°ãªã—ã«å¤‰æ›´ã•ã‚Œã‚‹
  */
 public class PzprReader extends PzprReaderBase {
 
@@ -30,7 +30,7 @@ public class PzprReader extends PzprReaderBase {
 		if (num == -2) {
 			bd.setNumber(a, Board.UNDECIDED_NUMBER);
 		} else if (num >= 0) {
-		  // ”š‚ğ“ü‚ê‚é‚Æ‚È‚º‚©–îˆó‚ªãŒü‚«‚É‚È‚é‚Ì‚ÅA‚¢‚Á‚½‚ñŒü‚«‚ğŠo‚¦‚Ä‚ ‚Æ‚©‚çÄİ’è‚·‚éB
+		  // æ•°å­—ã‚’å…¥ã‚Œã‚‹ã¨ãªãœã‹çŸ¢å°ãŒä¸Šå‘ãã«ãªã‚‹ã®ã§ã€ã„ã£ãŸã‚“å‘ãã‚’è¦šãˆã¦ã‚ã¨ã‹ã‚‰å†è¨­å®šã™ã‚‹ã€‚
 			int d = bd.getArrowDirection(a);
 			bd.setArrowNumber(a, num);
 			bd.setArrowDirection(a, d);
@@ -50,7 +50,7 @@ public class PzprReader extends PzprReaderBase {
 			case 4: d=3;
 			break;
 		}
-		bd.setNumber(a, 0); // –îˆó‚ÌŒü‚«‚ğŒˆ‚ß‚é‚½‚ß‚É‰¼‚É”š0‚ğ“ü‚ê‚éB
+		bd.setNumber(a, 0); // çŸ¢å°ã®å‘ãã‚’æ±ºã‚ã‚‹ãŸã‚ã«ä»®ã«æ•°å­—0ã‚’å…¥ã‚Œã‚‹ã€‚
 		bd.setArrowDirection(a, d);
 	}
 }

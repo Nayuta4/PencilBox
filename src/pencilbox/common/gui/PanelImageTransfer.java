@@ -13,16 +13,16 @@ import java.awt.image.BufferedImage;
 
 
 /**
- * ƒpƒlƒ‹‚Ì•\¦“à—e‚ğ ƒNƒŠƒbƒvƒ{[ƒh‚ÉƒRƒs[‚·‚éˆ—‚ğs‚¤ƒNƒ‰ƒX
+ * ãƒ‘ãƒãƒ«ã®è¡¨ç¤ºå†…å®¹ã‚’ ã‚¯ãƒªãƒƒãƒ—ãƒœãƒ¼ãƒ‰ã«ã‚³ãƒ”ãƒ¼ã™ã‚‹å‡¦ç†ã‚’è¡Œã†ã‚¯ãƒ©ã‚¹
  */
 /*
- * QlFcore JAVA2 Vol.2 7.13 
+ * å‚è€ƒï¼šcore JAVA2 Vol.2 7.13 
  */
 public class PanelImageTransfer {
 
 	/**
-	 * ƒpƒlƒ‹‚Ì•\¦“à—e‚ğ ƒNƒŠƒbƒvƒ{[ƒh‚ÉƒRƒs[‚·‚éˆê˜A‚Ìˆ—‚ğs‚¤
-	 * @param panel ƒNƒŠƒbƒvƒ{[ƒh‚ÉƒRƒs[‚·‚éƒpƒlƒ‹
+	 * ãƒ‘ãƒãƒ«ã®è¡¨ç¤ºå†…å®¹ã‚’ ã‚¯ãƒªãƒƒãƒ—ãƒœãƒ¼ãƒ‰ã«ã‚³ãƒ”ãƒ¼ã™ã‚‹ä¸€é€£ã®å‡¦ç†ã‚’è¡Œã†
+	 * @param panel ã‚¯ãƒªãƒƒãƒ—ãƒœãƒ¼ãƒ‰ã«ã‚³ãƒ”ãƒ¼ã™ã‚‹ãƒ‘ãƒãƒ«
 	 */
 	public void copyImage(PanelBase panel) {
 		BufferedImage image = makePanelImage(panel);
@@ -34,7 +34,7 @@ public class PanelImageTransfer {
 	public BufferedImage makePanelImage(PanelBase panel) {
 		BufferedImage image = new BufferedImage(panel.getBoardRegionSize().width, panel.getBoardRegionSize().height, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2 = image.createGraphics();
-	 	// ”wŒi‚ğ”’‚Å“h‚éB‚»‚¤‚µ‚È‚¢‚ÆC”wŒi‚ª•‚­‚È‚Á‚Ä‚µ‚Ü‚¤
+	 	// èƒŒæ™¯ã‚’ç™½ã§å¡—ã‚‹ã€‚ãã†ã—ãªã„ã¨ï¼ŒèƒŒæ™¯ãŒé»’ããªã£ã¦ã—ã¾ã†
 		g2.setColor(Color.WHITE);
 		g2.fillRect(0, 0, image.getWidth(), image.getHeight());
 		panel.drawPanel(g2);

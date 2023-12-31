@@ -4,7 +4,7 @@
 package pencilbox.lits;
 
 /**
- * u‚k‚h‚s‚rv˜AŒ‹•ƒ}ƒXƒNƒ‰ƒX
+ * ã€Œï¼¬ï¼©ï¼´ï¼³ã€é€£çµé»’ãƒã‚¹ã‚¯ãƒ©ã‚¹
  */
 public class Wall extends pencilbox.common.core.AreaBase {
 

@@ -9,7 +9,7 @@ import pencilbox.common.gui.PanelBase;
 
 
 /**
- * 「黒マスはどこだ」パネルクラス
+ * 縲碁ｻ偵�槭せ縺ｯ縺ｩ縺薙□縲阪ヱ繝阪Ν繧ｯ繝ｩ繧ｹ
  */
 public class Panel extends PanelBase {
 

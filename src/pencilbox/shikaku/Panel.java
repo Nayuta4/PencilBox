@@ -12,17 +12,17 @@ import pencilbox.util.Colors;
 
 
 /**
- * ulŠp‚ÉØ‚êvƒpƒlƒ‹ƒNƒ‰ƒX
+ * ã€Œå››è§’ã«åˆ‡ã‚Œã€ãƒ‘ãƒãƒ«ã‚¯ãƒ©ã‚¹
  */
 public class Panel extends PanelBase {
 
 	private Board board;
 
-	private Color smallSizeColor = new Color(0xFFFF99); // –ÊÏ¬‚³‚¢
-	private Square draggingSquare; // ƒhƒ‰ƒbƒO‚µ‚Ä¡‚Ü‚³‚É•`‚±‚¤‚Æ‚µ‚Ä‚¢‚élŠp
+	private Color smallSizeColor = new Color(0xFFFF99); // é¢ç©å°ã•ã„
+	private Square draggingSquare; // ãƒ‰ãƒ©ãƒƒã‚°ã—ã¦ä»Šã¾ã•ã«æã“ã†ã¨ã—ã¦ã„ã‚‹å››è§’
 
 	/**
-	 * ƒpƒlƒ‹‚ğ¶¬‚·‚é
+	 * ãƒ‘ãƒãƒ«ã‚’ç”Ÿæˆã™ã‚‹
 	 */
 	public Panel() {
 		setGridColor(Color.GRAY);

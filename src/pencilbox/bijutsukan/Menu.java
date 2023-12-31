@@ -6,7 +6,7 @@ import pencilbox.common.gui.MenuBase;
 import pencilbox.resource.Messages;
 
 /**
- * 「美術館」メニュークラス
+ * 縲檎ｾ手｡馴､ｨ縲阪Γ繝九Η繝ｼ繧ｯ繝ｩ繧ｹ
  */
 public class Menu extends MenuBase {
 

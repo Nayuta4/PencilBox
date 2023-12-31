@@ -19,8 +19,8 @@ import pencilbox.common.core.Size;
 import pencilbox.resource.Messages;
 
 /**
- * uV‹Kì¬vƒ_ƒCƒAƒƒO
- * ƒ‚[ƒ_ƒ‹ƒ_ƒCƒAƒƒO‚È‚Ì‚ÅC1‚Â‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚Ì‚İ‚ğ¶¬‚µ‚Äg‚¢‰ñ‚·
+ * ã€Œæ–°è¦ä½œæˆã€ãƒ€ã‚¤ã‚¢ãƒ­ã‚°
+ * ãƒ¢ãƒ¼ãƒ€ãƒ«ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ãªã®ã§ï¼Œ1ã¤ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ã¿ã‚’ç”Ÿæˆã—ã¦ä½¿ã„å›ã™
  */
 
 public class NewBoardDialog extends PencilBoxDialog {
@@ -28,9 +28,9 @@ public class NewBoardDialog extends PencilBoxDialog {
 	private static NewBoardDialog instance = new NewBoardDialog();
 
 	/**
-	 * NewBoardDialog ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾‚·‚é
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Íg—p•s‰Â‚ÅCƒCƒ“ƒXƒ^ƒ“ƒX‚Í‚±‚Ìƒƒ\ƒbƒh‚É‚æ‚èæ“¾‚·‚é
-	 * @return NewBoardDialog ƒCƒ“ƒXƒ^ƒ“ƒX
+	 * NewBoardDialog ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å–å¾—ã™ã‚‹
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã¯ä½¿ç”¨ä¸å¯ã§ï¼Œã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã¯ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã«ã‚ˆã‚Šå–å¾—ã™ã‚‹
+	 * @return NewBoardDialog ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 	 */
 	public static NewBoardDialog getInstance() {
 		return instance;
@@ -103,8 +103,8 @@ public class NewBoardDialog extends PencilBoxDialog {
 	}
 
 	/**
-	 * Œ»İ‚Ì”Õ–ÊƒTƒCƒY‚Ì’l‚ğƒ_ƒCƒAƒƒO‚Éİ’è‚·‚é
-	 * @param s Œ»İ‚Ì”Õ–ÊƒTƒCƒY
+	 * ç¾åœ¨ã®ç›¤é¢ã‚µã‚¤ã‚ºã®å€¤ã‚’ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã«è¨­å®šã™ã‚‹
+	 * @param s ç¾åœ¨ã®ç›¤é¢ã‚µã‚¤ã‚º
 	 */
 	public void setCurrentSize(Size s) {
 		if (s.getCols() != s.getRows())
@@ -114,8 +114,8 @@ public class NewBoardDialog extends PencilBoxDialog {
 	}
 
 	/**
-	 * ƒ_ƒCƒAƒƒO‚É“ü—Í‚³‚ê‚½ƒTƒCƒY‚ğæ“¾‚·‚é
-	 * @return ƒ_ƒCƒAƒƒO‚É“ü—Í‚³‚ê‚½ƒTƒCƒY
+	 * ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã«å…¥åŠ›ã•ã‚ŒãŸã‚µã‚¤ã‚ºã‚’å–å¾—ã™ã‚‹
+	 * @return ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã«å…¥åŠ›ã•ã‚ŒãŸã‚µã‚¤ã‚º
 	 */
 	public Size getNewSize() {
 		int rows = ((Number) spinnerRows.getValue()).intValue();

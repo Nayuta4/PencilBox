@@ -4,8 +4,8 @@ import java.io.File;
 import pencilbox.resource.Messages;
 
 /**
- * –â‘èƒNƒ‰ƒX
- *@Bord, Propety, File ‚ğW‚ß‚½‚à‚Ì
+ * å•é¡Œã‚¯ãƒ©ã‚¹
+ *ã€€Bord, Propety, File ã‚’é›†ã‚ãŸã‚‚ã®
  */
 public class Problem {
 
@@ -14,14 +14,14 @@ public class Problem {
 	private File file;
 
 	/**
-	 * ƒfƒtƒHƒ‹ƒgƒRƒ“ƒXƒgƒ‰ƒNƒ^ 
+	 * ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ 
 	 */
 	public Problem () {
 		this.property = new Property();
 	}
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚ÅCBoard‚Íˆø”‚Ì‚à‚Ì‚ğİ’è‚·‚é
-	 * @param board ”Õ–Ê
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã§ï¼ŒBoardã¯å¼•æ•°ã®ã‚‚ã®ã‚’è¨­å®šã™ã‚‹
+	 * @param board ç›¤é¢
 	 */
 	public Problem (BoardBase board) {
 		this.board = board;
@@ -29,11 +29,11 @@ public class Problem {
 	}
 
 	/**
-	 * ƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚à‚Ç‚«B
-	 * BoardˆÈŠO‚Í‚à‚Æ‚ÌProblem‚ğ•¡»‚·‚éB
-	 * Board‚Í•¡»‚ª•¡G‚È‚Ì‚Å‚ ‚ç‚©‚¶‚ß•¡»‚·‚é‚È‚Ç‚µ‚Ä•ÊŒÂ‚Ìˆø”‚Æ‚µ‚Ä—^‚¦‚éB
-	 * @param problem •¡»Œ³–â‘è
-	 * @param board İ’è‚·‚é”Õ–Ê
+	 * ã‚³ãƒ”ãƒ¼ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã‚‚ã©ãã€‚
+	 * Boardä»¥å¤–ã¯ã‚‚ã¨ã®Problemã‚’è¤‡è£½ã™ã‚‹ã€‚
+	 * Boardã¯è¤‡è£½ãŒè¤‡é›‘ãªã®ã§ã‚ã‚‰ã‹ã˜ã‚è¤‡è£½ã™ã‚‹ãªã©ã—ã¦åˆ¥å€‹ã®å¼•æ•°ã¨ã—ã¦ä¸ãˆã‚‹ã€‚
+	 * @param problem è¤‡è£½å…ƒå•é¡Œ
+	 * @param board è¨­å®šã™ã‚‹ç›¤é¢
 	 */
 	public Problem (Problem problem, BoardBase board) {
 		this.board = board;
@@ -78,9 +78,9 @@ public class Problem {
 		this.property = property;
 	}
 	/**
-	 * –â‘è‚Ìƒtƒ@ƒCƒ‹–¼‚ğæ“¾‚·‚é
-	 * ‚Ü‚¾ƒtƒ@ƒCƒ‹‚ÆŠÖ˜A•t‚¯‚ç‚ê‚Ä‚¢‚È‚¢ê‡‚ÍC"–³‘è" ‚Æ‚·‚é
-	 * @return ƒtƒ@ƒCƒ‹–¼
+	 * å•é¡Œã®ãƒ•ã‚¡ã‚¤ãƒ«åã‚’å–å¾—ã™ã‚‹
+	 * ã¾ã ãƒ•ã‚¡ã‚¤ãƒ«ã¨é–¢é€£ä»˜ã‘ã‚‰ã‚Œã¦ã„ãªã„å ´åˆã¯ï¼Œ"ç„¡é¡Œ" ã¨ã™ã‚‹
+	 * @return ãƒ•ã‚¡ã‚¤ãƒ«å
 	 */
 	public String getFileName() {
 		if (file == null)

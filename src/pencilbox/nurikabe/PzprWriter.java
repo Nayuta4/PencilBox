@@ -4,7 +4,7 @@ import pencilbox.common.io.PzprWriterBase;
 
 
 /**
- * QlFpzprv3 nurikabe.js
+ * å‚è€ƒï¼špzprv3 nurikabe.js
  */
 public class PzprWriter extends PzprWriterBase {
 

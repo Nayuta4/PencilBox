@@ -8,11 +8,11 @@ public class CellEditStep extends AbstractStep {
 	private int after;
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param t ‘€ìí—Ş
-	 * @param p •ÏX‚³‚ê‚½ƒ}ƒX‚ÌÀ•W
-	 * @param b •ÏX‘O‚Ìó‘Ô
-	 * @param a •ÏXŒã‚Ìó‘Ô
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param t æ“ä½œç¨®é¡
+	 * @param p å¤‰æ›´ã•ã‚ŒãŸãƒã‚¹ã®åº§æ¨™
+	 * @param b å¤‰æ›´å‰ã®çŠ¶æ…‹
+	 * @param a å¤‰æ›´å¾Œã®çŠ¶æ…‹
 	 */
 	public CellEditStep(EditType t, Address p, int b, int a) {
 		super();

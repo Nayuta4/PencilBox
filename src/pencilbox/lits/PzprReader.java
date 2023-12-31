@@ -5,7 +5,7 @@ import pencilbox.common.io.PzprReaderBase;
 
 
 /**
- * QlFpzprv3 lits.js
+ * å‚è€ƒï¼špzprv3 lits.js
  */
 public class PzprReader extends PzprReaderBase {
 
@@ -18,7 +18,7 @@ public class PzprReader extends PzprReaderBase {
 	}
 
 	protected void pzlimport(){
-		if (checkpflag("d")) { // ‚Ï‚¸‚Õ‚ê‹ŒŒ`®
+		if (checkpflag("d")) { // ã±ãšã·ã‚Œæ—§å½¢å¼
 			decodeLITS_old();
 			makeAreaIDsFromBorders();
 			makeAreas();
@@ -30,7 +30,7 @@ public class PzprReader extends PzprReaderBase {
 	}
 
 	/**
-	 * ‹«ŠEüƒf[ƒ^‚©‚ç—Ìˆæ”Ô†ƒf[ƒ^‚ğì¬‚·‚éB
+	 * å¢ƒç•Œç·šãƒ‡ãƒ¼ã‚¿ã‹ã‚‰é ˜åŸŸç•ªå·ãƒ‡ãƒ¼ã‚¿ã‚’ä½œæˆã™ã‚‹ã€‚
 	 */
 	private void makeAreas() {
 		Area[] areaArray = new pencilbox.lits.Area[nArea];
@@ -46,14 +46,14 @@ public class PzprReader extends PzprReaderBase {
 	}
 
 	/**
-	 * ‚Ï‚¸‚Õ‚ê‹ŒŒ`®
+	 * ã±ãšã·ã‚Œæ—§å½¢å¼
 	 */
 	protected void decodeLITS_old(){
 		String bstr = this.outbstr;
 		int bdinside = (cols-1)*rows+cols*(rows-1);
 		borders = new int[bdinside];
 		if (bstr.length() < rows*cols)
-			return; // ’Z‚¢ƒf[ƒ^‚Í–³‹
+			return; // çŸ­ã„ãƒ‡ãƒ¼ã‚¿ã¯ç„¡è¦–
 		char[] bstrA = bstr.toCharArray();
 		for(int i=0; i<rows*cols; i++){
 			int x = i%cols;

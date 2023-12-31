@@ -6,8 +6,8 @@ import pencilbox.common.core.Direction;
 import pencilbox.common.core.SideAddress;
 
 /**
- * ‚Ï‚¸‚Õ‚êv3Œ`®‚ÌURL‘‚«o‚µ
- * QlF Encode.js v3.2.3, v3.2.4
+ * ã±ãšã·ã‚Œv3å½¢å¼ã®URLæ›¸ãå‡ºã—
+ * å‚è€ƒï¼š Encode.js v3.2.3, v3.2.4
  * // p.html?(pid)/(qdata)
  * //               qdata -> [(pflag)/](cols)/(rows)/(bstr)
  */
@@ -20,9 +20,9 @@ public abstract class PzprWriterBase {
 	private String outpflag = "";
 	private String outbstr = "";
 	/**
-	 * ”Õ–Êƒf[ƒ^‚Ì•¶š—ñ‚ğ¶¬‚·‚éB
-	 * ‰ñ“šó‘Ô‚Í–³‹‚µ‚ÄC–â‘èƒf[ƒ^‚Ì‚İ‘‚«o‚·
-	 * @param board ‘‚«o‚·”Õ–Ê
+	 * ç›¤é¢ãƒ‡ãƒ¼ã‚¿ã®æ–‡å­—åˆ—ã‚’ç”Ÿæˆã™ã‚‹ã€‚
+	 * å›ç­”çŠ¶æ…‹ã¯ç„¡è¦–ã—ã¦ï¼Œå•é¡Œãƒ‡ãƒ¼ã‚¿ã®ã¿æ›¸ãå‡ºã™
+	 * @param board æ›¸ãå‡ºã™ç›¤é¢
 	 * @return
 	 */
 	public String writeQuestion(BoardBase board) {
@@ -33,7 +33,7 @@ public abstract class PzprWriterBase {
 	}
 
 	/**
-	 * ‚Ï‚¸‚Õ‚ê‚Å‚Ì–¼‘OBŠeƒTƒuƒNƒ‰ƒX‚Å‹Lq‚·‚é
+	 * ã±ãšã·ã‚Œã§ã®åå‰ã€‚å„ã‚µãƒ–ã‚¯ãƒ©ã‚¹ã§è¨˜è¿°ã™ã‚‹
 	 * @return
 	 */
 	protected String getPzprName() {
@@ -41,14 +41,14 @@ public abstract class PzprWriterBase {
 	}
 
 	/**
-	 * ŠeƒpƒYƒ‹‚ÌURLo—Í—p(ƒI[ƒo[ƒ‰ƒCƒh—p)
+	 * å„ãƒ‘ã‚ºãƒ«ã®URLå‡ºåŠ›ç”¨(ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ç”¨)
 	 * @return
 	 */
 	protected void pzlexport() {
 	}
 
 	/**
-	 * ƒTƒCƒY‚ğo—Í‚·‚éB
+	 * ã‚µã‚¤ã‚ºã‚’å‡ºåŠ›ã™ã‚‹ã€‚
 	 * @param r
 	 * @param c
 	 */
@@ -58,15 +58,15 @@ public abstract class PzprWriterBase {
 	}
 
 	/**
-	 * •¶š—ñƒf[ƒ^‚É’Ç‰Á‚·‚éB
-	 * @param s •¶š—ñ
+	 * æ–‡å­—åˆ—ãƒ‡ãƒ¼ã‚¿ã«è¿½åŠ ã™ã‚‹ã€‚
+	 * @param s æ–‡å­—åˆ—
 	 */
 	protected void outbstr(String s) {
 		this.outbstr += s;
 	}
 
 	/**
-	 * ƒtƒ‰ƒO‚ğo—Í‚·‚éB
+	 * ãƒ•ãƒ©ã‚°ã‚’å‡ºåŠ›ã™ã‚‹ã€‚
 	 * @param s
 	 */
 	protected void outpflag(String s) {
@@ -74,7 +74,7 @@ public abstract class PzprWriterBase {
 	}
 
 	//---------------------------------------------------------------------------
-	// enc.encode4Cell()  ques‚ª0`4‚Ü‚Å‚Ìê‡A–â‘è•”‚ğƒGƒ“ƒR[ƒh‚·‚é
+	// enc.encode4Cell()  quesãŒ0ã€œ4ã¾ã§ã®å ´åˆã€å•é¡Œéƒ¨ã‚’ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰ã™ã‚‹
 	//---------------------------------------------------------------------------
 	protected void encode4Cell(){
 		int count = 0;
@@ -99,7 +99,7 @@ public abstract class PzprWriterBase {
 	}
 
 	//---------------------------------------------------------------------------
-	// enc.encodeNumber16()  ques‚ª0`8192?‚Ü‚Å‚Ìê‡A–â‘è•”‚ğƒGƒ“ƒR[ƒh‚·‚é
+	// enc.encodeNumber16()  quesãŒ0ã€œ8192?ã¾ã§ã®å ´åˆã€å•é¡Œéƒ¨ã‚’ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰ã™ã‚‹
 	//---------------------------------------------------------------------------
 	protected void encodeNumber16(){
 		int count=0;
@@ -126,7 +126,7 @@ public abstract class PzprWriterBase {
 
 	protected int[] roomNumbers;
 	//---------------------------------------------------------------------------
-	// enc.encodeRoomNumber16()  •”‰®{•”‰®‚Ìˆê‚Â‚Ìques‚ª0`8192?‚Ü‚Å‚Ìê‡A–â‘è•”‚ğƒGƒ“ƒR[ƒh‚·‚é
+	// enc.encodeRoomNumber16()  éƒ¨å±‹ï¼‹éƒ¨å±‹ã®ä¸€ã¤ã®quesãŒ0ã€œ8192?ã¾ã§ã®å ´åˆã€å•é¡Œéƒ¨ã‚’ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰ã™ã‚‹
 	//---------------------------------------------------------------------------
 	protected void encodeRoomNumber16(){
 		int count=0;
@@ -141,7 +141,7 @@ public abstract class PzprWriterBase {
 			else if(val>=  4096 && val<  8192){ pstr = "=" + toString((val-4096),16);}
 			else if(val>=  8192 && val< 12240){ pstr = "%" + toString((val-8192),16);}
 			else if(val>= 12240 && val< 77776){ pstr = "*" + toString((val-12240),16);}
-			else if(val>= 77776              ){ pstr = "$" + toString((val-77776),16);} // Å‘å1126352
+			else if(val>= 77776              ){ pstr = "$" + toString((val-77776),16);} // æœ€å¤§1126352
 			else{ count++;}
 
 			if(count==0){ cm += pstr;}
@@ -153,7 +153,7 @@ public abstract class PzprWriterBase {
 	}
 
 	//---------------------------------------------------------------------------
-	// enc.encodeArrowNumber16()  –îˆó•t‚«ques‚ª0`8192?‚Ü‚Å‚Ìê‡A–â‘è•”‚ğƒGƒ“ƒR[ƒh‚·‚é
+	// enc.encodeArrowNumber16()  çŸ¢å°ä»˜ãquesãŒ0ã€œ8192?ã¾ã§ã®å ´åˆã€å•é¡Œéƒ¨ã‚’ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰ã™ã‚‹
 	//---------------------------------------------------------------------------
 	protected void encodeArrowNumber16(){
 		String cm = "";
@@ -177,7 +177,7 @@ public abstract class PzprWriterBase {
 	}
 
 	//---------------------------------------------------------------------------
-	// enc.encodeBorder() –â‘è‚Ì‹«ŠEü‚ğƒGƒ“ƒR[ƒh‚·‚é
+	// enc.encodeBorder() å•é¡Œã®å¢ƒç•Œç·šã‚’ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰ã™ã‚‹
 	//---------------------------------------------------------------------------
 	protected void encodeBorder(){
 		int num, pass;
@@ -203,7 +203,7 @@ public abstract class PzprWriterBase {
 	protected int[] borders;
 
 	/**
-	 * —Ìˆæƒf[ƒ^‚©‚ç‹«ŠEü‚ ‚è‚È‚µƒf[ƒ^‚ğì¬‚·‚éB
+	 * é ˜åŸŸãƒ‡ãƒ¼ã‚¿ã‹ã‚‰å¢ƒç•Œç·šã‚ã‚Šãªã—ãƒ‡ãƒ¼ã‚¿ã‚’ä½œæˆã™ã‚‹ã€‚
 	 */
 	protected void makeBorderData() {
 		int bdinside = (cols-1)*rows+cols*(rows-1);
@@ -214,17 +214,17 @@ public abstract class PzprWriterBase {
 	}
 
 	/**
-	 * ˆø”‚Ì‹«ŠEÀ•W‚É‹«ŠEü‚ª‚ ‚é‚©
-	 * ŠeƒTƒuƒNƒ‰ƒX‚ÅÀ‘•‚·‚é‚±‚Æ
+	 * å¼•æ•°ã®å¢ƒç•Œåº§æ¨™ã«å¢ƒç•Œç·šãŒã‚ã‚‹ã‹
+	 * å„ã‚µãƒ–ã‚¯ãƒ©ã‚¹ã§å®Ÿè£…ã™ã‚‹ã“ã¨
 	 * @param b
-	 * @return ü‚ª‚È‚¯‚ê‚Î 0 ‚ ‚ê‚Î 1
+	 * @return ç·šãŒãªã‘ã‚Œã° 0 ã‚ã‚Œã° 1
 	 */
 	protected int getBorder(SideAddress b) {
 		return 0;
 	}
 
 	//---------------------------------------------------------------------------
-	// enc.encodeCircle41_42() ”’ŠÛE•ŠÛ‚ğƒGƒ“ƒR[ƒh‚·‚é
+	// enc.encodeCircle41_42() ç™½ä¸¸ãƒ»é»’ä¸¸ã‚’ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰ã™ã‚‹
 	//---------------------------------------------------------------------------
 	protected void encodeCircle41_42(){
 		String cm="";

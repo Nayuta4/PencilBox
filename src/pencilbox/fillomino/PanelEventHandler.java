@@ -8,15 +8,15 @@ import pencilbox.common.core.SideAddress;
 import pencilbox.common.gui.PanelEventHandlerBase;
 
 /**
- * uƒtƒBƒ‹ƒIƒ~ƒmvƒ}ƒEƒX^ƒL[‘€ìˆ—ƒNƒ‰ƒX
+ * ã€Œãƒ•ã‚£ãƒ«ã‚ªãƒŸãƒã€ãƒã‚¦ã‚¹ï¼ã‚­ãƒ¼æ“ä½œå‡¦ç†ã‚¯ãƒ©ã‚¹
  */
 public class PanelEventHandler extends PanelEventHandlerBase {
 
 	private Board board;
 
-	private int state; // ƒhƒ‰ƒbƒO’†‚Ì”š‚ğ•\‚·
-	private int currentState = -1; // ƒhƒ‰ƒbƒO’†‚Ì•Ó‚Ìó‘Ô‚ğ•\‚·
-	private int dragState = 0; // ƒhƒ‰ƒbƒO’†‚Ì•Ó‚Ìó‘Ô‚ğ•\‚·
+	private int state; // ãƒ‰ãƒ©ãƒƒã‚°ä¸­ã®æ•°å­—ã‚’è¡¨ã™
+	private int currentState = -1; // ãƒ‰ãƒ©ãƒƒã‚°ä¸­ã®è¾ºã®çŠ¶æ…‹ã‚’è¡¨ã™
+	private int dragState = 0; // ãƒ‰ãƒ©ãƒƒã‚°ä¸­ã®è¾ºã®çŠ¶æ…‹ã‚’è¡¨ã™
 	private Address pos3 = Address.NOWHERE;
 	private Address selectedPos = Address.NOWHERE;
 
@@ -31,21 +31,21 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/*
-	 * uƒtƒBƒ‹ƒIƒ~ƒmvƒ}ƒEƒX‘€ì
+	 * ã€Œãƒ•ã‚£ãƒ«ã‚ªãƒŸãƒã€ãƒã‚¦ã‚¹æ“ä½œ
 	 * 
-	 * ƒ}ƒX‚Åƒ{ƒ^ƒ“‚ğ‰Ÿ‚·‚Æ‚»‚Ìƒ}ƒX‚Ì”š‚ğŠo‚¦‚ÄC ‚»‚ÌŒãƒhƒ‰ƒbƒO‚µ‚½‚ç’Ê‰ß‚µ‚½ƒ}ƒX‚ğ‚»‚Ì”š‚É‡‚í‚¹‚é
-	 * ƒ}ƒX‚©‚çˆÚ“®‚¹‚¸‚Éƒ{ƒ^ƒ“‚ğ—£‚µ‚½‚çC”š‚ğ1‚¸‚Â‘‚â‚µ‚Ä‚¢‚­B
-	 * ‘¼‚Ìƒ}ƒX‚ÉˆÚ“®‚·‚é‚Æ”š‚ÍƒŠƒZƒbƒg‚³‚ê‚é
+	 * ãƒã‚¹ã§ãƒœã‚¿ãƒ³ã‚’æŠ¼ã™ã¨ãã®ãƒã‚¹ã®æ•°å­—ã‚’è¦šãˆã¦ï¼Œ ãã®å¾Œãƒ‰ãƒ©ãƒƒã‚°ã—ãŸã‚‰é€šéã—ãŸãƒã‚¹ã‚’ãã®æ•°å­—ã«åˆã‚ã›ã‚‹
+	 * ãƒã‚¹ã‹ã‚‰ç§»å‹•ã›ãšã«ãƒœã‚¿ãƒ³ã‚’é›¢ã—ãŸã‚‰ï¼Œæ•°å­—ã‚’1ãšã¤å¢—ã‚„ã—ã¦ã„ãã€‚
+	 * ä»–ã®ãƒã‚¹ã«ç§»å‹•ã™ã‚‹ã¨æ•°å­—ã¯ãƒªã‚»ãƒƒãƒˆã•ã‚Œã‚‹
 	 */
 	protected void leftPressed(Address pos) {
 		state = board.getNumberOrState(pos);
-		dragState = 1; // ƒhƒ‰ƒbƒOŠJn
+		dragState = 1; // ãƒ‰ãƒ©ãƒƒã‚°é–‹å§‹
 	}
 
 	protected void leftDragged(Address oldPos, Address pos) {
 		if (!board.isStable(pos))
 			board.changeAnswerNumber(pos, state);
-		dragState = 2; // ƒhƒ‰ƒbƒO’†
+		dragState = 2; // ãƒ‰ãƒ©ãƒƒã‚°ä¸­
 	}
 
 	protected void leftReleased(Address pos) {
@@ -117,7 +117,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/*
-	 * uƒtƒBƒ‹ƒIƒ~ƒmvƒL[‘€ì
+	 * ã€Œãƒ•ã‚£ãƒ«ã‚ªãƒŸãƒã€ã‚­ãƒ¼æ“ä½œ
 	 */
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {

@@ -6,10 +6,10 @@ public class BorderEditStep extends AbstractStep {
 	private int before;
 	private int after;
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param p •ÏX‚³‚ê‚½•Ó‚ÌÀ•W
-	 * @param b •ÏX‘O‚Ìó‘Ô
-	 * @param a •ÏXŒã‚Ìó‘Ô
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param p å¤‰æ›´ã•ã‚ŒãŸè¾ºã®åº§æ¨™
+	 * @param b å¤‰æ›´å‰ã®çŠ¶æ…‹
+	 * @param a å¤‰æ›´å¾Œã®çŠ¶æ…‹
 	 */
 	public BorderEditStep(SideAddress p, int b, int a) {
 		super();

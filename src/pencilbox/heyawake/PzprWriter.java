@@ -9,7 +9,7 @@ import pencilbox.common.io.PzprWriterBase;
 
 
 /**
- * QlFpzprv3 heyawake.js
+ * å‚è€ƒï¼špzprv3 heyawake.js
  */
 public class PzprWriter extends PzprWriterBase {
 
@@ -29,8 +29,8 @@ public class PzprWriter extends PzprWriterBase {
 	}
 
 	/**
-	 * •”‰®‚ğ®—ñ‚µC•”‰®”Ô†ƒf[ƒ^‚ğì¬‚·‚éB
-	 * ƒtƒB[ƒ‹ƒh roomNumbers ‚ÍeƒNƒ‰ƒX‚É‚ ‚éB
+	 * éƒ¨å±‹ã‚’æ•´åˆ—ã—ï¼Œéƒ¨å±‹ç•ªå·ãƒ‡ãƒ¼ã‚¿ã‚’ä½œæˆã™ã‚‹ã€‚
+	 * ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ roomNumbers ã¯è¦ªã‚¯ãƒ©ã‚¹ã«ã‚ã‚‹ã€‚
 	 */
 	private void makeRoomNumberData() {
 		int roomMax = 0;

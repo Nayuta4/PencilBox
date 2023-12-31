@@ -12,10 +12,10 @@ public class Messages {
 	}
 
 	/**
-	 * ���\�[�X�o���h���̗^�����L�[�ɑΉ����镶�����Ԃ��B
-	 * ���������݂��Ȃ��Ƃ��͗^�����L�[�̕���������̂܂ܕԂ��B
-	 * @param key �L�[������
-	 * @return�@���\�[�X�o���h���̑Ή����镶����B
+	 * リソースバンドルの与えたキーに対応する文字列を返す。
+	 * ただし存在しないときは与えたキーの文字列をそのまま返す。
+	 * @param key キー文字列
+	 * @return　リソースバンドルの対応する文字列。
 	 */
 	public static String getString(String key) {
 		try {

@@ -16,7 +16,7 @@ import pencilbox.util.ArrayUtil;
 
 
 /**
- * ulŠp‚ÉØ‚êv”Õ–ÊƒNƒ‰ƒX
+ * ã€Œå››è§’ã«åˆ‡ã‚Œã€ç›¤é¢ã‚¯ãƒ©ã‚¹
  */
 public class Board extends BoardBase {
 
@@ -70,7 +70,7 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * lŠp‚ÉŠÜ‚Ü‚ê‚é”šƒ}ƒX‚ğİ’è‚·‚é
+	 * å››è§’ã«å«ã¾ã‚Œã‚‹æ•°å­—ãƒã‚¹ã‚’è¨­å®šã™ã‚‹
 	 * @param sq
 	 */
 	public void initSquareNumber(Square sq) {
@@ -95,10 +95,10 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ƒ}ƒX‚Ì”š‚ğæ“¾‚·‚é
-	 * @param r sÀ•W
-	 * @param c —ñÀ•W
-	 * @return ƒ}ƒX‚Ì”š
+	 * ãƒã‚¹ã®æ•°å­—ã‚’å–å¾—ã™ã‚‹
+	 * @param r è¡Œåº§æ¨™
+	 * @param c åˆ—åº§æ¨™
+	 * @return ãƒã‚¹ã®æ•°å­—
 	 */
 	public int getNumber(int r, int c) {
 		return number[r][c];
@@ -108,10 +108,10 @@ public class Board extends BoardBase {
 		return getNumber(pos.r(), pos.c());
 	}
 	/**
-	 * ƒ}ƒX‚É”š‚ğİ’è‚·‚é
-	 * @param r sÀ•W
-	 * @param c —ñÀ•W
-	 * @param n İ’è‚·‚é”š
+	 * ãƒã‚¹ã«æ•°å­—ã‚’è¨­å®šã™ã‚‹
+	 * @param r è¡Œåº§æ¨™
+	 * @param c åˆ—åº§æ¨™
+	 * @param n è¨­å®šã™ã‚‹æ•°å­—
 	 */
 	public void setNumber(int r, int c, int n) {
 		number[r][c] = n;
@@ -121,19 +121,19 @@ public class Board extends BoardBase {
 		setNumber(pos.r(), pos.c(), n);
 	}
 	/**
-	 * ‚»‚Ìƒ}ƒX‚É”š‚ª‚ ‚é‚©
-	 * @param p À•W
-	 * @return@‚»‚Ìƒ}ƒX‚É”š‚ª‚ ‚ê‚Î true
+	 * ãã®ãƒã‚¹ã«æ•°å­—ãŒã‚ã‚‹ã‹
+	 * @param p åº§æ¨™
+	 * @returnã€€ãã®ãƒã‚¹ã«æ•°å­—ãŒã‚ã‚Œã° true
 	 */
 	public boolean isNumber(Address pos) {
 		int n = getNumber(pos);
 		return n > 0 || n == Board.UNDECIDED_NUMBER;
 	}
 	/**
-	 * ‚»‚Ìƒ}ƒX‚Ì‘®‚·‚é Square ‚ğ•Ô‚·
-	 * @param r sÀ•W
-	 * @param c —ñÀ•W
-	 * @return@‚»‚Ìƒ}ƒX‚Ì‘®‚·‚é Square
+	 * ãã®ãƒã‚¹ã®å±ã™ã‚‹ Square ã‚’è¿”ã™
+	 * @param r è¡Œåº§æ¨™
+	 * @param c åˆ—åº§æ¨™
+	 * @returnã€€ãã®ãƒã‚¹ã®å±ã™ã‚‹ Square
 	 */
 	public Square getSquare(int r, int c) {
 		return square[r][c];
@@ -160,9 +160,9 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * lŠpŒ`‚Ì”ÍˆÍ‚ÉŠÜ‚Ü‚ê‚éƒ}ƒX‚ÉSquareƒIƒuƒWƒFƒNƒg‚ğİ’è‚·‚é
-	 * @param region İ’è‚·‚élŠpŒ`‚Ì”ÍˆÍ
-	 * @param sq İ’è‚·‚éSquareƒIƒuƒWƒFƒNƒg
+	 * å››è§’å½¢ã®ç¯„å›²ã«å«ã¾ã‚Œã‚‹ãƒã‚¹ã«Squareã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¨­å®šã™ã‚‹
+	 * @param region è¨­å®šã™ã‚‹å››è§’å½¢ã®ç¯„å›²
+	 * @param sq è¨­å®šã™ã‚‹Squareã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 	 */
 	public void setSquare(Square region, Square sq) {
 		for (Address p : region.cellSet()) {
@@ -170,9 +170,9 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * lŠp‚ğ’Ç‰ÁC•ÏX‚µ‚½‚Æ‚«‚É‚·‚Å‚É‚ ‚é‘¼‚ÌlŠp‚Æd‚È‚éê‡C‚»‚ÌlŠp‚ğœ‹‚·‚éB
-	 * @param sq ’Ç‰Á,•ÏX‚·‚élŠp
-	 * @param org •ÏX‚·‚éê‡‚Ì‚à‚Æ‚ÌlŠp
+	 * å››è§’ã‚’è¿½åŠ ï¼Œå¤‰æ›´ã—ãŸã¨ãã«ã™ã§ã«ã‚ã‚‹ä»–ã®å››è§’ã¨é‡ãªã‚‹å ´åˆï¼Œãã®å››è§’ã‚’é™¤å»ã™ã‚‹ã€‚
+	 * @param sq è¿½åŠ ,å¤‰æ›´ã™ã‚‹å››è§’
+	 * @param org å¤‰æ›´ã™ã‚‹å ´åˆã®ã‚‚ã¨ã®å››è§’
 	 */
 	public void removeOverlappedSquares(Square sq, Square org) {
 		for (Address p : sq.cellSet()) {
@@ -183,7 +183,7 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * •”‰®‚Ì”š‚ğ•ÏX‚·‚éB
+	 * éƒ¨å±‹ã®æ•°å­—ã‚’å¤‰æ›´ã™ã‚‹ã€‚
 	 * @param p
 	 * @param n
 	 */
@@ -251,8 +251,8 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * lŠp‚ğ’Ç‰Á‚·‚é
-	 * @param sq ’Ç‰Á‚·‚élŠp
+	 * å››è§’ã‚’è¿½åŠ ã™ã‚‹
+	 * @param sq è¿½åŠ ã™ã‚‹å››è§’
 	 */
 	public void addSquare(Square sq) {
 		if (isRecordUndo())
@@ -262,10 +262,10 @@ public class Board extends BoardBase {
 		squareList.add(sq);
 	}
 	/**
-	 * lŠp‚ğ•ÏX‚·‚é
-	 * @param sq •ÏX‚³‚ê‚élŠp
-	 * @param q0 •ÏXŒã‚ÌlŠp‚ÌŠp‚ÌÀ•W
-	 * @param q1 •ÏXŒã‚ÌlŠp‚ÌŠp‚ÌÀ•W
+	 * å››è§’ã‚’å¤‰æ›´ã™ã‚‹
+	 * @param sq å¤‰æ›´ã•ã‚Œã‚‹å››è§’
+	 * @param q0 å¤‰æ›´å¾Œã®å››è§’ã®è§’ã®åº§æ¨™
+	 * @param q1 å¤‰æ›´å¾Œã®å››è§’ã®è§’ã®åº§æ¨™
 	 */
 	public void changeSquare(Square sq, Address q0, Address q1) {
 		if (isRecordUndo())
@@ -276,8 +276,8 @@ public class Board extends BoardBase {
 		initSquareNumber(sq);
 	}
 	/**
-	 * lŠp‚ğÁ‹‚·‚é
-	 * @param sq Á‹‚·‚élŠp
+	 * å››è§’ã‚’æ¶ˆå»ã™ã‚‹
+	 * @param sq æ¶ˆå»ã™ã‚‹å››è§’
 	 */
 	public void removeSquare(Square sq) {
 		if (isRecordUndo())

@@ -7,7 +7,7 @@ import pencilbox.common.io.PzprReaderBase;
 
 
 /**
- * QlFpzprv3 heyawake.js
+ * å‚è€ƒï¼špzprv3 heyawake.js
  */
 public class PzprReader extends PzprReaderBase {
 
@@ -54,7 +54,7 @@ public class PzprReader extends PzprReaderBase {
 	}
 
 	/**
-	 * —Ìˆæƒf[ƒ^‚©‚çlŠpŒ`—Ìˆæƒf[ƒ^ì¬‚·‚éB
+	 * é ˜åŸŸãƒ‡ãƒ¼ã‚¿ã‹ã‚‰å››è§’å½¢é ˜åŸŸãƒ‡ãƒ¼ã‚¿ä½œæˆã™ã‚‹ã€‚
 	 */
 	private void makeSquares() {
 		squareArray = new Square[nArea];
@@ -67,13 +67,13 @@ public class PzprReader extends PzprReaderBase {
 				bd.setSquare(sq, sq);
 				bd.getSquareList().add(sq);
 			} else {
-				System.out.println("—Ìˆæ‚ªlŠpŒ`‚Å‚È‚¢");
+				System.out.println("é ˜åŸŸãŒå››è§’å½¢ã§ãªã„");
 			}
 		}
 	}
 
 	/**
-	 * —Ìˆæ‚ÉŠOÚ‚·‚élŠpŒ`—Ìˆæ‚ğì¬‚·‚éB
+	 * é ˜åŸŸã«å¤–æ¥ã™ã‚‹å››è§’å½¢é ˜åŸŸã‚’ä½œæˆã™ã‚‹ã€‚
 	 */
 	public Square makeCircumscribedSquare(AreaBase area) {
 		int r1 = bd.cols();

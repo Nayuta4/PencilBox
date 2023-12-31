@@ -11,7 +11,7 @@ import pencilbox.util.Colors;
 
 
 /**
- * 「ナンバーリンク」パネルクラス
+ * 縲後リ繝ｳ繝舌�ｼ繝ｪ繝ｳ繧ｯ縲阪ヱ繝阪Ν繧ｯ繝ｩ繧ｹ
  */
 public class Panel extends PanelBase {
 

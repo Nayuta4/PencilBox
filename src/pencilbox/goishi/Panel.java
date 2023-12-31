@@ -9,7 +9,7 @@ import pencilbox.common.gui.PanelBase;
 
 
 /**
- * 「碁石ひろい」パネルクラス
+ * 縲檎｢∫浹縺ｲ繧阪＞縲阪ヱ繝阪Ν繧ｯ繝ｩ繧ｹ
  */
 public class Panel extends PanelBase {
 

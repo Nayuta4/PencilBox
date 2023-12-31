@@ -3,7 +3,7 @@ package pencilbox.shikaku;
 import pencilbox.common.core.Address;
 
 /**
- * ulŠp‚ÉØ‚êvlŠpƒNƒ‰ƒX
+ * ã€Œå››è§’ã«åˆ‡ã‚Œã€å››è§’ã‚¯ãƒ©ã‚¹
  */
 public class Square extends pencilbox.common.core.SquareBase {
 
@@ -11,16 +11,16 @@ public class Square extends pencilbox.common.core.SquareBase {
 	static final int MULTIPLE_NUMBER = -2;
 	private static int NEXT_ID = 1;
 
-	private int id;  // —Ìˆæ”Ô†
+	private int id;  // é ˜åŸŸç•ªå·
 
-	private int number; // lŠp‚Ì”š
+	private int number; // å››è§’ã®æ•°å­—
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param ra ˆê•û‚ÌŠp‚ÌsÀ•W
-	 * @param ca ˆê•û‚ÌŠp‚Ì—ñÀ•W
-	 * @param rb ‘¼•û‚ÌŠp‚ÌsÀ•W
-	 * @param cb ‘¼•û‚ÌŠp‚Ì—ñÀ•W
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param ra ä¸€æ–¹ã®è§’ã®è¡Œåº§æ¨™
+	 * @param ca ä¸€æ–¹ã®è§’ã®åˆ—åº§æ¨™
+	 * @param rb ä»–æ–¹ã®è§’ã®è¡Œåº§æ¨™
+	 * @param cb ä»–æ–¹ã®è§’ã®åˆ—åº§æ¨™
 	 */
 	public Square(int ra, int ca, int rb, int cb) {
 		super(ra, ca, rb, cb);
@@ -28,24 +28,24 @@ public class Square extends pencilbox.common.core.SquareBase {
 		if (NEXT_ID == Integer.MAX_VALUE) NEXT_ID = 1;
 	}
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param posA ˆê•û‚ÌŠp‚ÌÀ•W
-	 * @param posB ‘¼•û‚ÌŠp‚ÌÀ•W
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param posA ä¸€æ–¹ã®è§’ã®åº§æ¨™
+	 * @param posB ä»–æ–¹ã®è§’ã®åº§æ¨™
 	 */
 	public Square(Address posA, Address posB) {
 		this(posA.r(), posA.c(), posB.r(), posB.c());
 	}
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * ˆø”‚ÌlŠp‚Æ“¯‚¶À•W‚ÌlŠp‚ğì¬‚·‚éB
-	 * @param s lŠp
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * å¼•æ•°ã®å››è§’ã¨åŒã˜åº§æ¨™ã®å››è§’ã‚’ä½œæˆã™ã‚‹ã€‚
+	 * @param s å››è§’
 	 */
 	public Square(Square s) {
 		this(s.r0(), s.c0(), s.r1(), s.c1());
 	}
 
 	/**
-	 * @return ”š
+	 * @return æ•°å­—
 	 */
 	public int getNumber() {
 		return number;

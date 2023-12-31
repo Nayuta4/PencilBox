@@ -1,7 +1,7 @@
 package pencilbox.hakyukoka;
 
 /**
- * 「波及効果」領域クラス
+ * 縲梧ｳ｢蜿雁柑譫懊埼伜沺繧ｯ繝ｩ繧ｹ
  */
 public class Area extends pencilbox.common.core.AreaBase {
 

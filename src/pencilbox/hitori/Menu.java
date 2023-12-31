@@ -11,7 +11,7 @@ import pencilbox.resource.Messages;
 
 
 /**
- * u‚Ğ‚Æ‚è‚É‚µ‚Ä‚­‚êvƒƒjƒ…[ƒNƒ‰ƒX
+ * ã€Œã²ã¨ã‚Šã«ã—ã¦ãã‚Œã€ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚¯ãƒ©ã‚¹
  */
 public class Menu extends MenuBase {
 
@@ -35,15 +35,15 @@ public class Menu extends MenuBase {
 		});
 		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.indicateErrorItem"), 'E', false)); //$NON-NLS-1$
 		addToViewMenu(hideSoleNumberItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.hideSoleNumberItem"), 'H', false)); //$NON-NLS-1$
-//		addToViewMenu(indicateRedundantNumberItem = makeCheckBoxCommandMenuItem("d•¡‚·‚é”š‚ğÔ‚Å¦‚·(R)", 'R', false));
+//		addToViewMenu(indicateRedundantNumberItem = makeCheckBoxCommandMenuItem("é‡è¤‡ã™ã‚‹æ•°å­—ã‚’èµ¤ã§ç¤ºã™(R)", 'R', false));
 	}
 
 	/**
-	 * u•¶ší—Ş‚Ìİ’èvƒƒjƒ…[€–Ú‚ğˆ—‚·‚é
+	 * ã€Œæ–‡å­—ç¨®é¡ã®è¨­å®šã€ãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®ã‚’å‡¦ç†ã™ã‚‹
 	 */
 	void selectLetter() {
 		String[] options =
-		{ "1", "A", "ƒŸ", "„@", "ƒA", "‚¢", "™", "éç" };
+		{ "1", "A", "Î‘", "Ğ", "ã‚¢", "ã„", "â˜†", "é±¸" };
 		String message = "";
 		String title = Messages.getString("Menu.SelectLetterDialog"); //$NON-NLS-1$
 		int selection = JOptionPane.showOptionDialog(

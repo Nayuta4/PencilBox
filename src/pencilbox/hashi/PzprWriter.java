@@ -5,7 +5,7 @@ import pencilbox.common.io.PzprWriterBase;
 
 
 /**
- * QlFpzprv3 hashikake.js
+ * å‚è€ƒï¼špzprv3 hashikake.js
  */
 public class PzprWriter extends PzprWriterBase {
 

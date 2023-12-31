@@ -8,7 +8,7 @@ import pencilbox.common.core.Size;
 
 
 /**
- * へわやけアプレット URL の読み込み
+ * 縺ｸ繧上ｄ縺代い繝励Ξ繝�繝� URL 縺ｮ隱ｭ縺ｿ霎ｼ縺ｿ
  * @author nayuta
  */
 public class HeyawakeReader {

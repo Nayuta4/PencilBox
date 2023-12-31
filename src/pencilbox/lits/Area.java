@@ -1,7 +1,7 @@
 package pencilbox.lits;
 
 /**
- * u‚k‚h‚s‚rv—ÌˆæƒNƒ‰ƒX
+ * ã€Œï¼¬ï¼©ï¼´ï¼³ã€é ˜åŸŸã‚¯ãƒ©ã‚¹
  */
 public class Area extends pencilbox.common.core.AreaBase {
 

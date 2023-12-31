@@ -19,8 +19,8 @@ import pencilbox.common.core.BoardBase;
 import pencilbox.resource.Messages;
 
 /**
- * u”šŒğŠ·vƒ_ƒCƒAƒƒO
- * ƒ‚[ƒ_ƒ‹ƒ_ƒCƒAƒƒO‚È‚Ì‚ÅC1‚Â‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚Ì‚İ‚ğ¶¬‚µ‚Äg‚¢‰ñ‚·
+ * ã€Œæ•°å­—äº¤æ›ã€ãƒ€ã‚¤ã‚¢ãƒ­ã‚°
+ * ãƒ¢ãƒ¼ãƒ€ãƒ«ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ãªã®ã§ï¼Œ1ã¤ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ã¿ã‚’ç”Ÿæˆã—ã¦ä½¿ã„å›ã™
  */
 
 public class ExchangeNumbersDialog extends PencilBoxDialog {
@@ -28,9 +28,9 @@ public class ExchangeNumbersDialog extends PencilBoxDialog {
 	private static ExchangeNumbersDialog instance = new ExchangeNumbersDialog();
 
 	/**
-	 * ExchangeNumberDialog ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾‚·‚é
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Íg—p•s‰Â‚ÅCƒCƒ“ƒXƒ^ƒ“ƒX‚Í‚±‚Ìƒƒ\ƒbƒh‚É‚æ‚èæ“¾‚·‚é
-	 * @return ExchangeNumberDialog ƒCƒ“ƒXƒ^ƒ“ƒX
+	 * ExchangeNumberDialog ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å–å¾—ã™ã‚‹
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã¯ä½¿ç”¨ä¸å¯ã§ï¼Œã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã¯ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã«ã‚ˆã‚Šå–å¾—ã™ã‚‹
+	 * @return ExchangeNumberDialog ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 	 */
 	public static ExchangeNumbersDialog getInstance() {
 		return instance;
@@ -107,9 +107,9 @@ public class ExchangeNumbersDialog extends PencilBoxDialog {
 	}
 
 	/**
-	 * ‘I‘ğ‰Â”\”š‚ÌãŒÀC‰ºŒÀ‚ğİ’è‚·‚é
-	 * @param min ‰ºŒÀ
-	 * @param max ãŒÀ
+	 * é¸æŠå¯èƒ½æ•°å­—ã®ä¸Šé™ï¼Œä¸‹é™ã‚’è¨­å®šã™ã‚‹
+	 * @param min ä¸‹é™
+	 * @param max ä¸Šé™
 	 */
 	public void setRange(int min, int max) {
 		for (int i=0; i<2; i++) {

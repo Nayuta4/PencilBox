@@ -8,7 +8,7 @@ import pencilbox.common.core.Address;
 
 
 /**
- * ���Ɠ��̃h�b�g�q���g�̕\�����s���N���X
+ * 数独等のドットヒントの表示を行うクラス
  */
 public class HintDot{
 
@@ -39,8 +39,8 @@ public class HintDot{
 		setDotSize(cellSize);
 	}
 	/**
-	 * �p�l���̃Z���T�C�Y�̕ύX�ɉ����āC�_�̃T�C�Y��ύX����
-	 * @param cellSize �p�l���̃Z���s�b�`�̃s�N�Z����
+	 * パネルのセルサイズの変更に応じて，点のサイズを変更する
+	 * @param cellSize パネルのセルピッチのピクセル数
 	 */
 	public void setDotSize(int cellSize) {
 		dotPitch = cellSize / unit;

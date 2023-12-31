@@ -4,7 +4,7 @@ import pencilbox.common.gui.MenuBase;
 import pencilbox.resource.Messages;
 
 /**
- * 「ヤジリン」メニュークラス
+ * 縲後Ζ繧ｸ繝ｪ繝ｳ縲阪Γ繝九Η繝ｼ繧ｯ繝ｩ繧ｹ
  */
 public class Menu extends MenuBase {
 
@@ -18,7 +18,7 @@ public class Menu extends MenuBase {
 		addNoPaintMarkStyleMenu();
 		addLinkWidthMenuItem();
 		super.buildViewMenu();
-//		wallColorItem = addColorMenuItem("数字マス");
+//		wallColorItem = addColorMenuItem("謨ｰ蟄励�槭せ");
 		numberColorItem = addColorMenuItem(Messages.getString("Menu.numberColorItem")); //$NON-NLS-1$
 		lineColorItem = addColorMenuItem(Messages.getString("Menu.lineColorItem")); //$NON-NLS-1$
 		paintColorItem = addColorMenuItem(Messages.getString("Menu.paintColorItem")); //$NON-NLS-1$

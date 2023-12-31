@@ -5,19 +5,19 @@ import pencilbox.resource.Messages;
 
 
 /**
- * Še”Õ–ÊƒNƒ‰ƒX‚ÌeƒNƒ‰ƒX
+ * å„ç›¤é¢ã‚¯ãƒ©ã‚¹ã®è¦ªã‚¯ãƒ©ã‚¹
  */
 public class BoardBase {
 
 	private UndoManager undoManager;
 	private Size size;
 
-	private Address[] cellAddrs; // ”Õ–Ê‘S‘Ì‚Ìƒ}ƒXÀ•WƒŠƒXƒg
-	private SideAddress[] borderAddrs; // ”Õ–Ê“à•”‚Ì•ÓÀ•WƒŠƒXƒg
+	private Address[] cellAddrs; // ç›¤é¢å…¨ä½“ã®ãƒžã‚¹åº§æ¨™ãƒªã‚¹ãƒˆ
+	private SideAddress[] borderAddrs; // ç›¤é¢å†…éƒ¨ã®è¾ºåº§æ¨™ãƒªã‚¹ãƒˆ
 
 	/**
-	 * ”Õ–ÊƒTƒCƒY‚ð‚ ‚½‚¦‚ÄCBoard ¶¬Œã‚Ì‰Šú‰»ˆ—‚ðs‚¤
-	 * @param size ”Õ–Ê‚Ìs—ñƒTƒCƒY
+	 * ç›¤é¢ã‚µã‚¤ã‚ºã‚’ã‚ãŸãˆã¦ï¼ŒBoard ç”Ÿæˆå¾Œã®åˆæœŸåŒ–å‡¦ç†ã‚’è¡Œã†
+	 * @param size ç›¤é¢ã®è¡Œåˆ—ã‚µã‚¤ã‚º
 	 */
 	public void setSize(Size size){
 		Address.createAddressInstances(size);
@@ -31,9 +31,9 @@ public class BoardBase {
 		this.setSize(new Size(r, c));
 	}
 	/**
-	 * Board ¶¬Œã‚Ì‰Šú‰»ˆ—
-	 * ”z—ñ¶¬‚È‚Ç‚Ì‰Šú‰»ˆ—‚ðs‚¤
-	 * ŠeƒTƒuƒNƒ‰ƒX‚ÅƒI[ƒo[ƒ‰ƒCƒh‚·‚é
+	 * Board ç”Ÿæˆå¾Œã®åˆæœŸåŒ–å‡¦ç†
+	 * é…åˆ—ç”Ÿæˆãªã©ã®åˆæœŸåŒ–å‡¦ç†ã‚’è¡Œã†
+	 * å„ã‚µãƒ–ã‚¯ãƒ©ã‚¹ã§ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã™ã‚‹
 	 */
 	protected void setup(){
 	}	
@@ -61,7 +61,7 @@ public class BoardBase {
 	}
 
 	/**
-	 * UndoManager ‚ðÝ’è‚·‚é
+	 * UndoManager ã‚’è¨­å®šã™ã‚‹
 	 * @param u UndoManager
 	 */
 	public void setUndoManager(UndoManager u) {
@@ -72,15 +72,15 @@ public class BoardBase {
 		return undoManager;
 	}
 	/**
-	 * ”Õ–Ê Size ‚ðŽæ“¾‚·‚é
-	 * @return ”Õ–Ê‚ÌSize
+	 * ç›¤é¢ Size ã‚’å–å¾—ã™ã‚‹
+	 * @return ç›¤é¢ã®Size
 	 */
 	public Size getSize() {
 		return size;
 	}
 	/**
-	 * ”Õ–Ê‚Ìs”‚ðŽæ“¾‚·‚é
-	 * @return s”
+	 * ç›¤é¢ã®è¡Œæ•°ã‚’å–å¾—ã™ã‚‹
+	 * @return è¡Œæ•°
 	 */
 	public final int rows() {
 		return size.getRows();
@@ -98,59 +98,59 @@ public class BoardBase {
 	}
 
 	/**
-	 * ˆÈ~‚ÌƒAƒ“ƒhƒD‘€ì‚ðˆê‚Â‚É‚Ü‚Æ‚ß‚é
+	 * ä»¥é™ã®ã‚¢ãƒ³ãƒ‰ã‚¥æ“ä½œã‚’ä¸€ã¤ã«ã¾ã¨ã‚ã‚‹
 	 */
 	public void startCompoundUndo() {
 		getUndoManager().startCompoundUndo();
 	}
 	/**
-	 * ‚±‚±‚Ü‚Å‚ÌƒAƒ“ƒhƒD‘€ì‚ðˆê‚Â‚É‚Ü‚Æ‚ß‚é
+	 * ã“ã“ã¾ã§ã®ã‚¢ãƒ³ãƒ‰ã‚¥æ“ä½œã‚’ä¸€ã¤ã«ã¾ã¨ã‚ã‚‹
 	 */
 	public void stopCompoundUndo() {
 		getUndoManager().stopCompoundUndo();
 	}
 
 	/**
-	 * ”Õ–Ê‚Ì—ñ”‚ðŽæ“¾‚·‚é
-	 * @return —ñ”
+	 * ç›¤é¢ã®åˆ—æ•°ã‚’å–å¾—ã™ã‚‹
+	 * @return åˆ—æ•°
 	 */
 	public final int cols() {
 		return size.getCols();
 	}
 	/**
-	 * ˆø”‚ÅÀ•W‚ð—^‚¦‚ç‚ê‚½ƒ}ƒX‚ª”Õã‚É‚ ‚é‚©‚Ç‚¤‚©
-	 * @param r sÀ•W
-	 * @param c —ñÀ•W
-	 * @return ”Õã‚É‚ ‚ê‚Î true
+	 * å¼•æ•°ã§åº§æ¨™ã‚’ä¸Žãˆã‚‰ã‚ŒãŸãƒžã‚¹ãŒç›¤ä¸Šã«ã‚ã‚‹ã‹ã©ã†ã‹
+	 * @param r è¡Œåº§æ¨™
+	 * @param c åˆ—åº§æ¨™
+	 * @return ç›¤ä¸Šã«ã‚ã‚Œã° true
 	 */
 	public boolean isOn(int r, int c) {
 		return (r >= 0 && r < rows() && c >= 0 && c < cols());
 	}
 	/**
-	 * ˆø”‚ÅÀ•W‚ð—^‚¦‚ç‚ê‚½ƒ}ƒX‚ª”Õã‚É‚ ‚é‚©‚Ç‚¤‚©
-	 * ”Õ–ÊƒTƒCƒY‚É adjustRow, adjustCol ‚Ì’l‚Ì•â³‚ð‰Á‚¦‚é
-	 * 0 <= r < rows()+adjustRow, 0 <= c < col()+adjustCol ‚Ì‚Æ‚«‚É true ‚ð•Ô‚·
-	 * @param r sÀ•W
-	 * @param c —ñÀ•W
-	 * @param adjustRow s‚Ì•â³’l
-	 * @param adjustCol —ñ‚Ì•â³’l
-	 * @return ”Õã‚É‚ ‚ê‚Î true
+	 * å¼•æ•°ã§åº§æ¨™ã‚’ä¸Žãˆã‚‰ã‚ŒãŸãƒžã‚¹ãŒç›¤ä¸Šã«ã‚ã‚‹ã‹ã©ã†ã‹
+	 * ç›¤é¢ã‚µã‚¤ã‚ºã« adjustRow, adjustCol ã®å€¤ã®è£œæ­£ã‚’åŠ ãˆã‚‹
+	 * 0 <= r < rows()+adjustRow, 0 <= c < col()+adjustCol ã®ã¨ãã« true ã‚’è¿”ã™
+	 * @param r è¡Œåº§æ¨™
+	 * @param c åˆ—åº§æ¨™
+	 * @param adjustRow è¡Œã®è£œæ­£å€¤
+	 * @param adjustCol åˆ—ã®è£œæ­£å€¤
+	 * @return ç›¤ä¸Šã«ã‚ã‚Œã° true
 	 */
 	public boolean isOn(int r, int c, int adjustRow, int adjustCol) {
 		return (r >= 0 && r < rows()+adjustRow && c >= 0 && c < cols()+adjustCol);
 	}
 	/**
-	 * ˆø”‚ÅÀ•W‚ð—^‚¦‚ç‚ê‚½ƒ}ƒX‚ª”Õã‚É‚ ‚é‚©‚Ç‚¤‚©
-	 * @param position ’²‚×‚éÀ•W
-	 * @return ”Õã‚É‚ ‚ê‚Î true
+	 * å¼•æ•°ã§åº§æ¨™ã‚’ä¸Žãˆã‚‰ã‚ŒãŸãƒžã‚¹ãŒç›¤ä¸Šã«ã‚ã‚‹ã‹ã©ã†ã‹
+	 * @param position èª¿ã¹ã‚‹åº§æ¨™
+	 * @return ç›¤ä¸Šã«ã‚ã‚Œã° true
 	 */
 	public boolean isOn(Address position) {
 		return isOn(position.r(), position.c());
 	}
 	/**
-	 * ˆø”‚ÅÀ•W‚ð—^‚¦‚ç‚ê‚½ƒ}ƒX‚ª”Õã‚É‚ ‚é‚©‚Ç‚¤‚©
-	 * @param position ’²‚×‚éÀ•W
-	 * @return ”Õã‚É‚ ‚ê‚Î true
+	 * å¼•æ•°ã§åº§æ¨™ã‚’ä¸Žãˆã‚‰ã‚ŒãŸãƒžã‚¹ãŒç›¤ä¸Šã«ã‚ã‚‹ã‹ã©ã†ã‹
+	 * @param position èª¿ã¹ã‚‹åº§æ¨™
+	 * @return ç›¤ä¸Šã«ã‚ã‚Œã° true
 	 */
 	public boolean isOnAll(Address... positions) {
 		for (Address p : positions)
@@ -159,11 +159,11 @@ public class BoardBase {
 		return true;
 	}
 	/**
-	 * ˆø”‚ÅÀ•W‚ð—^‚¦‚ç‚ê‚½•Ó‚ª”Õã‚É‚ ‚é‚©‚Ç‚¤‚©
-	 * @param d c‚©‰¡‚©
-	 * @param r sÀ•W
-	 * @param c —ñÀ•W
-	 * @return ”Õã‚É‚ ‚ê‚Î true
+	 * å¼•æ•°ã§åº§æ¨™ã‚’ä¸Žãˆã‚‰ã‚ŒãŸè¾ºãŒç›¤ä¸Šã«ã‚ã‚‹ã‹ã©ã†ã‹
+	 * @param d ç¸¦ã‹æ¨ªã‹
+	 * @param r è¡Œåº§æ¨™
+	 * @param c åˆ—åº§æ¨™
+	 * @return ç›¤ä¸Šã«ã‚ã‚Œã° true
 	 */
 	public boolean isSideOn(int d, int r, int c) {
 		if (d==Direction.VERT)
@@ -174,18 +174,18 @@ public class BoardBase {
 			return false;
 	}
 	/**
-	 * ˆø”‚ÅÀ•W‚ð—^‚¦‚ç‚ê‚½•Ó‚ª”Õã‚É‚ ‚é‚©‚Ç‚¤‚©
+	 * å¼•æ•°ã§åº§æ¨™ã‚’ä¸Žãˆã‚‰ã‚ŒãŸè¾ºãŒç›¤ä¸Šã«ã‚ã‚‹ã‹ã©ã†ã‹
 	 * @param position
-	 * @return ”Õã‚É‚ ‚ê‚Î true
+	 * @return ç›¤ä¸Šã«ã‚ã‚Œã° true
 	 */
 	public boolean isSideOn(SideAddress position) {
 		return isSideOn(position.d(), position.r(), position.c());
 	}
 
 	/**
-	 * ˆø”‚ÅÀ•W‚ð—^‚¦‚ç‚ê‚½•Ó‚ª”Õã‚É‚ ‚é‚©‚Ç‚¤‚©
+	 * å¼•æ•°ã§åº§æ¨™ã‚’ä¸Žãˆã‚‰ã‚ŒãŸè¾ºãŒç›¤ä¸Šã«ã‚ã‚‹ã‹ã©ã†ã‹
 	 * @param position
-	 * @return ”Õã‚É‚ ‚ê‚Î true
+	 * @return ç›¤ä¸Šã«ã‚ã‚Œã° true
 	 */
 	public boolean isSideOn(Address pos, int dir) {
 		switch (dir) {
@@ -202,9 +202,9 @@ public class BoardBase {
 		}
 	}
 	/**
-	 * ˆø”‚Å—^‚¦‚ç‚ê‚½—Ìˆæ‘S‘Ì‚ª”Õ“à‚É‚ ‚é‚©
-	 * @param area —Ìˆæ
-	 * @return —Ìˆæ‘S‘Ì‚ª”Õ“à‚É‚ ‚ê‚Î true, ‚»‚¤‚Å‚È‚¯‚ê‚Î false ‚ð•Ô‚·B
+	 * å¼•æ•°ã§ä¸Žãˆã‚‰ã‚ŒãŸé ˜åŸŸå…¨ä½“ãŒç›¤å†…ã«ã‚ã‚‹ã‹
+	 * @param area é ˜åŸŸ
+	 * @return é ˜åŸŸå…¨ä½“ãŒç›¤å†…ã«ã‚ã‚Œã° true, ãã†ã§ãªã‘ã‚Œã° false ã‚’è¿”ã™ã€‚
 	 */
 	public boolean isAreaOn(AreaBase area) {
 		for (Address pos : area) {
@@ -215,8 +215,8 @@ public class BoardBase {
 	}
 
 	/**
-	 * ”Õ–Ê‘S‘Ì‚ðŠÜ‚Þ—Ìˆæ‚ðì¬‚µ‚Ä•Ô‚·B
-	 * @return ”Õ–Ê‘S‘Ì‚ðŠÜ‚Þ—ÌˆæB
+	 * ç›¤é¢å…¨ä½“ã‚’å«ã‚€é ˜åŸŸã‚’ä½œæˆã—ã¦è¿”ã™ã€‚
+	 * @return ç›¤é¢å…¨ä½“ã‚’å«ã‚€é ˜åŸŸã€‚
 	 */
 	public AreaBase getWholeBoardArea() {
 		AreaBase area = new AreaBase();
@@ -243,26 +243,26 @@ public class BoardBase {
 	}
 
 	/**
-	 * ‰ð“š‚ðÁ‹Ž‚µC–â‘è‚Ì‰Šú”Õ–Ê‚É–ß‚·
-	 * ŠeƒTƒuƒNƒ‰ƒX‚ÅŽÀ‘•‚·‚é
+	 * è§£ç­”ã‚’æ¶ˆåŽ»ã—ï¼Œå•é¡Œã®åˆæœŸç›¤é¢ã«æˆ»ã™
+	 * å„ã‚µãƒ–ã‚¯ãƒ©ã‚¹ã§å®Ÿè£…ã™ã‚‹
 	 */
 	public void clearBoard() {
 	}
 	/**
-	 * ‰ð“š‚©‚ç”Õ–Ê‚©‚ç”’ƒ}ƒX‚â~ˆó‚È‚Ç‚Ì•â•“I“ü—Í‚ðÁ‹Ž‚·‚é
-	 * ŠeƒTƒuƒNƒ‰ƒX‚ÅŽÀ‘•‚·‚é
+	 * è§£ç­”ã‹ã‚‰ç›¤é¢ã‹ã‚‰ç™½ãƒžã‚¹ã‚„Ã—å°ãªã©ã®è£œåŠ©çš„å…¥åŠ›ã‚’æ¶ˆåŽ»ã™ã‚‹
+	 * å„ã‚µãƒ–ã‚¯ãƒ©ã‚¹ã§å®Ÿè£…ã™ã‚‹
 	 */
 	public void trimAnswer() {
 	}
 	/**
-	 * ”Õ–Ê‚Ì–â‘è”Žš‚ð–¢’è”Žš‚É•ÏX‚·‚é
-	 * ŠeƒTƒuƒNƒ‰ƒX‚ÅŽÀ‘•‚·‚é
+	 * ç›¤é¢ã®å•é¡Œæ•°å­—ã‚’æœªå®šæ•°å­—ã«å¤‰æ›´ã™ã‚‹
+	 * å„ã‚µãƒ–ã‚¯ãƒ©ã‚¹ã§å®Ÿè£…ã™ã‚‹
 	 */
 	public void clearQuestion() {
 	}
 	/**
-	 * ”Õ–Ê‚Ì‰ñ“š”Žš‚È‚Ç‚©‚ç–â‘è”Žš‚ð•œŒ³‚·‚é
-	 * ŠeƒTƒuƒNƒ‰ƒX‚ÅŽÀ‘•‚·‚é
+	 * ç›¤é¢ã®å›žç­”æ•°å­—ãªã©ã‹ã‚‰å•é¡Œæ•°å­—ã‚’å¾©å…ƒã™ã‚‹
+	 * å„ã‚µãƒ–ã‚¯ãƒ©ã‚¹ã§å®Ÿè£…ã™ã‚‹
 	 */
 	public void reconstructQuestion() {
 	}
@@ -270,8 +270,8 @@ public class BoardBase {
 	public void exchangeNumbers(int v0, int v1) {
 	}
 	/**
-	 * ‰ð“š‚©‚ç”Õ–Ê‚©‚ç”’ƒ}ƒX‚â~ˆó‚È‚Ç‚Ì•â•“I“ü—Í‚ðÁ‹Ž‚·‚é
-	 * ƒAƒ“ƒhƒD‘€ì‚Íˆê‚Â‚É‚Ü‚Æ‚ß‚é
+	 * è§£ç­”ã‹ã‚‰ç›¤é¢ã‹ã‚‰ç™½ãƒžã‚¹ã‚„Ã—å°ãªã©ã®è£œåŠ©çš„å…¥åŠ›ã‚’æ¶ˆåŽ»ã™ã‚‹
+	 * ã‚¢ãƒ³ãƒ‰ã‚¥æ“ä½œã¯ä¸€ã¤ã«ã¾ã¨ã‚ã‚‹
 	 */
 	public void trimAnswer1() {
 		startCompoundUndo();
@@ -279,16 +279,16 @@ public class BoardBase {
 		stopCompoundUndo();
 	}
 	/**
-	 * ”Õ–ÊÝ’è‚µ‚½‚ ‚Æ‚ÉŒÄ‚ÑC”Õ–Êó‘Ô‚ð‰Šú‰»‚·‚é
-	 * ŠeƒTƒuƒNƒ‰ƒX‚Å•K—v‚Èˆ—‚ð‹Lq‚·‚é
+	 * ç›¤é¢è¨­å®šã—ãŸã‚ã¨ã«å‘¼ã³ï¼Œç›¤é¢çŠ¶æ…‹ã‚’åˆæœŸåŒ–ã™ã‚‹
+	 * å„ã‚µãƒ–ã‚¯ãƒ©ã‚¹ã§å¿…è¦ãªå‡¦ç†ã‚’è¨˜è¿°ã™ã‚‹
 	 */
 	public void initBoard() {
 	}
 	/**
-	 * ˆø”‚ÅÀ•W‚ð—^‚¦‚ç‚ê‚½ƒ}ƒX‚ª”Õã‚ÌÅŠOŽüƒ}ƒX‚Å‚ ‚é‚©‚Ç‚¤‚©
-	 * @param r sÀ•W
-	 * @param c —ñÀ•W
-	 * @return ÅŠOŽüƒ}ƒX‚È‚ç true
+	 * å¼•æ•°ã§åº§æ¨™ã‚’ä¸Žãˆã‚‰ã‚ŒãŸãƒžã‚¹ãŒç›¤ä¸Šã®æœ€å¤–å‘¨ãƒžã‚¹ã§ã‚ã‚‹ã‹ã©ã†ã‹
+	 * @param r è¡Œåº§æ¨™
+	 * @param c åˆ—åº§æ¨™
+	 * @return æœ€å¤–å‘¨ãƒžã‚¹ãªã‚‰ true
 	 */
 	public boolean isOnPeriphery(int r, int c) {
 		return (r == 0 || r == rows() - 1 || c == 0 || c == cols() - 1);
@@ -298,43 +298,43 @@ public class BoardBase {
 		return isOnPeriphery(p.r(), p.c());
 	}
 	/**
-	 * ƒAƒ“ƒhƒDƒCƒxƒ“ƒgƒŠƒXƒi[‚ÉƒCƒxƒ“ƒg‚Ì”­¶‚ð’Ê’m‚·‚é
-	 * ƒAƒ“ƒhƒD‘ÎÛ‚Ì‘€ì‚ª”­¶‚µ‚½‚Æ‚«‚ÉŒÄ‚Ô
-	 * @param e the event ƒAƒ“ƒhƒD‘ÎÛ‚Ì‘€ì‚Æ‚È‚éƒCƒxƒ“ƒg
+	 * ã‚¢ãƒ³ãƒ‰ã‚¥ã‚¤ãƒ™ãƒ³ãƒˆãƒªã‚¹ãƒŠãƒ¼ã«ã‚¤ãƒ™ãƒ³ãƒˆã®ç™ºç”Ÿã‚’é€šçŸ¥ã™ã‚‹
+	 * ã‚¢ãƒ³ãƒ‰ã‚¥å¯¾è±¡ã®æ“ä½œãŒç™ºç”Ÿã—ãŸã¨ãã«å‘¼ã¶
+	 * @param e the event ã‚¢ãƒ³ãƒ‰ã‚¥å¯¾è±¡ã®æ“ä½œã¨ãªã‚‹ã‚¤ãƒ™ãƒ³ãƒˆ
 	 */
 	protected void fireUndoableEditUpdate(AbstractStep e) {
 //		if (isRecordUndo())
 		undoManager.addEdit(e);
 	}
 	/**
-	 * ƒAƒ“ƒhƒD
-	 * ‹ï‘Ì“I‚È‘€ì‚ÍŠeƒTƒuƒNƒ‰ƒX‚ÅŽÀ‘•‚·‚é
+	 * ã‚¢ãƒ³ãƒ‰ã‚¥
+	 * å…·ä½“çš„ãªæ“ä½œã¯å„ã‚µãƒ–ã‚¯ãƒ©ã‚¹ã§å®Ÿè£…ã™ã‚‹
 	 * @param step
 	 */
 	public void undo(AbstractStep step) {
 	}
 	/**
-	 * ƒŠƒhƒD
-	 * ‹ï‘Ì“I‚È‘€ì‚ÍŠeƒTƒuƒNƒ‰ƒX‚ÅŽÀ‘•‚·‚é
+	 * ãƒªãƒ‰ã‚¥
+	 * å…·ä½“çš„ãªæ“ä½œã¯å„ã‚µãƒ–ã‚¯ãƒ©ã‚¹ã§å®Ÿè£…ã™ã‚‹
 	 * @param step
 	 */
 	public void redo(AbstractStep step) {
 	}
 	/**
-	 * ³‰ðƒ`ƒFƒbƒN‚ÅŠ®¬‚Ìê‡‚ÌƒRƒƒ“ƒg•¶Žš—ñ
+	 * æ­£è§£ãƒã‚§ãƒƒã‚¯ã§å®Œæˆã®å ´åˆã®ã‚³ãƒ¡ãƒ³ãƒˆæ–‡å­—åˆ—
 	 */
 	public static final String COMPLETE_MESSAGE = Messages.getString("BoardBase.MessageComplete"); //$NON-NLS-1$
 
 	/**
-	 * ³‰ð‚ðƒ`ƒFƒbƒN‚µCŒ‹‰Ê‚ð•¶Žš—ñ‚Å•Ô‚·
-	 * @return Œ‹‰Ê‚ð•\‚·•¶Žš—ñ
+	 * æ­£è§£ã‚’ãƒã‚§ãƒƒã‚¯ã—ï¼Œçµæžœã‚’æ–‡å­—åˆ—ã§è¿”ã™
+	 * @return çµæžœã‚’è¡¨ã™æ–‡å­—åˆ—
 	 */
 	public String checkAnswerString() {
 		return Messages.getString("BoardBase.MessageUnavailable"); //$NON-NLS-1$
 	}
 	/**
-	 * ³‰ðƒ`ƒFƒbƒN‚µCŒ‹‰Ê‚ð”’l‚Å•Ô‚·
-	 * @return ³‰ð‚È‚ç 0
+	 * æ­£è§£ãƒã‚§ãƒƒã‚¯ã—ï¼Œçµæžœã‚’æ•°å€¤ã§è¿”ã™
+	 * @return æ­£è§£ãªã‚‰ 0
 	 */
 	public int checkAnswerCode() {
 		return 0;

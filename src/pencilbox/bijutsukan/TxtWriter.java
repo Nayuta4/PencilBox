@@ -7,7 +7,7 @@ import pencilbox.common.io.TxtWriterBase;
 
 
 /**
- * 「美術館」txt形式ファイル書き出しクラス
+ * 縲檎ｾ手｡馴､ｨ縲衡xt蠖｢蠑上ヵ繧｡繧､繝ｫ譖ｸ縺榊�ｺ縺励け繝ｩ繧ｹ
  */
 public class TxtWriter extends TxtWriterBase {
 

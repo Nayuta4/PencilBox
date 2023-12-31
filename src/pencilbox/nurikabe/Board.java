@@ -12,7 +12,7 @@ import pencilbox.util.ArrayUtil;
 
 
 /**
- *  u‚Ê‚è‚©‚×v”Õ–ÊƒNƒ‰ƒX
+ *  ã€Œã¬ã‚Šã‹ã¹ã€ç›¤é¢ã‚¯ãƒ©ã‚¹
  */
 public class Board extends BoardBase {
 
@@ -23,8 +23,8 @@ public class Board extends BoardBase {
 
 	private int[][] state;
 
-	private Area[][] area; // •ƒ}ƒX‚Ü‚½‚ÍŠm’è”’ƒ}ƒX—Ìˆæ—p
-	private Area[][] whiteArea; // ‹ó”’ƒ}ƒXŠÜ‚Ş”’ƒ}ƒX—Ìˆæ³‰ğ”»’è—p
+	private Area[][] area; // é»’ãƒã‚¹ã¾ãŸã¯ç¢ºå®šç™½ãƒã‚¹é ˜åŸŸç”¨
+	private Area[][] whiteArea; // ç©ºç™½ãƒã‚¹å«ã‚€ç™½ãƒã‚¹é ˜åŸŸæ­£è§£åˆ¤å®šç”¨
 	private List<Area> wallAreaList;
 	private List<Area> spaceAreaList;
 	private Area initializingArea;
@@ -118,7 +118,7 @@ public class Board extends BoardBase {
 		initAreas();
 	}
 	/**
-	 * Œ»İ‚Ì”Õ–Êó‘Ô‚ÉŠî‚Ã‚¢‚ÄC—Ìˆæ‚Ìİ’è‚ğs‚¤
+	 * ç¾åœ¨ã®ç›¤é¢çŠ¶æ…‹ã«åŸºã¥ã„ã¦ï¼Œé ˜åŸŸã®è¨­å®šã‚’è¡Œã†
 	 */
 	public void initAreas() {
 		ArrayUtil.initArrayObject2(area, null);
@@ -131,7 +131,7 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * w’è‚µ‚½ƒ}ƒX‚ğ‹N“_‚Æ‚µ‚Äƒ}ƒX‚Ì‚Â‚È‚ª‚è‚ğ’²‚×‚ÄArea‚ğì¬‚·‚é
+	 * æŒ‡å®šã—ãŸãƒã‚¹ã‚’èµ·ç‚¹ã¨ã—ã¦ãƒã‚¹ã®ã¤ãªãŒã‚Šã‚’èª¿ã¹ã¦Areaã‚’ä½œæˆã™ã‚‹
 	 * @param p
 	 */
 	void initArea(Address p) {
@@ -155,19 +155,19 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * ‚»‚Ìƒ}ƒX‚ÌŠ‘®‚·‚é—Ìˆæ‚ğæ“¾‚·‚é
-	 * ‚»‚Ìƒ}ƒX‚ª—Ìˆæ‚É‘®‚µ‚Ä‚¢‚È‚¢ê‡‚Í null ‚ğ•Ô‚·
+	 * ãã®ãƒã‚¹ã®æ‰€å±ã™ã‚‹é ˜åŸŸã‚’å–å¾—ã™ã‚‹
+	 * ãã®ãƒã‚¹ãŒé ˜åŸŸã«å±ã—ã¦ã„ãªã„å ´åˆã¯ null ã‚’è¿”ã™
 	 * @param p coordinate of the cell.
 	 * @return Returns the area.
 	 */
 	public Area getArea(Address p) {
-		// mergeArea ‚È‚Ç‚©‚çg—p‚·‚éê‡‚Ì‚½‚ß‚ÉCˆø”ƒ`ƒFƒbƒN‚ğs‚¤
+		// mergeArea ãªã©ã‹ã‚‰ä½¿ç”¨ã™ã‚‹å ´åˆã®ãŸã‚ã«ï¼Œå¼•æ•°ãƒã‚§ãƒƒã‚¯ã‚’è¡Œã†
 		if (!isOn(p))
 			return null;
 		return area[p.r()][p.c()];
 	}
 	/**
-	 * ”Õã‚Ìƒ}ƒX‚ÉC‚»‚Ìƒ}ƒX‚ÌŠ‘®‚·‚é—Ìˆæ‚ğİ’è‚·‚é
+	 * ç›¤ä¸Šã®ãƒã‚¹ã«ï¼Œãã®ãƒã‚¹ã®æ‰€å±ã™ã‚‹é ˜åŸŸã‚’è¨­å®šã™ã‚‹
 	 * @param p coordinate of the cell.
 	 * @param a The area to set.
 	 */
@@ -176,9 +176,9 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ƒ}ƒX‚Ìó‘Ô‚ğw’è‚µ‚½ó‘Ô‚É•ÏX‚µC•ÏX‚ğƒAƒ“ƒhƒDƒŠƒXƒi[‚É’Ê’m‚·‚é
-	 * @param p ƒ}ƒXÀ•W
-	 * @param st •ÏXŒã‚Ìó‘Ô
+	 * ãƒã‚¹ã®çŠ¶æ…‹ã‚’æŒ‡å®šã—ãŸçŠ¶æ…‹ã«å¤‰æ›´ã—ï¼Œå¤‰æ›´ã‚’ã‚¢ãƒ³ãƒ‰ã‚¥ãƒªã‚¹ãƒŠãƒ¼ã«é€šçŸ¥ã™ã‚‹
+	 * @param p ãƒã‚¹åº§æ¨™
+	 * @param st å¤‰æ›´å¾Œã®çŠ¶æ…‹
 	 */
 	public void changeState(Address p, int st) {
 		if (getState(p) == st)
@@ -215,10 +215,10 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ƒ}ƒX‚Ìó‘Ô‚ğ•ÏX‚µ‚½‚Æ‚«‚Ì Area •¹‡ˆ—‚ğs‚¤
-	 * ã‰º¶‰E‚Sƒ}ƒX‚Ì‘®‚·‚éƒuƒƒbƒN‚Ì‚¤‚¿Å‚à‘å‚«‚¢ƒuƒƒbƒN‚É‘¼‚ğ’Ç‰Á‚·‚éB‚È‚¯‚ê‚ÎV‚µ‚­ƒuƒƒbƒN‚ğì‚éB
-	 * @param p •ÏX‚µ‚½ƒ}ƒX‚ÌÀ•W
-	 * @param type •ÏXŒã‚Ì—Ìˆæ‚Ìí—Ş
+	 * ãƒã‚¹ã®çŠ¶æ…‹ã‚’å¤‰æ›´ã—ãŸã¨ãã® Area ä½µåˆå‡¦ç†ã‚’è¡Œã†
+	 * ä¸Šä¸‹å·¦å³ï¼”ãƒã‚¹ã®å±ã™ã‚‹ãƒ–ãƒ­ãƒƒã‚¯ã®ã†ã¡æœ€ã‚‚å¤§ãã„ãƒ–ãƒ­ãƒƒã‚¯ã«ä»–ã‚’è¿½åŠ ã™ã‚‹ã€‚ãªã‘ã‚Œã°æ–°ã—ããƒ–ãƒ­ãƒƒã‚¯ã‚’ä½œã‚‹ã€‚
+	 * @param p å¤‰æ›´ã—ãŸãƒã‚¹ã®åº§æ¨™
+	 * @param type å¤‰æ›´å¾Œã®é ˜åŸŸã®ç¨®é¡
 	 */
 	void mergeArea(Address p, int type) {
 		Area mergedArea = null;
@@ -251,10 +251,10 @@ public class Board extends BoardBase {
 		setArea(p, mergedArea);
 	}
 	/**
-	 * ƒ}ƒX‚Ìó‘Ô‚ğ•ÏXCÁ‹‚µ‚½‚Æ‚«‚Ì Area‚Ì•ªŠ„ˆ—‚ğs‚¤
-	 * @param r •ÏX‚µ‚½ƒ}ƒX‚ÌsÀ•W
-	 * @param c •ÏX‚µ‚½ƒ}ƒX‚Ì—ñÀ•W
-	 * @param type •ÏXŒã‚Ì—Ìˆæ‚Ìí—Ş
+	 * ãƒã‚¹ã®çŠ¶æ…‹ã‚’å¤‰æ›´ï¼Œæ¶ˆå»ã—ãŸã¨ãã® Areaã®åˆ†å‰²å‡¦ç†ã‚’è¡Œã†
+	 * @param r å¤‰æ›´ã—ãŸãƒã‚¹ã®è¡Œåº§æ¨™
+	 * @param c å¤‰æ›´ã—ãŸãƒã‚¹ã®åˆ—åº§æ¨™
+	 * @param type å¤‰æ›´å¾Œã®é ˜åŸŸã®ç¨®é¡
 	 */
 	void splitArea(Address p, int type) {
 		Area oldArea = getArea(p);
@@ -276,10 +276,10 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * ˆø”‚ÉÀ•W‚ğ—^‚¦‚½ƒ}ƒX‚ğŠÜ‚Ş Area ‚ğV‚µ‚­ì¬‚·‚é
-	 * @param r ƒ}ƒX‚ÌsÀ•W
-	 * @param c ƒ}ƒX‚Ì—ñÀ•W
-	 * @return ì¬‚µ‚½—Ìˆæ
+	 * å¼•æ•°ã«åº§æ¨™ã‚’ä¸ãˆãŸãƒã‚¹ã‚’å«ã‚€ Area ã‚’æ–°ã—ãä½œæˆã™ã‚‹
+	 * @param r ãƒã‚¹ã®è¡Œåº§æ¨™
+	 * @param c ãƒã‚¹ã®åˆ—åº§æ¨™
+	 * @return ä½œæˆã—ãŸé ˜åŸŸ
 	 */
 	private Area makeNewArea(Address p) {
 		if (isWall(p)) {
@@ -305,10 +305,10 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ‚»‚Ìƒ}ƒX‚ª2‚˜2‚Ì•ƒ}ƒXƒuƒƒbƒN‚ÌˆêŠp‚©‚Ç‚¤‚©‚ğ’²‚×‚é
+	 * ãã®ãƒã‚¹ãŒ2ï½˜2ã®é»’ãƒã‚¹ãƒ–ãƒ­ãƒƒã‚¯ã®ä¸€è§’ã‹ã©ã†ã‹ã‚’èª¿ã¹ã‚‹
 	 * @param r
 	 * @param c
-	 * @return 2x2ƒuƒƒbƒN‚È‚ç‚Î true
+	 * @return 2x2ãƒ–ãƒ­ãƒƒã‚¯ãªã‚‰ã° true
 	 */
 	boolean is2x2Block(Address p) {
 		if (isWall(p)) {
@@ -344,7 +344,7 @@ public class Board extends BoardBase {
 	}
 
 //	/**
-//	 * Šm’è”’ƒ}ƒX‚Ì‚İ‚ğ”’ƒ}ƒX‚Æ‚İ‚È‚µ‚ÄC”’ƒ}ƒX—Ìˆæ‚ÉŠÖ‚µ‚Ä³‰ğ”»’è‚·‚éB
+//	 * ç¢ºå®šç™½ãƒã‚¹ã®ã¿ã‚’ç™½ãƒã‚¹ã¨ã¿ãªã—ã¦ï¼Œç™½ãƒã‚¹é ˜åŸŸã«é–¢ã—ã¦æ­£è§£åˆ¤å®šã™ã‚‹ã€‚
 //	 */
 //	private int checkSpaceAreas() {
 //		int ret = 0;
@@ -355,7 +355,7 @@ public class Board extends BoardBase {
 //	}
 
 	/**
-	 * ‹ó”’ƒ}ƒX‚ÆŠm’è”’ƒ}ƒX‚ğ‚Æ‚à‚Æ‚ğ‹æ•Ê‚¹‚¸”’ƒ}ƒX‚Æ‚İ‚È‚µ‚ÄC”’ƒ}ƒX—Ìˆæ‚ÉŠÖ‚µ‚Ä³‰ğ”»’è‚·‚éB
+	 * ç©ºç™½ãƒã‚¹ã¨ç¢ºå®šç™½ãƒã‚¹ã‚’ã¨ã‚‚ã¨ã‚’åŒºåˆ¥ã›ãšç™½ãƒã‚¹ã¨ã¿ãªã—ã¦ï¼Œç™½ãƒã‚¹é ˜åŸŸã«é–¢ã—ã¦æ­£è§£åˆ¤å®šã™ã‚‹ã€‚
 	 */
 	private int checkWhiteAreas() {
 		ArrayUtil.initArrayObject2(whiteArea, null);
@@ -413,9 +413,9 @@ public class Board extends BoardBase {
 			return Messages.getString("nurikabe.AnswerCheckMessage1"); //$NON-NLS-1$
 		StringBuffer message = new StringBuffer();
 //		if ((result & 2) == 2)
-//			message.append("”š‚æ‚è–ÊÏ‚Ì‘å‚«‚¢ƒVƒ}‚ª‚ ‚é\n");
+//			message.append("æ•°å­—ã‚ˆã‚Šé¢ç©ã®å¤§ãã„ã‚·ãƒãŒã‚ã‚‹\n");
 //		if ((result & 4) == 4)
-//			message.append("”š‚æ‚è–ÊÏ‚Ì¬‚³‚¢ƒVƒ}‚ª‚ ‚é\n");
+//			message.append("æ•°å­—ã‚ˆã‚Šé¢ç©ã®å°ã•ã„ã‚·ãƒãŒã‚ã‚‹\n");
 		if ((result & 2) == 2 || (result & 4) == 4)
 			message.append(Messages.getString("nurikabe.AnswerCheckMessage2"));  //$NON-NLS-1$
 		if ((result & 8) == 8)

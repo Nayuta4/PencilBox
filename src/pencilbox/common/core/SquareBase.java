@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * ‹¤’ÊlŠpƒNƒ‰ƒX
+ * å…±é€šå››è§’ã‚¯ãƒ©ã‚¹
  */
 public class SquareBase {
 
@@ -14,11 +14,11 @@ public class SquareBase {
 	private int c1;
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param ra ˆê•û‚ÌŠp‚ÌsÀ•W
-	 * @param ca ˆê•û‚ÌŠp‚Ì—ñÀ•W
-	 * @param rb ‘¼•û‚ÌŠp‚ÌsÀ•W
-	 * @param cb ‘¼•û‚ÌŠp‚Ì—ñÀ•W
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param ra ä¸€æ–¹ã®è§’ã®è¡Œåº§æ¨™
+	 * @param ca ä¸€æ–¹ã®è§’ã®åˆ—åº§æ¨™
+	 * @param rb ä»–æ–¹ã®è§’ã®è¡Œåº§æ¨™
+	 * @param cb ä»–æ–¹ã®è§’ã®åˆ—åº§æ¨™
 	 */
 	public SquareBase(int ra, int ca, int rb, int cb) {
 		this.r0 = ra<rb?ra:rb;
@@ -27,17 +27,17 @@ public class SquareBase {
 		this.c1 = ca<cb?cb:ca;
 	}
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param posA ˆê•û‚ÌŠp‚ÌÀ•W
-	 * @param posB ‘¼•û‚ÌŠp‚ÌÀ•W
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param posA ä¸€æ–¹ã®è§’ã®åº§æ¨™
+	 * @param posB ä»–æ–¹ã®è§’ã®åº§æ¨™
 	 */
 	public SquareBase(Address posA, Address posB) {
 		this(posA.r(), posA.c(), posB.r(), posB.c());
 	}
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * ˆø”‚ÌlŠp‚Æ“¯‚¶À•W‚ÌlŠp‚ğì¬‚·‚éB
-	 * @param s lŠp
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * å¼•æ•°ã®å››è§’ã¨åŒã˜åº§æ¨™ã®å››è§’ã‚’ä½œæˆã™ã‚‹ã€‚
+	 * @param s å››è§’
 	 */
 	public SquareBase(SquareBase s) {
 		this(s.r0, s.c0, s.r1, s.c1);
@@ -68,11 +68,11 @@ public class SquareBase {
 		return c1;
 	}
 	/**
-	 * À•W‚Ìİ’è
-	 * @param ra ˆê•û‚ÌŠp‚ÌsÀ•W
-	 * @param ca ˆê•û‚ÌŠp‚Ì—ñÀ•W
-	 * @param rb ‘¼•û‚ÌŠp‚ÌsÀ•W
-	 * @param cb ‘¼•û‚ÌŠp‚Ì—ñÀ•W
+	 * åº§æ¨™ã®è¨­å®š
+	 * @param ra ä¸€æ–¹ã®è§’ã®è¡Œåº§æ¨™
+	 * @param ca ä¸€æ–¹ã®è§’ã®åˆ—åº§æ¨™
+	 * @param rb ä»–æ–¹ã®è§’ã®è¡Œåº§æ¨™
+	 * @param cb ä»–æ–¹ã®è§’ã®åˆ—åº§æ¨™
 	 */
 	public void set(int ra, int ca, int rb, int cb) {
 		this.r0 = ra<rb?ra:rb;
@@ -82,7 +82,7 @@ public class SquareBase {
 	}
 
 	/**
-	 * lŠp‚Ì‚S‹÷‚Ìƒ}ƒXÀ•W‚ğ¶ãC‰EãC¶‰ºC‰E‰º‚Ì‡‚Ì’·‚³4‚Ì”z—ñ‚É“ü‚ê‚Ä•Ô‚·B
+	 * å››è§’ã®ï¼”éš…ã®ãƒã‚¹åº§æ¨™ã‚’å·¦ä¸Šï¼Œå³ä¸Šï¼Œå·¦ä¸‹ï¼Œå³ä¸‹ã®é †ã®é•·ã•4ã®é…åˆ—ã«å…¥ã‚Œã¦è¿”ã™ã€‚
 	 * @return
 	 */
 	public Address[] getCorners() {
@@ -106,11 +106,11 @@ public class SquareBase {
 	}
 
 	/**
-	 * lŠp‚Ì1‚Â‚Ì’¸“_‚ğŒÅ’è‚µ‚½‚Ü‚ÜC‘ÎŠpˆÊ’u‚Ì’¸“_‚ÌÀ•W‚ğ•ÏX‚·‚éB
-	 * @param rOld •ÏX‘O‚Ì’¸“_‚ÌsÀ•W
-	 * @param cOld •ÏX‘O‚Ì’¸“_‚ÌsÀ•W
-	 * @param rNew •ÏXŒã‚Ì’¸“_‚ÌsÀ•W
-	 * @param cNew •ÏXŒã‚Ì’¸“_‚ÌsÀ•W
+	 * å››è§’ã®1ã¤ã®é ‚ç‚¹ã‚’å›ºå®šã—ãŸã¾ã¾ï¼Œå¯¾è§’ä½ç½®ã®é ‚ç‚¹ã®åº§æ¨™ã‚’å¤‰æ›´ã™ã‚‹ã€‚
+	 * @param rOld å¤‰æ›´å‰ã®é ‚ç‚¹ã®è¡Œåº§æ¨™
+	 * @param cOld å¤‰æ›´å‰ã®é ‚ç‚¹ã®è¡Œåº§æ¨™
+	 * @param rNew å¤‰æ›´å¾Œã®é ‚ç‚¹ã®è¡Œåº§æ¨™
+	 * @param cNew å¤‰æ›´å¾Œã®é ‚ç‚¹ã®è¡Œåº§æ¨™
 	 */
 	public void changeCorner(int rOld, int cOld, int rNew, int cNew) {
 		int ra = this.r0;
@@ -131,30 +131,30 @@ public class SquareBase {
 	}
 
 	/**
-	 * @return •”‰®‚Ì—ñƒTƒCƒY
+	 * @return éƒ¨å±‹ã®åˆ—ã‚µã‚¤ã‚º
 	 */
 	public int sizeC() {
 		return c1 - c0 +1;
 	}
 	/**
-	 * @return •”‰®‚ÌsƒTƒCƒY
+	 * @return éƒ¨å±‹ã®è¡Œã‚µã‚¤ã‚º
 	 */
 	public int sizeR() {
 		return r1 - r0 + 1;
 	}
 
 	/**
-	 * ’·•ûŒ`—Ìˆæ‚Ì–ÊÏ‚ğ•Ô‚·
-	 * @return —Ìˆæ‚Ì–ÊÏ
+	 * é•·æ–¹å½¢é ˜åŸŸã®é¢ç©ã‚’è¿”ã™
+	 * @return é ˜åŸŸã®é¢ç©
 	 */
 	public int getSquareSize() {
 		return (r1-r0+1) * (c1-c0+1);
 	}
 
 	/**
-	 * lŠp‚ÌŒ`ó‚ª“™‚µ‚¢‚©
-	 * @param o ”äŠr‘ÎÛ‚ÌlŠp
-	 * @return lŠp‚ÌŠp‚ÌÀ•W‚ªˆê’v‚·‚ê‚Î true
+	 * å››è§’ã®å½¢çŠ¶ãŒç­‰ã—ã„ã‹
+	 * @param o æ¯”è¼ƒå¯¾è±¡ã®å››è§’
+	 * @return å››è§’ã®è§’ã®åº§æ¨™ãŒä¸€è‡´ã™ã‚Œã° true
 	 */
 	public boolean equals(SquareBase o) {
 		if (this == o) 
@@ -165,8 +165,8 @@ public class SquareBase {
 	}
 
 	/**
-	 * ’·•ûŒ`—Ìˆæ‚ÉŠÜ‚Ü‚ê‚éƒ}ƒXÀ•W‚ÌW‡
-	 * @return ƒ}ƒXÀ•W‚ÌW‡
+	 * é•·æ–¹å½¢é ˜åŸŸã«å«ã¾ã‚Œã‚‹ãƒã‚¹åº§æ¨™ã®é›†åˆ
+	 * @return ãƒã‚¹åº§æ¨™ã®é›†åˆ
 	 */
 	public Set<Address> cellSet() {
 		Set<Address> s = new TreeSet<Address>();

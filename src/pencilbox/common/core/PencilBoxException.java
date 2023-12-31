@@ -1,7 +1,7 @@
 package pencilbox.common.core;
 
 /**
- * PencilBox用例外クラス
+ * PencilBox逕ｨ萓句､悶け繝ｩ繧ｹ
  */
 public class PencilBoxException extends Exception {
 

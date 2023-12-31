@@ -1,16 +1,16 @@
 package pencilbox.util;
 
 /**
- * ”z—ñ‘€ì—p•â•ƒƒ\ƒbƒh‚ðW‚ß‚½ƒNƒ‰ƒX
+ * é…åˆ—æ“ä½œç”¨è£œåŠ©ãƒ¡ã‚½ãƒƒãƒ‰ã‚’é›†ã‚ãŸã‚¯ãƒ©ã‚¹
  */
 public class ArrayUtil {
 
     private ArrayUtil() {}
 
 	/**
-	 * ‚QŽŸŒ³intŒ^”z—ñ‚ðƒRƒs[‚·‚é
-	 * @param from ƒRƒs[Œ³‚QŽŸŒ³intŒ^”z—ñ
-	 * @param to ƒRƒs[æ‚QŽŸŒ³intŒ^”z—ñ
+	 * ï¼’æ¬¡å…ƒintåž‹é…åˆ—ã‚’ã‚³ãƒ”ãƒ¼ã™ã‚‹
+	 * @param from ã‚³ãƒ”ãƒ¼å…ƒï¼’æ¬¡å…ƒintåž‹é…åˆ—
+	 * @param to ã‚³ãƒ”ãƒ¼å…ˆï¼’æ¬¡å…ƒintåž‹é…åˆ—
 	 */
 	public static void copyArrayInt2(int[][] from, int[][] to) {
 		for (int r = from.length - 1; r >= 0; r--) {
@@ -20,9 +20,9 @@ public class ArrayUtil {
 		}
 	}
 	/**
-	 * ‚QŽŸŒ³intŒ^”z—ñ‚ðˆê—¥‚Ì’l‚Å‰Šú‰»‚·‚é
-	 * @param from ‰Šú‰»‚·‚é‚QŽŸŒ³intŒ^”z—ñ
-	 * @param value ’l
+	 * ï¼’æ¬¡å…ƒintåž‹é…åˆ—ã‚’ä¸€å¾‹ã®å€¤ã§åˆæœŸåŒ–ã™ã‚‹
+	 * @param from åˆæœŸåŒ–ã™ã‚‹ï¼’æ¬¡å…ƒintåž‹é…åˆ—
+	 * @param value å€¤
 	 */
 	public static void initArrayInt2(int[][] from, int value) {
 		for (int r = from.length - 1; r >= 0; r--) {
@@ -32,9 +32,9 @@ public class ArrayUtil {
 		}
 	}
 	/**
-	 * ‚QŽŸŒ³intŒ^”z—ñ‚ðƒRƒs[‚·‚é
-	 * @param from ƒRƒs[Œ³‚QŽŸŒ³booleanŒ^”z—ñ
-	 * @param to ƒRƒs[æ‚QŽŸŒ³booleanŒ^”z—ñ
+	 * ï¼’æ¬¡å…ƒintåž‹é…åˆ—ã‚’ã‚³ãƒ”ãƒ¼ã™ã‚‹
+	 * @param from ã‚³ãƒ”ãƒ¼å…ƒï¼’æ¬¡å…ƒbooleanåž‹é…åˆ—
+	 * @param to ã‚³ãƒ”ãƒ¼å…ˆï¼’æ¬¡å…ƒbooleanåž‹é…åˆ—
 	 */
 	public static void copyArrayBoolean2(boolean[][] from, boolean[][] to) {
 		for (int r = from.length - 1; r >= 0; r--) {
@@ -44,9 +44,9 @@ public class ArrayUtil {
 		}
 	}
 	/**
-	 * ‚QŽŸŒ³booleanŒ^”z—ñ‚ðˆê—¥‚Ì’l‚Å‰Šú‰»‚·‚é
-	 * @param from ‰Šú‰»‚·‚é‚QŽŸŒ³booleanŒ^”z—ñ
-	 * @param value ’l
+	 * ï¼’æ¬¡å…ƒbooleanåž‹é…åˆ—ã‚’ä¸€å¾‹ã®å€¤ã§åˆæœŸåŒ–ã™ã‚‹
+	 * @param from åˆæœŸåŒ–ã™ã‚‹ï¼’æ¬¡å…ƒbooleanåž‹é…åˆ—
+	 * @param value å€¤
 	 */
 	public static void initArrayBoolean2(boolean[][] from, boolean value) {
 		for (int r = from.length - 1; r >= 0; r--) {
@@ -56,9 +56,9 @@ public class ArrayUtil {
 		}
 	}
 	/**
-	 * ‚QŽŸŒ³ObjectŒ^”z—ñ‚ðƒRƒs[‚·‚é
-	 * @param from ƒRƒs[Œ³‚QŽŸŒ³ObjectŒ^”z—ñ
-	 * @param to ƒRƒs[æ‚QŽŸŒ³ObjectŒ^”z—ñ
+	 * ï¼’æ¬¡å…ƒObjectåž‹é…åˆ—ã‚’ã‚³ãƒ”ãƒ¼ã™ã‚‹
+	 * @param from ã‚³ãƒ”ãƒ¼å…ƒï¼’æ¬¡å…ƒObjectåž‹é…åˆ—
+	 * @param to ã‚³ãƒ”ãƒ¼å…ˆï¼’æ¬¡å…ƒObjectåž‹é…åˆ—
 	 */
 	public static void copyArrayObject2(Object[][] from, Object[][] to) {
 		for (int r = from.length - 1; r >= 0; r--) {
@@ -68,9 +68,9 @@ public class ArrayUtil {
 		}
 	}
 	/**
-	 * ‚QŽŸŒ³ObjectŒ^”z—ñ‚ðˆê—¥‚Ì’l‚Å‰Šú‰»‚·‚é
-	 * @param from ‰Šú‰»‚·‚é‚QŽŸŒ³objectŒ^”z—ñ
-	 * @param value ’l
+	 * ï¼’æ¬¡å…ƒObjectåž‹é…åˆ—ã‚’ä¸€å¾‹ã®å€¤ã§åˆæœŸåŒ–ã™ã‚‹
+	 * @param from åˆæœŸåŒ–ã™ã‚‹ï¼’æ¬¡å…ƒobjectåž‹é…åˆ—
+	 * @param value å€¤
 	 */
 	public static void initArrayObject2(Object[][] from, Object value) {
 		for (int r = from.length - 1; r >= 0; r--) {
@@ -80,9 +80,9 @@ public class ArrayUtil {
 		}
 	}
 	/**
-	 * ‚RŽŸŒ³booleanŒ^”z—ñ‚ðˆê—¥‚Ì’l‚Å‰Šú‰»‚·‚é
-	 * @param from ‰Šú‰»‚·‚é‚RŽŸŒ³booleanŒ^”z—ñ
-	 * @param value ’l
+	 * ï¼“æ¬¡å…ƒbooleanåž‹é…åˆ—ã‚’ä¸€å¾‹ã®å€¤ã§åˆæœŸåŒ–ã™ã‚‹
+	 * @param from åˆæœŸåŒ–ã™ã‚‹ï¼“æ¬¡å…ƒbooleanåž‹é…åˆ—
+	 * @param value å€¤
 	 */
 	public static void initArrayBoolean3(boolean[][][] from, boolean value) {
 		for (int r = from.length - 1; r >= 0; r--) {
@@ -94,9 +94,9 @@ public class ArrayUtil {
 		}
 	}
 	/**
-	 * ‚RŽŸŒ³intŒ^”z—ñ‚ðˆê—¥‚Ì’l‚Å‰Šú‰»‚·‚é
-	 * @param from ‰Šú‰»‚·‚é‚RŽŸŒ³booleanŒ^”z—ñ
-	 * @param value ’l
+	 * ï¼“æ¬¡å…ƒintåž‹é…åˆ—ã‚’ä¸€å¾‹ã®å€¤ã§åˆæœŸåŒ–ã™ã‚‹
+	 * @param from åˆæœŸåŒ–ã™ã‚‹ï¼“æ¬¡å…ƒbooleanåž‹é…åˆ—
+	 * @param value å€¤
 	 */
 	public static void initArrayInt3(int[][][] from, int value) {
 		for (int r = from.length - 1; r >= 0; r--) {

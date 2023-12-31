@@ -5,7 +5,7 @@ import pencilbox.common.io.PzprReaderBase;
 
 
 /**
- * QlFpzprv3 lightup.js
+ * å‚è€ƒï¼špzprv3 lightup.js
  */
 public class PzprReader extends PzprReaderBase {
 

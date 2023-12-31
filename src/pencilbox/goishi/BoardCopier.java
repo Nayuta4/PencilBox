@@ -36,7 +36,7 @@ public class BoardCopier extends BoardCopierBase {
 				board.changeState(d, srcBoard.getState(s));
 			}
 		}
-		// E‚Á‚½Î‚ğˆÚ“®‚·‚é
+		// æ‹¾ã£ãŸçŸ³ã‚’ç§»å‹•ã™ã‚‹
 		for (int i = 0; i < srcBoard.pickedList.size(); i++) {
 			Address s = srcBoard.pickedList.get(i);
 			if (region.contains(s)) {

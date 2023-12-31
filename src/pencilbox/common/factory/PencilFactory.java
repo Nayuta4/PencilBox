@@ -20,12 +20,12 @@ import pencilbox.common.io.IOController;
 
 
 /**
- * PencilBox ƒtƒ@ƒNƒgƒŠ[ƒNƒ‰ƒX
+ * PencilBox ãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼ã‚¯ãƒ©ã‚¹
  */
 public class PencilFactory {
 
 	private PencilType pencilType;
-	private MenuCommand caller; // ŒÄ‚Ño‚µŒ³ƒƒjƒ…[ƒRƒ}ƒ“ƒh
+	private MenuCommand caller; // å‘¼ã³å‡ºã—å…ƒãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚³ãƒãƒ³ãƒ‰
 
 	/**
 	 * @param pencilType
@@ -34,18 +34,18 @@ public class PencilFactory {
 		this.pencilType = pencilType;
 	}
 	/**
-	 * PencilPuzzleƒCƒ“ƒXƒ^ƒ“ƒX‚ğì¬‚µ‚Äæ“¾‚·‚é
+	 * PencilPuzzleã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ä½œæˆã—ã¦å–å¾—ã™ã‚‹
 	 * @param pencilType 
-	 * @return V‚µ‚¢PencilPuzzleƒCƒ“ƒXƒ^ƒ“ƒX
+	 * @return æ–°ã—ã„PencilPuzzleã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 	 */
 	public static PencilFactory getInstance(PencilType pencilType) {
 		return new PencilFactory(pencilType);
 	}
 	/**
-	 * PencilPuzzleƒCƒ“ƒXƒ^ƒ“ƒX‚ğì¬‚µ‚Äæ“¾‚·‚é
+	 * PencilPuzzleã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ä½œæˆã—ã¦å–å¾—ã™ã‚‹
 	 * @param pencilType
-	 * @param caller@ŒÄ‚Ño‚µŒ³ƒƒjƒ…[ƒRƒ}ƒ“ƒh
-	 * @return@V‚µ‚¢PencilPuzzleƒCƒ“ƒXƒ^ƒ“ƒX
+	 * @param callerã€€å‘¼ã³å‡ºã—å…ƒãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚³ãƒãƒ³ãƒ‰
+	 * @returnã€€æ–°ã—ã„PencilPuzzleã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 	 */
 	public static PencilFactory getInstance(PencilType pencilType, MenuCommand caller) {
 		PencilFactory f = new PencilFactory(pencilType);
@@ -54,8 +54,8 @@ public class PencilFactory {
 		return f;
 	}
 	/**
-	 * ƒfƒtƒHƒ‹ƒgƒTƒCƒY‚ÅƒAƒvƒŠƒP[ƒVƒ‡ƒ“ƒtƒŒ[ƒ€‚ğì‚éB
-	 * Launcher, Main ‚©‚çg—p‚³‚ê‚éB
+	 * ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚µã‚¤ã‚ºã§ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’ä½œã‚‹ã€‚
+	 * Launcher, Main ã‹ã‚‰ä½¿ç”¨ã•ã‚Œã‚‹ã€‚
 	 * @throws PencilBoxException
 	 */
 	public void createNewFrame() throws PencilBoxClassException {
@@ -63,8 +63,8 @@ public class PencilFactory {
 		createNewFrame(size);
 	}
 	/**
-	 * ”Õ–ÊƒTƒCƒY‚ğ—^‚¦‚ÄƒAƒvƒŠƒP[ƒVƒ‡ƒ“ƒtƒŒ[ƒ€‚ğì‚éB
-	 * uV‹Kvƒƒjƒ…[‚©‚ç‚Ì‚Ì‹N“®‚Åg—p‚³‚ê‚éB
+	 * ç›¤é¢ã‚µã‚¤ã‚ºã‚’ä¸ãˆã¦ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’ä½œã‚‹ã€‚
+	 * ã€Œæ–°è¦ã€ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‹ã‚‰ã®ã®èµ·å‹•ã§ä½¿ç”¨ã•ã‚Œã‚‹ã€‚
 	 * @param size
 	 * @throws PencilBoxClassException
 	 */
@@ -75,8 +75,8 @@ public class PencilFactory {
 		createNewFrame(problem);
 	}
 	/**
-	 * –â‘èƒtƒ@ƒCƒ‹‚ğ—^‚¦‚ÄƒAƒvƒŠƒP[ƒVƒ‡ƒ“ƒtƒŒ[ƒ€‚ğì‚éB
-	 * uŠJ‚­vƒƒjƒ…[‚©‚ç‚Ì‹N“®‚Åg—p‚³‚ê‚éB
+	 * å•é¡Œãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä¸ãˆã¦ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’ä½œã‚‹ã€‚
+	 * ã€Œé–‹ãã€ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‹ã‚‰ã®èµ·å‹•ã§ä½¿ç”¨ã•ã‚Œã‚‹ã€‚
 	 * @param file
 	 * @throws PencilBoxException
 	 */
@@ -85,7 +85,7 @@ public class PencilFactory {
 		createNewFrame(problem);
 	}
 	/**
-	 * •¶š—ñ‚ğ—^‚¦‚ÄƒAƒvƒŠƒP[ƒVƒ‡ƒ“ƒtƒŒ[ƒ€‚ğì‚éB
+	 * æ–‡å­—åˆ—ã‚’ä¸ãˆã¦ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’ä½œã‚‹ã€‚
 	 * @param file
 	 * @throws PencilBoxException
 	 */
@@ -99,8 +99,8 @@ public class PencilFactory {
 		return false;
 	}
 	/**
-	 * Problem ‚ğ—^‚¦‚ÄƒAƒvƒŠƒP[ƒVƒ‡ƒ“ƒtƒŒ[ƒ€‚ğì‚éB
-	 * ‚±‚ÌƒNƒ‰ƒX“à•”‚ÅÅI“I‚Éì¬‚·‚é’iŠK‚Åg—p‚³‚ê‚éB
+	 * Problem ã‚’ä¸ãˆã¦ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’ä½œã‚‹ã€‚
+	 * ã“ã®ã‚¯ãƒ©ã‚¹å†…éƒ¨ã§æœ€çµ‚çš„ã«ä½œæˆã™ã‚‹æ®µéšã§ä½¿ç”¨ã•ã‚Œã‚‹ã€‚
 	 * @param problem
 	 * @throws PencilBoxClassException
 	 */
@@ -126,8 +126,8 @@ public class PencilFactory {
 		frame.setVisible(true);
 	}
 	/**
-	 * –â‘èƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚ñ‚Å“¯‚¶ƒtƒŒ[ƒ€‚ÅŠJ‚­B
-	 * u•Â‚¶‚ÄŠJ‚­vƒƒjƒ…[‚©‚ç‚Ì‹N“®‚Åg—p‚³‚ê‚éB
+	 * å•é¡Œãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚“ã§åŒã˜ãƒ•ãƒ¬ãƒ¼ãƒ ã§é–‹ãã€‚
+	 * ã€Œé–‰ã˜ã¦é–‹ãã€ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‹ã‚‰ã®èµ·å‹•ã§ä½¿ç”¨ã•ã‚Œã‚‹ã€‚
 	 * @param file
 	 * @throws PencilBoxException
 	 */
@@ -136,7 +136,7 @@ public class PencilFactory {
 		createNewBoard(problem);
 	}
 	/**
-	 * Problem ‚ğ—^‚¦‚Ä“¯‚¶ƒtƒŒ[ƒ€‚ÅŠJ‚­B
+	 * Problem ã‚’ä¸ãˆã¦åŒã˜ãƒ•ãƒ¬ãƒ¼ãƒ ã§é–‹ãã€‚
 	 * @param problem
 	 * @throws PencilBoxClassException
 	 */
@@ -152,7 +152,7 @@ public class PencilFactory {
 	}
 
 	/**
-	 * “¯‚¶”Õ–Ê‚ÌƒtƒŒ[ƒ€‚ğ•¡»‚·‚é
+	 * åŒã˜ç›¤é¢ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’è¤‡è£½ã™ã‚‹
 	 * @throws PencilBoxClassException
 	 */
 	public void duplicateFrame() throws PencilBoxClassException {
@@ -166,8 +166,8 @@ public class PencilFactory {
 	}
 
 	/**
-	 * ”Õ–Ê‚ğ‰ñ“]‚·‚é
-	 * @param n ‰ñ“]”Ô†
+	 * ç›¤é¢ã‚’å›è»¢ã™ã‚‹
+	 * @param n å›è»¢ç•ªå·
 	 * @throws PencilBoxClassException
 	 */
 	public void rotateBoard(int n) throws PencilBoxClassException {
@@ -177,8 +177,8 @@ public class PencilFactory {
 		createNewBoard(problem);
 	}
 	/**
-	 * ”Õ–ÊƒTƒCƒY‚ğ•ÏX‚·‚é
-	 * @param size •ÏXŒã‚Ì”Õ–ÊƒTƒCƒY
+	 * ç›¤é¢ã‚µã‚¤ã‚ºã‚’å¤‰æ›´ã™ã‚‹
+	 * @param size å¤‰æ›´å¾Œã®ç›¤é¢ã‚µã‚¤ã‚º
 	 * @throws PencilBoxClassException
 	 */
 	public void changeBoardSize(Size size) throws PencilBoxClassException {
@@ -188,9 +188,9 @@ public class PencilFactory {
 		createNewBoard(problem);
 	}
 	/**
-	 * ‘¼‚ÌƒtƒŒ[ƒ€‚©‚çŒÄ‚Ño‚³‚ê‚½ê‡‚ÍCŒÄ‚Ño‚µŒ³ƒtƒŒ[ƒ€‚Ìİ’è‚ğˆø‚«Œp‚®B
-	 * ‚»‚¤‚Å‚È‚¢ê‡‚ÍCƒfƒtƒHƒ‹ƒgİ’èƒtƒ@ƒCƒ‹‚Ìİ’è‚ğ“Ç‚İ‚ŞB
-	 * @param dst ì¬’†ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚Ì MenuCommand ƒCƒ“ƒXƒ^ƒ“ƒX
+	 * ä»–ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã‹ã‚‰å‘¼ã³å‡ºã•ã‚ŒãŸå ´åˆã¯ï¼Œå‘¼ã³å‡ºã—å…ƒãƒ•ãƒ¬ãƒ¼ãƒ ã®è¨­å®šã‚’å¼•ãç¶™ãã€‚
+	 * ãã†ã§ãªã„å ´åˆã¯ï¼Œãƒ‡ãƒ•ã‚©ãƒ«ãƒˆè¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã®è¨­å®šã‚’èª­ã¿è¾¼ã‚€ã€‚
+	 * @param dst ä½œæˆä¸­ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã® MenuCommand ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 	 */
 	private void copyPreferences(MenuCommand dst) {
 		PreferencesCopierBase copier = PreferencesCopierBase.createInstance(pencilType);

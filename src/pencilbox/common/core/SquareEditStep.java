@@ -13,9 +13,9 @@ public class SquareEditStep extends AbstractStep {
 	private int operation;
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param sq ‘€ì‚ê‚½—Ìˆæ
-	 * @param operation ‘€ì‚Ìí—ŞF’Ç‰Á‚³‚ê‚½‚Ì‚©Cœ‹‚³‚ê‚½‚Ì‚©
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param sq æ“ä½œã‚ŒãŸé ˜åŸŸ
+	 * @param operation æ“ä½œã®ç¨®é¡ï¼šè¿½åŠ ã•ã‚ŒãŸã®ã‹ï¼Œé™¤å»ã•ã‚ŒãŸã®ã‹
 	 */
 	public SquareEditStep(Address p0, Address p1, int operation) {
 		super();
@@ -30,12 +30,12 @@ public class SquareEditStep extends AbstractStep {
 	}
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param p0 •ÏX‘O‚ÌŠp‚ÌÀ•W
-	 * @param p1 •ÏX‘O‚ÌŠp‚ÌÀ•W
-	 * @param q0 •ÏXŒã‚ÌŠp‚ÌÀ•W
-	 * @param q1 •ÏXŒã‚ÌŠp‚ÌÀ•W
-	 * @param operation ‘€ì‚Ìí—ŞF’Ç‰Á‚³‚ê‚½‚Ì‚©Cœ‹‚³‚ê‚½‚Ì‚©C•ÏX‚³‚ê‚½‚Ì‚©
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param p0 å¤‰æ›´å‰ã®è§’ã®åº§æ¨™
+	 * @param p1 å¤‰æ›´å‰ã®è§’ã®åº§æ¨™
+	 * @param q0 å¤‰æ›´å¾Œã®è§’ã®åº§æ¨™
+	 * @param q1 å¤‰æ›´å¾Œã®è§’ã®åº§æ¨™
+	 * @param operation æ“ä½œã®ç¨®é¡ï¼šè¿½åŠ ã•ã‚ŒãŸã®ã‹ï¼Œé™¤å»ã•ã‚ŒãŸã®ã‹ï¼Œå¤‰æ›´ã•ã‚ŒãŸã®ã‹
 	 */
 	public SquareEditStep(Address p0, Address p1, Address q0, Address q1, int operation) {
 		super();

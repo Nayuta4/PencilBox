@@ -6,15 +6,15 @@ import pencilbox.common.gui.PanelEventHandlerBase;
 
 
 /**
- *  u‚Ö‚â‚í‚¯vƒ}ƒEƒX^ƒL[‘€ìˆ—ƒNƒ‰ƒX
+ *  ã€Œã¸ã‚„ã‚ã‘ã€ãƒã‚¦ã‚¹ï¼ã‚­ãƒ¼æ“ä½œå‡¦ç†ã‚¯ãƒ©ã‚¹
  */
 public class PanelEventHandler extends PanelEventHandlerBase {
 
 	private Board board;
 
-	private int pivotR = -1;  // ƒhƒ‰ƒbƒO‚ÉŒÅ’è‚·‚é’¸“_‚ÌsÀ•W
-	private int pivotC = -1;  // ƒhƒ‰ƒbƒO‚ÉŒÅ’è‚·‚é’¸“_‚Ì—ñÀ•W
-//	private Square draggingSquare; // ƒhƒ‰ƒbƒO‚µ‚Ä¡‚Ü‚³‚É•`‚±‚¤‚Æ‚µ‚Ä‚¢‚élŠp
+	private int pivotR = -1;  // ãƒ‰ãƒ©ãƒƒã‚°æ™‚ã«å›ºå®šã™ã‚‹é ‚ç‚¹ã®è¡Œåº§æ¨™
+	private int pivotC = -1;  // ãƒ‰ãƒ©ãƒƒã‚°æ™‚ã«å›ºå®šã™ã‚‹é ‚ç‚¹ã®åˆ—åº§æ¨™
+//	private Square draggingSquare; // ãƒ‰ãƒ©ãƒƒã‚°ã—ã¦ä»Šã¾ã•ã«æã“ã†ã¨ã—ã¦ã„ã‚‹å››è§’
 	private int dragState = 0;
 	private int currentState = Board.UNKNOWN;
 
@@ -36,7 +36,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		return 0;
 	}
 	/*
-	 * u‚Ö‚â‚í‚¯vƒ}ƒEƒX‘€ì
+	 * ã€Œã¸ã‚„ã‚ã‘ã€ãƒã‚¦ã‚¹æ“ä½œ
 	 */
 	protected void leftPressed(Address pos) {
 		if (isProblemEditMode()) {
@@ -46,7 +46,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 				draggingSquare = new Square(pos, pos);
 			} else {
 				draggingSquare = new Square(sq);
-				dragState = 1; // ƒhƒ‰ƒbƒOŠJn
+				dragState = 1; // ãƒ‰ãƒ©ãƒƒã‚°é–‹å§‹
 			}
 			fixPivot(draggingSquare, pos);
 			setDraggingSquare(draggingSquare);
@@ -71,7 +71,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			} else if (pivotR == -1 && pivotC == -1) {
 //				draggingSquare.set(draggingSquare.r0, draggingSquare.c0, draggingSquare.r1, drggingSquare.c1());
 			}
-			dragState = 2; //ƒhƒ‰ƒbƒO’†
+			dragState = 2; //ãƒ‰ãƒ©ãƒƒã‚°ä¸­
 			fixPivot(draggingSquare, pos);
 		} else {
 			sweepState(pos);
@@ -151,9 +151,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/**
-	 * ƒ}ƒX‚Ìó‘Ô‚ğ –¢’èÌst ‚Æ•ÏX‚·‚é
-	 * @param pos ƒ}ƒX‚ÌÀ•W
-	 * @param st Ø‚è‘Ö‚¦‚éó‘Ô
+	 * ãƒã‚¹ã®çŠ¶æ…‹ã‚’ æœªå®šâ‡”st ã¨å¤‰æ›´ã™ã‚‹
+	 * @param pos ãƒã‚¹ã®åº§æ¨™
+	 * @param st åˆ‡ã‚Šæ›¿ãˆã‚‹çŠ¶æ…‹
 	 */
 	private void toggleState(Address pos, int st){
 		if (st == board.getState(pos))
@@ -173,7 +173,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/*
-	 * u‚Ö‚â‚í‚¯vƒL[‘€ì
+	 * ã€Œã¸ã‚„ã‚ã‘ã€ã‚­ãƒ¼æ“ä½œ
 	 */
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {

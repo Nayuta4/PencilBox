@@ -22,10 +22,10 @@ public class HintTbl {
 	//  9876543210
 
 	static ArrayList<ArrayList<ArrayList<Integer>>> wk;
-	static int[][][] pattern; // [Œ…”][‡Œv][index]
+	static int[][][] pattern; // [æ¡æ•°][åˆè¨ˆ][index]
 	static{
 		wk = new ArrayList<ArrayList<ArrayList<Integer>>>(9);
-		// ArrayList[”š”][‡Œv]
+		// ArrayList[æ•°å­—æ•°][åˆè¨ˆ]
 		for(int d=1; d<=9; d++){
 			int min = MIN[d-1];
 			int max = MAX[d-1];

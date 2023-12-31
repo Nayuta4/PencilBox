@@ -4,15 +4,15 @@ import pencilbox.common.core.Address;
 
 
 /**
- * u“V‘ÌƒVƒ‡[v—ÌˆæƒNƒ‰ƒX
+ * ã€Œå¤©ä½“ã‚·ãƒ§ãƒ¼ã€é ˜åŸŸã‚¯ãƒ©ã‚¹
  */
 public class Area extends pencilbox.common.core.AreaBase {
 	/**
-	 * —Ìˆæ‚ÉŠÜ‚Ü‚ê‚é¯‚Ìí—Ş
-	 * ‚È‚µ 0;  ”’¯ 1; •¯ 2; •¡”¯ -1:
+	 * é ˜åŸŸã«å«ã¾ã‚Œã‚‹æ˜Ÿã®ç¨®é¡
+	 * ãªã— 0;  ç™½æ˜Ÿ 1; é»’æ˜Ÿ 2; è¤‡æ•°æ˜Ÿ -1:
 	 */
 	private int starType;
-	private StarAddress starPos;	// —Ìˆæ‚ÉŠÜ‚Ü‚ê‚é¯‚ÌÀ•W 1ŒÂ‚Ì‚İ‚Ì‚Æ‚«‚Ì‚İˆÓ–¡‚ª‚ ‚é
+	private StarAddress starPos;	// é ˜åŸŸã«å«ã¾ã‚Œã‚‹æ˜Ÿã®åº§æ¨™ 1å€‹ã®ã¿ã®ã¨ãã®ã¿æ„å‘³ãŒã‚ã‚‹
 
 	/**
 	 * @return Returns the starColor.
@@ -43,12 +43,12 @@ public class Area extends pencilbox.common.core.AreaBase {
 	}
 
 	public String toString() {
-		return "¯”:" + starType + " ¯À•W:" + starPos.toString() +"\n—Ìˆæ"+ super.toString();	
+		return "æ˜Ÿæ•°:" + starType + " æ˜Ÿåº§æ¨™:" + starPos.toString() +"\né ˜åŸŸ"+ super.toString();	
 	}
 
 	/**
-	 * —Ìˆæ‚ª¯‚ğ‚Ğ‚Æ‚Â‚Ì‚İŠÜ‚İC‚©‚Â‚»‚Ì’†S“_‚ÉˆÊ’u‚·‚é¯‚É‘Î‚µ‚Ä“_‘ÎÌ‚©‚Ç‚¤‚©‚ğ’²‚×‚é
-	 * @return “_‘ÎÌ‚È‚ç‚Î <tt>true</tt>
+	 * é ˜åŸŸãŒæ˜Ÿã‚’ã²ã¨ã¤ã®ã¿å«ã¿ï¼Œã‹ã¤ãã®ä¸­å¿ƒç‚¹ã«ä½ç½®ã™ã‚‹æ˜Ÿã«å¯¾ã—ã¦ç‚¹å¯¾ç§°ã‹ã©ã†ã‹ã‚’èª¿ã¹ã‚‹
+	 * @return ç‚¹å¯¾ç§°ãªã‚‰ã° <tt>true</tt>
 	 */
 	public boolean isPointSymmetry() {
 		if (starPos.isNowhere()) return false;
@@ -62,7 +62,7 @@ public class Area extends pencilbox.common.core.AreaBase {
 		return true;
 	}
 	/**
-	 * —Ìˆæ‚ª—^‚¦‚ç‚ê‚½’†S“_‚É‘Î‚µ‚Ä“_‘ÎÌ‚©‚Ç‚¤‚©
+	 * é ˜åŸŸãŒä¸ãˆã‚‰ã‚ŒãŸä¸­å¿ƒç‚¹ã«å¯¾ã—ã¦ç‚¹å¯¾ç§°ã‹ã©ã†ã‹
 	 */
 //	private boolean isPointSymmetry(StarAddress center) {
 //		Address posb;
@@ -75,18 +75,18 @@ public class Area extends pencilbox.common.core.AreaBase {
 //		return true;
 //	}
 	/**
-	 * position ‚©‚ç center ‚É‘Î‚µ‚Ä“_‘ÎÌ‚È Address ‚ğ‹‚ß‚é
-	 * @param position À•W
-	 * @param center “_‘ÎÌ’†S‚Æ‚È‚éÀ•W
-	 * @return cnter‚É‘Î‚µ‚Äposition‚Æ“_‘ÎÌ‚ÈÀ•W
+	 * position ã‹ã‚‰ center ã«å¯¾ã—ã¦ç‚¹å¯¾ç§°ãª Address ã‚’æ±‚ã‚ã‚‹
+	 * @param position åº§æ¨™
+	 * @param center ç‚¹å¯¾ç§°ä¸­å¿ƒã¨ãªã‚‹åº§æ¨™
+	 * @return cnterã«å¯¾ã—ã¦positionã¨ç‚¹å¯¾ç§°ãªåº§æ¨™
 	 */
 	public Address getPointSymmericAddress(Address position, StarAddress center) {
 		return Address.address(center.r()-position.r(), center.c()-position.c());
 	}
 
 	/**
-	 * 	—Ìˆæ‚Ì’†Sƒ}ƒX‚ğ•Ô‚·
-	 * @return —Ìˆæ‚Ì’†Sƒ}ƒX
+	 * 	é ˜åŸŸã®ä¸­å¿ƒãƒã‚¹ã‚’è¿”ã™
+	 * @return é ˜åŸŸã®ä¸­å¿ƒãƒã‚¹
 	 */
 	public Address getCenterCell() {
 		return Address.address(starPos.r()/2, starPos.c()/2);
@@ -95,10 +95,10 @@ public class Area extends pencilbox.common.core.AreaBase {
 }
 
 /*
- * —Ìˆæ‚ÌŒ`ó‚É‚æ‚éê‡‚í‚¯
- *  •¡”‚Ì¯‚ğŠÜ‚Ş
- *  ‚Ğ‚Æ‚Â‚à¯‚ğŠÜ‚Ü‚È‚¢
- *  ‚Ğ‚Æ‚Â‚¾‚¯¯‚ğŠÜ‚Ş
- * 		“_‘ÎÌ‚¾
- * 		“_‘ÎÌ‚Å‚È‚¢
+ * é ˜åŸŸã®å½¢çŠ¶ã«ã‚ˆã‚‹å ´åˆã‚ã‘
+ *  è¤‡æ•°ã®æ˜Ÿã‚’å«ã‚€
+ *  ã²ã¨ã¤ã‚‚æ˜Ÿã‚’å«ã¾ãªã„
+ *  ã²ã¨ã¤ã ã‘æ˜Ÿã‚’å«ã‚€
+ * 		ç‚¹å¯¾ç§°ã 
+ * 		ç‚¹å¯¾ç§°ã§ãªã„
  */

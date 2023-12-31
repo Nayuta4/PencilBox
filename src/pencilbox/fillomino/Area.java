@@ -1,15 +1,15 @@
 package pencilbox.fillomino;
 
 /**
- * uƒtƒBƒ‹ƒIƒ~ƒmv—ÌˆæƒNƒ‰ƒX
+ * ã€Œãƒ•ã‚£ãƒ«ã‚ªãƒŸãƒã€é ˜åŸŸã‚¯ãƒ©ã‚¹
  */
 public class Area extends pencilbox.common.core.AreaBase {
 
-	private int number; // —Ìˆæ‚Ì”š
+	private int number; // é ˜åŸŸã®æ•°å­—
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param number —Ìˆæ‚Ì”š
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param number é ˜åŸŸã®æ•°å­—
 	 */
 	public Area(int number) {
 		super();
@@ -28,10 +28,10 @@ public class Area extends pencilbox.common.core.AreaBase {
 		this.number = number;
 	}
 	/**
-	 * Area ‚Ìó‘Ô‚ğ•Ô‚·
-	 * @return ƒTƒCƒY‚ª”š‚æ‚è¬‚³‚¢ : 0
-	 * ƒTƒCƒY‚ª”š‚É“™‚µ‚¢ : 1
-	 * ƒTƒCƒY‚ª”š‚æ‚è‘å‚«‚¢ : -1
+	 * Area ã®çŠ¶æ…‹ã‚’è¿”ã™
+	 * @return ã‚µã‚¤ã‚ºãŒæ•°å­—ã‚ˆã‚Šå°ã•ã„ : 0
+	 * ã‚µã‚¤ã‚ºãŒæ•°å­—ã«ç­‰ã—ã„ : 1
+	 * ã‚µã‚¤ã‚ºãŒæ•°å­—ã‚ˆã‚Šå¤§ãã„ : -1
 	 */
 	public int getStatus() {
 		if (size() < number) return 0;

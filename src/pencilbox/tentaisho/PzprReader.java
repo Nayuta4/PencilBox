@@ -6,7 +6,7 @@ import pencilbox.common.io.PzprReaderBase;
 
 
 /**
- * QlFpzprv3 tentaisho.js
+ * å‚è€ƒï¼špzprv3 tentaisho.js
  */
 public class PzprReader extends PzprReaderBase {
 

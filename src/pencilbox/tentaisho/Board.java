@@ -15,15 +15,15 @@ import pencilbox.util.ArrayUtil;
 
 
 /**
- *  u“V‘ÌƒVƒ‡[v”Õ–ÊƒNƒ‰ƒX
+ *  ã€Œå¤©ä½“ã‚·ãƒ§ãƒ¼ã€ç›¤é¢ã‚¯ãƒ©ã‚¹
  */
 public class Board extends BoardBase {
 
-	/** ¯‚ª‚È‚¢‚±‚Æ */
+	/** æ˜ŸãŒãªã„ã“ã¨ */
 	static final int NOSTAR = 0;
-	/** ”’‚¢¯ */
+	/** ç™½ã„æ˜Ÿ */
 	static final int WHITESTAR = 1;
-	/** •‚¢¯ */
+	/** é»’ã„æ˜Ÿ */
 	static final int BLACKSTAR = 2;
 
 	static final int LINE = 1;
@@ -66,7 +66,7 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ”Õ–Êã‚Ì—Ìˆæ‚Ì‰Šúˆ—‚ğs‚¤
+	 * ç›¤é¢ä¸Šã®é ˜åŸŸã®åˆæœŸå‡¦ç†ã‚’è¡Œã†
 	 */
 	public void initAreas() {
 		for (Area a : areaList) {
@@ -81,10 +81,10 @@ public class Board extends BoardBase {
 		return star;
 	}
 	/**
-	 * ˆø”‚ÌÀ•W‚Ì¯‚ğæ“¾‚·‚é
+	 * å¼•æ•°ã®åº§æ¨™ã®æ˜Ÿã‚’å–å¾—ã™ã‚‹
 	 * @param r
 	 * @param c
-	 * @return ¯
+	 * @return æ˜Ÿ
 	 */
 	public int getStar(int r, int c) {
 		return star[r][c];
@@ -94,7 +94,7 @@ public class Board extends BoardBase {
 		return getStar(pos.r(), pos.c());
 	}
 	/**
-	 * ˆø”‚ÌÀ•W‚É¯‚ğİ’è‚·‚é
+	 * å¼•æ•°ã®åº§æ¨™ã«æ˜Ÿã‚’è¨­å®šã™ã‚‹
 	 * @param r
 	 * @param c
 	 * @param st
@@ -124,11 +124,11 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ˆø”‚Ì¯À•W‚ª”Õã‚É‚ ‚é‚©
-	 * 0<=r<rows*2-1, 0<=c<cols*2-1 ‚Å‚ ‚ê‚Î”Õã‚Å‚ ‚é
+	 * å¼•æ•°ã®æ˜Ÿåº§æ¨™ãŒç›¤ä¸Šã«ã‚ã‚‹ã‹
+	 * 0<=r<rows*2-1, 0<=c<cols*2-1 ã§ã‚ã‚Œã°ç›¤ä¸Šã§ã‚ã‚‹
 	 * @param r
 	 * @param c
-	 * @return@”Õã‚É‚ ‚ê‚Î true
+	 * @returnã€€ç›¤ä¸Šã«ã‚ã‚Œã° true
 	 */
 	public boolean isOnStar(int r, int c) {
 		return (r>=0 && r<rows()*2-1 && c>=0 && c<cols()*2-1);
@@ -147,10 +147,10 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ˆø”‚É—^‚¦‚ç‚ê‚½ƒ}ƒX‚ÌŠ‘®—Ìˆæ‚ğæ“¾‚·‚é
+	 * å¼•æ•°ã«ä¸ãˆã‚‰ã‚ŒãŸãƒã‚¹ã®æ‰€å±é ˜åŸŸã‚’å–å¾—ã™ã‚‹
 	 * @param r
 	 * @param c
-	 * @return ƒ}ƒX‚ÌŠ‘®—Ìˆæ
+	 * @return ãƒã‚¹ã®æ‰€å±é ˜åŸŸ
 	 */
 	public Area getArea(int r, int c) {
 		return area[r][c];
@@ -160,7 +160,7 @@ public class Board extends BoardBase {
 		return getArea(pos.r(), pos.c());
 	}
 	/**
-	 * ”Õã‚Ìƒ}ƒX‚ÉC‚»‚Ìƒ}ƒX‚ÌŠ‘®‚·‚é—Ìˆæ‚ğİ’è‚·‚é
+	 * ç›¤ä¸Šã®ãƒã‚¹ã«ï¼Œãã®ãƒã‚¹ã®æ‰€å±ã™ã‚‹é ˜åŸŸã‚’è¨­å®šã™ã‚‹
 	 * @param r Row coordinate of the cell.
 	 * @param c Column coordinate of the cell.
 	 * @param a The area to set.
@@ -173,8 +173,8 @@ public class Board extends BoardBase {
 		setArea(pos.r(), pos.c(), a);
 	}
 	/**
-	 * ”Õ–Ê‚ÉV‚µ‚¢—Ìˆæ‚ğ’Ç‰Á‚·‚é
-	 * @param newArea ’Ç‰Á‚·‚é—Ìˆæ
+	 * ç›¤é¢ã«æ–°ã—ã„é ˜åŸŸã‚’è¿½åŠ ã™ã‚‹
+	 * @param newArea è¿½åŠ ã™ã‚‹é ˜åŸŸ
 	 */
 	public void addArea(Area newArea) {
 		for (Address pos : newArea) {
@@ -183,7 +183,7 @@ public class Board extends BoardBase {
 		areaList.add(newArea);
 	}
 	/**
-	 * —Ìˆæ‚Ì‚·‚×‚Ä‚Ìƒ}ƒX‚ğ—Ìˆæ‚©‚çœ‚¢‚Ä—Ìˆæ‚ğíœ‚·‚é
+	 * é ˜åŸŸã®ã™ã¹ã¦ã®ãƒã‚¹ã‚’é ˜åŸŸã‹ã‚‰é™¤ã„ã¦é ˜åŸŸã‚’å‰Šé™¤ã™ã‚‹
 	 * @param oldArea
 	 */
 	public void removeWholeArea(Area oldArea) {
@@ -241,7 +241,7 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * p ‚ğ p0 ‚Æ“¯‚¶—Ìˆæ‚É‚·‚éB‚½‚¾‚µ p0‚ª NOWHWER‚È‚ç‚ÎV‚µ‚¢—Ìˆæ‚ğì‚é
+	 * p ã‚’ p0 ã¨åŒã˜é ˜åŸŸã«ã™ã‚‹ã€‚ãŸã ã— p0ãŒ NOWHWERãªã‚‰ã°æ–°ã—ã„é ˜åŸŸã‚’ä½œã‚‹
 	 * @param p
 	 * @param p0
 	 */
@@ -257,7 +257,7 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * ƒ}ƒX‚ğ—Ìˆæ‚©‚çæ‚èœ‚­B
+	 * ãƒã‚¹ã‚’é ˜åŸŸã‹ã‚‰å–ã‚Šé™¤ãã€‚
 	 * @param p
 	 */
 	void removeCell(Address p) {
@@ -267,9 +267,9 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * ƒ}ƒX‚ğ—Ìˆæ‚É’Ç‰Á‚·‚é
-	 * @param p ’Ç‰Á‚·‚éƒ}ƒX‚ÌÀ•W
-	 * @param a ’Ç‰Á‚³‚ê‚é—Ìˆæ
+	 * ãƒã‚¹ã‚’é ˜åŸŸã«è¿½åŠ ã™ã‚‹
+	 * @param p è¿½åŠ ã™ã‚‹ãƒã‚¹ã®åº§æ¨™
+	 * @param a è¿½åŠ ã•ã‚Œã‚‹é ˜åŸŸ
 	 */
 	public void addCellToArea(Address p, Area a) {
 		if (isRecordUndo()) {
@@ -288,9 +288,9 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ƒ}ƒX‚ğ—Ìˆæ‚©‚çæ‚èœ‚­
-	 * @param p æ‚èœ‚­ƒ}ƒX‚ÌÀ•W
-	 * @param a æ‚èœ‚©‚ê‚é—Ìˆæ
+	 * ãƒã‚¹ã‚’é ˜åŸŸã‹ã‚‰å–ã‚Šé™¤ã
+	 * @param p å–ã‚Šé™¤ããƒã‚¹ã®åº§æ¨™
+	 * @param a å–ã‚Šé™¤ã‹ã‚Œã‚‹é ˜åŸŸ
 	 */
 	public void removeCellFromArea(Address p, Area a) {
 		if (isRecordUndo()) {
@@ -310,7 +310,7 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * V‹Kì¬‚µ‚½—Ìˆæ‚ÉŠÜ‚Ü‚ê‚é¯‚ğİ’è‚·‚é
+	 * æ–°è¦ä½œæˆã—ãŸé ˜åŸŸã«å«ã¾ã‚Œã‚‹æ˜Ÿã‚’è¨­å®šã™ã‚‹
 	 * @param newArea
 	 */
 	void initArea(Area newArea) {

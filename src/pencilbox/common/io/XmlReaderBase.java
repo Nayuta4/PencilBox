@@ -32,7 +32,7 @@ public abstract class XmlReaderBase extends DefaultHandler implements
 	private Size size;
 	private int rowNo, colNo;
 	private DataFormatException exception;
-	// abstract‚É‚·‚é‚Æ’è‹`‚µ‚È‚¢‚Æ‚¢‚¯‚È‚­‚È‚é
+	// abstractã«ã™ã‚‹ã¨å®šç¾©ã—ãªã„ã¨ã„ã‘ãªããªã‚‹
 	protected BoardBase makeBoard() {
 //		return (PuzzleBoard) ClassUtil.createInstance(type, "Board");
 		return null;
@@ -173,7 +173,7 @@ public abstract class XmlReaderBase extends DefaultHandler implements
 	protected void onAnswerEnd() {
 	}
 	protected void onAnswer() {
-		// 1ŸŒ³‚Ì‚Æ‚«‚ÍcolNo‚µ‚©g‚í‚È‚¢‚Ì‚ÅcolNo‚àƒŠƒZƒbƒg‚µ‚Ä‚¨‚­
+		// 1æ¬¡å…ƒã®ã¨ãã¯colNoã—ã‹ä½¿ã‚ãªã„ã®ã§colNoã‚‚ãƒªã‚»ãƒƒãƒˆã—ã¦ãŠã
 		rowNo = 0;
 		colNo = 0;
 	}
@@ -269,7 +269,7 @@ public abstract class XmlReaderBase extends DefaultHandler implements
 	protected void setAType(int r, int c, String type) {
 	}
 	/*
-	 * ”’l‘®«’l‚ğ“¾‚éA–³‚¢‚©ƒGƒ‰[‚È‚çnone‚É‚È‚é
+	 * æ•°å€¤å±æ€§å€¤ã‚’å¾—ã‚‹ã€ç„¡ã„ã‹ã‚¨ãƒ©ãƒ¼ãªã‚‰noneã«ãªã‚‹
 	 */
 //	protected int getAttribute(Attributes attributes, String name, int none)
 //		throws PuzzleException {

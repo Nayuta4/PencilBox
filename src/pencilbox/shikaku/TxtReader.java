@@ -64,7 +64,7 @@ public class TxtReader extends TxtReaderBase {
 			}
 		}
 
-		// •Óƒf[ƒ^‚Ì“Ç‚İ‚İC‚È‚¯‚ê‚Î‚±‚±‚ÅI‚í‚è
+		// è¾ºãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿ï¼Œãªã‘ã‚Œã°ã“ã“ã§çµ‚ã‚ã‚Š
 		line = reader.readLine();
 		if (line != null) {
 			t = new StringTokenizer(line);

@@ -7,7 +7,7 @@ import pencilbox.common.gui.PanelEventHandlerBase;
 
 
   /**
-   * uƒJƒbƒNƒvƒ}ƒEƒX^ƒL[‘€ìˆ—ƒNƒ‰ƒX
+   * ã€Œã‚«ãƒƒã‚¯ãƒ­ã€ãƒã‚¦ã‚¹ï¼ã‚­ãƒ¼æ“ä½œå‡¦ç†ã‚¯ãƒ©ã‚¹
    */
 public class PanelEventHandler extends PanelEventHandlerBase {
 
@@ -25,7 +25,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/*
-	 * ƒ‚[ƒh‚É‚æ‚è“ü—Í‰Â”\”šˆÙ‚È‚éB
+	 * ãƒ¢ãƒ¼ãƒ‰ã«ã‚ˆã‚Šå…¥åŠ›å¯èƒ½æ•°å­—ç•°ãªã‚‹ã€‚
 	 */
 	protected int getMaxInputNumber() {
 		if (isProblemEditMode())
@@ -35,7 +35,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/*
-	 * uƒJƒbƒNƒvƒ}ƒEƒX‘€ì
+	 * ã€Œã‚«ãƒƒã‚¯ãƒ­ã€ãƒã‚¦ã‚¹æ“ä½œ
 	 */
 	protected void leftPressed(Address pos) {
 		if (!isCursorOn() || getCellCursor().isAt(pos)) {
@@ -61,7 +61,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		}
 	}
 	/*
-	 * uƒJƒbƒNƒvƒL[‘€ì
+	 * ã€Œã‚«ãƒƒã‚¯ãƒ­ã€ã‚­ãƒ¼æ“ä½œ
 	 */
 	protected void arrowKeyEntered(int direction) {
 		super.arrowKeyEntered(direction);
@@ -129,9 +129,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/**
-	 * “_‘ÎÌˆÊ’u‚ÌÀ•W‚ğæ“¾‚·‚éB ƒJƒbƒNƒ—pB
-	 * @param pos Œ³À•W
-	 * @return pos‚Æ“_‘ÎÌ‚ÈˆÊ’u‚ÌÀ•W
+	 * ç‚¹å¯¾ç§°ä½ç½®ã®åº§æ¨™ã‚’å–å¾—ã™ã‚‹ã€‚ ã‚«ãƒƒã‚¯ãƒ­ç”¨ã€‚
+	 * @param pos å…ƒåº§æ¨™
+	 * @return posã¨ç‚¹å¯¾ç§°ãªä½ç½®ã®åº§æ¨™
 	 */
 	public Address getSymmetricPosition(Address pos) {
 		return Address.address(board.rows()-pos.r(), board.cols()-pos.c());

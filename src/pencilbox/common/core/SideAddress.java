@@ -2,7 +2,7 @@ package pencilbox.common.core;
 
 
 /**
- * ”Õã‚Ì•Ó‚Ì®”’l‚ÌÀ•W‚ğ•\‚·ƒNƒ‰ƒX
+ * ç›¤ä¸Šã®è¾ºã®æ•´æ•°å€¤ã®åº§æ¨™ã‚’è¡¨ã™ã‚¯ãƒ©ã‚¹
  */
 public class SideAddress implements Comparable<SideAddress> {
 
@@ -24,7 +24,7 @@ public class SideAddress implements Comparable<SideAddress> {
 						newAddress[d][r+1][c+1] = ADDRESS[d][r+1][c+1];
 					} else {
 						newAddress[d][r+1][c+1] = new SideAddress(d, r, c);
-//						System.out.println(newAddress[d][r+1][c+1].toString() + " ‚ğì¬‚µ‚½");
+//						System.out.println(newAddress[d][r+1][c+1].toString() + " ã‚’ä½œæˆã—ãŸ");
 					}
 		MAX = m;
 		ADDRESS = newAddress;
@@ -36,20 +36,20 @@ public class SideAddress implements Comparable<SideAddress> {
 	}
 
 	/**
-	 *  ”ÕŠOÀ•W
+	 *  ç›¤å¤–åº§æ¨™
 	 */
 	public static final SideAddress NOWHERE = sideAddress(-1, -1, -1);
 
 	/**
-	 *  0 ‚Í VERT ‚Â‚Ü‚è ƒ}ƒX‚Ì¶‰E‚Ì‹«ŠEüiƒŠƒ“ƒN‚Ì‚Æ‚«‚Í‰¡üj
-	 *  1 ‚Í HORIZ ‚Â‚Ü‚è ƒ}ƒX‚Ìã‰º‚Ì‹«ŠEüiƒŠƒ“ƒN‚Ì‚Æ‚«‚Ícüj
+	 *  0 ã¯ VERT ã¤ã¾ã‚Š ãƒã‚¹ã®å·¦å³ã®å¢ƒç•Œç·šï¼ˆãƒªãƒ³ã‚¯ã®ã¨ãã¯æ¨ªç·šï¼‰
+	 *  1 ã¯ HORIZ ã¤ã¾ã‚Š ãƒã‚¹ã®ä¸Šä¸‹ã®å¢ƒç•Œç·šï¼ˆãƒªãƒ³ã‚¯ã®ã¨ãã¯ç¸¦ç·šï¼‰
 	 */
 	private final int d;
 	private final int r;
 	private final int c;
 
 	/**
-	 * ƒtƒ@ƒNƒgƒŠƒƒ\ƒbƒhBˆø”‚Æ“¯‚¶•ÓÀ•W‚ğæ“¾‚·‚éB
+	 * ãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¡ã‚½ãƒƒãƒ‰ã€‚å¼•æ•°ã¨åŒã˜è¾ºåº§æ¨™ã‚’å–å¾—ã™ã‚‹ã€‚
 	 * @param d
 	 * @param r
 	 * @param c
@@ -64,10 +64,10 @@ public class SideAddress implements Comparable<SideAddress> {
 	}
 
 	/**
-	 * ƒ}ƒXÀ•W‚ÆŒü‚«‚©‚ç•ÓÀ•W‚ğæ“¾‚·‚éB
-	 * @param pos ƒ}ƒXÀ•W
-	 * @param dir Œü‚«
-	 * @return •ÓÀ•W
+	 * ãƒã‚¹åº§æ¨™ã¨å‘ãã‹ã‚‰è¾ºåº§æ¨™ã‚’å–å¾—ã™ã‚‹ã€‚
+	 * @param pos ãƒã‚¹åº§æ¨™
+	 * @param dir å‘ã
+	 * @return è¾ºåº§æ¨™
 	 */
 	public static SideAddress get(Address pos, int dir) {
 		switch (dir) {
@@ -132,10 +132,10 @@ public class SideAddress implements Comparable<SideAddress> {
 		return ((d * 1000) + r) * 1000 + c;
 	}
 	/** 
-	 * ‡˜‚Ì’è‹`
-	 * VERT ‚ª‘O‚Å HORIZ ‚ªŒãD
-	 * sÀ•W r ‚ª¬‚³‚¢•û‚ª‘OC
-	 * sÀ•W‚ª“™‚µ‚¯‚ê‚ÎC—ñÀ•W c ‚ª¬‚³‚¢•û‚ª‘OD
+	 * é †åºã®å®šç¾©
+	 * VERT ãŒå‰ã§ HORIZ ãŒå¾Œï¼
+	 * è¡Œåº§æ¨™ r ãŒå°ã•ã„æ–¹ãŒå‰ï¼Œ
+	 * è¡Œåº§æ¨™ãŒç­‰ã—ã‘ã‚Œã°ï¼Œåˆ—åº§æ¨™ c ãŒå°ã•ã„æ–¹ãŒå‰ï¼
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
 	public int compareTo(SideAddress o) {
@@ -154,9 +154,9 @@ public class SideAddress implements Comparable<SideAddress> {
 	}
 
 	/**
-	 * ‹«ŠE‚Ì—¼—×‚Ì‹«ŠE
-	 * @param border ‹«ŠE‚ÌÀ•W
-	 * @param direction 0 ‚È‚ç ã‚Ü‚½‚Í¶A1‚È‚ç‰º‚Ü‚½‚Í‰E
+	 * å¢ƒç•Œã®ä¸¡éš£ã®å¢ƒç•Œ
+	 * @param border å¢ƒç•Œã®åº§æ¨™
+	 * @param direction 0 ãªã‚‰ ä¸Šã¾ãŸã¯å·¦ã€1ãªã‚‰ä¸‹ã¾ãŸã¯å³
 	 * @return
 	 */
 	public static SideAddress nextBorder(SideAddress border, int direction) {

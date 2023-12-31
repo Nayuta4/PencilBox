@@ -23,10 +23,10 @@ import pencilbox.common.core.SquareBase;
 
 
 /**
- * ƒyƒ“ƒVƒ‹ƒpƒYƒ‹ƒtƒŒ[ƒ€ƒ[ƒN‚Ìƒpƒlƒ‹ƒNƒ‰ƒX
- * ŒÂ•ÊƒpƒYƒ‹‚Ìƒpƒlƒ‹ƒNƒ‰ƒX‚ÌƒX[ƒp[ƒNƒ‰ƒX‚Æ‚È‚é
- * •¡”‚ÌƒpƒYƒ‹‚Å‹¤’Ê‚Å—˜—p‚³‚ê‚éƒƒ\ƒbƒh‚ğ‹Lq‚µ‚Ä‚¢‚é
- * ŠeƒpƒYƒ‹‚ÅŒÅ—L‚Ì‘€ì‚ÍƒTƒuƒNƒ‰ƒX‚Å‹Lq‚·‚é
+ * ãƒšãƒ³ã‚·ãƒ«ãƒ‘ã‚ºãƒ«ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¯ãƒ¼ã‚¯ã®ãƒ‘ãƒãƒ«ã‚¯ãƒ©ã‚¹
+ * å€‹åˆ¥ãƒ‘ã‚ºãƒ«ã®ãƒ‘ãƒãƒ«ã‚¯ãƒ©ã‚¹ã®ã‚¹ãƒ¼ãƒ‘ãƒ¼ã‚¯ãƒ©ã‚¹ã¨ãªã‚‹
+ * è¤‡æ•°ã®ãƒ‘ã‚ºãƒ«ã§å…±é€šã§åˆ©ç”¨ã•ã‚Œã‚‹ãƒ¡ã‚½ãƒƒãƒ‰ã‚’è¨˜è¿°ã—ã¦ã„ã‚‹
+ * å„ãƒ‘ã‚ºãƒ«ã§å›ºæœ‰ã®æ“ä½œã¯ã‚µãƒ–ã‚¯ãƒ©ã‚¹ã§è¨˜è¿°ã™ã‚‹
  */
 
 public class PanelBase extends JPanel implements Printable {
@@ -39,7 +39,7 @@ public class PanelBase extends JPanel implements Printable {
 
 	private int cellSize = 26;
 	private int circleSize = 18;
-	private int smallCrossSize = 3; // •Ğ‘¤ƒTƒCƒY
+	private int smallCrossSize = 3; // ç‰‡å´ã‚µã‚¤ã‚º
 	private int linkWidth = 3;
 
 	private int offsetx = 10;
@@ -58,7 +58,7 @@ public class PanelBase extends JPanel implements Printable {
 	private Font indexFont = new Font("SansSerif", Font.ITALIC, 13);
 	private Font numberFont = new Font("SansSerif", Font.PLAIN, 20);
 
-	private int gridStyle = 1;   // 0:”ñ•\¦@‚PF•\¦
+	private int gridStyle = 1;   // 0:éè¡¨ç¤ºã€€ï¼‘ï¼šè¡¨ç¤º
 	private int markStyle = 1;
 	private boolean indexMode = false;
 	private boolean cursorMode = false;
@@ -111,20 +111,20 @@ public class PanelBase extends JPanel implements Printable {
 	protected char[] letters = {};
 
 	/**
-	 * •ÒWƒ‚[ƒh	 
+	 * ç·¨é›†ãƒ¢ãƒ¼ãƒ‰	 
 	 */
 	private int editMode = 0;
 
 	/**
-	 * ƒpƒlƒ‹¶¬ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	 * ãƒ‘ãƒãƒ«ç”Ÿæˆã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	 */
 	public PanelBase() {
 		setFocusable(true);
 	}
 	/**
-	 * ƒpƒlƒ‹‚Ì‰Šúİ’è‚ğs‚¤
-	 * Board ‚ÆŠÖ˜A•t‚¯‚é
-	 * @param board ”Õ–Ê
+	 * ãƒ‘ãƒãƒ«ã®åˆæœŸè¨­å®šã‚’è¡Œã†
+	 * Board ã¨é–¢é€£ä»˜ã‘ã‚‹
+	 * @param board ç›¤é¢
 	 */
 	public void setup(BoardBase board) {
 		size = board.getSize();
@@ -133,23 +133,23 @@ public class PanelBase extends JPanel implements Printable {
 		cellCursor = createCursor();
 	}
 	/**
-	 *  ƒJ[ƒ\ƒ‹‚ğ¶¬‚·‚é
-	 * @return ¶¬‚µ‚½ƒJ[ƒ\ƒ‹
+	 *  ã‚«ãƒ¼ã‚½ãƒ«ã‚’ç”Ÿæˆã™ã‚‹
+	 * @return ç”Ÿæˆã—ãŸã‚«ãƒ¼ã‚½ãƒ«
 	 */
 	public CellCursor createCursor() {
 		return new CellCursor();
 	}
 	/**
-	 * ŒÂ•ÊƒNƒ‰ƒX‚Ìƒpƒlƒ‹‚ÉŒÂ•ÊƒNƒ‰ƒX‚Ì”Õ–Ê‚ğİ’è‚·‚é‚½‚ß‚Ìƒƒ\ƒbƒh
-	 * ŠeŒÂ•ÊƒNƒ‰ƒX‚ÅƒI[ƒo[ƒ‰ƒCƒh‚·‚é
-	 * @param board ”Õ–Ê
+	 * å€‹åˆ¥ã‚¯ãƒ©ã‚¹ã®ãƒ‘ãƒãƒ«ã«å€‹åˆ¥ã‚¯ãƒ©ã‚¹ã®ç›¤é¢ã‚’è¨­å®šã™ã‚‹ãŸã‚ã®ãƒ¡ã‚½ãƒƒãƒ‰
+	 * å„å€‹åˆ¥ã‚¯ãƒ©ã‚¹ã§ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã™ã‚‹
+	 * @param board ç›¤é¢
 	 */
 	protected void setBoard(BoardBase board) {
 	}
 
 	/**
-	 * •\¦ƒTƒCƒY‚ğ•ÏX‚·‚é
-	 * @param cellSize ƒ}ƒX‚ÌƒTƒCƒY
+	 * è¡¨ç¤ºã‚µã‚¤ã‚ºã‚’å¤‰æ›´ã™ã‚‹
+	 * @param cellSize ãƒã‚¹ã®ã‚µã‚¤ã‚º
 	 */
 	public void setDisplaySize(int cellSize) {
 		this.cellSize = cellSize;
@@ -165,15 +165,15 @@ public class PanelBase extends JPanel implements Printable {
 		repaint();
 	}
 	/**
-	 * Œrü•\¦ƒXƒ^ƒCƒ‹æ“¾
-	 * @return Œ»İ‚Ì”Ô†
+	 * ç½«ç·šè¡¨ç¤ºã‚¹ã‚¿ã‚¤ãƒ«å–å¾—
+	 * @return ç¾åœ¨ã®ç•ªå·
 	 */
 	protected int getGridStyle() {
 		return gridStyle;
 	}
 	/**
-	 * Œrü•\¦ƒXƒ^ƒCƒ‹İ’è
-	 * @param i İ’è‚·‚é”Ô†
+	 * ç½«ç·šè¡¨ç¤ºã‚¹ã‚¿ã‚¤ãƒ«è¨­å®š
+	 * @param i è¨­å®šã™ã‚‹ç•ªå·
 	 */
 	protected void setGridStyle(int i) {
 		gridStyle = i;
@@ -191,14 +191,14 @@ public class PanelBase extends JPanel implements Printable {
 		this.markStyle = markStyle;
 	}
 	/**
-	 * Œ»İ‚Ì”Õ–Ê‚Ìó‘Ô‚É‡‚í‚¹‚ÄCsetPreferredSize() ‚ğs‚¤
+	 * ç¾åœ¨ã®ç›¤é¢ã®çŠ¶æ…‹ã«åˆã‚ã›ã¦ï¼ŒsetPreferredSize() ã‚’è¡Œã†
 	 */
 	protected void updatePreferredSize() {
 		setPreferredSize(getBoardRegionSize());
 		revalidate();
 	}
 	/**
-	 * Panel‚Ì”Õ–Ê—Ìˆæ•”•ª‚ÌƒTƒCƒY‚ğæ“¾‚·‚é
+	 * Panelã®ç›¤é¢é ˜åŸŸéƒ¨åˆ†ã®ã‚µã‚¤ã‚ºã‚’å–å¾—ã™ã‚‹
 	 */
 	public Dimension getBoardRegionSize() {
 		return new Dimension(
@@ -225,15 +225,15 @@ public class PanelBase extends JPanel implements Printable {
 		this.editMode = editMode;
 	}
 	/**
-	 * Œ»İ‚Ì‰ñ“]ó‘Ô‚É‰‚¶‚½s”‚ğæ“¾‚·‚é
-	 * @return ƒpƒlƒ‹ã‚Ì”Õ–Ê‚Ìs” 
+	 * ç¾åœ¨ã®å›è»¢çŠ¶æ…‹ã«å¿œã˜ãŸè¡Œæ•°ã‚’å–å¾—ã™ã‚‹
+	 * @return ãƒ‘ãƒãƒ«ä¸Šã®ç›¤é¢ã®è¡Œæ•° 
 	 */
 	public int rows() {
 		return size.getRows();
 	}
 	/**
-	 * Œ»İ‚Ì‰ñ“]ó‘Ô‚É‰‚¶‚½—ñ”‚ğæ“¾‚·‚é
-	 * @return ƒpƒlƒ‹ã‚Ì”Õ–Ê‚Ì—ñ”
+	 * ç¾åœ¨ã®å›è»¢çŠ¶æ…‹ã«å¿œã˜ãŸåˆ—æ•°ã‚’å–å¾—ã™ã‚‹
+	 * @return ãƒ‘ãƒãƒ«ä¸Šã®ç›¤é¢ã®åˆ—æ•°
 	 */
 	public int cols() {
 		return size.getCols();
@@ -247,8 +247,8 @@ public class PanelBase extends JPanel implements Printable {
 		drawPanel((Graphics2D) g);
 	}
 	/**
-	 * ƒpƒlƒ‹‚ğ•`‰æ‚·‚éB
-	 * ‰æ–Ê•\¦—pCˆóü—pC‰æ‘œì¬—p‚Å‹¤’Ê‚Ég—p‚·‚éB
+	 * ãƒ‘ãƒãƒ«ã‚’æç”»ã™ã‚‹ã€‚
+	 * ç”»é¢è¡¨ç¤ºç”¨ï¼Œå°åˆ·ç”¨ï¼Œç”»åƒä½œæˆç”¨ã§å…±é€šã«ä½¿ç”¨ã™ã‚‹ã€‚
 	 * @param g
 	 */
 	public void drawPanel(Graphics2D g) {
@@ -264,17 +264,17 @@ public class PanelBase extends JPanel implements Printable {
 	}
 
 	/**
-	 * ƒpƒlƒ‹‚É”Õ–Ê‚ğ•`‰æ‚·‚é
-	 * ŒÂX‚ÌƒTƒuƒNƒ‰ƒX‚ÅÀ‘•‚·‚éB
+	 * ãƒ‘ãƒãƒ«ã«ç›¤é¢ã‚’æç”»ã™ã‚‹
+	 * å€‹ã€…ã®ã‚µãƒ–ã‚¯ãƒ©ã‚¹ã§å®Ÿè£…ã™ã‚‹ã€‚
 	 * @param g
 	 */
 	public void drawBoard(Graphics2D g) {
 	}
 
 	/**
-	 * Panelã‚Ì—ñÀ•W‚ğƒsƒNƒZƒ‹xÀ•W‚É•ÏŠ·‚·‚é
-	 * @param c Panelã‚Ì—ñÀ•W
-	 * @return •ÏŠ·Œã‚ÌƒsƒNƒZƒ‹À•W
+	 * Panelä¸Šã®åˆ—åº§æ¨™ã‚’ãƒ”ã‚¯ã‚»ãƒ«xåº§æ¨™ã«å¤‰æ›ã™ã‚‹
+	 * @param c Panelä¸Šã®åˆ—åº§æ¨™
+	 * @return å¤‰æ›å¾Œã®ãƒ”ã‚¯ã‚»ãƒ«åº§æ¨™
 	 */
 	public final int toX(int c) {
 		return getOffsetx() + getCellSize() * c;
@@ -283,9 +283,9 @@ public class PanelBase extends JPanel implements Printable {
 		return toX(p.c());
 	}
 	/**
-	 * Panelã‚Ì—ñÀ•W‚ğƒsƒNƒZƒ‹yÀ•W‚É•ÏŠ·‚·‚é
-	 * @param r Panelã‚ÌsÀ•W
-	 * @return •ÏŠ·Œã‚ÌƒsƒNƒZƒ‹À•W
+	 * Panelä¸Šã®åˆ—åº§æ¨™ã‚’ãƒ”ã‚¯ã‚»ãƒ«yåº§æ¨™ã«å¤‰æ›ã™ã‚‹
+	 * @param r Panelä¸Šã®è¡Œåº§æ¨™
+	 * @return å¤‰æ›å¾Œã®ãƒ”ã‚¯ã‚»ãƒ«åº§æ¨™
 	 */
 	public final int toY(int r) {
 		return getOffsety() + getCellSize() * r;
@@ -295,24 +295,24 @@ public class PanelBase extends JPanel implements Printable {
 	}
 
 	/**
-	 * Panelã‚Ìx•ûŒüƒsƒNƒZƒ‹À•W‚ğƒ}ƒXÀ•W‚É•ÏŠ·‚·‚é
-	 * @param x Panelã‚ÌƒsƒNƒZƒ‹À•W‚Ìx
-	 * @return —ñÀ•W‚É•ÏŠ·‚µ‚½”’l
+	 * Panelä¸Šã®xæ–¹å‘ãƒ”ã‚¯ã‚»ãƒ«åº§æ¨™ã‚’ãƒã‚¹åº§æ¨™ã«å¤‰æ›ã™ã‚‹
+	 * @param x Panelä¸Šã®ãƒ”ã‚¯ã‚»ãƒ«åº§æ¨™ã®x
+	 * @return åˆ—åº§æ¨™ã«å¤‰æ›ã—ãŸæ•°å€¤
 	 */
 	private final int toC(int x) {
 		return (x + getCellSize() - getOffsetx()) / getCellSize() - 1;
 	}
 	/**
-	 * Panelã‚Ì‚™ŒüƒsƒNƒZƒ‹À•W‚ğs•ûŒüƒ}ƒXÀ•W‚É•ÏŠ·‚·‚é
-	 * @param y Panelã‚ÌƒsƒNƒZƒ‹À•W‚Ìy
-	 * @return ƒ}ƒXÀ•W‚É•ÏŠ·‚µ‚½”’l
+	 * Panelä¸Šã®ï½™å‘ãƒ”ã‚¯ã‚»ãƒ«åº§æ¨™ã‚’è¡Œæ–¹å‘ãƒã‚¹åº§æ¨™ã«å¤‰æ›ã™ã‚‹
+	 * @param y Panelä¸Šã®ãƒ”ã‚¯ã‚»ãƒ«åº§æ¨™ã®y
+	 * @return ãƒã‚¹åº§æ¨™ã«å¤‰æ›ã—ãŸæ•°å€¤
 	 */
 	private final int toR(int y) {
 		return (y + getCellSize() - getOffsety()) / getCellSize() - 1;
 	}
 
 	/**
-	 * ˆø”‚ÌƒsƒNƒZƒ‹À•W‚ÌˆÊ’u‚Ìƒ}ƒXÀ•W‚ğæ“¾‚·‚éB
+	 * å¼•æ•°ã®ãƒ”ã‚¯ã‚»ãƒ«åº§æ¨™ã®ä½ç½®ã®ãƒã‚¹åº§æ¨™ã‚’å–å¾—ã™ã‚‹ã€‚
 	 * @param x
 	 * @param y
 	 * @return
@@ -324,13 +324,13 @@ public class PanelBase extends JPanel implements Printable {
 	}
 
 	/**
-	 * ˆø”‚ÌƒsƒNƒZƒ‹À•W‚ÉÅ‚à‹ß‚¢•ÓÀ•W‚ğæ“¾‚·‚éB
+	 * å¼•æ•°ã®ãƒ”ã‚¯ã‚»ãƒ«åº§æ¨™ã«æœ€ã‚‚è¿‘ã„è¾ºåº§æ¨™ã‚’å–å¾—ã™ã‚‹ã€‚
 	 *                [H, r-1, c]
-	 *              „¡@„Ÿ@„¢
-	 *                _@^@
-	 * [V, r, c-1]  b@E@b [V, r, c] 
-	 *                ^@_@
-	 *              „¤@„Ÿ@„£
+	 *              â”Œã€€â”€ã€€â”
+	 *                ï¼¼ã€€ï¼ã€€
+	 * [V, r, c-1]  ï½œã€€ãƒ»ã€€ï½œ [V, r, c] 
+	 *                ï¼ã€€ï¼¼ã€€
+	 *              â””ã€€â”€ã€€â”˜
 	 *                [H, r, c]
 	 * @param x
 	 * @param y
@@ -355,10 +355,10 @@ public class PanelBase extends JPanel implements Printable {
 	}
 
 	/*
-	 * ”Õ–Êˆê•”•`‰æ—pƒƒ\ƒbƒhŒQ
+	 * ç›¤é¢ä¸€éƒ¨æç”»ç”¨ãƒ¡ã‚½ãƒƒãƒ‰ç¾¤
 	 */
 	/**
-	 * ”Õ–Ê‚Ì”wŒi‚ğ backgraoundColor ‚Å“h‚è‚Â‚Ô‚·
+	 * ç›¤é¢ã®èƒŒæ™¯ã‚’ backgraoundColor ã§å¡—ã‚Šã¤ã¶ã™
 	 * @param g
 	 */
 	public void paintBackground(Graphics2D g) {
@@ -366,7 +366,7 @@ public class PanelBase extends JPanel implements Printable {
 		g.fillRect(offsetx, offsety, cellSize * cols(), cellSize * rows());
 	}
 	/**
-	 * ”Õ–Ê‚ÌŠO˜g‚ğ•`‚­
+	 * ç›¤é¢ã®å¤–æ ã‚’æã
 	 * @param g
 	 */
 	public void drawBoardBorder(Graphics2D g) {
@@ -375,7 +375,7 @@ public class PanelBase extends JPanel implements Printable {
 			g.drawRect(offsetx - i, offsety - i, cellSize * cols() + i + i,	cellSize * rows() + i + i);
 	}
 	/**
-	 * Œrü‚ğ•`‚­
+	 * ç½«ç·šã‚’æã
 	 * @param g
 	 */
 	public void drawGrid(Graphics2D g) {
@@ -390,7 +390,7 @@ public class PanelBase extends JPanel implements Printable {
 		}
 	}
 	/**
-	 * ”Õ–Ê‚Ìã‚Æ¶‚Ì’[‚ÉÀ•W”š‚ğ•`‚­
+	 * ç›¤é¢ã®ä¸Šã¨å·¦ã®ç«¯ã«åº§æ¨™æ•°å­—ã‚’æã
 	 * @param g
 	 */
 	public void drawIndex(Graphics2D g) {
@@ -418,7 +418,7 @@ public class PanelBase extends JPanel implements Printable {
 		}
 	}
 	/**
-	 * ƒJ[ƒ\ƒ‹‚ğ•`‚­
+	 * ã‚«ãƒ¼ã‚½ãƒ«ã‚’æã
 	 * @param g
 	 */
 	public void drawCursor(Graphics2D g) {
@@ -433,15 +433,15 @@ public class PanelBase extends JPanel implements Printable {
 			g.drawRect(toX(cellCursor.c())+i, toY(cellCursor.r())+i, cellSize-i-i, cellSize-i-i);
 	}
 	/*
-	 * “Áê}Œ`•`‰æ‚Ì‚½‚ß‚Ìƒƒ\ƒbƒhŒQ
+	 * ç‰¹æ®Šå›³å½¢æç”»ã®ãŸã‚ã®ãƒ¡ã‚½ãƒƒãƒ‰ç¾¤
 	 */
 	/**
-	 * ˆø”‚ÌÀ•W‚ğ¶‚Ü‚½‚Íã‚Ì’[“_‚Æ‚µ‚ÄCƒZƒ‹‚Ì‚P•Ó‚Ì’·‚³‚Æ“¯‚¶’·‚³‚Ì‰¡‚Ü‚½‚Íc‚Ìü‚ğ•`‚­B
+	 * å¼•æ•°ã®åº§æ¨™ã‚’å·¦ã¾ãŸã¯ä¸Šã®ç«¯ç‚¹ã¨ã—ã¦ï¼Œã‚»ãƒ«ã®ï¼‘è¾ºã®é•·ã•ã¨åŒã˜é•·ã•ã®æ¨ªã¾ãŸã¯ç¸¦ã®ç·šã‚’æãã€‚
 	 * @param g
-	 * @param x ’[“_‚ÌxÀ•W
-	 * @param y ’[“_‚ÌyÀ•W
-	 * @param direction c•Ó ‚È‚ç c‚ÌüC ‰¡•Ó ‚È‚ç ‰¡‚Ìü ‚ğˆø‚­
-	 * @param w ü•
+	 * @param x ç«¯ç‚¹ã®xåº§æ¨™
+	 * @param y ç«¯ç‚¹ã®yåº§æ¨™
+	 * @param direction ç¸¦è¾º ãªã‚‰ ç¸¦ã®ç·šï¼Œ æ¨ªè¾º ãªã‚‰ æ¨ªã®ç·š ã‚’å¼•ã
+	 * @param w ç·šå¹…
 	 */
 	public void drawLineSegment(Graphics g, int x, int y, int direction, int w) {
 		if (w == 1) {
@@ -449,7 +449,7 @@ public class PanelBase extends JPanel implements Printable {
 				g.fillRect(x - w/2, y - w/2, cellSize + w, w);
 			else if (direction == Direction.VERT)
 				g.fillRect(x - w/2, y - w/2, w, cellSize + w);
-		} else if (w > 1) { // Šp‚PƒsƒNƒZƒ‹‚¾‚¯—‚Æ‚·
+		} else if (w > 1) { // è§’ï¼‘ãƒ”ã‚¯ã‚»ãƒ«ã ã‘è½ã¨ã™
 			if (direction == Direction.HORIZ)
 				g.fillRect(x - (w-2)/2, y - w/2, cellSize + w-2, w);
 			else if (direction == Direction.VERT)
@@ -457,62 +457,62 @@ public class PanelBase extends JPanel implements Printable {
 		}
 	}
 	/**
-	 * ˆø”‚ÌÀ•W‚ğ¶‚Ü‚½‚Íã‚Ì’[“_‚Æ‚µ‚ÄCƒZƒ‹‚Ì‚P•Ó‚Ì’·‚³‚Ì‰¡‚Ü‚½‚Íc‚Ìü‚ğ•`‚­
+	 * å¼•æ•°ã®åº§æ¨™ã‚’å·¦ã¾ãŸã¯ä¸Šã®ç«¯ç‚¹ã¨ã—ã¦ï¼Œã‚»ãƒ«ã®ï¼‘è¾ºã®é•·ã•ã®æ¨ªã¾ãŸã¯ç¸¦ã®ç·šã‚’æã
 	 * @param g
-	 * @param x ’†S‚ÌxÀ•W
-	 * @param y ’†S‚ÌyÀ•W
-	 * @param direction c•Ó ‚È‚ç c‚ÌüC ‰¡•Ó ‚È‚ç ‰¡‚Ìü ‚ğˆø‚­
+	 * @param x ä¸­å¿ƒã®xåº§æ¨™
+	 * @param y ä¸­å¿ƒã®yåº§æ¨™
+	 * @param direction ç¸¦è¾º ãªã‚‰ ç¸¦ã®ç·šï¼Œ æ¨ªè¾º ãªã‚‰ æ¨ªã®ç·š ã‚’å¼•ã
 	 */
 	public void drawLineSegment(Graphics g, int x, int y, int direction) {
 		drawLineSegment(g, x, y, direction, 3);
 	}
 	/**
-	 * ˆø”‚Ì“_‚ğ’†S‚ÉCˆø”‚Ì‘å‚«‚³‚ÌlŠp‚ğ•`‚­ i‘å‚«‚³@halfSize*2+1j
+	 * å¼•æ•°ã®ç‚¹ã‚’ä¸­å¿ƒã«ï¼Œå¼•æ•°ã®å¤§ãã•ã®å››è§’ã‚’æã ï¼ˆå¤§ãã•ã€€halfSize*2+1ï¼‰
 	 * @param g
-	 * @param x   ’†S‚ÌxÀ•W
-	 * @param y   ’†S‚ÌyÀ•W
-	 * @param halfSize  ‘å‚«‚³i•Ğ‘¤j
+	 * @param x   ä¸­å¿ƒã®xåº§æ¨™
+	 * @param y   ä¸­å¿ƒã®yåº§æ¨™
+	 * @param halfSize  å¤§ãã•ï¼ˆç‰‡å´ï¼‰
 	 */
 	public void fillSquare(Graphics g, int x, int y, int halfSize) {
 		g.fillRect(x - halfSize, y - halfSize, halfSize + halfSize + 1, halfSize + halfSize + 1);
 	}
 	/**
-	 * ˆø”‚Ì“_‚ğ’†S‚ÉCˆø”‚Ì‘å‚«‚³‚Ìƒoƒcˆó‚ğ•`‚­
+	 * å¼•æ•°ã®ç‚¹ã‚’ä¸­å¿ƒã«ï¼Œå¼•æ•°ã®å¤§ãã•ã®ãƒãƒ„å°ã‚’æã
 	 * @param g
-	 * @param x    ’†S‚ÌxÀ•W
-	 * @param y    ’†S‚ÌyÀ•W
-	 * @param halfSize ‘å‚«‚³i•Ğ‘¤j
+	 * @param x    ä¸­å¿ƒã®xåº§æ¨™
+	 * @param y    ä¸­å¿ƒã®yåº§æ¨™
+	 * @param halfSize å¤§ãã•ï¼ˆç‰‡å´ï¼‰
 	 */
 	public void drawCross(Graphics g, int x, int y, int halfSize) {
 		g.drawLine(x - halfSize, y - halfSize, x + halfSize, y + halfSize);
 		g.drawLine(x - halfSize, y + halfSize, x + halfSize, y - halfSize);
 	}
 	/**
-	 * ’†S‚ÌÀ•W‚Æ”¼Œa‚ğ—^‚¦‚ÄC‰~‚ğ•`‚­
+	 * ä¸­å¿ƒã®åº§æ¨™ã¨åŠå¾„ã‚’ä¸ãˆã¦ï¼Œå††ã‚’æã
 	 * @param g
-	 * @param x ’†S‚ÌxÀ•W
-	 * @param y ’†S‚ÌyÀ•W
-	 * @param radius ”¼Œa
+	 * @param x ä¸­å¿ƒã®xåº§æ¨™
+	 * @param y ä¸­å¿ƒã®yåº§æ¨™
+	 * @param radius åŠå¾„
 	 */
 	public void drawCircle(Graphics g, int x, int y, int radius) {
 		g.drawOval(x-radius, y-radius, radius+radius, radius+radius);
 	}
 	/**
-	 * ’†S‚ÌÀ•W‚Æ”¼Œa‚ğ—^‚¦‚ÄC“h‚è‚Â‚Ô‚µ‚½‰~‚ğ•`‚­B
+	 * ä¸­å¿ƒã®åº§æ¨™ã¨åŠå¾„ã‚’ä¸ãˆã¦ï¼Œå¡—ã‚Šã¤ã¶ã—ãŸå††ã‚’æãã€‚
 	 * @param g
-	 * @param x ’†S‚ÌxÀ•W
-	 * @param y ’†S‚ÌyÀ•W
-	 * @param radius ”¼Œa
+	 * @param x ä¸­å¿ƒã®xåº§æ¨™
+	 * @param y ä¸­å¿ƒã®yåº§æ¨™
+	 * @param radius åŠå¾„
 	 */
 	public void fillCircle(Graphics g, int x, int y, int radius) {
 		g.fillOval(x-radius, y-radius, radius+radius+1, radius+radius+1);		
 	}
 	/**
-	 * ˆø”‚ÌÀ•W‚ğ’†S‚Æ‚µ‚Ä•¶š—ñ‚ğ•`‚­
+	 * å¼•æ•°ã®åº§æ¨™ã‚’ä¸­å¿ƒã¨ã—ã¦æ–‡å­—åˆ—ã‚’æã
 	 * @param g
-	 * @param x ’†S‚ÌxÀ•W
-	 * @param y ’†S‚ÌyÀ•W
-	 * @param str •`‚­•¶š—ñ
+	 * @param x ä¸­å¿ƒã®xåº§æ¨™
+	 * @param y ä¸­å¿ƒã®yåº§æ¨™
+	 * @param str æãæ–‡å­—åˆ—
 	 */
 	public void drawString(Graphics g, int x, int y, String str) {
 		FontMetrics metrics = g.getFontMetrics();
@@ -523,32 +523,32 @@ public class PanelBase extends JPanel implements Printable {
 	}
 
 	/*
-	 * ƒ}ƒX‚Ì“à—e‚ğ•`‰æ‚·‚é‚½‚ß‚Ìƒƒ\ƒbƒhŒQ
-	 * ƒ}ƒX‚ÌÀ•W‚ğ—^‚¦‚é‚ÆC‚»‚ÌƒZƒ‹‚Ì“à—e‚ğ•`‰æ‚·‚éD
-	 * ˆÈ‰º‚Ìƒƒ\ƒbƒh‚ª—pˆÓ‚³‚ê‚Ä‚¢‚é
-	 * ”š‚ğ•`‚­
-	 * “h‚è‚Â‚Ô‚·
-	 * ›‚ğ•`‚­
-	 * œ‚ğ•`‚­
-	 * ~‚ğ•`‚­
-	 * ‰¡ü‚Ü‚½‚Ícü‚ğ•`‚­
+	 * ãƒã‚¹ã®å†…å®¹ã‚’æç”»ã™ã‚‹ãŸã‚ã®ãƒ¡ã‚½ãƒƒãƒ‰ç¾¤
+	 * ãƒã‚¹ã®åº§æ¨™ã‚’ä¸ãˆã‚‹ã¨ï¼Œãã®ã‚»ãƒ«ã®å†…å®¹ã‚’æç”»ã™ã‚‹ï¼
+	 * ä»¥ä¸‹ã®ãƒ¡ã‚½ãƒƒãƒ‰ãŒç”¨æ„ã•ã‚Œã¦ã„ã‚‹
+	 * æ•°å­—ã‚’æã
+	 * å¡—ã‚Šã¤ã¶ã™
+	 * â—‹ã‚’æã
+	 * â—ã‚’æã
+	 * Ã—ã‚’æã
+	 * æ¨ªç·šã¾ãŸã¯ç¸¦ç·šã‚’æã
 	 */
 	/**
-	 * ƒ}ƒX‚Ì’†‰›‚É•¶š—ñ‚ğ”z’u‚·‚é
+	 * ãƒã‚¹ã®ä¸­å¤®ã«æ–‡å­—åˆ—ã‚’é…ç½®ã™ã‚‹
 	 * @param g
-	 * @param r ”Õ–Êã‚ÌsÀ•W
-	 * @param c ”Õ–Êã‚Ì—ñÀ•W
-	 * @param string •`‚­•¶š—ñ
+	 * @param r ç›¤é¢ä¸Šã®è¡Œåº§æ¨™
+	 * @param c ç›¤é¢ä¸Šã®åˆ—åº§æ¨™
+	 * @param string æãæ–‡å­—åˆ—
 	 */
 	public void placeString(Graphics2D g, int r, int c, String string) {
 		drawString(g, toX(c) + getHalfCellSize(), toY(r) + getHalfCellSize(), string);
 	}
 	/**
-	 * ƒ}ƒX‚É•¶š‚ğ”z’u‚·‚é
+	 * ãƒã‚¹ã«æ–‡å­—ã‚’é…ç½®ã™ã‚‹
 	 * @param g
-	 * @param r ”Õ–Êã‚ÌsÀ•W
-	 * @param c ”Õ–Êã‚Ì—ñÀ•W
-	 * @param letter •`‚­•¶š
+	 * @param r ç›¤é¢ä¸Šã®è¡Œåº§æ¨™
+	 * @param c ç›¤é¢ä¸Šã®åˆ—åº§æ¨™
+	 * @param letter æãæ–‡å­—
 	 */
 	public void placeLetter(Graphics2D g, int r, int c, char letter) {
 		placeString(g, r, c, Character.toString(letter));
@@ -557,11 +557,11 @@ public class PanelBase extends JPanel implements Printable {
 		placeLetter(g, p.r(), p.c(),letter);
 	}
 	/**
-	 * ƒ}ƒX‚É”š‚ğ”z’u‚·‚é
+	 * ãƒã‚¹ã«æ•°å­—ã‚’é…ç½®ã™ã‚‹
 	 * @param g
-	 * @param r ”Õ–Êã‚ÌsÀ•W
-	 * @param c ”Õ–Êã‚Ì—ñÀ•W
-	 * @param number •`‚­”š
+	 * @param r ç›¤é¢ä¸Šã®è¡Œåº§æ¨™
+	 * @param c ç›¤é¢ä¸Šã®åˆ—åº§æ¨™
+	 * @param number æãæ•°å­—
 	 */
 	public void placeNumber(Graphics2D g, int r, int c, int number) {
 		placeString(g, r, c, Integer.toString(number));
@@ -571,10 +571,10 @@ public class PanelBase extends JPanel implements Printable {
 	}
 
 	/**
-	 * ƒ}ƒX‚ğ“h‚è‚Â‚Ô‚·
+	 * ãƒã‚¹ã‚’å¡—ã‚Šã¤ã¶ã™
 	 * @param g
-	 * @param r ”Õ–ÊsÀ•W
-	 * @param c ”Õ–Ê—ñÀ•W
+	 * @param r ç›¤é¢è¡Œåº§æ¨™
+	 * @param c ç›¤é¢åˆ—åº§æ¨™
 	 */
 	public void paintCell(Graphics2D g, int r, int c) {
 		g.fillRect(toX(c), toY(r), getCellSize(), getCellSize());
@@ -584,11 +584,11 @@ public class PanelBase extends JPanel implements Printable {
 	}
 
 	/**
-	 * ƒ}ƒX‚É›ˆó‚ğ”z’u‚·‚é
-	 * ‘å‚«‚³‚ÍƒNƒ‰ƒX‚Å’è‚ß‚é•W€’l
+	 * ãƒã‚¹ã«â—‹å°ã‚’é…ç½®ã™ã‚‹
+	 * å¤§ãã•ã¯ã‚¯ãƒ©ã‚¹ã§å®šã‚ã‚‹æ¨™æº–å€¤
 	 * @param g
-	 * @param r ”Õ–ÊsÀ•W
-	 * @param c ”Õ–Ê—ñÀ•W
+	 * @param r ç›¤é¢è¡Œåº§æ¨™
+	 * @param c ç›¤é¢åˆ—åº§æ¨™
 	 */
 	public void placeCircle(Graphics2D g, int r, int c) {
 		placeCircle(g, r, c, getCircleSize());
@@ -597,12 +597,12 @@ public class PanelBase extends JPanel implements Printable {
 		placeCircle(g, p.r(), p.c(), getCircleSize());
 	}
 	/**
-	 * ƒ}ƒX‚É›ˆó‚ğ”z’u‚·‚é
-	 * ‘å‚«‚³‚ğˆø”‚Åw’è‚·‚é
+	 * ãƒã‚¹ã«â—‹å°ã‚’é…ç½®ã™ã‚‹
+	 * å¤§ãã•ã‚’å¼•æ•°ã§æŒ‡å®šã™ã‚‹
 	 * @param g
-	 * @param r ”Õ–ÊsÀ•W
-	 * @param c ”Õ–Ê—ñÀ•W
-	 * @param circleSize ”z’u‚·‚é›ˆó‚Ì’¼Œa
+	 * @param r ç›¤é¢è¡Œåº§æ¨™
+	 * @param c ç›¤é¢åˆ—åº§æ¨™
+	 * @param circleSize é…ç½®ã™ã‚‹â—‹å°ã®ç›´å¾„
 	 */
 	public void placeCircle(Graphics2D g, int r, int c, int circleSize) {
 		drawCircle(g, toX(c) + getHalfCellSize(), toY(r) + getHalfCellSize(),
@@ -612,11 +612,11 @@ public class PanelBase extends JPanel implements Printable {
 		placeCircle(g, p.r(), p.c(), circleSize);
 	}
 	/**
-	 * ƒ}ƒX‚Éü•2‚Ì›ˆó‚ğ”z’u‚·‚é
-	 * ‘å‚«‚³‚ÍƒNƒ‰ƒX‚Å’è‚ß‚é•W€’l
+	 * ãƒã‚¹ã«ç·šå¹…2ã®â—‹å°ã‚’é…ç½®ã™ã‚‹
+	 * å¤§ãã•ã¯ã‚¯ãƒ©ã‚¹ã§å®šã‚ã‚‹æ¨™æº–å€¤
 	 * @param g
-	 * @param r ”Õ–ÊsÀ•W
-	 * @param c ”Õ–Ê—ñÀ•W
+	 * @param r ç›¤é¢è¡Œåº§æ¨™
+	 * @param c ç›¤é¢åˆ—åº§æ¨™
 	 */
 	public void placeBoldCircle(Graphics2D g, int r, int c) {
 		placeBoldCircle(g, r, c, getCircleSize());
@@ -625,12 +625,12 @@ public class PanelBase extends JPanel implements Printable {
 		placeBoldCircle(g, p.r(), p.c(), getCircleSize());
 	}
 	/**
-	 * ƒ}ƒX‚Éü•2‚Ì›ˆó‚ğ”z’u‚·‚é
-	 * ‘å‚«‚³‚ğˆø”‚Åw’è‚·‚é
+	 * ãƒã‚¹ã«ç·šå¹…2ã®â—‹å°ã‚’é…ç½®ã™ã‚‹
+	 * å¤§ãã•ã‚’å¼•æ•°ã§æŒ‡å®šã™ã‚‹
 	 * @param g
-	 * @param r ”Õ–ÊsÀ•W
-	 * @param c ”Õ–Ê—ñÀ•W
-	 * @param circleSize ”z’u‚·‚é›ˆó‚Ì’¼Œa
+	 * @param r ç›¤é¢è¡Œåº§æ¨™
+	 * @param c ç›¤é¢åˆ—åº§æ¨™
+	 * @param circleSize é…ç½®ã™ã‚‹â—‹å°ã®ç›´å¾„
 	 */
 	public void placeBoldCircle(Graphics2D g, int r, int c, int circleSize) {
 		int x = toX(c) + getHalfCellSize();
@@ -639,10 +639,10 @@ public class PanelBase extends JPanel implements Printable {
 		drawCircle(g, x, y, circleSize / 2 - 1);
 	}
 	/**
-	 * ƒ}ƒX‚É“h‚è‚Â‚Ô‚µ‚½œˆó‚ğ”z’u‚·‚é
+	 * ãƒã‚¹ã«å¡—ã‚Šã¤ã¶ã—ãŸâ—å°ã‚’é…ç½®ã™ã‚‹
 	 * @param g
-	 * @param r ”Õ–ÊsÀ•W
-	 * @param c ”Õ–Ê—ñÀ•W
+	 * @param r ç›¤é¢è¡Œåº§æ¨™
+	 * @param c ç›¤é¢åˆ—åº§æ¨™
 	 */
 	public void placeFilledCircle(Graphics2D g, int r, int c) {
 		placeFilledCircle(g, r, c, getCircleSize());
@@ -651,11 +651,11 @@ public class PanelBase extends JPanel implements Printable {
 		placeFilledCircle(g, p.r(), p.c(), getCircleSize());
 	}
 	/**
-	 * ƒ}ƒX‚É“h‚è‚Â‚Ô‚µ‚½œˆó‚ğ”z’u‚·‚é
+	 * ãƒã‚¹ã«å¡—ã‚Šã¤ã¶ã—ãŸâ—å°ã‚’é…ç½®ã™ã‚‹
 	 * @param g
-	 * @param r ”Õ–ÊsÀ•W
-	 * @param c ”Õ–Ê—ñÀ•W
-	 * @param circleSize ”z’u‚·‚éœˆó‚Ì’¼Œa
+	 * @param r ç›¤é¢è¡Œåº§æ¨™
+	 * @param c ç›¤é¢åˆ—åº§æ¨™
+	 * @param circleSize é…ç½®ã™ã‚‹â—å°ã®ç›´å¾„
 	 */
 	public void placeFilledCircle(Graphics2D g, int r, int c, int circleSize) {
 		fillCircle(g, toX(c) + getHalfCellSize(), toY(r) + getHalfCellSize(),
@@ -665,19 +665,19 @@ public class PanelBase extends JPanel implements Printable {
 		placeFilledCircle(g, p.r(), p.c(), circleSize);
 	}
 	/**
-	 * ƒ}ƒX‚Ì’†‰›‚É¡‚ğ”z’u‚·‚é
+	 * ãƒã‚¹ã®ä¸­å¤®ã«â– ã‚’é…ç½®ã™ã‚‹
 	 * @param g
-	 * @param r ”Õ–ÊsÀ•W
-	 * @param c ”Õ–Ê—ñÀ•W
+	 * @param r ç›¤é¢è¡Œåº§æ¨™
+	 * @param c ç›¤é¢åˆ—åº§æ¨™
 	 */
 	public void placeFilledSquare(Graphics2D g, int r, int c) {
 		fillSquare(g, toX(c) + getHalfCellSize(), toY(r) + getHalfCellSize(), getSmallCrossSize());
 	}
 	/**
-	 * ƒ}ƒX‚É~ˆó‚ğ”z’u‚·‚é
+	 * ãƒã‚¹ã«Ã—å°ã‚’é…ç½®ã™ã‚‹
 	 * @param g
-	 * @param r ”Õ–ÊsÀ•W
-	 * @param c ”Õ–Ê—ñÀ•W
+	 * @param r ç›¤é¢è¡Œåº§æ¨™
+	 * @param c ç›¤é¢åˆ—åº§æ¨™
 	 */
 	public void placeCross(Graphics2D g, int r, int c) {
 		drawCross(g, toX(c) + getHalfCellSize(), toY(r) + getHalfCellSize(),
@@ -687,12 +687,12 @@ public class PanelBase extends JPanel implements Printable {
 		placeCross(g, p.r(), p.c());
 	}
 	/**
-	 * •Óã‚Éü‚ğ”z’u‚·‚é
+	 * è¾ºä¸Šã«ç·šã‚’é…ç½®ã™ã‚‹
 	 * @param g
-	 * @param d •ÓÀ•W
-	 * @param r •ÓÀ•W
-	 * @param c •ÓÀ•W
-	 * @param w ü•
+	 * @param d è¾ºåº§æ¨™
+	 * @param r è¾ºåº§æ¨™
+	 * @param c è¾ºåº§æ¨™
+	 * @param w ç·šå¹…
 	 */
 	public void placeSideLine(Graphics2D g, int d, int r, int c, int w) {
 		if (d == Direction.VERT)
@@ -708,11 +708,11 @@ public class PanelBase extends JPanel implements Printable {
 	}
 
 	/**
-	 * •Ó‚ÆŒğ·‚·‚éü‚ğ”z’u‚·‚é
+	 * è¾ºã¨äº¤å·®ã™ã‚‹ç·šã‚’é…ç½®ã™ã‚‹
 	 * @param g
-	 * @param d •ÓÀ•W
-	 * @param r •ÓÀ•W
-	 * @param c •ÓÀ•W
+	 * @param d è¾ºåº§æ¨™
+	 * @param r è¾ºåº§æ¨™
+	 * @param c è¾ºåº§æ¨™
 	 */
 	public void placeLink(Graphics2D g, int d, int r, int c) {
 		drawLineSegment(g, toX(c) + getHalfCellSize(), toY(r) + getHalfCellSize(), d ^ 1, getLinkWidth());
@@ -721,11 +721,11 @@ public class PanelBase extends JPanel implements Printable {
 		placeLink(g, p.d(), p.r(), p.c());
 	}
 	/**
-	 * •Óã‚É~ˆó‚ğ”z’u‚·‚é
+	 * è¾ºä¸Šã«Ã—å°ã‚’é…ç½®ã™ã‚‹
 	 * @param g
-	 * @param d •ÓÀ•W
-	 * @param r •ÓÀ•W
-	 * @param c •ÓÀ•W
+	 * @param d è¾ºåº§æ¨™
+	 * @param r è¾ºåº§æ¨™
+	 * @param c è¾ºåº§æ¨™
 	 */
 	public void placeSideCross(Graphics2D g, int d, int r, int c) {
 		if (d == Direction.VERT)
@@ -737,7 +737,7 @@ public class PanelBase extends JPanel implements Printable {
 		placeSideCross(g, p.d(), p.r(), p.c());
 	}
 	/**
-	 * ƒ}ƒX‚Ì’†S‚É‰¡‚Ü‚½‚Íc‚Ìü‚ğ”z’u‚·‚é
+	 * ãƒã‚¹ã®ä¸­å¿ƒã«æ¨ªã¾ãŸã¯ç¸¦ã®ç·šã‚’é…ç½®ã™ã‚‹
 	 * @param g
 	 * @param r
 	 * @param c
@@ -753,12 +753,12 @@ public class PanelBase extends JPanel implements Printable {
 		placeCenterLine(g, p.r(), p.c(), dir);
 	}
 	/**
-	 * lŠp‚ğ”z’u‚·‚é 
+	 * å››è§’ã‚’é…ç½®ã™ã‚‹ 
 	 * @param g 
-	 * @param r0 ”Õ–ÊsÀ•W
-	 * @param c0 ”Õ–Ê—ñÀ•W
-	 * @param r1 ”Õ–ÊsÀ•W
-	 * @param c1 ”Õ–Ê—ñÀ•W
+	 * @param r0 ç›¤é¢è¡Œåº§æ¨™
+	 * @param c0 ç›¤é¢åˆ—åº§æ¨™
+	 * @param r1 ç›¤é¢è¡Œåº§æ¨™
+	 * @param c1 ç›¤é¢åˆ—åº§æ¨™
 	 */
 	public void placeSquare(Graphics2D g, int r0, int c0, int r1, int c1) {
 		for (int i = 0; i <= 1; i++)
@@ -774,9 +774,9 @@ public class PanelBase extends JPanel implements Printable {
 	}
 
 	/**
-	 * ƒ}ƒX‚Ì‰æ‚è 
+	 * ãƒã‚¹ã®ç¸å–ã‚Š 
 	 * @param g
-	 * @param p ƒ}ƒXÀ•W
+	 * @param p ãƒã‚¹åº§æ¨™
 	 */
 	public void edgeCell(Graphics2D g, Address p) {
 		int w = 1;
@@ -786,9 +786,9 @@ public class PanelBase extends JPanel implements Printable {
 	}
 
 	/**
-	 * —Ìˆæ‚Ì‰æ‚è 
+	 * é ˜åŸŸã®ç¸å–ã‚Š 
 	 * @param g
-	 * @param area —Ìˆæ
+	 * @param area é ˜åŸŸ
 	 */
 	public void edgeArea(Graphics2D g, AreaBase area) {
 		Address neighbor;
@@ -806,10 +806,10 @@ public class PanelBase extends JPanel implements Printable {
 	}
 
 	/**
-	 * ƒ}ƒX‚É”’ƒ}ƒXŠm’èi‚È‚Çj‹L†‚ğ”z’u‚·‚é ‘å‚«‚³‚ÍƒNƒ‰ƒX‚Å’è‚ß‚é•W€’l
+	 * ãƒã‚¹ã«ç™½ãƒã‚¹ç¢ºå®šï¼ˆãªã©ï¼‰è¨˜å·ã‚’é…ç½®ã™ã‚‹ å¤§ãã•ã¯ã‚¯ãƒ©ã‚¹ã§å®šã‚ã‚‹æ¨™æº–å€¤
 	 * @param g
-	 * @param r ”Õ–ÊsÀ•W
-	 * @param c ”Õ–Ê—ñÀ•W
+	 * @param r ç›¤é¢è¡Œåº§æ¨™
+	 * @param c ç›¤é¢åˆ—åº§æ¨™
 	 */
 	public void placeMark(Graphics2D g, int r, int c) {
 		switch (getMarkStyle()) {
@@ -835,8 +835,8 @@ public class PanelBase extends JPanel implements Printable {
 	}
 
 	/* 
-	 * ”Õ–Êˆóü—pƒƒ\ƒbƒh
-	 * ¡‚Íg—p‚µ‚È‚¢
+	 * ç›¤é¢å°åˆ·ç”¨ãƒ¡ã‚½ãƒƒãƒ‰
+	 * ä»Šã¯ä½¿ç”¨ã—ãªã„
 	 * @see java.awt.print.Printable#print(java.awt.Graphics, java.awt.print.PageFormat, int)
 	 */
 	public int print(Graphics g, PageFormat pf, int page)
@@ -1081,7 +1081,7 @@ public class PanelBase extends JPanel implements Printable {
 	}
 
 	/**
-	 * u—Ìˆæ•ÒWƒ‚[ƒhv‚Å‚Ì•ÒW—Ìˆæ‚ğ•\¦‚·‚éB
+	 * ã€Œé ˜åŸŸç·¨é›†ãƒ¢ãƒ¼ãƒ‰ã€ã§ã®ç·¨é›†é ˜åŸŸã‚’è¡¨ç¤ºã™ã‚‹ã€‚
 	 * @param g
 	 */
 	protected void drawCopyPasteRegion(Graphics2D g) {
@@ -1431,14 +1431,14 @@ public class PanelBase extends JPanel implements Printable {
 		this.selectedNumber = selectedNumber;
 	}
 	/**
-	 * ”š‚Ì‘ã‚í‚è‚Ég—p‚·‚éŒ»İ‚Ì•¶šW‡‚ğæ“¾‚·‚éBString‚Å•Ô‚·B
+	 * æ•°å­—ã®ä»£ã‚ã‚Šã«ä½¿ç”¨ã™ã‚‹ç¾åœ¨ã®æ–‡å­—é›†åˆã‚’å–å¾—ã™ã‚‹ã€‚Stringã§è¿”ã™ã€‚
 	 * @return the letter
 	 */
 	public String getLetters() {
 		return new String(letters);
 	}
 	/**
-	 * ”š‚Ì‘ã‚í‚è‚Ég—p‚·‚é•¶šW‡‚ğİ’è‚·‚éBString‚Åİ’è‚·‚éB
+	 * æ•°å­—ã®ä»£ã‚ã‚Šã«ä½¿ç”¨ã™ã‚‹æ–‡å­—é›†åˆã‚’è¨­å®šã™ã‚‹ã€‚Stringã§è¨­å®šã™ã‚‹ã€‚
 	 * @param letters the letter to set
 	 */
 	public void setLetters(String string) {

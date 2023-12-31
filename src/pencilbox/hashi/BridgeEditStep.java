@@ -11,11 +11,11 @@ class BridgeEditStep extends AbstractStep {
 	private int after;
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param p •ÏX‚³‚ê‚½‹´‚Ì‹N“_ƒ}ƒX‚ÌÀ•W
-	 * @param dir ƒ}ƒX‚©‚ç‚İ‚½•ÏX‚³‚ê‚½‹´‚Ì•ûŒü
-	 * @param b •ÏX‘O‚Ì‹´‚Ì”
-	 * @param a •ÏXŒã‚Ì‹´‚Ì”
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param p å¤‰æ›´ã•ã‚ŒãŸæ©‹ã®èµ·ç‚¹ãƒã‚¹ã®åº§æ¨™
+	 * @param dir ãƒã‚¹ã‹ã‚‰ã¿ãŸå¤‰æ›´ã•ã‚ŒãŸæ©‹ã®æ–¹å‘
+	 * @param b å¤‰æ›´å‰ã®æ©‹ã®æ•°
+	 * @param a å¤‰æ›´å¾Œã®æ©‹ã®æ•°
 	 */
 	public BridgeEditStep(Address p, int dir, int b, int a) {
 		super();

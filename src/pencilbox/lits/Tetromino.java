@@ -4,7 +4,7 @@ import pencilbox.common.core.Address;
 
 
 /**
- * u‚k‚h‚s‚rv—ÌˆæƒNƒ‰ƒX
+ * ã€Œï¼¬ï¼©ï¼´ï¼³ã€é ˜åŸŸã‚¯ãƒ©ã‚¹
  */
 public class Tetromino extends pencilbox.common.core.AreaBase {
 
@@ -25,8 +25,8 @@ public class Tetromino extends pencilbox.common.core.AreaBase {
 	}
 
 	/**
-	 * ƒeƒgƒƒ~ƒm‚Ìƒ^ƒCƒv‚ğ”»•Ê‚·‚éB
-	 * @return ƒeƒgƒƒ~ƒm‚Ìê‡‚Íƒ^ƒCƒv‚É‰‚¶‚½’è”‚ğ•Ô‚·Bƒeƒgƒƒ~ƒm‚Å‚È‚¯‚ê‚Î 0 ‚ğ•Ô‚·B
+	 * ãƒ†ãƒˆãƒ­ãƒŸãƒã®ã‚¿ã‚¤ãƒ—ã‚’åˆ¤åˆ¥ã™ã‚‹ã€‚
+	 * @return ãƒ†ãƒˆãƒ­ãƒŸãƒã®å ´åˆã¯ã‚¿ã‚¤ãƒ—ã«å¿œã˜ãŸå®šæ•°ã‚’è¿”ã™ã€‚ãƒ†ãƒˆãƒ­ãƒŸãƒã§ãªã‘ã‚Œã° 0 ã‚’è¿”ã™ã€‚
 	 */
 	public int getTetrominoType() {
 		if (size() != 4)

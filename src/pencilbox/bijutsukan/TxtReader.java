@@ -11,7 +11,7 @@ import pencilbox.common.io.TxtReaderBase;
 
 
 /**
- * 「美術館」txt形式ファイル読み込みクラス
+ * 縲檎ｾ手｡馴､ｨ縲衡xt蠖｢蠑上ヵ繧｡繧､繝ｫ隱ｭ縺ｿ霎ｼ縺ｿ繧ｯ繝ｩ繧ｹ
  */
 public class TxtReader extends TxtReaderBase {
 

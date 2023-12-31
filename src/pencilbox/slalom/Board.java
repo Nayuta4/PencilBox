@@ -14,7 +14,7 @@ import pencilbox.resource.Messages;
 import pencilbox.util.ArrayUtil;
 
 /**
- * uƒXƒ‰ƒ[ƒ€v”Õ–ÊƒNƒ‰ƒX
+ * ã€Œã‚¹ãƒ©ãƒ­ãƒ¼ãƒ ã€ç›¤é¢ã‚¯ãƒ©ã‚¹
  */
 public class Board extends BoardBase {
 
@@ -28,11 +28,11 @@ public class Board extends BoardBase {
 	static final int GATE_VERT = -5;
 	static final int GATE_HORIZ = -4;
 
-	private int[][] number;  // ƒ}ƒX‚Ìó‘Ô
-	private int[][][] state; // •Ó‚Ìó‘Ô
-	private int[][] gateNumber;  // –å‚Ì”Ô†
-	private int nGate;  // Šø–å‚Ì”
-	private Address goal;  // ƒXƒ^[ƒg^ƒS[ƒ‹’n“_‚ÌÀ•WB‚P‚©Š‚Ì‚İ‚Æ‚·‚é
+	private int[][] number;  // ãƒã‚¹ã®çŠ¶æ…‹
+	private int[][][] state; // è¾ºã®çŠ¶æ…‹
+	private int[][] gateNumber;  // é–€ã®ç•ªå·
+	private int nGate;  // æ——é–€ã®æ•°
+	private Address goal;  // ã‚¹ã‚¿ãƒ¼ãƒˆï¼ã‚´ãƒ¼ãƒ«åœ°ç‚¹ã®åº§æ¨™ã€‚ï¼‘ã‹æ‰€ã®ã¿ã¨ã™ã‚‹
 
 	private List<Link> linkList;
 	private Link[][][] link;
@@ -54,11 +54,11 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * w’è‚µ‚½ƒ}ƒX‚É”šƒ}ƒXC•ƒ}ƒXC”’ƒ}ƒXC‹ó”’ƒ}ƒX‚Ìó‘Ô‚ğİ’è‚·‚é
-	 * ƒS[ƒ‹‚Í‚P‚©ŠˆÈ‰º‚Æ‚·‚éB
-	 * @param r sÀ•W
-	 * @param c —ñÀ•W
-	 * @param n İ’è‚·‚éó‘Ô
+	 * æŒ‡å®šã—ãŸãƒã‚¹ã«æ•°å­—ãƒã‚¹ï¼Œé»’ãƒã‚¹ï¼Œç™½ãƒã‚¹ï¼Œç©ºç™½ãƒã‚¹ã®çŠ¶æ…‹ã‚’è¨­å®šã™ã‚‹
+	 * ã‚´ãƒ¼ãƒ«ã¯ï¼‘ã‹æ‰€ä»¥ä¸‹ã¨ã™ã‚‹ã€‚
+	 * @param r è¡Œåº§æ¨™
+	 * @param c åˆ—åº§æ¨™
+	 * @param n è¨­å®šã™ã‚‹çŠ¶æ…‹
 	 */
 	public void setNumber(int r, int c, int n) {
 		number[r][c] = n;
@@ -68,9 +68,9 @@ public class Board extends BoardBase {
 		setNumber(pos.r(), pos.c(), n);
 	}
 	/**
-	 * w’è‚µ‚½ƒ}ƒX‚Ìó‘Ô‚ğæ“¾‚·‚é
-	 * @param r sÀ•W
-	 * @param c —ñÀ•W
+	 * æŒ‡å®šã—ãŸãƒã‚¹ã®çŠ¶æ…‹ã‚’å–å¾—ã™ã‚‹
+	 * @param r è¡Œåº§æ¨™
+	 * @param c åˆ—åº§æ¨™
 	 */
 	public int getNumber(int r, int c) {
 		return number[r][c];
@@ -81,18 +81,18 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * •ƒ}ƒX‚©
-	 * @param p À•W
-	 * @return •ƒ}ƒX‚Å‚ ‚ê‚Î true
+	 * é»’ãƒã‚¹ã‹
+	 * @param p åº§æ¨™
+	 * @return é»’ãƒã‚¹ã§ã‚ã‚Œã° true
 	 */
 	public boolean isWall(Address p) {
 		return getNumber(p) >= 0 || getNumber(p) == UNDECIDED_NUMBER;
 	}
 	/**
-	 * Šø–åƒ}ƒX‚©
-	 * @param r sÀ•W
-	 * @param c —ñÀ•W
-	 * @return ”šƒ}ƒX‚©C–¢’è”šƒ}ƒX‚Å‚ ‚ê‚Î true
+	 * æ——é–€ãƒã‚¹ã‹
+	 * @param r è¡Œåº§æ¨™
+	 * @param c åˆ—åº§æ¨™
+	 * @return æ•°å­—ãƒã‚¹ã‹ï¼Œæœªå®šæ•°å­—ãƒã‚¹ã§ã‚ã‚Œã° true
 	 */
 	public boolean isGate(int r, int c) {
 		return number[r][c] == GATE_HORIZ || number[r][c] == GATE_VERT;
@@ -102,9 +102,9 @@ public class Board extends BoardBase {
 		return isGate(pos.r(), pos.c());
 	}
 	/**
-	 * üÀ•W‚Ì—¼‘¤‚Ì2ƒ}ƒX‚¢‚¸‚ê‚©‚ª•ƒ}ƒX‚©‚Ç‚¤‚©
-	 * @param p üÀ•W
-	 * @return üÀ•W‚Ì—¼‘¤‚Ì2ƒ}ƒX‚¢‚¸‚ê‚©‚ª•ƒ}ƒX‚Å‚ ‚ê‚Î true
+	 * ç·šåº§æ¨™ã®ä¸¡å´ã®2ãƒã‚¹ã„ãšã‚Œã‹ãŒé»’ãƒã‚¹ã‹ã©ã†ã‹
+	 * @param p ç·šåº§æ¨™
+	 * @return ç·šåº§æ¨™ã®ä¸¡å´ã®2ãƒã‚¹ã„ãšã‚Œã‹ãŒé»’ãƒã‚¹ã§ã‚ã‚Œã° true
 	 */
 	public boolean hasWall(SideAddress p) {
 		return isWall(SideAddress.nextCellFromBorder(p, 0))
@@ -148,11 +148,11 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * •Óó‘Ô‚Ìæ“¾
+	 * è¾ºçŠ¶æ…‹ã®å–å¾—
 	 * @param d
 	 * @param r
 	 * @param c
-	 * @return •Ó‚Ìó‘Ô‚ğ•Ô‚·
+	 * @return è¾ºã®çŠ¶æ…‹ã‚’è¿”ã™
 	 */
 	public int getState(int d, int r, int c) {
 		if (isSideOn(d, r, c))
@@ -166,7 +166,7 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * •Óó‘Ô‚Ìİ’è
+	 * è¾ºçŠ¶æ…‹ã®è¨­å®š
 	 * @param d
 	 * @param r
 	 * @param c
@@ -188,7 +188,7 @@ public class Board extends BoardBase {
 			return null;
 	}
 	/**
-	 * ‚»‚Ìƒ}ƒX‚ğŠÜ‚Ş Link ‚ğ•Ô‚·
+	 * ãã®ãƒã‚¹ã‚’å«ã‚€ Link ã‚’è¿”ã™
 	 */
 	public Link getLink(Address p) {
 		for (int d = 0; d < 4; d++) {
@@ -204,10 +204,10 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ƒ}ƒX‚Ìó‘Ô‚ğw’è‚µ‚½ó‘Ô‚É•ÏX‚·‚é
-	 * ƒAƒ“ƒhƒDƒŠƒXƒi[‚É•ÏX‚ğ’Ê’m‚·‚é
-	 * @param p •ÓÀ•W
-	 * @param st •ÏXŒã‚Ìó‘Ô
+	 * ãƒã‚¹ã®çŠ¶æ…‹ã‚’æŒ‡å®šã—ãŸçŠ¶æ…‹ã«å¤‰æ›´ã™ã‚‹
+	 * ã‚¢ãƒ³ãƒ‰ã‚¥ãƒªã‚¹ãƒŠãƒ¼ã«å¤‰æ›´ã‚’é€šçŸ¥ã™ã‚‹
+	 * @param p è¾ºåº§æ¨™
+	 * @param st å¤‰æ›´å¾Œã®çŠ¶æ…‹
 	 */
 	public void changeNumber(Address p, int st) {
 		int prev = getNumber(p);
@@ -229,9 +229,9 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ƒ}ƒX‚©‚çã‰º¶‰E4•ûŒü‚Éˆø‚©‚ê‚Ä‚¢‚éü‚ğÁ‹‚·‚é
-	 * ƒ}ƒX‚ª•ƒ}ƒX‚â”šƒ}ƒX‚É•ÏX‚³‚ê‚½ê‡‚Éü‚ğÁ‹‚·‚é‚½‚ß‚Ég—p‚·‚é
-	 * @param pos ƒ}ƒX‚ÌÀ•W
+	 * ãƒã‚¹ã‹ã‚‰ä¸Šä¸‹å·¦å³4æ–¹å‘ã«å¼•ã‹ã‚Œã¦ã„ã‚‹ç·šã‚’æ¶ˆå»ã™ã‚‹
+	 * ãƒã‚¹ãŒé»’ãƒã‚¹ã‚„æ•°å­—ãƒã‚¹ã«å¤‰æ›´ã•ã‚ŒãŸå ´åˆã«ç·šã‚’æ¶ˆå»ã™ã‚‹ãŸã‚ã«ä½¿ç”¨ã™ã‚‹
+	 * @param pos ãƒã‚¹ã®åº§æ¨™
 	 */
 	void eraseLinesAround(Address pos) {
 		for (int d = 0; d <= 3; d++) {
@@ -243,10 +243,10 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * •Ó‚Ìó‘Ô‚ğw’è‚µ‚½ó‘Ô‚É•ÏX‚·‚é
-	 * ƒAƒ“ƒhƒDƒŠƒXƒi[‚É•ÏX‚ğ’Ê’m‚·‚é
-	 * @param p •ÓÀ•W
-	 * @param st •ÏXŒã‚Ìó‘Ô
+	 * è¾ºã®çŠ¶æ…‹ã‚’æŒ‡å®šã—ãŸçŠ¶æ…‹ã«å¤‰æ›´ã™ã‚‹
+	 * ã‚¢ãƒ³ãƒ‰ã‚¥ãƒªã‚¹ãƒŠãƒ¼ã«å¤‰æ›´ã‚’é€šçŸ¥ã™ã‚‹
+	 * @param p è¾ºåº§æ¨™
+	 * @param st å¤‰æ›´å¾Œã®çŠ¶æ…‹
 	 */
 	public void changeState(SideAddress p, int st) {
 		int prev = getState(p);
@@ -303,7 +303,7 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ‰Šúˆ—B ”Õ–Ê‘S‘Ì‚ÌŠø–å‚Æ‚»‚Ì”Ô†‚ğİ’è‚·‚éB
+	 * åˆæœŸå‡¦ç†ã€‚ ç›¤é¢å…¨ä½“ã®æ——é–€ã¨ãã®ç•ªå·ã‚’è¨­å®šã™ã‚‹ã€‚
 	 */
 	void initGates() {
 		nGate = 0;
@@ -337,10 +337,10 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * •ƒ}ƒX‚©‚ç–å‚Ì”½‘Î‘¤‚Ì•ƒ}ƒX‚ğ’T‚·
-	 * @param p0 ‹N“_ƒ}ƒX
-	 * @param d Œ©‚é•ûŒü
-	 * @return@–å‚Ì”½‘Î‘¤‚É•ƒ}ƒX‚Ü‚½‚ÍŠOü‚È‚ç‚Î‚»‚ÌÀ•WC‚»‚êˆÈŠO‚Ínull
+	 * é»’ãƒã‚¹ã‹ã‚‰é–€ã®åå¯¾å´ã®é»’ãƒã‚¹ã‚’æ¢ã™
+	 * @param p0 èµ·ç‚¹ãƒã‚¹
+	 * @param d è¦‹ã‚‹æ–¹å‘
+	 * @returnã€€é–€ã®åå¯¾å´ã«é»’ãƒã‚¹ã¾ãŸã¯å¤–å‘¨ãªã‚‰ã°ãã®åº§æ¨™ï¼Œãã‚Œä»¥å¤–ã¯null
 	 */
 	Address getAnotherPole(Address p0, int d) {
 		Address p = p0;
@@ -354,22 +354,22 @@ public class Board extends BoardBase {
 			p = Address.nextCell(p, d);
 			if (isOn(p)) {
 				if (isWall(p)) {
-//					System.out.println(p.toString() + "‘¼’[‚Í•ƒ}ƒX‚¾");
+//					System.out.println(p.toString() + "ä»–ç«¯ã¯é»’ãƒã‚¹ã ");
 					return p;
 				} else if (getNumber(p) == gateType) {
 				} else {
-//					System.out.println(p.toString() + "‘¼’[‚Í•Â‚¶‚Ä‚¢‚È‚¢");
+//					System.out.println(p.toString() + "ä»–ç«¯ã¯é–‰ã˜ã¦ã„ãªã„");
 					return null;
 				}
 			} else {
-//				System.out.println(p.toString() + "‘¼’[‚ÍŠOü‚¾");
+//				System.out.println(p.toString() + "ä»–ç«¯ã¯å¤–å‘¨ã ");
 				return p;
 			}
 		}
 	}
 
 	/**
-	 * •ƒ}ƒX‚ğ‹N“_‚ÉC‚ ‚é•ûŒü‚Éo‚Ä‚¢‚é–å‚É”Ô†‚ğİ’è‚·‚éB
+	 * é»’ãƒã‚¹ã‚’èµ·ç‚¹ã«ï¼Œã‚ã‚‹æ–¹å‘ã«å‡ºã¦ã„ã‚‹é–€ã«ç•ªå·ã‚’è¨­å®šã™ã‚‹ã€‚
 	 * @param p0
 	 * @param d
 	 * @param n
@@ -391,22 +391,22 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * Šø–å‚Ì”Ô†‚ğ’²‚×‚éB
-	 * –å‚Ì‘¤‚©‚çŒ©‚é‚Ì‚ÍŒˆ‚ß‚É‚­‚¢‚Ì‚ÅA•ƒ}ƒX‘¤‚©‚çŒ©‚éB
-	 * ”š•t‚«‚Ì•ƒ}ƒX‚©‚çã‰º¶‰E‚É—×Ú‚·‚é–å‚ğ‚İ‚éB
-	 * –å‚Ì”½‘Î‘¤‚É“¯‚¶”š‚Ì•ƒ}ƒX‚ª‚ ‚ê‚ÎC•ƒ}ƒX‚Ì”š‚ª–å‚Ì”Ô†B
-	 * –å‚Ì”½‘Î‘¤‚ÉˆÙ‚È‚é”š‚Ì•ƒ}ƒX‚ª‚ ‚ê‚ÎC–å‚Ì”Ô†‚Í -1B
-	 * •ƒ}ƒX‚É—×Ú‚·‚é–å‚ª‚P‚Â‚¾‚¯‚ÅC–å‚Ì”Ô†‚ª‚Ü‚¾Œˆ‚Ü‚Á‚Ä‚¢‚È‚¯‚ê‚ÎC•ƒ}ƒX‚Ì”š‚ª–å‚Ì”Ô†B
+	 * æ——é–€ã®ç•ªå·ã‚’èª¿ã¹ã‚‹ã€‚
+	 * é–€ã®å´ã‹ã‚‰è¦‹ã‚‹ã®ã¯æ±ºã‚ã«ãã„ã®ã§ã€é»’ãƒã‚¹å´ã‹ã‚‰è¦‹ã‚‹ã€‚
+	 * æ•°å­—ä»˜ãã®é»’ãƒã‚¹ã‹ã‚‰ä¸Šä¸‹å·¦å³ã«éš£æ¥ã™ã‚‹é–€ã‚’ã¿ã‚‹ã€‚
+	 * é–€ã®åå¯¾å´ã«åŒã˜æ•°å­—ã®é»’ãƒã‚¹ãŒã‚ã‚Œã°ï¼Œé»’ãƒã‚¹ã®æ•°å­—ãŒé–€ã®ç•ªå·ã€‚
+	 * é–€ã®åå¯¾å´ã«ç•°ãªã‚‹æ•°å­—ã®é»’ãƒã‚¹ãŒã‚ã‚Œã°ï¼Œé–€ã®ç•ªå·ã¯ -1ã€‚
+	 * é»’ãƒã‚¹ã«éš£æ¥ã™ã‚‹é–€ãŒï¼‘ã¤ã ã‘ã§ï¼Œé–€ã®ç•ªå·ãŒã¾ã æ±ºã¾ã£ã¦ã„ãªã‘ã‚Œã°ï¼Œé»’ãƒã‚¹ã®æ•°å­—ãŒé–€ã®ç•ªå·ã€‚
 	 * @param p0s
-	 * @param n0 ³‚Ì”‚Æ‚·‚é
+	 * @param n0 æ­£ã®æ•°ã¨ã™ã‚‹
 	 */
 	private void initGateNumber(Address p0, int n0) {
 		Address p = p0;
 		Address p1 = null;
-//		System.out.println(p.toString() + "‚Ì•ƒ}ƒX‚É‚Â‚¢‚Ä’²‚×‚éB");
-		int d1 = -1; // ‘ÎŠİ‚Ì•ƒ}ƒX‚ÌŒü‚«‚ğ‹L˜^‚·‚é
-		int ng = 0;  // Œˆ’è‚µ‚½”Ô†‚ğ‹L˜^‚·‚é
-		int count = 0; // ƒ}ƒX‚Ì‚S•ûŒü‚Ì–å‚Ì”‚ğ”‚¦‚é
+//		System.out.println(p.toString() + "ã®é»’ãƒã‚¹ã«ã¤ã„ã¦èª¿ã¹ã‚‹ã€‚");
+		int d1 = -1; // å¯¾å²¸ã®é»’ãƒã‚¹ã®å‘ãã‚’è¨˜éŒ²ã™ã‚‹
+		int ng = 0;  // æ±ºå®šã—ãŸç•ªå·ã‚’è¨˜éŒ²ã™ã‚‹
+		int count = 0; // ãƒã‚¹ã®ï¼”æ–¹å‘ã®é–€ã®æ•°ã‚’æ•°ãˆã‚‹
 		for (int d = 0; d <= 3; d++) {
 			int t = 0;
 			if (d == 0 || d == 2)
@@ -416,39 +416,39 @@ public class Board extends BoardBase {
 			p = p0;
 			p = p.nextCell(d);
 			if (isOn(p) && getNumber(p) == t) {
-//				System.out.println(d + "‚ÌŒü‚«‚É–å‚ª‚ ‚Á‚½");
+//				System.out.println(d + "ã®å‘ãã«é–€ãŒã‚ã£ãŸ");
 				d1 = d;
 				count++;
 				p1 = getAnotherPole(p, d);
 				if (p1 != null && isOn(p1)) {
 					int n1 = getNumber(p1);
-					if (n1 == n0) { // ‘ÎŠİ‚Ì–å‚Æ“¯‚¶”Ô†
+					if (n1 == n0) { // å¯¾å²¸ã®é–€ã¨åŒã˜ç•ªå·
 						ng = n1;
 						setGateNumber(p0, d, n1);
-//						System.out.println("‘ÎŠİ‚Ì”šƒ}ƒX" + p1.toString() + "‚Æ‚ÌŠÔ‚Ì–å‚Ì”Ô†‚Í " + n1);
+//						System.out.println("å¯¾å²¸ã®æ•°å­—ãƒã‚¹" + p1.toString() + "ã¨ã®é–“ã®é–€ã®ç•ªå·ã¯ " + n1);
 					} else if (n1 > 0 && n1 != n0) {
 						ng = -1;
 						setGateNumber(p0, d, -1);
-//						System.out.println("‘ÎŠİ‚Ì”šƒ}ƒX‚ªˆÙ‚È‚é”Ô†‚Å‚ ‚é‚½‚ßC–å‚Ì”Ô†‚Í -1 ‚Æ‚·‚éB");
+//						System.out.println("å¯¾å²¸ã®æ•°å­—ãƒã‚¹ãŒç•°ãªã‚‹ç•ªå·ã§ã‚ã‚‹ãŸã‚ï¼Œé–€ã®ç•ªå·ã¯ -1 ã¨ã™ã‚‹ã€‚");
 					}
 				} else {
-//					System.out.println("‘ÎŠİ‚É”šƒ}ƒX‚ª‚È‚¢");
+//					System.out.println("å¯¾å²¸ã«æ•°å­—ãƒã‚¹ãŒãªã„");
 				}
 			}
 		}
 		if (count == 0) {
-//			System.out.println("ã‰º¶‰E‚S•ûŒü‚É–å‚ª‚È‚¢ ");
+//			System.out.println("ä¸Šä¸‹å·¦å³ï¼”æ–¹å‘ã«é–€ãŒãªã„ ");
 		} else if (count == 1) {
 			if (ng == 0) {
 				setGateNumber(p0, d1, n0);
-//				System.out.println("—×Ú‚·‚é–å‚ª‚P‚Â‚µ‚©‚È‚¢‚Ì‚ÅC‚»‚Ì–å‚Ì”Ô†‚ğ " + n0 + "‚ÉŒˆ‚ß‚é");
+//				System.out.println("éš£æ¥ã™ã‚‹é–€ãŒï¼‘ã¤ã—ã‹ãªã„ã®ã§ï¼Œãã®é–€ã®ç•ªå·ã‚’ " + n0 + "ã«æ±ºã‚ã‚‹");
 			} else if (ng == -1) {
-//				System.out.println("—×Ú‚·‚é–å‚ª‚P‚Â‚µ‚©‚È‚¢ê‡‚Å‚àAˆÙ‚È‚é”š‚É‚Í‚³‚Ü‚ê‚½–å‚Ì”Ô†‚Í-1‚Æ‚·‚éB ");
+//				System.out.println("éš£æ¥ã™ã‚‹é–€ãŒï¼‘ã¤ã—ã‹ãªã„å ´åˆã§ã‚‚ã€ç•°ãªã‚‹æ•°å­—ã«ã¯ã•ã¾ã‚ŒãŸé–€ã®ç•ªå·ã¯-1ã¨ã™ã‚‹ã€‚ ");
 			} else if (ng > 0) {
-//				System.out.println("—×Ú‚·‚é–å‚ª‚P‚Â‚µ‚©‚È‚¢‚ªCŒˆ’èÏ‚İB");
+//				System.out.println("éš£æ¥ã™ã‚‹é–€ãŒï¼‘ã¤ã—ã‹ãªã„ãŒï¼Œæ±ºå®šæ¸ˆã¿ã€‚");
 			}
 		} else if (count > 1) {
-//			System.out.println("•¡”‚Ì–å‚É—×Ú‚·‚é‚Ì‚Å–å‚Ì”Ô†‚ªŒˆ‚Ü‚ç‚È‚¢");
+//			System.out.println("è¤‡æ•°ã®é–€ã«éš£æ¥ã™ã‚‹ã®ã§é–€ã®ç•ªå·ãŒæ±ºã¾ã‚‰ãªã„");
 		}
 	}
 
@@ -463,9 +463,9 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ‚ ‚éƒ}ƒX‚ğŠÜ‚Ş Link ‚Ì‰Šú‰»
-	 * link[][][] ‚ÍÁ‹‚³‚ê‚Ä‚¢‚é‚à‚Ì‚Æ‚·‚é
-	 * @param p Link‰Šú‰»‚Ì‹N“_ƒ}ƒX‚ÌÀ•W
+	 * ã‚ã‚‹ãƒã‚¹ã‚’å«ã‚€ Link ã®åˆæœŸåŒ–
+	 * link[][][] ã¯æ¶ˆå»ã•ã‚Œã¦ã„ã‚‹ã‚‚ã®ã¨ã™ã‚‹
+	 * @param p LinkåˆæœŸåŒ–ã®èµ·ç‚¹ãƒã‚¹ã®åº§æ¨™
 	 */
 	void initLink(Address p) {
 		initializingLink = new Link();
@@ -491,7 +491,7 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * Link •¹‡
+	 * Link ä½µåˆ
 	 */	
 	void connectLink(SideAddress p) {
 		Link newLink = new Link();
@@ -517,7 +517,7 @@ public class Board extends BoardBase {
 		setLink(p, newLink);
 	}
 	/**
-	 * Link Ø’f
+	 * Link åˆ‡æ–­
 	 */
 	void cutLink(SideAddress p) {
 		Link oldLink = getLink(p);
@@ -536,9 +536,9 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ƒ}ƒX‚Ìã‰º¶‰E4•ûŒü‚Ì‚¤‚¿CŒ»İü‚ªˆø‚©‚ê‚Ä‚¢‚é”‚ğ•Ô‚·
-	 * @param p ƒ}ƒX‚ÌÀ•W
-	 * @return ƒ}ƒX‚Ìã‰º¶‰E‚Éˆø‚©‚ê‚Ä‚¢‚éü‚Ì”
+	 * ãƒã‚¹ã®ä¸Šä¸‹å·¦å³4æ–¹å‘ã®ã†ã¡ï¼Œç¾åœ¨ç·šãŒå¼•ã‹ã‚Œã¦ã„ã‚‹æ•°ã‚’è¿”ã™
+	 * @param p ãƒã‚¹ã®åº§æ¨™
+	 * @return ãƒã‚¹ã®ä¸Šä¸‹å·¦å³ã«å¼•ã‹ã‚Œã¦ã„ã‚‹ç·šã®æ•°
 	 */
 	public int countLine(Address p) {
 		int no = 0;
@@ -552,7 +552,7 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ü‚ÉŠÖ‚·‚éŒë‚è‚ğƒ`ƒFƒbƒN‚·‚é
+	 * ç·šã«é–¢ã™ã‚‹èª¤ã‚Šã‚’ãƒã‚§ãƒƒã‚¯ã™ã‚‹
 	 * @return
 	 */
 	private int checkLinks() {
@@ -573,11 +573,11 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * Šø–å‚É‚Â‚¢‚ÄA³‚µ‚­’Ê‰ß‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©‚ğ’²‚×‚éB
-	 * –å‚Æ‚P‰ÓŠ‚Ì‚İ‚Å’¼Œğ‚·‚éê‡‚ª³‚µ‚¢B
-	 * ’¼Œğ‚µ‚È‚¢ê‡‚ÍŒë‚èB
-	 * •¡”‰ñ’¼Œğ‚·‚éê‡‚ÍŒë‚èB
-	 * @return Œë‚è‚ª‚ ‚ê‚Î³”C‚È‚¯‚ê‚Î0
+	 * æ——é–€ã«ã¤ã„ã¦ã€æ­£ã—ãé€šéã—ã¦ã„ã‚‹ã‹ã©ã†ã‹ã‚’èª¿ã¹ã‚‹ã€‚
+	 * é–€ã¨ï¼‘ç®‡æ‰€ã®ã¿ã§ç›´äº¤ã™ã‚‹å ´åˆãŒæ­£ã—ã„ã€‚
+	 * ç›´äº¤ã—ãªã„å ´åˆã¯èª¤ã‚Šã€‚
+	 * è¤‡æ•°å›ç›´äº¤ã™ã‚‹å ´åˆã¯èª¤ã‚Šã€‚
+	 * @return èª¤ã‚ŠãŒã‚ã‚Œã°æ­£æ•°ï¼Œãªã‘ã‚Œã°0
 	 */
 	private int checkGates() {
 		for (Address p : cellAddrs()) {
@@ -597,15 +597,15 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * Šø–å‚Ìƒ}ƒX‚É’–Ú‚µ‚ÄA’Ê‚è•û‚ª³‚µ‚¢‚©‚ğ’²‚×‚éB
-	 * c–å‚Ìã’[‚Ü‚½‚Í‰¡–å‚Ì¶’[‚Ìƒ}ƒX‚É‚Â‚¢‚Ä’²‚×‚éB
-	 * ã’[‚Ü‚½‚Í¶’[ˆÈŠO‚Ìƒ}ƒX‚Ìê‡‚Í‚·‚Å‚É’²¸Ï‚İ‚Ì‚Í‚¸B
-	 * @param p Šø–å‚Ìƒ}ƒX‚ÌÀ•W
-	 * @return –å‚Ì’Ê‚è•û‚ªŒë‚Á‚Ä‚¢‚ê‚Î -1 , ’²¸Ï‚İ‚Í -2, 0ˆÈã‚Ì”‚Í³í‚ÉŒğ·‚µ‚½‰ñ”‚ğ•Ô‚·B
+	 * æ——é–€ã®ãƒã‚¹ã«æ³¨ç›®ã—ã¦ã€é€šã‚Šæ–¹ãŒæ­£ã—ã„ã‹ã‚’èª¿ã¹ã‚‹ã€‚
+	 * ç¸¦é–€ã®ä¸Šç«¯ã¾ãŸã¯æ¨ªé–€ã®å·¦ç«¯ã®ãƒã‚¹ã«ã¤ã„ã¦èª¿ã¹ã‚‹ã€‚
+	 * ä¸Šç«¯ã¾ãŸã¯å·¦ç«¯ä»¥å¤–ã®ãƒã‚¹ã®å ´åˆã¯ã™ã§ã«èª¿æŸ»æ¸ˆã¿ã®ã¯ãšã€‚
+	 * @param p æ——é–€ã®ãƒã‚¹ã®åº§æ¨™
+	 * @return é–€ã®é€šã‚Šæ–¹ãŒèª¤ã£ã¦ã„ã‚Œã° -1 , èª¿æŸ»æ¸ˆã¿ã¯ -2, 0ä»¥ä¸Šã®æ•°ã¯æ­£å¸¸ã«äº¤å·®ã—ãŸå›æ•°ã‚’è¿”ã™ã€‚
 	 */
 	private int checkGate1(Address p0) {
 		int gateType = getNumber(p0);
-//		System.out.println(p.toString() + "‚Ì–å‚ğ’²‚×‚éB");
+//		System.out.println(p.toString() + "ã®é–€ã‚’èª¿ã¹ã‚‹ã€‚");
 		int d = 0;
 		if (gateType == Board.GATE_HORIZ) {
 			d = Direction.RT;
@@ -613,15 +613,15 @@ public class Board extends BoardBase {
 			d = Direction.DN;
 		}
 		Address p2 = Address.nextCell(p0, d^2);
-		if (isOn(p2) && getNumber(p2) == gateType) { // ‚Ğ‚Æ‚Âè‘O‚Ìƒ}ƒX‚à“¯‚¶Œü‚«‚Ì–å‚È‚ç‚ÎC
-			return -2; // ’²¸Ï‚İ‚Ì‚Í‚¸
+		if (isOn(p2) && getNumber(p2) == gateType) { // ã²ã¨ã¤æ‰‹å‰ã®ãƒã‚¹ã‚‚åŒã˜å‘ãã®é–€ãªã‚‰ã°ï¼Œ
+			return -2; // èª¿æŸ»æ¸ˆã¿ã®ã¯ãš
 		}
 		int count = 0;
 		Address p = p0;
 		while (true) {
 			int ret = checkGate2(p);
 			if (ret == -1) {
-//				System.out.println(p.toString() + "‚ÌˆÊ’u‚Ì–å‚Ì’Ê‚è•û‚ª‚¨‚©‚µ‚¢B");
+//				System.out.println(p.toString() + "ã®ä½ç½®ã®é–€ã®é€šã‚Šæ–¹ãŒãŠã‹ã—ã„ã€‚");
 				return -1;
 			} else if (ret == 1) {
 				count ++;
@@ -632,15 +632,15 @@ public class Board extends BoardBase {
 				break;
 			}
 		}
-//		System.out.println(count + "‰ñC–å‚ğŒğ·‚µ‚½B");
+//		System.out.println(count + "å›ï¼Œé–€ã‚’äº¤å·®ã—ãŸã€‚");
 		return count;
 	}
 
 	/**
-	 * –å‚Ìƒ}ƒX‚É’–Ú‚µ‚ÄA’Ê‚è•û‚ª³‚µ‚¢‚©‚ğ’²‚×‚éB
-	 * –å‚Æ•Às‚Éü‚ªˆø‚©‚ê‚Ä‚¢‚ê‚ÎŒë‚èC’¼Œğ‚µ‚Ä‚¢‚ê‚Î³‚µ‚¢B
-	 * @param p@–å‚Ìƒ}ƒX‚ÌÀ•W
-	 * @return •½s‚µ‚Ä‚¢‚ê‚Î -1A’¼Œğ‚µ‚Ä‚¢‚ê‚Î 1, ‚»‚êˆÈŠO‚Í 0
+	 * é–€ã®ãƒã‚¹ã«æ³¨ç›®ã—ã¦ã€é€šã‚Šæ–¹ãŒæ­£ã—ã„ã‹ã‚’èª¿ã¹ã‚‹ã€‚
+	 * é–€ã¨ä¸¦è¡Œã«ç·šãŒå¼•ã‹ã‚Œã¦ã„ã‚Œã°èª¤ã‚Šï¼Œç›´äº¤ã—ã¦ã„ã‚Œã°æ­£ã—ã„ã€‚
+	 * @param pã€€é–€ã®ãƒã‚¹ã®åº§æ¨™
+	 * @return å¹³è¡Œã—ã¦ã„ã‚Œã° -1ã€ç›´äº¤ã—ã¦ã„ã‚Œã° 1, ãã‚Œä»¥å¤–ã¯ 0
 	 */
 	private int checkGate2(Address p) {
 		int type = getNumber(p);
@@ -650,20 +650,20 @@ public class Board extends BoardBase {
 		}
 		if (type == GATE_VERT) {
 			if (st4[0] == LINE || st4[2] == LINE) {
-//				System.out.println("ƒQ[ƒg" + p.toString() + "‚Æ•Às‚É‘–‚Á‚Ä‚¢‚é");
+//				System.out.println("ã‚²ãƒ¼ãƒˆ" + p.toString() + "ã¨ä¸¦è¡Œã«èµ°ã£ã¦ã„ã‚‹");
 				return -1;
 			}
 			if (st4[1] == LINE && st4[3] == LINE) {
-//				System.out.println("ƒQ[ƒg" + p.toString() + "‚Æ’¼Œğ‚µ‚Ä‚¢‚é");
+//				System.out.println("ã‚²ãƒ¼ãƒˆ" + p.toString() + "ã¨ç›´äº¤ã—ã¦ã„ã‚‹");
 				return 1;
 			}
 		} else if (type == GATE_HORIZ) {
 			if (st4[1] == LINE || st4[3] == LINE) {
-//				System.out.println("ƒQ[ƒg" + p.toString() + "‚Æ•Às‚É‘–‚Á‚Ä‚¢‚é");
+//				System.out.println("ã‚²ãƒ¼ãƒˆ" + p.toString() + "ã¨ä¸¦è¡Œã«èµ°ã£ã¦ã„ã‚‹");
 				return -1;
 			}
 			if (st4[0] == LINE && st4[2] == LINE) {
-//				System.out.println("ƒQ[ƒg" + p.toString() + "‚Æ’¼Œğ‚µ‚Ä‚¢‚é");
+//				System.out.println("ã‚²ãƒ¼ãƒˆ" + p.toString() + "ã¨ç›´äº¤ã—ã¦ã„ã‚‹");
 				return 1;
 			}
 		}
@@ -671,70 +671,70 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ƒXƒ^[ƒg‚©‚çƒS[ƒ‹‚Ü‚Å‚Ì–å‚ğ’Ê‚Á‚½‡”Ô‚ª³‚µ‚¢‚©‚Ç‚¤‚©‚ğ’²‚×‚éB
-	 * ƒXƒ^[ƒg‚©‚çƒS[ƒ‹‚Ü‚Å‚ÌŒo˜H‚ª•ªŠò‚È‚­•Â‚¶‚Ä‚¢‚é‚±‚Æ‚ğ‰¼’è‚·‚éB
-	 * ‚·‚×‚Ä‚Ì–å‚ğ³‚µ‚­’Ê‰ß‚µ‚Ä‚¢‚é‚±‚Æ‚ğ‘O’ñ‚Æ‚·‚éB
-	 * ƒS[ƒ‹‚ª‚È‚¢‚Æ‚«‚ÍA‡”Ô‚ª³‚µ‚¢‚©‚Ç‚¤‚©‚Ì‚İ’²‚×‚éB
-	 * @return ³‚µ‚¢‡˜‚Å’Ê‰ß‚µ‚Ä‚¢‚ê‚Î 0, Œë‚Á‚Ä‚¢‚ê‚Î³”
+	 * ã‚¹ã‚¿ãƒ¼ãƒˆã‹ã‚‰ã‚´ãƒ¼ãƒ«ã¾ã§ã®é–€ã‚’é€šã£ãŸé †ç•ªãŒæ­£ã—ã„ã‹ã©ã†ã‹ã‚’èª¿ã¹ã‚‹ã€‚
+	 * ã‚¹ã‚¿ãƒ¼ãƒˆã‹ã‚‰ã‚´ãƒ¼ãƒ«ã¾ã§ã®çµŒè·¯ãŒåˆ†å²ãªãé–‰ã˜ã¦ã„ã‚‹ã“ã¨ã‚’ä»®å®šã™ã‚‹ã€‚
+	 * ã™ã¹ã¦ã®é–€ã‚’æ­£ã—ãé€šéã—ã¦ã„ã‚‹ã“ã¨ã‚’å‰æã¨ã™ã‚‹ã€‚
+	 * ã‚´ãƒ¼ãƒ«ãŒãªã„ã¨ãã¯ã€é †ç•ªãŒæ­£ã—ã„ã‹ã©ã†ã‹ã®ã¿èª¿ã¹ã‚‹ã€‚
+	 * @return æ­£ã—ã„é †åºã§é€šéã—ã¦ã„ã‚Œã° 0, èª¤ã£ã¦ã„ã‚Œã°æ­£æ•°
 	 */
 	private int checkRoute() {
-		int[] gateNumber = new int[nGate]; // ’Ê‰ß‚µ‚½–å‚Ì”Ô†‚ğ‹L˜^‚·‚éB
+		int[] gateNumber = new int[nGate]; // é€šéã—ãŸé–€ã®ç•ªå·ã‚’è¨˜éŒ²ã™ã‚‹ã€‚
 		int k = 0;
-		Address p0; // ƒXƒ^[ƒg^ƒS[ƒ‹’n“_
+		Address p0; // ã‚¹ã‚¿ãƒ¼ãƒˆï¼ã‚´ãƒ¼ãƒ«åœ°ç‚¹
 		if (goal.isNowhere()) {
-			// ƒS[ƒ‹‚ª‚È‚¢ê‡‚ÍC‡”Ô‚ğ”‚¦‚é‹N“_‚Æ‚·‚é‚½‚ß‚Ì‰¼‚ÌƒS[ƒ‹‚ğİ’è‚·‚éB
-			p0 = ‚”emporalGoal();
+			// ã‚´ãƒ¼ãƒ«ãŒãªã„å ´åˆã¯ï¼Œé †ç•ªã‚’æ•°ãˆã‚‹èµ·ç‚¹ã¨ã™ã‚‹ãŸã‚ã®ä»®ã®ã‚´ãƒ¼ãƒ«ã‚’è¨­å®šã™ã‚‹ã€‚
+			p0 = ï½”emporalGoal();
 		} else {
 			p0 = goal;
 			if (getLink(p0) == null) {
-				System.out.println("ƒS[ƒ‹‚ğ’Ê‰ß‚µ‚Ä‚¢‚È‚¢B");
+				System.out.println("ã‚´ãƒ¼ãƒ«ã‚’é€šéã—ã¦ã„ãªã„ã€‚");
 				return 512;
 			}
 		}
-		System.out.println("ƒXƒ^[ƒg^ƒS[ƒ‹’n“_‚Í " + p0.toString());
+		System.out.println("ã‚¹ã‚¿ãƒ¼ãƒˆï¼ã‚´ãƒ¼ãƒ«åœ°ç‚¹ã¯ " + p0.toString());
 		Address p = p0;
 		int d = -1;
 		while (true) {
 			d = getLineDirection(p, d);
 			p = Address.nextCell(p, d);
 			if (isGate(p)) {
-								System.out.println("ƒQ[ƒg " + getGateNumber(p) + " ’Ê‰ß");
+								System.out.println("ã‚²ãƒ¼ãƒˆ " + getGateNumber(p) + " é€šé");
 				gateNumber[k] = getGateNumber(p);
 				k++;
-				if (k > nGate) { // ‚·‚×‚Ä‚Ì–å‚ğ³‚µ‚­’Ê‰ß‚µ‚Ä‚¢‚é‚±‚Æ‚ª‘O’ñ‚È‚ç‚ÎA‚ ‚è‚¦‚È‚¢
-					System.out.println("–å" + nGate + "‚Ì‚¤‚¿" + k + "‰ÓŠ‚ß‚ğ’Ê‰ß‚µ‚½B’Ê‰ß‚µ‚½–å‚ª‘½‚·‚¬‚é");
+				if (k > nGate) { // ã™ã¹ã¦ã®é–€ã‚’æ­£ã—ãé€šéã—ã¦ã„ã‚‹ã“ã¨ãŒå‰æãªã‚‰ã°ã€ã‚ã‚Šãˆãªã„
+					System.out.println("é–€" + nGate + "ã®ã†ã¡" + k + "ç®‡æ‰€ã‚ã‚’é€šéã—ãŸã€‚é€šéã—ãŸé–€ãŒå¤šã™ãã‚‹");
 					return 128;
 				}
 			}
 			if (p.equals(p0)) {
-				System.out.println("ƒS[ƒ‹“’B");
+				System.out.println("ã‚´ãƒ¼ãƒ«åˆ°é”");
 				break;
 			}
 		}
-		if (k < nGate) { // ‚·‚×‚Ä‚Ì–å‚ğ³‚µ‚­’Ê‰ß‚µ‚Ä‚¢‚é‚±‚Æ‚ª‘O’ñ‚È‚ç‚ÎA‚ ‚è‚¦‚È‚¢
-			System.out.println("–å" + nGate + "‚Ì‚¤‚¿" + k + "‰ÓŠ’Ê‰ß‚µ‚½B’Ê‰ß‚µ‚½–å‚ª­‚È‚·‚¬‚é");
+		if (k < nGate) { // ã™ã¹ã¦ã®é–€ã‚’æ­£ã—ãé€šéã—ã¦ã„ã‚‹ã“ã¨ãŒå‰æãªã‚‰ã°ã€ã‚ã‚Šãˆãªã„
+			System.out.println("é–€" + nGate + "ã®ã†ã¡" + k + "ç®‡æ‰€é€šéã—ãŸã€‚é€šéã—ãŸé–€ãŒå°‘ãªã™ãã‚‹");
 			return 128;
 		}
 		for (k = 0; k < nGate; k++) {
 			System.out.print(gateNumber[k]);
 			System.out.print(' ');
 		}
-		System.out.println(" ‚Ì‡”Ô‚É–å‚ğ’Ê‰ß‚µ‚½B");
+		System.out.println(" ã®é †ç•ªã«é–€ã‚’é€šéã—ãŸã€‚");
 		int gg = 1;
-		// ƒS[ƒ‹‚ªİ’è‚³‚ê‚Ä‚¢‚È‚Æ‚«‚ÍA‰¼ƒS[ƒ‹‚Í‰½”Ô–Ú‚É’Ê‰ß‚µ‚Ä‚à‚æ‚¢‚±‚Æ‚É‚·‚éB
+		// ã‚´ãƒ¼ãƒ«ãŒè¨­å®šã•ã‚Œã¦ã„ãªã¨ãã¯ã€ä»®ã‚´ãƒ¼ãƒ«ã¯ä½•ç•ªç›®ã«é€šéã—ã¦ã‚‚ã‚ˆã„ã“ã¨ã«ã™ã‚‹ã€‚
 		if (goal.isNowhere() && nGate >= 1) {
 			gg = nGate;
 		}
 		for (int g = 0; g < gg; g++) {
 			for (k = 0; k < nGate; k++) {
-				if (gateNumber[k] > 0) { // –å‚É”Ô†‚ªw’è‚³‚ê‚Ä‚¢‚é‚Æ‚«
+				if (gateNumber[k] > 0) { // é–€ã«ç•ªå·ãŒæŒ‡å®šã•ã‚Œã¦ã„ã‚‹ã¨ã
 					if (gateNumber[k] != ((k + g) % nGate + 1)) {
 						break;
 					}
 				}
 			}
 			if (k == nGate) {
-				System.out.println("–å‚Ì’Ê‰ß‡‚ª³‚µ‚¢B");
+				System.out.println("é–€ã®é€šéé †ãŒæ­£ã—ã„ã€‚");
 				return 0;
 			}
 		}
@@ -747,18 +747,18 @@ public class Board extends BoardBase {
 				}
 			}
 			if (k == nGate) {
-				System.out.println("–å‚Ì’Ê‰ß‡‚ª³‚µ‚¢B");
+				System.out.println("é–€ã®é€šéé †ãŒæ­£ã—ã„ã€‚");
 				return 0;
 			}
 		}
-		System.out.println("–å‚Ì’Ê‰ß‡‚ªŒë‚Á‚Ä‚¢‚éB");
+		System.out.println("é–€ã®é€šéé †ãŒèª¤ã£ã¦ã„ã‚‹ã€‚");
 		return 256;
 	}
 
 	/**
-	 * ƒS[ƒ‹‚ªİ’è‚³‚ê‚Ä‚¢‚È‚¢”Õ–Ê‚ÅA‰¼‚ÌƒS[ƒ‹‚ğİ’è‚·‚éB
+	 * ã‚´ãƒ¼ãƒ«ãŒè¨­å®šã•ã‚Œã¦ã„ãªã„ç›¤é¢ã§ã€ä»®ã®ã‚´ãƒ¼ãƒ«ã‚’è¨­å®šã™ã‚‹ã€‚
 	 */
-	private Address ‚”emporalGoal() {
+	private Address ï½”emporalGoal() {
 		for (Address p : cellAddrs()) {
 			if (countLine(p) > 1) {
 				return p;
@@ -768,8 +768,8 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ¡—ˆ‚½•ûŒüˆÈŠO‚Åü‚Ì‰„‚Ñ‚Ä‚¢‚é•ûŒü‚ğ‚Ğ‚Æ‚Â•Ô‚·B
-	 * ƒŠƒ“ƒN‚ğ‚½‚Ç‚é‚Ì‚É—p‚¢‚éB
+	 * ä»Šæ¥ãŸæ–¹å‘ä»¥å¤–ã§ç·šã®å»¶ã³ã¦ã„ã‚‹æ–¹å‘ã‚’ã²ã¨ã¤è¿”ã™ã€‚
+	 * ãƒªãƒ³ã‚¯ã‚’ãŸã©ã‚‹ã®ã«ç”¨ã„ã‚‹ã€‚
 	 * @param p
 	 * @param direction
 	 * @return
@@ -786,7 +786,7 @@ public class Board extends BoardBase {
 		int result = 0;
 		result |= checkLinks();
 		result |= checkGates();
-		if (result == 0) // ƒ‹[ƒv‚Æ–å‚Ì’Ê‚è•û‚ª³‚µ‚¢‚Æ‚«‚Ì‚İ‡”Ô‚ğƒ`ƒFƒbƒN‚·‚éB
+		if (result == 0) // ãƒ«ãƒ¼ãƒ—ã¨é–€ã®é€šã‚Šæ–¹ãŒæ­£ã—ã„ã¨ãã®ã¿é †ç•ªã‚’ãƒã‚§ãƒƒã‚¯ã™ã‚‹ã€‚
 			result |= checkRoute();
 		return result;
 	}
@@ -796,23 +796,23 @@ public class Board extends BoardBase {
 		if (result == 0)
 			return COMPLETE_MESSAGE;
 		StringBuffer message = new StringBuffer();
-		if ((result & 1) == 1) // ü‚ª•ªŠò‚Ü‚½‚ÍŒğ·‚µ‚Ä‚¢‚é
+		if ((result & 1) == 1) // ç·šãŒåˆ†å²ã¾ãŸã¯äº¤å·®ã—ã¦ã„ã‚‹
 			message.append(Messages.getString("slalom.AnswerCheckMessage1")); //$NON-NLS-1$
-		if ((result & 2) == 2) // •Â‚¶‚Ä‚¢‚È‚¢ü‚ª‚ ‚é\n
+		if ((result & 2) == 2) // é–‰ã˜ã¦ã„ãªã„ç·šãŒã‚ã‚‹\n
 			message.append(Messages.getString("slalom.AnswerCheckMessage2")); //$NON-NLS-1$
-		if ((result & 4) == 4) // •¡”‚Ìü‚ª‚ ‚é\n
+		if ((result & 4) == 4) // è¤‡æ•°ã®ç·šãŒã‚ã‚‹\n
 			message.append(Messages.getString("slalom.AnswerCheckMessage3")); //$NON-NLS-1$
-		if ((result & 8) == 8) // ü‚ª‚È‚¢\n
+		if ((result & 8) == 8) // ç·šãŒãªã„\n
 			message.append(Messages.getString("slalom.AnswerCheckMessage4")); //$NON-NLS-1$
-		if ((result & 16) == 16) // –å‚Ì’Ê‚è•û‚ÌŠÔˆá‚¢‚ª‚ ‚é\n
+		if ((result & 16) == 16) // é–€ã®é€šã‚Šæ–¹ã®é–“é•ã„ãŒã‚ã‚‹\n
 			message.append(Messages.getString("slalom.AnswerCheckMessage5")); //$NON-NLS-1$
-		if ((result & 32) == 32) // ’Ê‚Á‚Ä‚¢‚È‚¢–å‚ª‚ ‚é\n
+		if ((result & 32) == 32) // é€šã£ã¦ã„ãªã„é–€ãŒã‚ã‚‹\n
 			message.append(Messages.getString("slalom.AnswerCheckMessage6")); //$NON-NLS-1$
-		if ((result & 64) == 64) // •¡”‰ñ’Ê‚Á‚½–å‚ª‚ ‚é\n
+		if ((result & 64) == 64) // è¤‡æ•°å›é€šã£ãŸé–€ãŒã‚ã‚‹\n
 			message.append(Messages.getString("slalom.AnswerCheckMessage7")); //$NON-NLS-1$
-		if ((result & 256) == 256) // –å‚ğ’Ê‚é‡”Ô‚ªŒë‚Á‚Ä‚¢‚é\n
+		if ((result & 256) == 256) // é–€ã‚’é€šã‚‹é †ç•ªãŒèª¤ã£ã¦ã„ã‚‹\n
 			message.append(Messages.getString("slalom.AnswerCheckMessage8")); //$NON-NLS-1$
-		if ((result & 512) == 512) // ›‚ğ’Ê‚Á‚Ä‚¢‚È‚¢\n
+		if ((result & 512) == 512) // â—‹ã‚’é€šã£ã¦ã„ãªã„\n
 			message.append(Messages.getString("slalom.AnswerCheckMessage9")); //$NON-NLS-1$
 		return message.toString();
 	}

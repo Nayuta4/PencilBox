@@ -34,10 +34,10 @@ public class BoardCopier extends BoardCopierBase {
 	}
 
 	/**
-	 * Î‚ß‚S•ûŒü‚ğ‰ñ“]‚·‚é
-	 * @param direction •ûŒü
-	 * @param rotation ‰ñ“]”Ô†
-	 * @return ‰ñ“]Œã‚Ì”Ô†
+	 * æ–œã‚ï¼”æ–¹å‘ã‚’å›è»¢ã™ã‚‹
+	 * @param direction æ–¹å‘
+	 * @param rotation å›è»¢ç•ªå·
+	 * @return å›è»¢å¾Œã®ç•ªå·
 	 */
 	public static int rotateDirection(int direction, int rotation) {
 		switch (rotation) {
@@ -45,14 +45,14 @@ public class BoardCopier extends BoardCopierBase {
 			case 1 :
 			case 2 :
 			case 3 :
-				direction = (direction + rotation) % 4 + 4; // ”Ô†‚ğ1‚Â‚¸‚ç‚·
+				direction = (direction + rotation) % 4 + 4; // ç•ªå·ã‚’1ã¤ãšã‚‰ã™
 				break;
 			case 4 :
 			case 5 :
 			case 6 :
 			case 7 :
-				direction = (direction + rotation) % 4 + 4;  // ”Ô†‚ğ1‚Â‚¸‚ç‚µ‚Ä
-				if ((direction&1)==1)                        // 5(LD)‚Æ7(RU)‚ğ“ü‚ê‘Ö‚¦‚é
+				direction = (direction + rotation) % 4 + 4;  // ç•ªå·ã‚’1ã¤ãšã‚‰ã—ã¦
+				if ((direction&1)==1)                        // 5(LD)ã¨7(RU)ã‚’å…¥ã‚Œæ›¿ãˆã‚‹
 					direction = (direction^2);
 				break;
 		}

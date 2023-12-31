@@ -20,7 +20,7 @@ public class Colors {
 		ColorEntry.complete(LIST);
 		SIZE = LIST.length;
 		INDEX = makeIndex(LIST);
-		// ��őI�΂ꂽ�g�p����F�̒�����brightness�őI������
+		// 上で選ばれた使用する色の中からbrightnessで選択する
 		DARK_LIST = selectDarkColor(LIST, 0.91f, true);
 		DARK_INDEX = makeIndex(DARK_LIST);
 		DARK_SIZE = DARK_LIST.length;
@@ -126,8 +126,8 @@ public class Colors {
 			index[y] = t;
 		}
 		/*
-		* color�ƑΉ�������̂�SIZE��mod����邾�����ƁAmod�������ꍇ�A
-		* �����F�ł���֌W���Œ肵�Ă��܂��̂ŁASIZE�ɂ�鏤���l������B
+		* colorと対応させるのにSIZEのmodを取るだけだと、modが同じ場合、
+		* 同じ色である関係が固定してしまうので、SIZEによる商も考慮する。
 		*/
 		secondIndex = random.nextInt(100000);
 	}

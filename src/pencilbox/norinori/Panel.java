@@ -12,7 +12,7 @@ import pencilbox.common.gui.PanelBase;
 
 
 /**
- * �u�̂�̂�v�p�l���N���X
+ * 「のりのり」パネルクラス
  */
 public class Panel extends PanelBase {
 
@@ -26,7 +26,7 @@ public class Panel extends PanelBase {
 	public Panel() {
 		setGridColor(Color.BLACK);
 		setMarkStyle(3);
-		successColor = new Color(0xCCEECC); // ���������̈�̐F
+		successColor = new Color(0xCCEECC); // 完成した領域の色
 	}
 
 	protected void setBoard(BoardBase aBoard) {
@@ -65,7 +65,7 @@ public class Panel extends PanelBase {
 				paintCell(g, p);
 			} else if (isIndicateErrorMode()) {
 				int s = board.getArea(p).getBlock().size();
-				if (s == 2) { // ���������̈�̍��}�X�ȊO�̃}�X��h��
+				if (s == 2) { // 完成した領域の黒マス以外のマスを塗る
 					g.setColor(successColor);
 //				} else if (s > 2) {
 //					g.setColor(getErrorColor());
@@ -80,7 +80,7 @@ public class Panel extends PanelBase {
 	}
 
 	/**
-	 * �}�X�̏�Ԃ�`�悷��
+	 * マスの状態を描画する
 	 * @param g
 	 */
 	protected void drawCells(Graphics2D g) {

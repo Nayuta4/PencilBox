@@ -1,7 +1,7 @@
 package pencilbox.kurodoko;
 
 /**
- * 「黒マスはどこだ」数字クラス
+ * 縲碁ｻ偵�槭せ縺ｯ縺ｩ縺薙□縲肴焚蟄励け繝ｩ繧ｹ
  */
 class Number {
 

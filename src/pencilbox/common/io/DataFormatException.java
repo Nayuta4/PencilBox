@@ -6,8 +6,8 @@ package pencilbox.common.io;
 import pencilbox.common.core.PencilBoxException;
 
 /**
- * PencilBox�p��O�N���X
- * ���̃t�@�C���t�H�[�}�b�g�ُ�ɑ΂��Ďg�p������肾���C���̂Ƃ���قƂ�Ǌ��p����Ă��Ȃ�
+ * PencilBox用例外クラス
+ * 問題のファイルフォーマット異常に対して使用するつもりだが，今のところほとんど活用されていない
  */
 public class DataFormatException extends PencilBoxException {
 

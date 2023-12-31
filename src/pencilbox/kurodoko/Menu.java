@@ -4,7 +4,7 @@ import pencilbox.common.gui.MenuBase;
 import pencilbox.resource.Messages;
 
 /**
- * 「黒マスはどこだ」メニュークラス
+ * 縲碁ｻ偵�槭せ縺ｯ縺ｩ縺薙□縲阪Γ繝九Η繝ｼ繧ｯ繝ｩ繧ｹ
  */
 public class Menu extends MenuBase {
 

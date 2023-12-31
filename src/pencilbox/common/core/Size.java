@@ -1,7 +1,7 @@
 package pencilbox.common.core;
 
 /**
- * ”Õ–ÊƒTƒCƒY‚ð•\‚·ƒNƒ‰ƒX
+ * ç›¤é¢ã‚µã‚¤ã‚ºã‚’è¡¨ã™ã‚¯ãƒ©ã‚¹
  */
 public class Size {
 
@@ -9,9 +9,9 @@ public class Size {
 	private int cols;
 
 	/**
-	 * ƒTƒCƒYƒIƒuƒWƒFƒNƒg‚ðì‚é
-	 * @param r s”
-	 * @param c —ñ”
+	 * ã‚µã‚¤ã‚ºã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œã‚‹
+	 * @param r è¡Œæ•°
+	 * @param c åˆ—æ•°
 	 */
 	public Size(int r, int c){
 		this.rows = r;
@@ -19,23 +19,23 @@ public class Size {
 	}
 
 	/**
-	 * ƒTƒCƒYƒIƒuƒWƒFƒNƒg‚ð•¡»‚·‚é 
-	 * @param size ƒRƒs[Œ³‚ÌƒTƒCƒY
+	 * ã‚µã‚¤ã‚ºã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¤‡è£½ã™ã‚‹ 
+	 * @param size ã‚³ãƒ”ãƒ¼å…ƒã®ã‚µã‚¤ã‚º
 	 */
 	public void copy(Size size){
 		this.rows = size.getRows();
 		this.cols = size.getCols();
 	}
 	/**
-	 * s”
-	 * @return s”
+	 * è¡Œæ•°
+	 * @return è¡Œæ•°
 	 */
 	final public int getRows() {
 		return rows;
 	}
 	/**
-	 * —ñ”
-	 * @return —ñ”
+	 * åˆ—æ•°
+	 * @return åˆ—æ•°
 	 */
 	final public int getCols() {
 		return cols;

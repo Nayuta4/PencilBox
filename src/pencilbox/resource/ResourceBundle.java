@@ -132,7 +132,7 @@ public class ResourceBundle extends ListResourceBundle {
     { "IndexLettersDialog.labelCols"                , "Cols:"                                                      } ,
     { "IndexLettersDialog.labelRows"                , "Rows:"                                                      } ,
     { "ExchangeNumbersDialog.title"                 , "Exchange Numbers"                                           } ,
-    { "ExchangeNumbersDialog.label1"                , "A NumberÅF"                                                  } ,
+    { "ExchangeNumbersDialog.label1"                , "A NumberÔºö"                                                  } ,
     { "ExchangeNumbersDialog.label2"                , "Another Number:"                                            } ,
     { "ExchangeNumbersDialog.buttonUpdate"          , "Exchange"                                                   } ,
 

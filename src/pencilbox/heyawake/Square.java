@@ -3,54 +3,54 @@ package pencilbox.heyawake;
 import pencilbox.common.core.Address;
 
 /**
- * u‚Ö‚â‚í‚¯v•”‰®ƒNƒ‰ƒX
+ * ã€Œã¸ã‚„ã‚ã‘ã€éƒ¨å±‹ã‚¯ãƒ©ã‚¹
  */
 public class Square extends pencilbox.common.core.SquareBase {
 
 	static final int ANY = -1;
 
 	private int number;
-	private int nBlack;  // •Šm’èƒ}ƒX”
-	private int nWhite;  // ”’Šm’èƒ}ƒX”
+	private int nBlack;  // é»’ç¢ºå®šãƒã‚¹æ•°
+	private int nWhite;  // ç™½ç¢ºå®šãƒã‚¹æ•°
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * —¼‘ÎŠp“_‚ÌÀ•W‚Æ”š‚©‚ç•”‰®‚ğì¬
-	 * @param ra ˆê•û‚ÌŠp‚ÌsÀ•W
-	 * @param ca ˆê•û‚ÌŠp‚Ì—ñÀ•W
-	 * @param rb ‘¼•û‚ÌŠp‚ÌsÀ•W
-	 * @param cb ‘¼•û‚ÌŠp‚Ì—ñÀ•W
-	 * @param number •”‰®‚Ì”š
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * ä¸¡å¯¾è§’ç‚¹ã®åº§æ¨™ã¨æ•°å­—ã‹ã‚‰éƒ¨å±‹ã‚’ä½œæˆ
+	 * @param ra ä¸€æ–¹ã®è§’ã®è¡Œåº§æ¨™
+	 * @param ca ä¸€æ–¹ã®è§’ã®åˆ—åº§æ¨™
+	 * @param rb ä»–æ–¹ã®è§’ã®è¡Œåº§æ¨™
+	 * @param cb ä»–æ–¹ã®è§’ã®åˆ—åº§æ¨™
+	 * @param number éƒ¨å±‹ã®æ•°å­—
 	 */
 	public Square(int ra, int ca, int rb, int cb, int number){
 		super(ra, ca, rb, cb);
 		this.setNumber(number);
 	}
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * —¼‘ÎŠp“_‚ÌÀ•W‚©‚ç ”š‚È‚µ‚Ì•”‰®‚ğì¬
-	 * @param ra ˆê•û‚ÌŠp‚ÌsÀ•W
-	 * @param ca ˆê•û‚ÌŠp‚Ì—ñÀ•W
-	 * @param rb ‘¼•û‚ÌŠp‚ÌsÀ•W
-	 * @param cb ‘¼•û‚ÌŠp‚Ì—ñÀ•W
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * ä¸¡å¯¾è§’ç‚¹ã®åº§æ¨™ã‹ã‚‰ æ•°å­—ãªã—ã®éƒ¨å±‹ã‚’ä½œæˆ
+	 * @param ra ä¸€æ–¹ã®è§’ã®è¡Œåº§æ¨™
+	 * @param ca ä¸€æ–¹ã®è§’ã®åˆ—åº§æ¨™
+	 * @param rb ä»–æ–¹ã®è§’ã®è¡Œåº§æ¨™
+	 * @param cb ä»–æ–¹ã®è§’ã®åˆ—åº§æ¨™
 	 */
 	public Square(int ra, int ca, int rb, int cb){
 		super(ra, ca, rb, cb);
 		this.setNumber(ANY);
 	}
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * —¼‘ÎŠp“_‚ÌÀ•W‚©‚ç ”š‚È‚µ‚Ì•”‰®‚ğì¬
-	 * @param posA ˆê•û‚ÌŠp‚ÌÀ•W
-	 * @param posB ‘¼•û‚ÌŠp‚ÌÀ•W
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * ä¸¡å¯¾è§’ç‚¹ã®åº§æ¨™ã‹ã‚‰ æ•°å­—ãªã—ã®éƒ¨å±‹ã‚’ä½œæˆ
+	 * @param posA ä¸€æ–¹ã®è§’ã®åº§æ¨™
+	 * @param posB ä»–æ–¹ã®è§’ã®åº§æ¨™
 	 */
 	public Square(Address posA, Address posB) {
 		this(posA.r(), posA.c(), posB.r(), posB.c());
 	}
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * ˆø”‚ÌlŠp‚Æ“¯‚¶À•W‚ÌlŠp‚ğì¬‚·‚éB
-	 * @param s lŠp
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * å¼•æ•°ã®å››è§’ã¨åŒã˜åº§æ¨™ã®å››è§’ã‚’ä½œæˆã™ã‚‹ã€‚
+	 * @param s å››è§’
 	 */
 	public Square(Square s) {
 		this(s.r0(), s.c0(), s.r1(), s.c1());

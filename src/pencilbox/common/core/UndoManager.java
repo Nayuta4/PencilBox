@@ -3,8 +3,8 @@ package pencilbox.common.core;
 import java.util.Vector;
 
 /**
- * ƒAƒ“ƒhƒDŠÇ—ƒNƒ‰ƒX
- * javax.swing.undo.UndoManager ‚ğQl‚É•K—v‚È•”•ª‚Ì‚İæ‚èo‚µ‚Äì¬ 
+ * ã‚¢ãƒ³ãƒ‰ã‚¥ç®¡ç†ã‚¯ãƒ©ã‚¹
+ * javax.swing.undo.UndoManager ã‚’å‚è€ƒã«å¿…è¦ãªéƒ¨åˆ†ã®ã¿å–ã‚Šå‡ºã—ã¦ä½œæˆ 
  */
 public class UndoManager {
 
@@ -12,8 +12,8 @@ public class UndoManager {
 	private int indexOfNextAdd;
 	private BoardBase board;
 	private boolean recordUndo = true;
-	private boolean compoundUndo = false; // ‹L˜^‚·‚é•¡”‚Ì‘€ì‚ğˆê‚Â‚É‚Ü‚Æ‚ß‚é‚©‚Ç‚¤‚©
-	private CompoundStep currentCompoundEdit = null; // Œ»İ‚Ì‘€ì
+	private boolean compoundUndo = false; // è¨˜éŒ²ã™ã‚‹è¤‡æ•°ã®æ“ä½œã‚’ä¸€ã¤ã«ã¾ã¨ã‚ã‚‹ã‹ã©ã†ã‹
+	private CompoundStep currentCompoundEdit = null; // ç¾åœ¨ã®æ“ä½œ
 
 	/**
 	 * Creates a new <code>UndoManager</code>.
@@ -85,21 +85,21 @@ public class UndoManager {
 	 */
 	public synchronized boolean addEdit(AbstractStep edit) {
 //		System.out.println("add edit " + edit);
-		// Œ»İˆÊ’u‚æ‚èŒã‚ë‚ğíœ
+		// ç¾åœ¨ä½ç½®ã‚ˆã‚Šå¾Œã‚ã‚’å‰Šé™¤
         trimEdits(indexOfNextAdd, edits.size()-1);
 		if (isCompoundUndo()) {
 			currentCompoundEdit.addEdit(edit);
 			return true;
 		} else {
-        	// V‚µ‚¢‘€ì‚ªÅ‰‚Ì‘€ì‚È‚çC’Ç‰Á‚·‚é
-			// ‚»‚¤‚Å‚È‚¯‚ê‚ÎCV‚µ‚¢‘€ì‚ğÅŒã‚Ì‘€ì‚Æ‡¬‚Å‚«‚é‚©‚ğ’²‚×C
-			// ‡¬‚Å‚«‚È‚¯‚ê‚ÎCV‚µ‚¢‘€ì‚ğ’Ç‰Á‚·‚éB
+        	// æ–°ã—ã„æ“ä½œãŒæœ€åˆã®æ“ä½œãªã‚‰ï¼Œè¿½åŠ ã™ã‚‹
+			// ãã†ã§ãªã‘ã‚Œã°ï¼Œæ–°ã—ã„æ“ä½œã‚’æœ€å¾Œã®æ“ä½œã¨åˆæˆã§ãã‚‹ã‹ã‚’èª¿ã¹ï¼Œ
+			// åˆæˆã§ããªã‘ã‚Œã°ï¼Œæ–°ã—ã„æ“ä½œã‚’è¿½åŠ ã™ã‚‹ã€‚
 			AbstractStep last = lastEdit();
 			if (last == null || last.attachEdit(edit) == false) {
 				edits.addElement(edit);
 			} else {
 			}
-			// Œ»İˆÊ’u‚ğXV
+			// ç¾åœ¨ä½ç½®ã‚’æ›´æ–°
 			indexOfNextAdd = edits.size();
 			return true;
 		}
@@ -184,7 +184,7 @@ public class UndoManager {
 	}
 
 	/**
-	 * ˆø”‚Éw’è‚µ‚½è”‚Ü‚ÅƒAƒ“ƒhƒD‚Ü‚½‚ÍƒŠƒhƒD‚ğŒJ‚è•Ô‚µ‚·
+	 * å¼•æ•°ã«æŒ‡å®šã—ãŸæ‰‹æ•°ã¾ã§ã‚¢ãƒ³ãƒ‰ã‚¥ã¾ãŸã¯ãƒªãƒ‰ã‚¥ã‚’ç¹°ã‚Šè¿”ã—ã™
 	 * @param n
 	 */
 	public void jumpTo(int n) {
@@ -203,8 +203,8 @@ public class UndoManager {
 	}
 
 	/**
-	 * ˆø”‚Ì—š—ğ‚ğƒRƒs[‚·‚éB”Õ–Ê•¡»‚Ég—p‚·‚éB
-	 * @param um •¡»‚à‚ÆUndoManager
+	 * å¼•æ•°ã®å±¥æ­´ã‚’ã‚³ãƒ”ãƒ¼ã™ã‚‹ã€‚ç›¤é¢è¤‡è£½æ™‚ã«ä½¿ç”¨ã™ã‚‹ã€‚
+	 * @param um è¤‡è£½ã‚‚ã¨UndoManager
 	 */
 	public void copyEdits(UndoManager um) {
 		UndoManager src = um;

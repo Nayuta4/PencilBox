@@ -2,7 +2,7 @@ package pencilbox.common.core;
 
 
 /**
- * ®”’l‚ÌÀ•W‚ğ•\‚·ƒNƒ‰ƒX
+ * æ•´æ•°å€¤ã®åº§æ¨™ã‚’è¡¨ã™ã‚¯ãƒ©ã‚¹
  */
 public class Address implements Comparable<Address> {
 
@@ -23,7 +23,7 @@ public class Address implements Comparable<Address> {
 					newAddress[r+1][c+1] = ADDRESS[r+1][c+1];
 				} else {
 					newAddress[r+1][c+1] = new Address(r, c);
-//					System.out.println(newAddress[r+1][c+1].toString() + " ‚ğì¬‚µ‚½");
+//					System.out.println(newAddress[r+1][c+1].toString() + " ã‚’ä½œæˆã—ãŸ");
 				}
 		MAX = m;
 		ADDRESS = newAddress;
@@ -35,37 +35,37 @@ public class Address implements Comparable<Address> {
 	}
 
 	/**
-	 *  ”ÕŠOÀ•W
+	 *  ç›¤å¤–åº§æ¨™
 	 */
 	public static final Address NOWHERE = address(-1, -1);
 
 	/**
-	 *  sÀ•W
+	 *  è¡Œåº§æ¨™
 	 */
 	private final int r;
 	/**
-	 *  —ñÀ•W
+	 *  åˆ—åº§æ¨™
 	 */
 	private final int c;
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	 */
 	protected Address(){
 		this(0,0);
 	}
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^Cˆø”‚ÌÀ•W‚Æ“™‚µ‚¢À•W‚Éİ’è
-	 * @param pos İ’è‚·‚éÀ•W
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼Œå¼•æ•°ã®åº§æ¨™ã¨ç­‰ã—ã„åº§æ¨™ã«è¨­å®š
+	 * @param pos è¨­å®šã™ã‚‹åº§æ¨™
 	 */
 	protected Address(Address pos){
 		this.r = pos.r;
 		this.c = pos.c;
 	}
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^Cˆø”‚ÌÀ•W‚Éİ’è
-	 * @param r İ’è‚·‚ésÀ•W
-	 * @param c İ’è‚·‚é—ñÀ•W
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼Œå¼•æ•°ã®åº§æ¨™ã«è¨­å®š
+	 * @param r è¨­å®šã™ã‚‹è¡Œåº§æ¨™
+	 * @param c è¨­å®šã™ã‚‹åˆ—åº§æ¨™
 	 */
 	protected Address(int r, int c){
 		this.r = r;
@@ -73,26 +73,26 @@ public class Address implements Comparable<Address> {
 	}
 
 	/**
-	 * ƒtƒ@ƒNƒgƒŠƒƒ\ƒbƒh
+	 * ãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¡ã‚½ãƒƒãƒ‰
 	 */
 	public static Address address() {
 		return new Address();
 	}
 
 	/**
-	 * ƒtƒ@ƒNƒgƒŠƒƒ\ƒbƒh
-	 * @param pos À•W
-	 * @return ˆø”À•W‚Æ“¯‚¶À•W
+	 * ãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¡ã‚½ãƒƒãƒ‰
+	 * @param pos åº§æ¨™
+	 * @return å¼•æ•°åº§æ¨™ã¨åŒã˜åº§æ¨™
 	 */
 	public static Address address(Address pos) {
 		return new Address(pos);
 	}
 
 	/**
-	 * —^‚¦‚ç‚ê‚½À•W‚ÌAddress‚ğæ“¾‚·‚é
-	 * @param r sÀ•W
-	 * @param c —ñÀ•W
-	 * @return ˆø”À•W‚ğ‚à‚ÂÀ•W
+	 * ä¸ãˆã‚‰ã‚ŒãŸåº§æ¨™ã®Addressã‚’å–å¾—ã™ã‚‹
+	 * @param r è¡Œåº§æ¨™
+	 * @param c åˆ—åº§æ¨™
+	 * @return å¼•æ•°åº§æ¨™ã‚’ã‚‚ã¤åº§æ¨™
 	 */
 	public static Address address(int r, int c){
 		if (r >= -1 && r <= MAX)
@@ -102,7 +102,7 @@ public class Address implements Comparable<Address> {
 	}
 
 	/**
-	 * ”ÕŠOÀ•W‚ğ•Ô‚·
+	 * ç›¤å¤–åº§æ¨™ã‚’è¿”ã™
 	 * @return
 	 */
 	public static Address nowhere() {
@@ -121,9 +121,9 @@ public class Address implements Comparable<Address> {
 		return c;
 	}
 	/**
-	 * ˆø”‚ÌÀ•W‚Æ“™‚µ‚¢‚©‚ğ”äŠr‚·‚é
-	 * @param o ”äŠr‘ÎÛ
-	 * @return ‚±‚ÌÀ•W‚Æˆø”‚ÌÀ•W‚ª“™‚µ‚¯‚ê‚Î true
+	 * å¼•æ•°ã®åº§æ¨™ã¨ç­‰ã—ã„ã‹ã‚’æ¯”è¼ƒã™ã‚‹
+	 * @param o æ¯”è¼ƒå¯¾è±¡
+	 * @return ã“ã®åº§æ¨™ã¨å¼•æ•°ã®åº§æ¨™ãŒç­‰ã—ã‘ã‚Œã° true
 	 */
 	public boolean equals(Object o) {
 		if (!(o instanceof Address))
@@ -137,10 +137,10 @@ public class Address implements Comparable<Address> {
 			return false;
 	}
 	/**
-	 * ˆø”‚ÌÀ•W‚Æ“™‚µ‚¢‚©‚ğ”äŠr‚·‚é
-	 * @param rr ”äŠr‘ÎÛ‚ÌsÀ•W
-	 * @param cc ”äŠr‘ÎÛ‚Ì—ñÀ•W
-	 * @return ‚±‚ÌÀ•W‚Æˆø”‚ÌÀ•W‚ª“™‚µ‚¯‚ê‚Î true
+	 * å¼•æ•°ã®åº§æ¨™ã¨ç­‰ã—ã„ã‹ã‚’æ¯”è¼ƒã™ã‚‹
+	 * @param rr æ¯”è¼ƒå¯¾è±¡ã®è¡Œåº§æ¨™
+	 * @param cc æ¯”è¼ƒå¯¾è±¡ã®åˆ—åº§æ¨™
+	 * @return ã“ã®åº§æ¨™ã¨å¼•æ•°ã®åº§æ¨™ãŒç­‰ã—ã‘ã‚Œã° true
 	 */
 	public boolean equals(int rr, int cc) {
 		if (rr == r && cc == c)
@@ -152,9 +152,9 @@ public class Address implements Comparable<Address> {
 		return r * 1000 + c;
 	}
 //	/**
-//	 * ˆø”‚ÌÀ•W‚Æã‰º¶‰E‚É—×Ú‚µ‚Ä‚¢‚é‚©
+//	 * å¼•æ•°ã®åº§æ¨™ã¨ä¸Šä¸‹å·¦å³ã«éš£æ¥ã—ã¦ã„ã‚‹ã‹
 //	 * @param address
-//	 * @return —×Ú‚µ‚Ä‚¢‚ê‚Î true
+//	 * @return éš£æ¥ã—ã¦ã„ã‚Œã° true
 //	 */
 //	public boolean isNextTo(Address address) {
 //		if ((address.r == r && (address.c == c-1 || address.c == c+1))
@@ -164,9 +164,9 @@ public class Address implements Comparable<Address> {
 //			return false;
 //	}
 //	/**
-//	 * ˆø”‚ÌÀ•W‚Æ“¯‚¶s‚Ü‚½‚Í—ñ‚©
-//	 * @param address ”äŠr‚·‚é Address
-//	 * @return “¯ˆê’¼üó‚È‚ç true
+//	 * å¼•æ•°ã®åº§æ¨™ã¨åŒã˜è¡Œã¾ãŸã¯åˆ—ã‹
+//	 * @param address æ¯”è¼ƒã™ã‚‹ Address
+//	 * @return åŒä¸€ç›´ç·šçŠ¶ãªã‚‰ true
 //	 */
 //	public boolean isInLine(Address address) {
 //		if ( address.r == r || address.c == c )
@@ -175,17 +175,17 @@ public class Address implements Comparable<Address> {
 //			return false;
 //	}
 	/**
-	 * ”ÕŠOÀ•W‚©‚Ç‚¤‚©
-	 * @return À•W‚ª”ÕŠO“_‚Å‚ ‚ê‚Î true
+	 * ç›¤å¤–åº§æ¨™ã‹ã©ã†ã‹
+	 * @return åº§æ¨™ãŒç›¤å¤–ç‚¹ã§ã‚ã‚Œã° true
 	 */
 	public boolean isNowhere() {
 		return (r==-1 && c==-1);
 	}
 
 	/** 
-	 * ‡˜‚Ì’è‹`
-	 * sÀ•W r ‚ª¬‚³‚¢•û‚ª‘OC
-	 * sÀ•W‚ª“™‚µ‚¯‚ê‚ÎC—ñÀ•W c ‚ª¬‚³‚¢•û‚ª‘OD
+	 * é †åºã®å®šç¾©
+	 * è¡Œåº§æ¨™ r ãŒå°ã•ã„æ–¹ãŒå‰ï¼Œ
+	 * è¡Œåº§æ¨™ãŒç­‰ã—ã‘ã‚Œã°ï¼Œåˆ—åº§æ¨™ c ãŒå°ã•ã„æ–¹ãŒå‰ï¼
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
 	public int compareTo(Address o) {
@@ -199,10 +199,10 @@ public class Address implements Comparable<Address> {
 	}
 
 	/**
-	 * ƒ}ƒX‚©‚çƒ}ƒX‚Ö‚ÌŒü‚«‚ğæ“¾‚·‚é
-	 * @param pos0 n“_ƒ}ƒXÀ•W
-	 * @param pos1 I“_ƒ}ƒXÀ•W
-	 * @return n“_‚©‚çI“_‚Ö‚ÌŒü‚«‚ğ•\‚·’è”‚ğ•Ô‚·B“¯ˆê—ñã‚É‚È‚¢ê‡‚Í-1‚ğ•Ô‚·B
+	 * ãƒã‚¹ã‹ã‚‰ãƒã‚¹ã¸ã®å‘ãã‚’å–å¾—ã™ã‚‹
+	 * @param pos0 å§‹ç‚¹ãƒã‚¹åº§æ¨™
+	 * @param pos1 çµ‚ç‚¹ãƒã‚¹åº§æ¨™
+	 * @return å§‹ç‚¹ã‹ã‚‰çµ‚ç‚¹ã¸ã®å‘ãã‚’è¡¨ã™å®šæ•°ã‚’è¿”ã™ã€‚åŒä¸€åˆ—ä¸Šã«ãªã„å ´åˆã¯-1ã‚’è¿”ã™ã€‚
 	 */
 	public static int getDirectionTo(Address pos0, Address pos1) {
 		int r0 = pos0.r();
@@ -225,16 +225,16 @@ public class Address implements Comparable<Address> {
 	}
 
 	/**
-	 * ƒ}ƒX‚Ö‚Ì‚ğæ“¾‚·‚é
-	 * @param pos I“_ƒ}ƒXÀ•W
-	 * @return I“_ƒ}ƒX‚Ö‚ÌŒü‚«‚ğ•\‚·’è”‚ğ•Ô‚·B“¯ˆê—ñã‚É‚È‚¢ê‡‚Í-1‚ğ•Ô‚·B
+	 * ãƒã‚¹ã¸ã®ã‚’å–å¾—ã™ã‚‹
+	 * @param pos çµ‚ç‚¹ãƒã‚¹åº§æ¨™
+	 * @return çµ‚ç‚¹ãƒã‚¹ã¸ã®å‘ãã‚’è¡¨ã™å®šæ•°ã‚’è¿”ã™ã€‚åŒä¸€åˆ—ä¸Šã«ãªã„å ´åˆã¯-1ã‚’è¿”ã™ã€‚
 	 */
 	public int getDirectionTo(Address pos) {
 		return Address.getDirectionTo(this, pos);
 	}
 
 	/**
-	 * ƒZƒ‹‚©‚çdirection •ûŒü‚ÌƒZƒ‹
+	 * ã‚»ãƒ«ã‹ã‚‰direction æ–¹å‘ã®ã‚»ãƒ«
 	 */
 	public static Address nextCell(Address p, int direction) {
 		int r = p.r();

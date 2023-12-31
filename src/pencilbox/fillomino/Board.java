@@ -15,7 +15,7 @@ import pencilbox.util.ArrayUtil;
 
 
 /**
- *  uƒtƒBƒ‹ƒIƒ~ƒmv”Õ–ÊƒNƒ‰ƒX
+ *  ã€Œãƒ•ã‚£ãƒ«ã‚ªãƒŸãƒã€ç›¤é¢ã‚¯ãƒ©ã‚¹
  */
 public class Board extends BoardBase {
 
@@ -25,8 +25,8 @@ public class Board extends BoardBase {
 	static final int LINE = 1;
 	static final int NOLINE = 0;
 
-	private int[][] state; // ‰ğ“š‚Ì”š
-	private int[][] number; // –â‘è‚Ì”š
+	private int[][] state; // è§£ç­”ã®æ•°å­—
+	private int[][] number; // å•é¡Œã®æ•°å­—
 	private int[][][] edge;
 
 	private Area[][] area;
@@ -79,10 +79,10 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ‚»‚Ìƒ}ƒX‚Í–â‘è‚Æ‚µ‚Ä”š‚ğ—^‚¦‚ç‚ê‚½ƒ}ƒX‚©‚Ç‚¤‚©
-	 * @param r ƒ}ƒX‚ÌsÀ•W
-	 * @param c ƒ}ƒX‚Ì—ñÀ•W
-	 * @return –â‘è”š‚Ìƒ}ƒX‚È‚ç true, ‰ğ“š‚·‚×‚«ƒ}ƒX‚È‚ç false
+	 * ãã®ãƒã‚¹ã¯å•é¡Œã¨ã—ã¦æ•°å­—ã‚’ä¸ãˆã‚‰ã‚ŒãŸãƒã‚¹ã‹ã©ã†ã‹
+	 * @param r ãƒã‚¹ã®è¡Œåº§æ¨™
+	 * @param c ãƒã‚¹ã®åˆ—åº§æ¨™
+	 * @return å•é¡Œæ•°å­—ã®ãƒã‚¹ãªã‚‰ true, è§£ç­”ã™ã¹ããƒã‚¹ãªã‚‰ false
 	 */
 	public boolean isStable(int r, int c) {
 		return number[r][c] != Board.BLANK;
@@ -160,7 +160,7 @@ public class Board extends BoardBase {
 		initAreas();
 	}
 	/**
-	 * Œ»İ‚Ì”Õ–Êó‘Ô‚ÉŠî‚Ã‚¢‚ÄC—Ìˆæ‚Ìİ’è‚ğs‚¤
+	 * ç¾åœ¨ã®ç›¤é¢çŠ¶æ…‹ã«åŸºã¥ã„ã¦ï¼Œé ˜åŸŸã®è¨­å®šã‚’è¡Œã†
 	 */
 	public void initAreas() {
 		ArrayUtil.initArrayObject2(area, null);
@@ -172,7 +172,7 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * w’è‚µ‚½ƒ}ƒX‚ğ‹N“_‚Æ‚µ‚Äƒ}ƒX‚Ì‚Â‚È‚ª‚è‚ğ’²‚×‚ÄArea‚ğì¬‚·‚é
+	 * æŒ‡å®šã—ãŸãƒã‚¹ã‚’èµ·ç‚¹ã¨ã—ã¦ãƒã‚¹ã®ã¤ãªãŒã‚Šã‚’èª¿ã¹ã¦Areaã‚’ä½œæˆã™ã‚‹
 	 * @param p
 	 */
 	void initArea(Address p) {
@@ -195,19 +195,19 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * ‚»‚Ìƒ}ƒX‚ÌŠ‘®‚·‚é—Ìˆæ‚ğæ“¾‚·‚é
-	 * ‚»‚Ìƒ}ƒX‚ª—Ìˆæ‚É‘®‚µ‚Ä‚¢‚È‚¢ê‡‚Í null ‚ğ•Ô‚·
+	 * ãã®ãƒã‚¹ã®æ‰€å±ã™ã‚‹é ˜åŸŸã‚’å–å¾—ã™ã‚‹
+	 * ãã®ãƒã‚¹ãŒé ˜åŸŸã«å±ã—ã¦ã„ãªã„å ´åˆã¯ null ã‚’è¿”ã™
 	 * @param p coordinate of the cell.
 	 * @return Returns the area.
 	 */
 	public Area getArea(Address p) {
-		// mergeArea ‚È‚Ç‚©‚çg—p‚·‚éê‡‚Ì‚½‚ß‚ÉCˆø”ƒ`ƒFƒbƒN‚ğs‚¤
+		// mergeArea ãªã©ã‹ã‚‰ä½¿ç”¨ã™ã‚‹å ´åˆã®ãŸã‚ã«ï¼Œå¼•æ•°ãƒã‚§ãƒƒã‚¯ã‚’è¡Œã†
 		if (!isOn(p))
 			return null;
 		return area[p.r()][p.c()];
 	}
 	/**
-	 * ”Õã‚Ìƒ}ƒX‚ÉC‚»‚Ìƒ}ƒX‚ÌŠ‘®‚·‚é—Ìˆæ‚ğİ’è‚·‚é
+	 * ç›¤ä¸Šã®ãƒã‚¹ã«ï¼Œãã®ãƒã‚¹ã®æ‰€å±ã™ã‚‹é ˜åŸŸã‚’è¨­å®šã™ã‚‹
 	 * @param p coordinate of the cell.
 	 * @param a The area to set.
 	 */
@@ -215,9 +215,9 @@ public class Board extends BoardBase {
 		area[p.r()][p.c()] = a;
 	}
 	/**
-	 * ƒ}ƒX‚É‰ğ“š”š‚ğ“ü—Í‚µCƒAƒhƒDƒŠƒXƒi[‚É’Ê’m‚·‚é
-	 * @param p ƒ}ƒXÀ•W
-	 * @param n “ü—Í‚·‚é”š
+	 * ãƒã‚¹ã«è§£ç­”æ•°å­—ã‚’å…¥åŠ›ã—ï¼Œã‚¢ãƒ‰ã‚¥ãƒªã‚¹ãƒŠãƒ¼ã«é€šçŸ¥ã™ã‚‹
+	 * @param p ãƒã‚¹åº§æ¨™
+	 * @param n å…¥åŠ›ã™ã‚‹æ•°å­—
 	 */
 	public void changeAnswerNumber(Address p, int n) {
 		int prev = getState(p);
@@ -233,9 +233,9 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ƒ}ƒX‚É–â‘è”š‚ğ“ü—Í‚µCƒAƒhƒDƒŠƒXƒi[‚É’Ê’m‚·‚é
-	 * @param p ƒ}ƒXÀ•W
-	 * @param n “ü—Í‚·‚é”š
+	 * ãƒã‚¹ã«å•é¡Œæ•°å­—ã‚’å…¥åŠ›ã—ï¼Œã‚¢ãƒ‰ã‚¥ãƒªã‚¹ãƒŠãƒ¼ã«é€šçŸ¥ã™ã‚‹
+	 * @param p ãƒã‚¹åº§æ¨™
+	 * @param n å…¥åŠ›ã™ã‚‹æ•°å­—
 	 */
 	public void changeFixedNumber(Address p, int n) {
 		int prev = getNumber(p);
@@ -302,9 +302,9 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ”š‚ğİ’èC•ÏX‚µ‚½‚Æ‚«‚Ì Area •¹‡ˆ—‚ğs‚¤
-	 * @param p •ÏX‚µ‚½ƒ}ƒX‚ÌÀ•W
-	 * @param number •ÏXŒã‚Ì”š
+	 * æ•°å­—ã‚’è¨­å®šï¼Œå¤‰æ›´ã—ãŸã¨ãã® Area ä½µåˆå‡¦ç†ã‚’è¡Œã†
+	 * @param p å¤‰æ›´ã—ãŸãƒã‚¹ã®åº§æ¨™
+	 * @param number å¤‰æ›´å¾Œã®æ•°å­—
 	 */
 	void mergeArea(Address p, int number) {
 		Area mergedArea = null;
@@ -330,9 +330,9 @@ public class Board extends BoardBase {
 		setArea(p, mergedArea);
 	}
 	/**
-	 * ”š‚ğ•ÏXCÁ‹‚µ‚½‚Æ‚«‚Ì Area •ªŠ„ˆ—‚ğs‚¤
-	 * @param p0 •ÏX‚µ‚½ƒ}ƒX‚ÌÀ•W
-	 * @param number •ÏXŒã‚Ì”š
+	 * æ•°å­—ã‚’å¤‰æ›´ï¼Œæ¶ˆå»ã—ãŸã¨ãã® Area åˆ†å‰²å‡¦ç†ã‚’è¡Œã†
+	 * @param p0 å¤‰æ›´ã—ãŸãƒã‚¹ã®åº§æ¨™
+	 * @param number å¤‰æ›´å¾Œã®æ•°å­—
 	 */
 	void splitArea(Address p0, int number) {
 		areaList.remove(getArea(p0));

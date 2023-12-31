@@ -9,15 +9,15 @@ import java.util.TreeSet;
 
 
 /**
- * —ÌˆæƒNƒ‰ƒX
- * •¡”‚ÌƒAƒhƒŒƒX‚ÌW‡
+ * é ˜åŸŸã‚¯ãƒ©ã‚¹
+ * è¤‡æ•°ã®ã‚¢ãƒ‰ãƒ¬ã‚¹ã®é›†åˆ
  */
 public class AreaBase implements Set<Address> {
 
 	private Set<Address> cellList;
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	 */
 	public AreaBase() {
 		cellList = new TreeSet<Address>();
@@ -26,7 +26,7 @@ public class AreaBase implements Set<Address> {
 		return cellList.toString();	
 	}
 	/**
-	 * ƒZƒ‹‚ğ—Ìˆæ‚É’Ç‰Á‚·‚é
+	 * ã‚»ãƒ«ã‚’é ˜åŸŸã«è¿½åŠ ã™ã‚‹
 	 * @param o
      * @return <tt>true</tt> if the collection changed as a result of the call.
 	 */
@@ -34,7 +34,7 @@ public class AreaBase implements Set<Address> {
 		return cellList.add(o);
 	}
 	/**
-	 * ƒZƒ‹‚ğ—Ìˆæ‚É’Ç‰Á‚·‚é
+	 * ã‚»ãƒ«ã‚’é ˜åŸŸã«è¿½åŠ ã™ã‚‹
 	 * @param r
 	 * @param c
      * @return <tt>true</tt> if this set did not already contain the specified
@@ -59,7 +59,7 @@ public class AreaBase implements Set<Address> {
 	}
 
 	/**
-	 * ƒZƒ‹‚ğ—Ìˆæ‚©‚çæ‚èœ‚­
+	 * ã‚»ãƒ«ã‚’é ˜åŸŸã‹ã‚‰å–ã‚Šé™¤ã
 	 * @param r
 	 * @param c
      * @return true if the set contained the specified element.
@@ -108,9 +108,9 @@ public class AreaBase implements Set<Address> {
 	}
 
 	/**
-	 * ‘ã•\ƒZƒ‹À•W‚ğˆê‚Â•Ô‚·B‚½‚¾‚µp0ˆÈŠO‚Æ‚·‚éB
+	 * ä»£è¡¨ã‚»ãƒ«åº§æ¨™ã‚’ä¸€ã¤è¿”ã™ã€‚ãŸã ã—p0ä»¥å¤–ã¨ã™ã‚‹ã€‚
 	 * @param p0
-	 * @return p0ˆÈŠO‚Ì‘ã•\ƒZƒ‹À•WCŠY“–‚·‚é‚à‚Ì‚ª‚È‚¯‚ê‚Î Address.NOWHERE
+	 * @return p0ä»¥å¤–ã®ä»£è¡¨ã‚»ãƒ«åº§æ¨™ï¼Œè©²å½“ã™ã‚‹ã‚‚ã®ãŒãªã‘ã‚Œã° Address.NOWHERE
 	 */
 	public Address getTopCell(Address p0) {
 		for (Address p : this) {
@@ -121,7 +121,7 @@ public class AreaBase implements Set<Address> {
 		return Address.NOWHERE;
 	}
 	/**
-	 * —Ìˆæ“à•”‚ÉŠÜ‚Ü‚ê‚é•ÓÀ•W‚ÌW‡‚ğ•Ô‚·
+	 * é ˜åŸŸå†…éƒ¨ã«å«ã¾ã‚Œã‚‹è¾ºåº§æ¨™ã®é›†åˆã‚’è¿”ã™
 	 * @return
 	 */
 	public ArrayList<SideAddress> innerBorders() {
@@ -138,7 +138,7 @@ public class AreaBase implements Set<Address> {
 	}
 
 	/**
-	 * —ÌˆæŠOü‚Ì•ÓÀ•W‚ÌW‡‚ğ•Ô‚·
+	 * é ˜åŸŸå¤–å‘¨ã®è¾ºåº§æ¨™ã®é›†åˆã‚’è¿”ã™
 	 * @return
 	 */
 	public ArrayList<SideAddress> outerBorders() {

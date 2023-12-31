@@ -10,14 +10,14 @@ import pencilbox.common.gui.PanelBase;
 
 
 /**
- * u”üpŠÙvƒpƒlƒ‹ƒNƒ‰ƒX
+ * ã€Œç¾è¡“é¤¨ã€ãƒ‘ãƒãƒ«ã‚¯ãƒ©ã‚¹
  */
 public class Panel extends PanelBase {
 
 	private Board board;
 
 	/**
-	 * Panel ‚ğ¶¬‚·‚é
+	 * Panel ã‚’ç”Ÿæˆã™ã‚‹
 	 */
 	public Panel() {
 		setMarkStyle(3);

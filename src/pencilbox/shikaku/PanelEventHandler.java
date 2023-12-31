@@ -9,15 +9,15 @@ import pencilbox.common.gui.PanelEventHandlerBase;
 
 
 /**
- * ulŠp‚ÉØ‚êvƒ}ƒEƒX^ƒL[‘€ìˆ—ƒNƒ‰ƒX
+ * ã€Œå››è§’ã«åˆ‡ã‚Œã€ãƒã‚¦ã‚¹ï¼ã‚­ãƒ¼æ“ä½œå‡¦ç†ã‚¯ãƒ©ã‚¹
  */
 public class PanelEventHandler extends PanelEventHandlerBase {
 
 	private Board board;
 
-	private int pivotR = -1;  // ƒhƒ‰ƒbƒO‚ÉŒÅ’è‚·‚é’¸“_‚ÌsÀ•W
-	private int pivotC = -1;  // ƒhƒ‰ƒbƒO‚ÉŒÅ’è‚·‚é’¸“_‚Ì—ñÀ•W
-//	private Square draggingSquare; // ƒhƒ‰ƒbƒO‚µ‚Ä¡‚Ü‚³‚É•`‚±‚¤‚Æ‚µ‚Ä‚¢‚élŠp
+	private int pivotR = -1;  // ãƒ‰ãƒ©ãƒƒã‚°æ™‚ã«å›ºå®šã™ã‚‹é ‚ç‚¹ã®è¡Œåº§æ¨™
+	private int pivotC = -1;  // ãƒ‰ãƒ©ãƒƒã‚°æ™‚ã«å›ºå®šã™ã‚‹é ‚ç‚¹ã®åˆ—åº§æ¨™
+//	private Square draggingSquare; // ãƒ‰ãƒ©ãƒƒã‚°ã—ã¦ä»Šã¾ã•ã«æã“ã†ã¨ã—ã¦ã„ã‚‹å››è§’
 	private int dragState = 0;
 	private int currentState = -1;
 	private Address pos3 = Address.NOWHERE;
@@ -33,22 +33,22 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/*
-	 * ulŠp‚ÉØ‚êvƒ}ƒEƒX‘€ì
+	 * ã€Œå››è§’ã«åˆ‡ã‚Œã€ãƒã‚¦ã‚¹æ“ä½œ
 	 * 
-	 * ¶ƒhƒ‰ƒbƒOƒ{ƒ^ƒ“‚ğ—£‚µ‚ÄlŠp‚ğŠm’è‚·‚é
-	 * Šù‘¶‚ÌlŠp‚ª‚È‚¯‚ê‚ÎCV‚µ‚¢lŠp‚ğì‚é
-	 * Šù‘¶‚ÌlŠp‚ª‚ ‚Á‚Ä‚Í‚¶‚ß‚Ìƒ}ƒX‚©‚ç“®‚©‚¸‚Éƒ{ƒ^ƒ“‚ğ—£‚µ‚½‚È‚çC‚»‚ÌlŠp‚ğÁ‚·
-	 * Šù‘¶‚ÌlŠp‚ª‚ ‚Á‚Ä‚Í‚¶‚ß‚Ìƒ}ƒX‚Æ•Ê‚Ìƒ}ƒX‚Åƒ{ƒ^ƒ“‚ğ—£‚µ‚½‚È‚çClŠp‚ğ•ÏX‚·‚é
-	 * Šù‘¶‚ÌlŠp‚ª‚ ‚Á‚Ä‚Í‚¶‚ß‚Ìƒ}ƒX‚É–ß‚Á‚Äƒ{ƒ^ƒ“‚ğ—£‚µ‚½‚È‚çC‰½‚à‚µ‚È‚¢
+	 * å·¦ãƒ‰ãƒ©ãƒƒã‚°ãƒœã‚¿ãƒ³ã‚’é›¢ã—ã¦å››è§’ã‚’ç¢ºå®šã™ã‚‹
+	 * æ—¢å­˜ã®å››è§’ãŒãªã‘ã‚Œã°ï¼Œæ–°ã—ã„å››è§’ã‚’ä½œã‚‹
+	 * æ—¢å­˜ã®å››è§’ãŒã‚ã£ã¦ã¯ã˜ã‚ã®ãƒã‚¹ã‹ã‚‰å‹•ã‹ãšã«ãƒœã‚¿ãƒ³ã‚’é›¢ã—ãŸãªã‚‰ï¼Œãã®å››è§’ã‚’æ¶ˆã™
+	 * æ—¢å­˜ã®å››è§’ãŒã‚ã£ã¦ã¯ã˜ã‚ã®ãƒã‚¹ã¨åˆ¥ã®ãƒã‚¹ã§ãƒœã‚¿ãƒ³ã‚’é›¢ã—ãŸãªã‚‰ï¼Œå››è§’ã‚’å¤‰æ›´ã™ã‚‹
+	 * æ—¢å­˜ã®å››è§’ãŒã‚ã£ã¦ã¯ã˜ã‚ã®ãƒã‚¹ã«æˆ»ã£ã¦ãƒœã‚¿ãƒ³ã‚’é›¢ã—ãŸãªã‚‰ï¼Œä½•ã‚‚ã—ãªã„
 	 */
 	protected void leftPressed(Address pos) {
 		Square draggingSquare;
 		Square sq = board.getSquare(pos);
-		if (sq == null) { // n“_‚ÉlŠp‚ª‚È‚¢ê‡CV‚µ‚­lŠp‚ğì‚é
+		if (sq == null) { // å§‹ç‚¹ã«å››è§’ãŒãªã„å ´åˆï¼Œæ–°ã—ãå››è§’ã‚’ä½œã‚‹
 			draggingSquare = new Square(pos, pos);
-		} else { // n“_‚ÉŠù‘¶‚ÌlŠp‚ª‚ ‚éê‡C‚»‚ÌlŠp‚ğ•ÏX‚·‚é
+		} else { // å§‹ç‚¹ã«æ—¢å­˜ã®å››è§’ãŒã‚ã‚‹å ´åˆï¼Œãã®å››è§’ã‚’å¤‰æ›´ã™ã‚‹
 			draggingSquare = new Square(sq);
-			dragState = 1; // ƒhƒ‰ƒbƒOŠJn
+			dragState = 1; // ãƒ‰ãƒ©ãƒƒã‚°é–‹å§‹
 		}
 		fixPivot(draggingSquare, pos);
 		setDraggingSquare(draggingSquare);
@@ -68,14 +68,14 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 		} else if (pivotR == -1 && pivotC == -1) {
 //			draggingSquare.set(draggingSquare.r0, draggingSquare.c0, draggingSquare.r1, drggingSquare.c1());
 		}
-		dragState = 2; //ƒhƒ‰ƒbƒO’†
-		fixPivot(draggingSquare, pos); // ‚à‚µŒ»İÀ•W‚ªlŠp‚Ì’[‚Å‚ ‚ê‚ÎCŒÅ’è’¸“_‚ğXV
+		dragState = 2; //ãƒ‰ãƒ©ãƒƒã‚°ä¸­
+		fixPivot(draggingSquare, pos); // ã‚‚ã—ç¾åœ¨åº§æ¨™ãŒå››è§’ã®ç«¯ã§ã‚ã‚Œã°ï¼Œå›ºå®šé ‚ç‚¹ã‚’æ›´æ–°
 	}
 
 	/**
-	 * ƒhƒ‰ƒbƒO‚·‚é‚Æ‚«‚ÌŒÅ’è‚³‚ê‚é“_‚ğİ’è‚·‚éB
-	 * ‚à‚µ‚àƒhƒ‰ƒbƒO‚µ‚½ƒ}ƒX‚ªŠù‘¶‚ÌlŠp‚ÌŠOü‚È‚ç‚ÎC‚»‚¿‚ç‘¤‚ª“®‚«C”½‘Î‘¤‚ªŒÅ’è‚Æ‚È‚éB
-	 * ‚·‚Å‚ÉŒÅ’è‚³‚ê‚é“_‚ªŒˆ‚Ü‚Á‚Ä‚¢‚ê‚ÎC‰½‚à‚µ‚È‚¢B
+	 * ãƒ‰ãƒ©ãƒƒã‚°ã™ã‚‹ã¨ãã®å›ºå®šã•ã‚Œã‚‹ç‚¹ã‚’è¨­å®šã™ã‚‹ã€‚
+	 * ã‚‚ã—ã‚‚ãƒ‰ãƒ©ãƒƒã‚°ã—ãŸãƒã‚¹ãŒæ—¢å­˜ã®å››è§’ã®å¤–å‘¨ãªã‚‰ã°ï¼Œãã¡ã‚‰å´ãŒå‹•ãï¼Œåå¯¾å´ãŒå›ºå®šã¨ãªã‚‹ã€‚
+	 * ã™ã§ã«å›ºå®šã•ã‚Œã‚‹ç‚¹ãŒæ±ºã¾ã£ã¦ã„ã‚Œã°ï¼Œä½•ã‚‚ã—ãªã„ã€‚
 	 * @param s
 	 * @param p
 	 */
@@ -176,7 +176,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/*
-	 * ulŠp‚ÉØ‚êvƒL[‘€ì
+	 * ã€Œå››è§’ã«åˆ‡ã‚Œã€ã‚­ãƒ¼æ“ä½œ
 	 */
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {

@@ -9,7 +9,7 @@ import pencilbox.resource.Messages;
 
 
 /**
- * u‹´‚ğ‚©‚¯‚ëv”Õ–ÊƒNƒ‰ƒX
+ * ã€Œæ©‹ã‚’ã‹ã‘ã‚ã€ç›¤é¢ã‚¯ãƒ©ã‚¹
  */
 public class Board extends BoardBase {
 
@@ -41,10 +41,10 @@ public class Board extends BoardBase {
 		initChain();
 	}
 	/**
-	 * ƒ}ƒX‚É”š‚ğİ’è‚·‚é
-	 * @param r İ’è‚·‚éƒ}ƒX‚ÌsÀ•W
-	 * @param c İ’è‚·‚éƒ}ƒX‚Ì—ñÀ•W
-	 * @param n İ’è‚·‚é”š
+	 * ãƒã‚¹ã«æ•°å­—ã‚’è¨­å®šã™ã‚‹
+	 * @param r è¨­å®šã™ã‚‹ãƒã‚¹ã®è¡Œåº§æ¨™
+	 * @param c è¨­å®šã™ã‚‹ãƒã‚¹ã®åˆ—åº§æ¨™
+	 * @param n è¨­å®šã™ã‚‹æ•°å­—
 	 */
 	public void setNumber(int r, int c, int n) {
 		setNumber(Address.address(r, c), n);
@@ -63,9 +63,9 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * ”š‚ğ•ÏX‚·‚é
-	 * @param p ƒ}ƒXÀ•W
-	 * @param n •ÏXŒã‚Ì”š 0 ‚È‚ç”š‚ğÁ‚·
+	 * æ•°å­—ã‚’å¤‰æ›´ã™ã‚‹
+	 * @param p ãƒã‚¹åº§æ¨™
+	 * @param n å¤‰æ›´å¾Œã®æ•°å­— 0 ãªã‚‰æ•°å­—ã‚’æ¶ˆã™
 	 */
 	public void changeNumber(Address p, int n) {
 		int prev = getNumber(p);
@@ -77,10 +77,10 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * ƒ}ƒX‚Ì”š‚ğæ“¾‚·‚é
-	 * @param r İ’è‚·‚éƒ}ƒX‚ÌsÀ•W
-	 * @param c İ’è‚·‚éƒ}ƒX‚Ì—ñÀ•W
-	 * @return ƒ}ƒX‚Ì”š
+	 * ãƒã‚¹ã®æ•°å­—ã‚’å–å¾—ã™ã‚‹
+	 * @param r è¨­å®šã™ã‚‹ãƒã‚¹ã®è¡Œåº§æ¨™
+	 * @param c è¨­å®šã™ã‚‹ãƒã‚¹ã®åˆ—åº§æ¨™
+	 * @return ãƒã‚¹ã®æ•°å­—
 	 */
 	public int getNumber(int r, int c) {
 		return getNumber(Address.address(r, c));
@@ -93,29 +93,29 @@ public class Board extends BoardBase {
 			return 0;
 	}
 	/**
-	 * ‚»‚Ìƒ}ƒX‚ª”šƒ}ƒXi‹´‹rj‚©‚Ç‚¤‚©
-	 * @param p À•W
-	 * @return ”šƒ}ƒX‚È‚ç true
+	 * ãã®ãƒã‚¹ãŒæ•°å­—ãƒã‚¹ï¼ˆæ©‹è„šï¼‰ã‹ã©ã†ã‹
+	 * @param p åº§æ¨™
+	 * @return æ•°å­—ãƒã‚¹ãªã‚‰ true
 	 */
 	public boolean isPier(Address p) {
 		return pier[p.r()][p.c()] != null;
 	}
 
 	/**
-	 * ƒ}ƒX‚Ìó‘Ô‚ğæ“¾‚·‚é
-	 * @param r sÀ•W
-	 * @param c —ñÀ•W
-	 * @return ƒ}ƒX‚Ìó‘Ô
+	 * ãƒã‚¹ã®çŠ¶æ…‹ã‚’å–å¾—ã™ã‚‹
+	 * @param r è¡Œåº§æ¨™
+	 * @param c åˆ—åº§æ¨™
+	 * @return ãƒã‚¹ã®çŠ¶æ…‹
 	 */
 	public int getState(int r, int c) {
 		Address p = Address.address(r, c);
 		return getLine(p, Direction.VERT) + (getLine(p, Direction.HORIZ)<<2);
 	}
 	/**
-	 * ƒ}ƒX‚Ìó‘Ô‚ğİ’è‚·‚é
-	 * @param r sÀ•W
-	 * @param c —ñÀ•W
-	 * @param n ƒ}ƒX‚Ìó‘Ô
+	 * ãƒã‚¹ã®çŠ¶æ…‹ã‚’è¨­å®šã™ã‚‹
+	 * @param r è¡Œåº§æ¨™
+	 * @param c åˆ—åº§æ¨™
+	 * @param n ãƒã‚¹ã®çŠ¶æ…‹
 	 */
 	public void setState(int r, int c, int n) {
 		Address p = Address.address(r, c);
@@ -127,10 +127,10 @@ public class Board extends BoardBase {
 		setState(pos.r(), pos.c(), n);
 	}
 	/**
-	 * ƒ}ƒX‚ğ’Ê‰ß‚·‚é‹´‚Ì”‚ğ•Ô‚·
-	 * @param p À•W
-	 * @param d Œü‚«ic‚©‰¡j
-	 * @return@ƒ}ƒX‚ğ’Ê‰ß‚·‚é‹´‚Ì”
+	 * ãƒã‚¹ã‚’é€šéã™ã‚‹æ©‹ã®æ•°ã‚’è¿”ã™
+	 * @param p åº§æ¨™
+	 * @param d å‘ãï¼ˆç¸¦ã‹æ¨ªï¼‰
+	 * @returnã€€ãƒã‚¹ã‚’é€šéã™ã‚‹æ©‹ã®æ•°
 	 */
 	public int getLine(Address p, int d) {
 		if (getBridge(p, d) != null)
@@ -138,10 +138,10 @@ public class Board extends BoardBase {
 		return 0;
 	}
 	/**
-	 * ƒ}ƒX‚Ìã‚Ì‹´‚Ì”‚ğİ’è‚·‚é
-	 * @param p ƒ}ƒX
-	 * @param d Œü‚«ic‚©‰¡‚©j
-	 * @param n ‹´‚Ì–{”
+	 * ãƒã‚¹ã®ä¸Šã®æ©‹ã®æ•°ã‚’è¨­å®šã™ã‚‹
+	 * @param p ãƒã‚¹
+	 * @param d å‘ãï¼ˆç¸¦ã‹æ¨ªã‹ï¼‰
+	 * @param n æ©‹ã®æœ¬æ•°
 	 */
 	public void setLine(Address p, int d, int n) {
 		if (getBridge(p, d) != null)
@@ -149,9 +149,9 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ‚»‚Ìƒ}ƒX‚Ìã‚Å‹´‚ªŒğ·‚µ‚Ä‚¢‚é‚©‚©‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©
-	 * @param p À•W
-	 * @return ‚»‚Ìƒ}ƒX‚Ìã‚Å‹´‚ªŒğ·‚µ‚Ä‚¢‚ê‚Î true
+	 * ãã®ãƒã‚¹ã®ä¸Šã§æ©‹ãŒäº¤å·®ã—ã¦ã„ã‚‹ã‹ã‹ã£ã¦ã„ã‚‹ã‹ã©ã†ã‹
+	 * @param p åº§æ¨™
+	 * @return ãã®ãƒã‚¹ã®ä¸Šã§æ©‹ãŒäº¤å·®ã—ã¦ã„ã‚Œã° true
 	 */
 	public boolean hasCrossedBridge(Address p) {
 		int v = getLine(p, Direction.VERT);
@@ -160,8 +160,8 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * @param r sÀ•W
-	 * @param c —ñÀ•W
+	 * @param r è¡Œåº§æ¨™
+	 * @param c åˆ—åº§æ¨™
 	 * @return Returns the pier.
 	 */
 	public Pier getPier(int r, int c) {
@@ -175,11 +175,11 @@ public class Board extends BoardBase {
 		return pier[p.r()][p.c()] = pi;
 	}
 	/**
-	 * ‚»‚Ìƒ}ƒXã‚Ì‹´‚ğæ“¾‚·‚é
-	 * @param r sÀ•W
-	 * @param c —ñÀ•W
-	 * @param dir c‚Ì‹´‚©‰¡‚Ì‹´‚©
-	 * @return@‚»‚Ìƒ}ƒX‚Ìã‚Ì‹´
+	 * ãã®ãƒã‚¹ä¸Šã®æ©‹ã‚’å–å¾—ã™ã‚‹
+	 * @param r è¡Œåº§æ¨™
+	 * @param c åˆ—åº§æ¨™
+	 * @param dir ç¸¦ã®æ©‹ã‹æ¨ªã®æ©‹ã‹
+	 * @returnã€€ãã®ãƒã‚¹ã®ä¸Šã®æ©‹
 	 */
 	public Bridge getBridge(Address p, int dir) {
 		if (dir == Direction.HORIZ) {
@@ -190,9 +190,9 @@ public class Board extends BoardBase {
 		return null;
 	}
 	/**
-	 * ‹´‚Ì’Ê‚é”Õã‚ÌŠeƒ}ƒX‚ÉC‚»‚Ì‹´‚ğİ’è‚·‚é
-	 * @param pos0 n“_ƒ}ƒX
-	 * @param d n“_‚©‚çI“_‚ğŒ©‚½Œü‚«
+	 * æ©‹ã®é€šã‚‹ç›¤ä¸Šã®å„ãƒã‚¹ã«ï¼Œãã®æ©‹ã‚’è¨­å®šã™ã‚‹
+	 * @param pos0 å§‹ç‚¹ãƒã‚¹
+	 * @param d å§‹ç‚¹ã‹ã‚‰çµ‚ç‚¹ã‚’è¦‹ãŸå‘ã
 	 * @param b Bridge
 	 */
 	void setBridge(Address pos0, int d, Bridge b) {
@@ -211,10 +211,10 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ‚ ‚éƒ}ƒX‚©‚çw’è‚µ‚½•ûŒü‚Öo‚Ä‚¢‚é‹´‚Ì”‚ğ•Ô‚·B”šƒ}ƒXˆÈŠO‚ğw’è‚µ‚½‚Æ‚«‚Í -1 ‚ğ•Ô‚·
-	 * @param p ”šƒ}ƒX‚ÌÀ•W
-	 * @param d Œü‚«
-	 * @return ”šƒ}ƒX‚©‚ç‚ ‚éŒü‚«‚Ö‚Ì‹´‚Ì–{”B”šƒ}ƒXˆÈŠO‚Å‚ ‚ê‚Î-1
+	 * ã‚ã‚‹ãƒã‚¹ã‹ã‚‰æŒ‡å®šã—ãŸæ–¹å‘ã¸å‡ºã¦ã„ã‚‹æ©‹ã®æ•°ã‚’è¿”ã™ã€‚æ•°å­—ãƒã‚¹ä»¥å¤–ã‚’æŒ‡å®šã—ãŸã¨ãã¯ -1 ã‚’è¿”ã™
+	 * @param p æ•°å­—ãƒã‚¹ã®åº§æ¨™
+	 * @param d å‘ã
+	 * @return æ•°å­—ãƒã‚¹ã‹ã‚‰ã‚ã‚‹å‘ãã¸ã®æ©‹ã®æœ¬æ•°ã€‚æ•°å­—ãƒã‚¹ä»¥å¤–ã§ã‚ã‚Œã°-1
 	 */
 	public int getLineFromPier(Address p, int d) {
 		if (isPier(p)) {
@@ -225,10 +225,10 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * w’è‚µ‚½À•W‚É‹´‹r‚ğV‹K‚Éì¬‚·‚é
-	 * ‚»‚Ìƒ}ƒX‚É‚à‚Æ‚à‚Æ‚©‚©‚Á‚Ä‚¢‚½‹´‚Íœ‹‚³‚ê‚é
-	 * @param p À•W
-	 * @param n ”š
+	 * æŒ‡å®šã—ãŸåº§æ¨™ã«æ©‹è„šã‚’æ–°è¦ã«ä½œæˆã™ã‚‹
+	 * ãã®ãƒã‚¹ã«ã‚‚ã¨ã‚‚ã¨ã‹ã‹ã£ã¦ã„ãŸæ©‹ã¯é™¤å»ã•ã‚Œã‚‹
+	 * @param p åº§æ¨™
+	 * @param n æ•°å­—
 	 */
 	void addPier(Address p, int n) {
 		Pier pi = new Pier(p, n);
@@ -256,9 +256,9 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * w’è‚µ‚½À•W‚É‚ ‚é‹´‹r‚ğœ‹‚·‚é
-	 * ‚»‚Ì‹´‚©‚ço‚Ä‚¢‚½‹´‚Íœ‹‚³‚ê‚é
-	 * @param p À•W
+	 * æŒ‡å®šã—ãŸåº§æ¨™ã«ã‚ã‚‹æ©‹è„šã‚’é™¤å»ã™ã‚‹
+	 * ãã®æ©‹ã‹ã‚‰å‡ºã¦ã„ãŸæ©‹ã¯é™¤å»ã•ã‚Œã‚‹
+	 * @param p åº§æ¨™
 	 */
 	void removePier(Address p) {
 		Pier pi = getPier(p);
@@ -309,10 +309,10 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ‹N“_‚©‚çw’è‚µ‚½•ûŒü‚É‚ ‚éÅ‰‚Ì‹´‚Ìƒ}ƒX‚ÌÀ•W‚ğ•Ô‚·
-	 * @param p0 ‹N“_‚ÌÀ•W
-	 * @param direction ‹´‹r‚ğ’T‚·Œü‚«
-	 * @return ‹N“_‚©‚çw’è‚µ‚½•ûŒü‚É‚ ‚éÅ‰‚Ì‹´‹r
+	 * èµ·ç‚¹ã‹ã‚‰æŒ‡å®šã—ãŸæ–¹å‘ã«ã‚ã‚‹æœ€åˆã®æ©‹ã®ãƒã‚¹ã®åº§æ¨™ã‚’è¿”ã™
+	 * @param p0 èµ·ç‚¹ã®åº§æ¨™
+	 * @param direction æ©‹è„šã‚’æ¢ã™å‘ã
+	 * @return èµ·ç‚¹ã‹ã‚‰æŒ‡å®šã—ãŸæ–¹å‘ã«ã‚ã‚‹æœ€åˆã®æ©‹è„š
 	 */
 	Address findPier(Address p0, int direction) {
 		Address p = Address.nextCell(p0, direction);
@@ -325,10 +325,10 @@ public class Board extends BoardBase {
 		return Address.nowhere();
 	}
 	/**
-	 * ‹´‚ğ‚©‚¯‚éC‹´‚ğœ‚­
-	 * @param p ‹N“_‚ÌÀ•W
-	 * @param d •ûŒüiã‰º¶‰Ej
-	 * @param n •ÏXŒã‚Ì‹´‚Ì”
+	 * æ©‹ã‚’ã‹ã‘ã‚‹ï¼Œæ©‹ã‚’é™¤ã
+	 * @param p èµ·ç‚¹ã®åº§æ¨™
+	 * @param d æ–¹å‘ï¼ˆä¸Šä¸‹å·¦å³ï¼‰
+	 * @param n å¤‰æ›´å¾Œã®æ©‹ã®æ•°
 	 */
 	public void changeLine(Address p, int d, int n) {
 		if (!isPier(p))
@@ -372,7 +372,7 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ‹´‚Ì˜AŒ‹”Ô†‚ğ‰Šú‰»‚·‚é
+	 * æ©‹ã®é€£çµç•ªå·ã‚’åˆæœŸåŒ–ã™ã‚‹
 	 */
 	void initChain() {
 		for (Address p : cellAddrs()) {
@@ -394,9 +394,9 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ‚ ‚éƒ}ƒX‚ğn“_‚Æ‚·‚é chain”Ô†‚Ì‰Šú‰»
-	 * @param pi n“_‚Æ‚È‚é‹´‹r
-	 * @param chain ”Ô†
+	 * ã‚ã‚‹ãƒã‚¹ã‚’å§‹ç‚¹ã¨ã™ã‚‹ chainç•ªå·ã®åˆæœŸåŒ–
+	 * @param pi å§‹ç‚¹ã¨ãªã‚‹æ©‹è„š
+	 * @param chain ç•ªå·
 	 */
 	void initChain1(Pier pi, int chain) {
 		if (pi.getChain() == chain)
@@ -408,8 +408,8 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * chain •¹‡
-	 * ƒhƒ‰ƒbƒOŒ³‚É‡‚í‚¹‚é
+	 * chain ä½µåˆ
+	 * ãƒ‰ãƒ©ãƒƒã‚°å…ƒã«åˆã‚ã›ã‚‹
 	 * @param pierA
 	 * @param pierB
 	 */
@@ -434,8 +434,8 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * chain Ø’f
-	 * ƒhƒ‰ƒbƒOŒ³”Ô†‚ğŒ³‚Ì”Ô†‚Éc‚·
+	 * chain åˆ‡æ–­
+	 * ãƒ‰ãƒ©ãƒƒã‚°å…ƒç•ªå·ã‚’å…ƒã®ç•ªå·ã«æ®‹ã™
 	 * @param pierA
 	 * @param pierB
 	 */
@@ -458,9 +458,9 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ‚»‚Ìƒ}ƒX‚©‚ço‚é‹´‚Ì”‚ª³‰ğ‚É’B‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©’²‚×‚é
-	 * @param p À•W
-	 * @return >0: ­‚È‚·‚¬‚é, =0: ‚¿‚å‚¤‚Ç, <0 ‘½‚·‚¬‚é
+	 * ãã®ãƒã‚¹ã‹ã‚‰å‡ºã‚‹æ©‹ã®æ•°ãŒæ­£è§£ã«é”ã—ã¦ã„ã‚‹ã‹ã©ã†ã‹èª¿ã¹ã‚‹
+	 * @param p åº§æ¨™
+	 * @return >0: å°‘ãªã™ãã‚‹, =0: ã¡ã‚‡ã†ã©, <0 å¤šã™ãã‚‹
 	 */
 	public int checkNumber(Address p) {
 		Pier pi = getPier(p);
@@ -535,7 +535,7 @@ public class Board extends BoardBase {
 	static final String ERR_CROSS_BRIDGE = Messages.getString("hashi.AnswerCheckMessage1"); //$NON-NLS-1$
 	static final String YET_MULTIPLE_LINE = Messages.getString("hashi.AnswerCheckMessage2"); //$NON-NLS-1$
 	static final String ERR_WRONG_NUMBER = Messages.getString("hashi.AnswerCheckMessage3"); //$NON-NLS-1$
-//	static final String ERR_TOO_MANY_LINE = "‹´‚Ì”‚ª‘½‚·‚¬‚é”š‚ª‚ ‚é\n";
-//	static final String YET_TOO_FEW_LINE= "‹´‚Ì”‚ª‘«‚è‚È‚¢”š‚ª‚ ‚é\n";
+//	static final String ERR_TOO_MANY_LINE = "æ©‹ã®æ•°ãŒå¤šã™ãã‚‹æ•°å­—ãŒã‚ã‚‹\n";
+//	static final String YET_TOO_FEW_LINE= "æ©‹ã®æ•°ãŒè¶³ã‚Šãªã„æ•°å­—ãŒã‚ã‚‹\n";
 
 }

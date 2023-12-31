@@ -2,37 +2,37 @@ package pencilbox.common.gui;
 
 import pencilbox.common.core.Address;
 /**
- * ƒJ[ƒ\ƒ‹ƒNƒ‰ƒX
- * ”Õ–Ê‚Ì“ü—Í‘ÎÛ‚Æ‚È‚Á‚Ä‚¢‚éƒ}ƒX‚ğ¦‚·‚Ì‚É—p‚¢‚é
+ * ã‚«ãƒ¼ã‚½ãƒ«ã‚¯ãƒ©ã‚¹
+ * ç›¤é¢ã®å…¥åŠ›å¯¾è±¡ã¨ãªã£ã¦ã„ã‚‹ãƒã‚¹ã‚’ç¤ºã™ã®ã«ç”¨ã„ã‚‹
  */
 public class CellCursor {
 
 	private Address pos;
 
 	/**
-	 * ƒJ[ƒ\ƒ‹‚ğì¬‚·‚é
-	 * Panel‚ÆŠÖ˜A•t‚¯‚é
+	 * ã‚«ãƒ¼ã‚½ãƒ«ã‚’ä½œæˆã™ã‚‹
+	 * Panelã¨é–¢é€£ä»˜ã‘ã‚‹
 	 */
 	public CellCursor() {
 		pos = Address.address(0, 0);
 	}
 	/**
-	 * Œ»İ‚ÌƒJ[ƒ\ƒ‹ˆÊ’u‚ÌsÀ•W‚ğæ“¾‚·‚é
-	 * @return sÀ•W
+	 * ç¾åœ¨ã®ã‚«ãƒ¼ã‚½ãƒ«ä½ç½®ã®è¡Œåº§æ¨™ã‚’å–å¾—ã™ã‚‹
+	 * @return è¡Œåº§æ¨™
 	 */
 	public int r() {
 		return pos.r();
 	}
 	/**
-	 * Œ»İ‚ÌƒJ[ƒ\ƒ‹ˆÊ’u‚Ì—ñÀ•W‚ğæ“¾‚·‚é
-	 * @return —ñÀ•W
+	 * ç¾åœ¨ã®ã‚«ãƒ¼ã‚½ãƒ«ä½ç½®ã®åˆ—åº§æ¨™ã‚’å–å¾—ã™ã‚‹
+	 * @return åˆ—åº§æ¨™
 	 */
 	public int c() {
 		return pos.c();
 	}
 	/**
-	 * Œ»İ‚ÌƒJ[ƒ\ƒ‹ˆÊ’u‚ğæ“¾‚·‚é
-	 * @return ƒJ[ƒ\ƒ‹ˆÊ’u
+	 * ç¾åœ¨ã®ã‚«ãƒ¼ã‚½ãƒ«ä½ç½®ã‚’å–å¾—ã™ã‚‹
+	 * @return ã‚«ãƒ¼ã‚½ãƒ«ä½ç½®
 	 */
 	public Address getPosition() {
 		return pos;
@@ -45,9 +45,9 @@ public class CellCursor {
 		pos = address;
 	}
 	/**
-	 * ƒJ[ƒ\ƒ‹‚ªˆø”‚É”Õ–ÊÀ•W‚ğ—^‚¦‚ç‚ê‚½ƒ}ƒX‚É‚¢‚é‚©
-	 * @param position ’²‚×‚é”Õ–ÊÀ•W
-	 * @return 	 ƒJ[ƒ\ƒ‹‚ªposition‚É‚¢‚ê‚Î true
+	 * ã‚«ãƒ¼ã‚½ãƒ«ãŒå¼•æ•°ã«ç›¤é¢åº§æ¨™ã‚’ä¸ãˆã‚‰ã‚ŒãŸãƒã‚¹ã«ã„ã‚‹ã‹
+	 * @param position èª¿ã¹ã‚‹ç›¤é¢åº§æ¨™
+	 * @return 	 ã‚«ãƒ¼ã‚½ãƒ«ãŒpositionã«ã„ã‚Œã° true
 	 */
 	public boolean isAt(Address position) {
 		return pos.equals(position);

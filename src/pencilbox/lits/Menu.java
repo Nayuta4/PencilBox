@@ -4,7 +4,7 @@ import pencilbox.common.gui.MenuBase;
 import pencilbox.resource.Messages;
 
 /**
- * u‚k‚h‚s‚rvƒƒjƒ…[ƒNƒ‰ƒX
+ * ã€Œï¼¬ï¼©ï¼´ï¼³ã€ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚¯ãƒ©ã‚¹
  */
 public class Menu extends MenuBase {
 

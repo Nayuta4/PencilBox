@@ -4,14 +4,14 @@ import pencilbox.common.io.PzprWriterBase;
 
 
 /**
- * QlFpzprv3 goishi.js
+ * å‚è€ƒï¼špzprv3 goishi.js
  */
 public class PzprWriter extends PzprWriterBase {
 
 	private Board bd;
 
-	private boolean fitsize = false; // ”Õ–ÊƒTƒCƒY‚ğƒf[ƒ^‚É‡‚í‚¹‚é‚©
-	private int bdpadding = 1; // ”Õ–ÊƒTƒCƒY‚ğƒf[ƒ^‚É‡‚í‚¹‚é‚Æ‚«‚Ì—]”’”
+	private boolean fitsize = false; // ç›¤é¢ã‚µã‚¤ã‚ºã‚’ãƒ‡ãƒ¼ã‚¿ã«åˆã‚ã›ã‚‹ã‹
+	private int bdpadding = 1; // ç›¤é¢ã‚µã‚¤ã‚ºã‚’ãƒ‡ãƒ¼ã‚¿ã«åˆã‚ã›ã‚‹ã¨ãã®ä½™ç™½æ•°
 
 	protected String getPzprName() {
 		return "goishi";
@@ -43,7 +43,7 @@ public class PzprWriter extends PzprWriterBase {
 	}
 
 	/**
-	 * ”Õ–Êƒf[ƒ^‚É‚ ‚í‚¹‚Äk¬‚µ‚½”Õ–ÊƒTƒCƒY‚ğæ“¾‚·‚éB
+	 * ç›¤é¢ãƒ‡ãƒ¼ã‚¿ã«ã‚ã‚ã›ã¦ç¸®å°ã—ãŸç›¤é¢ã‚µã‚¤ã‚ºã‚’å–å¾—ã™ã‚‹ã€‚
 	 * @return
 	 */
 	protected BoardSize getSizeOfBoard_goishi(){

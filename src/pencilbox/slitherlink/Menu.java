@@ -4,7 +4,7 @@ import pencilbox.common.gui.MenuBase;
 import pencilbox.resource.Messages;
 
 /**
- * 「スリザーリンク」メニュークラス
+ * 縲後せ繝ｪ繧ｶ繝ｼ繝ｪ繝ｳ繧ｯ縲阪Γ繝九Η繝ｼ繧ｯ繝ｩ繧ｹ
  */
 public class Menu extends MenuBase {
 

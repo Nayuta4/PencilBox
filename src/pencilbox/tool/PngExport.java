@@ -41,10 +41,10 @@ public class PngExport {
 		System.out.println("Usage: java -jar pngexport.jar puzzletype datafiles");
 	}
 	/**
-	 * ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ğÀs‚·‚é
-	 * ˆø”‚Ì•¶š—ñ‚ª?‚Ån‚Ü‚éê‡‚ÍC‚»‚Ì•¶š—ñ‚ğ–â‘èƒf[ƒ^‚Æ‚·‚é”Õ–Ê‚ğŠJ‚­B1‚Â‚Ì‚İB
-	 * ˆø”‚Ì•¶š—ñ‚ªƒtƒ@ƒCƒ‹–¼‚Ìê‡‚Í‚»‚Ìƒtƒ@ƒCƒ‹‚ğŠJ‚­B•¡”‰Â”\B
-	 * ã‹L‚É“–‚Ä‚Í‚Ü‚ç‚È‚¢ê‡‚âCˆø”‚ª‹ó”z—ñ‚Ü‚½‚Í‹ó•¶š—ñ‚Ìê‡‚ÍC‹ó‚Ì”Õ–Ê‚ÌƒtƒŒ[ƒ€‚ğŠJ‚­B
+	 * ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã‚’å®Ÿè¡Œã™ã‚‹
+	 * å¼•æ•°ã®æ–‡å­—åˆ—ãŒ?ã§å§‹ã¾ã‚‹å ´åˆã¯ï¼Œãã®æ–‡å­—åˆ—ã‚’å•é¡Œãƒ‡ãƒ¼ã‚¿ã¨ã™ã‚‹ç›¤é¢ã‚’é–‹ãã€‚1ã¤ã®ã¿ã€‚
+	 * å¼•æ•°ã®æ–‡å­—åˆ—ãŒãƒ•ã‚¡ã‚¤ãƒ«åã®å ´åˆã¯ãã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ãã€‚è¤‡æ•°å¯èƒ½ã€‚
+	 * ä¸Šè¨˜ã«å½“ã¦ã¯ã¾ã‚‰ãªã„å ´åˆã‚„ï¼Œå¼•æ•°ãŒç©ºé…åˆ—ã¾ãŸã¯ç©ºæ–‡å­—åˆ—ã®å ´åˆã¯ï¼Œç©ºã®ç›¤é¢ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’é–‹ãã€‚
 	 * @param args
 	 */
 	public void run(String[] args) {
@@ -110,7 +110,7 @@ public class PngExport {
 	}
 
 	private PencilType pencilType;
-	private MenuCommand caller; // ŒÄ‚Ño‚µŒ³ƒƒjƒ…[ƒRƒ}ƒ“ƒh
+	private MenuCommand caller; // å‘¼ã³å‡ºã—å…ƒãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚³ãƒãƒ³ãƒ‰
 	PanelBase panel;
 	private EventHandlerManager handler;
 //	private MenuBase menu;

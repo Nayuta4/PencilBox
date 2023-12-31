@@ -6,10 +6,10 @@ import javax.swing.*;
 import pencilbox.resource.Messages;
 
 /**
- * ƒJƒXƒ^ƒ€ƒ_ƒCƒAƒƒO—p‚Ì‹¤’ÊƒX[ƒp[ƒNƒ‰ƒXB
- * JDialog‚Å‚Í‚È‚­JPanel‚ÌƒTƒuƒNƒ‰ƒX‚Å‚ ‚éB
- * ‰º•”‚Éu—¹‰ğvuæÁvƒ{ƒ^ƒ“‚ğ”z’u‚µCu—¹‰ğvƒ{ƒ^ƒ“‚ğƒfƒtƒHƒ‹ƒgƒ{ƒ^ƒ“‚Æ‚·‚éB
- * JDialog‚ğì¬‚µ‚Ä‚»‚Ì’†‚É“ü‚ê‚Ä•\¦‚µC•Â‚¶‚ç‚ê‚½‚Æ‚«‚É‘I‘ğ‚³‚ê‚½Œ‹‰Ê‚ğ•Ô‚·B
+ * ã‚«ã‚¹ã‚¿ãƒ ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ç”¨ã®å…±é€šã‚¹ãƒ¼ãƒ‘ãƒ¼ã‚¯ãƒ©ã‚¹ã€‚
+ * JDialogã§ã¯ãªãJPanelã®ã‚µãƒ–ã‚¯ãƒ©ã‚¹ã§ã‚ã‚‹ã€‚
+ * ä¸‹éƒ¨ã«ã€Œäº†è§£ã€ã€Œå–æ¶ˆã€ãƒœã‚¿ãƒ³ã‚’é…ç½®ã—ï¼Œã€Œäº†è§£ã€ãƒœã‚¿ãƒ³ã‚’ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆãƒœã‚¿ãƒ³ã¨ã™ã‚‹ã€‚
+ * JDialogã‚’ä½œæˆã—ã¦ãã®ä¸­ã«å…¥ã‚Œã¦è¡¨ç¤ºã—ï¼Œé–‰ã˜ã‚‰ã‚ŒãŸã¨ãã«é¸æŠã•ã‚ŒãŸçµæœã‚’è¿”ã™ã€‚
  */
 public class PencilBoxDialog extends JPanel {
 
@@ -22,9 +22,9 @@ public class PencilBoxDialog extends JPanel {
      * <code>CANCEL_OPTION</code>. */
     public static final int         CLOSED_OPTION = -1;
 
-    /** [—¹‰ğ]ƒ{ƒ^ƒ“‚ğ”õ‚¦‚½ƒ_ƒCƒAƒƒOC¡‚Ì‚Æ‚±‚ë‚È‚¢ */
+    /** [äº†è§£]ãƒœã‚¿ãƒ³ã‚’å‚™ãˆãŸãƒ€ã‚¤ã‚¢ãƒ­ã‚°ï¼Œä»Šã®ã¨ã“ã‚ãªã„ */
     public static final int OK_ONLY = 0;
-    /** [—¹‰ğ][æÁ]ƒ{ƒ^ƒ“‚ğ”õ‚¦‚½ƒ_ƒCƒAƒƒO */
+    /** [äº†è§£][å–æ¶ˆ]ãƒœã‚¿ãƒ³ã‚’å‚™ãˆãŸãƒ€ã‚¤ã‚¢ãƒ­ã‚° */
 	public static final int OK_CANCEL = 1;
 
 	private int dialogType = OK_CANCEL;
@@ -32,10 +32,10 @@ public class PencilBoxDialog extends JPanel {
 	private JButton	buttonOk;
 	private JButton buttonCancel;
 	private JDialog dialog;
-	private int ret = CLOSED_OPTION; // ƒ_ƒCƒAƒƒO‚Ì•Ô‚è’l
+	private int ret = CLOSED_OPTION; // ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã®è¿”ã‚Šå€¤
 
 	/**
-	 * ƒ_ƒCƒAƒƒO‚ğì¬‚·‚é
+	 * ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚’ä½œæˆã™ã‚‹
 	 * @throws HeadlessException
 	 */
 	public PencilBoxDialog() {
@@ -75,7 +75,7 @@ public class PencilBoxDialog extends JPanel {
 	}
 
 	/**
-	 * ƒ_ƒCƒAƒƒOƒ^ƒCƒv‚ğİ’è‚·‚éB
+	 * ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚¿ã‚¤ãƒ—ã‚’è¨­å®šã™ã‚‹ã€‚
 	 * @param dialogType The dialogType to set.
 	 */
 	public void setDialogType(int dialogType) {
@@ -83,7 +83,7 @@ public class PencilBoxDialog extends JPanel {
 	}
 
 	/**
-	 * ESC ƒL[‚Åƒ_ƒCƒAƒƒO‚ğ•Â‚¶‚é
+	 * ESC ã‚­ãƒ¼ã§ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚’é–‰ã˜ã‚‹
 	 */
 	private void assignKeys() {
 		InputMap imap = this.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
@@ -91,7 +91,7 @@ public class PencilBoxDialog extends JPanel {
 		ActionMap amap = this.getActionMap();
 		amap.put("close", new AbstractAction() {	
 			public void actionPerformed(ActionEvent e) {
-				if (dialog != null) { // ”O‚Ì‚½‚ß
+				if (dialog != null) { // å¿µã®ãŸã‚
 					ret = CLOSED_OPTION;
 					dialog.setVisible(false);	
 				}
@@ -110,13 +110,13 @@ public class PencilBoxDialog extends JPanel {
 	}
 
 	/**
-	 * ƒ_ƒCƒAƒƒO‚ğ•\¦‚·‚éB
-	 * –ˆ‰ñJDialog‚ğì‚è’¼‚µ‚ÄC‚±‚ÌƒNƒ‰ƒX‚ÌPanel‚ğJDialog‚Ì’†‚É“ü‚ê‚Ä•\¦‚·‚éB
-	 * @param parent eƒtƒŒ[ƒ€
-	 * @param title ƒ^ƒCƒgƒ‹•¶š—ñ
-	 * @return ƒ†[ƒU[‚Ì‘I‘ğ‚µ‚½Œ‹‰Ê
+	 * ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚’è¡¨ç¤ºã™ã‚‹ã€‚
+	 * æ¯å›JDialogã‚’ä½œã‚Šç›´ã—ã¦ï¼Œã“ã®ã‚¯ãƒ©ã‚¹ã®Panelã‚’JDialogã®ä¸­ã«å…¥ã‚Œã¦è¡¨ç¤ºã™ã‚‹ã€‚
+	 * @param parent è¦ªãƒ•ãƒ¬ãƒ¼ãƒ 
+	 * @param title ã‚¿ã‚¤ãƒˆãƒ«æ–‡å­—åˆ—
+	 * @return ãƒ¦ãƒ¼ã‚¶ãƒ¼ã®é¸æŠã—ãŸçµæœ
 	 */
-//	Ql Core JAVA Vol.1 list 9-18
+//	å‚è€ƒ Core JAVA Vol.1 list 9-18
 	public int showDialog(Component parent, String title) {
 		Frame owner = null;
 		if (parent instanceof Frame)
@@ -137,7 +137,7 @@ public class PencilBoxDialog extends JPanel {
 	}
 
 	/**
-	 * ŠeDialogí—Ş‚²‚Æ‚ÉC‰ŠúƒtƒH[ƒJƒX‚ğİ’è‚·‚éB
+	 * å„Dialogç¨®é¡ã”ã¨ã«ï¼ŒåˆæœŸãƒ•ã‚©ãƒ¼ã‚«ã‚¹ã‚’è¨­å®šã™ã‚‹ã€‚
 	 */
 	protected void setInitialFocus() {
 	}

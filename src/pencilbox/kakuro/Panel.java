@@ -13,7 +13,7 @@ import pencilbox.common.gui.PanelBase;
 
 
   /**
-   * uƒJƒbƒNƒvƒpƒlƒ‹ƒNƒ‰ƒX
+   * ã€Œã‚«ãƒƒã‚¯ãƒ­ã€ãƒ‘ãƒãƒ«ã‚¯ãƒ©ã‚¹
    */
 public class Panel extends PanelBase {
 
@@ -83,12 +83,12 @@ public class Panel extends PanelBase {
 		}
 	}
 	/**
-	 * •Çƒ}ƒX‚Ì•`‰æ
+	 * å£ãƒã‚¹ã®æç”»
 	 * @param g
-	 * @param r sÀ•W
-	 * @param c —ñÀ•W
-	 * @param a Îü‰Eã‚Ì”š
-	 * @param b Îü¶‰º‚Ì”š
+	 * @param r è¡Œåº§æ¨™
+	 * @param c åˆ—åº§æ¨™
+	 * @param a æ–œç·šå³ä¸Šã®æ•°å­—
+	 * @param b æ–œç·šå·¦ä¸‹ã®æ•°å­—
 	 */
 	void drawWall(Graphics2D g, Address p, int a, int b){
 		g.setColor(getWallColor());
@@ -114,7 +114,7 @@ public class Panel extends PanelBase {
 		}
 	}
 	/**
-	 * ƒJƒbƒNƒ–â‘è“ü—Í—pƒJ[ƒ\ƒ‹‚ğ•`‚­
+	 * ã‚«ãƒƒã‚¯ãƒ­å•é¡Œå…¥åŠ›ç”¨ã‚«ãƒ¼ã‚½ãƒ«ã‚’æã
 	 */
 	public void drawCursor(Graphics2D g) {
 		super.drawCursor(g);

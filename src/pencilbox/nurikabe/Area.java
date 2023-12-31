@@ -2,7 +2,7 @@ package pencilbox.nurikabe;
 
 
 /**
- * u‚Ê‚è‚©‚×v—ÌˆæƒNƒ‰ƒX
+ * ã€Œã¬ã‚Šã‹ã¹ã€é ˜åŸŸã‚¯ãƒ©ã‚¹
  */
 public class Area extends pencilbox.common.core.AreaBase {
 
@@ -11,12 +11,12 @@ public class Area extends pencilbox.common.core.AreaBase {
 
 	private int id;
 	private int areaType = 0;
-	private int number = 0; // •”‰®‚Ì”š
+	private int number = 0; // éƒ¨å±‹ã®æ•°å­—
 
 
 	/**
-	 * —Ìˆæ‚ğì¬‚·‚é
-	 * @param areaType —Ìˆæƒ^ƒCƒv:•ƒ}ƒX—Ìˆæ‚©”’ƒ}ƒX—Ìˆæ‚©
+	 * é ˜åŸŸã‚’ä½œæˆã™ã‚‹
+	 * @param areaType é ˜åŸŸã‚¿ã‚¤ãƒ—:é»’ãƒã‚¹é ˜åŸŸã‹ç™½ãƒã‚¹é ˜åŸŸã‹
 	 */
 	public Area(int areaType) {
 		super();
@@ -26,10 +26,10 @@ public class Area extends pencilbox.common.core.AreaBase {
 	}
 
 	/**
-	 * —Ìˆæ‚É”š‚ğİ’è‚·‚é
-	 * ‚»‚Ì—Ìˆæ‚ÉˆÈ‘O‚É”š‚ªŠÜ‚Ü‚ê‚Ä‚¢‚È‚©‚Á‚½ê‡‚ÍC‚»‚Ì”š‚ğİ’è‚·‚é
-	 * ‚·‚Å‚É‘¼‚Ì”š‚ªŠÜ‚Ü‚ê‚Ä‚¢‚½ê‡‚ÍC•¡””š—Ìˆæ‚Æ‚È‚é
-	 * @param n ’Ç‰Á‚·‚é”š
+	 * é ˜åŸŸã«æ•°å­—ã‚’è¨­å®šã™ã‚‹
+	 * ãã®é ˜åŸŸã«ä»¥å‰ã«æ•°å­—ãŒå«ã¾ã‚Œã¦ã„ãªã‹ã£ãŸå ´åˆã¯ï¼Œãã®æ•°å­—ã‚’è¨­å®šã™ã‚‹
+	 * ã™ã§ã«ä»–ã®æ•°å­—ãŒå«ã¾ã‚Œã¦ã„ãŸå ´åˆã¯ï¼Œè¤‡æ•°æ•°å­—é ˜åŸŸã¨ãªã‚‹
+	 * @param n è¿½åŠ ã™ã‚‹æ•°å­—
 	 */
 	public void addNumber(int n) {
 		if (number ==0) {
@@ -54,16 +54,16 @@ public class Area extends pencilbox.common.core.AreaBase {
 	}
 
 	/**
-	 *  —Ìˆæ”Ô†‚ğæ“¾‚·‚é
-	 * @return —Ìˆæ”Ô† 
+	 *  é ˜åŸŸç•ªå·ã‚’å–å¾—ã™ã‚‹
+	 * @return é ˜åŸŸç•ªå· 
 	 */
 	public int getId() {
 		return id;
 	}
 
 	/**
-	 * —Ìˆæ”Ô†‚ğİ’è‚·‚é
-	 * @param i İ’è‚·‚é”Ô†
+	 * é ˜åŸŸç•ªå·ã‚’è¨­å®šã™ã‚‹
+	 * @param i è¨­å®šã™ã‚‹ç•ªå·
 	 */
 	public void setId(int i) {
 		id = i;

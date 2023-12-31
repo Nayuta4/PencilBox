@@ -16,7 +16,7 @@ import pencilbox.resource.Messages;
 
 
 /**
- * u‚³‚Æ‚ª‚¦‚èv”Õ–ÊƒNƒ‰ƒX
+ * ã€Œã•ã¨ãŒãˆã‚Šã€ç›¤é¢ã‚¯ãƒ©ã‚¹
  */
 public class Board extends BoardBase {
 
@@ -26,11 +26,11 @@ public class Board extends BoardBase {
 	static final int OUTER = -9;
 
 	private List<Area> areaList;
-	private int[] number; // –â‘è‚Ì”š
+	private int[] number; // å•é¡Œã®æ•°å­—
 	private Area[] area;
-	private int[] route; // ƒ}ƒX‚Ìü‚Ìó‘Ôisæj
+	private int[] route; // ãƒã‚¹ã®ç·šã®çŠ¶æ…‹ï¼ˆè¡Œå…ˆï¼‰
 
-	// ‚»‚Ìƒ}ƒX‚©‚çü‚ª‚Ç‚¿‚ç•ûŒü‚ÖŒü‚©‚Á‚Ä‚¢‚é‚©
+	// ãã®ãƒã‚¹ã‹ã‚‰ç·šãŒã©ã¡ã‚‰æ–¹å‘ã¸å‘ã‹ã£ã¦ã„ã‚‹ã‹
 	public static final int NOROUTE = -1;
 	public static final int UP = 0;
 	public static final int LT = 1;
@@ -114,7 +114,7 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ”z’u”š‚ªŒë‚è‚Ìê‡ true ‚ğ•Ô‚·
+	 * é…ç½®æ•°å­—ãŒèª¤ã‚Šã®å ´åˆ true ã‚’è¿”ã™
 	 * @return false
 	 */
 	public boolean isError(Address p) {
@@ -122,9 +122,9 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * üˆÍ‚Sƒ}ƒX‚ğŒ©‚ÄA‚Ç‚¿‚ç‚ÖŒü‚©‚Á‚Ä—ˆ‚½‚©‚ğ’²‚×‚éB
-	 * ãƒ}ƒX‚©‚ç‰ºŒü‚«‚É“ü‚Á‚Ä—ˆ‚½‚È‚çA•Ô‚è’l‚Íu‰ºvAn“_‚È‚çEND
-	 * ƒf[ƒ^‚Æ‚µ‚Ä‚Â‚Ì‚Æ‚Ç‚Á‚¿‚ª‚¢‚¢H
+	 * å‘¨å›²ï¼”ãƒã‚¹ã‚’è¦‹ã¦ã€ã©ã¡ã‚‰ã¸å‘ã‹ã£ã¦æ¥ãŸã‹ã‚’èª¿ã¹ã‚‹ã€‚
+	 * ä¸Šãƒã‚¹ã‹ã‚‰ä¸‹å‘ãã«å…¥ã£ã¦æ¥ãŸãªã‚‰ã€è¿”ã‚Šå€¤ã¯ã€Œä¸‹ã€ã€å§‹ç‚¹ãªã‚‰END
+	 * ãƒ‡ãƒ¼ã‚¿ã¨ã—ã¦æŒã¤ã®ã¨ã©ã£ã¡ãŒã„ã„ï¼Ÿ
 	 * @param p
 	 */
 	public int getIncomingDirection(Address p0) {
@@ -136,21 +136,21 @@ public class Board extends BoardBase {
 				if (ret == Board.END)
 					ret = d;
 				else
-					; // System.out.println("•¡”•ûŒü‚©‚çü‚ª—ˆ‚Ä‚¢‚Ä‚¨‚©‚µ‚¢");
+					; // System.out.println("è¤‡æ•°æ–¹å‘ã‹ã‚‰ç·šãŒæ¥ã¦ã„ã¦ãŠã‹ã—ã„");
 			}
 		}
 		return ret;
 	}
 	/**
-	 * ƒ}ƒX‚É–â‘è”š‚ğ“ü—Í‚µCƒAƒhƒDƒŠƒXƒi[‚É’Ê’m‚·‚é
-	 * @param p ƒ}ƒXÀ•W
-	 * @param n “ü—Í‚·‚é”š
+	 * ãƒã‚¹ã«å•é¡Œæ•°å­—ã‚’å…¥åŠ›ã—ï¼Œã‚¢ãƒ‰ã‚¥ãƒªã‚¹ãƒŠãƒ¼ã«é€šçŸ¥ã™ã‚‹
+	 * @param p ãƒã‚¹åº§æ¨™
+	 * @param n å…¥åŠ›ã™ã‚‹æ•°å­—
 	 */
 	public void changeFixedNumber(Address p, int n) {
 		int prev = getNumber(p);
 		if (n == prev)
 			return;
-		// ’u‚¢‚½êŠ‚É‚ ‚Á‚½ü‚ğÁ‚·
+		// ç½®ã„ãŸå ´æ‰€ã«ã‚ã£ãŸç·šã‚’æ¶ˆã™
 		if (getRoute(p) != Board.NOROUTE) {
 			eraseRoute(p);
 		}
@@ -160,8 +160,8 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ƒ}ƒX‚Ìü‚ğ•ÏX‚·‚éB
-	 * ‚»‚Ì‚Æ‚«Asæ‚Ìƒ}ƒX‚ğI“_‚É‚·‚éB
+	 * ãƒã‚¹ã®ç·šã‚’å¤‰æ›´ã™ã‚‹ã€‚
+	 * ãã®ã¨ãã€è¡Œå…ˆã®ãƒã‚¹ã‚’çµ‚ç‚¹ã«ã™ã‚‹ã€‚
 	 * @param p
 	 * @param st
 	 */
@@ -181,12 +181,12 @@ public class Board extends BoardBase {
 			}
 			setRoute(q, Board.END);
 		} else if (st == Board.END) {
-// –ß‚é‚Æ‚«
+// æˆ»ã‚‹ã¨ã
 			if (prev >= Board.UP && prev <= Board.RT){
 				Address q = p.nextCell(prev);
 				setRoute(q, Board.NOROUTE);
 				setRoute(p, Board.END);
-//	”šƒ}ƒX‚Ìã‚Éœ‚ğ‚¨‚­‚Æ‚«
+//	æ•°å­—ãƒã‚¹ã®ä¸Šã«â—ã‚’ãŠãã¨ã
 			} else {
 				setRoute(p, Board.END);
 			}
@@ -210,7 +210,7 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ˆø”ƒ}ƒX‚ğŠÜ‚Şü‚ğŠÛ‚²‚ÆÁ‚·B
+	 * å¼•æ•°ãƒã‚¹ã‚’å«ã‚€ç·šã‚’ä¸¸ã”ã¨æ¶ˆã™ã€‚
 	 * @param p0
 	 */
 	public void eraseRoute(Address p0) {
@@ -230,8 +230,8 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ‚»‚Ìƒ}ƒX‚ª’Ê‰ß‚µ‚Ä‚¢‚éŒo˜H‚Ìƒ}ƒX‚ÌƒŠƒXƒg‚ğæ“¾‚·‚éB
-	 * n“_‚©‚çI“_‚Ì‡‚É•À‚×‚½‚¢‚Ì‚ÅA‹A‚è’l‚ÍAreaBase‚Å‚Í‚È‚­ArrayList<Address>‚ğ—p‚¢‚éB
+	 * ãã®ãƒã‚¹ãŒé€šéã—ã¦ã„ã‚‹çµŒè·¯ã®ãƒã‚¹ã®ãƒªã‚¹ãƒˆã‚’å–å¾—ã™ã‚‹ã€‚
+	 * å§‹ç‚¹ã‹ã‚‰çµ‚ç‚¹ã®é †ã«ä¸¦ã¹ãŸã„ã®ã§ã€å¸°ã‚Šå€¤ã¯AreaBaseã§ã¯ãªãArrayList<Address>ã‚’ç”¨ã„ã‚‹ã€‚
 	 * @param p0
 	 * @return
 	 */
@@ -241,7 +241,7 @@ public class Board extends BoardBase {
 		int s = getRoute(p);
 		if (s == NOROUTE)
 			return routeArea;
-		// n“_‚Ü‚ÅˆÚ“®
+		// å§‹ç‚¹ã¾ã§ç§»å‹•
 		while(true) {
 			s = getRoute(p);
 			int d = getIncomingDirection(p);
@@ -253,11 +253,11 @@ public class Board extends BoardBase {
 			} else if (d == Board.NOROUTE) {
 				break;
 			} else {
-//				System.out.println("‰½‚©‚ª‚¨‚©‚µ‚¢");
+//				System.out.println("ä½•ã‹ãŒãŠã‹ã—ã„");
 				break;
 			}
 		}
-		// ƒ}ƒX‚ğ—Ìˆæ‚É’Ç‰Á‚µ‚È‚ª‚çI“_‚Ü‚ÅˆÚ“®
+		// ãƒã‚¹ã‚’é ˜åŸŸã«è¿½åŠ ã—ãªãŒã‚‰çµ‚ç‚¹ã¾ã§ç§»å‹•
 		while(true) {
 			s = getRoute(p);
 			if (s == Board.UP || s == Board.LT || s == Board.DN || s == Board.RT) {
@@ -270,7 +270,7 @@ public class Board extends BoardBase {
 			} else if (s == Board.NOROUTE) {
 				break;
 			} else {
-//				System.out.println("‰½‚©‚ª‚¨‚©‚µ‚¢");
+//				System.out.println("ä½•ã‹ãŒãŠã‹ã—ã„");
 				break;
 			}
 		}
@@ -354,7 +354,7 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * ƒ}ƒXp ‚ğ p0 ‚Æ“¯‚¶—Ìˆæ‚É‚·‚éB‚½‚¾‚µ p0‚ª NOWHWER‚È‚ç‚ÎV‚µ‚¢—Ìˆæ‚ğì‚é
+	 * ãƒã‚¹p ã‚’ p0 ã¨åŒã˜é ˜åŸŸã«ã™ã‚‹ã€‚ãŸã ã— p0ãŒ NOWHWERãªã‚‰ã°æ–°ã—ã„é ˜åŸŸã‚’ä½œã‚‹
 	 * @param p0
 	 * @param p
 	 */
@@ -370,7 +370,7 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * ƒ}ƒX p ‚ğ—Ìˆæ‚©‚çæ‚èœ‚­B
+	 * ãƒã‚¹ p ã‚’é ˜åŸŸã‹ã‚‰å–ã‚Šé™¤ãã€‚
 	 * @param p
 	 */
 	void removeCell(Address p) {
@@ -380,9 +380,9 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * ƒ}ƒX‚ğ—Ìˆæ‚É’Ç‰Á‚·‚é
-	 * @param p ’Ç‰Á‚·‚éƒ}ƒX‚ÌÀ•W
-	 * @param a ’Ç‰Á‚³‚ê‚é—Ìˆæ
+	 * ãƒã‚¹ã‚’é ˜åŸŸã«è¿½åŠ ã™ã‚‹
+	 * @param p è¿½åŠ ã™ã‚‹ãƒã‚¹ã®åº§æ¨™
+	 * @param a è¿½åŠ ã•ã‚Œã‚‹é ˜åŸŸ
 	 */
 	public void addCellToArea(Address p, Area a) {
 		if (isRecordUndo()) {
@@ -400,9 +400,9 @@ public class Board extends BoardBase {
 //		initArea(a);
 	}
 	/**
-	 * ƒ}ƒX‚ğ—Ìˆæ‚©‚çæ‚èœ‚­
-	 * @param p æ‚èœ‚­ƒ}ƒX‚ÌÀ•W
-	 * @param a æ‚èœ‚©‚ê‚é—Ìˆæ
+	 * ãƒã‚¹ã‚’é ˜åŸŸã‹ã‚‰å–ã‚Šé™¤ã
+	 * @param p å–ã‚Šé™¤ããƒã‚¹ã®åº§æ¨™
+	 * @param a å–ã‚Šé™¤ã‹ã‚Œã‚‹é ˜åŸŸ
 	 */
 	public void removeCellFromArea(Address p, Area a) {
 		if (isRecordUndo()) {
@@ -421,7 +421,7 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * V‚µ‚¢—Ìˆæ‚ğ’Ç‰Á‚·‚é
+	 * æ–°ã—ã„é ˜åŸŸã‚’è¿½åŠ ã™ã‚‹
 	 * @param newArea
 	 */
 	public void addArea(Area newArea) {
@@ -431,7 +431,7 @@ public class Board extends BoardBase {
 		areaList.add(newArea);
 	}
 	/**
-	 * —Ìˆæ‚·‚×‚Ä‚Ìƒ}ƒX‚ğ’Ç‰Á‚·‚é
+	 * é ˜åŸŸã™ã¹ã¦ã®ãƒã‚¹ã‚’è¿½åŠ ã™ã‚‹
 	 * @param newArea
 	 */
 	public void addWholeArea(Area newArea) {
@@ -441,7 +441,7 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * —Ìˆæ‚Ì‚·‚×‚Ä‚Ìƒ}ƒX‚ğ—Ìˆæ‚©‚çœ‚¢‚Ä—Ìˆæ‚ğíœ‚·‚é
+	 * é ˜åŸŸã®ã™ã¹ã¦ã®ãƒã‚¹ã‚’é ˜åŸŸã‹ã‚‰é™¤ã„ã¦é ˜åŸŸã‚’å‰Šé™¤ã™ã‚‹
 	 * @param oldArea
 	 */
 	public void removeWholeArea(Area oldArea) {
@@ -477,7 +477,7 @@ public class Board extends BoardBase {
 			} else if (s == Board.NOROUTE) {
 				break;
 			} else {
-//				System.out.println("‰½‚©‚ª‚¨‚©‚µ‚¢");
+//				System.out.println("ä½•ã‹ãŒãŠã‹ã—ã„");
 				break;
 			}
 		}
@@ -501,7 +501,7 @@ public class Board extends BoardBase {
 	public int checkNumber(Address p) {
 		int length = countRouteLength(p);
 		int num = getNumber(p);
-//		System.out.println("ƒ}ƒX" + p + " ”š: " + num + "ˆÚ“®’·‚³:" + length);
+//		System.out.println("ãƒã‚¹" + p + " æ•°å­—: " + num + "ç§»å‹•é•·ã•:" + length);
 		return num - length;
 	}
 
@@ -519,10 +519,10 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * —Ìˆæ‚ÉŠÜ‚Ü‚ê‚éI“_‚Ì”‚ğ’²‚×‚é
-	 * @param a —Ìˆæ
-	 * @param noBall ˆÚ“®‘O‚Ì”š‚ğŠÜ‚ß‚é‚©‚Ç‚¤‚©
-	 * @return I“_‚ª‚È‚¯‚ê‚Î0, 1‚Â‚¾‚¯‚È‚ç1, •¡”‚È‚ç2
+	 * é ˜åŸŸã«å«ã¾ã‚Œã‚‹çµ‚ç‚¹ã®æ•°ã‚’èª¿ã¹ã‚‹
+	 * @param a é ˜åŸŸ
+	 * @param noBall ç§»å‹•å‰ã®æ•°å­—ã‚’å«ã‚ã‚‹ã‹ã©ã†ã‹
+	 * @return çµ‚ç‚¹ãŒãªã‘ã‚Œã°0, 1ã¤ã ã‘ãªã‚‰1, è¤‡æ•°ãªã‚‰2
 	 */
 	public int checkArea(Area a, boolean noBall) {
 		int nBall = 0;
@@ -533,7 +533,7 @@ public class Board extends BoardBase {
 					return nBall;
 			}
 		}
-//		System.out.println("—Ìˆæ" + a.toString() + "‚ÉŠÜ‚Ü‚ê‚é›‚Ì”‚Í" + nBall);
+//		System.out.println("é ˜åŸŸ" + a.toString() + "ã«å«ã¾ã‚Œã‚‹â—‹ã®æ•°ã¯" + nBall);
 		return nBall;
 	}
 
@@ -545,7 +545,7 @@ public class Board extends BoardBase {
 				nNumber ++;
 			}
 		}
-//		System.out.println(" —Ìˆæ” " + nArea + " ›‚Ì” " + nNumber);
+//		System.out.println(" é ˜åŸŸæ•° " + nArea + " â—‹ã®æ•° " + nNumber);
 		return nNumber - nArea;
 	}
 
@@ -568,16 +568,16 @@ public class Board extends BoardBase {
 			return COMPLETE_MESSAGE;
 		StringBuffer message = new StringBuffer();
 		if ((result & 1) == 1)
-//			message.append("—Ìˆæ‚ª‚P‚Â‚à‚È‚¢\n");
+//			message.append("é ˜åŸŸãŒï¼‘ã¤ã‚‚ãªã„\n");
 			message.append(Messages.getString("satogaeri.AnswerCheckMessage1"));  //$NON-NLS-1$
 		if ((result & 2) == 2)
-//			message.append("‚»‚à‚»‚à›‚Ì”‚ª—Ìˆæ”‚Æˆê’v‚µ‚Ä‚¢‚È‚¢\n");
+//			message.append("ãã‚‚ãã‚‚â—‹ã®æ•°ãŒé ˜åŸŸæ•°ã¨ä¸€è‡´ã—ã¦ã„ãªã„\n");
 			message.append(Messages.getString("satogaeri.AnswerCheckMessage2")); //$NON-NLS-1$
 		if ((result & 4) == 4)
-//			message.append("ˆÚ“®‚ÌŒë‚è\n");
+//			message.append("ç§»å‹•ã®èª¤ã‚Š\n");
 			message.append(Messages.getString("satogaeri.AnswerCheckMessage3")); //$NON-NLS-1$
 		if ((result & 8) == 8)
-//			message.append("—Ìˆæ‚ÌŒë‚è\n");
+//			message.append("é ˜åŸŸã®èª¤ã‚Š\n");
 			message.append(Messages.getString("satogaeri.AnswerCheckMessage4")); //$NON-NLS-1$
 		return message.toString();
 	}

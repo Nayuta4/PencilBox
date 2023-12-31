@@ -11,7 +11,7 @@ import pencilbox.util.Colors;
 
 
 /**
- * 「ましゅ」パネルクラス
+ * 縲後∪縺励ｅ縲阪ヱ繝阪Ν繧ｯ繝ｩ繧ｹ
  */
 public class Panel extends PanelBase {
 

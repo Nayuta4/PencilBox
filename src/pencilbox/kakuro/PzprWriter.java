@@ -7,7 +7,7 @@ import pencilbox.common.io.PzprWriterBase;
 
 
 /**
- * QlFpzprv3 kakuro.js
+ * å‚è€ƒï¼špzprv3 kakuro.js
  */
 public class PzprWriter extends PzprWriterBase {
 
@@ -26,7 +26,7 @@ public class PzprWriter extends PzprWriterBase {
 	protected void encodeKakuro(){
 		String cm="";
 
-		// ”Õ–Ê“à‘¤‚Ì”š•”•ª‚ÌƒGƒ“ƒR[ƒh
+		// ç›¤é¢å†…å´ã®æ•°å­—éƒ¨åˆ†ã®ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰
 		int count=0;
 		for(int c=0;c<rows*cols;c++){
 			String pstr = "";
@@ -43,7 +43,7 @@ public class PzprWriter extends PzprWriterBase {
 		}
 		if(count>0){ cm += toString((count+19),36);}
 
-		// ”Õ–ÊŠO‘¤‚Ì”š•”•ª‚ÌƒGƒ“ƒR[ƒh
+		// ç›¤é¢å¤–å´ã®æ•°å­—éƒ¨åˆ†ã®ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰
 		for(int c=0;c<cols;c++){ if(QuC(cnum(c,0))!=51){ cm+=this.encval(DiE(c));} }
 		for(int c=cols;c<cols+rows;c++){ if(QuC(cnum(0,c-cols))!=51){ cm+=this.encval(QnE(c));} }
 

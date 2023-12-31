@@ -26,7 +26,7 @@ import pencilbox.common.factory.PencilType;
 
 
 /**
- * pclŒ`®ƒtƒ@ƒCƒ‹“Ç‚İ‚İ‚ÌŠî‘bƒNƒ‰ƒX
+ * pclå½¢å¼ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿ã®åŸºç¤ã‚¯ãƒ©ã‚¹
  */
 public abstract class PclReaderBase {
 
@@ -37,9 +37,9 @@ public abstract class PclReaderBase {
 	private Problem problem;
 
 	/**
-	 * ƒtƒ@ƒCƒ‹‚©‚çPCLŒ`®‚Ì–â‘èƒf[ƒ^‚ğ“Ç‚ñ‚Å–â‘è‚ğì¬‚·‚éB
-	 * @param file –â‘èƒf[ƒ^ƒtƒ@ƒCƒ‹
-	 * @return ì¬‚µ‚½–â‘è
+	 * ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰PCLå½¢å¼ã®å•é¡Œãƒ‡ãƒ¼ã‚¿ã‚’èª­ã‚“ã§å•é¡Œã‚’ä½œæˆã™ã‚‹ã€‚
+	 * @param file å•é¡Œãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«
+	 * @return ä½œæˆã—ãŸå•é¡Œ
 	 * @throws ParserConfigurationException
 	 * @throws SAXException
 	 * @throws IOException
@@ -53,9 +53,9 @@ public abstract class PclReaderBase {
 	}
 
 	/**
-	 * DOMƒhƒLƒ…ƒƒ“ƒg‚ğ–â‘è‚É•ÏŠ·‚·‚é
-	 * @param doc “ü—ÍDocument
-	 * @return o—Í‚µ‚½–â‘è
+	 * DOMãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã‚’å•é¡Œã«å¤‰æ›ã™ã‚‹
+	 * @param doc å…¥åŠ›Document
+	 * @return å‡ºåŠ›ã—ãŸå•é¡Œ
 	 * @throws PencilBoxClassException
 	 */
 	public Problem makeProblem(Document doc) throws PencilBoxClassException {
@@ -107,8 +107,8 @@ public abstract class PclReaderBase {
 		System.out.println("readAnswer() method is not defined.");
 	}
 	/**
-	 * Board ‚ğæ“¾‚·‚é
- 	 * @return@board
+	 * Board ã‚’å–å¾—ã™ã‚‹
+ 	 * @returnã€€board
 	 */
 	protected BoardBase getBoard() {
 		return board;

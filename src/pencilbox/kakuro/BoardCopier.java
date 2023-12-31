@@ -13,8 +13,8 @@ import pencilbox.common.core.Rotator;
 public class BoardCopier extends BoardCopierBase {
 
 	/*
-	 * Åã’i‚¨‚æ‚ÑÅ¶—ñ‚Íœ‚¢‚½•”•ª‚ğ‰ñ“]C•¡Ê‚·‚éB
-	 * •ƒ}ƒX‚Ì”š‚àƒRƒs[‚·‚é‚ªC‚»‚ÌÛ”’ƒ}ƒX‚ÉÚ‚µ‚Ä‚¢‚È‚¢”š‚ÍƒRƒs[‚µ‚È‚¢B
+	 * æœ€ä¸Šæ®µãŠã‚ˆã³æœ€å·¦åˆ—ã¯é™¤ã„ãŸéƒ¨åˆ†ã‚’å›è»¢ï¼Œè¤‡å†™ã™ã‚‹ã€‚
+	 * é»’ãƒã‚¹ã®æ•°å­—ã‚‚ã‚³ãƒ”ãƒ¼ã™ã‚‹ãŒï¼Œãã®éš›ç™½ãƒã‚¹ã«æ¥ã—ã¦ã„ãªã„æ•°å­—ã¯ã‚³ãƒ”ãƒ¼ã—ãªã„ã€‚
 	 */
 	public void copyBoardStates(BoardBase src, BoardBase dst, int n) {
 		Board s = (Board) src;
@@ -52,7 +52,7 @@ public class BoardCopier extends BoardCopierBase {
 	}
 
 	/*
-	 * ‰ñ“]‚µ‚½‚Æ‚«‚É•ƒ}ƒX‚Ì”š‚ğ‚µ‚©‚é‚×‚«ˆÊ’u‚É‘‚­‚½‚ß‚Ì•â•ƒƒ\ƒbƒh
+	 * å›è»¢ã—ãŸã¨ãã«é»’ãƒã‚¹ã®æ•°å­—ã‚’ã—ã‹ã‚‹ã¹ãä½ç½®ã«æ›¸ããŸã‚ã®è£œåŠ©ãƒ¡ã‚½ãƒƒãƒ‰
 	 */
 	private void setSum(Board d, int r, int c, int sum, int dir, int rotation) {
 		if ((dir == Direction.VERT) ^ Rotator.isTransposed(rotation)) {

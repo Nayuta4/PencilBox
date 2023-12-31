@@ -3,8 +3,8 @@ package pencilbox.common.factory;
 import pencilbox.common.core.PencilBoxException;
 
 /**
- * PencilBox用例外クラス
- * 今のところClassUtilのみから発行される
+ * PencilBox逕ｨ萓句､悶け繝ｩ繧ｹ
+ * 莉翫�ｮ縺ｨ縺薙ｍClassUtil縺ｮ縺ｿ縺九ｉ逋ｺ陦後＆繧後ｋ
  */
 public class PencilBoxClassException extends PencilBoxException {
 

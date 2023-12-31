@@ -13,7 +13,7 @@ import pencilbox.common.core.AbstractStep.EditType;
 import pencilbox.resource.Messages;
 
 /**
- * uƒVƒƒƒJƒVƒƒƒJv”Õ–ÊƒNƒ‰ƒX
+ * ã€Œã‚·ãƒ£ã‚«ã‚·ãƒ£ã‚«ã€ç›¤é¢ã‚¯ãƒ©ã‚¹
  */
 public class Board extends BoardBase {
 
@@ -24,7 +24,7 @@ public class Board extends BoardBase {
 	public static final int OUTER = 6;
 
 	/**
-	 * OŠpŒ`‚Ì“h‚ç‚ê‚½‘¤‚Ì•ûŒü‚ğ•\‚·
+	 * ä¸‰è§’å½¢ã®å¡—ã‚‰ã‚ŒãŸå´ã®æ–¹å‘ã‚’è¡¨ã™
 	 */
 	public static final int LTUP = 4; // 5;
 	public static final int LTDN = 5; // 2;
@@ -48,7 +48,7 @@ public class Board extends BoardBase {
 	private int[] number;
 
 	private int[] state;
-	private Area initializingArea; // initArea() ‚Å‚Ì—Ìˆæì¬’†‚É—p‚¢‚é‰¼‚Ì—Ìˆæ
+	private Area initializingArea; // initArea() ã§ã®é ˜åŸŸä½œæˆä¸­ã«ç”¨ã„ã‚‹ä»®ã®é ˜åŸŸ
 	private Area[] areas;
 
 	private List<Area> areaList = new LinkedList<Area>();
@@ -83,10 +83,10 @@ public class Board extends BoardBase {
 		initAreas();
 	}
 	/**
-	 * ƒ}ƒX‚Ìó‘Ô‚ğæ“¾‚·‚é
-	 * @param r ƒ}ƒX‚ÌsÀ•W
-	 * @param c ƒ}ƒX‚Ì—ñÀ•W
-	 * @return ó‘Ô
+	 * ãƒã‚¹ã®çŠ¶æ…‹ã‚’å–å¾—ã™ã‚‹
+	 * @param r ãƒã‚¹ã®è¡Œåº§æ¨™
+	 * @param c ãƒã‚¹ã®åˆ—åº§æ¨™
+	 * @return çŠ¶æ…‹
 	 */
 	public int getState(int r, int c) {
 		return getState(cell(r, c));
@@ -103,10 +103,10 @@ public class Board extends BoardBase {
 			return OUTER;
 	}
 	/**
-	 * ƒ}ƒX‚Ìó‘Ô‚ğİ’è‚·‚é
-	 * @param r sÀ•W
-	 * @param c —ñÀ•W
-	 * @param st ó‘Ô
+	 * ãƒã‚¹ã®çŠ¶æ…‹ã‚’è¨­å®šã™ã‚‹
+	 * @param r è¡Œåº§æ¨™
+	 * @param c åˆ—åº§æ¨™
+	 * @param st çŠ¶æ…‹
 	 */
 	public void setState(int r, int c, int st) {
 		setState(cell(r, c), st);
@@ -153,9 +153,9 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ƒ}ƒX‚Ìó‘Ô‚ğw’è‚µ‚½ó‘Ô‚É•ÏX‚µC•ÏX‚ğƒAƒ“ƒhƒDƒŠƒXƒi[‚É’Ê’m‚·‚é
-	 * @param p ƒ}ƒXÀ•W
-	 * @param st •ÏXŒã‚Ìó‘Ô
+	 * ãƒã‚¹ã®çŠ¶æ…‹ã‚’æŒ‡å®šã—ãŸçŠ¶æ…‹ã«å¤‰æ›´ã—ï¼Œå¤‰æ›´ã‚’ã‚¢ãƒ³ãƒ‰ã‚¥ãƒªã‚¹ãƒŠãƒ¼ã«é€šçŸ¥ã™ã‚‹
+	 * @param p ãƒã‚¹åº§æ¨™
+	 * @param st å¤‰æ›´å¾Œã®çŠ¶æ…‹
 	 */
 	public void changeState(Address p, int st) {
 		int prev = getState(p);
@@ -199,7 +199,7 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * Œ»İ‚Ì”Õ–Êó‘Ô‚ÉŠî‚Ã‚¢‚ÄC—Ìˆæ‚Ìİ’è‚ğs‚¤
+	 * ç¾åœ¨ã®ç›¤é¢çŠ¶æ…‹ã«åŸºã¥ã„ã¦ï¼Œé ˜åŸŸã®è¨­å®šã‚’è¡Œã†
 	 */
 	public void initAreas() {
 		Arrays.fill(areas, nullArea);
@@ -211,9 +211,9 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * ‹N“_ƒ}ƒX‚ğŠÜ‚Ş”’ƒ}ƒX˜AŒ‹—Ìˆæ‚ğ’²‚×‚é
-	 * @param p0 ‹N“_ƒ}ƒX‚ÌÀ•W
-	 * @return –K–â‚µ‚½ƒ}ƒX‚Ì–ÊÏ
+	 * èµ·ç‚¹ãƒã‚¹ã‚’å«ã‚€ç™½ãƒã‚¹é€£çµé ˜åŸŸã‚’èª¿ã¹ã‚‹
+	 * @param p0 èµ·ç‚¹ãƒã‚¹ã®åº§æ¨™
+	 * @return è¨ªå•ã—ãŸãƒã‚¹ã®é¢ç©
 	 */
 	public int initArea(Address p) {
 		this.initializingArea = new Area();
@@ -232,12 +232,12 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * @param p ƒ}ƒX
-	 * @param d ‘O‚Ìƒ}ƒX‚©‚ç‚±‚Ìƒ}ƒX‚ÖˆÚ“®‚·‚é•ûŒü ‚¢‚ç‚È‚¢‚©‚àB
+	 * @param p ãƒã‚¹
+	 * @param d å‰ã®ãƒã‚¹ã‹ã‚‰ã“ã®ãƒã‚¹ã¸ç§»å‹•ã™ã‚‹æ–¹å‘ ã„ã‚‰ãªã„ã‹ã‚‚ã€‚
 	 * @return
 	 */
 	private int visit(Address p, int d) {
-//		System.out.println(p.toString()+"‚ğ–K‚ê‚½");
+//		System.out.println(p.toString()+"ã‚’è¨ªã‚ŒãŸ");
 		int n = 1;
 //		flag[a2i(p)] ++;
 		setArea(p, initializingArea);
@@ -250,7 +250,7 @@ public class Board extends BoardBase {
 			initializingArea.nAreaBorder[s] ++;
 		}
 		for (int dd = 0; dd < 4; dd++) {
-//			System.out.println(dd+"•ûŒü‚ğŒ©‚é");
+//			System.out.println(dd+"æ–¹å‘ã‚’è¦‹ã‚‹");
 			if (   (dd == Direction.UP && (s == LTUP || s == RTUP))
 				|| (dd == Direction.LT && (s == LTDN || s == LTUP))
 				|| (dd == Direction.DN && (s == RTDN || s == LTDN))
@@ -260,12 +260,12 @@ public class Board extends BoardBase {
 			Address pp = Address.nextCell(p, dd);
 			int ss = getState(pp);
 			if (!isOn(pp)) {
-		//		System.out.println(i2a(pp).toString()+"‚Í”ÕŠO‚È‚Ì‚Å‹A‚é");
+		//		System.out.println(i2a(pp).toString()+"ã¯ç›¤å¤–ãªã®ã§å¸°ã‚‹");
 				initializingArea.nAreaBorder[dd] ++;
 				continue;
 			}
 			if (isNumber(getNumber(pp))) {
-		//		System.out.println(i2a(pp).toString()+"‚Í•ƒ}ƒX‚È‚Ì‚Å‹A‚é");
+		//		System.out.println(i2a(pp).toString()+"ã¯é»’ãƒã‚¹ãªã®ã§å¸°ã‚‹");
 				initializingArea.nAreaBorder[dd] ++;
 				continue;
 			}
@@ -273,13 +273,13 @@ public class Board extends BoardBase {
 				|| (dd == Direction.LT && (ss == RTDN || ss == RTUP))
 				|| (dd == Direction.DN && (ss == RTUP || ss == LTUP))
 				|| (dd == Direction.RT && (ss == LTUP || ss == LTDN))) {
-				//		System.out.println(i2a(pp).toString()+"‚Í³OŠp‚È‚Ì‚Å‹A‚é");
+				//		System.out.println(i2a(pp).toString()+"ã¯æ­£ä¸‰è§’ãªã®ã§å¸°ã‚‹");
 				initializingArea.nAreaBorder[dd] ++;
 				continue;
 			}
 			if (getArea(pp) == initializingArea) {
 //			if (flag[a2i(pp)] > 0) {
-		//		System.out.println(i2a(pp).toString()+"‚Í‚·‚Å‚É–K‚ê‚Ä‚¢‚é‚Ì‚Å‹A‚é");
+		//		System.out.println(i2a(pp).toString()+"ã¯ã™ã§ã«è¨ªã‚Œã¦ã„ã‚‹ã®ã§å¸°ã‚‹");
 				continue;
 			}
 
@@ -289,10 +289,10 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * —×Ú‚·‚é‚Sƒ}ƒX‚ÌOŠpŒ`‚ÌŒÂ”‚ğ’²‚×‚é
-	 * @param r sÀ•W
-	 * @param c —ñÀ•W
-	 * @return —×Ú‚·‚é‚Sƒ}ƒX‚ÌOŠpŒ`‚ÌŒÂ”
+	 * éš£æ¥ã™ã‚‹ï¼”ãƒã‚¹ã®ä¸‰è§’å½¢ã®å€‹æ•°ã‚’èª¿ã¹ã‚‹
+	 * @param r è¡Œåº§æ¨™
+	 * @param c åˆ—åº§æ¨™
+	 * @return éš£æ¥ã™ã‚‹ï¼”ãƒã‚¹ã®ä¸‰è§’å½¢ã®å€‹æ•°
 	 */
 	public int countAdjacentTriangles(Address p) {
 		int count = 0;
@@ -305,7 +305,7 @@ public class Board extends BoardBase {
 				count++;
 			}
 		}
-//		System.out.println(p.toString() + " ‚É—×Ú‚·‚éƒ}ƒX‚ÌOŠpŒ`‚ÌŒÂ”‚Í " + count);
+//		System.out.println(p.toString() + " ã«éš£æ¥ã™ã‚‹ãƒã‚¹ã®ä¸‰è§’å½¢ã®å€‹æ•°ã¯ " + count);
 		return count;
 	}
 

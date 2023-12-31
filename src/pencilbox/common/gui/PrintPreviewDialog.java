@@ -33,8 +33,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 /**
- * ˆóüİ’èCƒvƒŒƒrƒ…[ƒ_ƒCƒAƒƒO
- * ƒ‚[ƒ_ƒ‹ƒ_ƒCƒAƒƒO‚È‚Ì‚ÅC1‚Â‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚Ì‚İ‚ğ¶¬‚µ‚Äg‚¢‰ñ‚·
+ * å°åˆ·è¨­å®šï¼Œãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ãƒ€ã‚¤ã‚¢ãƒ­ã‚°
+ * ãƒ¢ãƒ¼ãƒ€ãƒ«ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ãªã®ã§ï¼Œ1ã¤ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ã¿ã‚’ç”Ÿæˆã—ã¦ä½¿ã„å›ã™
  */
 public class PrintPreviewDialog extends JDialog {
 
@@ -43,8 +43,8 @@ public class PrintPreviewDialog extends JDialog {
 	private PrintRequestAttributeSet attributes;
 
 	/**
-	 * PrintPreviewDialog ƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾‚·‚éB
-	 * @return ˆóüƒvƒŒƒrƒ…[ƒCƒ“ƒXƒ^ƒ“ƒX
+	 * PrintPreviewDialog ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å–å¾—ã™ã‚‹ã€‚
+	 * @return å°åˆ·ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 	 */
 	public static PrintPreviewDialog getInstance() {
 		return instance;
@@ -79,8 +79,8 @@ public class PrintPreviewDialog extends JDialog {
 		JLabel repeatYSpinnerLabel = new JLabel("Repeat Y:");
 
 		/**
-		 * ˆóü‚·‚é
-		 * I—¹Œã‚Íƒ_ƒCƒAƒƒO‚ğ•Â‚¶‚é
+		 * å°åˆ·ã™ã‚‹
+		 * çµ‚äº†å¾Œã¯ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚’é–‰ã˜ã‚‹
 		 */
 		printButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -89,8 +89,8 @@ public class PrintPreviewDialog extends JDialog {
 			}
 		});
 		/**
-		 * •W€‚Ìƒy[ƒWİ’èƒ_ƒCƒAƒƒO‚ğŒÄ‚ÔB
-		 * İ’è‚ª•ÏX‚³‚ê‚é‚ÆV‚µ‚¢PageFormat‚ª•Ô‚³‚ê‚é‚½‚ßCƒvƒŒƒrƒ…[‰æ–Ê‚ğXV‚·‚éB 
+		 * æ¨™æº–ã®ãƒšãƒ¼ã‚¸è¨­å®šãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚’å‘¼ã¶ã€‚
+		 * è¨­å®šãŒå¤‰æ›´ã•ã‚Œã‚‹ã¨æ–°ã—ã„PageFormatãŒè¿”ã•ã‚Œã‚‹ãŸã‚ï¼Œãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ç”»é¢ã‚’æ›´æ–°ã™ã‚‹ã€‚ 
 		 */
 		pageSetupButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -99,7 +99,7 @@ public class PrintPreviewDialog extends JDialog {
 		});
 
 		/**
-		 * ƒvƒŠƒrƒ…[ƒ_ƒCƒAƒƒO
+		 * ãƒ—ãƒªãƒ“ãƒ¥ãƒ¼ãƒ€ã‚¤ã‚¢ãƒ­ã‚°
 		 */
 //		previewButton.addActionListener(new ActionListener() {
 //			public void actionPerformed(ActionEvent event) {
@@ -150,7 +150,7 @@ public class PrintPreviewDialog extends JDialog {
 		buttonPanel.add(closeButton);
 
 		Container contentPane = this.getContentPane();
-//		if (false) { //	ƒXƒNƒ[ƒ‹ƒyƒCƒ“‚É“ü‚ê‚éê‡C
+//		if (false) { //	ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒšã‚¤ãƒ³ã«å…¥ã‚Œã‚‹å ´åˆï¼Œ
 //			JScrollPane jScrollPane = new JScrollPane();
 //			jScrollPane.getViewport().add(pcanvas, null);
 //			contentPane.add(jScrollPane, BorderLayout.CENTER);
@@ -163,8 +163,8 @@ public class PrintPreviewDialog extends JDialog {
 	}
 
 	/**
-	 * ˆóü‚·‚éB
-	 * ƒXƒP[ƒŠƒ“ƒO‚È‚Ç‚Ìˆóüİ’è‚ğ”½‰f‚³‚¹‚é‚½‚ßCPanel‚»‚Ì‚à‚Ì‚Å‚È‚­CPreviewCanvas‚ğˆóü‚·‚éB
+	 * å°åˆ·ã™ã‚‹ã€‚
+	 * ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ãªã©ã®å°åˆ·è¨­å®šã‚’åæ˜ ã•ã›ã‚‹ãŸã‚ï¼ŒPanelãã®ã‚‚ã®ã§ãªãï¼ŒPreviewCanvasã‚’å°åˆ·ã™ã‚‹ã€‚
 	 */
 	public void print() {
 		PrinterJob job = PrinterJob.getPrinterJob();
@@ -188,7 +188,7 @@ public class PrintPreviewDialog extends JDialog {
 	}
 
 	/**
-	 * ESCƒL[‚Åƒ_ƒCƒAƒƒO‚ğ•Â‚¶‚é
+	 * ESCã‚­ãƒ¼ã§ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚’é–‰ã˜ã‚‹
 	 */
 	private void assignKeys() {
 		InputMap imap = getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
@@ -203,7 +203,7 @@ public class PrintPreviewDialog extends JDialog {
 	};
 
 	/**
-	 * ƒvƒŒƒrƒ…[‰æ–Ê‚Éƒpƒlƒ‹‚ğİ’è‚·‚é
+	 * ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ç”»é¢ã«ãƒ‘ãƒãƒ«ã‚’è¨­å®šã™ã‚‹
 	 * @param printObject
 	 */
 	public void setPrintObject(Printable printObject) {
@@ -211,7 +211,7 @@ public class PrintPreviewDialog extends JDialog {
 	}
 
 	/**
-	 * ƒ_ƒCƒAƒƒO‚ğ•\¦‚·‚é
+	 * ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚’è¡¨ç¤ºã™ã‚‹
 	 * @param frame
 	 */
 	public void showDialog(Frame frame) {
@@ -227,22 +227,22 @@ public class PrintPreviewDialog extends JDialog {
 }
 
 /**
- * ƒvƒŠƒ“ƒgƒvƒŒƒrƒ…[‚Ì‰æ–Ê‚Æˆóü—p•`‰æ
+ * ãƒ—ãƒªãƒ³ãƒˆãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ã®ç”»é¢ã¨å°åˆ·ç”¨æç”»
  */
 class PrintPreviewCanvas extends JPanel implements Printable {
 
 	Printable printObject;
 	PageFormat pageFormat;
-	double scaling = 0.70;  // ˆóü‚Ì”{—¦
-	int repeatX = 1;  // ‰¡ŒJ‚è•Ô‚µ‰ñ”
-	int repeatY = 1;  // cŒJ‚è•Ô‚µ‰ñ”
+	double scaling = 0.70;  // å°åˆ·æ™‚ã®å€ç‡
+	int repeatX = 1;  // æ¨ªç¹°ã‚Šè¿”ã—å›æ•°
+	int repeatY = 1;  // ç¸¦ç¹°ã‚Šè¿”ã—å›æ•°
 
 	public PrintPreviewCanvas() {
 	}
 
 	/**
-	 * ‚Í‚¶‚ßCˆóü‚ğÀs‚µ‚½‚Æ‚«Cƒy[ƒWİ’è‚ğ•ÏX‚µ‚½‚Æ‚«‚ÉC
-	 * PageFormat‚É‰‚¶‚ÄƒvƒŒƒrƒ…[‚ğXV‚·‚éB
+	 * ã¯ã˜ã‚ï¼Œå°åˆ·ã‚’å®Ÿè¡Œã—ãŸã¨ãï¼Œãƒšãƒ¼ã‚¸è¨­å®šã‚’å¤‰æ›´ã—ãŸã¨ãã«ï¼Œ
+	 * PageFormatã«å¿œã˜ã¦ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ã‚’æ›´æ–°ã™ã‚‹ã€‚
 	 * @param pageFormat
 	 */
 	public void setPageFormat(PageFormat pageFormat) {
@@ -250,8 +250,8 @@ class PrintPreviewCanvas extends JPanel implements Printable {
 	}
 
 	/* 
-	 * ˆóü‚·‚é
-	 * ‚±‚±‚Å‚ÌPageFormat‚ÍƒtƒB[ƒ‹ƒh‚Å‚Í‚È‚­ˆø”‚Ì‚à‚Ì‚ªg‚í‚ê‚é‚±‚Æ‚É’ˆÓ
+	 * å°åˆ·ã™ã‚‹
+	 * ã“ã“ã§ã®PageFormatã¯ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã§ã¯ãªãå¼•æ•°ã®ã‚‚ã®ãŒä½¿ã‚ã‚Œã‚‹ã“ã¨ã«æ³¨æ„
 	 * @see java.awt.print.Printable#print(java.awt.Graphics, java.awt.print.PageFormat, int)
 	 */
 	public int print(Graphics g, PageFormat pf, int page) throws PrinterException {
@@ -269,7 +269,7 @@ class PrintPreviewCanvas extends JPanel implements Printable {
 		double px = pageFormat.getWidth();
 		double py = pageFormat.getHeight();
 		double scale = 1.0; // scale factor to fit page in window
-		if (true) {    // ƒvƒŒƒrƒ…[†–Ê‚ğƒ_ƒCƒAƒƒO‚ÌƒTƒCƒY‚É‡‚í‚¹‚ÄƒXƒP[ƒŠƒ“ƒO‚·‚éê‡
+		if (true) {    // ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ç´™é¢ã‚’ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã®ã‚µã‚¤ã‚ºã«åˆã‚ã›ã¦ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ã™ã‚‹å ´åˆ
 			double xoff; // x offset of page start in window
 			double yoff; // y offset of page start in window
 			double sx = getWidth() - 1;
@@ -286,13 +286,13 @@ class PrintPreviewCanvas extends JPanel implements Printable {
 			g2.translate(xoff, yoff);
 		}
 		g2.scale(scale, scale);
-		// ƒy[ƒWŠO˜g
+		// ãƒšãƒ¼ã‚¸å¤–æ 
 		Rectangle2D pageOutline = new Rectangle2D.Double(0, 0, px, py);
 		g2.setPaint(Color.white);
 		g2.fill(pageOutline);
 		g2.setPaint(Color.black);
 		g2.draw(pageOutline);
-//		// ˆóü—Ìˆæ‚Ì˜g
+//		// å°åˆ·é ˜åŸŸã®æ 
 //		Rectangle2D imageableOutline = new Rectangle2D.Double(pageFormat.getImageableX(), pageFormat.getImageableY(), pageFormat.getImageableWidth(), pageFormat.getImageableHeight());
 //		g2.setPaint(Color.gray);
 //		g2.draw(imageableOutline);

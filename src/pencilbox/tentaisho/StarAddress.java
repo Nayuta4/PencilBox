@@ -3,8 +3,8 @@ package pencilbox.tentaisho;
 import pencilbox.common.core.Address;
 
 /**
- * 「天体ショー」星用アドレス
- * 今のところただの目印
+ * 縲悟､ｩ菴薙す繝ｧ繝ｼ縲肴弌逕ｨ繧｢繝峨Ξ繧ｹ
+ * 莉翫�ｮ縺ｨ縺薙ｍ縺溘□縺ｮ逶ｮ蜊ｰ
  */
 public class StarAddress extends Address {
 

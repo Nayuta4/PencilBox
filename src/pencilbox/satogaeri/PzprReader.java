@@ -5,7 +5,7 @@ import pencilbox.common.io.PzprReaderBase;
 
 
 /**
- * QlFpzprv3 
+ * å‚è€ƒï¼špzprv3 
  */
 public class PzprReader extends PzprReaderBase {
 
@@ -33,7 +33,7 @@ public class PzprReader extends PzprReaderBase {
 	}
 
 	/**
-	 * ‹«ŠEüƒf[ƒ^‚©‚ç—Ìˆæ”Ô†ƒf[ƒ^‚ğì¬‚·‚éB
+	 * å¢ƒç•Œç·šãƒ‡ãƒ¼ã‚¿ã‹ã‚‰é ˜åŸŸç•ªå·ãƒ‡ãƒ¼ã‚¿ã‚’ä½œæˆã™ã‚‹ã€‚
 	 */
 	private void makeAreas() {
 		Area[] areaArray = new Area[nArea];

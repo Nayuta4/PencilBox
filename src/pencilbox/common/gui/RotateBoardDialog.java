@@ -12,17 +12,17 @@ import javax.swing.JRadioButton;
 import pencilbox.resource.Messages;
 
 /**
- * u”Õ–Ê‰ñ“]vƒ_ƒCƒAƒƒO
- * ƒ‚[ƒ_ƒ‹ƒ_ƒCƒAƒƒO‚È‚Ì‚ÅC1‚Â‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚Ì‚İ‚ğ¶¬‚µ‚Äg‚¢‰ñ‚·
+ * ã€Œç›¤é¢å›è»¢ã€ãƒ€ã‚¤ã‚¢ãƒ­ã‚°
+ * ãƒ¢ãƒ¼ãƒ€ãƒ«ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ãªã®ã§ï¼Œ1ã¤ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ã¿ã‚’ç”Ÿæˆã—ã¦ä½¿ã„å›ã™
  */
 
 public class RotateBoardDialog extends PencilBoxDialog {
 
 	private static RotateBoardDialog instance = new RotateBoardDialog();
 	/**
-	 * RotateBoardDialog ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾‚·‚é
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Íg—p•s‰Â‚ÅCƒCƒ“ƒXƒ^ƒ“ƒX‚Í‚±‚Ìƒƒ\ƒbƒh‚É‚æ‚èæ“¾‚·‚é
-	 * @return RotateBoardDialog ƒCƒ“ƒXƒ^ƒ“ƒX
+	 * RotateBoardDialog ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å–å¾—ã™ã‚‹
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã¯ä½¿ç”¨ä¸å¯ã§ï¼Œã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã¯ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã«ã‚ˆã‚Šå–å¾—ã™ã‚‹
+	 * @return RotateBoardDialog ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 	 */
 	public static RotateBoardDialog getInstance() {
 		return instance;
@@ -60,8 +60,8 @@ public class RotateBoardDialog extends PencilBoxDialog {
 	}
 
 	/**
-	 * ‘I‘ğ‚³‚ê‚½ƒ{ƒ^ƒ“‚ğæ“¾‚·‚éB
-	 * @return ‘I‘ğ‚³‚ê‚½ƒ{ƒ^ƒ“‚ÌƒAƒNƒVƒ‡ƒ“ƒRƒ}ƒ“ƒh
+	 * é¸æŠã•ã‚ŒãŸãƒœã‚¿ãƒ³ã‚’å–å¾—ã™ã‚‹ã€‚
+	 * @return é¸æŠã•ã‚ŒãŸãƒœã‚¿ãƒ³ã®ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã‚³ãƒãƒ³ãƒ‰
 	 */
 	public int getSelection() {
 		return Integer.parseInt(typePanel.getSelection());
@@ -70,8 +70,8 @@ public class RotateBoardDialog extends PencilBoxDialog {
 }
 
 /**
- * ƒ‰ƒWƒIƒ{ƒ^ƒ“‚Ìƒpƒlƒ‹‚ğ¶¬‚·‚éB
- * QlFcore Java 2 Vol.1 ƒŠƒXƒg 9-16
+ * ãƒ©ã‚¸ã‚ªãƒœã‚¿ãƒ³ã®ãƒ‘ãƒãƒ«ã‚’ç”Ÿæˆã™ã‚‹ã€‚
+ * å‚è€ƒï¼šcore Java 2 Vol.1 ãƒªã‚¹ãƒˆ 9-16
  */
 class ButtonPanel extends JPanel {
 

@@ -11,8 +11,8 @@ import pencilbox.common.core.SideAddress;
 
 
 /**
- * ‚Ï‚¸‚Õ‚êv3Œ`®‚ÌURL“Ç‚İ‚İ
- * QlF Encode.js v3.2.3, v3.2.4
+ * ã±ãšã·ã‚Œv3å½¢å¼ã®URLèª­ã¿è¾¼ã¿
+ * å‚è€ƒï¼š Encode.js v3.2.3, v3.2.4
  * // p.html?(pid)/(qdata)
  * //               qdata -> [(pflag)/](cols)/(rows)/(bstr)
  */
@@ -20,18 +20,18 @@ public abstract class PzprReaderBase {
 
 	private BoardBase bd;
 //	String pid;
-	private String pflag = "";	// “ü—Í‚³‚ê‚½URL‚Ìƒtƒ‰ƒO•”•ª
-	protected int cols; // pzprv3ƒf[ƒ^‚Å‚Ì—ñ”
-	protected int rows; // pzprv3ƒf[ƒ^‚Å‚Ìs”
-	protected String outbstr = "";  // ”Õ–Êƒf[ƒ^•”•ª
+	private String pflag = "";	// å…¥åŠ›ã•ã‚ŒãŸURLã®ãƒ•ãƒ©ã‚°éƒ¨åˆ†
+	protected int cols; // pzprv3ãƒ‡ãƒ¼ã‚¿ã§ã®åˆ—æ•°
+	protected int rows; // pzprv3ãƒ‡ãƒ¼ã‚¿ã§ã®è¡Œæ•°
+	protected String outbstr = "";  // ç›¤é¢ãƒ‡ãƒ¼ã‚¿éƒ¨åˆ†
 	/**
-	 * ƒeƒLƒXƒgŒ`®‚Ì”Õ–Ê‚ğ“Ç‚İ‚Ş
-	 * @param in “ü—Í
-	 * @return “Ç‚İ‚ñ‚Åì¬‚µ‚½”Õ–Ê
+	 * ãƒ†ã‚­ã‚¹ãƒˆå½¢å¼ã®ç›¤é¢ã‚’èª­ã¿è¾¼ã‚€
+	 * @param in å…¥åŠ›
+	 * @return èª­ã¿è¾¼ã‚“ã§ä½œæˆã—ãŸç›¤é¢
 	 * @throws IOException
 	 */
 	public BoardBase readProblem(String url) throws IOException, PencilBoxException {
-		// pid ‚Í‚Æ‚Î‚µ‚Ä‚»‚ÌŸ‚©‚ç“n‚·BƒpƒYƒ‹‚Ìí—Ş‚Í¡ŠJ‚¢‚Ä‚é‚à‚Ì‚Æ“¯‚¶‚à‚Ì‚ÉŒÀ‚éB
+		// pid ã¯ã¨ã°ã—ã¦ãã®æ¬¡ã‹ã‚‰æ¸¡ã™ã€‚ãƒ‘ã‚ºãƒ«ã®ç¨®é¡ã¯ä»Šé–‹ã„ã¦ã‚‹ã‚‚ã®ã¨åŒã˜ã‚‚ã®ã«é™ã‚‹ã€‚
 		parseURI_pzpr(url.substring(url.indexOf('/', url.indexOf('?'))+1));
 		if (rows <= 0 || cols <= 0)
 			throw new PencilBoxException("Size data is wrong");
@@ -41,21 +41,21 @@ public abstract class PzprReaderBase {
 	}
 
 	/**
-	 * 	// enc.parseURI_pzpr()   pzlURI•”‚ğpflag,bstr“™‚Ì•”•ª‚É•ªŠ„‚·‚é
-	 * 	// qstr = (pflag /) cols / rows / bstr(bstr‚Ì’†‚É'/'‚ğŠÜ‚İ‚¤‚é)
+	 * 	// enc.parseURI_pzpr()   pzlURIéƒ¨ã‚’pflag,bstrç­‰ã®éƒ¨åˆ†ã«åˆ†å‰²ã™ã‚‹
+	 * 	// qstr = (pflag /) cols / rows / bstr(bstrã®ä¸­ã«'/'ã‚’å«ã¿ã†ã‚‹)
 	 * @param qstr
 	 */
 	protected void parseURI_pzpr(String qstr) throws PencilBoxException {
 		String[] inpa = qstr.split("/");
 		LinkedList<String> inp	= new LinkedList<String>(Arrays.asList(inpa));
-		// 1‚Â‚ß‚Ì€‚ª”š‚Å‚È‚¯‚ê‚Îƒtƒ‰ƒO‚Éİ’è
+		// 1ã¤ã‚ã®é …ãŒæ•°å­—ã§ãªã‘ã‚Œã°ãƒ•ãƒ©ã‚°ã«è¨­å®š
 		if (inp.getFirst().length()>0 && !include(inp.getFirst().charAt(0),'0','9'))
 			pflag = inp.removeFirst();
 		if (inpa.length<2)
 			throw new PencilBoxException("Size data is required.");
 		this.cols = parseInt(inp.removeFirst());
 		this.rows = parseInt(inp.removeFirst());
-		// join‚Ì‘ã‚í‚è
+		// joinã®ä»£ã‚ã‚Š
 		StringBuffer sb = new StringBuffer();
 		for (String s : inp) {
 			if (sb.length()>0) { sb.append('/'); }
@@ -65,9 +65,9 @@ public abstract class PzprReaderBase {
 	}
 
 	/**
-	 * Board ‚ğì¬‚·‚éBŠeƒTƒuƒNƒ‰ƒX‚ÅƒI[ƒo[ƒ‰ƒCƒh•K—v
-	 * @param r pzpr‚Å‚Ìs”
-	 * @param c pzpr‚Å‚Ì—ñ”
+	 * Board ã‚’ä½œæˆã™ã‚‹ã€‚å„ã‚µãƒ–ã‚¯ãƒ©ã‚¹ã§ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰å¿…è¦
+	 * @param r pzprã§ã®è¡Œæ•°
+	 * @param c pzprã§ã®åˆ—æ•°
 	 * @return
 	 */
 	protected BoardBase makeBoard() {
@@ -75,14 +75,14 @@ public abstract class PzprReaderBase {
 	}
 
 	/**
-	 * ŠeƒpƒYƒ‹‚ÌURL“ü—Í—p(ƒI[ƒo[ƒ‰ƒCƒh—p)
+	 * å„ãƒ‘ã‚ºãƒ«ã®URLå…¥åŠ›ç”¨(ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ç”¨)
 	 * @return
 	 */
 	protected void pzlimport() {
 	}
 
 	/**
-	 * ˆê•”‚Ì•¶š—ñ‚ğ“Ç‚İæ‚Á‚½‚Æ‚«‚Ìc‚è‚Ì•¶š—ñ‚ğ outbstr ‚ÉÄŠi”[‚·‚éB
+	 * ä¸€éƒ¨ã®æ–‡å­—åˆ—ã‚’èª­ã¿å–ã£ãŸã¨ãã®æ®‹ã‚Šã®æ–‡å­—åˆ—ã‚’ outbstr ã«å†æ ¼ç´ã™ã‚‹ã€‚
 	 * @param bstr
 	 * @param i
 	 */
@@ -93,12 +93,12 @@ public abstract class PzprReaderBase {
 			this.outbstr = bstr.substring(i);
 	}
 	//---------------------------------------------------------------------------
-	// enc.checkpflag()   pflag‚Éw’è‚µ‚½•¶š—ñ‚ªŠÜ‚Ü‚ê‚Ä‚¢‚é‚©’²‚×‚é
+	// enc.checkpflag()   pflagã«æŒ‡å®šã—ãŸæ–‡å­—åˆ—ãŒå«ã¾ã‚Œã¦ã„ã‚‹ã‹èª¿ã¹ã‚‹
 	//---------------------------------------------------------------------------
 	protected boolean checkpflag(String ca){ return (this.pflag.indexOf(ca)>=0);}
 
 	//---------------------------------------------------------------------------
-	// enc.decode4Cell()  ques‚ª0`4‚Ü‚Å‚Ìê‡AƒfƒR[ƒh‚·‚é
+	// enc.decode4Cell()  quesãŒ0ã€œ4ã¾ã§ã®å ´åˆã€ãƒ‡ã‚³ãƒ¼ãƒ‰ã™ã‚‹
 	//---------------------------------------------------------------------------
 	protected void decode4Cell(){
 		int c=0, i=0;
@@ -117,7 +117,7 @@ public abstract class PzprReaderBase {
 	}
 
 	//---------------------------------------------------------------------------
-	// enc.decodeNumber16()  ques‚ª0`8192?‚Ü‚Å‚Ìê‡AƒfƒR[ƒh‚·‚é
+	// enc.decodeNumber16()  quesãŒ0ã€œ8192?ã¾ã§ã®å ´åˆã€ãƒ‡ã‚³ãƒ¼ãƒ‰ã™ã‚‹
 	//---------------------------------------------------------------------------
 	protected void decodeNumber16(){
 		int c=0, i=0;
@@ -142,7 +142,7 @@ public abstract class PzprReaderBase {
 
 	protected int[] roomNumbers;
 	//---------------------------------------------------------------------------
-	// enc.decodeRoomNumber16()  •”‰®{•”‰®‚Ìˆê‚Â‚Ìques‚ª0`8192?‚Ü‚Å‚Ìê‡AƒfƒR[ƒh‚·‚é
+	// enc.decodeRoomNumber16()  éƒ¨å±‹ï¼‹éƒ¨å±‹ã®ä¸€ã¤ã®quesãŒ0ã€œ8192?ã¾ã§ã®å ´åˆã€ãƒ‡ã‚³ãƒ¼ãƒ‰ã™ã‚‹
 	//---------------------------------------------------------------------------
 	protected void decodeRoomNumber16(){
 		int r = 0, i=0;
@@ -197,7 +197,7 @@ public abstract class PzprReaderBase {
 	}
 
 	//---------------------------------------------------------------------------
-	// enc.decodeBorder() –â‘è‚Ì‹«ŠEü‚ğƒfƒR[ƒh‚·‚é
+	// enc.decodeBorder() å•é¡Œã®å¢ƒç•Œç·šã‚’ãƒ‡ã‚³ãƒ¼ãƒ‰ã™ã‚‹
 	//---------------------------------------------------------------------------
 	protected void decodeBorder(){
 		int bdinside = (cols-1)*rows+cols*(rows-1);
@@ -234,7 +234,7 @@ public abstract class PzprReaderBase {
 	protected int nArea;
 
 	/**
-	 * ‹«ŠEü‚ ‚è‚È‚µƒf[ƒ^‚ğ“Ç‚İæ‚Á‚½”z—ñ borders ‚ğ—Ìˆæ”Ô†ƒf[ƒ^‚Ì”z—ñ areaIds ‚É•ÏŠ·‚·‚éB
+	 * å¢ƒç•Œç·šã‚ã‚Šãªã—ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿å–ã£ãŸé…åˆ— borders ã‚’é ˜åŸŸç•ªå·ãƒ‡ãƒ¼ã‚¿ã®é…åˆ— areaIds ã«å¤‰æ›ã™ã‚‹ã€‚
 	 */
 	protected void makeAreaIDsFromBorders() {
 		areaIds = new int[rows*cols];
@@ -259,7 +259,7 @@ public abstract class PzprReaderBase {
 	}
 
 	//---------------------------------------------------------------------------
-	// enc.decodeCircle41_42() ”’ŠÛE•ŠÛ‚ğƒfƒR[ƒh‚·‚é
+	// enc.decodeCircle41_42() ç™½ä¸¸ãƒ»é»’ä¸¸ã‚’ãƒ‡ã‚³ãƒ¼ãƒ‰ã™ã‚‹
 	//---------------------------------------------------------------------------
 	protected void decodeCircle41_42(){
 		String bstr = outbstr;
@@ -277,7 +277,7 @@ public abstract class PzprReaderBase {
 	}
 
 	/**
-	 * BoardƒNƒ‰ƒX‚ÌsA—ñ‚Æ‚±‚ÌƒNƒ‰ƒX‚ÌsA—ñ‚ªˆÙ‚È‚éê‡‚ª‚ ‚é‚½‚ßABoard.isOn()‚Íg‚¦‚È‚¢B
+	 * Boardã‚¯ãƒ©ã‚¹ã®è¡Œã€åˆ—ã¨ã“ã®ã‚¯ãƒ©ã‚¹ã®è¡Œã€åˆ—ãŒç•°ãªã‚‹å ´åˆãŒã‚ã‚‹ãŸã‚ã€Board.isOn()ã¯ä½¿ãˆãªã„ã€‚
 	 * @param a
 	 * @return
 	 */
@@ -322,7 +322,7 @@ public abstract class PzprReaderBase {
     }
 
 	//---------------------------------------------------------------------------
-	// enc.include()    •¶š—ñca‚Íbottom‚Æup‚ÌŠÔ‚É‚ ‚é‚©
+	// enc.include()    æ–‡å­—åˆ—caã¯bottomã¨upã®é–“ã«ã‚ã‚‹ã‹
 	//---------------------------------------------------------------------------
 	public static final boolean include(char ca, char bottom, char up){
 		if(bottom <= ca && ca <= up) return true;

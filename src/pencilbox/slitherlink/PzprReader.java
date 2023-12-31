@@ -5,7 +5,7 @@ import pencilbox.common.io.PzprReaderBase;
 
 
 /**
- * QlFpzprv3 slither.js
+ * å‚è€ƒï¼špzprv3 slither.js
  */
 public class PzprReader extends PzprReaderBase {
 
@@ -13,7 +13,7 @@ public class PzprReader extends PzprReaderBase {
 
 	protected BoardBase makeBoard() {
 		bd = new Board();
-		bd.setSize(rows+1, cols+1);		// ƒf[ƒ^‚æ‚è‚à 1 ‘å‚«‚¢ƒTƒCƒY‚Ì”Õ–Ê‚ğì¬‚·‚éB
+		bd.setSize(rows+1, cols+1);		// ãƒ‡ãƒ¼ã‚¿ã‚ˆã‚Šã‚‚ 1 å¤§ãã„ã‚µã‚¤ã‚ºã®ç›¤é¢ã‚’ä½œæˆã™ã‚‹ã€‚
 		return bd;
 	}
 

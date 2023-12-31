@@ -6,7 +6,7 @@ import pencilbox.common.gui.PanelEventHandlerBase;
 
 
 /**
- * u‹´‚ğ‚©‚¯‚ëvƒ}ƒEƒX^ƒL[‘€ìˆ—ƒNƒ‰ƒX
+ * ã€Œæ©‹ã‚’ã‹ã‘ã‚ã€ãƒã‚¦ã‚¹ï¼ã‚­ãƒ¼æ“ä½œå‡¦ç†ã‚¯ãƒ©ã‚¹
  */
 public class PanelEventHandler extends PanelEventHandlerBase {
 
@@ -24,7 +24,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/*
-	 * u‹´‚ğ‚©‚¯‚ëvƒ}ƒEƒX‘€ì
+	 * ã€Œæ©‹ã‚’ã‹ã‘ã‚ã€ãƒã‚¦ã‚¹æ“ä½œ
 	 */
 	protected void leftDragged(Address dragStart, Address dragEnd) {
 		if (!board.isOn(dragStart))
@@ -49,7 +49,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/*
-	 * u‹´‚ğ‚©‚¯‚ëvƒL[‘€ì
+	 * ã€Œæ©‹ã‚’ã‹ã‘ã‚ã€ã‚­ãƒ¼æ“ä½œ
 	 */
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {

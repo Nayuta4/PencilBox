@@ -9,7 +9,7 @@ import pencilbox.resource.Messages;
 import pencilbox.util.ArrayUtil;
 
 /**
- * u”üpŠÙv”Õ–ÊƒNƒ‰ƒX
+ * ã€Œç¾è¡“é¤¨ã€ç›¤é¢ã‚¯ãƒ©ã‚¹
  */
 public class Board extends BoardBase {
 
@@ -57,7 +57,7 @@ public class Board extends BoardBase {
 		initIlluminations();
 	}
 	/**
-	 * Œ»İ‚ÌÆ–¾”z’u‚ğ‚à‚Æ‚ÉCilluminatedV illuminatedH‚ğÄİ’è‚·‚é
+	 * ç¾åœ¨ã®ç…§æ˜é…ç½®ã‚’ã‚‚ã¨ã«ï¼ŒilluminatedV illuminatedHã‚’å†è¨­å®šã™ã‚‹
 	 */
 	void initIlluminations() {
 		ArrayUtil.initArrayInt2(illuminatedV, 0);
@@ -75,10 +75,10 @@ public class Board extends BoardBase {
 		return state;
 	}
 	/**
-	 * ƒ}ƒX‚Ìó‘Ô‚ğæ“¾‚·‚é 
-	 * @param r sÀ•W
-	 * @param c —ñÀ•W
-	 * @return ó‘Ô
+	 * ãƒã‚¹ã®çŠ¶æ…‹ã‚’å–å¾—ã™ã‚‹ 
+	 * @param r è¡Œåº§æ¨™
+	 * @param c åˆ—åº§æ¨™
+	 * @return çŠ¶æ…‹
 	 */
 	public int getState(int r, int c) {
 		if (isOn(r,c)) return state[r][c];
@@ -89,10 +89,10 @@ public class Board extends BoardBase {
 		return getState(pos.r(), pos.c());
 	}
 	/**
-	 * ƒ}ƒX‚Ìó‘Ô‚Ì‚İ‚ğİ’è‚·‚é
-	 * @param r sÀ•W
-	 * @param c —ñÀ•W
-	 * @param st ó‘Ô
+	 * ãƒã‚¹ã®çŠ¶æ…‹ã®ã¿ã‚’è¨­å®šã™ã‚‹
+	 * @param r è¡Œåº§æ¨™
+	 * @param c åˆ—åº§æ¨™
+	 * @param st çŠ¶æ…‹
 	 */
 	public void setState(int r, int c, int st) {
 		state[r][c] = st;
@@ -102,27 +102,27 @@ public class Board extends BoardBase {
 		setState(pos.r(), pos.c(), st);
 	}
 	/**
-	 * ‚»‚Ìƒ}ƒX‚ª•Ç‚©‚Ç‚¤‚©
-	 * @param p ƒ}ƒXÀ•W
-	 * @return •Ç‚È‚ç true
+	 * ãã®ãƒã‚¹ãŒå£ã‹ã©ã†ã‹
+	 * @param p ãƒã‚¹åº§æ¨™
+	 * @return å£ãªã‚‰ true
 	 */
 	public boolean isWall(Address p) {
 		int n = getState(p);
 		return n>=0 && n<=4 || n==NONUMBER_WALL;
 	}
 	/**
-	 * ‚»‚Ìƒ}ƒX‚ª”š‚Â‚«‚Ì•Ç‚©‚Ç‚¤‚©
-	 * @param p ƒ}ƒXÀ•W
-	 * @return •Ç‚È‚ç true
+	 * ãã®ãƒã‚¹ãŒæ•°å­—ã¤ãã®å£ã‹ã©ã†ã‹
+	 * @param p ãƒã‚¹åº§æ¨™
+	 * @return å£ãªã‚‰ true
 	 */
 	public boolean isNumberedWall(Address p){
 		int n = getState(p);
 		return n>=0 && n<=4;
 	}
 	/**
-	 * ‚»‚Ìƒ}ƒX‚ª•Ç‚Ì‚È‚¢ƒ}ƒX‚©‚Ç‚¤‚©
-	 * @param p ƒ}ƒXÀ•W
-	 * @return ”Õ“à‚Å‚©‚Â•Ç‚Å‚È‚¢‚È‚ç true
+	 * ãã®ãƒã‚¹ãŒå£ã®ãªã„ãƒã‚¹ã‹ã©ã†ã‹
+	 * @param p ãƒã‚¹åº§æ¨™
+	 * @return ç›¤å†…ã§ã‹ã¤å£ã§ãªã„ãªã‚‰ true
 	 */
 	public boolean isFloor(Address p){
 		if (isOn(p)) {
@@ -133,41 +133,41 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * ‚»‚Ìƒ}ƒX‚ª‰¡•ûŒü‚©‚çÆ‚ç‚³‚ê‚Ä‚¢‚é‚©
-	 * @param p ƒ}ƒXÀ•W
-	 * @return –¢’è‚È‚ç true
+	 * ãã®ãƒã‚¹ãŒæ¨ªæ–¹å‘ã‹ã‚‰ç…§ã‚‰ã•ã‚Œã¦ã„ã‚‹ã‹
+	 * @param p ãƒã‚¹åº§æ¨™
+	 * @return æœªå®šãªã‚‰ true
 	 */
 	public int getHorizIlluminated(Address p) {
 		return illuminatedH[p.r()][p.c()];
 	}
 	/**
-	 * ‚»‚Ìƒ}ƒX‚ªc•ûŒü‚©‚çÆ‚ç‚³‚ê‚Ä‚¢‚é‚©
-	 * @param p ƒ}ƒXÀ•W
-	 * @return –¢’è‚È‚ç true
+	 * ãã®ãƒã‚¹ãŒç¸¦æ–¹å‘ã‹ã‚‰ç…§ã‚‰ã•ã‚Œã¦ã„ã‚‹ã‹
+	 * @param p ãƒã‚¹åº§æ¨™
+	 * @return æœªå®šãªã‚‰ true
 	 */
 	public int getVertIlluminated(Address p) {
 		return illuminatedV[p.r()][p.c()];
 	}
 	/**
-	 * ‚»‚Ìƒ}ƒX‚ª“¯—ñ‚Ì•¡”‚ÌÆ–¾‚É‚æ‚èÆ‚ç‚³‚ê‚Ä‚¢‚é‚©HHH
-	 * @param p ƒ}ƒXÀ•W
-	 * @return –¢’è‚È‚ç true
+	 * ãã®ãƒã‚¹ãŒåŒåˆ—ã®è¤‡æ•°ã®ç…§æ˜ã«ã‚ˆã‚Šç…§ã‚‰ã•ã‚Œã¦ã„ã‚‹ã‹ï¼Ÿï¼Ÿï¼Ÿ
+	 * @param p ãƒã‚¹åº§æ¨™
+	 * @return æœªå®šãªã‚‰ true
 	 */
 	public boolean isMultiIlluminated(Address p) {
 		return illuminatedV[p.r()][p.c()]>1 || illuminatedH[p.r()][p.c()] > 1;
 	}
 	/**
-	 * ƒ}ƒX‚ªÆ‚ç‚³‚ê‚Ä‚¢‚é‚©C‚Â‚Ü‚è‚»‚Ìƒ}ƒX‚Ìã‰º¶‰E‚ÉÆ–¾‚ª‚ ‚é‚©‚ğ’²‚×‚é
-	 * @param p ƒ}ƒXÀ•W
-	 * @return Æ‚ç‚³‚ê‚Ä‚¢‚ê‚Î true
+	 * ãƒã‚¹ãŒç…§ã‚‰ã•ã‚Œã¦ã„ã‚‹ã‹ï¼Œã¤ã¾ã‚Šãã®ãƒã‚¹ã®ä¸Šä¸‹å·¦å³ã«ç…§æ˜ãŒã‚ã‚‹ã‹ã‚’èª¿ã¹ã‚‹
+	 * @param p ãƒã‚¹åº§æ¨™
+	 * @return ç…§ã‚‰ã•ã‚Œã¦ã„ã‚Œã° true
 	 */
 	public boolean isIlluminated(Address p) {
 			return (illuminatedV[p.r()][p.c()] > 0 || illuminatedH[p.r()][p.c()] > 0);
 	}
 	/**
-	 * ƒ}ƒX‚ÌÆ–¾”z’u‚ª•ÏX‚³‚ê‚½ê‡‚ÉCã‰º¶‰E‚ÌŒõü‚ğXV‚·‚é
-	 * @param p0 Æ–¾”z’u‚ª•ÏX‚³‚ê‚½ƒ}ƒX‚ÌÀ•W
-	 * @param on Æ–¾‚ª”z’u‚³‚ê‚½‚Æ‚«‚É‚Í true, æ‚èœ‚©‚ê‚½‚Æ‚«‚Í false 
+	 * ãƒã‚¹ã®ç…§æ˜é…ç½®ãŒå¤‰æ›´ã•ã‚ŒãŸå ´åˆã«ï¼Œä¸Šä¸‹å·¦å³ã®å…‰ç·šã‚’æ›´æ–°ã™ã‚‹
+	 * @param p0 ç…§æ˜é…ç½®ãŒå¤‰æ›´ã•ã‚ŒãŸãƒã‚¹ã®åº§æ¨™
+	 * @param on ç…§æ˜ãŒé…ç½®ã•ã‚ŒãŸã¨ãã«ã¯ true, å–ã‚Šé™¤ã‹ã‚ŒãŸã¨ãã¯ false 
 	 */
 	private void illuminate(Address p0, boolean on) {
 		int k = on ? 1 : -1;
@@ -192,9 +192,9 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * ƒ}ƒX‚Ì•ƒ}ƒX”z’u‚ª•ÏX‚³‚ê‚½ê‡‚ÉCã‰º¶‰E‚ÌÆ–¾‚©‚ç‚ÌŒõü‚ğXV‚·‚é
-	 * @param p0 •ƒ}ƒX”z’u‚ª•ÏX‚³‚ê‚½ƒ}ƒX‚ÌÀ•W
-	 * @param on •ƒ}ƒX”z’u‚³‚ê‚½‚Æ‚«‚É‚Í false, æ‚èœ‚©‚ê‚½‚Æ‚«‚Í true 
+	 * ãƒã‚¹ã®é»’ãƒã‚¹é…ç½®ãŒå¤‰æ›´ã•ã‚ŒãŸå ´åˆã«ï¼Œä¸Šä¸‹å·¦å³ã®ç…§æ˜ã‹ã‚‰ã®å…‰ç·šã‚’æ›´æ–°ã™ã‚‹
+	 * @param p0 é»’ãƒã‚¹é…ç½®ãŒå¤‰æ›´ã•ã‚ŒãŸãƒã‚¹ã®åº§æ¨™
+	 * @param on é»’ãƒã‚¹é…ç½®ã•ã‚ŒãŸã¨ãã«ã¯ false, å–ã‚Šé™¤ã‹ã‚ŒãŸã¨ãã¯ true 
 	 */
 	private void illuminate4(Address p0, boolean on) {
 		for (int d = 0; d < 4; d++) {
@@ -207,11 +207,11 @@ public class Board extends BoardBase {
 		}
 	}
 	/**
-	 * ƒ}ƒX‚Ìó‘Ô‚ğw’è‚µ‚½ó‘Ô‚É•ÏX‚·‚é
-	 * ƒ}ƒX‚©‚ç‚ÌŒõü‚ğXV‚·‚é
-	 * •ƒ}ƒX‚ğ‘€ì‚µ‚½‚Æ‚«‚ÍAã‰º‚S•ûŒü‚Ì–¾‚©‚è‚©‚ç‚ÌÆ–¾ó‘Ô‚ğ‚·‚×‚ÄXV‚·‚é
-	 * @param p ƒ}ƒXÀ•W
-	 * @param st •ÏXŒã‚Ìó‘Ô
+	 * ãƒã‚¹ã®çŠ¶æ…‹ã‚’æŒ‡å®šã—ãŸçŠ¶æ…‹ã«å¤‰æ›´ã™ã‚‹
+	 * ãƒã‚¹ã‹ã‚‰ã®å…‰ç·šã‚’æ›´æ–°ã™ã‚‹
+	 * é»’ãƒã‚¹ã‚’æ“ä½œã—ãŸã¨ãã¯ã€ä¸Šä¸‹ï¼”æ–¹å‘ã®æ˜ã‹ã‚Šã‹ã‚‰ã®ç…§æ˜çŠ¶æ…‹ã‚’ã™ã¹ã¦æ›´æ–°ã™ã‚‹
+	 * @param p ãƒã‚¹åº§æ¨™
+	 * @param st å¤‰æ›´å¾Œã®çŠ¶æ…‹
 	 */
 	public void changeState(Address p, int st) {
 		int prev = getState(p);
@@ -249,9 +249,9 @@ public class Board extends BoardBase {
 	}
 
 	/**
-	 * —×Ú‚·‚é‚Sƒ}ƒX‚ÌÆ–¾ŒÂ”‚ğ’²‚×‚é
-	 * @param p ƒ}ƒXÀ•W
-	 * @return —×Ú‚·‚é‚Sƒ}ƒX‚ÌÆ–¾ŒÂ”
+	 * éš£æ¥ã™ã‚‹ï¼”ãƒã‚¹ã®ç…§æ˜å€‹æ•°ã‚’èª¿ã¹ã‚‹
+	 * @param p ãƒã‚¹åº§æ¨™
+	 * @return éš£æ¥ã™ã‚‹ï¼”ãƒã‚¹ã®ç…§æ˜å€‹æ•°
 	 */
 	public int countAdjacentBulbs(Address p0) {
 		int count = 0;
@@ -264,11 +264,11 @@ public class Board extends BoardBase {
 		return count;
 	}
 	/**
-	 * •Ç‚É—×Ú‚·‚é4ƒ}ƒX‚ÌÆ–¾ŒÂ”‚ª³‚µ‚¢‚©‚Ç‚¤‚©‚ğ’²¸‚·‚é
-	 * @param p ƒ}ƒXÀ•W
-	 * @return Æ–¾ŒÂ”‚ª”š‚Æ“™‚µ‚¢‚È‚çC1, 
-	 * Æ–¾ŒÂ”‚ª‘½‚·‚¬‚é‚È‚ç -1, 
-	 * Æ–¾ŒÂ”‚ª”š‚æ‚è¬‚³‚¢‚È‚ç 0
+	 * å£ã«éš£æ¥ã™ã‚‹4ãƒã‚¹ã®ç…§æ˜å€‹æ•°ãŒæ­£ã—ã„ã‹ã©ã†ã‹ã‚’èª¿æŸ»ã™ã‚‹
+	 * @param p ãƒã‚¹åº§æ¨™
+	 * @return ç…§æ˜å€‹æ•°ãŒæ•°å­—ã¨ç­‰ã—ã„ãªã‚‰ï¼Œ1, 
+	 * ç…§æ˜å€‹æ•°ãŒå¤šã™ãã‚‹ãªã‚‰ -1, 
+	 * ç…§æ˜å€‹æ•°ãŒæ•°å­—ã‚ˆã‚Šå°ã•ã„ãªã‚‰ 0
 	 */
 	public int checkAdjacentBulbs(Address p) {
 		int nBulb = countAdjacentBulbs(p);

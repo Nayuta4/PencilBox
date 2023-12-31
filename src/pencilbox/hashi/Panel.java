@@ -11,7 +11,7 @@ import pencilbox.util.Colors;
 
 
 /**
- * u‹´‚ğ‚©‚¯‚ëvƒpƒlƒ‹ƒNƒ‰ƒX
+ * ã€Œæ©‹ã‚’ã‹ã‘ã‚ã€ãƒ‘ãƒãƒ«ã‚¯ãƒ©ã‚¹
  */
 public class Panel extends PanelBase {
 
@@ -78,11 +78,11 @@ public class Panel extends PanelBase {
 		}
 	}
 	/**
-	 * ƒ}ƒX‚É‰¡‚Ü‚½‚Íc‚Ìü‚ğ”z’u‚·‚é
+	 * ãƒã‚¹ã«æ¨ªã¾ãŸã¯ç¸¦ã®ç·šã‚’é…ç½®ã™ã‚‹
 	 * @param g
-	 * @param p ”Õ–ÊÀ•W
-	 * @param dir ‰¡ü‚È‚ç HORIZ cü‚È‚ç VERT
-	 * @param n ü‚Ì–{”(1or2)
+	 * @param p ç›¤é¢åº§æ¨™
+	 * @param dir æ¨ªç·šãªã‚‰ HORIZ ç¸¦ç·šãªã‚‰ VERT
+	 * @param n ç·šã®æœ¬æ•°(1or2)
 	 */
 	public void placeBridge(Graphics2D g, Address p, int dir, int n) {
 		if (n == 1) {

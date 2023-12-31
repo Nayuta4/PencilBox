@@ -5,7 +5,7 @@ import pencilbox.common.io.IOController.DataFormat;
 import pencilbox.resource.Messages;
 
 /**
- * u‚Ö‚â‚í‚¯vƒƒjƒ…[ƒNƒ‰ƒX
+ * ã€Œã¸ã‚„ã‚ã‘ã€ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚¯ãƒ©ã‚¹
  */
 public class Menu extends MenuBase {
 
@@ -27,7 +27,7 @@ public class Menu extends MenuBase {
 		paintColorItem = addColorMenuItem(Messages.getString("Menu.paintColorItem")); //$NON-NLS-1$
 		circleColorItem = addColorMenuItem(Messages.getString("Menu.noPaintColorItem")); //$NON-NLS-1$
 		addToViewMenu(indicateErrorItem = makeCheckBoxCommandMenuItem(Messages.getString("Menu.indicateErrorItem"), 'E', false)); //$NON-NLS-1$
-//		addToViewMenu(indicateContinuousRoomItem = makeCheckBoxCommandMenuItem("‚R•”‰®˜A‘±Œx(C)", 'C', false));
+//		addToViewMenu(indicateContinuousRoomItem = makeCheckBoxCommandMenuItem("ï¼“éƒ¨å±‹é€£ç¶šè­¦å‘Š(C)", 'C', false));
 	}
 
 }

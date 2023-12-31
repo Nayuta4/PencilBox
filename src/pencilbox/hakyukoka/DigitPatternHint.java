@@ -3,13 +3,13 @@ package pencilbox.hakyukoka;
 import pencilbox.common.core.Address;
 
 /**
- * ‰Â”\”š‚ğƒrƒbƒgƒpƒ^[ƒ“‚Å•\Œ»‚·‚éƒqƒ“ƒg‹@”\
+ * å¯èƒ½æ•°å­—ã‚’ãƒ“ãƒƒãƒˆãƒ‘ã‚¿ãƒ¼ãƒ³ã§è¡¨ç¾ã™ã‚‹ãƒ’ãƒ³ãƒˆæ©Ÿèƒ½
  */
 public class DigitPatternHint {
 
 	private Board board;
 	private int[][] pattern;
-	private int maxNumber = 9;  // b’è
+	private int maxNumber = 9;  // æš«å®š
 
 	/**
 	 * @param p coordinate
@@ -20,16 +20,16 @@ public class DigitPatternHint {
 	}
 
 	/**
-	 * ƒNƒ‰ƒX‚Ì‰Šú‰»ˆ—‚ğs‚¤
-	 * ”Õ–Ê¶¬‚ÉŒÄ‚Î‚ê‚é
-	 * @param board ŠÖ˜A•t‚¯‚é”Õ–Ê
+	 * ã‚¯ãƒ©ã‚¹ã®åˆæœŸåŒ–å‡¦ç†ã‚’è¡Œã†
+	 * ç›¤é¢ç”Ÿæˆæ™‚ã«å‘¼ã°ã‚Œã‚‹
+	 * @param board é–¢é€£ä»˜ã‘ã‚‹ç›¤é¢
 	 */
 	void setupHint(Board board) {
 		this.board = board;
 		pattern = new int[board.rows()][board.cols()];
 	}
 	/**
-	 * ƒpƒ^[ƒ“‚Ìupdate
+	 * ãƒ‘ã‚¿ãƒ¼ãƒ³ã®update
 	 */
 	void initHint() {
 		for (Address p : board.cellAddrs()) {
@@ -46,31 +46,31 @@ public class DigitPatternHint {
 		}
 	}
 	/**
-	 * 1 ‚©‚ç number ‚Ü‚Å‚Ì‚·‚×‚Ä‚Ì”š‚ª‰Â”\‚Æ‚¢‚¤ digitPattern ‚ğ•Ô‚·
-	 * @param number Å‘å‚Ì”š
-	 * @return 1 ‚©‚ç number ‚Ü‚Å‚Ì‚·‚×‚Ä‚Ì”š‚ª‰Â”\‚Æ‚¢‚¤ digitPattern ‚ğ•Ô‚·
+	 * 1 ã‹ã‚‰ number ã¾ã§ã®ã™ã¹ã¦ã®æ•°å­—ãŒå¯èƒ½ã¨ã„ã† digitPattern ã‚’è¿”ã™
+	 * @param number æœ€å¤§ã®æ•°å­—
+	 * @return 1 ã‹ã‚‰ number ã¾ã§ã®ã™ã¹ã¦ã®æ•°å­—ãŒå¯èƒ½ã¨ã„ã† digitPattern ã‚’è¿”ã™
 	 */
 	private static int getAllDigitPattern(int number) {
 		return ~((-1 << (number+1))+1);
 	}
 
 	/**
-	 * w’è‚µ‚½À•W‚Éw’è‚µ‚½”š‚ğ”z’u‚µ‚Ä‚àƒ‹[ƒ‹‚Éˆá”½‚µ‚È‚¢‚©‚Ç‚¤‚©
-	 * @param p À•W
-	 * @param n ”z’u‰Â”\‚©‚ğ’²‚×‚é”š
-	 * @return ”z’u‰Â”\‚È‚ç true ”z’u•s‰Â‚È‚ç false
+	 * æŒ‡å®šã—ãŸåº§æ¨™ã«æŒ‡å®šã—ãŸæ•°å­—ã‚’é…ç½®ã—ã¦ã‚‚ãƒ«ãƒ¼ãƒ«ã«é•åã—ãªã„ã‹ã©ã†ã‹
+	 * @param p åº§æ¨™
+	 * @param n é…ç½®å¯èƒ½ã‹ã‚’èª¿ã¹ã‚‹æ•°å­—
+	 * @return é…ç½®å¯èƒ½ãªã‚‰ true é…ç½®ä¸å¯ãªã‚‰ false
 	 */
 	boolean canPlace(Address p, int n) {
 		return (pattern[p.r()][p.c()] & (1<<n)) > 0;
 	}
 	/**
-	 * p0 ‚É ”š num ‚ª“ü‚Á‚Ä‚¢‚é‚±‚Æ‚É‚æ‚èC
-	 * ”z’u•s‰Â”\‚Æ‚È‚é”š‚ğ‰Â”\ƒpƒ^[ƒ“‚©‚çŠO‚·
+	 * p0 ã« æ•°å­— num ãŒå…¥ã£ã¦ã„ã‚‹ã“ã¨ã«ã‚ˆã‚Šï¼Œ
+	 * é…ç½®ä¸å¯èƒ½ã¨ãªã‚‹æ•°å­—ã‚’å¯èƒ½ãƒ‘ã‚¿ãƒ¼ãƒ³ã‹ã‚‰å¤–ã™
 	 * @param p0
 	 * @param n
 	 */
 	void checkUsedNumber(Address p0, int n) {
-		int pat = ~((1 << n) + 1);  // numŒ…ˆÈŠO‚ª1
+		int pat = ~((1 << n) + 1);  // numæ¡ä»¥å¤–ãŒ1
 		for (int d = 0; d < 4; d++) {
 			Address p = p0;
 			for (int k = 0; k < n; k++) {

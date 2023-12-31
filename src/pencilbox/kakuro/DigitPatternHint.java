@@ -4,7 +4,7 @@ import pencilbox.common.core.Address;
 import pencilbox.common.core.Direction;
 
 /**
- * ‰Â”\”Žš‚ðƒrƒbƒgƒpƒ^[ƒ“‚Å•\Œ»‚·‚éƒqƒ“ƒg‹@”\
+ * å¯èƒ½æ•°å­—ã‚’ãƒ“ãƒƒãƒˆãƒ‘ã‚¿ãƒ¼ãƒ³ã§è¡¨ç¾ã™ã‚‹ãƒ’ãƒ³ãƒˆæ©Ÿèƒ½
  */
 public class DigitPatternHint {
 
@@ -13,14 +13,14 @@ public class DigitPatternHint {
 	private int[][] vertPattern;
 
 	/**
-	 * ‚»‚Ìƒ}ƒX‚É”z’u‚µ‚Ä’¼Ú‚Ìƒ‹[ƒ‹ˆá”½‚É‚È‚ç‚È‚¢”Žš‚Ìƒrƒbƒgƒpƒ^[ƒ“‚ð•Ô‚·B
-	 * @param p ƒ}ƒX‚ÌÀ•W
-	 * @return ‰Â”\‚Èƒrƒbƒgƒpƒ^[ƒ“‚ð•Ô‚·B‚½‚¾‚µ‚»‚Ìƒ}ƒX‚ª•Çƒ}ƒX‚Å‚ ‚é‚©‚Ü‚½‚Íƒ^ƒeƒˆƒR‚Ì—¼•û‚Æ‚à˜a‚ª’è‹`‚³‚ê‚Ä‚¢‚È‚¢ê‡‚Í’l 1 ‚ð•Ô‚·B
+	 * ãã®ãƒžã‚¹ã«é…ç½®ã—ã¦ç›´æŽ¥ã®ãƒ«ãƒ¼ãƒ«é•åã«ãªã‚‰ãªã„æ•°å­—ã®ãƒ“ãƒƒãƒˆãƒ‘ã‚¿ãƒ¼ãƒ³ã‚’è¿”ã™ã€‚
+	 * @param p ãƒžã‚¹ã®åº§æ¨™
+	 * @return å¯èƒ½ãªãƒ“ãƒƒãƒˆãƒ‘ã‚¿ãƒ¼ãƒ³ã‚’è¿”ã™ã€‚ãŸã ã—ãã®ãƒžã‚¹ãŒå£ãƒžã‚¹ã§ã‚ã‚‹ã‹ã¾ãŸã¯ã‚¿ãƒ†ãƒ¨ã‚³ã®ä¸¡æ–¹ã¨ã‚‚å’ŒãŒå®šç¾©ã•ã‚Œã¦ã„ãªã„å ´åˆã¯å€¤ 1 ã‚’è¿”ã™ã€‚
 	 */
 	int getPattern(Address p) {
 		int pat = horizPattern[p.r()][p.c()] & vertPattern[p.r()][p.c()];
-		// Ï‚ÌÅ‰ºˆÊƒrƒbƒg 1 ‚Å‚ ‚ê‚Îƒ^ƒeƒˆƒR‚Æ‚à–¢’è‹`‚Æ‚¢‚¤‚±‚Æ‚È‚Ì‚ÅC‰½‚à•\Ž¦‚µ‚È‚¢‚½‚ß‚É 1 ‚ð•Ô‚·B
-		// ƒ^ƒeƒˆƒR‚Æ‚à–¢’è‹`‚Ìê‡‚à 1`9@‚Ü‚Å‚·‚×‚Ä‰Â”\‚Æ‚¢‚¤ƒhƒbƒg•\Ž¦‚ð‚·‚éê‡‚ÍˆÈ‰º2síœ‚¹‚æB
+		// ç©ã®æœ€ä¸‹ä½ãƒ“ãƒƒãƒˆ 1 ã§ã‚ã‚Œã°ã‚¿ãƒ†ãƒ¨ã‚³ã¨ã‚‚æœªå®šç¾©ã¨ã„ã†ã“ã¨ãªã®ã§ï¼Œä½•ã‚‚è¡¨ç¤ºã—ãªã„ãŸã‚ã« 1 ã‚’è¿”ã™ã€‚
+		// ã‚¿ãƒ†ãƒ¨ã‚³ã¨ã‚‚æœªå®šç¾©ã®å ´åˆã‚‚ 1ã€œ9ã€€ã¾ã§ã™ã¹ã¦å¯èƒ½ã¨ã„ã†ãƒ‰ãƒƒãƒˆè¡¨ç¤ºã‚’ã™ã‚‹å ´åˆã¯ä»¥ä¸‹2è¡Œå‰Šé™¤ã›ã‚ˆã€‚
 		if ((pat & 1) == 1)
 			return 1;
 		return pat;
@@ -33,7 +33,7 @@ public class DigitPatternHint {
 	}
 
 	/**
-	 * ˆø”‚ÌÀ•W‚Ì”Žš‚ª•ÏX‚³‚ê‚½‚Æ‚«‚ÉC‚±‚Ìƒ}ƒX‚ðŠÜ‚Þƒ^ƒeƒˆƒR—¼•û‚ðÄŒvŽZ‚·‚é
+	 * å¼•æ•°ã®åº§æ¨™ã®æ•°å­—ãŒå¤‰æ›´ã•ã‚ŒãŸã¨ãã«ï¼Œã“ã®ãƒžã‚¹ã‚’å«ã‚€ã‚¿ãƒ†ãƒ¨ã‚³ä¸¡æ–¹ã‚’å†è¨ˆç®—ã™ã‚‹
 	 * @param p
 	 */
 	void updatePattern(Address p) {
@@ -42,20 +42,20 @@ public class DigitPatternHint {
 	}
 
 	/**
-	 * ˆø”À•W‚Ìƒ}ƒX‚ðŠÜ‚ÞƒˆƒR‚Ü‚½‚Íƒ^ƒe‚Ìƒ[ƒh‚Ì”z’u‰Â”\ƒpƒ^[ƒ“‚ð‹‚ß‚éB
+	 * å¼•æ•°åº§æ¨™ã®ãƒžã‚¹ã‚’å«ã‚€ãƒ¨ã‚³ã¾ãŸã¯ã‚¿ãƒ†ã®ãƒ¯ãƒ¼ãƒ‰ã®é…ç½®å¯èƒ½ãƒ‘ã‚¿ãƒ¼ãƒ³ã‚’æ±‚ã‚ã‚‹ã€‚
 	 * @param p0
 	 * @param dir
 	 */
 	void updatePattern(Address p0, int dir) {
 		int pattern = 0;
-		Address headPosition = board.getWordHead(p0, dir);//‚±‚Ìƒ}ƒX‚ðŠÜ‚Þ”Žš‚Ì˜a‚ðŽ¦‚µ‚½•ƒ}ƒX‚Ì—ñÀ•W
-		int wordSum = board.getWordSum(p0, dir); // ”Žš‚Ì˜a
-		int wordSize = board.getWordSize(p0, dir); //@ƒ}ƒX”
-		int currentSum = 0;// Œˆ’èÏ‚Ý”Žš‚Ì˜a
-		int currentSize = 0; // Œˆ’èÏ‚Ý”Žš‚Ì”
-		int usedDigit = 0;// Žg—pÏ‚Ý”Žš‚Ìƒpƒ^[ƒ“
+		Address headPosition = board.getWordHead(p0, dir);//ã“ã®ãƒžã‚¹ã‚’å«ã‚€æ•°å­—ã®å’Œã‚’ç¤ºã—ãŸé»’ãƒžã‚¹ã®åˆ—åº§æ¨™
+		int wordSum = board.getWordSum(p0, dir); // æ•°å­—ã®å’Œ
+		int wordSize = board.getWordSize(p0, dir); //ã€€ãƒžã‚¹æ•°
+		int currentSum = 0;// æ±ºå®šæ¸ˆã¿æ•°å­—ã®å’Œ
+		int currentSize = 0; // æ±ºå®šæ¸ˆã¿æ•°å­—ã®æ•°
+		int usedDigit = 0;// ä½¿ç”¨æ¸ˆã¿æ•°å­—ã®ãƒ‘ã‚¿ãƒ¼ãƒ³
 		Address p = headPosition;
-		if (wordSum == 0) { // ˜a‚ª’è‹`‚³‚ê‚Ä‚¢‚È‚¯‚ê‚Î‚·‚×‚Ä‰Â”\
+		if (wordSum == 0) { // å’ŒãŒå®šç¾©ã•ã‚Œã¦ã„ãªã‘ã‚Œã°ã™ã¹ã¦å¯èƒ½
 			pattern = HintTbl.D_ALL + 1;
 		} else if (wordSize > 9) {
 			pattern = 0;
@@ -65,11 +65,11 @@ public class DigitPatternHint {
 				int n = board.getNumber(p);
 				if (n > 0) {
 					currentSize++;
-					currentSum += n; // Œ»˜a‚É‰ÁŽZ
-					usedDigit |= (1 << n);//Žg—p‚µ‚Ä‚¢‚é”Žš
+					currentSum += n; // ç¾å’Œã«åŠ ç®—
+					usedDigit |= (1 << n);//ä½¿ç”¨ã—ã¦ã„ã‚‹æ•°å­—
 				}
 			}
-			if (currentSize == wordSize) { // ‚·‚×‚ÄŒˆ‚Ü‚Á‚Ä‚¢‚é
+			if (currentSize == wordSize) { // ã™ã¹ã¦æ±ºã¾ã£ã¦ã„ã‚‹
 				pattern = 0;
 			} else {
 				pattern = HintTbl.getRemainingDigit(wordSum - currentSum, wordSize - currentSize, usedDigit);
@@ -84,10 +84,10 @@ public class DigitPatternHint {
 	}
 
 	/**
-	 * ”Õ–Ê‘S‘Ì‚Ì‰Â”\ƒpƒ^[ƒ“‚ðÄŒvŽZ‚·‚é
+	 * ç›¤é¢å…¨ä½“ã®å¯èƒ½ãƒ‘ã‚¿ãƒ¼ãƒ³ã‚’å†è¨ˆç®—ã™ã‚‹
 	 */
 	void initHint() {
-		// ‘S•”ÄŒvŽZ‚·‚é‚Ì‚ÅA‘S”Žš‚ð‰Â”\‚Æ‚·‚é
+		// å…¨éƒ¨å†è¨ˆç®—ã™ã‚‹ã®ã§ã€å…¨æ•°å­—ã‚’å¯èƒ½ã¨ã™ã‚‹
 		for (Address p : board.cellAddrs()) {
 			vertPattern[p.r()][p.c()] = HintTbl.D_ALL + 1;
 			horizPattern[p.r()][p.c()] = HintTbl.D_ALL + 1;

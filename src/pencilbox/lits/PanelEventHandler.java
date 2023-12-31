@@ -5,7 +5,7 @@ import pencilbox.common.core.BoardBase;
 import pencilbox.common.gui.PanelEventHandlerBase;
 
 /**
- * u‚k‚h‚s‚rvƒ}ƒEƒX^ƒL[‘€ìˆ—ƒNƒ‰ƒX
+ * ã€Œï¼¬ï¼©ï¼´ï¼³ã€ãƒã‚¦ã‚¹ï¼ã‚­ãƒ¼æ“ä½œå‡¦ç†ã‚¯ãƒ©ã‚¹
  */
 public class PanelEventHandler extends PanelEventHandlerBase {
 
@@ -14,11 +14,11 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	private int dragState = 0;
 	private int currentState = Board.UNKNOWN;
 
-	private static final int INIT = 0;           // ‰Šúó‘Ô
-	private static final int PRESS_NEW = 1;      // V—Ìˆæì¬
-	private static final int PRESS_EXISTING = 2; // Šù‘¶—Ìˆæ‘I‘ğ
-	private static final int DRAG_ADD = 3;       // —ÌˆæŠg‘å‘€ì 
-	private static final int DRAG_REMOVE = 4;   // —Ìˆæk¬‘€ì 
+	private static final int INIT = 0;           // åˆæœŸçŠ¶æ…‹
+	private static final int PRESS_NEW = 1;      // æ–°é ˜åŸŸä½œæˆ
+	private static final int PRESS_EXISTING = 2; // æ—¢å­˜é ˜åŸŸé¸æŠ
+	private static final int DRAG_ADD = 3;       // é ˜åŸŸæ‹¡å¤§æ“ä½œ 
+	private static final int DRAG_REMOVE = 4;   // é ˜åŸŸç¸®å°æ“ä½œ 
 
 	/**
 	 * 
@@ -44,7 +44,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/*
-	 * u‚k‚h‚s‚rvƒ}ƒEƒX‘€ì
+	 * ã€Œï¼¬ï¼©ï¼´ï¼³ã€ãƒã‚¦ã‚¹æ“ä½œ
 	 */
 	protected void leftPressed(Address pos) {
 		if (isProblemEditMode()) {
@@ -71,9 +71,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 			Area oldArea = board.getArea(pos);
 			if (dragState == PRESS_NEW || dragState == PRESS_EXISTING) {
 				if (oldArea == null || oldArea != draggingArea) {
-					dragState = DRAG_ADD; // —ÌˆæŠg‘å‘€ì
+					dragState = DRAG_ADD; // é ˜åŸŸæ‹¡å¤§æ“ä½œ
 				} else {
-					dragState = DRAG_REMOVE; // —Ìˆæk¬‘€ì
+					dragState = DRAG_REMOVE; // é ˜åŸŸç¸®å°æ“ä½œ
 				}
 			}
 			if (dragState == DRAG_ADD) {
@@ -128,9 +128,9 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/**
-	 * ƒ}ƒX‚Ìó‘Ô‚ğ –¢’è Ì st ‚Æ•ÏX‚·‚é
-	 * @param pos ƒ}ƒXÀ•W
-	 * @param st Ø‚è‘Ö‚¦‚éó‘Ô
+	 * ãƒã‚¹ã®çŠ¶æ…‹ã‚’ æœªå®š â‡” st ã¨å¤‰æ›´ã™ã‚‹
+	 * @param pos ãƒã‚¹åº§æ¨™
+	 * @param st åˆ‡ã‚Šæ›¿ãˆã‚‹çŠ¶æ…‹
 	 */
 	private void toggleState(Address pos, int st) {
 		if (st == board.getState(pos))
@@ -146,7 +146,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/*
-	 * u‚k‚h‚s‚rvƒL[‘€ì
+	 * ã€Œï¼¬ï¼©ï¼´ï¼³ã€ã‚­ãƒ¼æ“ä½œ
 	 */
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {

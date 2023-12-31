@@ -14,14 +14,14 @@ import pencilbox.common.gui.FileChooser;
 import pencilbox.resource.Messages;
 
 /**
- * PencilBox ŠeƒAƒvƒŠƒP[ƒVƒ‡ƒ“‹N“®ƒpƒlƒ‹ƒ‹
+ * PencilBox å„ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³èµ·å‹•ãƒ‘ãƒãƒ«ãƒ«
  */
 public class PencilBoxLauncher {
 
 	/**
-	 * PencilBox ‚ğ‹N“®‚·‚é
-	 * ƒpƒYƒ‹‚Ìí—Ş‚ğ‘I‘ğ‚·‚éƒ‰ƒ“ƒ`ƒƒ[‚ğ•\¦‚·‚é
-	 * @param args ˆø”‚Í–³ˆÓ–¡
+	 * PencilBox ã‚’èµ·å‹•ã™ã‚‹
+	 * ãƒ‘ã‚ºãƒ«ã®ç¨®é¡ã‚’é¸æŠã™ã‚‹ãƒ©ãƒ³ãƒãƒ£ãƒ¼ã‚’è¡¨ç¤ºã™ã‚‹
+	 * @param args å¼•æ•°ã¯ç„¡æ„å‘³
 	 */
 	public static void main(String[] args) {
 		try {
@@ -31,11 +31,11 @@ public class PencilBoxLauncher {
 			e.printStackTrace();
 		}
 		new PencilBoxLauncher();
-		FileChooser.getProblemFileChooser(); // FileChooserì¬‚ÍŠÔ‚ª‚©‚©‚é‚Ì‚ÅC‚±‚Ìƒ^ƒCƒ~ƒ“ƒO‚Åì‚Á‚Ä‚¨‚­
+		FileChooser.getProblemFileChooser(); // FileChooserä½œæˆã¯æ™‚é–“ãŒã‹ã‹ã‚‹ã®ã§ï¼Œã“ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã§ä½œã£ã¦ãŠã
 	}
 
 	/**
-	 * ƒ‰ƒ“ƒ`ƒƒ[‚ğì¬‚·‚é
+	 * ãƒ©ãƒ³ãƒãƒ£ãƒ¼ã‚’ä½œæˆã™ã‚‹
 	 */
 	public PencilBoxLauncher() {
 		JFrame frame = new JFrame();

@@ -24,7 +24,7 @@ import pencilbox.util.Colors;
 
 
 /**
- * ƒƒjƒ…[ƒRƒ}ƒ“ƒhˆ—ƒNƒ‰ƒX
+ * ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚³ãƒãƒ³ãƒ‰å‡¦ç†ã‚¯ãƒ©ã‚¹
  */
 public class MenuCommand {
 
@@ -40,12 +40,12 @@ public class MenuCommand {
 	private Timer playBackTimer;
 
 	/**
-	 * ‰Šú‰»ˆ—‚ğs‚¢CŠeíƒNƒ‰ƒX‚ÆŠÖ˜A•t‚¯‚é
-	 * ƒIƒuƒWƒFƒNƒg¶¬’¼Œã‚Ég—p‚·‚é
-	 * @param puzzleType ƒpƒYƒ‹‚Ìí—Ş
-	 * @param frame ŠÖ˜A•t‚¯‚éFrame
-	 * @param panel ŠÖ˜A•t‚¯‚éPanel
-	 * @param problem ŠÖ˜A•t‚¯‚éProblem
+	 * åˆæœŸåŒ–å‡¦ç†ã‚’è¡Œã„ï¼Œå„ç¨®ã‚¯ãƒ©ã‚¹ã¨é–¢é€£ä»˜ã‘ã‚‹
+	 * ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆç”Ÿæˆç›´å¾Œã«ä½¿ç”¨ã™ã‚‹
+	 * @param puzzleType ãƒ‘ã‚ºãƒ«ã®ç¨®é¡
+	 * @param frame é–¢é€£ä»˜ã‘ã‚‹Frame
+	 * @param panel é–¢é€£ä»˜ã‘ã‚‹Panel
+	 * @param problem é–¢é€£ä»˜ã‘ã‚‹Problem
 	 */
 	public void setup(PencilType puzzleType, Frame frame, PanelBase panel, EventHandlerManager handler, Problem problem) {
 		this.pencilType = puzzleType;
@@ -95,8 +95,8 @@ public class MenuCommand {
 	}
 
 	/**
-	 * ƒtƒŒ[ƒ€ƒ^ƒCƒgƒ‹‚ğİ’è‚·‚é
-	 * •ÒW’†‚ÌƒpƒYƒ‹‚Ìí—Ş‚Æƒtƒ@ƒCƒ‹–¼‚ğ•\¦‚·‚é
+	 * ãƒ•ãƒ¬ãƒ¼ãƒ ã‚¿ã‚¤ãƒˆãƒ«ã‚’è¨­å®šã™ã‚‹
+	 * ç·¨é›†ä¸­ã®ãƒ‘ã‚ºãƒ«ã®ç¨®é¡ã¨ãƒ•ã‚¡ã‚¤ãƒ«åã‚’è¡¨ç¤ºã™ã‚‹
 	 */
 	private void setFrameTitle() {
 //		frame.setTitle(problem.getFileName() + " - " + pencilType.getTitle() + " - " + Constants.TITLE);
@@ -116,10 +116,10 @@ public class MenuCommand {
 	}
 
 	/*
-	 * ˆÈ‰ºCŠeƒƒjƒ…[‘I‘ğ‚Ìˆ—
+	 * ä»¥ä¸‹ï¼Œå„ãƒ¡ãƒ‹ãƒ¥ãƒ¼é¸æŠæ™‚ã®å‡¦ç†
 	 */
 	/**
-	 *  [ƒtƒ@ƒCƒ‹]-[V‹Kì¬]
+	 *  [ãƒ•ã‚¡ã‚¤ãƒ«]-[æ–°è¦ä½œæˆ]
 	 */
 	public void newBoard() {
 		try {
@@ -137,12 +137,12 @@ public class MenuCommand {
 		}
 	}
 	/**
-	 * ”Õ–ÊƒTƒCƒY‚ÌŠm”F‚ğs‚¤
-	 * ”“Æ‚Ìê‡‚Ì”Õ–ÊƒTƒCƒY§ŒÀ‚às‚¤B
-	 * ŒÂ•ÊƒpƒYƒ‹‚ÉŠÖ‚·‚éˆ—‚ğ‹¤’ÊƒNƒ‰ƒX‚Ås‚¤‚Ì‚Í‚¨‚©‚µ‚¢‚ªCb’è“I‚É‚±‚±‚Åˆ—‚·‚é‚±‚Æ‚É‚·‚éB
-	 * ‚»‚Ì‚¤‚¿‰½‚Æ‚©‚·‚éB
-	 * @param s ƒTƒCƒY
-	 * @return ³‚µ‚¢ƒTƒCƒY‚È‚ç true ‚ğ•Ô‚·
+	 * ç›¤é¢ã‚µã‚¤ã‚ºã®ç¢ºèªã‚’è¡Œã†
+	 * æ•°ç‹¬ã®å ´åˆã®ç›¤é¢ã‚µã‚¤ã‚ºåˆ¶é™ã‚‚è¡Œã†ã€‚
+	 * å€‹åˆ¥ãƒ‘ã‚ºãƒ«ã«é–¢ã™ã‚‹å‡¦ç†ã‚’å…±é€šã‚¯ãƒ©ã‚¹ã§è¡Œã†ã®ã¯ãŠã‹ã—ã„ãŒï¼Œæš«å®šçš„ã«ã“ã“ã§å‡¦ç†ã™ã‚‹ã“ã¨ã«ã™ã‚‹ã€‚
+	 * ãã®ã†ã¡ä½•ã¨ã‹ã™ã‚‹ã€‚
+	 * @param s ã‚µã‚¤ã‚º
+	 * @return æ­£ã—ã„ã‚µã‚¤ã‚ºãªã‚‰ true ã‚’è¿”ã™
 	 */
 	private boolean isValidSize(Size s) {
 		int rows = s.getRows();
@@ -167,7 +167,7 @@ public class MenuCommand {
 		return true;
 	}
 	/**
-	 * –â‘èƒtƒ@ƒCƒ‹‘I‘ğƒ_ƒCƒAƒƒO‚ğæ“¾‚µCŒ»İ‚Ìƒtƒ@ƒCƒ‹ƒpƒX‚ğİ’è‚·‚éB
+	 * å•é¡Œãƒ•ã‚¡ã‚¤ãƒ«é¸æŠãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚’å–å¾—ã—ï¼Œç¾åœ¨ã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã‚’è¨­å®šã™ã‚‹ã€‚
 	 */
 	private FileChooser prepareFileChooser() {
 		FileChooser fileChooser = FileChooser.getProblemFileChooser();
@@ -177,7 +177,7 @@ public class MenuCommand {
 		return fileChooser;
 	}
 	/**
-	 *  [ƒtƒ@ƒCƒ‹]-[ŠJ‚­]
+	 *  [ãƒ•ã‚¡ã‚¤ãƒ«]-[é–‹ã]
 	 */
 	public void open() {
 		FileChooser fileChooser = prepareFileChooser();
@@ -191,7 +191,7 @@ public class MenuCommand {
 		}
 	}
 	/**
-	 *  [ƒtƒ@ƒCƒ‹]-[•Â‚¶‚ÄŠJ‚­]
+	 *  [ãƒ•ã‚¡ã‚¤ãƒ«]-[é–‰ã˜ã¦é–‹ã]
 	 */
 	public void closeAndOpen() {
 		FileChooser fileChooser = prepareFileChooser();
@@ -205,7 +205,7 @@ public class MenuCommand {
 		}
 	}
 	/**
-	 *  [ƒtƒ@ƒCƒ‹]-[•Û‘¶]
+	 *  [ãƒ•ã‚¡ã‚¤ãƒ«]-[ä¿å­˜]
 	 */
 	public void save() {
 		FileChooser fileChooser = prepareFileChooser();
@@ -221,7 +221,7 @@ public class MenuCommand {
 	}
 
 	/**
-	 *  [ƒtƒ@ƒCƒ‹]-[•¡»]
+	 *  [ãƒ•ã‚¡ã‚¤ãƒ«]-[è¤‡è£½]
 	 */
 	public void duplicate() {
 		try {
@@ -232,7 +232,7 @@ public class MenuCommand {
 	}
 
 	/**
-	 *  [ƒtƒ@ƒCƒ‹]-[‰ñ“]E”½“]]
+	 *  [ãƒ•ã‚¡ã‚¤ãƒ«]-[å›è»¢ãƒ»åè»¢]
 	 */
 	public void rotateBoard() {
 		try {
@@ -256,7 +256,7 @@ public class MenuCommand {
 		}
 	}
 	/**
-	 *  [ƒtƒ@ƒCƒ‹]-[ƒTƒCƒY•ÏX]
+	 *  [ãƒ•ã‚¡ã‚¤ãƒ«]-[ã‚µã‚¤ã‚ºå¤‰æ›´]
 	 */
 	public void changeBoardSize() {
 		try {
@@ -273,7 +273,7 @@ public class MenuCommand {
 		}
 	}
 	/**
-	 *  [ƒtƒ@ƒCƒ‹]-[ˆóüƒvƒŒƒrƒ…[]
+	 *  [ãƒ•ã‚¡ã‚¤ãƒ«]-[å°åˆ·ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼]
 	 */
 	public void printPreview() {
 		PrintPreviewDialog d = PrintPreviewDialog.getInstance();
@@ -281,7 +281,7 @@ public class MenuCommand {
 		d.showDialog(frame);
 	}
 	/**
-	 *  [ƒtƒ@ƒCƒ‹]-[ˆóü]
+	 *  [ãƒ•ã‚¡ã‚¤ãƒ«]-[å°åˆ·]
 	 */
 	public void print() {
 		PrintPreviewDialog d = PrintPreviewDialog.getInstance();
@@ -289,9 +289,9 @@ public class MenuCommand {
 		d.print();
 	}
 	/**
-	 *  [ƒtƒ@ƒCƒ‹]-[ƒGƒNƒXƒ|[ƒg^ƒCƒ“ƒ|[ƒg]
-	 *  Œ»İ‚Ì–â‘è‚Ìƒf[ƒ^‚ğƒ_ƒCƒAƒƒO‚É•\¦‚·‚éB
-	 *  ƒ_ƒCƒAƒƒO‚©‚ç‚Ì–ß‚è’l‚ªOK‚Ì‚Æ‚«‚ÍC•ÊƒtƒŒ[ƒ€‚Éƒ_ƒCƒAƒƒO‚É“ü—Í‚³‚ê‚½•¶š—ñ‚Ì–â‘è‚ğŠJ‚­B
+	 *  [ãƒ•ã‚¡ã‚¤ãƒ«]-[ã‚¨ã‚¯ã‚¹ãƒãƒ¼ãƒˆï¼ã‚¤ãƒ³ãƒãƒ¼ãƒˆ]
+	 *  ç¾åœ¨ã®å•é¡Œã®ãƒ‡ãƒ¼ã‚¿ã‚’ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã«è¡¨ç¤ºã™ã‚‹ã€‚
+	 *  ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‹ã‚‰ã®æˆ»ã‚Šå€¤ãŒOKã®ã¨ãã¯ï¼Œåˆ¥ãƒ•ãƒ¬ãƒ¼ãƒ ã«ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã«å…¥åŠ›ã•ã‚ŒãŸæ–‡å­—åˆ—ã®å•é¡Œã‚’é–‹ãã€‚
 	 */
 	public void exportProblemData(DataFormat f) {
 		DataExportDialog dataExportFrame = new DataExportDialog();
@@ -310,7 +310,7 @@ public class MenuCommand {
 		}
 	}
 	/**
-	 *  [ƒtƒ@ƒCƒ‹]-[‰æ‘œ•Û‘¶]
+	 *  [ãƒ•ã‚¡ã‚¤ãƒ«]-[ç”»åƒä¿å­˜]
 	 */
 	public void saveImage() {
 		JFileChooser chooser = FileChooser.getImageFileChooser();
@@ -320,13 +320,13 @@ public class MenuCommand {
 		}
 	}
 	/**
-	 *  [ƒtƒ@ƒCƒ‹]-[‰æ‘œƒRƒs[]
+	 *  [ãƒ•ã‚¡ã‚¤ãƒ«]-[ç”»åƒã‚³ãƒ”ãƒ¼]
 	 */
 	public void copyImage() {
 		new PanelImageTransfer().copyImage(panel);
 	}
 	/**
-	 *  [ƒtƒ@ƒCƒ‹]-[ƒvƒƒpƒeƒB]
+	 *  [ãƒ•ã‚¡ã‚¤ãƒ«]-[ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£]
 	 */
 	public void property() {
 		PropertyDialog propertyDialog = PropertyDialog.getInstance();
@@ -335,7 +335,7 @@ public class MenuCommand {
 			propertyDialog.getPropertyFromDialog(problem.getProperty());
 	}
 	/**
-	 *  [ƒtƒ@ƒCƒ‹]-[İ’è“Ç]
+	 *  [ãƒ•ã‚¡ã‚¤ãƒ«]-[è¨­å®šèª­è¾¼]
 	 */
 	public void loadPreferences() {
 		PreferencesCopierBase copier = PreferencesCopierBase.createInstance(pencilType);
@@ -348,7 +348,7 @@ public class MenuCommand {
 		}
 	}
 	/**
-	 *  [ƒtƒ@ƒCƒ‹]-[İ’è•Û‘¶]
+	 *  [ãƒ•ã‚¡ã‚¤ãƒ«]-[è¨­å®šä¿å­˜]
 	 */
 	public void storePreferences() {
 		PreferencesCopierBase copier = PreferencesCopierBase.createInstance(pencilType);
@@ -360,19 +360,19 @@ public class MenuCommand {
 	}
 
 	/**
-	 *  [ƒtƒ@ƒCƒ‹]-[•Â‚¶‚é]
+	 *  [ãƒ•ã‚¡ã‚¤ãƒ«]-[é–‰ã˜ã‚‹]
 	 */
 	public void close() {
 		frame.dispose();
 	}
 	/**
-	 *  [ƒtƒ@ƒCƒ‹]-[‘SI—¹]
+	 *  [ãƒ•ã‚¡ã‚¤ãƒ«]-[å…¨çµ‚äº†]
 	 */
 	public void quit() {
 		System.exit(0);
 	}
 	/**
-	 *  [ƒwƒ‹ƒv]-[ƒo[ƒWƒ‡ƒ“î•ñ]
+	 *  [ãƒ˜ãƒ«ãƒ—]-[ãƒãƒ¼ã‚¸ãƒ§ãƒ³æƒ…å ±]
 	 */
 	public void about() {
 //		AboutDialog dialog = AboutDialog.getInstance();
@@ -393,7 +393,7 @@ public class MenuCommand {
 	}
 
 	/**
-	 *  [•ÒW]-[‰ğ“šÁ‹]
+	 *  [ç·¨é›†]-[è§£ç­”æ¶ˆå»]
 	 */
 	public void clear() {
 		getUndoManager().discardAllEdits();
@@ -402,34 +402,34 @@ public class MenuCommand {
 		panel.repaint();
 	}
 	/**
-	 *  [•ÒW]-[•â•‹L†Á‹]
+	 *  [ç·¨é›†]-[è£œåŠ©è¨˜å·æ¶ˆå»]
 	 */
 	public void trimAnswer() {
 		board.trimAnswer1();
 		panel.repaint();
 	}
 	/**
-	 *  [•ÒW]-[–â‘è”šÁ‹]
+	 *  [ç·¨é›†]-[å•é¡Œæ•°å­—æ¶ˆå»]
 	 */
 	public void clearQuestion() {
 		board.clearQuestion();
 		panel.repaint();
 	}
 	/**
-	 *  [•ÒW]-[–â‘è”š•œŒ³]
+	 *  [ç·¨é›†]-[å•é¡Œæ•°å­—å¾©å…ƒ]
 	 */
 	public void reconstructQuestion() {
 		board.reconstructQuestion();
 		panel.repaint();
 	}
 	/**
-	 *  [•ÒW]-[‘ÎÌ”z’u]
+	 *  [ç·¨é›†]-[å¯¾ç§°é…ç½®]
 	 */
 	public void setSymmetricPlacementMode(boolean b) {
 		handler.setSymmetricPlacementMode(b);
 	}
 	/**
-	 *  [•ÒW]-[³‰ğ”»’è]
+	 *  [ç·¨é›†]-[æ­£è§£åˆ¤å®š]
 	 */
 	public void checkAnswer() {
 		JOptionPane.showMessageDialog(
@@ -439,7 +439,7 @@ public class MenuCommand {
 			JOptionPane.INFORMATION_MESSAGE);
 	}
 	/**
-	 *  [•ÒW]-[‘¦³‰ğ”»’è]
+	 *  [ç·¨é›†]-[å³æ™‚æ­£è§£åˆ¤å®š]
 	 */
 	public void setImmediateAnswerCheckMode(boolean b) {
 		handler.setImmediateAnswerCheckMode(b);
@@ -447,21 +447,21 @@ public class MenuCommand {
 			handler.checkAnswer();
 	}
 	/**
-	 * [•ÒW]-[UNDO]
+	 * [ç·¨é›†]-[UNDO]
 	 */
 	public void undo() {
 		if (getUndoManager().canUndo())
 			getUndoManager().undo();
 	}
 	/**
-	 * [•ÒW]-[REDO]
+	 * [ç·¨é›†]-[REDO]
 	 */
 	public void redo() {
 		if (getUndoManager().canRedo())
 			getUndoManager().redo();
 	}
 	/**
-	 * [•ÒW]+[Å‰‚Ü‚ÅUNDO]
+	 * [ç·¨é›†]+[æœ€åˆã¾ã§UNDO]
 	 */
 	public void undoAll() {
 		while (getUndoManager().canUndo()) {
@@ -469,7 +469,7 @@ public class MenuCommand {
 		}
 	}
 	/**
-	 * [•ÒW]+[ÅŒã‚Ü‚ÅREDO]
+	 * [ç·¨é›†]+[æœ€å¾Œã¾ã§REDO]
 	 */
 	public void redoAll() {
 		while (getUndoManager().canRedo()) {
@@ -477,7 +477,7 @@ public class MenuCommand {
 		}
 	}
 	/**
-	 *  [•ÒW]-[—š—ğÄ¶]
+	 *  [ç·¨é›†]-[å±¥æ­´å†ç”Ÿ]
 	 */
 	public void playback() {
 		undoAll();
@@ -486,8 +486,8 @@ public class MenuCommand {
 		playBackTimer.start();
 	}
 	/**
-	 * —š—ğÄ¶—pƒ^ƒCƒ}[‚ğì¬‚·‚é
-	 * ‰‚ß‚É‚Í‚¶‚ß‚Ég‚¤‚Æ‚«‚É‚P“x‚¾‚¯g—p‚·‚é
+	 * å±¥æ­´å†ç”Ÿç”¨ã‚¿ã‚¤ãƒãƒ¼ã‚’ä½œæˆã™ã‚‹
+	 * åˆã‚ã«ã¯ã˜ã‚ã«ä½¿ã†ã¨ãã«ï¼‘åº¦ã ã‘ä½¿ç”¨ã™ã‚‹
 	 * 
 	 */
 	private void makePlayBackTimer() {
@@ -503,7 +503,7 @@ public class MenuCommand {
 		});
 	}
 	/**
-	 *  [•ÒW]-[—š—ğ‘€ì]
+	 *  [ç·¨é›†]-[å±¥æ­´æ“ä½œ]
 	 */
 	public void history() {
 		HistoryDialog historyDialog = HistoryDialog.getInstance();
@@ -517,24 +517,24 @@ public class MenuCommand {
 		}
 	}
 	/**
-	 * UNDO ‰Â”\‚©
-	 * @return UNDO ‰Â”\‚©
+	 * UNDO å¯èƒ½ã‹
+	 * @return UNDO å¯èƒ½ã‹
 	 */
 	public boolean canUndo() {
 		return getUndoManager().canUndo();
 	}
 	/**
-	 * REDO ‰Â”\‚©
-	 * @return REDO ‰Â”\‚© 
+	 * REDO å¯èƒ½ã‹
+	 * @return REDO å¯èƒ½ã‹ 
 	 */
 	public boolean canRedo() {
 		return getUndoManager().canRedo();
 	}
 
 	/**
-	 *  [•ÒW]-[‰ğ“šƒ‚[ƒh]
-	 *       -[–â‘è“ü—Íƒ‚[ƒh]
-	 *       -[—Ìˆæ•ÒWƒ‚[ƒh]
+	 *  [ç·¨é›†]-[è§£ç­”ãƒ¢ãƒ¼ãƒ‰]
+	 *       -[å•é¡Œå…¥åŠ›ãƒ¢ãƒ¼ãƒ‰]
+	 *       -[é ˜åŸŸç·¨é›†ãƒ¢ãƒ¼ãƒ‰]
 	 *  @param mode
 	 */
 	public void setEditMode(int mode) {
@@ -545,7 +545,7 @@ public class MenuCommand {
 	}
 
 	/**
-	 *  [•ÒW]-[”š‚ÌŒğŠ·]
+	 *  [ç·¨é›†]-[æ•°å­—ã®äº¤æ›]
 	 */
 	public void exchangeNumbers() {
 		ExchangeNumbersDialog dialog = ExchangeNumbersDialog.getInstance();
@@ -556,13 +556,13 @@ public class MenuCommand {
 		dialog.showDialog(frame, Messages.getString("ExchangeNumbersDialog.title")); //$NON-NLS-1$
 	}
 	/**
-	 *  [•\¦]-[ƒJ[ƒ\ƒ‹]
+	 *  [è¡¨ç¤º]-[ã‚«ãƒ¼ã‚½ãƒ«]
 	 */
 	public void setCursorMode(boolean b) {
 		panel.setCursorMode(b);
 	}
 	/**
-	 *  [•\¦]-[•\¦ƒTƒCƒY]
+	 *  [è¡¨ç¤º]-[è¡¨ç¤ºã‚µã‚¤ã‚º]
 	 */
 	public void cellSize() {
 		int currentCellSize = getPanelBase().getCellSize();
@@ -582,14 +582,14 @@ public class MenuCommand {
 		}
 	}
 	/**
-	 *  [•\¦]-[s—ñ”Ô†•\¦]
+	 *  [è¡¨ç¤º]-[è¡Œåˆ—ç•ªå·è¡¨ç¤º]
 	 */
 	public void setIndexMode(boolean b) {
 		panel.changeIndexMode(b);
 		frame.resize();
 	}
 	/**
-	 *  [•\¦]-[s—ñ”Ô†•\¦]
+	 *  [è¡¨ç¤º]-[è¡Œåˆ—ç•ªå·è¡¨ç¤º]
 	 */
 	public void selectIndexLetters() {
 		boolean currentValue = getPanelBase().isIndexMode();
@@ -602,20 +602,20 @@ public class MenuCommand {
 		}
 	}
 	/**
-	 *  [•\¦]-[Œrü•\¦]
+	 *  [è¡¨ç¤º]-[ç½«ç·šè¡¨ç¤º]
 	 */
 	public void setGridStyle(boolean b) {
 		panel.setGridStyle(b ? 1 : 0);
 	}
 	/**
-	 *  [•\¦]-[F‚ÌXV]
+	 *  [è¡¨ç¤º]-[è‰²ã®æ›´æ–°]
 	 */
 	public void renewColor() {
 		Colors.randomize();
 		panel.repaint();
 	}
 	/**
-	 *  [•\¦]-[ü‚Ì‘¾‚³]
+	 *  [è¡¨ç¤º]-[ç·šã®å¤ªã•]
 	 */
 	public void changeLinkWidth() {
 		int currentValue = getPanelBase().getLinkWidth();

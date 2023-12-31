@@ -12,7 +12,7 @@ import javax.swing.JScrollPane;
 
 
 /**
- * �y���V���p�Y���t���[�����[�N�� Frame �N���X
+ * ペンシルパズルフレームワークの Frame クラス
  */
 public class Frame extends JFrame {
 
@@ -22,8 +22,8 @@ public class Frame extends JFrame {
 
 //	private JLabel statusBar = new JLabel();
 	/**
-	 * �t���[���̏����������ŁC�t���[����������Ɏg�p�����
-	 * @param panel �ݒ肷��p�l��
+	 * フレームの初期化処理で，フレーム生成直後に使用される
+	 * @param panel 設定するパネル
 	 */
 	public void setup(PanelBase panel) {
 		JScrollPane jScrollPane = new JScrollPane();
@@ -38,14 +38,14 @@ public class Frame extends JFrame {
 	}
 
 	/**
-	 * ���݂̏�Ԃɍ��킹�ăt���[���̑傫����ς���B
-	 * ���̂Ƃ��C�t���[������ʓ��ɓ���悤�ɂ���B
-	 * pack() �̑���Ɏg�p����B
+	 * 現在の状態に合わせてフレームの大きさを変える。
+	 * このとき，フレームが画面内に入るようにする。
+	 * pack() の代わりに使用する。
 	 */
 	public void resize() {
 		if ((getExtendedState() & java.awt.Frame.MAXIMIZED_BOTH) == java.awt.Frame.MAXIMIZED_BOTH)
 			return;
-		pack(); //�Ֆʂɍ��킹�ăT�C�Y����
+		pack(); //盤面に合わせてサイズ調節
 		Dimension screenSize = getToolkit().getScreenSize();
 		Dimension frameSize = getSize();
 		if (frameSize.width > screenSize.width)
@@ -55,7 +55,7 @@ public class Frame extends JFrame {
 		setSize(frameSize);
 	}
 	/**
-	 * �t���[���̈ʒu����ʂ̒����ɂ���B
+	 * フレームの位置を画面の中央にする。
 	 */
 	public void locateAtCenter() {
 		Point point = new Point();
@@ -67,8 +67,8 @@ public class Frame extends JFrame {
 	}
 
 	/**
-	 * ���݂Ɠ����ʒu�ɂ���B
-	 * �������C���̌��ʉ�ʂ���͂ݏo���ꍇ�͂��̕ӂ���ʒ[�ɐڂ���悤�ɂ��炷�B
+	 * 現在と同じ位置にする。
+	 * ただし，その結果画面からはみ出す場合はその辺が画面端に接するようにずらす。
 	 */
 	public void locateAtSamePosition() {
 		if ((getExtendedState() & java.awt.Frame.MAXIMIZED_BOTH) == java.awt.Frame.MAXIMIZED_BOTH)
@@ -94,9 +94,9 @@ public class Frame extends JFrame {
 		this.setLocation(point);
 	}
 	/**
-	 * �Ăяo�����t���[���ɑ΂��Ă��炵���ʒu�ɂ���B
-	 * ��ʂ���͂ݏo���ꍇ�͂��̕ӂ���ʒ[�ɐڂ���ʒu�ɂ��āC����͋t�����ɂ��炷�B
-	 * @param org�@�Ăяo�����t���[��
+	 * 呼び出し元フレームに対してずらした位置にする。
+	 * 画面からはみ出す場合はその辺を画面端に接する位置にして，次回は逆方向にずらす。
+	 * @param org　呼び出し元フレーム
 	 */
 	public void locateAtShiftPosition(JFrame org) {
 		Point point = new Point();

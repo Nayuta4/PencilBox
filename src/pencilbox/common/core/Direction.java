@@ -1,9 +1,9 @@
 package pencilbox.common.core;
 
 /**
- * �S�p�Y�����ʂŗp����萔���L�q
+ * 全パズル共通で用いる定数を記述
  * 
- * !!!!!!�ύX�s��!!!!!!
+ * !!!!!!変更不可!!!!!!
  */
 
 public class Direction {
@@ -30,9 +30,9 @@ public class Direction {
 }
 
 /*
-	�g��������
-	UP, DN, LT, RT �� VERT, HORIZ �ɕϊ�����ɂ� &1 ����
-	UP <-> DN, LT <-> RT ��ϊ�����ɂ́C ^2 ����
+	使い方メモ
+	UP, DN, LT, RT を VERT, HORIZ に変換するには &1 する
+	UP <-> DN, LT <-> RT を変換するには， ^2 する
  */
 
 

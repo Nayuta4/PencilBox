@@ -8,8 +8,8 @@ import java.util.TreeSet;
 
 
 /**
- * ƒŠƒ“ƒNƒNƒ‰ƒX
- * ‚Ğ‚Æ‚Â‚È‚ª‚è‚Ìü‚ª‚Ğ‚Æ‚Â‚ÌLinkƒCƒ“ƒXƒ^ƒ“ƒX‚Æ‚È‚é
+ * ãƒªãƒ³ã‚¯ã‚¯ãƒ©ã‚¹
+ * ã²ã¨ã¤ãªãŒã‚Šã®ç·šãŒã²ã¨ã¤ã®Linkã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã¨ãªã‚‹
  */
 public class Link implements Set<SideAddress> {
 
@@ -21,7 +21,7 @@ public class Link implements Set<SideAddress> {
 		NEXT_ID = 1;
 	}
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	 */
 	public Link() {
 		jointSet = new TreeSet<SideAddress>();
@@ -30,14 +30,14 @@ public class Link implements Set<SideAddress> {
 	}
 
 	/**
-	 *  Link”Ô†æ“¾
+	 *  Linkç•ªå·å–å¾—
 	 */
 	public int getId() {
 		return id;
 	}
 
 	/**
-	 * Link”Ô†İ’è
+	 * Linkç•ªå·è¨­å®š
 	 */
 	public void setId(int i) {
 		id = i;
@@ -59,13 +59,13 @@ public class Link implements Set<SideAddress> {
 		return jointSet.toArray();
 	}
 	/**
-	 * ƒŠƒ“ƒN‚Éü•ª‚ğ’Ç‰Á‚·‚é
+	 * ãƒªãƒ³ã‚¯ã«ç·šåˆ†ã‚’è¿½åŠ ã™ã‚‹
 	 */
 	public boolean add(SideAddress o) {
 		return jointSet.add(o);
 	}
 	/**
-	 * ƒŠƒ“ƒN‚Éü•ª‚ğ’Ç‰Á‚·‚é
+	 * ãƒªãƒ³ã‚¯ã«ç·šåˆ†ã‚’è¿½åŠ ã™ã‚‹
 	 * @param d
 	 * @param r
 	 * @param c

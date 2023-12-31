@@ -6,8 +6,8 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
 /**
- * ƒtƒ@ƒCƒ‹ƒ`ƒ…[ƒU[
- * —p“r‚²‚Æ‚É‚P‚Â‚¸‚Â‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚µ‚Äg‚¢‰ñ‚·
+ * ãƒ•ã‚¡ã‚¤ãƒ«ãƒãƒ¥ãƒ¼ã‚¶ãƒ¼
+ * ç”¨é€”ã”ã¨ã«ï¼‘ã¤ãšã¤ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã—ã¦ä½¿ã„å›ã™
  */
 public class FileChooser extends JFileChooser {
 

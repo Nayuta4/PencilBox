@@ -19,16 +19,16 @@ import javax.swing.SwingConstants;
 import pencilbox.resource.Messages;
 
 /**
- * À•W•\¦•¶š‚ğİ’è‚·‚éƒ_ƒCƒAƒƒOB
- * ƒ‚[ƒ_ƒ‹ƒ_ƒCƒAƒƒO‚È‚Ì‚ÅC1‚Â‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚Ì‚İ‚ğ¶¬‚µ‚Äg‚¢‰ñ‚·B
+ * åº§æ¨™è¡¨ç¤ºæ–‡å­—ã‚’è¨­å®šã™ã‚‹ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã€‚
+ * ãƒ¢ãƒ¼ãƒ€ãƒ«ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ãªã®ã§ï¼Œ1ã¤ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ã¿ã‚’ç”Ÿæˆã—ã¦ä½¿ã„å›ã™ã€‚
  */
 public class IndexLettersDialog extends PencilBoxDialog {
 
 	private static IndexLettersDialog instance = new IndexLettersDialog();
 
 	/**
-	 * ƒ_ƒCƒAƒƒO‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾‚·‚é
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Íg—p•s‰Â‚ÅCƒCƒ“ƒXƒ^ƒ“ƒX‚Í‚±‚Ìƒƒ\ƒbƒh‚É‚æ‚èæ“¾‚·‚é
+	 * ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å–å¾—ã™ã‚‹
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã¯ä½¿ç”¨ä¸å¯ã§ï¼Œã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã¯ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã«ã‚ˆã‚Šå–å¾—ã™ã‚‹
 	 * @return 
 	 */
 	public static IndexLettersDialog getInstance() {

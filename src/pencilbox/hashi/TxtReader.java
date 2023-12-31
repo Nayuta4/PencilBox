@@ -15,7 +15,7 @@ import pencilbox.common.io.TxtReaderBase;
  */
 public class TxtReader extends TxtReaderBase {
 	/*
-	 * –â‘èƒf[ƒ^‚Ì“Ç‚İ‚İ
+	 * å•é¡Œãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
 	 */
 	public BoardBase readProblem(Reader in)
 		throws IOException {

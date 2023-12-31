@@ -2,7 +2,7 @@ package pencilbox.common.factory;
 
 
 /**
- * ƒNƒ‰ƒX¶¬•â•ƒƒ\ƒbƒh‚ğW‚ß‚½ƒNƒ‰ƒX
+ * ã‚¯ãƒ©ã‚¹ç”Ÿæˆè£œåŠ©ãƒ¡ã‚½ãƒƒãƒ‰ã‚’é›†ã‚ãŸã‚¯ãƒ©ã‚¹
  */
 public class ClassUtil {
 
@@ -20,10 +20,10 @@ public class ClassUtil {
 	public static final String PCLWRITER_CLASS = "PclWriter";
 
 	/**
-	 * ŒÂ•ÊƒpƒYƒ‹ƒpƒbƒP[ƒW‚Ì className ƒNƒ‰ƒX‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚·‚é
-	 * @param pencilType ƒpƒYƒ‹‚Ìí—Ş
-	 * @param className ƒNƒ‰ƒX‚Ì–¼‘O‚Ì•¶š—ñ
-	 * @return ¶¬‚µ‚½ƒNƒ‰ƒX‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+	 * å€‹åˆ¥ãƒ‘ã‚ºãƒ«ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã® className ã‚¯ãƒ©ã‚¹ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã™ã‚‹
+	 * @param pencilType ãƒ‘ã‚ºãƒ«ã®ç¨®é¡
+	 * @param className ã‚¯ãƒ©ã‚¹ã®åå‰ã®æ–‡å­—åˆ—
+	 * @return ç”Ÿæˆã—ãŸã‚¯ãƒ©ã‚¹ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 	 * @throws PencilBoxClassException
 	 */
 	public static final Object createInstance(PencilType pencilType, String className)
@@ -33,10 +33,10 @@ public class ClassUtil {
 	}
 
 	/**
-	 * “¯‚¶ƒpƒbƒP[ƒW‚Ì className ƒNƒ‰ƒX‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚·‚é
-	 * @param c ‚ ‚éƒNƒ‰ƒX
-	 * @param className ƒNƒ‰ƒX‚Ì–¼‘O‚Ì•¶š—ñ
-	 * @return ¶¬‚µ‚½ƒNƒ‰ƒX‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+	 * åŒã˜ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã® className ã‚¯ãƒ©ã‚¹ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã™ã‚‹
+	 * @param c ã‚ã‚‹ã‚¯ãƒ©ã‚¹
+	 * @param className ã‚¯ãƒ©ã‚¹ã®åå‰ã®æ–‡å­—åˆ—
+	 * @return ç”Ÿæˆã—ãŸã‚¯ãƒ©ã‚¹ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 	 * @throws PencilBoxClassException
 	 */
 	public static final Object createInstance(Class<?> c, String className)
@@ -44,10 +44,10 @@ public class ClassUtil {
 		return createInstance(c.getPackage().getName() + '.' + className);
 	}
 
-	/** ƒNƒ‰ƒX–¼‚©‚çƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚·‚éB
-	 *  Šeí—áŠO‚ğPencilBoxClassException ‚É•ÏŠ·‚·‚éB
-	 * @param fullClassName ƒpƒbƒP[ƒW–¼‚İ‚ÌƒNƒ‰ƒX–¼
-	 * @return ¶¬‚µ‚½ƒNƒ‰ƒX‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+	/** ã‚¯ãƒ©ã‚¹åã‹ã‚‰ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã™ã‚‹ã€‚
+	 *  å„ç¨®ä¾‹å¤–ã‚’PencilBoxClassException ã«å¤‰æ›ã™ã‚‹ã€‚
+	 * @param fullClassName ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸åè¾¼ã¿ã®ã‚¯ãƒ©ã‚¹å
+	 * @return ç”Ÿæˆã—ãŸã‚¯ãƒ©ã‚¹ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 	 * @throws PencilBoxClassException
 	 */
 	public static final Object createInstance(String fullClassName)

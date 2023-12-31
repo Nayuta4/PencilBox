@@ -5,7 +5,7 @@ import pencilbox.common.core.BoardBase;
 import pencilbox.common.gui.PanelEventHandlerBase;
 
 /**
- * uŒéÎ‚Ğ‚ë‚¢vƒ}ƒEƒX^ƒL[‘€ìˆ—ƒNƒ‰ƒX
+ * ã€Œç¢çŸ³ã²ã‚ã„ã€ãƒã‚¦ã‚¹ï¼ã‚­ãƒ¼æ“ä½œå‡¦ç†ã‚¯ãƒ©ã‚¹
  */
 public class PanelEventHandler extends PanelEventHandlerBase {
 
@@ -22,7 +22,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/*
-	 * uŒéÎ‚Ğ‚ë‚¢vƒ}ƒEƒX‘€ì
+	 * ã€Œç¢çŸ³ã²ã‚ã„ã€ãƒã‚¦ã‚¹æ“ä½œ
 	 */
 	protected void leftPressed(Address pos) {
 		if (isOn(pos)) {
@@ -38,7 +38,7 @@ public class PanelEventHandler extends PanelEventHandlerBase {
 	}
 
 	/*
-	 * uŒéÎ‚Ğ‚ë‚¢vƒL[‘€ì
+	 * ã€Œç¢çŸ³ã²ã‚ã„ã€ã‚­ãƒ¼æ“ä½œ
 	 */
 	protected void numberEntered(Address pos, int num) {
 		if (isProblemEditMode()) {

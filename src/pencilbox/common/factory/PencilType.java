@@ -12,8 +12,8 @@ import pencilbox.resource.Messages;
 
 
 /**
- * ƒpƒYƒ‹‚Ìí—Ş‚ğ•\‚·’è”‚ğ’è‹`‚·‚éƒNƒ‰ƒX
- * Še’è”‚É‚ÍC•t‚·‚éƒpƒbƒP[ƒW–¼‚Æ“ú–{Œêƒ^ƒCƒgƒ‹‚ª’è‹`‚³‚ê‚Ä‚¢‚é
+ * ãƒ‘ã‚ºãƒ«ã®ç¨®é¡ã‚’è¡¨ã™å®šæ•°ã‚’å®šç¾©ã™ã‚‹ã‚¯ãƒ©ã‚¹
+ * å„å®šæ•°ã«ã¯ï¼Œä»˜éšã™ã‚‹ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸åã¨æ—¥æœ¬èªã‚¿ã‚¤ãƒˆãƒ«ãŒå®šç¾©ã•ã‚Œã¦ã„ã‚‹
  */
 public final class PencilType {
 
@@ -41,7 +41,7 @@ public final class PencilType {
 	public static final PencilType LITS        = new PencilType("lits",        Messages.getString("PencilType.lits"),        10); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
-	 * ƒpƒYƒ‹í—Ş‚ÌƒŠƒXƒg
+	 * ãƒ‘ã‚ºãƒ«ç¨®é¡ã®ãƒªã‚¹ãƒˆ
 	 */
 	private static final PencilType[] pencilTypeList = new PencilType[] {
 		KAKURO,
@@ -72,16 +72,16 @@ public final class PencilType {
 		return Collections.unmodifiableList(Arrays.asList(pencilTypeList));
 	}
 	/**
-	 * ƒpƒbƒP[ƒW–¼‚©‚ç‘Î‰‚·‚éPencilTypeƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾‚·‚é
-	 * @param name pacage–¼‚Ì•¶š—ñ
-	 * @return PencilTypeƒCƒ“ƒXƒ^ƒ“ƒX
+	 * ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸åã‹ã‚‰å¯¾å¿œã™ã‚‹PencilTypeã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å–å¾—ã™ã‚‹
+	 * @param name pacageåã®æ–‡å­—åˆ—
+	 * @return PencilTypeã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 	 */
 	public static PencilType getPencilType(String name) {
 		for (int i = 0; i < pencilTypeList.length; i++) {
 			if(pencilTypeList[i].getPencilName().equals(name))
 				return pencilTypeList[i];
 		}
-//		—áŠO‚ğ“Š‚°‚é‚×‚«‚©
+//		ä¾‹å¤–ã‚’æŠ•ã’ã‚‹ã¹ãã‹
 		return null;
 	}
 

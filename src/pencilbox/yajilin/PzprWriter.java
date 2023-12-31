@@ -4,7 +4,7 @@ import pencilbox.common.io.PzprWriterBase;
 
 
 /**
- * ŽQlFpzprv3 yajilin.js
+ * å‚è€ƒï¼špzprv3 yajilin.js
  */
 public class PzprWriter extends PzprWriterBase {
 
@@ -32,7 +32,7 @@ public class PzprWriter extends PzprWriterBase {
 	protected int DiC(int i) {
 		int n = bd.getNumber(i2a(i));
 		if (n == Board.UNDECIDED_NUMBER)
-			return 0;                    // PencilBox‚Å‚Í–¢’è”Žš‚Í–îˆó‚È‚µ
+			return 0;                    // PencilBoxã§ã¯æœªå®šæ•°å­—ã¯çŸ¢å°ãªã—
 		if (n >= 0) {
 			int d = bd.getArrowDirection(i2a(i));
 			switch (d) {

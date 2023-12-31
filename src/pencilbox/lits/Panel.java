@@ -12,7 +12,7 @@ import pencilbox.common.gui.PanelBase;
 
 
 /**
- * u‚k‚h‚s‚rvƒpƒlƒ‹ƒNƒ‰ƒX
+ * ã€Œï¼¬ï¼©ï¼´ï¼³ã€ãƒ‘ãƒãƒ«ã‚¯ãƒ©ã‚¹
  */
 public class Panel extends PanelBase {
 
@@ -72,7 +72,7 @@ public class Panel extends PanelBase {
 	}
 
 	/**
-	 * ƒ}ƒX‚Ìó‘Ô‚ğ•`‰æ‚·‚é
+	 * ãƒã‚¹ã®çŠ¶æ…‹ã‚’æç”»ã™ã‚‹
 	 * @param g
 	 */
 	protected void drawCells(Graphics2D g) {

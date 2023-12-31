@@ -4,7 +4,7 @@
 package pencilbox.norinori;
 
 /**
- * �u�̂�̂�v�A�����}�X�N���X
+ * 「のりのり」連結黒マスクラス
  */
 public class Wall extends pencilbox.common.core.AreaBase {
 

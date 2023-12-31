@@ -13,7 +13,7 @@ import pencilbox.common.gui.PanelBase;
 
 
 /**
- * 「波及効果」パネルクラス
+ * 縲梧ｳ｢蜿雁柑譫懊阪ヱ繝阪Ν繧ｯ繝ｩ繧ｹ
  */
 public class Panel extends PanelBase {
 
@@ -95,7 +95,7 @@ public class Panel extends PanelBase {
 				g.setColor(draggingAreaColor);
 				paintCell(g, p);
 			}
-			// 選択数字配置可能なマスを色塗り
+			// 驕ｸ謚樊焚蟄鈴�咲ｽｮ蜿ｯ閭ｽ縺ｪ繝槭せ繧定牡蝪励ｊ
 //			if (isHighlightSelectionMode()) {
 //				if (getSelectedNumber() > 0 && board.canPlace(p, selectedNumber)) {
 //					g.setColor(highlight2Color);

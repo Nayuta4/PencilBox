@@ -1,7 +1,7 @@
 package pencilbox.masyu;
 
 /**
- * 「ましゅ」リンククラス
+ * 縲後∪縺励ｅ縲阪Μ繝ｳ繧ｯ繧ｯ繝ｩ繧ｹ
  */
 public class Link extends pencilbox.common.core.Link {
 

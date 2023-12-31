@@ -48,10 +48,10 @@ public abstract class XmlWriterBase implements XmlConstants {
 		outTail();
 	}
 	protected void setBoardData(BoardBase board) {
-		throw new UnsupportedOperationException("setBoardData –¢ì¬");
+		throw new UnsupportedOperationException("setBoardData æœªä½œæˆ");
 	}
 	protected void setAnswerData(BoardBase board) {
-		throw new UnsupportedOperationException("setAnswerData –¢ì¬");
+		throw new UnsupportedOperationException("setAnswerData æœªä½œæˆ");
 	}
 	protected XmlPrintWriter open(File file) throws IOException {
 		FileOutputStream os = new FileOutputStream(file);

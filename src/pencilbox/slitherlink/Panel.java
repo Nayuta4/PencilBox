@@ -10,7 +10,7 @@ import pencilbox.util.Colors;
 
 
 /**
- * uƒXƒŠƒU[ƒŠƒ“ƒNvƒpƒlƒ‹ƒNƒ‰ƒX
+ * ã€Œã‚¹ãƒªã‚¶ãƒ¼ãƒªãƒ³ã‚¯ã€ãƒ‘ãƒãƒ«ã‚¯ãƒ©ã‚¹
  */
 public class Panel extends PanelBase {
 
@@ -34,7 +34,7 @@ public class Panel extends PanelBase {
 		drawBoardBorder(g);
 	}
 	/**
-	 * Œrü‚Ì•Ï‚í‚è‚Éƒ}ƒX‚Ì’†S‚É“_‚ğ‘Å‚Â
+	 * ç½«ç·šã®å¤‰ã‚ã‚Šã«ãƒã‚¹ã®ä¸­å¿ƒã«ç‚¹ã‚’æ‰“ã¤
 	 */
 	public void drawGrid(Graphics2D g) {
 		if (getGridStyle() == 0)
@@ -86,8 +86,8 @@ public class Panel extends PanelBase {
 		}
 	}
 	/**
-	 * ƒXƒŠƒU[ƒŠƒ“ƒN—p”š”z’uƒƒ\ƒbƒh
-	 * ƒ}ƒX‚Å‚Í‚È‚­’¸“_‚É”š‚ğ”z’u‚·‚é
+	 * ã‚¹ãƒªã‚¶ãƒ¼ãƒªãƒ³ã‚¯ç”¨æ•°å­—é…ç½®ãƒ¡ã‚½ãƒƒãƒ‰
+	 * ãƒã‚¹ã§ã¯ãªãé ‚ç‚¹ã«æ•°å­—ã‚’é…ç½®ã™ã‚‹
 	 * @param g
 	 * @param r
 	 * @param c
@@ -97,8 +97,8 @@ public class Panel extends PanelBase {
 		drawString(g, toX(c+1), toY(r+1), Integer.toString(num));
 	}
 	/**
-	 * ƒXƒŠƒU[ƒŠƒ“ƒN—p”š”z’uƒƒ\ƒbƒh
-	 * ƒ}ƒX‚Å‚Í‚È‚­’¸“_‚É›‚ğ”z’u‚·‚é
+	 * ã‚¹ãƒªã‚¶ãƒ¼ãƒªãƒ³ã‚¯ç”¨æ•°å­—é…ç½®ãƒ¡ã‚½ãƒƒãƒ‰
+	 * ãƒã‚¹ã§ã¯ãªãé ‚ç‚¹ã«â—‹ã‚’é…ç½®ã™ã‚‹
 	 * @param g
 	 * @param r
 	 * @param c
@@ -110,8 +110,8 @@ public class Panel extends PanelBase {
 		drawCircle(g, x, y, getCircleSize()/2 - 1);
 	}
 	/**
-	 * ƒXƒŠƒU[ƒŠƒ“ƒN–â‘è“ü—Í—pƒJ[ƒ\ƒ‹‚ğ•`‚­
-	 * ”š‚ğˆÍ‚Ş‚æ‚¤‚É•`‚­
+	 * ã‚¹ãƒªã‚¶ãƒ¼ãƒªãƒ³ã‚¯å•é¡Œå…¥åŠ›ç”¨ã‚«ãƒ¼ã‚½ãƒ«ã‚’æã
+	 * æ•°å­—ã‚’å›²ã‚€ã‚ˆã†ã«æã
 	 * @param g
 	 */
 	public void drawCursor(Graphics2D g) {
