@@ -53,5 +53,5 @@ For detailed instructions on how to use PencilBox, pleas refer to [`pencilbox.ht
 
 ## Old versions
 
-Old versions of PnecilBox were released on OSDN.
+Old versions of PencilBox were released on OSDN.
 -   [PencilBox - OSDN](https://osdn.net/projects/pencilbox/)
