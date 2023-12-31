@@ -194,7 +194,7 @@
 	<!-- javadoc作成 -->
 	<target name="javadoc">
 		<mkdir dir="${api}" />
-		<javadoc packagenames="*" sourcepath="${src}" destdir="${api}">
+		<javadoc packagenames="*" sourcepath="${src}" destdir="${api}" encoding="UTF-8" docencoding="UTF-8" charset="UTF-8">
 		</javadoc>
 	</target>
 
